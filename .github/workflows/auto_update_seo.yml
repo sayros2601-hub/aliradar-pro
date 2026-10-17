@@ -4,7 +4,7 @@ on:
   schedule:
     # Runs automatically every 2 hours on free GitHub cloud servers (even when your PC is off)
     - cron: '0 */2 * * *'
-  workflow_dispatch: # Allows manual 1-click trigger in GitHub UI
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -27,9 +27,13 @@ jobs:
         run: |
           python autopilot_daemon.py --once
 
+      - name: Publish to Live Domain (aliradar-pro.surge.sh)
+        run: |
+          npx --yes surge . aliradar-pro.surge.sh --token 5dfd0c91ac19588c2de402e4facd9ea2
+
       - name: Commit & Push Updated SEO Pages and Sitemap
         run: |
           git config --global user.name "AliRadar SEO Autopilot"
           git config --global user.email "autopilot@aliradar.local"
-          git add data/ deals/ index.html sitemap.xml robots.txt
+          git add data/ deals/ index.html sitemap.xml robots.txt CNAME
           git diff --quiet && git diff --staged --quiet || (git commit -m "chore(seo): automated product drip & sitemap refresh [skip ci]" && git push)
