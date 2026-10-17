@@ -1,0 +1,35 @@
+name: AliRadar 24/7 Autonomous SEO & Product Auto-Updater
+
+on:
+  schedule:
+    # Runs automatically every 2 hours on free GitHub cloud servers (even when your PC is off)
+    - cron: '0 */2 * * *'
+  workflow_dispatch: # Allows manual 1-click trigger in GitHub UI
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  auto-update-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run Autonomous Product Hunter & SEO Builder
+        run: |
+          python autopilot_daemon.py --once
+
+      - name: Commit & Push Updated SEO Pages and Sitemap
+        run: |
+          git config --global user.name "AliRadar SEO Autopilot"
+          git config --global user.email "autopilot@aliradar.local"
+          git add data/ deals/ index.html sitemap.xml robots.txt
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(seo): automated product drip & sitemap refresh [skip ci]" && git push)

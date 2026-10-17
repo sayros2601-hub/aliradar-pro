@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sayros2601-hub.github.io/aliradar-pro/sitemap.xml
