@@ -4,7 +4,7 @@
     "description": "Ежедневный мониторинг топ-товаров AliExpress с реальными отзывами, проверкой динамики цен, купонами и честным рейтингом надежности продавцов.",
     "domain": "https://aliradar-pro.surge.sh",
     "affiliate_tag": "aliradar_partner_2026",
-    "last_updated": "2026-10-19T20:23:09+00:00"
+    "last_updated": "2026-10-20T00:53:54+00:00"
   },
   "categories": [
     {
@@ -56,8 +56,8 @@
       "badge_type": "tech",
       "price_usd": 42.0,
       "old_price_usd": 79.0,
-      "price_rub": 3495,
-      "old_price_rub": 6575,
+      "price_rub": 3475,
+      "old_price_rub": 6540,
       "discount_pct": 47,
       "rating": 4.9,
       "reviews_count": 6230,
@@ -75,7 +75,7 @@
         "Для интеграции с Apple HomeKit и Алисой нужен хаб Zigbee 3.0"
       ],
       "verdict": "Самый простой способ автоматизировать обычные шторы без замены карниза.",
-      "updated_at": "3 мин назад"
+      "updated_at": "4 мин назад"
     },
     {
       "id": "ali-203",
@@ -88,8 +88,8 @@
       "badge_type": "editor",
       "price_usd": 59.9,
       "old_price_usd": 105.0,
-      "price_rub": 4985,
-      "old_price_rub": 8735,
+      "price_rub": 4960,
+      "old_price_rub": 8690,
       "discount_pct": 43,
       "rating": 4.9,
       "reviews_count": 12900,
@@ -107,7 +107,7 @@
         "Карту памяти MicroSD U3 лучше докупить отдельно"
       ],
       "verdict": "Абсолютный лидер среди видеорегистраторов среднего класса по качеству ночной съёмки.",
-      "updated_at": "6 мин назад"
+      "updated_at": "4 мин назад"
     },
     {
       "id": "ali-202",
@@ -120,8 +120,8 @@
       "badge_type": "viral",
       "price_usd": 29.8,
       "old_price_usd": 58.0,
-      "price_rub": 2480,
-      "old_price_rub": 4825,
+      "price_rub": 2465,
+      "old_price_rub": 4800,
       "discount_pct": 49,
       "rating": 4.9,
       "reviews_count": 7410,
@@ -152,8 +152,8 @@
       "badge_type": "hot",
       "price_usd": 34.5,
       "old_price_usd": 64.0,
-      "price_rub": 2870,
-      "old_price_rub": 5325,
+      "price_rub": 2855,
+      "old_price_rub": 5300,
       "discount_pct": 46,
       "rating": 4.9,
       "reviews_count": 9840,
@@ -171,7 +171,7 @@
         "Вес около 300 грамм — больше подходит для дома и офиса"
       ],
       "verdict": "Автопилот отобрал этот лот из-за падения цены на 46% и рейтинга 4.9 в официальном сторе Ugreen.",
-      "updated_at": "10 мин назад"
+      "updated_at": "11 мин назад"
     },
     {
       "id": "ali-101",
@@ -184,8 +184,8 @@
       "badge_type": "hot",
       "price_usd": 18.9,
       "old_price_usd": 36.5,
-      "price_rub": 1575,
-      "old_price_rub": 3035,
+      "price_rub": 1565,
+      "old_price_rub": 3020,
       "discount_pct": 48,
       "rating": 4.9,
       "reviews_count": 14820,
@@ -216,8 +216,8 @@
       "badge_type": "viral",
       "price_usd": 8.4,
       "old_price_usd": 19.9,
-      "price_rub": 700,
-      "old_price_rub": 1655,
+      "price_rub": 695,
+      "old_price_rub": 1645,
       "discount_pct": 58,
       "rating": 4.9,
       "reviews_count": 9340,
@@ -235,7 +235,7 @@
         "Заряда аккумулятора хватает примерно на 4–5 полных вычёсываний"
       ],
       "verdict": "Главный вирусный хит года для владельцев пушистых питомцев. Окупается с первого применения.",
-      "updated_at": "16 мин назад"
+      "updated_at": "18 мин назад"
     },
     {
       "id": "ali-103",
@@ -248,8 +248,8 @@
       "badge_type": "editor",
       "price_usd": 21.5,
       "old_price_usd": 38.0,
-      "price_rub": 1790,
-      "old_price_rub": 3160,
+      "price_rub": 1780,
+      "old_price_rub": 3145,
       "discount_pct": 43,
       "rating": 4.9,
       "reviews_count": 11200,
@@ -267,7 +267,7 @@
         "Не предназначена для крупных силовых мебельных саморезов"
       ],
       "verdict": "Эталон качества среди компактного инструмента. Отличный подарок и незаменимая вещь дома.",
-      "updated_at": "20 мин назад"
+      "updated_at": "19 мин назад"
     },
     {
       "id": "ali-104",
@@ -280,8 +280,8 @@
       "badge_type": "tech",
       "price_usd": 11.2,
       "old_price_usd": 24.0,
-      "price_rub": 930,
-      "old_price_rub": 1995,
+      "price_rub": 925,
+      "old_price_rub": 1985,
       "discount_pct": 53,
       "rating": 4.8,
       "reviews_count": 5640,
@@ -299,7 +299,7 @@
         "Требует постоянного питания USB 5V (из-за активного радара)"
       ],
       "verdict": "Must-have для любого современного умного дома в 2026 году вместо старых ИК-датчиков движения.",
-      "updated_at": "23 мин назад"
+      "updated_at": "25 мин назад"
     },
     {
       "id": "ali-105",
@@ -312,8 +312,8 @@
       "badge_type": "hot",
       "price_usd": 39.9,
       "old_price_usd": 69.99,
-      "price_rub": 3320,
-      "old_price_rub": 5825,
+      "price_rub": 3305,
+      "old_price_rub": 5795,
       "discount_pct": 43,
       "rating": 4.9,
       "reviews_count": 8710,
@@ -331,7 +331,7 @@
         "Глянцевая внутренняя часть кейса собирает отпечатки"
       ],
       "verdict": "Лучшее соотношение цены, автономности и звука в бюджете до $45.",
-      "updated_at": "25 мин назад"
+      "updated_at": "28 мин назад"
     },
     {
       "id": "ali-106",
@@ -344,8 +344,8 @@
       "badge_type": "deal",
       "price_usd": 12.8,
       "old_price_usd": 26.0,
-      "price_rub": 1065,
-      "old_price_rub": 2165,
+      "price_rub": 1060,
+      "old_price_rub": 2150,
       "discount_pct": 51,
       "rating": 4.8,
       "reviews_count": 3420,
@@ -363,7 +363,7 @@
         "Подходит только для компактного формата M.2 2230"
       ],
       "verdict": "Идеальный аксессуар для мобильной съёмки и сверхбыстрого переноса тяжёлых видео.",
-      "updated_at": "29 мин назад"
+      "updated_at": "31 мин назад"
     },
     {
       "id": "ali-107",
@@ -376,8 +376,8 @@
       "badge_type": "viral",
       "price_usd": 16.4,
       "old_price_usd": 34.0,
-      "price_rub": 1365,
-      "old_price_rub": 2830,
+      "price_rub": 1360,
+      "old_price_rub": 2815,
       "discount_pct": 52,
       "rating": 4.9,
       "reviews_count": 19500,
@@ -409,7 +409,7 @@
       "price_usd": 4.2,
       "old_price_usd": 9.5,
       "price_rub": 350,
-      "old_price_rub": 790,
+      "old_price_rub": 785,
       "discount_pct": 56,
       "rating": 4.9,
       "reviews_count": 22400,
@@ -427,7 +427,7 @@
         "Очень мелкий шрифт для дополнительных показателей ампер-часов"
       ],
       "verdict": "Копеечный гаджет, который выводит на чистую воду любые поддельные зарядки и кабели.",
-      "updated_at": "36 мин назад"
+      "updated_at": "35 мин назад"
     }
   ]
 }
