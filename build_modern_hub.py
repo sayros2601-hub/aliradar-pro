@@ -87,7 +87,7 @@ def build_index(db):
                 "@type": "WebSite",
                 "@id": f"{dom}/#website",
                 "url": dom,
-                "name": "SmartPick",
+                "name": "DealVault",
                 "description": meta["description"],
                 "potentialAction": {
                     "@type": "SearchAction",
@@ -125,7 +125,7 @@ def build_index(db):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>SmartPick // מציאות שוות וגאדג'טים חכמים לחיים</title>
+  <title>DealVault // מציאות שוות וגאדג'טים חכמים לחיים</title>
   <meta name="description" content="מציאות מאומתות וגאדג'טים שימושיים לרכב, לבית ולכיס במחירי יצרן ישירים. משלוח חינם לישראל ופטור מלא ממע&quot;מ ומכס עד $75.">
   <link rel="canonical" href="{dom}/index.html">
   <link rel="alternate" hreflang="x-default" href="{dom}/index.html">
@@ -134,12 +134,12 @@ def build_index(db):
   <link rel="alternate" hreflang="he" href="{dom}/index.html?lang=he">
   <link rel="alternate" hreflang="es" href="{dom}/index.html?lang=es">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="SmartPick // מציאות שוות וגאדג'טים חכמים לחיים">
+  <meta property="og:title" content="DealVault // מציאות שוות וגאדג'טים חכמים לחיים">
   <meta property="og:description" content="מציאות מאומתות וגאדג'טים שימושיים לרכב, לבית ולכיס במחירי יצרן ישירים. 100% קישורים מאומתים ומשלוח חינם.">
   <meta property="og:image" content="{dom}/{e(prods[0]['image'])}">
   <meta property="og:url" content="{dom}/index.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="SmartPick // Curated Smart Gadgets">
+  <meta name="twitter:title" content="DealVault // Curated Smart Gadgets & Vault">
   <meta name="twitter:description" content="Discover problem-solving smart gadgets and verified AliExpress bargains with free shipping.">
   <meta name="twitter:image" content="{dom}/{e(prods[0]['image'])}">
   <meta name="theme-color" content="#0284c7">
@@ -164,11 +164,11 @@ def build_index(db):
   <header class="modern-header">
     <div class="wrap">
       <div class="header-inner">
-        <a href="index.html" class="brand-logo" aria-label="SmartPick Home">
-          <div class="brand-icon">✦</div>
+        <a href="index.html" class="brand-logo" aria-label="DealVault Home">
+          <div class="brand-icon">⬡</div>
           <div>
-            <div class="brand-text">Smart<span>Pick</span></div>
-            <span class="brand-sub">Curated Deals & Gadgets</span>
+            <div class="brand-text">Deal<span>Vault</span></div>
+            <span class="brand-sub">Curated Deals & Tech Vault</span>
           </div>
         </a>
 
@@ -275,8 +275,8 @@ def build_index(db):
         <span>•</span>
         <a href="contact.html" data-i18n="legalContact">יצירת קשר ושירות</a>
       </nav>
-      <p data-i18n="footerLegal">גילוי נאות: אתר SmartPick הינו אתר סקירות והמלצות עצמאי. הקישורים הינם קישורי שותפים — ברכישת מוצר ייתכן שנקבל עמלה ללא כל עלות נוספת עבורכם. המחירים, המשלוח והזמינות מוצגים במלואם באתר AliExpress. *משלוח חינם בכפוף לתנאי המוכר.</p>
-      <p class="footer-copy">© 2026 SMARTPICK DEALS. ALL RIGHTS RESERVED.</p>
+      <p data-i18n="footerLegal">גילוי נאות: אתר DealVault הינו אתר סקירות והמלצות עצמאי. הקישורים הינם קישורי שותפים — ברכישת מוצר ייתכן שנקבל עמלה ללא כל עלות נוספת עבורכם. המחירים, המשלוח והזמינות מוצגים במלואם באתר AliExpress. *משלוח חינם בכפוף לתנאי המוכר.</p>
+      <p class="footer-copy">© 2026 DEALVAULT. ALL RIGHTS RESERVED.</p>
     </div>
   </footer>
 
@@ -319,7 +319,7 @@ def build_deal_page(db, p):
     new_badge_deal = '<span class="badge-new-drop" style="position:static;display:inline-flex;margin-bottom:8px;"><span class="pulse-dot"></span> ✨ חדש מהיום // NEW TODAY</span>' if is_new else ''
     disc_badge_deal = f'<span class="discount-badge" style="position:static;display:inline-block;margin-bottom:8px;">-{disc}% OFF</span>' if (disc and not is_new) else ''
 
-    brand_name = (p.get("specs") or {}).get("Brand") or (p.get("specs") or {}).get("Manufacturer") or "SmartPick Verified"
+    brand_name = (p.get("specs") or {}).get("Brand") or (p.get("specs") or {}).get("Manufacturer") or "DealVault Verified"
     schema_prod = json.dumps({
         "@context": "https://schema.org",
         "@graph": [
@@ -361,11 +361,11 @@ def build_deal_page(db, p):
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>{e(title_he)} | SmartPick</title>
+  <title>{e(title_he)} | DealVault</title>
   <meta name="description" content="{e(desc)}">
   <link rel="canonical" href="{dom}/deals/{e(p['slug'])}.html">
   <meta property="og:type" content="product">
-  <meta property="og:title" content="{e(title_he)} | SmartPick">
+  <meta property="og:title" content="{e(title_he)} | DealVault">
   <meta property="og:description" content="{e(desc)}">
   <meta property="og:image" content="{dom}/{e(p['image'])}">
   <meta property="og:url" content="{dom}/deals/{e(p['slug'])}.html">
@@ -395,9 +395,9 @@ def build_deal_page(db, p):
   <header class="modern-header">
     <div class="wrap">
       <div class="header-inner">
-        <a href="../index.html" class="brand-logo">
-          <div class="brand-icon">✦</div>
-          <div class="brand-text">Smart<span>Pick</span></div>
+        <a href="../index.html" class="brand-logo" aria-label="DealVault Home">
+          <div class="brand-icon">⬡</div>
+          <div class="brand-text">Deal<span>Vault</span></div>
         </a>
         <div style="display:flex;align-items:center;gap:12px;">
           <a href="../index.html" class="back-btn" style="margin-bottom:0;">➔ חזרה לקטלוג הראשי</a>
@@ -463,7 +463,7 @@ def build_deal_page(db, p):
         <span>•</span>
         <a href="../contact.html">יצירת קשר ושירות</a>
       </nav>
-      <p>© 2026 SMARTPICK DEALS. ALL RIGHTS RESERVED.</p>
+      <p>© 2026 DEALVAULT. ALL RIGHTS RESERVED.</p>
     </div>
   </footer>
 

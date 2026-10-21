@@ -111,11 +111,11 @@
 
     let text = '';
     if (lang === 'he') {
-      text = `🔥 מצאתי דיל מטורף ב-SmartPick:\n*${title}*\n💵 מחיר: ${priceStr} בלבד (משלוח חינם!)\n👉 לצפייה בדיל: ${url}`;
+      text = `🔥 מצאתי דיל מטורף ב-DealVault:\n*${title}*\n💵 מחיר: ${priceStr} בלבד (משלוח חינם!)\n👉 לצפייה בדיל: ${url}`;
     } else if (lang === 'ru') {
-      text = `🔥 Отличная находка на SmartPick:\n*${title}*\n💵 Цена: ${priceStr} (Бесплатная доставка!)\n👉 Смотреть дил: ${url}`;
+      text = `🔥 Отличная находка в DealVault:\n*${title}*\n💵 Цена: ${priceStr} (Бесплатная доставка!)\n👉 Смотреть дил: ${url}`;
     } else {
-      text = `🔥 Check out this verified deal on SmartPick:\n*${title}*\n💵 Only ${priceStr} with Free Shipping!\n👉 View deal: ${url}`;
+      text = `🔥 Check out this verified deal on DealVault:\n*${title}*\n💵 Only ${priceStr} with Free Shipping!\n👉 View deal: ${url}`;
     }
 
     if (platform === 'whatsapp') {

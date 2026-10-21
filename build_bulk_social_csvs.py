@@ -22,7 +22,7 @@ def main():
         db = json.load(f)
 
     prods = db.get("products", [])[:100]
-    dom = db.get("site_meta", {}).get("domain", "https://smartpick.click").rstrip("/")
+    dom = db.get("site_meta", {}).get("domain", "https://dealvault.pages.dev").rstrip("/")
 
     # Generate 4 language CSVs
     langs = [

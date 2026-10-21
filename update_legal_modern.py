@@ -8,14 +8,14 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 PAGES = {
     "privacy.html": {
-        "title": "מדיניות פרטיות | SmartPick",
-        "desc": "מדיניות הפרטיות של אתר SmartPick: איסוף נתונים אנונימי, עוגיות, אבטחת מידע וזכויות משתמש.",
+        "title": "מדיניות פרטיות | DealVault",
+        "desc": "מדיניות הפרטיות של אתר DealVault: איסוף נתונים אנונימי, עוגיות, אבטחת מידע וזכויות משתמש.",
         "h1": "מדיניות פרטיות (Privacy Policy)",
         "badge": "COMPLIANCE // LEGAL",
         "content": """
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">עודכן לאחרונה: 2026 | תקף עבור אתר SmartPick</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">עודכן לאחרונה: 2026 | תקף עבור אתר DealVault</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">1. מבוא וכללי</h2>
-        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">אתר SmartPick (להלן: "האתר") מכבד את פרטיות המשתמשים בו. מסמך זה מפרט את מדיניות האתר בנוגע לאיסוף, שימוש, שמירה וגילוי של מידע המתקבל בעת הגלישה באתר, בהתאם לחוק הגנת הפרטיות, התשמ"א-1981, תקנות הגנת המידע הכלליות באיחוד האירופי (GDPR) והנחיות הרגולציה הבינלאומית.</p>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">אתר DealVault (להלן: "האתר") מכבד את פרטיות המשתמשים בו. מסמך זה מפרט את מדיניות האתר בנוגע לאיסוף, שימוש, שמירה וגילוי של מידע המתקבל בעת הגלישה באתר, בהתאם לחוק הגנת הפרטיות, התשמ"א-1981, תקנות הגנת המידע הכלליות באיחוד האירופי (GDPR) והנחיות הרגולציה הבינלאומית.</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">2. המידע שאנו אוספים</h2>
         <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">האתר אינו דורש יצירת חשבון משתמש ואינו שומר מידע אישי מזהה (PII) כגון מספרי תעודת זהות או פרטי כרטיסי אשראי. המידע הנאסף הינו טכני ואנונימי בלבד (כתובת IP אנונימית לצורכי אבטחה, נתוני דפדפן וקליקים על קישורי שותפים).</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">3. עוגיות (Cookies) וטכנולוגיות מעקב</h2>
@@ -27,16 +27,16 @@ PAGES = {
         """
     },
     "terms.html": {
-        "title": "תנאי שימוש | SmartPick",
-        "desc": "תנאי השימוש באתר SmartPick: זכויות יוצרים, הגבלת אחריות ותנאי הפניה לעסקאות צד שלישי.",
+        "title": "תנאי שימוש | DealVault",
+        "desc": "תנאי השימוש באתר DealVault: זכויות יוצרים, הגבלת אחריות ותנאי הפניה לעסקאות צד שלישי.",
         "h1": "תנאי שימוש (Terms of Service)",
         "badge": "COMPLIANCE // TERMS",
         "content": """
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">עודכן לאחרונה: 2026 | תקף עבור אתר SmartPick</p>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">עודכן לאחרונה: 2026 | תקף עבור אתר DealVault</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">1. הסכמה לתנאים</h2>
-        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">הגלישה באתר SmartPick והשימוש בשירותיו מהווים הסכמה מלאה ומפורשת לתנאי שימוש אלה. אם אינך מסכים לתנאים, הנך מתבקש לחדול מגלישה באתר.</p>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">הגלישה באתר DealVault והשימוש בשירותיו מהווים הסכמה מלאה ומפורשת לתנאי שימוש אלה. אם אינך מסכים לתנאים, הנך מתבקש לחדול מגלישה באתר.</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">2. אופי השירות וסקירות צד שלישי</h2>
-        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">SmartPick הינו פורטל סקירות, המלצות ואוצרות תוכן עצמאי. האתר אינו חנות מקוונת, אינו מוכר מוצרים בעצמו ואינו מחזיק מלאי. כל הרכישות מבוצעות ישירות מול מוכרים עצמאיים באתר AliExpress.</p>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">DealVault הינו פורטל סקירות, המלצות ואוצרות תוכן עצמאי. האתר אינו חנות מקוונת, אינו מוכר מוצרים בעצמו ואינו מחזיק מלאי. כל הרכישות מבוצעות ישירות מול מוכרים עצמאיים באתר AliExpress.</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">3. מחירי מוצרים, משלוחים וזמינות</h2>
         <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">אנו עושים מאמצים לספק מידע מדויק אודות מחירים ומבצעים. עם זאת, המחיר הסופי, עלות המשלוח, זמינות המלאי ותנאי המכס נקבעים באופן בלעדי על ידי המוכר ב-AliExpress בעת ביצוע ההזמנה.</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">4. הגנת הקונה ואחריות</h2>
@@ -44,14 +44,14 @@ PAGES = {
         """
     },
     "disclosure.html": {
-        "title": "גילוי נאות שותפים | SmartPick",
-        "desc": "גילוי נאות שותפים (FTC Affiliate Disclosure) של אתר SmartPick בנוגע להשתתפות בתוכנית השותפים של AliExpress.",
+        "title": "גילוי נאות שותפים | DealVault",
+        "desc": "גילוי נאות שותפים (FTC Affiliate Disclosure) של אתר DealVault בנוגע להשתתפות בתוכנית השותפים של AliExpress.",
         "h1": "גילוי נאות שותפים (Affiliate Disclosure)",
         "badge": "TRANSPARENCY // FTC",
         "content": """
         <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 20px;">בהתאם להנחיות נציבות הסחר הפדרלית (FTC) וכללי תוכנית השותפים AliExpress Portals</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">1. שקיפות מלאה מול הקוראים</h2>
-        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">אנו מאמינים בשקיפות מוחלטת מול קהילת הגולשים שלנו. אתר SmartPick משתתף בתוכניות שותפים מקוונות, ובפרט בתוכנית השותפים הרשמית של AliExpress (AliExpress Portals Affiliate Program).</p>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">אנו מאמינים בשקיפות מוחלטת מול קהילת הגולשים שלנו. אתר DealVault משתתף בתוכניות שותפים מקוונות, ובפרט בתוכנית השותפים הרשמית של AliExpress (AliExpress Portals Affiliate Program).</p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">2. כיצד פועלים קישורי שותפים?</h2>
         <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 14px;">הקישורים באתר המסומנים כקישורי רכישה ומבצע ("למעבר לדיל" / "Get Deal") הינם קישורי שותפים. משמעות הדבר היא שבמידה ותלחצו על הקישור ותבצעו רכישה באתר המוכר, ייתכן שנקבל עמלת הפניה צנועה מרשת השותפים. <b>אין לכך כל השפעה על המחיר שאתם משלמים — המחיר עבורכם זהה לחלוטין ולעיתים אף זול יותר בזכות קופונים בלעדיים!</b></p>
         <h2 style="font-size: 17px; color: #fff; margin: 24px 0 10px;">3. עצמאות בבחירת המוצרים</h2>
@@ -59,8 +59,8 @@ PAGES = {
         """
     },
     "contact.html": {
-        "title": "יצירת קשר ושירות לקוחות | SmartPick",
-        "desc": "צרו קשר עם צוות SmartPick: פניות עסקיות, הצעות לגאדג'טים ושאלות שירות.",
+        "title": "יצירת קשר ושירות לקוחות | DealVault",
+        "desc": "צרו קשר עם צוות DealVault: פניות עסקיות, הצעות לגאדג'טים ושאלות שירות.",
         "h1": "יצירת קשר ושירות לקוחות (Contact)",
         "badge": "SUPPORT // INQUIRIES",
         "content": """
@@ -70,7 +70,7 @@ PAGES = {
             <span style="font-size: 24px;">✉</span>
             <div>
               <b style="color: #fff;">דואר אלקטרוני לפניות ושירות:</b>
-              <div style="color: var(--accent-cyan); font-weight: 700; margin-top: 2px;">contact@smartpick-deals.com</div>
+              <div style="color: var(--accent-cyan); font-weight: 700; margin-top: 2px;">support@dealvault.pages.dev</div>
             </div>
           </div>
           <div style="display: flex; gap: 12px; align-items: center;">
@@ -82,7 +82,7 @@ PAGES = {
           </div>
         </div>
         <h2 style="font-size: 17px; color: #fff; margin: 20px 0 10px;">שאלות לגבי משלוחים והזמנות</h2>
-        <p style="color: var(--text-secondary); line-height: 1.7;">שימו לב: מכיוון שאתר SmartPick הינו אתר סקירות והמלצות עצמאי, אין לנו גישה ישירה לפרטי ההזמנות שלכם באתרי הסוחרים. בכל שאלה הנוגעת למספר מעקב של חבילה, עיכוב במשלוח או בקשת ביטול/החזרה — מומלץ לפנות ישירות לשירות הלקוחות של AliExpress או למוכר הספציפי דרך חשבונכם באתר הסוחר.</p>
+        <p style="color: var(--text-secondary); line-height: 1.7;">שימו לב: מכיוון שאתר DealVault הינו אתר סקירות והמלצות עצמאי, אין לנו גישה ישירה לפרטי ההזמנות שלכם באתרי הסוחרים. בכל שאלה הנוגעת למספר מעקב של חבילה, עיכוב במשלוח או בקשת ביטול/החזרה — מומלץ לפנות ישירות לשירות הלקוחות של AliExpress או למוכר הספציפי דרך חשבונכם באתר הסוחר.</p>
         """
     }
 }
@@ -110,9 +110,11 @@ for filename, info in PAGES.items():
   <header class="modern-header">
     <div class="wrap">
       <div class="header-inner">
-        <a href="index.html" class="brand-logo">
-          <div class="brand-icon">✦</div>
-          <div class="brand-text">Smart<span>Pick</span></div>
+        <a href="index.html" class="brand-logo" aria-label="DealVault Home">
+          <div class="brand-icon">⬡</div>
+          <div>
+            <div class="brand-text">Deal<span>Vault</span></div>
+          </div>
         </a>
         <a href="index.html" class="back-btn" style="margin-bottom:0;">➔ חזרה לקטלוג הראשי</a>
       </div>
@@ -139,7 +141,7 @@ for filename, info in PAGES.items():
         <span>•</span>
         <a href="contact.html">יצירת קשר ושירות</a>
       </nav>
-      <p>© 2026 SMARTPICK DEALS. ALL RIGHTS RESERVED.</p>
+      <p>© 2026 DEALVAULT. ALL RIGHTS RESERVED.</p>
     </div>
   </footer>
 

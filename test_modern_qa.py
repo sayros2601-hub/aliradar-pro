@@ -29,7 +29,7 @@ class QuietHandler(http.server.SimpleHTTPRequestHandler):
         pass
 
 def start_server():
-    server = http.server.HTTPServer(("127.0.0.1", PORT), QuietHandler)
+    server = http.server.ThreadingHTTPServer(("127.0.0.1", PORT), QuietHandler)
     t = threading.Thread(target=server.serve_forever, daemon=True)
     t.start()
     return server

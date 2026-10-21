@@ -1,6 +1,6 @@
 {
-  "name": "SmartPick — Каталог проверенных товаров и скидок",
-  "short_name": "SmartPick",
+  "name": "DealVault — Хранилище проверенных находок и топ-скидок",
+  "short_name": "DealVault",
   "description": "Независимый гид по лучшим гаджетам, автотоварам и находкам для дома с доставкой в Израиль, Европу и СНГ.",
   "start_url": "/index.html",
   "display": "standalone",

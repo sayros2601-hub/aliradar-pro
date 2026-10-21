@@ -22,7 +22,7 @@ def main():
         db = json.load(f)
     
     prods = db.get("products", [])
-    dom = db.get("site_meta", {}).get("domain", "https://smartpick.click").rstrip("/")
+    dom = db.get("site_meta", {}).get("domain", "https://dealvault.pages.dev").rstrip("/")
     now_rfc822 = datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S GMT")
 
     # RSS 2.0
@@ -70,7 +70,7 @@ def main():
     rss_content = f"""<?xml version="1.0" encoding="UTF-8" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>SmartPick Deals 24/7 Feed</title>
+    <title>DealVault Deals 24/7 Feed</title>
     <link>{dom}</link>
     <description>Daily Curated AliExpress Deals and Viral Problem-Solving Gadgets</description>
     <language>en-us</language>
@@ -86,7 +86,7 @@ def main():
     with open(FEED_JSON_FILE, "w", encoding="utf-8") as f:
         json.dump({
             "version": "https://jsonfeed.org/version/1.1",
-            "title": "SmartPick Deals JSON Feed",
+            "title": "DealVault Deals JSON Feed",
             "home_page_url": dom,
             "feed_url": f"{dom}/feed.json",
             "items": feed_items_json

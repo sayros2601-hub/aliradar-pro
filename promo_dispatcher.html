@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SmartPick // Центр Массового Распространения Рекламы (100 Постов)</title>
+  <title>DealVault // Центр Массового Распространения Рекламы (100 Постов)</title>
   <style>
     :root {
       --bg: #0b0f19;
@@ -72,7 +72,7 @@
   <div class="container">
     <header>
       <div class="title-group">
-        <h1>🚀 SmartPick Ad Dispatcher <span class="badge-count" id="total-badge">105 Товаров</span></h1>
+        <h1>🚀 DealVault Ad Dispatcher <span class="badge-count" id="total-badge">105 Товаров</span></h1>
         <p>Центр массового размещения рекламы: копирование пачек по 100 постов в 1 клик и моментальный постинг</p>
       </div>
       <div class="quick-launchers">
@@ -166,7 +166,7 @@
       const prUsd = p.price_usd;
       const oldUsd = p.old_price_usd || Math.round(prUsd * 1.8);
       const disc = p.discount_pct || 50;
-      const dealUrl = `https://smartpick.click/deals/${p.slug}.html?utm_source=mass_disp&utm_medium=${lang}&utm_campaign=batch100`;
+      const dealUrl = `https://dealvault.pages.dev/deals/${p.slug}.html?utm_source=mass_disp&utm_medium=${lang}&utm_campaign=batch100`;
       const affUrl = p.affiliate_url || dealUrl;
 
       if (lang === 'ru') {
@@ -211,7 +211,7 @@
           oldPrStr = `${((p.old_price_usd || p.price_usd * 1.8) * RATES.EUR).toFixed(2)}€`;
         }
 
-        const dealUrl = `https://smartpick.click/deals/${p.slug}.html?utm_source=mass_disp&utm_medium=${STATE.lang}`;
+        const dealUrl = `https://dealvault.pages.dev/deals/${p.slug}.html?utm_source=mass_disp&utm_medium=${STATE.lang}`;
         const affUrl = p.affiliate_url || dealUrl;
         const tgShare = `https://t.me/share/url?url=${encodeURIComponent(affUrl)}&text=${encodeURIComponent(title + ' - ' + prStr)}`;
         const waShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' ' + prStr + ' -> ' + affUrl)}`;

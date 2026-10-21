@@ -1,5 +1,5 @@
 /**
- * SMARTPICK // MODERN DEAL HUB ENGINE
+ * DEALVAULT // MODERN DEAL HUB ENGINE
  * 4 Languages: EN, HE, ES, RU
  * 4 Currencies: USD, ILS, EUR, RUB
  * Fast live search, instant category filters, modal dossier & 1-click sharing
@@ -21,7 +21,7 @@
   // Localization Dictionary (EN, HE, ES, RU)
   const I18N = {
     en: {
-      siteTitle: "SmartPick // Curated Smart Gadgets & Trending Life Hacks",
+      siteTitle: "DealVault // Curated Smart Gadgets & Verified Deals",
       heroBadge: "CURATED DEALS // 2026",
       heroH1: "Smart Gadgets That Actually Solve Daily Problems",
       heroSub: "Handpicked viral innovations, car upgrades and everyday problem-solvers with free worldwide shipping and duty-free under $75.",
@@ -56,14 +56,14 @@
       copyLink: "Copy Link",
       linkCopied: "Link copied to clipboard! 📋",
       modalCta: "Check Deal on AliExpress ↗",
-      footerLegal: "Disclosure: SmartPick is an independent deal review and curation hub. Links on this site are affiliate links — we may earn a small commission with zero additional cost to you. Final price, shipping and customs terms are confirmed on AliExpress.",
+      footerLegal: "Disclosure: DealVault is an independent deal review and curation hub. Links on this site are affiliate links — we may earn a small commission with zero additional cost to you. Final price, shipping and customs terms are confirmed on AliExpress.",
       legalPrivacy: "Privacy Policy",
       legalTerms: "Terms of Service",
       legalDisclosure: "Affiliate Disclosure",
       legalContact: "Contact Support"
     },
     he: {
-      siteTitle: "SmartPick // מציאות שוות וגאדג'טים חכמים לחיים",
+      siteTitle: "DealVault // כספת המציאות והגאדג'טים החכמים",
       heroBadge: "מבצעים מאומתים // 2026",
       heroH1: "גאדג'טים ופטנטים שבאמת פותרים בעיות ביומיום",
       heroSub: "מציאות ויראליות מאומתות, שדרוגים לרכב ולבית במחירי יצרן ישירים. פטור מלא ממע\"מ ומכס עד $75 ומשלוח חינם לישראל.",
@@ -98,14 +98,14 @@
       copyLink: "העתקת קישור",
       linkCopied: "הקישור הועתק בהצלחה! 📋",
       modalCta: "למעבר לדיל ב-AliExpress ↗",
-      footerLegal: "גילוי נאות: אתר SmartPick הינו אתר סקירות והמלצות עצמאי. הקישורים הינם קישורי שותפים — ברכישת מוצר ייתכן שנקבל עמלה ללא כל עלות נוספת עבורכם. המחירים, המשלוח והזמינות מוצגים במלואם באתר AliExpress. *משלוח חינם בכפוף לתנאי המוכר.",
+      footerLegal: "גילוי נאות: אתר DealVault הינו אתר סקירות והמלצות עצמאי. הקישורים הינם קישורי שותפים — ברכישת מוצר ייתכן שנקבל עמלה ללא כל עלות נוספת עבורכם. המחירים, המשלוח והזמינות מוצגים במלואם באתר AliExpress. *משלוח חינם בכפוף לתנאי המוכר.",
       legalPrivacy: "מדיניות פרטיות",
       legalTerms: "תנאי שימוש",
       legalDisclosure: "גילוי נאות שותפים",
       legalContact: "יצירת קשר ושירות"
     },
     es: {
-      siteTitle: "SmartPick // Chollos y Gadgets Inteligentes del Momento",
+      siteTitle: "DealVault // Bóveda de Chollos y Gadgets Inteligentes",
       heroBadge: "CHOLLOS VERIFICADOS // 2026",
       heroH1: "Gadgets Útiles que Solucionan Problemas Reales",
       heroSub: "Innovaciones virales para el coche, hogar y día a día con precios directos de fábrica. Envío gratis a España y libre de aduanas.",
@@ -140,14 +140,14 @@
       copyLink: "Copiar Enlace",
       linkCopied: "¡Enlace copiado al portapapeles! 📋",
       modalCta: "Comprobar Chollo en AliExpress ↗",
-      footerLegal: "Aviso Legal: SmartPick es un portal independiente de recomendaciones y chollos. Los enlaces son de afiliados — podemos recibir una comisión sin coste extra para ti. Los precios y disponibilidad final se confirman en AliExpress.",
+      footerLegal: "Aviso Legal: DealVault es un portal independiente de recomendaciones y chollos. Los enlaces son de afiliados — podemos recibir una comisión sin coste extra para ti. Los precios y disponibilidad final se confirman en AliExpress.",
       legalPrivacy: "Política de Privacidad",
       legalTerms: "Términos de Servicio",
       legalDisclosure: "Aviso de Afiliados",
       legalContact: "Contacto y Soporte"
     },
     ru: {
-      siteTitle: "SmartPick // Умные находки, полезные гаджеты и топ-скидки",
+      siteTitle: "DealVault // Хранилище проверенных находок и топ-скидок",
       heroBadge: "ПРОВЕРЕННЫЕ НАХОДКИ // 2026",
       heroH1: "Умные гаджеты и новинки, которые реально полезны",
       heroSub: "Отобранные вирусные изобретения для авто, дома, мастерской и повседневной жизни по прямым ценам AliExpress с бесплатной доставкой.",
@@ -182,7 +182,7 @@
       copyLink: "Скопировать ссылку",
       linkCopied: "Ссылка скопирована в буфер! 📋",
       modalCta: "Смотреть сделку на AliExpress ↗",
-      footerLegal: "Уведомление: SmartPick — независимый обзорный портал полезных товаров. Ссылки являются партнерскими — мы можем получать вознаграждение без переплат с вашей стороны. Финальная цена и условия доставки подтверждаются на AliExpress.",
+      footerLegal: "Уведомление: DealVault — независимый обзорный портал полезных товаров. Ссылки являются партнерскими — мы можем получать вознаграждение без переплат с вашей стороны. Финальная цена и условия доставки подтверждаются на AliExpress.",
       legalPrivacy: "Конфиденциальность",
       legalTerms: "Условия использования",
       legalDisclosure: "Партнерское раскрытие",
@@ -217,7 +217,7 @@
   };
 
   if (!STATE.cur) STATE.cur = defaultCur(STATE.lang);
-  window.SmartPickCurrentCurrency = STATE.cur;
+  window.DealVaultCurrentCurrency = window.SmartPickCurrentCurrency = STATE.cur;
 
   const applyTheme = () => {
     document.documentElement.setAttribute('data-theme', STATE.theme);
@@ -521,7 +521,7 @@
       localStorage.setItem('sp_lang', STATE.lang);
       if (!localStorage.getItem('sp_cur')) {
         STATE.cur = defaultCur(STATE.lang);
-        window.SmartPickCurrentCurrency = STATE.cur;
+        window.DealVaultCurrentCurrency = window.SmartPickCurrentCurrency = STATE.cur;
       }
       applyLanguage();
       renderGrid();
@@ -533,7 +533,7 @@
       if (!btn) return;
       STATE.cur = btn.dataset.setCur;
       localStorage.setItem('sp_cur', STATE.cur);
-      window.SmartPickCurrentCurrency = STATE.cur;
+      window.DealVaultCurrentCurrency = window.SmartPickCurrentCurrency = STATE.cur;
       applyLanguage();
       renderGrid();
     });
