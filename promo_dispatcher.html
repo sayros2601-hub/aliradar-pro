@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SmartPick // Центр Массового Распространения Рекламы (100 Постов)</title>
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --card-bg: #111827;
+      --surface: #1f2937;
+      --border: rgba(255, 255, 255, 0.1);
+      --primary: #3b82f6;
+      --accent: #10b981;
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background: var(--bg); color: var(--text); padding: 24px; min-height: 100vh; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    
+    header { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin-bottom: 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px; }
+    .title-group h1 { font-size: 24px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .title-group p { color: var(--muted); font-size: 14px; margin-top: 4px; }
+    .badge-count { background: rgba(16, 185, 129, 0.2); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; border: 1px solid rgba(16, 185, 129, 0.3); }
+
+    .control-panel { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin-bottom: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .control-group label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; letter-spacing: 0.5px; }
+    .btn-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-toggle { background: var(--surface); color: var(--text); border: 1px solid var(--border); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; transition: all 0.15s; }
+    .btn-toggle:hover { border-color: var(--primary); }
+    .btn-toggle.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+
+    .mass-actions-bar { background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(16, 185, 129, 0.15)); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 16px; padding: 20px; margin-bottom: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; }
+    .mass-btn { background: var(--accent); color: #0b0f19; border: none; padding: 12px 24px; border-radius: 10px; font-size: 15px; font-weight: 800; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: transform 0.1s, box-shadow 0.2s; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3); }
+    .mass-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45); }
+    .mass-btn:active { transform: translateY(0); }
+    .mass-btn-secondary { background: var(--surface); color: #fff; border: 1px solid var(--border); box-shadow: none; }
+    .mass-btn-secondary:hover { border-color: var(--primary); color: #60a5fa; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2); }
+
+    .quick-launchers { display: flex; gap: 10px; flex-wrap: wrap; }
+    .launcher-btn { background: #1f2937; color: #fff; text-decoration: none; padding: 8px 14px; border-radius: 8px; font-size: 13px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); }
+    .launcher-btn:hover { background: #374151; }
+
+    .downloads-hud { background: var(--card-bg); border: 1px solid var(--border); border-radius: 16px; padding: 16px 20px; margin-bottom: 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 14px; }
+    .dl-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .dl-btn { color: #60a5fa; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; background: rgba(59, 130, 246, 0.1); border-radius: 6px; border: 1px solid rgba(59, 130, 246, 0.2); font-size: 13px; }
+    .dl-btn:hover { background: rgba(59, 130, 246, 0.2); text-decoration: underline; }
+
+    .deals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+    .deal-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; position: relative; transition: border-color 0.2s; }
+    .deal-card:hover { border-color: rgba(255, 255, 255, 0.25); }
+    .deal-top { display: flex; gap: 14px; margin-bottom: 12px; }
+    .deal-img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; background: #000; flex-shrink: 0; }
+    .deal-info h3 { font-size: 14px; font-weight: 700; line-height: 1.35; margin-bottom: 6px; color: #fff; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .deal-prices { display: flex; align-items: baseline; gap: 8px; font-size: 15px; font-weight: 800; color: #10b981; }
+    .old-pr { text-decoration: line-through; color: var(--muted); font-size: 12px; font-weight: 500; }
+    .disc-tag { background: rgba(239, 68, 68, 0.2); color: #f87171; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+
+    .deal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    .card-btn { background: var(--surface); color: var(--text); border: 1px solid var(--border); border-radius: 6px; padding: 7px; font-size: 12px; font-weight: 600; cursor: pointer; text-align: center; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .card-btn:hover { background: #374151; color: #fff; }
+    .card-btn.btn-buy { background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.3); }
+    .card-btn.btn-buy:hover { background: var(--accent); color: #0b0f19; }
+
+    #toast { position: fixed; bottom: 24px; right: 24px; background: #10b981; color: #0b0f19; font-weight: 800; padding: 14px 24px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); transform: translateY(100px); opacity: 0; transition: all 0.3s; z-index: 1000; font-size: 15px; }
+    #toast.show { transform: translateY(0); opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="title-group">
+        <h1>🚀 SmartPick Ad Dispatcher <span class="badge-count" id="total-badge">105 Товаров</span></h1>
+        <p>Центр массового размещения рекламы: копирование пачек по 100 постов в 1 клик и моментальный постинг</p>
+      </div>
+      <div class="quick-launchers">
+        <a href="https://web.telegram.org" target="_blank" class="launcher-btn">✈️ Telegram Web</a>
+        <a href="https://web.whatsapp.com" target="_blank" class="launcher-btn">💬 WhatsApp Web</a>
+        <a href="https://vk.com" target="_blank" class="launcher-btn">💙 ВКонтакте</a>
+        <a href="https://www.reddit.com/r/deals/submit" target="_blank" class="launcher-btn">🚀 Reddit r/deals</a>
+        <a href="index.html" target="_blank" class="launcher-btn">🌐 Открыть Сайт</a>
+      </div>
+    </header>
+
+    <section class="control-panel">
+      <div class="control-group">
+        <label>Язык рекламы:</label>
+        <div class="btn-group" id="lang-buttons">
+          <button class="btn-toggle active" data-lang="ru">🇷🇺 Русский (RU)</button>
+          <button class="btn-toggle" data-lang="he">🇮🇱 עברית (HE)</button>
+          <button class="btn-toggle" data-lang="es">🇪🇸 Español (ES)</button>
+          <button class="btn-toggle" data-lang="en">🇺🇸 English (EN)</button>
+        </div>
+      </div>
+      <div class="control-group">
+        <label>Размер пачки для отправки:</label>
+        <div class="btn-group" id="count-buttons">
+          <button class="btn-toggle active" data-count="100">🔥 Все 100 товаров (МАКСИМУМ)</button>
+          <button class="btn-toggle" data-count="50">⚡ 50 товаров</button>
+          <button class="btn-toggle" data-count="25">⭐ 25 товаров</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="mass-actions-bar">
+      <div>
+        <h2 style="font-size: 18px; font-weight: 800; color: #fff;">Массовый Экспорт в 1 Клик</h2>
+        <p style="font-size: 13px; color: var(--muted); margin-top: 2px;">Скопируйте все <span id="selected-count-label">100</span> постов сразу в буфер обмена для нужной платформы</p>
+      </div>
+      <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+        <button class="mass-btn" id="copy-tg-batch">📋 Скопировать 100 для Telegram</button>
+        <button class="mass-btn mass-btn-secondary" id="copy-wa-batch">💬 Скопировать 100 для WhatsApp</button>
+        <button class="mass-btn mass-btn-secondary" id="copy-reddit-batch">🤖 Скопировать для Reddit</button>
+      </div>
+    </section>
+
+    <div class="downloads-hud">
+      <span style="font-weight: 700;">📂 Готовые CSV для автопостинга (Buffer, Metricool, Publer):</span>
+      <div class="dl-links">
+        <a href="broadcasts/bulk_100_buffer_ru.csv" download class="dl-btn">📥 Buffer RU (100)</a>
+        <a href="broadcasts/bulk_100_buffer_he.csv" download class="dl-btn">📥 Buffer HE (100)</a>
+        <a href="broadcasts/bulk_100_buffer_es.csv" download class="dl-btn">📥 Buffer ES (100)</a>
+        <a href="broadcasts/bulk_100_buffer_en.csv" download class="dl-btn">📥 Buffer EN (100)</a>
+        <a href="rss.xml" target="_blank" class="dl-btn">📡 RSS 2.0 лента</a>
+      </div>
+    </div>
+
+    <!-- Live Grid -->
+    <div class="deals-grid" id="deals-container"></div>
+  </div>
+
+  <div id="toast">✅ 100 постов скопированы в буфер обмена!</div>
+
+  <!-- Embedded Product Database -->
+  <script src="assets/modern_app.js"></script>
+  <script>
+    let STATE = {
+      lang: 'ru',
+      count: 100,
+      products: []
+    };
+
+    const RATES = { ILS: 3.7, EUR: 0.92, RUB: 95.0, USD: 1.0 };
+
+    async function init() {
+      try {
+        const resp = await fetch('data/products.json');
+        const db = await resp.json();
+        STATE.products = db.products || [];
+        render();
+      } catch (err) {
+        console.error("Failed to load products.json", err);
+      }
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function formatSinglePost(p, lang) {
+      const prUsd = p.price_usd;
+      const oldUsd = p.old_price_usd || Math.round(prUsd * 1.8);
+      const disc = p.discount_pct || 50;
+      const dealUrl = `https://smartpick.click/deals/${p.slug}.html?utm_source=mass_disp&utm_medium=${lang}&utm_campaign=batch100`;
+      const affUrl = p.affiliate_url || dealUrl;
+
+      if (lang === 'ru') {
+        const title = (p.title_i18n && p.title_i18n.ru) || p.title;
+        const pr = Math.round(prUsd * RATES.RUB);
+        const oldPr = Math.round(oldUsd * RATES.RUB);
+        return `🔥 ${title}\n💰 Цена: ${pr} ₽ (вместо ${oldPr} ₽) | Скидка -${disc}%\n🚚 Бесплатная доставка | ★ ${p.rating || 4.9}\n✂️ Промокод: AEIL02\n👉 Купить: ${affUrl}\n🌐 Обзор: ${dealUrl}`;
+      } else if (lang === 'he') {
+        const title = (p.title_i18n && p.title_i18n.he) || p.title;
+        const pr = Math.round(prUsd * RATES.ILS);
+        const oldPr = Math.round(oldUsd * RATES.ILS);
+        return `✨ ${title}\n💰 מחיר מבצע: ₪${pr} (במקום ₪${oldPr}) | הנחה -${disc}%\n🚚 משלוח חינם | פטור ממע"מ עד $75\n✂️ קופון: AEIL02\n👉 לקנייה ב-AliExpress: ${affUrl}\n🌐 לפרטים: ${dealUrl}`;
+      } else if (lang === 'es') {
+        const title = (p.title_i18n && p.title_i18n.es) || p.title;
+        const pr = (prUsd * RATES.EUR).toFixed(2);
+        const oldPr = (oldUsd * RATES.EUR).toFixed(2);
+        return `🏷️ ${title}\n💰 Precio: ${pr}€ (PVP ${oldPr}€) | -${disc}% DTO\n🚚 Envío Gratis | ★ ${p.rating || 4.9}\n✂️ Cupón: AEIL02\n👉 Comprar en AliExpress: ${affUrl}\n🌐 Detalles: ${dealUrl}`;
+      } else {
+        const title = (p.title_i18n && p.title_i18n.en) || p.title;
+        return `⚡ ${title}\n💰 Deal Price: $${prUsd} (was $${oldUsd}) | ${disc}% OFF\n🚚 Free Worldwide Shipping | ★ ${p.rating || 4.9}\n✂️ Code: AEIL02\n👉 Buy on AliExpress: ${affUrl}\n🌐 Review: ${dealUrl}`;
+      }
+    }
+
+    function render() {
+      const container = document.getElementById('deals-container');
+      const activeList = STATE.products.slice(0, STATE.count);
+      document.getElementById('selected-count-label').textContent = activeList.length;
+
+      container.innerHTML = activeList.map((p, idx) => {
+        let title = (p.title_i18n && p.title_i18n[STATE.lang]) || p.title;
+        let prStr = `$${p.price_usd}`;
+        let oldPrStr = `$${p.old_price_usd || ''}`;
+
+        if (STATE.lang === 'ru') {
+          prStr = `${Math.round(p.price_usd * RATES.RUB)} ₽`;
+          oldPrStr = `${Math.round((p.old_price_usd || p.price_usd * 1.8) * RATES.RUB)} ₽`;
+        } else if (STATE.lang === 'he') {
+          prStr = `₪${Math.round(p.price_usd * RATES.ILS)}`;
+          oldPrStr = `₪${Math.round((p.old_price_usd || p.price_usd * 1.8) * RATES.ILS)}`;
+        } else if (STATE.lang === 'es') {
+          prStr = `${(p.price_usd * RATES.EUR).toFixed(2)}€`;
+          oldPrStr = `${((p.old_price_usd || p.price_usd * 1.8) * RATES.EUR).toFixed(2)}€`;
+        }
+
+        const dealUrl = `https://smartpick.click/deals/${p.slug}.html?utm_source=mass_disp&utm_medium=${STATE.lang}`;
+        const affUrl = p.affiliate_url || dealUrl;
+        const tgShare = `https://t.me/share/url?url=${encodeURIComponent(affUrl)}&text=${encodeURIComponent(title + ' - ' + prStr)}`;
+        const waShare = `https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' ' + prStr + ' -> ' + affUrl)}`;
+
+        return `
+          <div class="deal-card">
+            <div>
+              <div class="deal-top">
+                <img src="${p.image}" alt="${title}" class="deal-img" loading="lazy">
+                <div class="deal-info">
+                  <h3>${idx + 1}. ${title}</h3>
+                  <div class="deal-prices">
+                    <span>${prStr}</span>
+                    <span class="old-pr">${oldPrStr}</span>
+                    <span class="disc-tag">-${p.discount_pct || 50}%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="deal-actions">
+              <a href="${tgShare}" target="_blank" class="card-btn">✈️ В Telegram</a>
+              <a href="${waShare}" target="_blank" class="card-btn">💬 В WhatsApp</a>
+              <button type="button" class="card-btn" onclick="copyCardPost(${idx})">📋 Скопировать</button>
+              <a href="${affUrl}" target="_blank" class="card-btn btn-buy">🛍️ AliExpress ↗</a>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.copyCardPost = (idx) => {
+      const p = STATE.products[idx];
+      const text = formatSinglePost(p, STATE.lang);
+      navigator.clipboard.writeText(text);
+      showToast(`✅ Скопирован пост #${idx + 1}!`);
+    };
+
+    // Bulk Copy Handlers
+    document.getElementById('copy-tg-batch').addEventListener('click', () => {
+      const activeList = STATE.products.slice(0, STATE.count);
+      const fullText = activeList.map((p, i) => `[${i + 1}/${activeList.length}]\n` + formatSinglePost(p, STATE.lang)).join('\n\n' + '─'.repeat(40) + '\n\n');
+      navigator.clipboard.writeText(fullText);
+      showToast(`✅ Скопирована пачка из ${activeList.length} постов для Telegram!`);
+    });
+
+    document.getElementById('copy-wa-batch').addEventListener('click', () => {
+      const activeList = STATE.products.slice(0, STATE.count);
+      const fullText = `🌟 ТОП-${activeList.length} СКИДОК ДНЯ:\n\n` + activeList.map((p, i) => `${i + 1}. ${p.title} - $${p.price_usd} (${p.affiliate_url})`).join('\n');
+      navigator.clipboard.writeText(fullText);
+      showToast(`✅ Скопирован дайджест из ${activeList.length} позиций для WhatsApp!`);
+    });
+
+    document.getElementById('copy-reddit-batch').addEventListener('click', () => {
+      const activeList = STATE.products.slice(0, STATE.count);
+      let md = `## 🔥 Top ${activeList.length} Verified Deals with Free Shipping\n\n`;
+      md += `| # | Product | Price | Discount | Direct Link |\n|---|---|---|---|---|\n`;
+      activeList.forEach((p, i) => {
+        md += `| ${i + 1} | ${p.title} | **$${p.price_usd}** | -${p.discount_pct}% | [Buy on AliExpress](${p.affiliate_url}) |\n`;
+      });
+      navigator.clipboard.writeText(md);
+      showToast(`✅ Скопирована Markdown-таблица из ${activeList.length} товаров для Reddit!`);
+    });
+
+    // Language Toggle
+    document.getElementById('lang-buttons').addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn-toggle');
+      if (!btn) return;
+      document.querySelectorAll('#lang-buttons .btn-toggle').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      STATE.lang = btn.dataset.lang;
+      render();
+    });
+
+    // Count Toggle
+    document.getElementById('count-buttons').addEventListener('click', (e) => {
+      const btn = e.target.closest('.btn-toggle');
+      if (!btn) return;
+      document.querySelectorAll('#count-buttons .btn-toggle').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      STATE.count = parseInt(btn.dataset.count, 10);
+      render();
+    });
+
+    init();
+  </script>
+</body>
+</html>
