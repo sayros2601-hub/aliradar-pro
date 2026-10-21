@@ -1,7 +1,8 @@
 // SmartChoice / SmartPick — Multilingual E-Commerce Deal Catalog Engine
 // Default Language: Hebrew (עברית, RTL) + Global Languages (EN, RU, ES, FR, DE, AR)
 // Currencies: ₪ ILS, $ USD, € EUR (Rubles removed)
-// Features: 100% Real Factory Images, Interactive Multi-Angle Gallery, Curiosity Hooks, Full Specs Modal
+// Features: 36+ Curated Hidden Gem Products across 6 AliExpress Departments
+// Real Factory Images (0-latency local cache), Multi-Angle Gallery, Curiosity Hooks, Full Specs Modal
 
 (function () {
   const I18N = {
@@ -10,37 +11,43 @@
       langName: '🇮🇱 עברית',
       brandSub: 'קטלוג מציאות עולמי',
       topBadge1: '✓ <strong>חנויות רשמיות</strong> בלבד',
-      topBadge2: '📦 משלוח מהיר לישראל ואירופה (עד <strong>$75</strong> פטור מלא ממס בישראל)',
+      topBadge2: '📦 משלוח מהיר לישראל (עד <strong>$75</strong> פטור מלא ממס בישראל)',
       topBadge3: '🔒 רכישה בטוחה ישירות מהיצרן',
-      searchPlaceholder: 'חיפוש מציאות: מטען GaN, מצלמת דרך 2K, גאדג׳טים, חיות מחמד...',
+      searchPlaceholder: 'חיפוש מציאות: מדפסת כיס, מטען GaN, ניטור צמיגים, שואב אבק לרכב, משקל דיגיטלי...',
       searchBtn: 'חיפוש',
-      heroTitle: 'מציאות Choice וגאדג׳טים מובחרים — במחירים ישירים מהיצרן',
-      heroSub: 'כל המוצרים נבחרו בקפידה עם תמונות מפעל אמיתיות, דירוג קונים מאומת (4.8★–5.0★) ומשלוח מהיר.',
+      heroTitle: 'מציאות Choice והמצאות שלא ראיתם — במחירים ישירים מהיצרן',
+      heroSub: 'קטלוג עצמאי של גאדג׳טים מבריקים, שדרוגים לרכב, פטנטים לבית ולחיות מחמד שחוסכים כסף. כולם מתחת לרף המס ($75) ועם משלוח חינם לישראל.',
       pill1: '⭐ דירוג 4.8+ מוכח',
       pill2: '📸 תמונות מוצר אמיתיות (לחצו להחלפת זווית)',
-      pill3: '✈️ משלוח מהיר לכל העולם',
+      pill3: '✈️ משלוח חינם לישראל',
       sortPopular: 'מיון: הכי פופולריים',
       sortDiscount: 'לפי גובה ההנחה (%)',
       sortPriceAsc: 'מחיר: מהנמוך לגבוה',
       sortRating: 'לפי דירוג קונים ★',
       cats: {
         all: '🔥 כל המציאות',
-        gadgets: '⚡ גאדג׳טים ואלקטרוניקה',
-        auto: '🚗 לרכב ולנהג',
-        pets: '🐾 חיות מחמד',
-        smarthome: '🏠 בית חכם וכלים',
-        under10: '💎 מציאות עד $15'
+        gadgets: '⚡ גאדג׳טים והמצאות כיס',
+        auto: '🚗 שדרוגים חכמים לרכב',
+        smarthome: '🏠 בית, מטבח ומיקרו-המצאות',
+        pets: '🐾 המצאות לחיות מחמד',
+        tools: '🔧 כלי עבודה ותיקונים',
+        under10: '💎 מציאות גאוניות עד ₪50'
       },
+      priceFilterLabel: 'סינון לפי מחיר:',
+      priceAll: 'הכל',
+      priceUnder50: 'עד ₪50',
+      price50_100: '₪50 - ₪100',
+      price100_280: '₪100 - ₪280',
       ordersLabel: 'נמכרו:',
       reviewsLabel: 'ביקורות',
       choiceTag: 'Choice',
-      shippingTag: '🚚 משלוח חינם ומהיר',
+      shippingTag: '🚚 משלוח חינם לישראל',
       btnDetails: '🔍 תמונות ומפרט',
       btnBuy: 'לרכישה בחנות הרשמית ←',
       modalHighlights: '⭐ למה המוצר מומלץ:',
       modalSpecs: '📋 מפרט טכני מלא:',
-      modalTrust: '🛡️ אחריות קונים מלאה, משלוח בינלאומי מהיר ופטור מלא ממס בישראל עד $75.',
-      noResults: 'לא נמצאו מוצרים התואמים לחיפוש. נסה לבחור קטגוריה אחרת.',
+      modalTrust: '🛡️ אחריות קונים מלאה, משלוח מהיר לישראל ופטור מלא ממס בישראל עד $75.',
+      noResults: 'לא נמצאו מוצרים התואמים לחיפוש. נסה לשנות קטגוריה או טווח מחירים.',
       footerTitle: 'SmartPick Global — קטלוג עצמאי למציאות וגאדג׳טים מובילים',
       disclosure: 'גילוי נאות: SmartPick הוא קטלוג המלצות עצמאי ואינו בבעלות AliExpress או קבוצת Alibaba. כל הקישורים באתר הם קישורי שותפים רשמיים המובילים ישירות לחנויות המקוריות במחיר המבצע ללא תוספת תשלום.'
     },
@@ -51,25 +58,31 @@
       topBadge1: '✓ <strong>Official Stores</strong> Only',
       topBadge2: '📦 Fast Shipping to US, Europe & Israel (Tax-Free under $75 in IL)',
       topBadge3: '🔒 100% Safe Direct Factory Links',
-      searchPlaceholder: 'Search deals: GaN charger, 2K dash cam, smart home, pets...',
+      searchPlaceholder: 'Search hidden gems: pocket printer, GaN charger, TPMS, car vacuum, digital spoon...',
       searchBtn: 'Search',
-      heroTitle: 'Top-Rated Choice Deals & Gadgets — Direct Factory Prices',
-      heroSub: 'Handpicked items with 100% real factory photos, verified 4.8★–5.0★ buyer ratings, and rapid delivery.',
+      heroTitle: 'Undiscovered Choice Deals & Inventions — Direct Factory Prices',
+      heroSub: 'Curated breakthroughs, clever car upgrades, smart home inventions, and pet gadgets that solve daily problems. All under $75 customs limit.',
       pill1: '⭐ 4.8+ Verified Ratings',
       pill2: '📸 Real Multi-Angle Photos (Click to preview)',
-      pill3: '✈️ Worldwide Fast Shipping',
+      pill3: '✈️ Free Shipping Included',
       sortPopular: 'Sort: Most Popular',
       sortDiscount: 'Highest Discount (%)',
       sortPriceAsc: 'Price: Low to High',
       sortRating: 'Highest Rating ★',
       cats: {
         all: '🔥 All Deals',
-        gadgets: '⚡ Smart Gadgets',
-        auto: '🚗 Auto & Car Gear',
-        pets: '🐾 Pet Favorites',
-        smarthome: '🏠 Smart Home & Tools',
-        under10: '💎 Under $15 Finds'
+        gadgets: '⚡ Smart Inventions & EDC',
+        auto: '🚗 Car Gear & Auto Tech',
+        smarthome: '🏠 Smart Home & Kitchen',
+        pets: '🐾 Clever Pet Tech',
+        tools: '🔧 Precision Tools & Repair',
+        under10: '💎 Under $15 Brilliant Bargains'
       },
+      priceFilterLabel: 'Filter by Price:',
+      priceAll: 'All Prices',
+      priceUnder50: 'Under $15',
+      price50_100: '$15 - $30',
+      price100_280: '$30 - $75',
       ordersLabel: 'Sold:',
       reviewsLabel: 'reviews',
       choiceTag: 'Choice',
@@ -79,7 +92,7 @@
       modalHighlights: '⭐ Key Highlights:',
       modalSpecs: '📋 Full Specifications:',
       modalTrust: '🛡️ Official buyer protection, hassle-free returns, and fast international shipping.',
-      noResults: 'No products matched your search. Try another category.',
+      noResults: 'No products matched your search. Try adjusting filters.',
       footerTitle: 'SmartPick Global — Independent Curated Product & Deal Catalog',
       disclosure: 'Affiliate Disclosure: SmartPick is an independent curated discovery portal and is not owned or operated by AliExpress or Alibaba Group. When you buy through official links, we may earn a referral fee at zero extra cost to you.'
     },
@@ -90,35 +103,41 @@
       topBadge1: '✓ Только <strong>официальные магазины</strong>',
       topBadge2: '📦 Быстрая доставка в Израиль, ЕС и США (до $75 без пошлины в Израиле)',
       topBadge3: '🔒 Прямые безопасные ссылки со скидкой',
-      searchPlaceholder: 'Поиск: зарядка GaN 100W, видеорегистратор 2K, товары для животных...',
+      searchPlaceholder: 'Поиск редких находок: карманный принтер, автосканер, датчик шин, весы-ложка...',
       searchBtn: 'Найти',
-      heroTitle: 'Хиты Choice и лучшие гаджеты по прямым ценам фабрик',
-      heroSub: 'Только реальные заводские фотографии со всех ракурсов, честный рейтинг 4.8★–5.0★ и быстрая отправка.',
+      heroTitle: 'Редкие находки Choice и изобретения, которых нет в обычном топе',
+      heroSub: 'Гениальные полезные гаджеты, автотовары, умные мелочи для дома и питомцев по прямым ценам фабрик. Все товары до $75 без пошлины в Израиле и с бесплатной доставкой.',
       pill1: '⭐ Рейтинг 4.8+ звёзд',
       pill2: '📸 Настоящие фото товара (нажимайте на миниатюры)',
-      pill3: '✈️ Быстрая международная доставка',
+      pill3: '✈️ Бесплатная доставка в Израиль',
       sortPopular: 'По популярности',
       sortDiscount: 'По размеру скидки (%)',
       sortPriceAsc: 'Сначала недорогие',
       sortRating: 'По рейтингу ★',
       cats: {
         all: '🔥 Все находки',
-        gadgets: '⚡ Умные гаджеты',
-        auto: '🚗 Автотовары',
-        pets: '🐾 Хиты для питомцев',
-        smarthome: '🏠 Дом и Инструмент',
-        under10: '💎 Находки до $15'
+        gadgets: '⚡ Гаджеты и EDC',
+        auto: '🚗 Автотовары и апгрейд',
+        smarthome: '🏠 Дом, кухня и лайфхаки',
+        pets: '🐾 Инновации для питомцев',
+        tools: '🔧 Точный инструмент',
+        under10: '💎 Находки до 50 шекелей'
       },
+      priceFilterLabel: 'Цена:',
+      priceAll: 'Все',
+      priceUnder50: 'До 50 ₪',
+      price50_100: '50 - 100 ₪',
+      price100_280: '100 - 280 ₪',
       ordersLabel: 'Купили:',
       reviewsLabel: 'отзывов',
       choiceTag: 'Choice',
-      shippingTag: '🚚 Быстрая доставка',
+      shippingTag: '🚚 Бесплатная доставка',
       btnDetails: '🔍 Фото и Обзор',
       btnBuy: 'В магазин со скидкой →',
       modalHighlights: '⭐ Главные преимущества:',
       modalSpecs: '📋 Технические характеристики:',
       modalTrust: '🛡️ Защита покупателя, возврат без проблем и прямая цена без посредников.',
-      noResults: 'По вашему запросу ничего не найдено. Попробуйте выбрать другую категорию.',
+      noResults: 'По вашему запросу ничего не найдено. Попробуйте сбросить фильтры.',
       footerTitle: 'SmartPick Global — Независимый каталог лучших находок и скидок',
       disclosure: 'Партнёрское уведомление: SmartPick является независимым каталогом обзоров и не принадлежит корпорации Alibaba Group / AliExpress. Покупая по прямым ссылкам, вы получаете лучшую цену без каких-либо наценок.'
     },
@@ -129,37 +148,43 @@
       topBadge1: '✓ Solo <strong>Tiendas Oficiales</strong>',
       topBadge2: '📦 Envío rápido a Europa, EE.UU. e Israel',
       topBadge3: '🔒 Enlaces oficiales directos',
-      searchPlaceholder: 'Buscar: cargador GaN, cámara coche 2K, mascotas, hogar...',
+      searchPlaceholder: 'Buscar chollos: mini impresora, TPMS solar, aspirador coche, hogar...',
       searchBtn: 'Buscar',
-      heroTitle: 'Los Mejores Chollos Choice y Gadgets a Precio de Fábrica',
-      heroSub: 'Fotos reales de fábrica desde todos los ángulos, valoración de 4.8★–5.0★ y envío rápido.',
+      heroTitle: 'Inventos y Chollos Ocultos Choice a Precio de Fábrica',
+      heroSub: 'Artículos ingeniosos para coche, hogar y mascotas sin intermediarios.',
       pill1: '⭐ Valoración 4.8+',
-      pill2: '📸 Fotos Reales (Haz clic para ver)',
-      pill3: '✈️ Envío Rápido Mundial',
+      pill2: '📸 Fotos Reales',
+      pill3: '✈️ Envío Gratis',
       sortPopular: 'Más Populares',
       sortDiscount: 'Mayor Descuento (%)',
       sortPriceAsc: 'Precio: Menor a Mayor',
       sortRating: 'Mejor Valorados ★',
       cats: {
         all: '🔥 Todas las Ofertas',
-        gadgets: '⚡ Gadgets Inteligentes',
+        gadgets: '⚡ Inventos y EDC',
         auto: '🚗 Accesorios de Coche',
+        smarthome: '🏠 Hogar y Cocina',
         pets: '🐾 Para Mascotas',
-        smarthome: '🏠 Hogar y Herramientas',
+        tools: '🔧 Herramientas',
         under10: '💎 Menos de $15'
       },
+      priceFilterLabel: 'Precio:',
+      priceAll: 'Todos',
+      priceUnder50: '< $15',
+      price50_100: '$15 - $30',
+      price100_280: '$30 - $75',
       ordersLabel: 'Vendidos:',
       reviewsLabel: 'opiniones',
       choiceTag: 'Choice',
-      shippingTag: '🚚 Envío Gratis Rápido',
+      shippingTag: '🚚 Envío Gratis',
       btnDetails: '🔍 Fotos y Ficha',
       btnBuy: 'Ver Oferta en Tienda →',
       modalHighlights: '⭐ Ventajas Destacadas:',
       modalSpecs: '📋 Especificaciones Técnicas:',
       modalTrust: '🛡️ Protección del comprador y garantía de devolución.',
-      noResults: 'No se encontraron productos. Prueba otra categoría.',
+      noResults: 'No se encontraron productos.',
       footerTitle: 'SmartPick Global — Catálogo Independiente de Ofertas',
-      disclosure: 'Aviso de afiliado: SmartPick es un catálogo independiente no afiliado a Alibaba Group. Al comprar a través de nuestros enlaces oficiales, podemos recibir una comisión sin coste adicional.'
+      disclosure: 'Aviso de afiliado: SmartPick es un catálogo independiente.'
     },
     fr: {
       dir: 'ltr',
@@ -168,25 +193,31 @@
       topBadge1: '✓ <strong>Boutiques Officielles</strong>',
       topBadge2: '📦 Livraison rapide Europe & International',
       topBadge3: '🔒 Liens officiels vérifiés',
-      searchPlaceholder: 'Rechercher : chargeur GaN, caméra voiture, animaux...',
+      searchPlaceholder: 'Rechercher : mini imprimante, TPMS, aspirateur sans fil...',
       searchBtn: 'Chercher',
-      heroTitle: 'Meilleurs Gadgets & Bons Plans Choice — Prix Direct Fabricant',
-      heroSub: 'Photos d\'usine réelles sous tous les angles, avis clients 4.8★–5.0★ et livraison express.',
+      heroTitle: 'Pépites et Inventions Choice — Prix Direct Fabricant',
+      heroSub: 'Gadgets utiles pour la voiture, la maison et vos animaux sans intermédiaires.',
       pill1: '⭐ Avis 4.8+ Vérifiés',
       pill2: '📸 Vraies Photos Produit',
-      pill3: '✈️ Livraison Rapide',
+      pill3: '✈️ Livraison Gratuite',
       sortPopular: 'Les Plus Populaires',
       sortDiscount: 'Plus Grosse Réduction (%)',
       sortPriceAsc: 'Prix : Croissant',
       sortRating: 'Mieux Notés ★',
       cats: {
         all: '🔥 Tous les Bons Plans',
-        gadgets: '⚡ Gadgets Tech',
-        auto: '🚗 Auto & Accessoires',
-        pets: '🐾 Chiens & Chats',
-        smarthome: '🏠 Maison Connectée',
+        gadgets: '⚡ Gadgets EDC',
+        auto: '🚗 Auto & Conduite',
+        smarthome: '🏠 Maison & Cuisine',
+        pets: '🐾 Animaux',
+        tools: '🔧 Outils Précision',
         under10: '💎 Moins de 15$'
       },
+      priceFilterLabel: 'Prix :',
+      priceAll: 'Tous',
+      priceUnder50: '< 15$',
+      price50_100: '15$ - 30$',
+      price100_280: '30$ - 75$',
       ordersLabel: 'Commandes :',
       reviewsLabel: 'avis',
       choiceTag: 'Choice',
@@ -196,9 +227,9 @@
       modalHighlights: '⭐ Points Forts :',
       modalSpecs: '📋 Fiche Technique :',
       modalTrust: '🛡️ Protection de l\'acheteur et retours faciles.',
-      noResults: 'Aucun produit trouvé. Essayez une autre catégorie.',
+      noResults: 'Aucun produit trouvé.',
       footerTitle: 'SmartPick Global — Guide d\'Achat Indépendant',
-      disclosure: 'Transparence : SmartPick est un catalogue indépendant non affilié à Alibaba Group.'
+      disclosure: 'Transparence : SmartPick est un catalogue indépendant.'
     },
     de: {
       dir: 'ltr',
@@ -207,29 +238,35 @@
       topBadge1: '✓ Nur <strong>Offizielle Shops</strong>',
       topBadge2: '📦 Schneller Versand EU, USA & Weltweit',
       topBadge3: '🔒 Sichere Direktlinks zum Hersteller',
-      searchPlaceholder: 'Suche: GaN Ladegerät, 2K Dashcam, Haustiere...',
+      searchPlaceholder: 'Suche: Minidrucker, Reifendruck, Akkusauger...',
       searchBtn: 'Suchen',
-      heroTitle: 'Top Choice Deals & Gadgets — Direktpreise vom Hersteller',
-      heroSub: 'Echte Fabrikfotos aus allen Blickwinkeln, 4.8★–5.0★ Kundenbewertungen und schneller Versand.',
+      heroTitle: 'Geheime Choice Deals & Erfindungen — Direktpreise',
+      heroSub: 'Nützliche Problemlöser für Auto, Küche, Haustiere und EDC.',
       pill1: '⭐ 4.8+ Top-Bewertung',
       pill2: '📸 Echte Produktfotos',
-      pill3: '✈️ Schnelle Lieferung',
+      pill3: '✈️ Gratisversand',
       sortPopular: 'Beliebteste zuerst',
       sortDiscount: 'Höchster Rabatt (%)',
       sortPriceAsc: 'Preis: Aufsteigend',
       sortRating: 'Beste Bewertung ★',
       cats: {
         all: '🔥 Alle Schnäppchen',
-        gadgets: '⚡ Smart Gadgets',
+        gadgets: '⚡ EDC Gadgets',
         auto: '🚗 Auto & Zubehör',
-        pets: '🐾 Für Haustiere',
-        smarthome: '🏠 Smart Home & Werkzeug',
+        smarthome: '🏠 Heim & Küche',
+        pets: '🐾 Haustier-Gadgets',
+        tools: '🔧 Werkzeuge',
         under10: '💎 Unter 15$'
       },
+      priceFilterLabel: 'Preis:',
+      priceAll: 'Alle',
+      priceUnder50: '< 15$',
+      price50_100: '15$ - 30$',
+      price100_280: '30$ - 75$',
       ordersLabel: 'Verkauft:',
       reviewsLabel: 'Bewertungen',
       choiceTag: 'Choice',
-      shippingTag: '🚚 Schneller Gratisversand',
+      shippingTag: '🚚 Gratisversand',
       btnDetails: '🔍 Fotos & Details',
       btnBuy: 'Zum offiziellen Shop →',
       modalHighlights: '⭐ Produkthighlights:',
@@ -246,43 +283,50 @@
       topBadge1: '✓ <strong>متاجر رسمية</strong> ومضمونة فقط',
       topBadge2: '📦 شحن سريع ومباشر مع حماية كاملة للمشتري',
       topBadge3: '🔒 روابط مباشرة معتمدة بأسعار المصنع',
-      searchPlaceholder: 'بحث: شاحن GaN سريع، كاميرا سيارة 2K، مستلزمات قطط...',
+      searchPlaceholder: 'بحث: طابعة جيب، حساس إطارات، مكنسة سيارة، ملعقة ميزان...',
       searchBtn: 'بحث',
-      heroTitle: 'أفضل صفقات Choice والأجهزة الذكية — بأسعار المصنع المباشرة',
-      heroSub: 'صور حقيقية مباشرة من خط الإنتاج بزوايا متعددة، تقييمات موثوقة (4.8★–5.0★) وشحن سريع.',
+      heroTitle: 'ابتكارات وصفقات Choice نادرة — بأسعار المصنع المباشرة',
+      heroSub: 'أجهزة ذكية غير تقليدية للسيارة والمنزل والحيوانات الأليفة بأفضل الأسعار المباشرة.',
       pill1: '⭐ تقييم 4.8+ مؤكد',
       pill2: '📸 صور حقيقية للمنتج (انقر للتبديل)',
-      pill3: '✈️ شحن سريع لجميع الدول',
+      pill3: '✈️ شحن مجاني متاح',
       sortPopular: 'الأكثر شعبية',
       sortDiscount: 'أعلى نسبة خصم (%)',
       sortPriceAsc: 'السعر: من الأقل للأعلى',
       sortRating: 'الأعلى تقييماً ★',
       cats: {
         all: '🔥 جميع العروض',
-        gadgets: '⚡ أجهزة ذكية',
-        auto: '🚗 للسيارات والقيادة',
+        gadgets: '⚡ أجهزة ذكية محمولة',
+        auto: '🚗 مستلزمات السيارات',
+        smarthome: '🏠 المنزل والمطبخ',
         pets: '🐾 مستلزمات الحيوانات',
-        smarthome: '🏠 المنزل الذكي',
-        under10: '💎 صفقات أقل من 15$'
+        tools: '🔧 أدوات الصيانة',
+        under10: '💎 صفقات أقل من 50 شيكل'
       },
+      priceFilterLabel: 'تصفية حسب السعر:',
+      priceAll: 'الكل',
+      priceUnder50: 'أقل من 50 ₪',
+      price50_100: '50 - 100 ₪',
+      price100_280: '100 - 280 ₪',
       ordersLabel: 'المبيعات:',
       reviewsLabel: 'تقييم',
       choiceTag: 'Choice',
-      shippingTag: '🚚 شحن سريع ومجاني',
+      shippingTag: '🚚 شحن مجاني سريع',
       btnDetails: '🔍 الصور والمواصفات',
       btnBuy: 'شراء من المتجر الرسمي ←',
       modalHighlights: '⭐ أبرز مميزات المنتج:',
       modalSpecs: '📋 المواصفات الفنية الكاملة:',
-      modalTrust: '🛡️ حماية كاملة للمشتري، ضمان استرجاع وشحن سريع مباشر.',
+      modalTrust: '🛡️ حماية كاملة للمشتري، ضمان استرجاع وشحن مباشر.',
       noResults: 'لم يتم العثور على منتجات مطابقة.',
       footerTitle: 'SmartPick Global — كتالوج المنتجات والعروض المستقل',
-      disclosure: 'إخلاء مسؤولية: SmartPick هو دليل تسوق مستقل وغير تابع لشركة Alibaba أو AliExpress.'
+      disclosure: 'إخلاء مسؤولية: SmartPick هو دليل تسوق مستقل.'
     }
   };
 
   let currentLang = 'he';
   let currency = 'ILS';
   let currentCategory = 'all';
+  let currentPriceFilter = 'all';
   let currentSort = 'popular';
   let currentSearch = '';
 
@@ -307,6 +351,7 @@
   const gridEl = document.getElementById('productGrid');
   const modalBackdrop = document.getElementById('reviewModal');
   const modalContent = document.getElementById('modalContent');
+  const priceFilterLabel = document.getElementById('priceFilterLabel');
 
   function getLocalizedField(item, field) {
     if (!item) return '';
@@ -335,6 +380,21 @@
       return `${sym}${Math.round(val)}`;
     }
     return `${sym}${val.toFixed(2)}`;
+  }
+
+  function updateCategoryCounts() {
+    const counts = { all: products.length };
+    products.forEach((p) => {
+      counts[p.category] = (counts[p.category] || 0) + 1;
+    });
+
+    const t = I18N[currentLang] || I18N.he;
+    document.querySelectorAll('.cat-pill').forEach((btn) => {
+      const catKey = btn.getAttribute('data-cat');
+      const baseName = t.cats && t.cats[catKey] ? t.cats[catKey] : catKey;
+      const count = counts[catKey] || 0;
+      btn.innerHTML = `${baseName} <span class="cat-count">(${count})</span>`;
+    });
   }
 
   function applyLanguageUI() {
@@ -376,18 +436,22 @@
       sortSelect.options[3].textContent = t.sortRating;
     }
 
-    document.querySelectorAll('.cat-pill').forEach((btn) => {
-      const catKey = btn.getAttribute('data-cat');
-      if (t.cats && t.cats[catKey]) {
-        btn.textContent = t.cats[catKey];
-      }
-    });
+    if (priceFilterLabel) priceFilterLabel.textContent = t.priceFilterLabel;
+    const btnAllPrice = document.querySelector('[data-price="all"]');
+    const btnUnder50 = document.querySelector('[data-price="under50"]');
+    const btn50_100 = document.querySelector('[data-price="50_100"]');
+    const btn100_280 = document.querySelector('[data-price="100_280"]');
+    if (btnAllPrice) btnAllPrice.textContent = t.priceAll;
+    if (btnUnder50) btnUnder50.textContent = t.priceUnder50;
+    if (btn50_100) btn50_100.textContent = t.price50_100;
+    if (btn100_280) btn100_280.textContent = t.price100_280;
 
     const footerTitle = document.getElementById('footerTitle');
     const disclosureBox = document.getElementById('disclosureBox');
     if (footerTitle) footerTitle.textContent = t.footerTitle;
     if (disclosureBox) disclosureBox.textContent = t.disclosure;
 
+    updateCategoryCounts();
     renderProducts();
   }
 
@@ -408,8 +472,21 @@
 
     let filtered = products.filter((p) => {
       const matchCat = currentCategory === 'all' || p.category === currentCategory;
+
+      // Price filter (based on ILS price)
+      const ilsPrice = Math.round(p.price_usd * 3.65);
+      let matchPrice = true;
+      if (currentPriceFilter === 'under50') {
+        matchPrice = ilsPrice <= 50;
+      } else if (currentPriceFilter === '50_100') {
+        matchPrice = ilsPrice > 50 && ilsPrice <= 100;
+      } else if (currentPriceFilter === '100_280') {
+        matchPrice = ilsPrice > 100 && ilsPrice <= 300;
+      }
+
       const q = currentSearch.trim().toLowerCase();
-      if (!q) return matchCat;
+      if (!q) return matchCat && matchPrice;
+
       const hay = [
         p.title,
         getLocalizedField(p, 'title'),
@@ -419,7 +496,8 @@
       ]
         .join(' ')
         .toLowerCase();
-      return matchCat && hay.includes(q);
+
+      return matchCat && matchPrice && hay.includes(q);
     });
 
     if (currentSort === 'discount') {
@@ -440,7 +518,7 @@
         const title = getLocalizedField(p, 'title');
         const hook = getLocalizedField(p, 'card_hook') || getLocalizedField(p, 'short_desc');
         const gallery = (p.gallery && p.gallery.length ? p.gallery : [p.image]).slice(0, 5);
-        
+
         const thumbsHtml =
           gallery.length > 1
             ? `<div class="thumb-strip">
@@ -471,7 +549,7 @@
             <span class="orders-pill">${t.ordersLabel} ${p.orders_count}</span>
           </div>
           <h3 class="card-title" title="${title}">${title}</h3>
-          <div class="card-hook" onclick="window.openReview('${p.id}')" title="לחצו לסקירה מלאה ומפרט">
+          <div class="card-hook" onclick="window.openReview('${p.id}')" title="לחצו לצפייה בכל התמונות והמפרט">
             ${hook}
           </div>
           <div class="price-box">
@@ -502,7 +580,7 @@
     const t = I18N[currentLang] || I18N.he;
     const title = getLocalizedField(p, 'title');
     const hook = getLocalizedField(p, 'card_hook') || getLocalizedField(p, 'short_desc');
-    const gallery = (p.gallery && p.gallery.length ? p.gallery : [p.image]);
+    const gallery = p.gallery && p.gallery.length ? p.gallery : [p.image];
 
     let highlightsHtml = '';
     if (p.highlights && p.highlights.length) {
@@ -602,6 +680,15 @@
       document.querySelectorAll('.cat-pill').forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
       currentCategory = btn.getAttribute('data-cat') || 'all';
+      renderProducts();
+    });
+  });
+
+  document.querySelectorAll('.price-pill').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.price-pill').forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentPriceFilter = btn.getAttribute('data-price') || 'all';
       renderProducts();
     });
   });

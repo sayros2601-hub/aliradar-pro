@@ -327,8 +327,12 @@ def generate_index_html(db: dict):
     cards_html = "\n".join(render_product_card_html(p) for p in db["products"])
     domain = db["site_meta"]["domain"].rstrip("/")
 
+    cat_counts = {"all": len(db["products"])}
+    for p in db["products"]:
+        cat_counts[p["category"]] = cat_counts.get(p["category"], 0) + 1
+
     cats_html = "\n".join(
-        f'<button type="button" class="cat-pill {"active" if c["id"] == "all" else ""}" data-cat="{c["id"]}">{c["icon"]} {c["name"]}</button>'
+        f'<button type="button" class="cat-pill {"active" if c["id"] == "all" else ""}" data-cat="{c["id"]}">{c["icon"]} {c["name"]} <span class="cat-count">({cat_counts.get(c["id"], 0)})</span></button>'
         for c in db["categories"]
     )
 
@@ -358,7 +362,7 @@ def generate_index_html(db: dict):
     <div class="container top-bar-inner">
       <div class="top-bar-badges">
         <span id="topBadge1">✓ <strong>חנויות רשמיות</strong> בלבד</span>
-        <span id="topBadge2">📦 משלוח מהיר לישראל ואירופה (עד <strong>$75</strong> פטור מלא ממס בישראל)</span>
+        <span id="topBadge2">📦 משלוח מהיר לישראל (עד <strong>$75</strong> פטור מלא ממס בישראל)</span>
         <span id="topBadge3">🔒 רכישה בטוחה ישירות מהיצרן</span>
       </div>
       <div class="top-bar-controls">
@@ -380,7 +384,7 @@ def generate_index_html(db: dict):
       </a>
 
       <div class="search-box">
-        <input type="search" id="searchInput" placeholder="חיפוש מציאות: מטען GaN, מצלמת דרך 2K, גאדג׳טים, חיות מחמד..." aria-label="Search" />
+        <input type="search" id="searchInput" placeholder="חיפוש מציאות: מדפסת כיס, מטען GaN, ניטור צמיגים, שואב אבק לרכב, משקל דיגיטלי..." aria-label="Search" />
         <button type="button" id="searchBtn" class="search-btn">חיפוש</button>
       </div>
 
@@ -402,13 +406,13 @@ def generate_index_html(db: dict):
     <!-- Hero Banner -->
     <section class="store-banner">
       <div class="store-banner-left">
-        <h1 id="heroTitle">מציאות Choice וגאדג׳טים מובחרים — במחירים ישירים מהיצרן</h1>
-        <p id="heroSub">כל המוצרים נבחרו בקפידה עם תמונות מפעל אמיתיות, דירוג קונים מאומת (4.8★–5.0★) ומשלוח מהיר.</p>
+        <h1 id="heroTitle">מציאות Choice והמצאות שלא ראיתם — במחירים ישירים מהיצרן</h1>
+        <p id="heroSub">קטלוג עצמאי של גאדג׳טים מבריקים, שדרוגים לרכב, פטנטים לבית ולחיות מחמד שחוסכים כסף. כולם מתחת לרף המס ($75) ועם משלוח חינם לישראל.</p>
       </div>
       <div class="trust-pills">
         <div id="pill1" class="trust-pill">⭐ דירוג 4.8+ מוכח</div>
         <div id="pill2" class="trust-pill">📸 תמונות מוצר אמיתיות (לחצו להחלפה)</div>
-        <div id="pill3" class="trust-pill">✈️ משלוח מהיר לכל העולם</div>
+        <div id="pill3" class="trust-pill">✈️ משלוח חינם לישראל</div>
       </div>
     </section>
 
@@ -425,6 +429,15 @@ def generate_index_html(db: dict):
           <option value="rating">לפי דירוג קונים ★</option>
         </select>
       </div>
+    </section>
+
+    <!-- Price Range Filter Bar -->
+    <section class="price-filter-bar" aria-label="Price Range Filter">
+      <span id="priceFilterLabel" class="price-filter-label">סינון לפי מחיר:</span>
+      <button type="button" class="price-pill active" data-price="all">הכל</button>
+      <button type="button" class="price-pill" data-price="under50">עד ₪50</button>
+      <button type="button" class="price-pill" data-price="50_100">₪50 - ₪100</button>
+      <button type="button" class="price-pill" data-price="100_280">₪100 - ₪280</button>
     </section>
 
     <!-- 1:1 Real Square Product Grid with 5-Photo Gallery Strip -->
@@ -461,7 +474,9 @@ def build_all():
     generate_index_html(db)
     generate_deal_pages(db)
     generate_sitemap_and_robots(db)
-    print(f"[SmartPick Engine] Successfully built index.html, {len(db['products'])} deal pages, sitemap.xml and robots.txt!")
+    import build_cyber  # Cyberpunk 2077 AI Deal Matrix
+    build_cyber.build()
+    print(f"[SmartPick Engine] Successfully built index.html, {len(db['products'])} deal pages, sitemap.xml and robots.txt with Cyberpunk Matrix!")
 
 
 class CMSRequestHandler(SimpleHTTPRequestHandler):

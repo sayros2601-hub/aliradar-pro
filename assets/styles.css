@@ -356,6 +356,55 @@ body {
   color: #ffffff;
 }
 
+.cat-count {
+  font-size: 0.74rem;
+  opacity: 0.8;
+  margin-inline-start: 4px;
+}
+
+/* Quick Price Range Bar */
+.price-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+  padding: 8px 14px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.price-filter-label {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--text-secondary);
+  margin-inline-end: 4px;
+}
+
+.price-pill {
+  padding: 5px 12px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background: var(--bg-subtle);
+  color: var(--text-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.price-pill:hover {
+  border-color: #191919;
+  color: #191919;
+}
+
+.price-pill.active {
+  background: #191919;
+  border-color: #191919;
+  color: #ffffff;
+}
+
 .sort-select {
   padding: 8px 12px;
   border-radius: var(--radius-sm);

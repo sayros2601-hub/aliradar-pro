@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.png
+!assets/img/*.png
+!assets/img/*.jpg
+.DS_Store
+Thumbs.db

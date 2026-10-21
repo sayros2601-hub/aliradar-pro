@@ -1,0 +1,54 @@
+/* SmartPick v3 — bright vivid theme (light base + colorful gradients). GPU-only animation. */
+:root{--bg:#f4f6ff;--brand:#ff3d71;--brand2:#6c4dff;--cy:#00b8ff;--ok:#0a9f5a;--sh:0 4px 18px rgba(80,70,160,.12)}
+body{background:var(--bg);color:#16181d}
+body::before,body::after{content:"";position:fixed;z-index:-1;width:60vmax;height:60vmax;border-radius:50%;filter:blur(80px);opacity:.45;pointer-events:none;will-change:transform}
+body::before{top:-25vmax;inset-inline-start:-15vmax;background:radial-gradient(circle,#b9a8ff,transparent 65%);animation:o1 20s ease-in-out infinite alternate}
+body::after{bottom:-30vmax;inset-inline-end:-20vmax;background:radial-gradient(circle,#ffc2d4,transparent 65%);animation:o2 24s ease-in-out infinite alternate}
+@keyframes o1{to{transform:translate3d(22vmax,16vmax,0) scale(1.15)}}
+@keyframes o2{to{transform:translate3d(-20vmax,-12vmax,0) scale(1.1)}}
+.glow{display:none}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.top{background:rgba(255,255,255,.82)}
+.logo-mark{background:conic-gradient(from 0deg,var(--brand),var(--brand2),var(--cy),var(--brand));animation:spin 8s linear infinite;color:transparent;position:relative;box-shadow:0 4px 14px rgba(108,77,255,.4)}
+.logo-mark::after{content:"S";position:absolute;inset:3px;border-radius:8px;background:#fff;color:var(--brand2);display:grid;place-items:center;font-weight:800;animation:spin 8s linear infinite reverse}
+.logo-txt b{background:linear-gradient(90deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.search:focus-within{border-color:var(--brand2);box-shadow:0 0 0 4px rgba(108,77,255,.12)}
+.cat.on{background:linear-gradient(135deg,var(--brand),var(--brand2));border-color:transparent;color:#fff;box-shadow:0 6px 18px rgba(108,77,255,.35)}
+.cat.on .n{color:rgba(255,255,255,.85)}
+@media(hover:hover){.cat:hover{transform:translateY(-2px);border-color:var(--brand2)}}
+
+.hero{background:linear-gradient(120deg,#6c4dff,#c04dff 45%,#ff3d71 80%,#ff9a3d);box-shadow:0 14px 40px rgba(108,77,255,.35);min-height:190px}
+.hero-glow{background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.4),transparent 40%),radial-gradient(circle at 85% 80%,rgba(0,184,255,.45),transparent 45%)}
+.hero h1{color:#fff}
+.hero-txt{max-width:62%}
+.floaters{position:absolute;inset:0;pointer-events:none}
+.floaters img{position:absolute;width:clamp(70px,17vw,130px);aspect-ratio:1;object-fit:cover;border-radius:22px;border:3px solid #fff;box-shadow:0 14px 30px rgba(30,10,90,.35);animation:fl 7s ease-in-out infinite alternate;will-change:transform}
+.floaters img:nth-child(1){inset-inline-end:4%;top:10%;--r:-8deg}
+.floaters img:nth-child(2){inset-inline-end:22%;bottom:-6%;--r:7deg;animation-delay:-2s;width:clamp(60px,13vw,100px)}
+.floaters img:nth-child(3){inset-inline-end:34%;top:-4%;--r:12deg;animation-delay:-4s;width:clamp(50px,10vw,80px)}
+@keyframes fl{from{transform:translate3d(0,0,0) rotate(var(--r))}to{transform:translate3d(0,-14px,0) rotate(calc(var(--r)*-1))}}
+@media(max-width:520px){.hero-txt{max-width:100%}.floaters{opacity:.2}}
+.ticker{display:none}
+
+.seg button.on{background:#fff0f4;color:var(--brand);box-shadow:inset 0 0 0 1px rgba(255,61,113,.35)}
+.bar{padding:8px 0;background:linear-gradient(180deg,var(--bg) 75%,transparent)}
+
+.card{position:relative;will-change:transform}
+.card::after{content:"";position:absolute;inset:0;z-index:3;border-radius:inherit;pointer-events:none;padding:2px;opacity:0;transition:opacity .3s;background:conic-gradient(from var(--a,0deg),var(--cy),var(--brand2),var(--brand),var(--cy));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+@media(hover:hover){.card:hover::after{opacity:1}.card:hover{box-shadow:0 18px 44px rgba(108,77,255,.25)}}
+.js .card.rv{opacity:0;transform:translateY(26px) scale(.97)}
+.js .card.in{opacity:1;transform:none;transition:opacity .6s var(--ease) calc(var(--i)*55ms),transform .6s var(--ease) calc(var(--i)*55ms)}
+.js .card.in:hover{transition:transform .12s linear,box-shadow .3s}
+.tag-off{background:linear-gradient(135deg,var(--brand),#ff8a3d)}
+.price{color:var(--brand)}
+.sheet-card{animation:pop .45s cubic-bezier(.2,1.1,.3,1)}
+@keyframes pop{from{transform:translateY(50px) scale(.97);opacity:0}}
+.dots i.on{background:var(--brand2)}
+.cta{background:linear-gradient(135deg,var(--brand),var(--brand2));box-shadow:0 8px 24px rgba(108,77,255,.45)}
+.buybar b{color:var(--brand)}
+.perks span{background:#eefbf4;color:#0a7a46}
+.tag-off,.pill-off{direction:ltr;unicode-bidi:isolate}
+@media(prefers-reduced-motion:reduce){body::before,body::after,.floaters img,.hero-glow,.logo-mark,.logo-mark::after{animation:none!important}}
+
+.sheet{z-index:100}.sheet-card{background:#fff;animation:pop .3s cubic-bezier(.2,1,.3,1)}@keyframes pop{from{transform:translateY(40px)}}.sheet-bg{animation:none;background:rgba(20,16,50,.55)}
