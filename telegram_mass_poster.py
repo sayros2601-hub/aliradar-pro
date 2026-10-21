@@ -34,7 +34,7 @@ def load_products():
         db = json.load(f)
     return db.get("products", [])
 
-def format_telegram_caption(p, lang="ru", domain="https://smartpick.click"):
+def format_telegram_caption(p, lang="ru", domain="https://dealvault.surge.sh"):
     slug = p["slug"]
     pr_usd = p["price_usd"]
     old_usd = p.get("old_price_usd", round(pr_usd * 1.8, 2))
@@ -56,7 +56,7 @@ def format_telegram_caption(p, lang="ru", domain="https://smartpick.click"):
             f"🏷️ *Скидка:* `-{disc}%` | ⭐ *Рейтинг:* `{rating}` ({orders} заказов)\n"
             f"🚚 *Бесплатная доставка* в ПВЗ и почту\n"
             f"✂️ Промокод на скидку: `AEIL02` ($2 от $15)\n\n"
-            f"👉 [Открыть страницу товара на SmartPick]({deal_url})"
+            f"👉 [Открыть страницу товара на DealVault]({deal_url})"
         )
         btn_buy = "🛍️ КУПИТЬ НА ALIEXPRESS"
         btn_hub = "🌐 ДЕТАЛИ И ОБЗОР"
@@ -72,7 +72,7 @@ def format_telegram_caption(p, lang="ru", domain="https://smartpick.click"):
             f"🏷️ *הנחה:* `-{disc}%` | ⭐ *דירוג:* `{rating}` ({orders} הזמנות)\n"
             f"🚚 *משלוח חינם לישראל* | 💸 *פטור מלא ממע\"מ ומכס עד $75*\n"
             f"✂️ קוד קופון פעיל: `AEIL02` ($2 הנחה מעל $15)\n\n"
-            f"👉 [לצפייה בפרטים המלאים ב-SmartPick]({deal_url})"
+            f"👉 [לצפייה בפרטים המלאים ב-DealVault]({deal_url})"
         )
         btn_buy = "🛍️ לקנייה ישירה ב-AliExpress"
         btn_hub = "🌐 סקירה ומפרט באתר"
@@ -88,7 +88,7 @@ def format_telegram_caption(p, lang="ru", domain="https://smartpick.click"):
             f"🏷️ *Descuento:* `-{disc}%` | ⭐ *Valoración:* `{rating}` ({orders} ventas)\n"
             f"🚚 *Envío Gratis Choice*\n"
             f"✂️ Cupón activo: `AEIL02` ($2 dto en +$15)\n\n"
-            f"👉 [Ver detalles en SmartPick]({deal_url})"
+            f"👉 [Ver detalles en DealVault]({deal_url})"
         )
         btn_buy = "🛍️ VER CHOLLO EN ALIEXPRESS"
         btn_hub = "🌐 FICHA Y DETALLES"
@@ -102,7 +102,7 @@ def format_telegram_caption(p, lang="ru", domain="https://smartpick.click"):
             f"🏷️ *Discount:* `-{disc}% OFF` | ⭐ *Rating:* `{rating}` ({orders} orders)\n"
             f"🚚 *Free Worldwide Shipping*\n"
             f"✂️ Promo Code: `AEIL02` ($2 OFF over $15)\n\n"
-            f"👉 [View Deal Dossier on SmartPick]({deal_url})"
+            f"👉 [View Deal Dossier on DealVault]({deal_url})"
         )
         btn_buy = "🛍️ GET DEAL ON ALIEXPRESS"
         btn_hub = "🌐 FULL SPECS & REVIEWS"

@@ -24,7 +24,7 @@ def load_products():
     with open(DATA_FILE, "r", encoding="utf-8") as f:
         return json.load(f).get("products", [])
 
-def format_vk_post(p, domain="https://smartpick.click"):
+def format_vk_post(p, domain="https://dealvault.surge.sh"):
     slug = p["slug"]
     pr_usd = p["price_usd"]
     old_usd = p.get("old_price_usd", round(pr_usd * 1.8, 2))
