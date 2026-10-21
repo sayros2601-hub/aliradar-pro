@@ -11,10 +11,11 @@ The source lives here. Only `dist/` is published. `index.html` in the source roo
 Python 3.12+ and Node 22 are sufficient. All runtime services used by this version are free; there is no paid API or advertising integration.
 
 ```powershell
-python -m pip install -r requirements.txt
+python -m venv .venv
+.\.venv\Scripts\python -m pip install -r requirements.txt
 npm ci --ignore-scripts
-python dealvault_pipeline.py --offline
-python preview_server.py
+.\.venv\Scripts\python dealvault_pipeline.py --offline
+.\.venv\Scripts\python preview_server.py
 ```
 
 Open http://127.0.0.1:8080 to preview. The current scheduled workflow updates public currency data, then runs the offline pipeline. Marketplace collection and network rotation are not enabled in this release; live access was blocked during the audit. `--offline --rotate` is rejected before any files or network checks are touched. The selection engine still evaluates imported evidence and its freshness each day, but a successful build does not mean new products were collected.
@@ -22,6 +23,8 @@ Open http://127.0.0.1:8080 to preview. The current scheduled workflow updates pu
 Publish with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment and `npm run deploy`. `SURGE_TOKEN` is used only for the legacy mirror. Never publish the source directory. The GitHub Actions workflow publishes the same validated `dist/` artifact after a push to `main`, or once a day at 06:00 UTC. The Cloudflare token has Pages Write only and expires October 21, 2027; replace the GitHub secret before then. Concurrent production jobs are serialized. PR builds never receive the deployment secret. GitHub is used for source and CI, not for hosting this commercial catalog on GitHub Pages.
 
 ## Catalog integrity
+
+Use the project's isolated Python environment for all Python commands below. Pillow is pinned to 13.0.0 after reviewing published advisories for 12.3.0. Only static JPEG, PNG, WebP and AVIF photos are decoded; inputs are capped at 20 MB and 20 megapixels. The imported photos are AVIF data with old .jpg names; public legacy photo URLs are now re-encoded to match their extension for social-platform compatibility. Changing the image-pipeline version invalidates old optimized-image caches. Other Python projects do not need to change their Pillow installation.
 
 - `data/products.json` is the active catalog. Original affiliate shortlinks are preserved exactly, including any existing query parameters. Undocumented attribution parameters are not appended.
 - The imported prices are **unverified reference estimates**, not current offers. No old-price discounts, unverified ratings, stock assertions, coupon promises or customs guarantees are published.

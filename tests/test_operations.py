@@ -7,7 +7,8 @@ from unittest.mock import patch
 from business_health import analyse_periods
 from dealvault_core import DATA_DIR, read_json, write_json
 from published_routes import known_routes
-from build_modern_hub import SiteBuilder
+from build_modern_hub import SiteBuilder, product_image, legacy_photo
+from PIL import Image, UnidentifiedImageError
 from product_selection import evaluate_candidate, rank_candidates, demand_signal
 from selection_fixture import evidence
 from verify_deployment import verify_deployment
@@ -73,6 +74,28 @@ class PublishedRouteTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             path=Path(temp)/'routes.json';write_json(path,[])
             with self.assertRaises(ValueError):known_routes([{'slug':'../../evil'}],path)
+
+
+class ImageAdmissionTests(unittest.TestCase):
+    def test_imported_avif_with_jpeg_name_becomes_real_public_jpeg(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            Image.new('RGB',(10,10),'blue').save(root/'import.jpg',format='AVIF')
+            legacy_photo(root/'import.jpg',root/'public.jpg')
+            with Image.open(root/'public.jpg') as result:
+                self.assertEqual(result.format,'JPEG');self.assertEqual(result.size,(10,10))
+    def test_photo_decoder_accepts_png_but_rejects_non_photo_and_animation(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            Image.new('RGB',(10,10),'blue').save(root/'photo.png')
+            with product_image(root/'photo.png') as image:self.assertEqual(image.size,(10,10))
+            # A harmless PPM disguised with a photo extension must not load an unused plugin.
+            (root/'disguised.jpg').write_bytes(b'P6\n1 1\n255\n\x00\x00\x00')
+            with self.assertRaises(UnidentifiedImageError):
+                with product_image(root/'disguised.jpg'):pass
+            Image.new('RGB',(10,10),'blue').save(root/'animation.png',save_all=True,append_images=[Image.new('RGB',(10,10),'red')],duration=100)
+            with self.assertRaisesRegex(ValueError,'static image'):
+                with product_image(root/'animation.png'):pass
 
 
 class RevenueEvidenceTests(unittest.TestCase):

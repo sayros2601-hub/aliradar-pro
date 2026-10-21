@@ -15,6 +15,7 @@ work/
 .env
 .env.*
 .local/
+.venv/
 *.dpapi
 *.key
 data/.pipeline.lock

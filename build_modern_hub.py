@@ -8,12 +8,38 @@ import os
 from pathlib import Path
 import shutil
 import tempfile
+from contextlib import contextmanager
 from urllib.parse import urljoin
 import xml.etree.ElementTree as ET
 from PIL import Image, ImageOps
 from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, page_path, public_path, product_title, validate_catalog, utc_now
 from site_content import COPY, LANG_NAMES
 from buyer_guide import GUIDE
+
+IMAGE_PIPELINE_VERSION = b'webp-v3-pillow-13'
+
+
+@contextmanager
+def product_image(path):
+    """Only bounded, static photo formats are needed by this catalog."""
+    if Path(path).stat().st_size > 20_000_000:
+        raise ValueError('Product photo exceeds the file-size limit')
+    with Image.open(path, formats=('JPEG','PNG','WEBP','AVIF')) as photo:
+        if photo.width * photo.height > 20_000_000 or getattr(photo,'is_animated',False):
+            raise ValueError('Product photo must be a static image of at most 20 megapixels')
+        yield photo
+
+
+def legacy_photo(source, target):
+    """Old social URLs must contain the format their file extension advertises."""
+    formats={'.jpg':'JPEG','.jpeg':'JPEG','.png':'PNG','.webp':'WEBP','.avif':'AVIF'}
+    output_format=formats.get(Path(target).suffix.lower())
+    if not output_format:raise ValueError('Unsupported public photo extension')
+    with product_image(source) as photo:
+        photo=ImageOps.exif_transpose(photo)
+        if output_format=='JPEG' or photo.mode not in ('RGB','RGBA'):
+            photo=photo.convert('RGB')
+        photo.save(target,format=output_format,quality=90)
 
 
 def esc(value):
@@ -65,7 +91,7 @@ class SiteBuilder:
             for source in dict.fromkeys([p['image'], *p.get('gallery', [])]):
                 if source not in self.images:
                     raw = BASE_DIR / source
-                    digest = hashlib.sha256(raw.read_bytes()).hexdigest()[:10]
+                    digest = hashlib.sha256(raw.read_bytes()+IMAGE_PIPELINE_VERSION).hexdigest()[:10]
                     dest = f'assets/img/{raw.stem}.{digest}.webp'
                     target = self.out / dest
                     target.parent.mkdir(parents=True, exist_ok=True)
@@ -73,7 +99,7 @@ class SiteBuilder:
                     if cache.is_file():
                         shutil.copyfile(cache,target)
                     else:
-                        with Image.open(raw) as image:
+                        with product_image(raw) as image:
                             image = ImageOps.exif_transpose(image)
                             image.thumbnail((900, 900), Image.Resampling.LANCZOS)
                             if image.mode not in ('RGB', 'RGBA'):
@@ -84,7 +110,10 @@ class SiteBuilder:
                     # Keep original public photo URLs used by existing social posts.
                     original=self.out/source
                     original.parent.mkdir(parents=True,exist_ok=True)
-                    shutil.copyfile(raw,original)
+                    legacy_cache=BASE_DIR/'.cache'/f'legacy-{digest}{raw.suffix.lower()}'
+                    if not legacy_cache.exists():
+                        legacy_photo(raw,legacy_cache)
+                    shutil.copyfile(legacy_cache,original)
                     self.images[source] = dest
                 gallery.append(self.images[source])
             self.public_products.append({
@@ -94,14 +123,14 @@ class SiteBuilder:
                 'use_i18n': self.editorial.get(p['id'],{}).get('use_i18n',{}),
             })
             raw=BASE_DIR/p['image']
-            digest=hashlib.sha256(raw.read_bytes()).hexdigest()[:10]
+            digest=hashlib.sha256(raw.read_bytes()+IMAGE_PIPELINE_VERSION).hexdigest()[:10]
             thumb=f'assets/img/{raw.stem}.{digest}.card.webp'
             target=self.out/thumb
             cached=BASE_DIR/'.cache'/thumb
             if cached.exists():
                 shutil.copyfile(cached,target)
             else:
-                with Image.open(raw) as photo:
+                with product_image(raw) as photo:
                     photo=ImageOps.exif_transpose(photo)
                     photo.thumbnail((420,420),Image.Resampling.LANCZOS)
                     if photo.mode not in ('RGB','RGBA'):photo=photo.convert('RGB')
