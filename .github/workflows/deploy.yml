@@ -55,18 +55,19 @@ jobs:
           retention-days: 7
       - name: Headless browser checks
         run: python tests/browser_qa.py --output .qa
-      - name: Package the same artifact for GitHub Pages
+      - name: Publish the verified artifact to Cloudflare Pages
         if: github.event_name != 'pull_request'
-        uses: actions/upload-pages-artifact@v4
-        with:
-          path: dist/
-      - name: Publish only the public artifact
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
+        run: |
+          test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN secret is required"; exit 1; }
+          npm run deploy
+      - name: Keep the original Surge address current
         if: github.event_name != 'pull_request'
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
-        run: |
-          test -n "$SURGE_TOKEN" || { echo "SURGE_TOKEN secret is required"; exit 1; }
-          npm run deploy
+        run: npm run deploy:mirror
       - name: Save verified catalog and currency snapshots
         if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         run: |
@@ -78,18 +79,3 @@ jobs:
             git commit -m "chore: save verified catalog snapshots [skip ci]"
             git push origin HEAD:main
           fi
-
-  pages:
-    if: github.event_name != 'pull_request'
-    needs: build
-    runs-on: ubuntu-latest
-    permissions:
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy the verified static artifact
-        id: deployment
-        uses: actions/deploy-pages@v4

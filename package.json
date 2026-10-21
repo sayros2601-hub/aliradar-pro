@@ -6,7 +6,11 @@
   "scripts": {
     "build": "python dealvault_pipeline.py --offline",
     "verify": "python verify_site.py",
-    "deploy": "python verify_site.py && surge dist dealvault.surge.sh"
+    "deploy": "python verify_site.py && wrangler pages deploy dist --project-name=dealvault --branch=main",
+    "deploy:mirror": "surge dist dealvault.surge.sh"
   },
-  "devDependencies": {"surge": "0.46.0"}
+  "devDependencies": {
+    "surge": "0.46.0",
+    "wrangler": "4.151.3"
+  }
 }

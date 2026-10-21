@@ -12,7 +12,7 @@ from urllib.parse import urlparse
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 LANGUAGES = ("en", "ru", "he", "es")
-DOMAIN = "https://dealvault.surge.sh"
+DOMAIN = "https://dealvault.pages.dev"
 
 
 def utc_now():
@@ -60,6 +60,16 @@ def page_path(lang="en", slug=None, legal=None):
     if slug:
         return f"{prefix}deals/{slug}.html"
     return prefix + (f"{legal}.html" if legal else "index.html")
+
+
+def public_path(path):
+    """Cloudflare Pages' canonical route for a generated file."""
+    path=str(path).replace('\\','/').lstrip('/')
+    if path.endswith('index.html'):
+        path=path[:-len('index.html')]
+    elif path.endswith('.html'):
+        path=path[:-5]
+    return '/'+path
 
 
 def product_title(product, lang="en"):

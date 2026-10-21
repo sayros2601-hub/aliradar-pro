@@ -124,7 +124,7 @@
   window.addEventListener('popstate',syncHash);
   window.addEventListener('hashchange',syncHash);
   function canonicalProduct(product) {
-    return `${DB.domain}/${lang === 'en' ? '' : lang + '/'}deals/${product.slug}.html`;
+    return `${DB.domain}/${lang === 'en' ? '' : lang + '/'}deals/${product.slug}`;
   }
   async function share(platform, product) {
     const url = canonicalProduct(product);
@@ -146,7 +146,7 @@
     const link = event.target.closest('a[href]');
     if (link && !link.hasAttribute('data-aff-id')) {
       const url = new URL(link.href);
-      if (url.origin === location.origin && !link.getAttribute('href').startsWith('#') && /(?:\.html|\/)$/.test(url.pathname)) {
+      if (url.origin === location.origin && !link.getAttribute('href').startsWith('#') && !url.pathname.startsWith('/assets/')) {
         for (const [key,value] of Object.entries(window.DealVaultCampaign || {})) if (!url.searchParams.has(key)) url.searchParams.set(key,value);
         link.href = url.href;
       }

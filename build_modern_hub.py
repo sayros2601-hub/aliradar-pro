@@ -11,7 +11,7 @@ import tempfile
 from urllib.parse import urljoin
 import xml.etree.ElementTree as ET
 from PIL import Image, ImageOps
-from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, page_path, product_title, validate_catalog, utc_now
+from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, page_path, public_path, product_title, validate_catalog, utc_now
 from site_content import COPY, LANG_NAMES
 
 
@@ -24,7 +24,7 @@ def script_json(value):
 
 
 def relative_url(path, current):
-    return os.path.relpath(path, Path(current).parent).replace('\\', '/')
+    return public_path(path)
 
 
 class SiteBuilder:
@@ -36,6 +36,7 @@ class SiteBuilder:
         self.products = validate_catalog(db)
         self.cats = [c for c in db['categories'] if c['id'] != 'all' and any(p['category'] == c['id'] for p in self.products)]
         self.images = {}
+        self.thumbnails = {}
         self.rates = read_json(DATA_DIR / 'exchange_rates.json', {'rates': {'USD': 1}, 'observed_at': None})
         self.public_products = []
 
@@ -84,6 +85,22 @@ class SiteBuilder:
                 'title_i18n': p['title_i18n'], 'price_usd': p['price_usd'],
                 'affiliate_url': p['affiliate_url'], 'image': gallery[0], 'gallery': gallery,
             })
+            raw=BASE_DIR/p['image']
+            digest=hashlib.sha256(raw.read_bytes()).hexdigest()[:10]
+            thumb=f'assets/img/{raw.stem}.{digest}.card.webp'
+            target=self.out/thumb
+            cached=BASE_DIR/'.cache'/thumb
+            if cached.exists():
+                shutil.copyfile(cached,target)
+            else:
+                with Image.open(raw) as photo:
+                    photo=ImageOps.exif_transpose(photo)
+                    photo.thumbnail((420,420),Image.Resampling.LANCZOS)
+                    if photo.mode not in ('RGB','RGBA'):photo=photo.convert('RGB')
+                    photo.save(target,'WEBP',quality=76,method=4)
+                cached.parent.mkdir(parents=True,exist_ok=True)
+                shutil.copyfile(target,cached)
+            self.thumbnails[p['image']]=thumb
 
     def category_name(self, category, lang):
         return next((c.get('name_i18n', {}).get(lang, category) for c in self.cats if c['id'] == category), category)
@@ -91,8 +108,8 @@ class SiteBuilder:
     def shell(self, lang, current, title, body, slug=None, legal=None, noindex=False, schemas=None):
         c = COPY[lang]
         rel = lambda path: esc(relative_url(path, current))
-        url = f'{self.domain}/{current}'
-        alt = lambda language: f'{self.domain}/{page_path(language, slug, legal)}'
+        url = self.domain+public_path(current)
+        alt = lambda language: self.domain+public_path(page_path(language, slug, legal))
         alternates = ''.join(f'<link rel="alternate" hreflang="{l}" href="{esc(alt(l))}">' for l in LANGUAGES)
         languages = ''.join(f'<a href="{rel(page_path(l, slug, legal))}" lang="{l}" hreflang="{l}" data-lang-link="{l}" {"aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGUAGES)
         legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('privacy', 'terms', 'disclosure', 'contact'))
@@ -145,7 +162,7 @@ class SiteBuilder:
         c = COPY[lang]
         title = product_title(p, lang)
         link = esc(relative_url(page_path(lang, p['slug']), current))
-        image = esc(relative_url(self.images[p['image']], current))
+        image = esc(relative_url(self.thumbnails[p['image']], current))
         search = ' '.join([*p['title_i18n'].values(), p['slug'], *[self.category_name(p['category'], l) for l in LANGUAGES]])
         return f'''<article class="product-card" data-id="{esc(p['id'])}" data-category="{esc(p['category'])}" data-price="{p['price_usd']}" data-order="{index}" data-search="{esc(search)}">
 <a href="{link}" class="card-image"><img src="{image}" alt="{esc(title)}" width="600" height="600" loading="{'eager' if index < 4 else 'lazy'}" decoding="async"></a>
@@ -173,7 +190,7 @@ class SiteBuilder:
 <div class="price-notice"><p>{esc(c['price_note'])}</p><span id="rates-note"></span></div>
 <div class="product-grid" id="product-grid">{cards}</div><div id="empty-state" class="empty-state" hidden><h3>{esc(c['empty'])}</h3><button class="button primary" type="button" id="clear-filters">{esc(c['reset'])}</button></div></section>
 <section class="wrap approach" id="approach"><div><p class="eyebrow">DEALVAULT / 02</p><h2>{esc(c['method'])}</h2></div><p>{esc(c['method_text'])}</p></section></main>'''
-        schema = {'@context':'https://schema.org','@type':'CollectionPage','name':c['collection'],'url':f'{self.domain}/{current}','inLanguage':lang,'mainEntity':{'@type':'ItemList','numberOfItems':len(self.products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':f'{self.domain}/{page_path(lang,p["slug"])}','name':product_title(p,lang)} for i,p in enumerate(self.products)]}}
+        schema = {'@context':'https://schema.org','@type':'CollectionPage','name':c['collection'],'url':self.domain+public_path(current),'inLanguage':lang,'mainEntity':{'@type':'ItemList','numberOfItems':len(self.products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':self.domain+public_path(page_path(lang,p["slug"])),'name':product_title(p,lang)} for i,p in enumerate(self.products)]}}
         self.write(current, self.shell(lang,current,c['collection'],body,schemas=schema))
 
     def deal(self, p, lang):
@@ -186,7 +203,7 @@ class SiteBuilder:
             others = [x for x in self.products if x['id'] != p['id']][:4]
         related = ''.join(self.card(x,lang,current,i+10) for i,x in enumerate(others))
         body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}</p><h1>{esc(product_title(p,lang))}</h1><div class="deal-price"><span>{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div><p class="muted">{esc(c['price_note'])}</p><p class="rate-detail" id="rates-note"></p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check1','check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
-        schema = {'@context':'https://schema.org','@type':'WebPage','url':f'{self.domain}/{current}','name':product_title(p,lang),'inLanguage':lang,'about':{'@type':'Product','name':product_title(p,lang),'image':[f'{self.domain}/{self.images[src]}' for src in gallery]},'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'DealVault','item':f'{self.domain}/{page_path(lang)}'},{'@type':'ListItem','position':2,'name':product_title(p,lang),'item':f'{self.domain}/{current}'}]}}
+        schema = {'@context':'https://schema.org','@type':'WebPage','url':self.domain+public_path(current),'name':product_title(p,lang),'inLanguage':lang,'about':{'@type':'Product','name':product_title(p,lang),'image':[f'{self.domain}/{self.images[src]}' for src in gallery]},'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'DealVault','item':self.domain+public_path(page_path(lang))},{'@type':'ListItem','position':2,'name':product_title(p,lang),'item':self.domain+public_path(current)}]}}
         self.write(current,self.shell(lang,current,product_title(p,lang),body,slug=p['slug'],schemas=schema))
 
     def legal(self, lang, name):
@@ -204,7 +221,7 @@ class SiteBuilder:
             ET.SubElement(channel,k).text=v
         items=[]
         for p in self.products:
-            link=f'{self.domain}/{page_path("en",p["slug"])}'
+            link=self.domain+public_path(page_path("en",p["slug"]))
             text=f'{product_title(p)}. {COPY["en"]["reference"]}: ${p["price_usd"]:.2f}. {COPY["en"]["price_note"]} {COPY["en"]["affiliate"]}'
             item=ET.SubElement(channel,'item')
             for k,v in [('title',product_title(p)),('link',link),('description',text)]:
@@ -226,13 +243,13 @@ class SiteBuilder:
         self.feeds()
         urls=ET.Element('urlset',xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
         for page in sorted(self.out.rglob('*.html')):
-            ET.SubElement(ET.SubElement(urls,'url'),'loc').text=f'{self.domain}/{page.relative_to(self.out).as_posix()}'
+            ET.SubElement(ET.SubElement(urls,'url'),'loc').text=self.domain+public_path(page.relative_to(self.out).as_posix())
         self.write('sitemap.xml','<?xml version="1.0" encoding="utf-8"?>\n'+ET.tostring(urls,encoding='unicode'))
         self.write('robots.txt',f'User-agent: *\nAllow: /\nSitemap: {self.domain}/sitemap.xml\n')
-        self.write('CNAME',self.domain.removeprefix('https://')+'\n')
-        self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'./index.html','display':'standalone','background_color':'#f7f7f2','theme_color':'#246849','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}]}))
+        self.write('_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
+        self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'/','display':'standalone','background_color':'#f7f7f2','theme_color':'#246849','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}]}))
         self.write('build-info.json',json.dumps({'version':'2026.10','built_at':utc_now(),'products':len(self.products),'languages':list(LANGUAGES),'catalog_sha256':hashlib.sha256(json.dumps(self.db,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},indent=2))
-        self.write('404.html',self.shell('en','404.html','Page not found',f'<main id="main" class="wrap prose"><p class="eyebrow">404</p><h1>{COPY["en"]["unavailable"]}</h1><a class="button primary" href="index.html">{COPY["en"]["home"]} ↗</a></main>',noindex=True))
+        self.write('404.html',self.shell('en','404.html','Page not found',f'<main id="main" class="wrap prose"><p class="eyebrow">404</p><h1>{COPY["en"]["unavailable"]}</h1><a class="button primary" href="/">{COPY["en"]["home"]} ↗</a></main>',noindex=True))
 
 
 def build_site(output=None, db=None):

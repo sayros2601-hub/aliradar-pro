@@ -1,6 +1,8 @@
 # DealVault
 
-Production: https://dealvault.surge.sh
+Production: https://dealvault.pages.dev
+
+Legacy address: https://dealvault.surge.sh (same catalog, canonical URLs point to Cloudflare).
 
 The source lives here. Only `dist/` is published. `index.html` in the source root redirects to production; it is not the build artifact. Historical generators, old mock data builders, screenshots and old broadcasts are preserved in `legacy/` and are not used by the pipeline.
 
@@ -12,7 +14,7 @@ Python 3.12+ and Node 22 are sufficient. All runtime services used by this versi
 python -m pip install -r requirements.txt
 npm ci --ignore-scripts
 python dealvault_pipeline.py --offline
-python -m http.server 8080 --bind 127.0.0.1 --directory dist
+python preview_server.py
 ```
 
 Open http://127.0.0.1:8080 to preview. A normal update with live destination checks and a dated currency snapshot is:
@@ -21,7 +23,7 @@ Open http://127.0.0.1:8080 to preview. A normal update with live destination che
 python dealvault_pipeline.py --rotate 7
 ```
 
-Publish with `SURGE_TOKEN` in the environment and `npm run deploy`. Never publish the source directory. The GitHub Actions workflow publishes the same validated `dist/` artifact after a push to `main`, or once a day at 06:00 UTC. It also publishes the identical artifact to the repository's free GitHub Pages address as a secondary host, with canonical URLs pointing to Surge. Concurrent production jobs are serialized. PR builds never receive the deployment secret.
+Publish with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment and `npm run deploy`. `SURGE_TOKEN` is used only for the legacy mirror. Never publish the source directory. The GitHub Actions workflow publishes the same validated `dist/` artifact after a push to `main`, or once a day at 06:00 UTC. The Cloudflare token has Pages Write only and expires October 21, 2027; replace the GitHub secret before then. Concurrent production jobs are serialized. PR builds never receive the deployment secret. GitHub is used for source and CI, not for hosting this commercial catalog on GitHub Pages.
 
 ## Catalog integrity
 
@@ -61,3 +63,5 @@ Tests use a hidden browser and localhost. They cover network failure classificat
 ## Operational limits
 
 The imported dataset does not contain reliable timestamps or evidence for live seller prices, ratings or offers. Those fields cannot honestly be presented as verified. A real editorial contact address has not been supplied, so the site does not fabricate an email address. Order support points users to their AliExpress account. Affiliate income must be checked in the user's Portals dashboard; outbound clicks are not sales.
+
+The old free `dealvault.surge.sh/robots.txt` endpoint was observed returning a platform-generated `Disallow: /` even though the uploaded file allows crawling; the correct uploaded file is served with a query string. This was resolved by migrating production to Cloudflare Pages; the public `https://dealvault.pages.dev/robots.txt` endpoint was verified as `Allow: /`. This permits crawling but does not guarantee ranking or indexing. Public routes, canonical links and sitemap use Cloudflare's extension-less URLs. GitHub Pages is not used for this commercial catalog.

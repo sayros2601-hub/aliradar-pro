@@ -68,7 +68,7 @@ class DataTests(unittest.TestCase):
     def test_marketing_preserves_original_link_and_uses_localized_page(self):
         product=read_json(DATA_DIR/'products.json')['products'][0]
         caption,buttons=format_telegram_caption(product,'ru')
-        self.assertIn('/ru/deals/'+product['slug']+'.html',caption)
+        self.assertIn('/ru/deals/'+product['slug'],caption)
         self.assertEqual(buttons['inline_keyboard'][0][0]['url'],product['affiliate_url'])
         for unsupported in ['AEIL02','Free Shipping','4.8+','% OFF']:
             self.assertNotIn(unsupported,caption)

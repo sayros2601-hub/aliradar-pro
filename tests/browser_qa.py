@@ -1,7 +1,7 @@
 """Headless functional browser checks; no visible windows or live social/affiliate clicks."""
 import argparse
 from functools import partial
-from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
+from http.server import ThreadingHTTPServer
 import json
 from pathlib import Path
 import sys
@@ -10,10 +10,11 @@ from playwright.sync_api import sync_playwright
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
-from dealvault_core import DATA_DIR, read_json
+from dealvault_core import DATA_DIR, DOMAIN, read_json
+from preview_server import PagesHandler
 
 
-class QuietHandler(SimpleHTTPRequestHandler):
+class QuietHandler(PagesHandler):
     def log_message(self,*args): pass
 
 
@@ -61,7 +62,7 @@ def run(output):
             assert page.locator('#product-modal').is_visible()
             assert page.locator('#product-modal [data-aff-id]').get_attribute('href')==first['affiliate_url']
             page.locator('#product-modal [data-share=copy]').click()
-            assert page.evaluate('window.__copied')==f'https://dealvault.surge.sh/deals/{first["slug"]}.html'
+            assert page.evaluate('window.__copied')==f'{DOMAIN}/deals/{first["slug"]}'
             page.keyboard.press('Escape')
             assert not page.locator('#product-modal').is_visible()
             assert not page.evaluate('location.hash')
@@ -84,7 +85,7 @@ def run(output):
                 assert '/deals/' in page.url
                 assert page.locator('.buy-button').get_attribute('href')==first['affiliate_url']
                 page.locator('.share-row [data-share=copy]').click()
-                assert page.evaluate('window.__copied')==f'https://dealvault.surge.sh/{prefix}deals/{first["slug"]}.html'
+                assert page.evaluate('window.__copied')==f'{DOMAIN}/{prefix}deals/{first["slug"]}'
             passed('All four homepages, translated deal pages and correct language share URLs')
             page.goto(base+'/index.html?utm_campaign=test',wait_until='networkidle')
             page.locator('[data-lang-link=ru]').click()

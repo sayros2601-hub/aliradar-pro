@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from urllib.parse import urlparse, unquote
 import xml.etree.ElementTree as ET
-from dealvault_core import BASE_DIR, DOMAIN, affiliate_key
+from dealvault_core import BASE_DIR, DOMAIN, public_path, affiliate_key
 
 
 class Page(HTMLParser):
@@ -50,7 +50,7 @@ def verify_site(root=BASE_DIR/'dist'):
             page.feed(path.read_text(encoding='utf-8'))
         except Exception as error:
             errors.append(f'{relative}: parse failure {type(error).__name__}'); continue
-        if page.canonical != [f'{DOMAIN}/{relative}']: errors.append(f'{relative}: wrong canonical')
+        if page.canonical != [DOMAIN+public_path(relative)]: errors.append(f'{relative}: wrong canonical')
         if page.headings != 1: errors.append(f'{relative}: expected one h1')
         if page.lang not in ('en','ru','he','es'): errors.append(f'{relative}: language missing')
         if set(page.alternates) != {'en','ru','he','es','x-default'}: errors.append(f'{relative}: alternate languages missing')
@@ -61,13 +61,14 @@ def verify_site(root=BASE_DIR/'dist'):
             if not u.path: continue
             target=(root/unquote(u.path).lstrip('/') if u.path.startswith('/') or u.netloc else path.parent/unquote(u.path)).resolve()
             if target.is_dir(): target=target/'index.html'
+            elif not target.is_file() and target.suffix == '': target=target.with_suffix('.html')
             if root not in target.parents or not target.is_file(): errors.append(f'{relative}: missing/unsafe reference {link}')
         for link in page.affiliates:
             affiliate_count+=1
             if not affiliate_key(link): errors.append(f'{relative}: invalid affiliate link')
         errors.extend(f'{relative}: {error}' for error in page.errors)
     for p in root.rglob('*'):
-        if p.is_file() and (p.suffix.lower() not in ('.html','.json','.webp','.jpg','.jpeg','.png','.svg','.css','.js','.txt','.xml') and p.name != 'CNAME'):
+        if p.is_file() and (p.suffix.lower() not in ('.html','.json','.webp','.jpg','.jpeg','.png','.svg','.css','.js','.txt','.xml') and p.name not in ('CNAME','_headers','_redirects')):
             errors.append('Non-public file in artifact: '+str(p.relative_to(root)))
         if any(part.startswith('.') for part in p.relative_to(root).parts): errors.append('Hidden file in public artifact')
     try:
@@ -75,6 +76,8 @@ def verify_site(root=BASE_DIR/'dist'):
         for loc in sitemap.findall('.//{*}loc'):
             if not loc.text.startswith(DOMAIN+'/'): errors.append('Foreign sitemap domain')
             path=root/loc.text.removeprefix(DOMAIN+'/')
+            if path.is_dir(): path=path/'index.html'
+            elif not path.is_file(): path=path.with_suffix('.html')
             if not path.is_file(): errors.append('Missing sitemap target')
         ET.parse(root/'rss.xml')
         feed=json.loads((root/'feed.json').read_text(encoding='utf-8'))
