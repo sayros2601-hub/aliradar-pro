@@ -192,10 +192,6 @@
 
   // State
   const defaultLang = () => {
-    const nav = (navigator.language || '').toLowerCase();
-    if (nav.startsWith('he')) return 'he';
-    if (nav.startsWith('es')) return 'es';
-    if (nav.startsWith('ru')) return 'ru';
     return 'en';
   };
 
@@ -207,8 +203,8 @@
   };
 
   const STATE = {
-    lang: localStorage.getItem('sp_lang') || defaultLang(),
-    cur: localStorage.getItem('sp_cur') || '',
+    lang: localStorage.getItem('sp_lang') || 'en',
+    cur: localStorage.getItem('sp_cur') || 'USD',
     theme: localStorage.getItem('sp_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
     cat: 'all',
     price: 'all',
@@ -216,7 +212,7 @@
     search: ''
   };
 
-  if (!STATE.cur) STATE.cur = defaultCur(STATE.lang);
+  if (!STATE.cur) STATE.cur = 'USD';
   window.DealVaultCurrentCurrency = window.SmartPickCurrentCurrency = STATE.cur;
 
   const applyTheme = () => {

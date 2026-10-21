@@ -42,17 +42,17 @@ def run_qa():
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
 
-        # 1. Desktop Test (1440x900) - Hebrew
-        context = browser.new_context(viewport={"width": 1440, "height": 900}, locale="he-IL")
+        # 1. Desktop Test (1440x900) - Default English
+        context = browser.new_context(viewport={"width": 1440, "height": 900})
         page = context.new_page()
         page.on("pageerror", lambda err: errors.append(f"PAGE_ERROR: {err}"))
         page.on("console", lambda msg: errors.append(f"CONSOLE_{msg.type.upper()}: {msg.text}") if msg.type in ["error"] else None)
 
-        print("[QA] Loading Desktop Modern Hub...")
+        print("[QA] Loading Desktop Modern Hub (Default English)...")
         page.goto(BASE_URL, wait_until="networkidle")
         page.wait_for_timeout(800)
-        page.screenshot(path="modern_desktop_he.png")
-        print("[QA] Saved modern_desktop_he.png")
+        page.screenshot(path="modern_desktop_en.png")
+        print("[QA] Saved modern_desktop_en.png")
 
         # 2. Test Modal Dossier
         print("[QA] Opening Product Modal...")
@@ -67,26 +67,30 @@ def run_qa():
         page.click(".modal-close-btn")
         page.wait_for_timeout(400)
 
-        # 3. Test Language Switch: Switch to Spanish (ES)
+        # 3. Test Language Switch: Switch to Hebrew (HE)
+        print("[QA] Testing Hebrew Language Switch...")
+        page.click('button[data-set-lang="he"]')
+        page.wait_for_timeout(600)
+        page.screenshot(path="modern_desktop_he.png")
+        print("[QA] Saved modern_desktop_he.png")
+
+        # 4. Test Language Switch: Switch to Spanish (ES)
         print("[QA] Testing Spanish Language Switch...")
         page.click('button[data-set-lang="es"]')
         page.wait_for_timeout(600)
         page.screenshot(path="modern_desktop_es.png")
         print("[QA] Saved modern_desktop_es.png")
 
-        # 4. Test Language Switch: Switch to Russian (RU)
+        # 5. Test Language Switch: Switch to Russian (RU)
         print("[QA] Testing Russian Language Switch...")
         page.click('button[data-set-lang="ru"]')
         page.wait_for_timeout(600)
         page.screenshot(path="modern_desktop_ru.png")
         print("[QA] Saved modern_desktop_ru.png")
 
-        # 5. Test Language Switch: Switch to English (EN)
-        print("[QA] Testing English Language Switch...")
+        # 5b. Switch back to English
         page.click('button[data-set-lang="en"]')
-        page.wait_for_timeout(600)
-        page.screenshot(path="modern_desktop_en.png")
-        print("[QA] Saved modern_desktop_en.png")
+        page.wait_for_timeout(400)
 
         # 5b. Test Theme Switcher (Toggle Dark Mode)
         print("[QA] Testing Theme Toggle to Dark...")
