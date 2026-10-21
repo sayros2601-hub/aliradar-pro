@@ -1,0 +1,25 @@
+# Defensive fallback for accidental publishing from the source directory.
+# The supported command is npm run deploy, which publishes dist/ exclusively.
+.git/
+.github/
+.local/
+.cache/
+.qa/
+.build-*/
+node_modules/
+legacy/
+data/
+tests/
+broadcasts/
+dist/
+dist.previous/
+__pycache__/
+*.py
+*.pyc
+*.md
+*.dpapi
+*.key
+.env*
+package*.json
+requirements*.txt
+promo_dispatcher.html

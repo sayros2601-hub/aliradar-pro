@@ -1,0 +1,95 @@
+name: DealVault verified build and deployment
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dealvault-${{ github.event_name == 'pull_request' && github.ref || 'production' }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked dependencies
+        run: |
+          python -m pip install -r requirements-dev.txt
+          python -m playwright install --with-deps chromium
+          npm ci --ignore-scripts --no-audit --no-fund
+      - name: Test catalog and failure handling
+        run: |
+          python -m unittest discover -s tests -p 'test_*.py' -v
+          node --check assets/modern_app.js
+          node --check assets/tracking.js
+      - name: Build PR without live network updates
+        if: github.event_name == 'pull_request'
+        run: python dealvault_pipeline.py --offline
+      - name: Audit links and build the production artifact
+        if: github.event_name != 'pull_request'
+        run: python dealvault_pipeline.py --rotate 7
+      - name: Archive the public artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dealvault-public-site
+          path: dist/
+          retention-days: 7
+      - name: Headless browser checks
+        run: python tests/browser_qa.py --output .qa
+      - name: Package the same artifact for GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist/
+      - name: Publish only the public artifact
+        if: github.event_name != 'pull_request'
+        env:
+          SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
+        run: |
+          test -n "$SURGE_TOKEN" || { echo "SURGE_TOKEN secret is required"; exit 1; }
+          npm run deploy
+      - name: Save verified catalog and currency snapshots
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        run: |
+          git config user.name "DealVault updater"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/products.json data/reserve_pool.json data/exchange_rates.json data/link_health_report.json
+          if test -f data/rotation_log.json; then git add data/rotation_log.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: save verified catalog snapshots [skip ci]"
+            git push origin HEAD:main
+          fi
+
+  pages:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy the verified static artifact
+        id: deployment
+        uses: actions/deploy-pages@v4

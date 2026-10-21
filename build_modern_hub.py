@@ -1,505 +1,279 @@
-# -*- coding: utf-8 -*-
-"""
-BUILD MODERN HUB // 105 VIRAL PRODUCTS STATIC GENERATOR
-Generates modern, clean, user-friendly Deal Hub:
-- index.html (Main 105-product catalog with instant 4-language switcher)
-- deals/*.html (105 standalone SEO-optimized deal pages)
-"""
-import os
-import json
+"""Build a validated, public-only static site into dist/. No credentials or sources."""
+from __future__ import annotations
+import argparse
+import hashlib
 import html
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FILE = os.path.join(BASE_DIR, "data", "products.json")
-DEALS_DIR = os.path.join(BASE_DIR, "deals")
-os.makedirs(DEALS_DIR, exist_ok=True)
-
-e = lambda s: html.escape(str(s or ""), quote=True)
-RATE_ILS = 3.7
-
-def render_precard(p, idx):
-    title = p.get("title_i18n", {}).get("en") or p.get("title") or ""
-    pr_usd = p["price_usd"]
-    old_usd = p.get("old_price_usd") or round(pr_usd * 1.8, 2)
-    disc = p.get("discount_pct", 0)
-    rating = p.get("rating", 4.9)
-    img = p["image"]
-    eager = 'loading="eager" fetchpriority="high"' if idx < 8 else 'loading="lazy"'
-    is_new = p.get("is_new", False)
-    card_cls = "product-card is-new-card" if is_new else "product-card"
-    new_badge = '<span class="badge-new-drop"><span class="pulse-dot"></span> ✨ NEW TODAY</span>' if is_new else ''
-    disc_badge = f'<span class="discount-badge">-{disc}%</span>' if (disc and not is_new) else ''
-    perk_html = '<span style="color:#34d399;font-weight:700;">✨ Added Today</span>' if is_new else '<span>🚚 Free Shipping*</span>'
-
-    return f'''<div class="{card_cls}" data-id="{e(p['id'])}" tabindex="0" role="button" aria-label="{e(title)}">
-  <div class="card-img-wrap">
-    <img src="{e(img)}" alt="{e(title)}" width="400" height="400" {eager} decoding="async">
-    {new_badge}
-    {disc_badge}
-    <span class="rating-badge">★ {rating}</span>
-  </div>
-  <div class="card-body">
-    <h3 class="card-title">{e(title)}</h3>
-    <div class="card-price-row">
-      <span class="current-price">${pr_usd}</span>
-      {f'<span class="old-price">${old_usd}</span>' if old_usd > pr_usd else ''}
-    </div>
-    <div class="card-perks">
-      {perk_html}
-      <span>⚡ Choice</span>
-    </div>
-    <div class="card-actions">
-      <button type="button" class="btn-quick-view" data-modal-id="{e(p['id'])}">Quick View</button>
-      <a href="{e(p['affiliate_url'])}" target="_blank" rel="nofollow sponsored noopener" class="btn-buy-deal" data-aff-id="{e(p['id'])}">Get Deal ↗</a>
-    </div>
-  </div>
-</div>'''
+import json
+import os
+from pathlib import Path
+import shutil
+import tempfile
+from urllib.parse import urljoin
+import xml.etree.ElementTree as ET
+from PIL import Image, ImageOps
+from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, page_path, product_title, validate_catalog, utc_now
+from site_content import COPY, LANG_NAMES
 
 
-def build_index(db):
-    prods = db["products"]
-    cats = db["categories"]
-    meta = db["site_meta"]
-    dom = meta["domain"].rstrip("/")
-
-    cards_html = "\n".join(render_precard(p, i) for i, p in enumerate(prods))
-
-    new_drops_count = len([x for x in prods if x.get("is_new")])
-    cat_pills_list = []
-    for c in cats:
-        cat_pills_list.append(f'''<button type="button" class="cat-pill{' active' if c['id'] == 'all' else ''}" data-cat="{e(c['id'])}">
-  <span>{c.get('icon', '⚡')}</span>
-  <span class="cat-label">{e(c.get('name_i18n', {}).get('en', c['name']))}</span>
-  <span class="cat-count">{len(prods) if c['id'] == 'all' else len([x for x in prods if x.get('category') == c['id']])}</span>
-</button>''')
-        if c['id'] == 'all':
-            cat_pills_list.append(f'''<button type="button" class="cat-pill pill-new" data-cat="new_today">
-  <span class="pulse-dot"></span>
-  <span class="cat-label">New Today</span>
-  <span class="cat-count">{new_drops_count}</span>
-</button>''')
-    cat_pills_html = "".join(cat_pills_list)
-
-    schema_ld = json.dumps({
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "WebSite",
-                "@id": f"{dom}/#website",
-                "url": dom,
-                "name": "DealVault",
-                "description": meta["description"],
-                "potentialAction": {
-                    "@type": "SearchAction",
-                    "target": f"{dom}/index.html?q={{search_term_string}}",
-                    "query-input": "required name=search_term_string"
-                }
-            },
-            {
-                "@type": "ItemList",
-                "@id": f"{dom}/#itemlist",
-                "name": meta["title"],
-                "description": meta["description"],
-                "numberOfItems": len(prods),
-                "itemListElement": [
-                    {
-                        "@type": "ListItem",
-                        "position": i + 1,
-                        "url": f"{dom}/deals/{p['slug']}.html",
-                        "name": p.get("title_i18n", {}).get("en") or p.get("title")
-                    }
-                    for i, p in enumerate(prods[:50])
-                ]
-            }
-        ]
-    }, ensure_ascii=False)
-
-    payload_json = json.dumps(
-        {"categories": cats, "products": prods},
-        ensure_ascii=False,
-        separators=(",", ":")
-    ).replace("</", "<\\/")
-
-    out = f'''<!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="light">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>DealVault // Verified Smart Gadgets & Bargain Vault</title>
-  <meta name="description" content="Discover problem-solving smart gadgets, auto upgrades, home tech and verified AliExpress bargains with free shipping and duty-free under $75.">
-  <link rel="canonical" href="{dom}/index.html">
-  <link rel="alternate" hreflang="x-default" href="{dom}/index.html">
-  <link rel="alternate" hreflang="en" href="{dom}/index.html?lang=en">
-  <link rel="alternate" hreflang="ru" href="{dom}/index.html?lang=ru">
-  <link rel="alternate" hreflang="he" href="{dom}/index.html?lang=he">
-  <link rel="alternate" hreflang="es" href="{dom}/index.html?lang=es">
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="DealVault // Verified Smart Gadgets & Bargain Vault">
-  <meta property="og:description" content="Handpicked viral innovations, car upgrades and everyday problem-solvers with direct factory pricing and free worldwide shipping.">
-  <meta property="og:image" content="{dom}/{e(prods[0]['image'])}">
-  <meta property="og:url" content="{dom}/index.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="DealVault // Curated Smart Gadgets & Vault">
-  <meta name="twitter:description" content="Discover problem-solving smart gadgets and verified AliExpress bargains with free shipping.">
-  <meta name="twitter:image" content="{dom}/{e(prods[0]['image'])}">
-  <meta name="theme-color" content="#0284c7">
-  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="assets/modern.css?v=2026.3">
-  <script>
-    (function(){{
-      var t = localStorage.getItem('sp_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', t);
-      var l = localStorage.getItem('sp_lang') || 'en';
-      document.documentElement.setAttribute('lang', l);
-      document.documentElement.setAttribute('dir', l === 'he' ? 'rtl' : 'ltr');
-    }})();
-  </script>
-  <script type="application/ld+json">{schema_ld}</script>
-  <script src="assets/tracking.js"></script>
-</head>
-<body>
-
-  <!-- Sticky Modern Header -->
-  <header class="modern-header">
-    <div class="wrap">
-      <div class="header-inner">
-        <a href="index.html" class="brand-logo" aria-label="DealVault Home">
-          <div class="brand-icon">⬡</div>
-          <div>
-            <div class="brand-text">Deal<span>Vault</span></div>
-            <span class="brand-sub">Curated Deals & Tech Vault</span>
-          </div>
-        </a>
-
-        <div class="header-search">
-          <input type="search" id="global-search-input" placeholder="Search 100+ gadgets: car, edc, tools, home, charging..." autocomplete="off">
-          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        </div>
-
-        <div class="header-controls">
-          <!-- 4 Language Switcher -->
-          <div class="segmented-pill" aria-label="Language">
-            <button type="button" class="seg-btn active" data-set-lang="en">EN</button>
-            <button type="button" class="seg-btn" data-set-lang="he">עב</button>
-            <button type="button" class="seg-btn" data-set-lang="es">ES</button>
-            <button type="button" class="seg-btn" data-set-lang="ru">RU</button>
-          </div>
-
-          <!-- Currency Switcher -->
-          <div class="segmented-pill" aria-label="Currency">
-            <button type="button" class="seg-btn" data-set-cur="ILS">₪</button>
-            <button type="button" class="seg-btn active" data-set-cur="USD">$</button>
-            <button type="button" class="seg-btn" data-set-cur="EUR">€</button>
-            <button type="button" class="seg-btn" data-set-cur="RUB">₽</button>
-          </div>
-
-          <!-- Theme Switcher -->
-          <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme" title="Toggle Light / Dark Theme">🌓</button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="wrap">
-    
-    <!-- Hero Banner (Compact & High-Impact) -->
-    <section class="modern-hero">
-      <span class="hero-pill" data-i18n="heroBadge">CURATED DEALS // 2026</span>
-      <h1 data-i18n="heroH1">Smart Gadgets That Actually Solve Daily Problems</h1>
-      <p data-i18n="heroSub">Handpicked viral innovations, car upgrades and everyday problem-solvers with free worldwide shipping and duty-free under $75.</p>
-      
-      <div class="hero-trust-badges">
-        <span class="trust-badge" data-i18n="badgeFreeShip">🚚 Free Worldwide Shipping*</span>
-        <span class="trust-badge" data-i18n="badgeDutyFree">💸 Duty-Free Guaranteed (&lt;$75)</span>
-        <span class="trust-badge" data-i18n="badgeRating">⭐ 4.8+ Verified Buyer Ratings</span>
-        <span class="trust-badge" data-i18n="badgeChoice">⚡ Direct Factory Pricing</span>
-      </div>
-    </section>
-
-    <!-- Coupon HUD -->
-    <aside class="modern-coupon-banner">
-      <div class="coupon-info">
-        <span class="coupon-tag">Active Coupon</span>
-        <span data-i18n="couponText">Active AliExpress Coupon: Code [ AEIL02 ] — $2 OFF orders over $15!</span>
-      </div>
-      <button type="button" class="coupon-copy-btn" data-copy-coupon="AEIL02" aria-label="Copy Coupon AEIL02">
-        <code>AEIL02</code>
-        <span data-i18n="couponCopy">✂️ Copy Code</span>
-      </button>
-    </aside>
-
-    <!-- Category Nav Tabs -->
-    <nav class="category-nav" id="category-nav" aria-label="Categories">
-      {cat_pills_html}
-    </nav>
-
-    <!-- Filter & Sort Bar -->
-    <section class="filter-bar" aria-label="Filters">
-      <div class="price-filters" id="price-filters">
-        <button type="button" class="price-chip active" data-price="all" data-i18n="pAll">All Prices</button>
-        <button type="button" class="price-chip" data-price="p1" data-i18n="p1">Under $10</button>
-        <button type="button" class="price-chip" data-price="p2" data-i18n="p2">$10 - $25</button>
-        <button type="button" class="price-chip" data-price="p3" data-i18n="p3">$25 - $50</button>
-        <button type="button" class="price-chip" data-price="p4" data-i18n="p4">$50+</button>
-      </div>
-
-      <div class="filter-actions">
-        <select class="sort-select" id="sort-select" aria-label="Sort">
-          <option value="trending" data-i18n="sortTrending">🔥 Trending & AI Picks</option>
-          <option value="discount" data-i18n="sortDiscount">🏷️ Biggest Discount %</option>
-          <option value="price_asc" data-i18n="sortAsc">💵 Price: Low to High</option>
-          <option value="price_desc" data-i18n="sortDesc">💎 Price: High to Low</option>
-          <option value="rating" data-i18n="sortRating">⭐ Highest Rated</option>
-        </select>
-        <span class="items-counter" id="items-counter">{len(prods)} deals available</span>
-      </div>
-    </section>
-
-    <!-- Products Grid -->
-    <section class="product-grid" id="product-grid" aria-label="Products">
-      {cards_html}
-    </section>
-
-  </main>
-
-  <!-- Legal & FTC Compliant Footer -->
-  <footer class="modern-footer">
-    <div class="footer-inner">
-      <nav class="footer-nav" aria-label="Legal">
-        <a href="privacy.html" data-i18n="legalPrivacy">Privacy Policy</a>
-        <span>•</span>
-        <a href="terms.html" data-i18n="legalTerms">Terms of Service</a>
-        <span>•</span>
-        <a href="disclosure.html" data-i18n="legalDisclosure">Affiliate Disclosure</a>
-        <span>•</span>
-        <a href="contact.html" data-i18n="legalContact">Contact Support</a>
-      </nav>
-      <p data-i18n="footerLegal">Disclosure: DealVault is an independent deal review and curation hub. Links on this site are affiliate links — we may earn a small commission with zero additional cost to you. Final price, shipping and customs terms are confirmed on AliExpress.</p>
-      <p class="footer-copy">© 2026 DEALVAULT. ALL RIGHTS RESERVED.</p>
-    </div>
-  </footer>
-
-  <!-- Modal Dossier -->
-  <div class="modern-modal" id="product-modal" hidden role="dialog" aria-modal="true">
-    <div class="modal-backdrop" data-close-modal></div>
-    <div class="modal-window">
-      <button type="button" class="modal-close-btn" data-close-modal aria-label="סגירה">✕</button>
-      <div id="modal-content-area"></div>
-    </div>
-  </div>
-
-  <!-- Embedded Database & App Engine -->
-  <script id="products-db" type="application/json">{payload_json}</script>
-  <script src="assets/modern_app.js?v=2026.2" defer></script>
-</body>
-</html>'''
-
-    target = os.path.join(BASE_DIR, "index.html")
-    with open(target, "w", encoding="utf-8") as f:
-        f.write(out)
-    print(f"[Hub Builder] index.html successfully compiled with {len(prods)} products.")
+def esc(value):
+    return html.escape(str(value), quote=True)
 
 
-def build_deal_page(db, p):
-    dom = db["site_meta"]["domain"].rstrip("/")
-    title_en = p.get("title_i18n", {}).get("en") or p.get("title")
-    title_he = p.get("title_i18n", {}).get("he") or p.get("title")
-    desc = p.get("short_desc_i18n", {}).get("en") or p.get("short_desc")
-    pr_usd = p["price_usd"]
-    old_usd = p.get("old_price_usd") or round(pr_usd * 1.8, 2)
-    disc = p.get("discount_pct", 0)
-    is_new = p.get("is_new", False)
-    gallery = p.get("gallery") or [p["image"]]
-
-    slides_html = "".join(f'<img src="../{e(img)}" alt="{e(title_en)}">' for img in gallery)
-    specs_rows = "".join(f'<div style="display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px dashed rgba(255,255,255,0.06);"><span style="color:var(--text-muted);">{e(k)}</span><b>{e(v)}</b></div>' for k, v in (p.get("specs") or {}).items())
-    highlights_html = "".join(f'<li><span>✔</span> {e(h)}</li>' for h in (p.get("highlights") or []))
-
-    new_badge_deal = '<span class="badge-new-drop" style="position:static;display:inline-flex;margin-bottom:8px;"><span class="pulse-dot"></span> ✨ NEW TODAY</span>' if is_new else ''
-    disc_badge_deal = f'<span class="discount-badge" style="position:static;display:inline-block;margin-bottom:8px;">-{disc}% OFF</span>' if (disc and not is_new) else ''
-
-    brand_name = (p.get("specs") or {}).get("Brand") or (p.get("specs") or {}).get("Manufacturer") or "DealVault Verified"
-    schema_prod = json.dumps({
-        "@context": "https://schema.org",
-        "@graph": [
-            {
-                "@type": "Product",
-                "name": title_en,
-                "image": [f"{dom}/{x}" for x in gallery],
-                "description": desc,
-                "brand": {"@type": "Brand", "name": brand_name},
-                "sku": p["id"],
-                "aggregateRating": {
-                    "@type": "AggregateRating",
-                    "ratingValue": str(p.get("rating", 4.9)),
-                    "reviewCount": str(p.get("reviews_count", 150)),
-                    "bestRating": "5"
-                },
-                "offers": {
-                    "@type": "Offer",
-                    "priceCurrency": "USD",
-                    "price": str(p["price_usd"]),
-                    "priceValidUntil": "2027-12-31",
-                    "availability": "https://schema.org/InStock",
-                    "url": p["affiliate_url"]
-                }
-            },
-            {
-                "@type": "BreadcrumbList",
-                "itemListElement": [
-                    {"@type": "ListItem", "position": 1, "name": "Home", "item": dom},
-                    {"@type": "ListItem", "position": 2, "name": p.get("category", "gadgets").capitalize(), "item": f"{dom}/index.html"},
-                    {"@type": "ListItem", "position": 3, "name": title_en, "item": f"{dom}/deals/{p['slug']}.html"}
-                ]
-            }
-        ]
-    }, ensure_ascii=False)
-
-    out = f'''<!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="light">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>{e(title_en)} | DealVault</title>
-  <meta name="description" content="{e(desc)}">
-  <link rel="canonical" href="{dom}/deals/{e(p['slug'])}.html">
-  <meta property="og:type" content="product">
-  <meta property="og:title" content="{e(title_en)} | DealVault">
-  <meta property="og:description" content="{e(desc)}">
-  <meta property="og:image" content="{dom}/{e(p['image'])}">
-  <meta property="og:url" content="{dom}/deals/{e(p['slug'])}.html">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{e(title_en)}">
-  <meta name="twitter:description" content="{e(desc)}">
-  <meta name="twitter:image" content="{dom}/{e(p['image'])}">
-  <meta name="theme-color" content="#0284c7">
-  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/modern.css?v=2026.3">
-  <script>
-    (function(){{
-      var t = localStorage.getItem('sp_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-      document.documentElement.setAttribute('data-theme', t);
-    }})();
-  </script>
-  <script type="application/ld+json">{schema_prod}</script>
-  <script src="../assets/tracking.js"></script>
-  <style>
-    .deal-wrap {{ max-width: 820px; margin: 30px auto 60px; padding: 0 16px; }}
-    .back-btn {{ display: inline-flex; align-items: center; gap: 8px; color: var(--accent-cyan); font-weight: 600; margin-bottom: 20px; font-size: 14px; }}
-    .deal-card {{ background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; padding: 24px; box-shadow: var(--shadow-card); }}
-  </style>
-</head>
-<body>
-
-  <header class="modern-header">
-    <div class="wrap">
-      <div class="header-inner">
-        <a href="../index.html" class="brand-logo" aria-label="DealVault Home">
-          <div class="brand-icon">⬡</div>
-          <div class="brand-text">Deal<span>Vault</span></div>
-        </a>
-        <div style="display:flex;align-items:center;gap:12px;">
-          <a href="../index.html" class="back-btn" style="margin-bottom:0;">➔ Back to Catalog</a>
-          <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme" title="Toggle Light / Dark Theme">🌓</button>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main class="deal-wrap">
-    <a href="../index.html" class="back-btn">➔ Back to All Deals</a>
-    <div class="deal-card">
-      <div class="modal-grid-layout" style="padding:0;">
-        <div class="modal-gallery-view">
-          <div class="modal-slider">
-            {slides_html}
-          </div>
-        </div>
-        <div>
-          {new_badge_deal}
-          {disc_badge_deal}
-          <h1 style="font-size:20px;font-weight:800;color:var(--text-primary);line-height:1.4;margin-bottom:12px;">{e(title_en)}</h1>
-          
-          <div class="modal-price-box">
-            <span class="modal-current-price">${pr_usd}</span>
-            {f'<span class="modal-old-price">${old_usd}</span>' if old_usd > pr_usd else ''}
-            <span style="color:var(--accent-amber);font-weight:bold;margin-inline-start:auto;">★ {p.get("rating", 4.9)}</span>
-          </div>
-
-          <div class="modal-share-bar">
-            <span class="share-title">Quick Share:</span>
-            <button type="button" class="btn-share btn-share-wa" onclick="window.shareDeal && window.shareDeal('whatsapp', {{title:'{e(title_en)}', price_usd:{p['price_usd']}, slug:'{e(p['slug'])}'}}, 'en')">
-              💬 WhatsApp
-            </button>
-            <button type="button" class="btn-share btn-share-tg" onclick="window.shareDeal && window.shareDeal('telegram', {{title:'{e(title_en)}', price_usd:{p['price_usd']}, slug:'{e(p['slug'])}'}}, 'en')">
-              ✈️ Telegram
-            </button>
-            <button type="button" class="btn-share btn-share-copy" onclick="window.shareDeal && window.shareDeal('copy', {{title:'{e(title_en)}', price_usd:{p['price_usd']}, slug:'{e(p['slug'])}'}}, 'en')">
-              🔗 Copy Link
-            </button>
-          </div>
-
-          {f'<div style="margin:14px 0;"><h4 style="font-size:13.5px;color:var(--accent-cyan);margin-bottom:8px;">⚡ Key Advantages</h4><ul class="modal-bullets">{highlights_html}</ul></div>' if highlights_html else ''}
-
-          {f'<div style="margin:14px 0;background:var(--bg-surface-hover);padding:12px;border-radius:8px;border:1px solid var(--border-subtle);"><h4 style="font-size:12.5px;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">SPECIFICATIONS</h4>{specs_rows}</div>' if specs_rows else ''}
-
-          <a href="{e(p['affiliate_url'])}" target="_blank" rel="nofollow sponsored noopener" class="modal-cta-btn" id="deal-cta-btn">
-            Check Deal on AliExpress ↗
-          </a>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer class="modern-footer">
-    <div class="footer-inner">
-      <nav class="footer-nav">
-        <a href="../privacy.html">Privacy Policy</a>
-        <span>•</span>
-        <a href="../terms.html">Terms of Service</a>
-        <span>•</span>
-        <a href="../disclosure.html">Affiliate Disclosure</a>
-        <span>•</span>
-        <a href="../contact.html">Contact Support</a>
-      </nav>
-      <p>© 2026 DEALVAULT. ALL RIGHTS RESERVED.</p>
-    </div>
-  </footer>
-
-  <script>
-    const cta = document.getElementById('deal-cta-btn');
-    if (cta && window.decorateAffiliateUrl) {{
-      cta.href = window.decorateAffiliateUrl(cta.href, "{e(p['id'])}");
-      cta.addEventListener('click', () => {{
-        if (window.trackAffiliateClick) {{
-          window.trackAffiliateClick({{
-            id: "{e(p['id'])}",
-            title: "{e(title_en)}",
-            price_usd: {p['price_usd']},
-            category: "{e(p.get('category',''))}"
-          }});
-        }}
-      }});
-    }}
-  </script>
-</body>
-</html>'''
-
-    target = os.path.join(DEALS_DIR, f"{p['slug']}.html")
-    with open(target, "w", encoding="utf-8") as f:
-        f.write(out)
+def script_json(value):
+    return json.dumps(value, ensure_ascii=False, separators=(',', ':'), allow_nan=False).replace('<', '\\u003c').replace('>', '\\u003e').replace('&', '\\u0026')
 
 
-def main():
-    with open(DATA_FILE, "r", encoding="utf-8") as f:
-        db = json.load(f)
-
-    build_index(db)
-    for p in db["products"]:
-        build_deal_page(db, p)
-    print(f"[Hub Builder] Generated index.html + {len(db['products'])} individual deal pages.")
+def relative_url(path, current):
+    return os.path.relpath(path, Path(current).parent).replace('\\', '/')
 
 
-if __name__ == "__main__":
-    main()
+class SiteBuilder:
+    def __init__(self, db, output):
+        self.db, self.out = db, Path(output)
+        self.domain = db['site_meta']['domain'].rstrip('/')
+        if self.domain != DOMAIN:
+            raise ValueError('Production domain must be changed deliberately in dealvault_core.py first')
+        self.products = validate_catalog(db)
+        self.cats = [c for c in db['categories'] if c['id'] != 'all' and any(p['category'] == c['id'] for p in self.products)]
+        self.images = {}
+        self.rates = read_json(DATA_DIR / 'exchange_rates.json', {'rates': {'USD': 1}, 'observed_at': None})
+        self.public_products = []
+
+    def write(self, path, content):
+        target = self.out / path
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(content, encoding='utf-8', newline='\n')
+
+    def prepare_assets(self):
+        for name in ('modern.css', 'modern_app.js', 'tracking.js', 'icon.svg'):
+            source = BASE_DIR / 'assets' / name
+            digest = hashlib.sha256(source.read_bytes()).hexdigest()[:10]
+            self.images[name] = f'assets/{source.stem}.{digest}{source.suffix}'
+            target = self.out / self.images[name]
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(source, target)
+        for p in self.products:
+            gallery = []
+            for source in dict.fromkeys([p['image'], *p.get('gallery', [])]):
+                if source not in self.images:
+                    raw = BASE_DIR / source
+                    digest = hashlib.sha256(raw.read_bytes()).hexdigest()[:10]
+                    dest = f'assets/img/{raw.stem}.{digest}.webp'
+                    target = self.out / dest
+                    target.parent.mkdir(parents=True, exist_ok=True)
+                    cache = BASE_DIR / '.cache' / dest
+                    if cache.is_file():
+                        shutil.copyfile(cache,target)
+                    else:
+                        with Image.open(raw) as image:
+                            image = ImageOps.exif_transpose(image)
+                            image.thumbnail((900, 900), Image.Resampling.LANCZOS)
+                            if image.mode not in ('RGB', 'RGBA'):
+                                image = image.convert('RGB')
+                            image.save(target, 'WEBP', quality=82, method=5)
+                        cache.parent.mkdir(parents=True,exist_ok=True)
+                        shutil.copyfile(target,cache)
+                    # Keep original public photo URLs used by existing social posts.
+                    original=self.out/source
+                    original.parent.mkdir(parents=True,exist_ok=True)
+                    shutil.copyfile(raw,original)
+                    self.images[source] = dest
+                gallery.append(self.images[source])
+            self.public_products.append({
+                'id': p['id'], 'slug': p['slug'], 'category': p['category'],
+                'title_i18n': p['title_i18n'], 'price_usd': p['price_usd'],
+                'affiliate_url': p['affiliate_url'], 'image': gallery[0], 'gallery': gallery,
+            })
+
+    def category_name(self, category, lang):
+        return next((c.get('name_i18n', {}).get(lang, category) for c in self.cats if c['id'] == category), category)
+
+    def shell(self, lang, current, title, body, slug=None, legal=None, noindex=False, schemas=None):
+        c = COPY[lang]
+        rel = lambda path: esc(relative_url(path, current))
+        url = f'{self.domain}/{current}'
+        alt = lambda language: f'{self.domain}/{page_path(language, slug, legal)}'
+        alternates = ''.join(f'<link rel="alternate" hreflang="{l}" href="{esc(alt(l))}">' for l in LANGUAGES)
+        languages = ''.join(f'<a href="{rel(page_path(l, slug, legal))}" lang="{l}" hreflang="{l}" data-lang-link="{l}" {"aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGUAGES)
+        legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('privacy', 'terms', 'disclosure', 'contact'))
+        cur_options = ''.join(f'<option value="{cur}">{cur}</option>' for cur in ('USD', 'ILS', 'EUR', 'RUB') if cur in self.rates['rates'])
+        schema = {'@context':'https://schema.org', '@type':'WebPage', 'name':title, 'url':url, 'inLanguage':lang}
+        visible_products = self.public_products
+        if legal:
+            visible_products = []
+        elif slug:
+            main_product = next(p for p in self.public_products if p['slug'] == slug)
+            related = [p for p in self.public_products if p['id'] != main_product['id'] and p['category'] == main_product['category']][:4]
+            if not related:
+                related = [p for p in self.public_products if p['id'] != main_product['id']][:4]
+            visible_products = [main_product,*related]
+        payload = {'lang':lang, 'domain':self.domain, 'copy':c, 'products':visible_products,
+                   'rates':self.rates, 'paths':{p['id']:relative_url(page_path(lang,p['slug']),current) for p in visible_products}}
+        social_product = next((p for p in self.products if p['slug'] == slug),self.products[0])
+        hero_image = self.images[social_product['image']]
+        description = (f'{title}. {c["about_text"]}' if slug else c.get(f'{legal}_text',c['intro']))[:200]
+        return f'''<!doctype html>
+<html lang="{lang}" dir="{'rtl' if lang == 'he' else 'ltr'}" data-theme="light">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{esc(title)} | DealVault</title><meta name="description" content="{esc(description)}">
+<link rel="canonical" href="{esc(url)}">{alternates}<link rel="alternate" hreflang="x-default" href="{esc(alt('en'))}">
+{'<meta name="robots" content="noindex,follow">' if noindex else ''}
+<meta property="og:type" content="website"><meta property="og:title" content="{esc(title)} | DealVault">
+<meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(url)}"><meta property="og:image" content="{self.domain}/{hero_image}">
+<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f7f7f2">
+<link rel="icon" type="image/svg+xml" href="{rel(self.images['icon.svg'])}"><link rel="manifest" href="{rel('manifest.json')}">
+<link rel="alternate" type="application/rss+xml" title="DealVault" href="{rel('rss.xml')}">
+<link rel="stylesheet" href="{rel(self.images['modern.css'])}">
+<script>try{{var t=localStorage.getItem('sp_theme');document.documentElement.dataset.theme=['dark','light'].includes(t)?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}}catch(e){{}}</script>
+<script type="application/ld+json">{script_json(schemas or schema)}</script>
+<script id="products-db" type="application/json">{script_json(payload)}</script>
+<script defer src="{rel(self.images['tracking.js'])}"></script><script defer src="{rel(self.images['modern_app.js'])}"></script>
+</head><body>
+<a class="skip-link" href="#main">{esc(c['skip'])}</a>
+<header class="site-header"><div class="wrap header-inner">
+<a class="brand" href="{rel(page_path(lang))}" aria-label="DealVault"><span class="brand-mark" aria-hidden="true">d<span>v</span></span><span>DealVault<small>{esc(c['tagline'])}</small></span></a>
+<div class="header-controls"><nav class="languages" aria-label="{esc(c['language'])}">{languages}</nav>
+<label class="currency-label"><span class="sr-only">{esc(c['currency'])}</span><select id="currency-select" aria-label="{esc(c['currency'])}">{cur_options}</select></label>
+<button class="theme-toggle" id="theme-toggle" type="button" aria-label="{esc(c['theme'])}" title="{esc(c['theme'])}">◐</button></div></div></header>
+{body}
+<footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="{rel(page_path(lang))}">DealVault<span>↗</span></a><p>{esc(c['affiliate'])}</p></div><nav aria-label="DealVault">{legal_nav}<a href="{rel('rss.xml')}">RSS</a><a href="https://www.exchangerate-api.com" rel="noopener">Rates by ExchangeRate-API</a></nav></div><div class="wrap footer-bottom"><span>© 2026 DealVault</span><span>{esc(c['seller_note'])}</span></div></footer>
+<dialog id="product-modal" aria-labelledby="modal-title"><button type="button" class="modal-close" data-close-modal aria-label="{esc(c['close'])}">×</button><div id="modal-content-area"></div></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+</body></html>'''
+
+    def card(self, p, lang, current, index=10):
+        c = COPY[lang]
+        title = product_title(p, lang)
+        link = esc(relative_url(page_path(lang, p['slug']), current))
+        image = esc(relative_url(self.images[p['image']], current))
+        search = ' '.join([*p['title_i18n'].values(), p['slug'], *[self.category_name(p['category'], l) for l in LANGUAGES]])
+        return f'''<article class="product-card" data-id="{esc(p['id'])}" data-category="{esc(p['category'])}" data-price="{p['price_usd']}" data-order="{index}" data-search="{esc(search)}">
+<a href="{link}" class="card-image"><img src="{image}" alt="{esc(title)}" width="600" height="600" loading="{'eager' if index < 4 else 'lazy'}" decoding="async"></a>
+<div class="card-content"><span class="card-category">{esc(self.category_name(p['category'], lang))}</span><h3><a href="{link}">{esc(title)}</a></h3>
+<div class="card-price"><span class="price-caption">{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div>
+<div class="card-actions"><a href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}" class="detail-link">{esc(c['shop'])} <span aria-hidden="true">↗</span></a><button class="quick-button" type="button" data-modal-id="{esc(p['id'])}" aria-label="{esc(c['quick'] + ': ' + title)}">＋</button></div></div></article>'''
+
+    def index(self, lang):
+        c, current = COPY[lang], page_path(lang)
+        rel = lambda path: esc(relative_url(path, current))
+        feature = next((p for p in self.products if p['id'] == 'real-101'), self.products[0])
+        pills = f'<button type="button" data-cat="all" class="category-pill active" aria-pressed="true">{esc(c["all"])}<span>{len(self.products)}</span></button>'
+        for cat in self.cats:
+            count = sum(p['category'] == cat['id'] for p in self.products)
+            pills += f'<button type="button" data-cat="{esc(cat["id"])}" class="category-pill" aria-pressed="false">{esc(cat["name_i18n"][lang])}<span>{count}</span></button>'
+        cards = ''.join(self.card(p, lang, current, i) for i,p in enumerate(self.products))
+        body = f'''<main id="main"><section class="wrap hero"><div class="hero-copy"><p class="eyebrow"><span></span>{esc(c['eyebrow'])}</p><h1>{c['hero']}</h1><p class="hero-intro">{esc(c['intro'])}</p><div class="hero-actions"><a class="button primary" href="#collection">{esc(c['explore'])}<span aria-hidden="true">↗</span></a><a class="text-link" href="#approach">{esc(c['how'])}</a></div><div class="hero-proof"><span>○ {esc(c['independent'])}</span><span>↗ {esc(c['direct'])}</span></div></div>
+<a class="spotlight" href="{rel(page_path(lang, feature['slug']))}"><div class="spotlight-top"><span>{esc(c['spotlight'])}</span><span class="round-arrow">↗</span></div><img src="{rel(self.images[feature['image']])}" width="600" height="600" fetchpriority="high" alt="{esc(product_title(feature,lang))}"><div class="spotlight-bottom"><span>{esc(product_title(feature,lang))}</span><span class="spotlight-price" data-money="{feature['price_usd']}">${feature['price_usd']:.2f}</span></div><span class="spotlight-caption">{esc(c['reference'])}</span></a></section>
+<div class="wrap disclosure-strip"><span aria-hidden="true">↗</span><p>{esc(c['affiliate'])}</p></div>
+<section class="wrap collection" id="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="eyebrow">DEALVAULT / 01</p><h2 id="collection-title">{esc(c['collection'])}</h2><p>{esc(c['collection_sub'])}</p></div><span id="items-counter" role="status" aria-live="polite">{len(self.products)} {esc(c['found'])}</span></div>
+<div class="category-nav" id="category-nav" aria-label="{esc(c['collection'])}">{pills}</div>
+<div class="filter-bar"><label class="search"><span aria-hidden="true">⌕</span><span class="sr-only">{esc(c['search_label'])}</span><input type="search" id="global-search-input" placeholder="{esc(c['search'])}" autocomplete="off"></label>
+<label class="filter-select"><span class="sr-only">{esc(c['budget'])}</span><select id="price-select" aria-label="{esc(c['budget'])}"><option value="all">{esc(c['any'])}</option><option value="10">{esc(c['under'].format(price='$10'))}</option><option value="25">{esc(c['under'].format(price='$25'))}</option><option value="50">{esc(c['under'].format(price='$50'))}</option><option value="over50">{esc(c['over'].format(price='$50'))}</option></select></label>
+<label class="filter-select"><span class="sr-only">{esc(c['sort'])}</span><select id="sort-select" aria-label="{esc(c['sort'])}"><option value="curated">{esc(c['curated'])}</option><option value="price_asc">{esc(c['asc'])}</option><option value="price_desc">{esc(c['desc'])}</option></select></label></div>
+<div class="price-notice"><p>{esc(c['price_note'])}</p><span id="rates-note"></span></div>
+<div class="product-grid" id="product-grid">{cards}</div><div id="empty-state" class="empty-state" hidden><h3>{esc(c['empty'])}</h3><button class="button primary" type="button" id="clear-filters">{esc(c['reset'])}</button></div></section>
+<section class="wrap approach" id="approach"><div><p class="eyebrow">DEALVAULT / 02</p><h2>{esc(c['method'])}</h2></div><p>{esc(c['method_text'])}</p></section></main>'''
+        schema = {'@context':'https://schema.org','@type':'CollectionPage','name':c['collection'],'url':f'{self.domain}/{current}','inLanguage':lang,'mainEntity':{'@type':'ItemList','numberOfItems':len(self.products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':f'{self.domain}/{page_path(lang,p["slug"])}','name':product_title(p,lang)} for i,p in enumerate(self.products)]}}
+        self.write(current, self.shell(lang,current,c['collection'],body,schemas=schema))
+
+    def deal(self, p, lang):
+        c, current = COPY[lang], page_path(lang,p['slug'])
+        rel = lambda path: esc(relative_url(path,current))
+        gallery = list(dict.fromkeys([p['image'], *p.get('gallery',[])]))
+        images = ''.join(f'<a href="{rel(self.images[src])}" class="gallery-image"><img src="{rel(self.images[src])}" alt="{esc(product_title(p,lang))} · {i+1}" width="800" height="800" loading="{"eager" if i==0 else "lazy"}"></a>' for i,src in enumerate(gallery))
+        others = [x for x in self.products if x['id'] != p['id'] and x['category'] == p['category']][:4]
+        if not others:
+            others = [x for x in self.products if x['id'] != p['id']][:4]
+        related = ''.join(self.card(x,lang,current,i+10) for i,x in enumerate(others))
+        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}</p><h1>{esc(product_title(p,lang))}</h1><div class="deal-price"><span>{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div><p class="muted">{esc(c['price_note'])}</p><p class="rate-detail" id="rates-note"></p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check1','check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
+        schema = {'@context':'https://schema.org','@type':'WebPage','url':f'{self.domain}/{current}','name':product_title(p,lang),'inLanguage':lang,'about':{'@type':'Product','name':product_title(p,lang),'image':[f'{self.domain}/{self.images[src]}' for src in gallery]},'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'DealVault','item':f'{self.domain}/{page_path(lang)}'},{'@type':'ListItem','position':2,'name':product_title(p,lang),'item':f'{self.domain}/{current}'}]}}
+        self.write(current,self.shell(lang,current,product_title(p,lang),body,slug=p['slug'],schemas=schema))
+
+    def legal(self, lang, name):
+        c, current = COPY[lang], page_path(lang,legal=name)
+        extra = f'<button type="button" class="button primary" id="clear-preferences">{esc(c["clear"])}</button>' if name == 'privacy' else ''
+        email = self.db['site_meta'].get('contact_email')
+        if name == 'contact' and email:
+            extra = f'<p><a href="mailto:{esc(email)}">{esc(email)}</a></p>'
+        body = f'<main id="main" class="wrap prose"><p class="eyebrow">DEALVAULT</p><h1>{esc(c[name])}</h1><p>{esc(c[name+"_text"])}</p>{extra}<a class="back-link" href="{esc(relative_url(page_path(lang),current))}">← {esc(c["back"])}</a></main>'
+        self.write(current,self.shell(lang,current,c[name],body,legal=name))
+
+    def feeds(self):
+        channel = ET.Element('channel')
+        for k,v in [('title','DealVault — everyday finds'),('link',self.domain),('description',COPY['en']['intro']),('language','en')]:
+            ET.SubElement(channel,k).text=v
+        items=[]
+        for p in self.products:
+            link=f'{self.domain}/{page_path("en",p["slug"])}'
+            text=f'{product_title(p)}. {COPY["en"]["reference"]}: ${p["price_usd"]:.2f}. {COPY["en"]["price_note"]} {COPY["en"]["affiliate"]}'
+            item=ET.SubElement(channel,'item')
+            for k,v in [('title',product_title(p)),('link',link),('description',text)]:
+                ET.SubElement(item,k).text=v
+            ET.SubElement(item,'guid',isPermaLink='true').text=link
+            items.append({'id':link,'url':link,'title':product_title(p),'content_text':text,'image':f'{self.domain}/{self.images[p["image"]]}'})
+        rss=ET.Element('rss',version='2.0'); rss.append(channel)
+        self.write('rss.xml','<?xml version="1.0" encoding="utf-8"?>\n'+ET.tostring(rss,encoding='unicode'))
+        self.write('feed.json',json.dumps({'version':'https://jsonfeed.org/version/1.1','title':'DealVault','home_page_url':self.domain,'feed_url':f'{self.domain}/feed.json','items':items},ensure_ascii=False,indent=2))
+
+    def build(self):
+        self.prepare_assets()
+        for lang in LANGUAGES:
+            self.index(lang)
+            for p in self.products:
+                self.deal(p,lang)
+            for name in ('privacy','terms','disclosure','contact'):
+                self.legal(lang,name)
+        self.feeds()
+        urls=ET.Element('urlset',xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
+        for page in sorted(self.out.rglob('*.html')):
+            ET.SubElement(ET.SubElement(urls,'url'),'loc').text=f'{self.domain}/{page.relative_to(self.out).as_posix()}'
+        self.write('sitemap.xml','<?xml version="1.0" encoding="utf-8"?>\n'+ET.tostring(urls,encoding='unicode'))
+        self.write('robots.txt',f'User-agent: *\nAllow: /\nSitemap: {self.domain}/sitemap.xml\n')
+        self.write('CNAME',self.domain.removeprefix('https://')+'\n')
+        self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'./index.html','display':'standalone','background_color':'#f7f7f2','theme_color':'#246849','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}]}))
+        self.write('build-info.json',json.dumps({'version':'2026.10','built_at':utc_now(),'products':len(self.products),'languages':list(LANGUAGES),'catalog_sha256':hashlib.sha256(json.dumps(self.db,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},indent=2))
+        self.write('404.html',self.shell('en','404.html','Page not found',f'<main id="main" class="wrap prose"><p class="eyebrow">404</p><h1>{COPY["en"]["unavailable"]}</h1><a class="button primary" href="index.html">{COPY["en"]["home"]} ↗</a></main>',noindex=True))
+
+
+def build_site(output=None, db=None):
+    db=db or read_json(DATA_DIR/'products.json')
+    dest=Path(output or BASE_DIR/'dist').resolve()
+    if dest == BASE_DIR or BASE_DIR not in dest.parents:
+        raise ValueError('Build destination must be a child of the project directory')
+    stage=Path(tempfile.mkdtemp(prefix='.build-',dir=BASE_DIR)).resolve()
+    previous=dest.with_name(dest.name+'.previous')
+    try:
+        report=read_json(DATA_DIR/'link_health_report.json',{'results':[]})
+        checks={r['id']:r for r in report['results']}
+        excluded=[p for p in db['products'] if checks.get(p['id'],{}).get('affiliate_url') == p['affiliate_url'] and checks[p['id']]['status'] in ('INVALID','MISMATCH','UNAVAILABLE')]
+        if excluded:
+            if len(excluded) > max(1,len(db['products'])//5):
+                raise ValueError('Unusual link failure volume; retaining the previous build for review')
+            excluded_ids={p['id'] for p in excluded}
+            db={**db,'products':[p for p in db['products'] if p['id'] not in excluded_ids]}
+        SiteBuilder(db,stage).build()
+        from verify_site import verify_site
+        verify_site(stage)
+        if previous.exists():
+            if BASE_DIR not in previous.resolve().parents:
+                raise ValueError('Unsafe previous build directory')
+            shutil.rmtree(previous)
+        if dest.exists():
+            dest.rename(previous)
+        try:
+            stage.rename(dest)
+        except Exception:
+            if previous.exists() and not dest.exists():
+                previous.rename(dest)
+            raise
+        print(f'[Build] {len(db["products"])} products × {len(LANGUAGES)} languages; public-only output: {dest}')
+        return dest
+    finally:
+        if stage.exists() and BASE_DIR in stage.parents:
+            shutil.rmtree(stage)
+
+
+if __name__ == '__main__':
+    parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--output',default=None)
+    build_site(parser.parse_args().output)

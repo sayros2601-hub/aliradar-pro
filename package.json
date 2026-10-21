@@ -1,0 +1,12 @@
+{
+  "name": "dealvault",
+  "version": "2026.10.0",
+  "private": true,
+  "description": "DealVault static storefront and verified publishing pipeline",
+  "scripts": {
+    "build": "python dealvault_pipeline.py --offline",
+    "verify": "python verify_site.py",
+    "deploy": "python verify_site.py && surge dist dealvault.surge.sh"
+  },
+  "devDependencies": {"surge": "0.46.0"}
+}
