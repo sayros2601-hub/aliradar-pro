@@ -38,10 +38,15 @@ def pipeline_lock():
 
 
 def run(offline=False,rotate=0):
+    if offline and rotate:
+        raise ValueError('Offline mode cannot run rotation: its destination checks require network access')
     with pipeline_lock():
         recover_transaction()
         db=read_json(DATA_DIR/'products.json')
         validate_catalog(db)
+        from published_routes import save_routes
+        # Record the old catalog before rotation so existing inbound URLs survive.
+        save_routes(db['products'])
         from product_selection import write_selection_report
         write_selection_report()
         if rotate:
@@ -51,10 +56,13 @@ def run(offline=False,rotate=0):
             audit_catalog(db['products'])
             update_rates()
         output=build_site(db=db)
+        save_routes(db['products'])
         from build_bulk_social_csvs import generate_csvs
         generate_csvs(db)
         from build_operator_tools import build_operator_tools
         build_operator_tools()
+        from business_health import build_report
+        build_report()
         print('[Pipeline] Complete. No social messages were sent.')
         return output
 

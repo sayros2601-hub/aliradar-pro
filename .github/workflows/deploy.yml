@@ -44,17 +44,31 @@ jobs:
       - name: Build PR without live network updates
         if: github.event_name == 'pull_request'
         run: python dealvault_pipeline.py --offline
-      - name: Audit links and build the production artifact
+      - name: Update currency snapshot and build without marketplace access
         if: github.event_name != 'pull_request'
-        run: python dealvault_pipeline.py --rotate 7
+        run: |
+          python update_exchange_rates.py
+          python dealvault_pipeline.py --offline
       - name: Archive the public artifact
+        if: github.event_name != 'schedule'
         uses: actions/upload-artifact@v4
         with:
           name: dealvault-public-site
           path: dist/
-          retention-days: 7
+          retention-days: 3
       - name: Headless browser checks
         run: python tests/browser_qa.py --output .qa
+      - name: Save the tested catalog before publishing it
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name "DealVault updater"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/products.json data/reserve_pool.json data/exchange_rates.json data/link_health_report.json data/selection_report.json data/published_routes.json
+          if test -f data/rotation_log.json; then git add data/rotation_log.json; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "chore: save tested catalog snapshots [skip ci]"
+            git push origin HEAD:main
+          fi
       - name: Publish the verified artifact to Cloudflare Pages
         if: github.event_name != 'pull_request'
         env:
@@ -63,19 +77,22 @@ jobs:
         run: |
           test -n "$CLOUDFLARE_API_TOKEN" || { echo "CLOUDFLARE_API_TOKEN secret is required"; exit 1; }
           npm run deploy
+      - name: Verify the public Cloudflare release
+        if: github.event_name != 'pull_request'
+        run: python verify_deployment.py
       - name: Keep the original Surge address current
         if: github.event_name != 'pull_request'
+        id: mirror
+        continue-on-error: true
         env:
           SURGE_TOKEN: ${{ secrets.SURGE_TOKEN }}
         run: npm run deploy:mirror
-      - name: Save verified catalog and currency snapshots
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+      - name: Flag mirror failure without hiding primary release status
+        if: steps.mirror.outcome == 'failure'
         run: |
-          git config user.name "DealVault updater"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/products.json data/reserve_pool.json data/exchange_rates.json data/link_health_report.json data/selection_report.json
-          if test -f data/rotation_log.json; then git add data/rotation_log.json; fi
-          if ! git diff --cached --quiet; then
-            git commit -m "chore: save verified catalog snapshots [skip ci]"
-            git push origin HEAD:main
-          fi
+          echo "::warning::Cloudflare passed verification, but the Surge mirror failed. Repair the mirror separately."
+      - name: Write operational summary
+        if: always()
+        run: |
+          echo "## DealVault operations" >> "$GITHUB_STEP_SUMMARY"
+          echo "A successful build is not proof of new products, visits or commission. Review selection_report.json and the partner reports separately." >> "$GITHUB_STEP_SUMMARY"

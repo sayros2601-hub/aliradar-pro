@@ -17,11 +17,7 @@ python dealvault_pipeline.py --offline
 python preview_server.py
 ```
 
-Open http://127.0.0.1:8080 to preview. A normal update with live destination checks and a dated currency snapshot is:
-
-```powershell
-python dealvault_pipeline.py --rotate 7
-```
+Open http://127.0.0.1:8080 to preview. The current scheduled workflow updates public currency data, then runs the offline pipeline. Marketplace collection and network rotation are not enabled in this release; live access was blocked during the audit. `--offline --rotate` is rejected before any files or network checks are touched. The selection engine still evaluates imported evidence and its freshness each day, but a successful build does not mean new products were collected.
 
 Publish with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment and `npm run deploy`. `SURGE_TOKEN` is used only for the legacy mirror. Never publish the source directory. The GitHub Actions workflow publishes the same validated `dist/` artifact after a push to `main`, or once a day at 06:00 UTC. The Cloudflare token has Pages Write only and expires October 21, 2027; replace the GitHub secret before then. Concurrent production jobs are serialized. PR builds never receive the deployment secret. GitHub is used for source and CI, not for hosting this commercial catalog on GitHub Pages.
 
@@ -40,7 +36,7 @@ Publish with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environme
 
 EN is the default. RU, HE (RTL) and ES have static, crawlable URLs with reciprocal hreflang and self-canonical links. The catalog and original outbound links work without JavaScript. The script adds search, category/budget filters, sorting, approximate currency display, theme selection, native dialog focus handling and sharing of the actual localized product page.
 
-No third-party analytics are enabled. Browser storage is optional and failure-safe. Currency rates are fetched once per update, cached with the actual provider date, and attributed to ExchangeRate-API. Network failures preserve the old dated snapshot or fall back to USD.
+Cloudflare Web Analytics was enabled in the Pages dashboard; the beacon is injected on deployment. It measures visits and loading performance, not AliExpress orders or commissions. The privacy page describes it and all saved preferences. Browser storage is optional and failure-safe. Currency rates are fetched once per update, cached with the actual provider date, and attributed to ExchangeRate-API. Network failures preserve the old dated snapshot or fall back to USD.
 
 ## Local marketing tools
 
@@ -88,3 +84,21 @@ Run `python product_selection.py` for the decision report and research leads. `d
 Studio integration copies are in `integrations/studio/`. The installed files on the desktop were also repaired: no fabricated balance, no fixed cat-toy query, explicit candidate index, and up to three candidates per evidence-led query. Captures enter the inbox without automatic editorial approval. The live AliExpress browser pass was blocked by the browser tool's site-safety policy during this revision and was not bypassed. Syntax and offline pipeline behavior were tested; current live selectors, account session, country-specific shipping and stock remain unverified. Do not treat this as an unattended, fully validated shopping robot.
 
 References: [Google Trends data limits](https://support.google.com/trends/answer/4365533?hl=en), [helpful content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content), [efficient animation](https://web.dev/articles/animations-guide), [Core Web Vitals](https://web.dev/articles/vitals). Lab performance scores do not establish real-user Core Web Vitals or Google ranking.
+
+## Whole-system audit and recovery
+
+`data/published_routes.json` stores only the slug and translated titles of previously published products. When a product leaves the collection, its URL becomes a localized, noindex archive page linking to current finds, with no stale price or purchase button. Archive pages stay out of the sitemap. This preserves the destination of old social shares without claiming an old offer is still valid.
+
+Every non-PR release now saves the tested catalog snapshots to Git before publishing. A rejected Git push stops publication; it never force-pushes over another change. Non-scheduled CI artifacts are retained for 3 days; daily scheduled builds do not accumulate extra artifact copies. Keep local release archives for longer recovery. A mirror failure is separately flagged and does not discard a verified primary release. After Cloudflare deployment, `verify_deployment.py` checks exact build metadata/static assets, all four languages, the injected analytics beacon, response headers, a product landing page and 404 responses for private paths. It contacts only DealVault. GitHub artifact storage is account-limited even for public repositories; do not enable paid overages to retain more archives.
+
+If a release fails after upload, use Cloudflare Pages → DealVault → Deployments → a previously successful production deployment → rollback, then verify the public root, robots.txt and product page. Keep the corresponding Git commit/artifact together. Revert the faulty source commit before the next scheduled deployment, otherwise the schedule can republish it. Never use an old archive containing an exposed credential. Git source and a private encrypted credential backup are separate recovery assets; DPAPI files alone may not decrypt on a different Windows account or computer.
+
+Cloudflare Web Analytics activation does not create affiliate sales attribution. The public Search Console verification tag is stored in `data/site_integrations.json`; ownership confirmation and sitemap submission are external account steps and should be verified in Google. No OAuth credential or account secret belongs in that file.
+
+## Private business report
+
+Run `python business_health.py` to generate `.local/business/dashboard.html` and `health.json`. They are ignored by Git and excluded from `dist/`. The report reads real catalog/selection snapshots and an optional local `.local/business/periods.json`. It does not fetch account balances or fabricate revenue. See `BUSINESS_PLAYBOOK_RU.txt` for the operating plan, growth gates, limits and sources.
+
+The ledger starts as `{"periods": []}`. Each non-overlapping completed/current period may contain `start`, `end` (YYYY-MM-DD), `currency` (`USD`), and nullable `visits`, `partner_clicks`, `orders`, `approved_commission`, `paid_commission`, `ad_spend`, `other_costs`. Every measured field, including zero, needs a corresponding nonempty `evidence` reference to a private aggregate report. Do not store customer identities or order-level personal data. Null means unmeasured. Do not mix daily observations with cumulative totals.
+
+Only explicitly matched attribution cohorts (`attribution_scope: "matched_cohort"`) can produce approved commission per partner click. A site visit count and a whole-account affiliate click count are not a valid site conversion funnel. Cash after recorded costs uses paid commission minus advertising and other recorded costs; it excludes tax and owner time. Pending or merely approved commission is not available cash. There is no automated reinvestment or paid advertising.

@@ -13,6 +13,7 @@ import xml.etree.ElementTree as ET
 from PIL import Image, ImageOps
 from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, page_path, public_path, product_title, validate_catalog, utc_now
 from site_content import COPY, LANG_NAMES
+from buyer_guide import GUIDE
 
 
 def esc(value):
@@ -39,6 +40,10 @@ class SiteBuilder:
         self.thumbnails = {}
         self.rates = read_json(DATA_DIR / 'exchange_rates.json', {'rates': {'USD': 1}, 'observed_at': None})
         self.public_products = []
+        self.integrations = read_json(DATA_DIR/'site_integrations.json', {})
+        for language in LANGUAGES:
+            COPY[language]['guide'] = GUIDE[language]['title']
+            COPY[language]['guide_text'] = GUIDE[language]['intro']
         self.editorial = read_json(DATA_DIR/'editorial.json',{'products':{}})['products']
         self.editorial.update({p['id']:p['editorial'] for p in self.products if p.get('editorial')})
 
@@ -108,18 +113,18 @@ class SiteBuilder:
     def category_name(self, category, lang):
         return next((c.get('name_i18n', {}).get(lang, category) for c in self.cats if c['id'] == category), category)
 
-    def shell(self, lang, current, title, body, slug=None, legal=None, noindex=False, schemas=None):
+    def shell(self, lang, current, title, body, slug=None, legal=None, noindex=False, schemas=None, archived=False):
         c = COPY[lang]
         rel = lambda path: esc(relative_url(path, current))
         url = self.domain+public_path(current)
         alt = lambda language: self.domain+public_path(page_path(language, slug, legal))
         alternates = ''.join(f'<link rel="alternate" hreflang="{l}" href="{esc(alt(l))}">' for l in LANGUAGES)
         languages = ''.join(f'<a href="{rel(page_path(l, slug, legal))}" lang="{l}" hreflang="{l}" data-lang-link="{l}" {"aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGUAGES)
-        legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('privacy', 'terms', 'disclosure', 'contact'))
+        legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('guide', 'privacy', 'terms', 'disclosure', 'contact'))
         cur_options = ''.join(f'<option value="{cur}">{cur}</option>' for cur in ('USD', 'ILS', 'EUR', 'RUB') if cur in self.rates['rates'])
         schema = {'@context':'https://schema.org', '@type':'WebPage', 'name':title, 'url':url, 'inLanguage':lang}
         visible_products = self.public_products
-        if legal:
+        if legal or archived:
             visible_products = []
         elif slug:
             main_product = next(p for p in self.public_products if p['slug'] == slug)
@@ -136,6 +141,7 @@ class SiteBuilder:
 <html lang="{lang}" dir="{'rtl' if lang == 'he' else 'ltr'}" data-theme="light">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} | DealVault</title><meta name="description" content="{esc(description)}">
+<meta name="google-site-verification" content="{esc(self.integrations.get('google_site_verification',''))}">
 <link rel="canonical" href="{esc(url)}">{alternates}<link rel="alternate" hreflang="x-default" href="{esc(alt('en'))}">
 {'<meta name="robots" content="noindex,follow">' if noindex else ''}
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title)} | DealVault">
@@ -222,11 +228,20 @@ class SiteBuilder:
     def legal(self, lang, name):
         c, current = COPY[lang], page_path(lang,legal=name)
         extra = f'<button type="button" class="button primary" id="clear-preferences">{esc(c["clear"])}</button>' if name == 'privacy' else ''
+        if name == 'guide':
+            extra = ''.join(f'<section><h2>{esc(title)}</h2><p>{esc(text)}</p></section>' for title,text in GUIDE[lang]['sections'])
         email = self.db['site_meta'].get('contact_email')
         if name == 'contact' and email:
             extra = f'<p><a href="mailto:{esc(email)}">{esc(email)}</a></p>'
         body = f'<main id="main" class="wrap prose"><p class="eyebrow">DEALVAULT</p><h1>{esc(c[name])}</h1><p>{esc(c[name+"_text"])}</p>{extra}<a class="back-link" href="{esc(relative_url(page_path(lang),current))}">← {esc(c["back"])}</a></main>'
         self.write(current,self.shell(lang,current,c[name],body,legal=name))
+
+    def archived_deal(self, item, lang):
+        c = COPY[lang]
+        current = page_path(lang, item['slug'])
+        body = f'<main id="main" class="wrap prose"><p class="eyebrow">DEALVAULT</p><h1>{esc(item["title_i18n"][lang])}</h1><p>{esc(c["unavailable"])}</p><a class="button primary" href="{public_path(page_path(lang))}">{esc(c["home"])} ↗</a></main>'
+        self.write(current, self.shell(lang, current, item['title_i18n'][lang], body,
+                                     slug=item['slug'], noindex=True, archived=True))
 
     def feeds(self):
         channel = ET.Element('channel')
@@ -251,15 +266,23 @@ class SiteBuilder:
             self.index(lang)
             for p in self.products:
                 self.deal(p,lang)
-            for name in ('privacy','terms','disclosure','contact'):
+            for name in ('guide','privacy','terms','disclosure','contact'):
                 self.legal(lang,name)
         self.feeds()
         urls=ET.Element('urlset',xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
         for page in sorted(self.out.rglob('*.html')):
             ET.SubElement(ET.SubElement(urls,'url'),'loc').text=self.domain+public_path(page.relative_to(self.out).as_posix())
         self.write('sitemap.xml','<?xml version="1.0" encoding="utf-8"?>\n'+ET.tostring(urls,encoding='unicode'))
+        # Retired URLs stay useful for existing shares, but no longer advertise an offer.
+        # Add them after the sitemap so search engines see only current indexable pages.
+        from published_routes import known_routes
+        active = {p['slug'] for p in self.products}
+        for item in known_routes(self.products):
+            if item['slug'] not in active:
+                for lang in LANGUAGES:
+                    self.archived_deal(item, lang)
         self.write('robots.txt',f'User-agent: *\nAllow: /\nSitemap: {self.domain}/sitemap.xml\n')
-        self.write('_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
+        self.write('_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
         self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'/','display':'standalone','background_color':'#f5f7fb','theme_color':'#2459eb','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}]}))
         self.write('build-info.json',json.dumps({'version':'2026.10','built_at':utc_now(),'products':len(self.products),'languages':list(LANGUAGES),'catalog_sha256':hashlib.sha256(json.dumps(self.db,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},indent=2))
         self.write('404.html',self.shell('en','404.html','Page not found',f'<main id="main" class="wrap prose"><p class="eyebrow">404</p><h1>{COPY["en"]["unavailable"]}</h1><a class="button primary" href="/">{COPY["en"]["home"]} ↗</a></main>',noindex=True))
