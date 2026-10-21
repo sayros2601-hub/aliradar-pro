@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "countries": [
+    "IL",
+    "US",
+    "DE",
+    "ES",
+    "RU"
+  ],
+  "offer_max_age_hours": 24,
+  "demand_max_age_days": 30,
+  "ad_review_max_age_days": 7,
+  "minimum_rating": 4.5,
+  "minimum_reviews": 30,
+  "minimum_seller_positive_pct": 92,
+  "maximum_delivery_days": 30,
+  "minimum_observed_weeks": 26,
+  "minimum_positive_share": 0.5,
+  "max_per_category": 2,
+  "max_per_need": 1,
+  "note": "Editorial screening thresholds, not guarantees of sales, safety or quality. Commission and advertising rank do not affect score."
+}

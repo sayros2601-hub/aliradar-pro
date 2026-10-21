@@ -14,13 +14,47 @@
     get(key) {try {return localStorage.getItem(key);} catch {return null;}},
     set(key,value) {try {localStorage.setItem(key,value);} catch {}}
   };
+  let saved;
+  try {const raw=JSON.parse(storage.get('dv_saved') || '[]'); saved=new Set(Array.isArray(raw)?raw.filter(x=>typeof x==='string' && x.length<100).slice(0,200):[]);} catch {saved=new Set();}
+  const savedFilter=document.getElementById('saved-filter');
+  let onlySaved=false;
+  function paintSaved() {
+    document.querySelectorAll('[data-save-id]').forEach(button=>{const active=saved.has(button.dataset.saveId);button.setAttribute('aria-pressed',String(active));button.textContent=active?'♥':'♡';});
+    const counter=document.getElementById('saved-count');if(counter)counter.textContent=String(saved.size);
+  }
+  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  const motionButton=document.getElementById('motion-toggle');
+  function paintMotion() {
+    if(!motionButton)return;
+    const paused=document.documentElement.dataset.motion==='off';
+    motionButton.hidden=reduced.matches;
+    motionButton.setAttribute('aria-pressed',String(paused));
+    motionButton.setAttribute('aria-label',paused?C.motion_resume:C.motion);
+    motionButton.title=paused?C.motion_resume:C.motion;
+    motionButton.textContent=paused?'▷':'Ⅱ';
+  }
+  motionButton?.addEventListener('click',()=>{const next=document.documentElement.dataset.motion==='off'?'on':'off';document.documentElement.dataset.motion=next;storage.set('dv_motion',next);paintMotion();});
+  reduced.addEventListener('change',paintMotion);
+  document.addEventListener('visibilitychange',()=>{document.documentElement.dataset.pageHidden=String(document.hidden);});
+  const stage=document.querySelector('.orbit-stage');
+  if(stage && 'IntersectionObserver' in window)new IntersectionObserver(entries=>{document.documentElement.dataset.heroVisible=String(entries[0].isIntersecting);},{rootMargin:'30px'}).observe(stage);
+  paintMotion();paintSaved();
+  const countrySelect=document.getElementById('country-select');
+  if(countrySelect) {
+    const valid=[...countrySelect.options].some(o=>o.value===storage.get('dv_country'));
+    countrySelect.value=valid?storage.get('dv_country'):'';
+    const updateCountry=()=>{const name=countrySelect.selectedOptions[0].textContent;document.getElementById('market-note').textContent=countrySelect.value?C.market_selected.replace('{country}',name):C.market_note;};
+    countrySelect.addEventListener('change',()=>{storage.set('dv_country',countrySelect.value);updateCountry();});updateCountry();
+  }
   const rates = Object.fromEntries(Object.entries(DB.rates.rates || {USD:1}).filter(([,n]) => typeof n === 'number' && Number.isFinite(n) && n > 0));
   rates.USD = 1;
   let currency = Object.hasOwn(rates,storage.get('sp_cur')) ? storage.get('sp_cur') : 'USD';
   const currencySelect = document.getElementById('currency-select');
   if (currencySelect) currencySelect.value = currency;
-  const money = usd => new Intl.NumberFormat(lang === 'he' ? 'he-IL' : lang, {style:'currency',currency,maximumFractionDigits:currency === 'RUB' ? 0 : 2}).format(Number(usd) * rates[currency]);
+  let moneyFormat;
+  const money = usd => moneyFormat.format(Number(usd) * rates[currency]);
   function renderMoney() {
+    moneyFormat=new Intl.NumberFormat(lang === 'he' ? 'he-IL' : lang,{style:'currency',currency,maximumFractionDigits:currency === 'RUB' ? 0 : 2});
     document.querySelectorAll('[data-money]').forEach(el => {el.textContent = money(el.dataset.money);});
     const priceSelect = document.getElementById('price-select');
     if (priceSelect) for (const option of priceSelect.options) {
@@ -61,9 +95,13 @@
   const query = new URLSearchParams(location.search);
   let category = query.get('cat') || 'all';
   if (![...document.querySelectorAll('[data-cat]')].some(el => el.dataset.cat === category)) category = 'all';
+  onlySaved=query.get('saved')==='1';
+  if(savedFilter)savedFilter.setAttribute('aria-pressed',String(onlySaved));
   if (input) input.value = (query.get('q') || '').slice(0,200);
   if (budget && [...budget.options].some(o => o.value === query.get('budget'))) budget.value = query.get('budget');
   if (sort && [...sort.options].some(o => o.value === query.get('sort'))) sort.value = query.get('sort');
+  const searchText=new Map(cards.map(card=>[card,normalise(card.dataset.search)]));
+  let previousSort='curated';
   function filter(updateUrl = true) {
     if (!grid) return;
     const words = normalise(input.value.trim()).split(/\s+/).filter(Boolean);
@@ -71,28 +109,31 @@
     const ordered = [...cards].sort((a,b) => sort.value === 'price_asc' ? Number(a.dataset.price)-Number(b.dataset.price) : sort.value === 'price_desc' ? Number(b.dataset.price)-Number(a.dataset.price) : Number(a.dataset.order)-Number(b.dataset.order));
     for (const card of ordered) {
       const price = Number(card.dataset.price);
-      card.hidden = !((category === 'all' || card.dataset.category === category) &&
+      card.hidden = !((!onlySaved || saved.has(card.dataset.id)) && (category === 'all' || card.dataset.category === category) &&
         (budget.value === 'all' || (budget.value === 'over50' ? price >= 50 : price < Number(budget.value))) &&
-        words.every(word => normalise(card.dataset.search).includes(word)));
+        words.every(word => searchText.get(card).includes(word)));
       if (!card.hidden) count++;
-      grid.appendChild(card);
+      if(previousSort!==sort.value)grid.appendChild(card);
     }
+    previousSort=sort.value;
+    document.querySelector('#empty-state h3').textContent=onlySaved?C.saved_empty:C.empty;
     document.getElementById('items-counter').textContent = `${count} ${C.found}`;
     document.getElementById('empty-state').hidden = count !== 0;
     document.querySelectorAll('[data-cat]').forEach(el => {const selected = el.dataset.cat === category; el.classList.toggle('active',selected); el.setAttribute('aria-pressed',String(selected));});
     if (updateUrl) {
       const url = new URL(location.href);
-      for (const [key,value] of Object.entries({q:input.value.trim(),cat:category === 'all' ? '' : category,budget:budget.value === 'all' ? '' : budget.value,sort:sort.value === 'curated' ? '' : sort.value})) {
+      for (const [key,value] of Object.entries({saved:onlySaved?'1':'',q:input.value.trim(),cat:category === 'all' ? '' : category,budget:budget.value === 'all' ? '' : budget.value,sort:sort.value === 'curated' ? '' : sort.value})) {
         if (value) url.searchParams.set(key,value); else url.searchParams.delete(key);
       }
       history.replaceState(history.state,'',url);
     }
   }
   document.getElementById('category-nav')?.addEventListener('click', event => {const pill = event.target.closest('[data-cat]'); if (pill) {category = pill.dataset.cat; filter();}});
+  savedFilter?.addEventListener('click',()=>{onlySaved=!onlySaved;savedFilter.setAttribute('aria-pressed',String(onlySaved));filter();});
   input?.addEventListener('input', () => filter());
   budget?.addEventListener('change', () => filter());
   sort?.addEventListener('change', () => filter());
-  document.getElementById('clear-filters')?.addEventListener('click', () => {category = 'all'; input.value = ''; budget.value = 'all'; sort.value = 'curated'; filter(); input.focus();});
+  document.getElementById('clear-filters')?.addEventListener('click', () => {category = 'all'; onlySaved=false; savedFilter?.setAttribute('aria-pressed','false'); input.value = ''; budget.value = 'all'; sort.value = 'curated'; filter(); input.focus();});
   const dialog = document.getElementById('product-modal');
   let modalProduct = null;
   let returnFocus = null;
@@ -102,7 +143,7 @@
     if (!dialog.open) returnFocus = document.activeElement;
     modalProduct = product;
     const title = product.title_i18n[lang];
-    document.getElementById('modal-content-area').innerHTML = `<div class="modal-layout"><a class="modal-photo" href="${esc(DB.paths[id])}"><img src="${esc(asset(product.image))}" width="600" height="600" alt="${esc(title)}"></a><div class="modal-details"><p class="eyebrow">DEALVAULT</p><h2 id="modal-title">${esc(title)}</h2><div class="deal-price"><span>${esc(C.reference)}</span><strong data-money="${product.price_usd}"></strong></div><p class="muted">${esc(C.price_note)}</p><a class="button primary" href="${esc(product.affiliate_url)}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="${esc(id)}">${esc(C.shop)} ↗</a><p class="affiliate-note">${esc(C.affiliate)}</p><a class="detail-link" href="${esc(DB.paths[id])}">${esc(C.details)} ↗</a><div class="share-row" data-product-id="${esc(id)}"><button type="button" data-share="copy">${esc(C.copy)}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div>`;
+    document.getElementById('modal-content-area').innerHTML = `<div class="modal-layout"><a class="modal-photo" href="${esc(DB.paths[id])}"><img src="${esc(asset(product.image))}" width="600" height="600" alt="${esc(title)}"></a><div class="modal-details"><p class="eyebrow">DEALVAULT</p><h2 id="modal-title">${esc(title)}</h2><p class="muted">${esc(product.use_i18n?.[lang] || '')}</p><div class="deal-price"><span>${esc(C.reference)}</span><strong data-money="${product.price_usd}"></strong></div><p class="muted">${esc(C.price_note)}</p><a class="button primary" href="${esc(product.affiliate_url)}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="${esc(id)}">${esc(C.shop)} ↗</a><p class="affiliate-note">${esc(C.affiliate)}</p><a class="detail-link" href="${esc(DB.paths[id])}">${esc(C.details)} ↗</a><div class="share-row" data-product-id="${esc(id)}"><button type="button" data-share="copy">${esc(C.copy)}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div>`;
     renderMoney();
     if (!dialog.open) dialog.showModal();
     document.body.style.overflow = 'hidden';
@@ -137,6 +178,8 @@
     }
   }
   document.addEventListener('click', event => {
+    const saveButton=event.target.closest('[data-save-id]');
+    if(saveButton){const id=saveButton.dataset.saveId;if(saved.has(id))saved.delete(id);else saved.add(id);storage.set('dv_saved',JSON.stringify([...saved]));paintSaved();if(onlySaved)filter();return;}
     const close = event.target.closest('[data-close-modal]');
     if (close) {closeModal(); return;}
     const quick = event.target.closest('[data-modal-id]');

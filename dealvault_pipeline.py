@@ -42,6 +42,8 @@ def run(offline=False,rotate=0):
         recover_transaction()
         db=read_json(DATA_DIR/'products.json')
         validate_catalog(db)
+        from product_selection import write_selection_report
+        write_selection_report()
         if rotate:
             rotate_deals(rotate)
             db=read_json(DATA_DIR/'products.json')

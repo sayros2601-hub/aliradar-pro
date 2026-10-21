@@ -25,7 +25,10 @@ def stage_records(records):
         candidate={'id':'portals-'+hashlib.sha256(key.encode()).hexdigest()[:12],
                    'affiliate_url':url,'raw_title':title,'source':'portals','source_evidence':text,
                    'category':raw.get('category'),'images':raw.get('images') or raw.get('modal',{}).get('images',[]),
-                   'captured_at':utc_now(),'reviewed':False}
+                   'captured_at':utc_now(),'reviewed':False,
+                   'query':raw.get('query'),'target_country':raw.get('target_country'),
+                   'selection':raw.get('selection',{}),'offer':raw.get('offer',{}),
+                   'ad_review':raw.get('ad_review',{}),'editorial':raw.get('editorial',{})}
         check=check_single_link(candidate)
         candidate['destination_check']=check
         candidate['item_id']=check.get('item_id')

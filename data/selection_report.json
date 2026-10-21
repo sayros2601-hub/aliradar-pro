@@ -1,0 +1,84 @@
+{
+  "checked_at": "2026-10-21T19:52:55+00:00",
+  "mode": "evidence_based_screening",
+  "eligible": 0,
+  "review_queue": [],
+  "research_plan": [
+    {
+      "country": "US",
+      "need_id": "usb-c-charging",
+      "category": "tech",
+      "query": "usb c charger pd",
+      "demand_snapshot_id": "us-shopping-2026-10-21",
+      "signal": {
+        "term": "usb c charger",
+        "coverage": 1.0,
+        "mean": 11.23,
+        "weeks": 52,
+        "search_type": "shopping"
+      },
+      "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
+    },
+    {
+      "country": "US",
+      "need_id": "dash-camera",
+      "category": "auto",
+      "query": "dash cam",
+      "demand_snapshot_id": "us-shopping-2026-10-21",
+      "signal": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 21.71,
+        "weeks": 52,
+        "search_type": "shopping"
+      },
+      "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
+    },
+    {
+      "country": "US",
+      "need_id": "smart-plug",
+      "category": "smarthome",
+      "query": "smart plug",
+      "demand_snapshot_id": "us-shopping-2026-10-21",
+      "signal": {
+        "term": "smart plug",
+        "coverage": 1.0,
+        "mean": 7.9,
+        "weeks": 52,
+        "search_type": "shopping"
+      },
+      "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
+    },
+    {
+      "country": "IL",
+      "need_id": "dash-camera",
+      "category": "auto",
+      "query": "dash cam",
+      "demand_snapshot_id": "il-web-2026-10-21",
+      "signal": {
+        "term": "מצלמת דרך",
+        "coverage": 1.0,
+        "mean": 59.96,
+        "weeks": 52,
+        "search_type": "web"
+      },
+      "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
+    },
+    {
+      "country": "US",
+      "need_id": "pet-water",
+      "category": "pets",
+      "query": "cat water fountain",
+      "demand_snapshot_id": "us-web-2026-10-21",
+      "signal": {
+        "term": "pet water fountain",
+        "coverage": 1.0,
+        "mean": 3.23,
+        "weeks": 52,
+        "search_type": "web"
+      },
+      "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
+    }
+  ],
+  "note": "No qualified new candidate means no rotation. Existing legacy products are not certified for free shipping. Research and observations are updated through editorial review; this module does not access private ad targeting or infer sales."
+}

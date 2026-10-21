@@ -10,6 +10,8 @@ from dealvault_core import DATA_DIR, affiliate_key, read_json, validate_catalog,
 from link_health_guard import check_single_link, audit_catalog
 from build_modern_hub import script_json, build_site
 import daily_rotator as rotation
+from selection_fixture import evidence
+from product_selection import rank_candidates as actual_rank
 from marketing_content import social_text
 from social_posters import format_telegram_caption
 
@@ -109,6 +111,9 @@ class RotationTests(unittest.TestCase):
     def snapshot(self): return {p.name:p.read_bytes() for p in self.root.iterdir()}
     def candidate(self):
         p=copy.deepcopy(self.db['products'][0]); p.update(id='new-test',slug='new-test',affiliate_url='https://s.click.aliexpress.com/e/_reviewed',source='portals',reviewed=True,item_id='1005001234567',source_evidence='Imported from Portals record with matching item id')
+        p,snapshots=evidence(p)
+        ranking=patch.object(rotation,'rank_candidates',side_effect=lambda items: actual_rank(items,snapshots=snapshots))
+        ranking.start(); self.addCleanup(ranking.stop)
         return p
     def test_dry_run_writes_nothing(self):
         write_json(self.files['RESERVE_FILE'],[self.candidate()]); before=self.snapshot()

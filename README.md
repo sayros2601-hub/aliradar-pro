@@ -34,7 +34,7 @@ Publish with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environme
 - The initial migration quarantined seven unrelated products sharing one affiliate URL and all 35 reserve placeholders in `data/quarantine.json`.
 - New reserve entries must have an original Portals link, actual item ID, source evidence, local images, four translated titles, a valid price, `source: "portals"` and `reviewed: true`. They must pass a fresh destination check before rotation. Rotation preserves the configured catalog size, is idempotent per UTC date, and uses a recoverable journal. With no reviewed candidates it does nothing.
 - The Studio harvester now stages actual captured records in `data/portals_inbox.json` through `import_portals.py`. It does not invent product titles from search queries or pretend that a missing session is working. Newly captured products still need editorial review and real images before entering the reserve.
-- No new product discovery, revenue analytics, commission validation, independent product testing, or revenue increase is claimed by this build.
+- Regional search research is recorded in `data/demand_snapshots.json`; it measures normalized search interest, not purchases. No commission validation, independent product testing, revenue increase or complete coverage of advertising is claimed.
 
 ## Browser behavior
 
@@ -65,3 +65,26 @@ Tests use a hidden browser and localhost. They cover network failure classificat
 The imported dataset does not contain reliable timestamps or evidence for live seller prices, ratings or offers. Those fields cannot honestly be presented as verified. A real editorial contact address has not been supplied, so the site does not fabricate an email address. Order support points users to their AliExpress account. Affiliate income must be checked in the user's Portals dashboard; outbound clicks are not sales.
 
 The old free `dealvault.surge.sh/robots.txt` endpoint was observed returning a platform-generated `Disallow: /` even though the uploaded file allows crawling; the correct uploaded file is served with a query string. This was resolved by migrating production to Cloudflare Pages; the public `https://dealvault.pages.dev/robots.txt` endpoint was verified as `Allow: /`. This permits crawling but does not guarantee ranking or indexing. Public routes, canonical links and sitemap use Cloudflare's extension-less URLs. GitHub Pages is not used for this commercial catalog.
+
+
+## Orbit interface and product selection (October 2026)
+
+The default entry is English, including on Russian-language browsers. Language switching is explicit. Cards contain one short use case; longer compatibility checks are on the product page. Saved items stay on the device. CSS motion respects reduced-motion settings, can be switched off, and pauses outside the viewport or on a hidden page. No animation library or remote font is loaded.
+
+`product_selection.py` creates a regional research plan and evaluates every proposed reserve product before `daily_rotator.py` can publish it. `data/selection_policy.json` contains the editorial thresholds. Each candidate needs:
+
+- Original item identity, reviewed source capture, exact variant and destination.
+- Explicit free shipping with zero minimum order, no new-customer requirement, paid membership or conditional bundle. Offer, stock and delivery observations expire after 24 hours. Unknown is not free.
+- Rating, review count and seller-feedback evidence; negative-review and compatibility/safety review. These are screening thresholds, not a guarantee of quality.
+- A documented useful task, a drawback, and comparison with two distinct alternatives. Advertising placement and affiliate commission do not enter the score.
+- Fresh country-specific demand evidence (30 days) with sufficient weekly coverage. Partial current weeks and duplicate weeks are excluded. Normalized magnitudes are not compared across countries.
+- A country-specific advertising-library review (7 days). High or unknown observed saturation blocks admission. A limited ad-library search cannot establish that a product is unadvertised everywhere.
+- Concise use and compatibility text in each of the four languages. Only the selected language appears on the site.
+
+At most two new items in one category and one in one use-case group enter a daily batch. Duplicate item IDs are rejected even if affiliate shortlinks differ. An empty qualified queue leaves the active catalog untouched. The original 35 products remain reference listings, **not certified free-shipping offers**; no free-shipping badge has been added to them.
+
+Run `python product_selection.py` for the decision report and research leads. `data/selection_report.json` is updated by the daily pipeline. Research observations and editorial decisions are refreshed through the assistant/editor; the scheduled job rechecks freshness but does not invent new research. `data/demand_snapshots.json` contains only sanitized public chart data, never account details or browser sessions. Initial limited comparisons cover US, Israel, Germany, Spain and Russia; low-data markets are explicitly inconclusive, not zero demand. These five countries are not a claim of Europe/CIS-wide coverage.
+
+Studio integration copies are in `integrations/studio/`. The installed files on the desktop were also repaired: no fabricated balance, no fixed cat-toy query, explicit candidate index, and up to three candidates per evidence-led query. Captures enter the inbox without automatic editorial approval. The live AliExpress browser pass was blocked by the browser tool's site-safety policy during this revision and was not bypassed. Syntax and offline pipeline behavior were tested; current live selectors, account session, country-specific shipping and stock remain unverified. Do not treat this as an unattended, fully validated shopping robot.
+
+References: [Google Trends data limits](https://support.google.com/trends/answer/4365533?hl=en), [helpful content](https://developers.google.com/search/docs/fundamentals/creating-helpful-content), [efficient animation](https://web.dev/articles/animations-guide), [Core Web Vitals](https://web.dev/articles/vitals). Lab performance scores do not establish real-user Core Web Vitals or Google ranking.

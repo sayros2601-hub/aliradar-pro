@@ -73,7 +73,7 @@ jobs:
         run: |
           git config user.name "DealVault updater"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/products.json data/reserve_pool.json data/exchange_rates.json data/link_health_report.json
+          git add data/products.json data/reserve_pool.json data/exchange_rates.json data/link_health_report.json data/selection_report.json
           if test -f data/rotation_log.json; then git add data/rotation_log.json; fi
           if ! git diff --cached --quiet; then
             git commit -m "chore: save verified catalog snapshots [skip ci]"

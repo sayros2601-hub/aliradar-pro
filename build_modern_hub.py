@@ -39,6 +39,8 @@ class SiteBuilder:
         self.thumbnails = {}
         self.rates = read_json(DATA_DIR / 'exchange_rates.json', {'rates': {'USD': 1}, 'observed_at': None})
         self.public_products = []
+        self.editorial = read_json(DATA_DIR/'editorial.json',{'products':{}})['products']
+        self.editorial.update({p['id']:p['editorial'] for p in self.products if p.get('editorial')})
 
     def write(self, path, content):
         target = self.out / path
@@ -84,6 +86,7 @@ class SiteBuilder:
                 'id': p['id'], 'slug': p['slug'], 'category': p['category'],
                 'title_i18n': p['title_i18n'], 'price_usd': p['price_usd'],
                 'affiliate_url': p['affiliate_url'], 'image': gallery[0], 'gallery': gallery,
+                'use_i18n': self.editorial.get(p['id'],{}).get('use_i18n',{}),
             })
             raw=BASE_DIR/p['image']
             digest=hashlib.sha256(raw.read_bytes()).hexdigest()[:10]
@@ -137,36 +140,43 @@ class SiteBuilder:
 {'<meta name="robots" content="noindex,follow">' if noindex else ''}
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title)} | DealVault">
 <meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(url)}"><meta property="og:image" content="{self.domain}/{hero_image}">
-<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f7f7f2">
+<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f7fb">
 <link rel="icon" type="image/svg+xml" href="{rel(self.images['icon.svg'])}"><link rel="manifest" href="{rel('manifest.json')}">
 <link rel="alternate" type="application/rss+xml" title="DealVault" href="{rel('rss.xml')}">
 <link rel="stylesheet" href="{rel(self.images['modern.css'])}">
-<script>try{{var t=localStorage.getItem('sp_theme');document.documentElement.dataset.theme=['dark','light'].includes(t)?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light')}}catch(e){{}}</script>
+<script>try{{var t=localStorage.getItem('sp_theme');document.documentElement.dataset.theme=['dark','light'].includes(t)?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.motion=localStorage.getItem('dv_motion')==='off'?'off':'on'}}catch(e){{}}</script>
 <script type="application/ld+json">{script_json(schemas or schema)}</script>
 <script id="products-db" type="application/json">{script_json(payload)}</script>
 <script defer src="{rel(self.images['tracking.js'])}"></script><script defer src="{rel(self.images['modern_app.js'])}"></script>
 </head><body>
 <a class="skip-link" href="#main">{esc(c['skip'])}</a>
 <header class="site-header"><div class="wrap header-inner">
-<a class="brand" href="{rel(page_path(lang))}" aria-label="DealVault"><span class="brand-mark" aria-hidden="true">d<span>v</span></span><span>DealVault<small>{esc(c['tagline'])}</small></span></a>
+<a class="brand" href="{rel(page_path(lang))}"><span class="brand-mark" aria-hidden="true">d<span>v</span></span><span>DealVault<small>{esc(c['tagline'])}</small></span></a>
 <div class="header-controls"><nav class="languages" aria-label="{esc(c['language'])}">{languages}</nav>
 <label class="currency-label"><span class="sr-only">{esc(c['currency'])}</span><select id="currency-select" aria-label="{esc(c['currency'])}">{cur_options}</select></label>
-<button class="theme-toggle" id="theme-toggle" type="button" aria-label="{esc(c['theme'])}" title="{esc(c['theme'])}">◐</button></div></div></header>
+<div class="control-pair"><button class="motion-toggle" id="motion-toggle" type="button" aria-label="{esc(c['motion'])}" title="{esc(c['motion'])}" aria-pressed="false">Ⅱ</button><button class="theme-toggle" id="theme-toggle" type="button" aria-label="{esc(c['theme'])}" title="{esc(c['theme'])}">◐</button></div></div></div></header>
 {body}
 <footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="{rel(page_path(lang))}">DealVault<span>↗</span></a><p>{esc(c['affiliate'])}</p></div><nav aria-label="DealVault">{legal_nav}<a href="{rel('rss.xml')}">RSS</a><a href="https://www.exchangerate-api.com" rel="noopener">Rates by ExchangeRate-API</a></nav></div><div class="wrap footer-bottom"><span>© 2026 DealVault</span><span>{esc(c['seller_note'])}</span></div></footer>
 <dialog id="product-modal" aria-labelledby="modal-title"><button type="button" class="modal-close" data-close-modal aria-label="{esc(c['close'])}">×</button><div id="modal-content-area"></div></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </body></html>'''
 
+    def market_bar(self, lang):
+        c=COPY[lang]
+        countries=zip(('IL','US','DE','ES','RU'),c['countries'])
+        options=''.join(f'<option value="{code}">{esc(name)}</option>' for code,name in countries)
+        return f'<section class="wrap market-bar"><label for="country-select">{esc(c["market"])}<select id="country-select"><option value="">{esc(c["world"])}</option>{options}</select></label><p id="market-note">{esc(c["market_note"])}</p></section>'
+
     def card(self, p, lang, current, index=10):
         c = COPY[lang]
         title = product_title(p, lang)
+        use = self.editorial.get(p['id'],{}).get('use_i18n',{}).get(lang,'')
         link = esc(relative_url(page_path(lang, p['slug']), current))
         image = esc(relative_url(self.thumbnails[p['image']], current))
         search = ' '.join([*p['title_i18n'].values(), p['slug'], *[self.category_name(p['category'], l) for l in LANGUAGES]])
         return f'''<article class="product-card" data-id="{esc(p['id'])}" data-category="{esc(p['category'])}" data-price="{p['price_usd']}" data-order="{index}" data-search="{esc(search)}">
-<a href="{link}" class="card-image"><img src="{image}" alt="{esc(title)}" width="600" height="600" loading="{'eager' if index < 4 else 'lazy'}" decoding="async"></a>
-<div class="card-content"><span class="card-category">{esc(self.category_name(p['category'], lang))}</span><h3><a href="{link}">{esc(title)}</a></h3>
+<button type="button" class="save-product" data-save-id="{esc(p['id'])}" aria-pressed="false" aria-label="{esc(c['save'] + ': ' + title)}">♡</button><a href="{link}" class="card-image"><img src="{image}" alt="{esc(title)}" width="600" height="600" loading="{'eager' if index < 4 else 'lazy'}" decoding="async"></a>
+<div class="card-content"><span class="card-category">{esc(self.category_name(p['category'], lang))}</span><h3><a href="{link}">{esc(title)}</a></h3><p class="card-use">{esc(use)}</p>
 <div class="card-price"><span class="price-caption">{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div>
 <div class="card-actions"><a href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}" class="detail-link">{esc(c['shop'])} <span aria-hidden="true">↗</span></a><button class="quick-button" type="button" data-modal-id="{esc(p['id'])}" aria-label="{esc(c['quick'] + ': ' + title)}">＋</button></div></div></article>'''
 
@@ -180,21 +190,24 @@ class SiteBuilder:
             pills += f'<button type="button" data-cat="{esc(cat["id"])}" class="category-pill" aria-pressed="false">{esc(cat["name_i18n"][lang])}<span>{count}</span></button>'
         cards = ''.join(self.card(p, lang, current, i) for i,p in enumerate(self.products))
         body = f'''<main id="main"><section class="wrap hero"><div class="hero-copy"><p class="eyebrow"><span></span>{esc(c['eyebrow'])}</p><h1>{c['hero']}</h1><p class="hero-intro">{esc(c['intro'])}</p><div class="hero-actions"><a class="button primary" href="#collection">{esc(c['explore'])}<span aria-hidden="true">↗</span></a><a class="text-link" href="#approach">{esc(c['how'])}</a></div><div class="hero-proof"><span>○ {esc(c['independent'])}</span><span>↗ {esc(c['direct'])}</span></div></div>
-<a class="spotlight" href="{rel(page_path(lang, feature['slug']))}"><div class="spotlight-top"><span>{esc(c['spotlight'])}</span><span class="round-arrow">↗</span></div><img src="{rel(self.images[feature['image']])}" width="600" height="600" fetchpriority="high" alt="{esc(product_title(feature,lang))}"><div class="spotlight-bottom"><span>{esc(product_title(feature,lang))}</span><span class="spotlight-price" data-money="{feature['price_usd']}">${feature['price_usd']:.2f}</span></div><span class="spotlight-caption">{esc(c['reference'])}</span></a></section>
+<div class="orbit-stage"><span class="orbit-ring" aria-hidden="true"></span><span class="orbit-ring ring-two" aria-hidden="true"></span><span class="orbit-chip chip-top"><b aria-hidden="true">✧</b>{esc(c['orbit_top'])}</span><a class="spotlight" href="{rel(page_path(lang, feature['slug']))}"><div class="spotlight-top"><span>{esc(c['spotlight'])}</span><span class="round-arrow">↗</span></div><img src="{rel(self.images[feature['image']])}" width="600" height="600" fetchpriority="high" alt="{esc(product_title(feature,lang))}"><div class="spotlight-bottom"><span>{esc(product_title(feature,lang))}</span><span class="spotlight-price" data-money="{feature['price_usd']}">${feature['price_usd']:.2f}</span></div><span class="spotlight-caption">{esc(c['reference'])}</span></a><span class="orbit-chip chip-bottom"><b aria-hidden="true">↗</b>{esc(c['orbit_bottom'])}</span><span class="orbit-index">DEALVAULT / EDIT 01</span></div></section>
 <div class="wrap disclosure-strip"><span aria-hidden="true">↗</span><p>{esc(c['affiliate'])}</p></div>
 <section class="wrap collection" id="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="eyebrow">DEALVAULT / 01</p><h2 id="collection-title">{esc(c['collection'])}</h2><p>{esc(c['collection_sub'])}</p></div><span id="items-counter" role="status" aria-live="polite">{len(self.products)} {esc(c['found'])}</span></div>
 <div class="category-nav" id="category-nav" aria-label="{esc(c['collection'])}">{pills}</div>
 <div class="filter-bar"><label class="search"><span aria-hidden="true">⌕</span><span class="sr-only">{esc(c['search_label'])}</span><input type="search" id="global-search-input" placeholder="{esc(c['search'])}" autocomplete="off"></label>
 <label class="filter-select"><span class="sr-only">{esc(c['budget'])}</span><select id="price-select" aria-label="{esc(c['budget'])}"><option value="all">{esc(c['any'])}</option><option value="10">{esc(c['under'].format(price='$10'))}</option><option value="25">{esc(c['under'].format(price='$25'))}</option><option value="50">{esc(c['under'].format(price='$50'))}</option><option value="over50">{esc(c['over'].format(price='$50'))}</option></select></label>
-<label class="filter-select"><span class="sr-only">{esc(c['sort'])}</span><select id="sort-select" aria-label="{esc(c['sort'])}"><option value="curated">{esc(c['curated'])}</option><option value="price_asc">{esc(c['asc'])}</option><option value="price_desc">{esc(c['desc'])}</option></select></label></div>
+<label class="filter-select"><span class="sr-only">{esc(c['sort'])}</span><select id="sort-select" aria-label="{esc(c['sort'])}"><option value="curated">{esc(c['curated'])}</option><option value="price_asc">{esc(c['asc'])}</option><option value="price_desc">{esc(c['desc'])}</option></select></label><button type="button" class="saved-filter" id="saved-filter" aria-pressed="false">♡ {esc(c['saved'])} <span id="saved-count">0</span></button></div>
 <div class="price-notice"><p>{esc(c['price_note'])}</p><span id="rates-note"></span></div>
 <div class="product-grid" id="product-grid">{cards}</div><div id="empty-state" class="empty-state" hidden><h3>{esc(c['empty'])}</h3><button class="button primary" type="button" id="clear-filters">{esc(c['reset'])}</button></div></section>
-<section class="wrap approach" id="approach"><div><p class="eyebrow">DEALVAULT / 02</p><h2>{esc(c['method'])}</h2></div><p>{esc(c['method_text'])}</p></section></main>'''
+{self.market_bar(lang)}<section class="wrap approach" id="approach"><div><p class="eyebrow">DEALVAULT / 02</p><h2>{esc(c['method'])}</h2></div><p>{esc(c['method_text'])}</p></section></main>'''
         schema = {'@context':'https://schema.org','@type':'CollectionPage','name':c['collection'],'url':self.domain+public_path(current),'inLanguage':lang,'mainEntity':{'@type':'ItemList','numberOfItems':len(self.products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':self.domain+public_path(page_path(lang,p["slug"])),'name':product_title(p,lang)} for i,p in enumerate(self.products)]}}
         self.write(current, self.shell(lang,current,c['collection'],body,schemas=schema))
 
     def deal(self, p, lang):
         c, current = COPY[lang], page_path(lang,p['slug'])
+        note = self.editorial.get(p['id'],{})
+        purpose = note.get('use_i18n',{}).get(lang,'')
+        check = note.get('check_i18n',{}).get(lang,c['check1'])
         rel = lambda path: esc(relative_url(path,current))
         gallery = list(dict.fromkeys([p['image'], *p.get('gallery',[])]))
         images = ''.join(f'<a href="{rel(self.images[src])}" class="gallery-image"><img src="{rel(self.images[src])}" alt="{esc(product_title(p,lang))} · {i+1}" width="800" height="800" loading="{"eager" if i==0 else "lazy"}"></a>' for i,src in enumerate(gallery))
@@ -202,7 +215,7 @@ class SiteBuilder:
         if not others:
             others = [x for x in self.products if x['id'] != p['id']][:4]
         related = ''.join(self.card(x,lang,current,i+10) for i,x in enumerate(others))
-        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}</p><h1>{esc(product_title(p,lang))}</h1><div class="deal-price"><span>{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div><p class="muted">{esc(c['price_note'])}</p><p class="rate-detail" id="rates-note"></p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check1','check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
+        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}</p><h1>{esc(product_title(p,lang))}</h1><p class="deal-purpose">{esc(purpose)}</p><div class="deal-price"><span>{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div><p class="muted">{esc(c['price_note'])}</p><p class="rate-detail" id="rates-note"></p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><p>{esc(check)}</p><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
         schema = {'@context':'https://schema.org','@type':'WebPage','url':self.domain+public_path(current),'name':product_title(p,lang),'inLanguage':lang,'about':{'@type':'Product','name':product_title(p,lang),'image':[f'{self.domain}/{self.images[src]}' for src in gallery]},'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'DealVault','item':self.domain+public_path(page_path(lang))},{'@type':'ListItem','position':2,'name':product_title(p,lang),'item':self.domain+public_path(current)}]}}
         self.write(current,self.shell(lang,current,product_title(p,lang),body,slug=p['slug'],schemas=schema))
 
@@ -247,7 +260,7 @@ class SiteBuilder:
         self.write('sitemap.xml','<?xml version="1.0" encoding="utf-8"?>\n'+ET.tostring(urls,encoding='unicode'))
         self.write('robots.txt',f'User-agent: *\nAllow: /\nSitemap: {self.domain}/sitemap.xml\n')
         self.write('_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
-        self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'/','display':'standalone','background_color':'#f7f7f2','theme_color':'#246849','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}]}))
+        self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'/','display':'standalone','background_color':'#f5f7fb','theme_color':'#2459eb','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}]}))
         self.write('build-info.json',json.dumps({'version':'2026.10','built_at':utc_now(),'products':len(self.products),'languages':list(LANGUAGES),'catalog_sha256':hashlib.sha256(json.dumps(self.db,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},indent=2))
         self.write('404.html',self.shell('en','404.html','Page not found',f'<main id="main" class="wrap prose"><p class="eyebrow">404</p><h1>{COPY["en"]["unavailable"]}</h1><a class="button primary" href="/">{COPY["en"]["home"]} ↗</a></main>',noindex=True))
 
@@ -283,7 +296,7 @@ def build_site(output=None, db=None):
             if previous.exists() and not dest.exists():
                 previous.rename(dest)
             raise
-        print(f'[Build] {len(db["products"])} products × {len(LANGUAGES)} languages; public-only output: {dest}')
+        print(f'[Build] {len(db["products"])} products x {len(LANGUAGES)} languages; public-only output: {dest}')
         return dest
     finally:
         if stage.exists() and BASE_DIR in stage.parents:

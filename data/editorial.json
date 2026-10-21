@@ -1,0 +1,600 @@
+{
+  "updated": "2026-10-21",
+  "products": {
+    "real-102": {
+      "need": "drive",
+      "research_term": "dash_cam",
+      "use_i18n": {
+        "ru": "Запись поездок",
+        "en": "Recording your journeys",
+        "he": "תיעוד נסיעות",
+        "es": "Grabar tus trayectos"
+      },
+      "check_i18n": {
+        "ru": "Уточните комплект креплений, питание и карту памяти. Для парковочной записи может понадобиться отдельный комплект подключения.",
+        "en": "Check the mount, power supply and memory card. Parking recording may require a separate wiring kit.",
+        "he": "בדקו תושבת, אספקת חשמל וכרטיס זיכרון. צילום בחניה עשוי לדרוש ערכת חיווט נפרדת.",
+        "es": "Revisa soporte, alimentación y tarjeta de memoria. La grabación en aparcamiento puede requerir un kit aparte."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-101": {
+      "need": "charge",
+      "research_term": "usb_c_charger",
+      "use_i18n": {
+        "ru": "Одна зарядка для поездок",
+        "en": "A charger for your travel bag",
+        "he": "מטען לתיק הנסיעות",
+        "es": "Un cargador para viajar"
+      },
+      "check_i18n": {
+        "ru": "Проверьте разъём, протокол зарядки и мощность для вашего устройства; кабель и адаптер могут продаваться отдельно.",
+        "en": "Check the connector, charging protocol and power your device needs; cables and adapters may be separate.",
+        "he": "בדקו מחבר, תקן טעינה והספק מתאים; כבל ומתאם עשויים להימכר בנפרד.",
+        "es": "Comprueba conector, protocolo y potencia; el cable y el adaptador pueden venderse aparte."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-106": {
+      "need": "pets",
+      "research_term": "cat_toy",
+      "use_i18n": {
+        "ru": "Подвижная игра с кошкой",
+        "en": "Active play with your cat",
+        "he": "משחק פעיל עם החתול",
+        "es": "Juego activo con tu gato"
+      },
+      "check_i18n": {
+        "ru": "Подберите размер под питомца, проверьте материал и удобство очистки. Первое использование — под наблюдением.",
+        "en": "Match the size to your pet, check materials and ease of cleaning. Supervise the first use.",
+        "he": "התאימו את הגודל לחיית המחמד ובדקו חומרים וניקוי. השגיחו בשימוש הראשון.",
+        "es": "Elige el tamaño adecuado, revisa materiales y limpieza. Supervisa el primer uso."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-108": {
+      "need": "home",
+      "research_term": "garage_controller",
+      "use_i18n": {
+        "ru": "Управление воротами из приложения",
+        "en": "App control for a compatible garage",
+        "he": "שליטה בשער תואם מהאפליקציה",
+        "es": "Control de un garaje compatible"
+      },
+      "check_i18n": {
+        "ru": "Сверьте модель привода, схему подключения и работу защиты ворот. Не подключайте к несовместимому управлению.",
+        "en": "Check your opener model, wiring diagram and gate safety controls. Do not connect to an incompatible system.",
+        "he": "בדקו דגם מנוע, תרשים חיווט ומנגנוני בטיחות. אין לחבר למערכת לא תואמת.",
+        "es": "Revisa motor, esquema y protecciones de la puerta. No lo conectes a un sistema incompatible."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-110": {
+      "need": "charge",
+      "research_term": "usb_c_cable",
+      "use_i18n": {
+        "ru": "Смотреть видео во время зарядки",
+        "en": "Watch while your phone charges",
+        "he": "צפייה בזמן טעינת הטלפון",
+        "es": "Ver vídeos mientras cargas"
+      },
+      "check_i18n": {
+        "ru": "Проверьте разъём, протокол зарядки и мощность для вашего устройства; кабель и адаптер могут продаваться отдельно.",
+        "en": "Check the connector, charging protocol and power your device needs; cables and adapters may be separate.",
+        "he": "בדקו מחבר, תקן טעינה והספק מתאים; כבל ומתאם עשויים להימכר בנפרד.",
+        "es": "Comprueba conector, protocolo y potencia; el cable y el adaptador pueden venderse aparte."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-107": {
+      "need": "pets",
+      "research_term": "laser_collar",
+      "use_i18n": {
+        "ru": "Идея игрушки с лазером",
+        "en": "A laser play accessory",
+        "he": "אביזר משחק עם לייזר",
+        "es": "Un accesorio de juego láser"
+      },
+      "check_i18n": {
+        "ru": "Подберите размер под питомца, проверьте материал и удобство очистки. Первое использование — под наблюдением.",
+        "en": "Match the size to your pet, check materials and ease of cleaning. Supervise the first use.",
+        "he": "התאימו את הגודל לחיית המחמד ובדקו חומרים וניקוי. השגיחו בשימוש הראשון.",
+        "es": "Elige el tamaño adecuado, revisa materiales y limpieza. Supervisa el primer uso."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-103": {
+      "need": "drive",
+      "research_term": "tyre_inflator",
+      "use_i18n": {
+        "ru": "Подкачать колесо в дороге",
+        "en": "Top up tyre pressure on the road",
+        "he": "ניפוח צמיגים בדרך",
+        "es": "Ajustar la presión en ruta"
+      },
+      "check_i18n": {
+        "ru": "Сравните диапазон измерения, тип клапанов и единицы. Ориентируйтесь на рекомендации производителя автомобиля.",
+        "en": "Compare measurement range, valve type and units. Follow your vehicle manufacturer’s recommendations.",
+        "he": "בדקו טווח מדידה, סוג שסתומים ויחידות. פעלו לפי המלצות יצרן הרכב.",
+        "es": "Compara rango, válvulas y unidades. Sigue las recomendaciones del fabricante del vehículo."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-105": {
+      "need": "pets",
+      "research_term": "pet_brush",
+      "use_i18n": {
+        "ru": "Повседневный уход за шерстью",
+        "en": "Everyday coat care",
+        "he": "טיפול יומיומי בפרווה",
+        "es": "Cuidado diario del pelaje"
+      },
+      "check_i18n": {
+        "ru": "Подберите размер под питомца, проверьте материал и удобство очистки. Первое использование — под наблюдением.",
+        "en": "Match the size to your pet, check materials and ease of cleaning. Supervise the first use.",
+        "he": "התאימו את הגודל לחיית המחמד ובדקו חומרים וניקוי. השגיחו בשימוש הראשון.",
+        "es": "Elige el tamaño adecuado, revisa materiales y limpieza. Supervisa el primer uso."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-109": {
+      "need": "desk",
+      "research_term": "screwdriver",
+      "use_i18n": {
+        "ru": "Мелкий ремонт и точная сборка",
+        "en": "Small repairs and precise assembly",
+        "he": "תיקונים קטנים והרכבה מדויקת",
+        "es": "Pequeñas reparaciones y montaje"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-113": {
+      "need": "desk",
+      "research_term": "label_printer",
+      "use_i18n": {
+        "ru": "Подписать коробки и кабели",
+        "en": "Label boxes and cables",
+        "he": "סימון קופסאות וכבלים",
+        "es": "Etiquetar cajas y cables"
+      },
+      "check_i18n": {
+        "ru": "Уточните размер и стоимость расходников, а также совместимость приложения с вашим телефоном.",
+        "en": "Check the size and cost of consumables, plus app compatibility with your phone.",
+        "he": "בדקו גודל ועלות חומרים מתכלים ותאימות האפליקציה לטלפון.",
+        "es": "Revisa tamaño y coste de consumibles y compatibilidad de la aplicación."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-112": {
+      "need": "drive",
+      "research_term": "phone_mount",
+      "use_i18n": {
+        "ru": "Держать навигацию перед глазами",
+        "en": "Keep navigation in view",
+        "he": "ניווט בטווח הראייה",
+        "es": "Tener la navegación a la vista"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размер телефона и место установки. Крепление не должно закрывать обзор или органы управления.",
+        "en": "Check phone size and mounting position. The mount must not obstruct your view or controls.",
+        "he": "בדקו את גודל הטלפון ומיקום ההתקנה. התושבת לא צריכה להסתיר את הדרך או הפקדים.",
+        "es": "Comprueba tamaño y posición. El soporte no debe tapar la visión ni los mandos."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-115": {
+      "need": "home",
+      "research_term": "ultrasonic_cleaner",
+      "use_i18n": {
+        "ru": "Очистка подходящих мелких вещей",
+        "en": "Clean compatible small items",
+        "he": "ניקוי פריטים קטנים מתאימים",
+        "es": "Limpiar objetos pequeños compatibles"
+      },
+      "check_i18n": {
+        "ru": "Сначала проверьте совместимость с материалом по инструкции. Начните с незаметного участка.",
+        "en": "Check material compatibility in the instructions first. Start on an inconspicuous area.",
+        "he": "בדקו התאמה לחומר לפי ההוראות. התחילו באזור נסתר.",
+        "es": "Comprueba la compatibilidad del material y prueba primero en una zona poco visible."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-114": {
+      "need": "charge",
+      "research_term": "wireless_charger",
+      "use_i18n": {
+        "ru": "Место для зарядки на столе",
+        "en": "A charging spot on your desk",
+        "he": "מקום לטעינה על השולחן",
+        "es": "Un lugar de carga en tu escritorio"
+      },
+      "check_i18n": {
+        "ru": "Проверьте разъём, протокол зарядки и мощность для вашего устройства; кабель и адаптер могут продаваться отдельно.",
+        "en": "Check the connector, charging protocol and power your device needs; cables and adapters may be separate.",
+        "he": "בדקו מחבר, תקן טעינה והספק מתאים; כבל ומתאם עשויים להימכר בנפרד.",
+        "es": "Comprueba conector, protocolo y potencia; el cable y el adaptador pueden venderse aparte."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-118": {
+      "need": "drive",
+      "research_term": "tyre_monitor",
+      "use_i18n": {
+        "ru": "Следить за давлением в шинах",
+        "en": "Keep an eye on tyre pressure",
+        "he": "מעקב אחר לחץ האוויר בצמיגים",
+        "es": "Vigilar la presión de los neumáticos"
+      },
+      "check_i18n": {
+        "ru": "Сравните диапазон измерения, тип клапанов и единицы. Ориентируйтесь на рекомендации производителя автомобиля.",
+        "en": "Compare measurement range, valve type and units. Follow your vehicle manufacturer’s recommendations.",
+        "he": "בדקו טווח מדידה, סוג שסתומים ויחידות. פעלו לפי המלצות יצרן הרכב.",
+        "es": "Compara rango, válvulas y unidades. Sigue las recomendaciones del fabricante del vehículo."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-116": {
+      "need": "home",
+      "research_term": "fabric_shaver",
+      "use_i18n": {
+        "ru": "Убрать катышки с одежды",
+        "en": "Remove pilling from clothing",
+        "he": "הסרת כדוריות מבדים",
+        "es": "Quitar las bolitas de la ropa"
+      },
+      "check_i18n": {
+        "ru": "Сначала проверьте совместимость с материалом по инструкции. Начните с незаметного участка.",
+        "en": "Check material compatibility in the instructions first. Start on an inconspicuous area.",
+        "he": "בדקו התאמה לחומר לפי ההוראות. התחילו באזור נסתר.",
+        "es": "Comprueba la compatibilidad del material y prueba primero en una zona poco visible."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-111": {
+      "need": "pets",
+      "research_term": "pet_fountain",
+      "use_i18n": {
+        "ru": "Организовать питьевое место",
+        "en": "Set up your pet’s drinking station",
+        "he": "ארגון פינת השתייה לחיית המחמד",
+        "es": "Preparar la zona de agua"
+      },
+      "check_i18n": {
+        "ru": "Уточните сменные фильтры, разборку для мытья и питание. Доступ к обычной миске с водой стоит сохранить.",
+        "en": "Check replacement filters, cleaning access and power. Keep a regular water bowl available too.",
+        "he": "בדקו מסננים חלופיים, פירוק לניקוי ואספקת חשמל. השאירו גם קערת מים רגילה זמינה.",
+        "es": "Comprueba filtros de recambio, desmontaje y alimentación. Mantén también un cuenco normal de agua."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-117": {
+      "need": "carry",
+      "research_term": "item_tracker",
+      "use_i18n": {
+        "ru": "Помочь найти ключи или сумку",
+        "en": "Help locate keys or a bag",
+        "he": "עזרה באיתור מפתחות או תיק",
+        "es": "Ayudar a localizar llaves o bolso"
+      },
+      "check_i18n": {
+        "ru": "Сверьте поддержку Apple Find My и тип батарейки. Такой брелок не заменяет самостоятельный GPS-трекер.",
+        "en": "Check Apple Find My support and battery type. An item tag is not a standalone GPS tracker.",
+        "he": "בדקו תמיכה ב-Apple Find My וסוג סוללה. תג חפצים אינו תחליף לאיתור GPS עצמאי.",
+        "es": "Revisa compatibilidad con Apple Find My y pila. Una etiqueta no sustituye un GPS independiente."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-120": {
+      "need": "drive",
+      "research_term": "phone_mount",
+      "use_i18n": {
+        "ru": "Закрепить телефон в автомобиле",
+        "en": "Mount your phone in the car",
+        "he": "התקנת הטלפון ברכב",
+        "es": "Sujetar el teléfono en el coche"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размер телефона и место установки. Крепление не должно закрывать обзор или органы управления.",
+        "en": "Check phone size and mounting position. The mount must not obstruct your view or controls.",
+        "he": "בדקו את גודל הטלפון ומיקום ההתקנה. התושבת לא צריכה להסתיר את הדרך או הפקדים.",
+        "es": "Comprueba tamaño y posición. El soporte no debe tapar la visión ni los mandos."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-123": {
+      "need": "home",
+      "research_term": "cabinet_light",
+      "use_i18n": {
+        "ru": "Подсветить шкаф или полку",
+        "en": "Light up a cabinet or shelf",
+        "he": "תאורה לארון או למדף",
+        "es": "Iluminar un armario o estante"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-122": {
+      "need": "drive",
+      "research_term": "air_freshener",
+      "use_i18n": {
+        "ru": "Небольшая деталь для салона",
+        "en": "A small detail for your car interior",
+        "he": "תוספת קטנה לתא הנוסעים",
+        "es": "Un detalle para el interior del coche"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-126": {
+      "need": "home",
+      "research_term": "soap_dispenser",
+      "use_i18n": {
+        "ru": "Дозировать мыло без нажатия",
+        "en": "Dispense soap without pressing",
+        "he": "מזיגת סבון ללא לחיצה",
+        "es": "Dosificar jabón sin pulsar"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-119": {
+      "need": "drive",
+      "research_term": "car_vacuum",
+      "use_i18n": {
+        "ru": "Уборка небольшого мусора в салоне",
+        "en": "Clean up small messes in the car",
+        "he": "ניקוי לכלוך קטן ברכב",
+        "es": "Limpiar pequeños restos del coche"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-125": {
+      "need": "home",
+      "research_term": "spoon_scale",
+      "use_i18n": {
+        "ru": "Отмерить небольшое количество",
+        "en": "Measure small quantities",
+        "he": "מדידת כמויות קטנות",
+        "es": "Medir cantidades pequeñas"
+      },
+      "check_i18n": {
+        "ru": "Уточните диапазон, погрешность и способ калибровки. Не используйте неподтверждённую точность для ответственных измерений.",
+        "en": "Check range, stated accuracy and calibration. Do not rely on unverified accuracy for critical measurements.",
+        "he": "בדקו טווח, דיוק מוצהר וכיול. אין להסתמך על דיוק שלא אומת במדידות קריטיות.",
+        "es": "Comprueba rango, precisión y calibración. No dependas de una precisión sin verificar para medidas críticas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-127": {
+      "need": "desk",
+      "research_term": "mug_warmer",
+      "use_i18n": {
+        "ru": "Поддерживать тепло напитка",
+        "en": "Keep a drink warm at your desk",
+        "he": "שמירה על משקה חם ליד השולחן",
+        "es": "Mantener una bebida caliente"
+      },
+      "check_i18n": {
+        "ru": "Проверьте тип вилки, входное питание и требования инструкции. Не оставляйте нагревающийся прибор без присмотра.",
+        "en": "Check the plug, input power and instructions. Do not leave a heating appliance unattended.",
+        "he": "בדקו תקע, מתח כניסה והוראות. אין להשאיר מכשיר חימום ללא השגחה.",
+        "es": "Revisa enchufe, alimentación e instrucciones. No dejes aparatos que calientan sin vigilancia."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-124": {
+      "need": "home",
+      "research_term": "wine_opener",
+      "use_i18n": {
+        "ru": "Открыть бутылку с пробкой",
+        "en": "Open a corked bottle",
+        "he": "פתיחת בקבוק עם פקק שעם",
+        "es": "Abrir una botella con corcho"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-121": {
+      "need": "charge",
+      "research_term": "car_charger",
+      "use_i18n": {
+        "ru": "Заряжать устройства в дороге",
+        "en": "Charge devices on the road",
+        "he": "טעינת מכשירים בדרך",
+        "es": "Cargar dispositivos en ruta"
+      },
+      "check_i18n": {
+        "ru": "Проверьте разъём, протокол зарядки и мощность для вашего устройства; кабель и адаптер могут продаваться отдельно.",
+        "en": "Check the connector, charging protocol and power your device needs; cables and adapters may be separate.",
+        "he": "בדקו מחבר, תקן טעינה והספק מתאים; כבל ומתאם עשויים להימכר בנפרד.",
+        "es": "Comprueba conector, protocolo y potencia; el cable y el adaptador pueden venderse aparte."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-129": {
+      "need": "pets",
+      "research_term": "paw_cup",
+      "use_i18n": {
+        "ru": "Очистить лапы после прогулки",
+        "en": "Clean paws after a walk",
+        "he": "ניקוי כפות אחרי טיול",
+        "es": "Limpiar las patas tras el paseo"
+      },
+      "check_i18n": {
+        "ru": "Подберите размер под питомца, проверьте материал и удобство очистки. Первое использование — под наблюдением.",
+        "en": "Match the size to your pet, check materials and ease of cleaning. Supervise the first use.",
+        "he": "התאימו את הגודל לחיית המחמד ובדקו חומרים וניקוי. השגיחו בשימוש הראשון.",
+        "es": "Elige el tamaño adecuado, revisa materiales y limpieza. Supervisa el primer uso."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-128": {
+      "need": "home",
+      "research_term": "grinder",
+      "use_i18n": {
+        "ru": "Измельчать специи во время готовки",
+        "en": "Grind seasoning while you cook",
+        "he": "טחינת תבלינים בזמן הבישול",
+        "es": "Moler especias al cocinar"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-130": {
+      "need": "pets",
+      "research_term": "dog_training",
+      "use_i18n": {
+        "ru": "Устройство для обучения собаки",
+        "en": "A dog-training device",
+        "he": "מכשיר לאילוף כלבים",
+        "es": "Un dispositivo de adiestramiento"
+      },
+      "check_i18n": {
+        "ru": "Подберите размер под питомца, проверьте материал и удобство очистки. Первое использование — под наблюдением.",
+        "en": "Match the size to your pet, check materials and ease of cleaning. Supervise the first use.",
+        "he": "התאימו את הגודל לחיית המחמד ובדקו חומרים וניקוי. השגיחו בשימוש הראשון.",
+        "es": "Elige el tamaño adecuado, revisa materiales y limpieza. Supervisa el primer uso."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-133": {
+      "need": "carry",
+      "research_term": "flashlight",
+      "use_i18n": {
+        "ru": "Держать маленький фонарь под рукой",
+        "en": "Keep a small light within reach",
+        "he": "פנס קטן בהישג יד",
+        "es": "Tener una pequeña linterna a mano"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-134": {
+      "need": "carry",
+      "research_term": "wallet",
+      "use_i18n": {
+        "ru": "Упорядочить повседневные карты",
+        "en": "Organise your everyday cards",
+        "he": "ארגון הכרטיסים היומיומיים",
+        "es": "Ordenar las tarjetas del día a día"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-132": {
+      "need": "carry",
+      "research_term": "multitool",
+      "use_i18n": {
+        "ru": "Небольшой инструмент для мелких задач",
+        "en": "A pocket tool for small tasks",
+        "he": "כלי כיס למשימות קטנות",
+        "es": "Una herramienta para tareas pequeñas"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-131": {
+      "need": "home",
+      "research_term": "distance_meter",
+      "use_i18n": {
+        "ru": "Замерить пространство перед покупкой",
+        "en": "Measure a space before buying",
+        "he": "מדידת מקום לפני רכישה",
+        "es": "Medir un espacio antes de comprar"
+      },
+      "check_i18n": {
+        "ru": "Уточните диапазон, погрешность и способ калибровки. Не используйте неподтверждённую точность для ответственных измерений.",
+        "en": "Check range, stated accuracy and calibration. Do not rely on unverified accuracy for critical measurements.",
+        "he": "בדקו טווח, דיוק מוצהר וכיול. אין להסתמך על דיוק שלא אומת במדידות קריטיות.",
+        "es": "Comprueba rango, precisión y calibración. No dependas de una precisión sin verificar para medidas críticas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-136": {
+      "need": "home",
+      "research_term": "faucet",
+      "use_i18n": {
+        "ru": "Изменить направление струи воды",
+        "en": "Adjust the direction of tap water",
+        "he": "כיוון זרם המים בברז",
+        "es": "Orientar el chorro del grifo"
+      },
+      "check_i18n": {
+        "ru": "Сверьте размеры, крепления и совместимость с тем, что уже есть у вас. Фотография не заменяет схему размеров.",
+        "en": "Check dimensions, fittings and compatibility with what you own. A photo is not a dimension drawing.",
+        "he": "בדקו מידות, חיבורים ותאימות לציוד הקיים. תמונה אינה תחליף למידות.",
+        "es": "Comprueba medidas, fijaciones y compatibilidad. Una foto no sustituye un plano con medidas."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    },
+    "real-135": {
+      "need": "home",
+      "research_term": "bag_sealer",
+      "use_i18n": {
+        "ru": "Повторно закрыть подходящий пакет",
+        "en": "Reseal a compatible bag",
+        "he": "סגירה מחדש של שקית מתאימה",
+        "es": "Volver a cerrar una bolsa compatible"
+      },
+      "check_i18n": {
+        "ru": "Сначала проверьте совместимость с материалом по инструкции. Начните с незаметного участка.",
+        "en": "Check material compatibility in the instructions first. Start on an inconspicuous area.",
+        "he": "בדקו התאמה לחומר לפי ההוראות. התחילו באזור נסתר.",
+        "es": "Comprueba la compatibilidad del material y prueba primero en una zona poco visible."
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+    }
+  }
+}

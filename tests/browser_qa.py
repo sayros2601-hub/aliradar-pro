@@ -38,6 +38,37 @@ def run(output):
             assert page.locator('img').first.evaluate('(img)=>img.complete && img.naturalWidth > 0')
             page.screenshot(path=str(output/'dealvault-desktop.png'),full_page=False)
             passed('English static collection and local product photos')
+            heart=page.locator('[data-save-id]').first
+            heart.click(); assert heart.get_attribute('aria-pressed')=='true'
+            page.locator('#saved-filter').click()
+            assert page.locator('#product-grid .product-card:visible').count()==1
+            page.reload(wait_until='networkidle')
+            assert page.locator('#product-grid .product-card:visible').count()==1
+            page.locator('[data-save-id]:visible').click()
+            assert page.locator('#empty-state').is_visible()
+            page.locator('#clear-filters').click()
+            assert page.locator('#product-grid .product-card:visible').count()==expected
+            passed('Saved items persist, filter through URL, remove cleanly and reset')
+            page.locator('#motion-toggle').click()
+            assert page.locator('html').get_attribute('data-motion')=='off'
+            page.reload(wait_until='networkidle')
+            assert page.locator('html').get_attribute('data-motion')=='off'
+            assert page.locator('.orbit-ring').first.evaluate("e=>getComputedStyle(e).animationName")=='none'
+            page.locator('#motion-toggle').click()
+            page.locator('#country-select').select_option('IL')
+            assert page.locator('html').get_attribute('lang')=='en'
+            assert page.locator('#currency-select').input_value()=='USD'
+            page.reload(wait_until='networkidle')
+            assert page.locator('#country-select').input_value()=='IL'
+            passed('Motion preference persists; country choice does not change English or currency')
+            russian=browser.new_context(locale='ru-RU',reduced_motion='reduce',color_scheme='light')
+            rp=russian.new_page();rp.goto(base+'/',wait_until='networkidle')
+            assert rp.locator('html').get_attribute('lang')=='en'
+            assert rp.locator('#motion-toggle').is_hidden()
+            assert rp.locator('.orbit-ring').first.evaluate("e=>getComputedStyle(e).animationName")=='none'
+            russian.close()
+            passed('English entry even with Russian browser; reduced motion disables animation')
+
             page.locator('#global-search-input').fill('ugreen')
             assert page.locator('#product-grid .product-card:visible').count()==1
             page.locator('#global-search-input').fill('definitely-no-match')
@@ -117,7 +148,9 @@ def run(output):
             bp.goto(base+'/index.html',wait_until='networkidle')
             assert bp.locator('.product-card:visible').count()==expected
             bp.locator('#currency-select').select_option('ILS'); bp.locator('#theme-toggle').click()
-            passed('Storage disabled: catalog, currency and theme still work')
+            bp.locator('[data-save-id]').first.click();bp.locator('#saved-filter').click()
+            assert bp.locator('#product-grid .product-card:visible').count()==1
+            passed('Storage disabled: catalog, currency, theme and saved filtering still work')
             nojs=browser.new_context(java_script_enabled=False)
             np=nojs.new_page(); np.goto(base+'/index.html',wait_until='networkidle')
             assert np.locator('.product-card').count()==expected

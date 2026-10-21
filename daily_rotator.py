@@ -3,6 +3,8 @@ import argparse
 from datetime import datetime, timezone
 from dealvault_core import DATA_DIR, read_json, write_json, affiliate_key, validate_catalog, utc_now
 from link_health_guard import check_single_link
+from product_selection import rank_candidates
+
 
 PRODUCTS_FILE=DATA_DIR/'products.json'
 RESERVE_FILE=DATA_DIR/'reserve_pool.json'
@@ -36,12 +38,23 @@ def rotate_deals(count=7,dry_run=False,checker=check_single_link):
     ids={p['id'] for p in db['products']}
     slugs={p['slug'] for p in db['products']}
     links={affiliate_key(p['affiliate_url']) for p in db['products']}
+    item_ids={str(p['item_id']) for p in db['products'] if p.get('item_id')}
     incoming=[]
-    for candidate in reserve:
+    category_counts={}; needs={}
+    policy=read_json(DATA_DIR/'selection_policy.json')
+    for decision,candidate in rank_candidates(reserve):
+        if not decision['eligible']:
+            continue
+        need=decision['need_id']
+        category=candidate.get('category')
+        if needs.get(need,0)>=policy['max_per_need'] or category_counts.get(category,0)>=policy['max_per_category']:
+            continue
         if len(incoming) >= count:
             break
         # A working shortlink alone cannot establish title, image or product identity.
         if candidate.get('source') != 'portals' or candidate.get('reviewed') is not True or not candidate.get('item_id') or not candidate.get('source_evidence'):
+            continue
+        if str(candidate.get('item_id')) in item_ids:
             continue
         if candidate.get('id') in ids or candidate.get('slug') in slugs or affiliate_key(candidate.get('affiliate_url')) in links:
             continue
@@ -53,9 +66,11 @@ def rotate_deals(count=7,dry_run=False,checker=check_single_link):
             continue
         item={**candidate,'added_at':utc_now(),'is_new':False}
         incoming.append(item)
+        needs[need]=needs.get(need,0)+1; category_counts[category]=category_counts.get(category,0)+1
+        item_ids.add(str(item['item_id']))
         ids.add(item['id']); slugs.add(item['slug']); links.add(affiliate_key(item['affiliate_url']))
     if not incoming:
-        print('[Rotation] No reviewed candidates with confirmed destinations. Catalog unchanged.')
+        print('[Rotation] No candidates passed current demand, delivery, quality and editorial checks. Catalog unchanged.')
         return []
     limit=int(db['site_meta'].get('catalog_limit',len(db['products'])))
     combined=incoming+db['products']
