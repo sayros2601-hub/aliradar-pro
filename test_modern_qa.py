@@ -88,6 +88,19 @@ def run_qa():
         page.screenshot(path="modern_desktop_en.png")
         print("[QA] Saved modern_desktop_en.png")
 
+        # 5b. Test Theme Switcher (Toggle Dark Mode)
+        print("[QA] Testing Theme Toggle to Dark...")
+        page.click('#theme-toggle')
+        page.wait_for_timeout(500)
+        page.screenshot(path="modern_desktop_dark.png")
+        print("[QA] Saved modern_desktop_dark.png")
+
+        # Toggle back to Light
+        page.click('#theme-toggle')
+        page.wait_for_timeout(400)
+        page.screenshot(path="modern_desktop_light.png")
+        print("[QA] Saved modern_desktop_light.png")
+
         # 6. Test Category Filter (Tech & Audio)
         print("[QA] Testing Category Filter: Tech...")
         page.click('button[data-cat="tech"]')
@@ -136,7 +149,8 @@ def run_qa():
     # Copy screenshots to artifact directory
     shots = [
         "modern_desktop_he.png", "modern_desktop_en.png", "modern_desktop_es.png",
-        "modern_desktop_ru.png", "modern_modal.png", "modern_cat_tech.png",
+        "modern_desktop_ru.png", "modern_desktop_light.png", "modern_desktop_dark.png",
+        "modern_modal.png", "modern_cat_tech.png",
         "modern_new_today.png",
         "modern_mobile.png", "modern_mobile_modal.png", "modern_deal_page.png"
     ]

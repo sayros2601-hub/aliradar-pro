@@ -1,5 +1,30 @@
-/* SMARTPICK // MODERN MINIMALIST DARK DEAL PORTAL CSS */
-:root {
+/* SMARTPICK // MODERN DEAL PORTAL CSS (LIGHT + DARK THEMES) */
+:root, [data-theme="light"] {
+  --bg-main: #f8fafc;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f1f5f9;
+  --bg-card: #ffffff;
+  --border-subtle: #e2e8f0;
+  --border-hover: #0284c7;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --accent-cyan: #0284c7;
+  --accent-cyan-hover: #0369a1;
+  --accent-emerald: #059669;
+  --accent-coral: #e11d48;
+  --accent-amber: #d97706;
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Heebo, "Noto Sans", sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 10px 25px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="dark"] {
   --bg-main: #0b0f19;
   --bg-surface: #121826;
   --bg-surface-hover: #1a2236;
@@ -14,14 +39,8 @@
   --accent-emerald: #10b981;
   --accent-coral: #f43f5e;
   --accent-amber: #f59e0b;
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, Heebo, "Noto Sans", sans-serif;
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-full: 9999px;
   --shadow-card: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
   --shadow-hover: 0 12px 30px -4px rgba(0, 0, 0, 0.7), 0 0 20px rgba(6, 182, 212, 0.15);
-  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -102,7 +121,7 @@ button {
   font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.5px;
-  color: #fff;
+  color: var(--text-primary);
 }
 .brand-text span {
   color: var(--accent-cyan);
@@ -129,7 +148,7 @@ button {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   padding: 0 42px 0 18px;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 14px;
   outline: none;
   transition: var(--transition);
@@ -167,6 +186,26 @@ button {
   flex-shrink: 0;
 }
 
+.theme-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  font-size: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.theme-toggle-btn:hover {
+  background: var(--bg-surface-hover);
+  border-color: var(--accent-cyan);
+  transform: rotate(15deg);
+}
+
 .segmented-pill {
   display: inline-flex;
   background: var(--bg-surface);
@@ -186,18 +225,18 @@ button {
 }
 
 .seg-btn:hover {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .seg-btn.active {
   background: var(--accent-cyan);
-  color: #0b0f19;
+  color: #fff;
   font-weight: 700;
 }
 
 /* HERO SECTION */
 .modern-hero {
-  padding: 36px 0 20px;
+  padding: 24px 0 16px;
   text-align: center;
 }
 
@@ -212,15 +251,15 @@ button {
   border-radius: var(--radius-full);
   font-size: 12.5px;
   font-weight: 600;
-  margin-bottom: 14px;
+  margin-bottom: 12px;
 }
 
 .modern-hero h1 {
-  font-size: 34px;
+  font-size: 30px;
   font-weight: 900;
   letter-spacing: -0.8px;
-  color: #fff;
-  margin-bottom: 10px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
   line-height: 1.25;
 }
 
@@ -333,27 +372,27 @@ button {
 }
 
 .cat-pill:hover {
-  border-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
+  border-color: var(--accent-cyan);
+  color: var(--text-primary);
 }
 
 .cat-pill.active {
   background: var(--accent-cyan);
   border-color: var(--accent-cyan);
-  color: #0b0f19;
+  color: #fff;
   font-weight: 700;
 }
 
 .cat-count {
-  background: rgba(0, 0, 0, 0.25);
+  background: rgba(0, 0, 0, 0.12);
   padding: 1px 6px;
   border-radius: 10px;
   font-size: 11px;
 }
 
 .cat-pill.active .cat-count {
-  background: rgba(0, 0, 0, 0.2);
-  color: #0b0f19;
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
 }
 
 /* FILTER & SORT BAR */
@@ -384,17 +423,21 @@ button {
   font-size: 12.5px;
   font-weight: 600;
   color: var(--text-secondary);
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-subtle);
   transition: var(--transition);
   flex-shrink: 0;
 }
 
-.price-chip:hover { color: #fff; }
+.price-chip:hover {
+  color: var(--text-primary);
+  border-color: var(--accent-cyan);
+}
 
 .price-chip.active {
-  background: rgba(6, 182, 212, 0.2);
+  background: rgba(6, 182, 212, 0.15);
   color: var(--accent-cyan);
-  border: 1px solid rgba(6, 182, 212, 0.4);
+  border: 1px solid var(--accent-cyan);
 }
 
 .filter-actions {
@@ -405,9 +448,9 @@ button {
 }
 
 .sort-select {
-  background: var(--bg-main);
+  background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
-  color: #fff;
+  color: var(--text-primary);
   padding: 6px 12px;
   border-radius: var(--radius-sm);
   font-size: 13px;
@@ -619,7 +662,7 @@ button {
 .card-title {
   font-size: 14px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
   line-height: 1.4;
   margin-bottom: 10px;
   display: -webkit-box;
@@ -638,9 +681,9 @@ button {
 }
 
 .current-price {
-  font-size: 19px;
+  font-size: 20px;
   font-weight: 900;
-  color: var(--accent-cyan);
+  color: var(--accent-emerald);
 }
 
 .old-price {
@@ -653,14 +696,15 @@ button {
   display: flex;
   align-items: center;
   gap: 6px;
-  font-size: 11px;
+  font-size: 11.5px;
   color: var(--text-secondary);
   margin-bottom: 12px;
 }
 
 .card-perks span {
-  background: rgba(255, 255, 255, 0.05);
-  padding: 2px 6px;
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-subtle);
+  padding: 2px 7px;
   border-radius: 4px;
 }
 
@@ -671,8 +715,9 @@ button {
 }
 
 .btn-quick-view {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+  border: 1px solid var(--border-subtle);
   font-size: 12.5px;
   font-weight: 600;
   padding: 8px 12px;
@@ -682,7 +727,8 @@ button {
 }
 
 .btn-quick-view:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: var(--border-subtle);
+  color: var(--accent-cyan);
 }
 
 .btn-buy-deal {
@@ -745,16 +791,16 @@ button {
   width: 36px;
   height: 36px;
   border-radius: var(--radius-full);
-  background: #1e293b;
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  color: #fff;
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 16px;
   z-index: 100;
   transition: var(--transition);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 [dir="rtl"] .modal-close-btn {
   right: auto;
@@ -762,7 +808,8 @@ button {
 }
 
 .modal-close-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: var(--border-subtle);
+  color: var(--accent-cyan);
 }
 
 .modal-grid-layout {
@@ -777,7 +824,7 @@ button {
 }
 
 .modal-gallery-view {
-  background: #090d16;
+  background: var(--bg-surface-hover);
   border-radius: var(--radius-md);
   overflow: hidden;
   position: relative;
@@ -805,7 +852,7 @@ button {
   font-weight: 800;
   margin-bottom: 12px;
   line-height: 1.35;
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .modal-price-box {
@@ -818,7 +865,7 @@ button {
 .modal-price-box .modal-current-price {
   font-size: 26px;
   font-weight: 900;
-  color: var(--accent-cyan);
+  color: var(--accent-emerald);
 }
 
 .modal-price-box .modal-old-price {

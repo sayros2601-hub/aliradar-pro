@@ -209,6 +209,7 @@
   const STATE = {
     lang: localStorage.getItem('sp_lang') || defaultLang(),
     cur: localStorage.getItem('sp_cur') || '',
+    theme: localStorage.getItem('sp_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
     cat: 'all',
     price: 'all',
     sort: 'trending',
@@ -217,6 +218,15 @@
 
   if (!STATE.cur) STATE.cur = defaultCur(STATE.lang);
   window.SmartPickCurrentCurrency = STATE.cur;
+
+  const applyTheme = () => {
+    document.documentElement.setAttribute('data-theme', STATE.theme);
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.textContent = STATE.theme === 'dark' ? '☀️' : '🌙';
+      themeBtn.setAttribute('title', STATE.theme === 'dark' ? 'Светлая тема' : 'Темная тема');
+    }
+  };
 
   // Helpers
   const t = (k) => I18N[STATE.lang]?.[k] || I18N.en[k] || '';
@@ -561,6 +571,16 @@
       });
     }
 
+    // Theme Switcher Button
+    const themeBtn = document.getElementById('theme-toggle');
+    if (themeBtn) {
+      themeBtn.addEventListener('click', () => {
+        STATE.theme = STATE.theme === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('sp_theme', STATE.theme);
+        applyTheme();
+      });
+    }
+
     // Search Input
     let searchDebounce;
     const searchInput = document.getElementById('global-search-input');
@@ -644,6 +664,7 @@
   }
 
   // Initialize
+  applyTheme();
   applyLanguage();
   renderGrid();
   attachListeners();

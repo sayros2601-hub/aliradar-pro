@@ -82,18 +82,35 @@ def build_index(db):
 
     schema_ld = json.dumps({
         "@context": "https://schema.org",
-        "@type": "ItemList",
-        "name": meta["title"],
-        "description": meta["description"],
-        "numberOfItems": len(prods),
-        "itemListElement": [
+        "@graph": [
             {
-                "@type": "ListItem",
-                "position": i + 1,
-                "url": f"{dom}/deals/{p['slug']}.html",
-                "name": p.get("title_i18n", {}).get("en") or p.get("title")
+                "@type": "WebSite",
+                "@id": f"{dom}/#website",
+                "url": dom,
+                "name": "SmartPick",
+                "description": meta["description"],
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": f"{dom}/index.html?q={{search_term_string}}",
+                    "query-input": "required name=search_term_string"
+                }
+            },
+            {
+                "@type": "ItemList",
+                "@id": f"{dom}/#itemlist",
+                "name": meta["title"],
+                "description": meta["description"],
+                "numberOfItems": len(prods),
+                "itemListElement": [
+                    {
+                        "@type": "ListItem",
+                        "position": i + 1,
+                        "url": f"{dom}/deals/{p['slug']}.html",
+                        "name": p.get("title_i18n", {}).get("en") or p.get("title")
+                    }
+                    for i, p in enumerate(prods[:50])
+                ]
             }
-            for i, p in enumerate(prods[:50])
         ]
     }, ensure_ascii=False)
 
@@ -104,13 +121,18 @@ def build_index(db):
     ).replace("</", "<\\/")
 
     out = f'''<!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>SmartPick // מציאות שוות וגאדג'טים חכמים לחיים</title>
   <meta name="description" content="מציאות מאומתות וגאדג'טים שימושיים לרכב, לבית ולכיס במחירי יצרן ישירים. משלוח חינם לישראל ופטור מלא ממע&quot;מ ומכס עד $75.">
   <link rel="canonical" href="{dom}/index.html">
+  <link rel="alternate" hreflang="x-default" href="{dom}/index.html">
+  <link rel="alternate" hreflang="en" href="{dom}/index.html?lang=en">
+  <link rel="alternate" hreflang="ru" href="{dom}/index.html?lang=ru">
+  <link rel="alternate" hreflang="he" href="{dom}/index.html?lang=he">
+  <link rel="alternate" hreflang="es" href="{dom}/index.html?lang=es">
   <meta property="og:type" content="website">
   <meta property="og:title" content="SmartPick // מציאות שוות וגאדג'טים חכמים לחיים">
   <meta property="og:description" content="מציאות מאומתות וגאדג'טים שימושיים לרכב, לבית ולכיס במחירי יצרן ישירים. 100% קישורים מאומתים ומשלוח חינם.">
@@ -120,10 +142,19 @@ def build_index(db):
   <meta name="twitter:title" content="SmartPick // Curated Smart Gadgets">
   <meta name="twitter:description" content="Discover problem-solving smart gadgets and verified AliExpress bargains with free shipping.">
   <meta name="twitter:image" content="{dom}/{e(prods[0]['image'])}">
-  <meta name="theme-color" content="#0b0f19">
+  <meta name="theme-color" content="#0284c7">
   <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="assets/modern.css?v=2026.2">
+  <link rel="stylesheet" href="assets/modern.css?v=2026.3">
+  <script>
+    (function(){{
+      var t = localStorage.getItem('sp_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+      var l = localStorage.getItem('sp_lang') || ((navigator.language||'').toLowerCase().startsWith('ru') ? 'ru' : (navigator.language||'').toLowerCase().startsWith('he') ? 'he' : (navigator.language||'').toLowerCase().startsWith('es') ? 'es' : 'en');
+      document.documentElement.setAttribute('lang', l);
+      document.documentElement.setAttribute('dir', l === 'he' ? 'rtl' : 'ltr');
+    }})();
+  </script>
   <script type="application/ld+json">{schema_ld}</script>
   <script src="assets/tracking.js"></script>
 </head>
@@ -162,6 +193,9 @@ def build_index(db):
             <button type="button" class="seg-btn" data-set-cur="EUR">€</button>
             <button type="button" class="seg-btn" data-set-cur="RUB">₽</button>
           </div>
+
+          <!-- Theme Switcher -->
+          <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme" title="Светлая / Темная тема">🌓</button>
         </div>
       </div>
     </div>
@@ -169,7 +203,7 @@ def build_index(db):
 
   <main class="wrap">
     
-    <!-- Hero Banner -->
+    <!-- Hero Banner (Compact & High-Impact) -->
     <section class="modern-hero">
       <span class="hero-pill" data-i18n="heroBadge">מבצעים מאומתים // 2026</span>
       <h1 data-i18n="heroH1">גאדג'טים ופטנטים שבאמת פותרים בעיות ביומיום</h1>
@@ -285,28 +319,45 @@ def build_deal_page(db, p):
     new_badge_deal = '<span class="badge-new-drop" style="position:static;display:inline-flex;margin-bottom:8px;"><span class="pulse-dot"></span> ✨ חדש מהיום // NEW TODAY</span>' if is_new else ''
     disc_badge_deal = f'<span class="discount-badge" style="position:static;display:inline-block;margin-bottom:8px;">-{disc}% OFF</span>' if (disc and not is_new) else ''
 
+    brand_name = (p.get("specs") or {}).get("Brand") or (p.get("specs") or {}).get("Manufacturer") or "SmartPick Verified"
     schema_prod = json.dumps({
         "@context": "https://schema.org",
-        "@type": "Product",
-        "name": title_en,
-        "image": [f"{dom}/{x}" for x in gallery],
-        "description": desc,
-        "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": str(p.get("rating", 4.9)),
-            "reviewCount": str(p.get("reviews_count", 150))
-        },
-        "offers": {
-            "@type": "Offer",
-            "priceCurrency": "USD",
-            "price": str(p["price_usd"]),
-            "availability": "https://schema.org/InStock",
-            "url": p["affiliate_url"]
-        }
+        "@graph": [
+            {
+                "@type": "Product",
+                "name": title_en,
+                "image": [f"{dom}/{x}" for x in gallery],
+                "description": desc,
+                "brand": {"@type": "Brand", "name": brand_name},
+                "sku": p["id"],
+                "aggregateRating": {
+                    "@type": "AggregateRating",
+                    "ratingValue": str(p.get("rating", 4.9)),
+                    "reviewCount": str(p.get("reviews_count", 150)),
+                    "bestRating": "5"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "priceCurrency": "USD",
+                    "price": str(p["price_usd"]),
+                    "priceValidUntil": "2027-12-31",
+                    "availability": "https://schema.org/InStock",
+                    "url": p["affiliate_url"]
+                }
+            },
+            {
+                "@type": "BreadcrumbList",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Home", "item": dom},
+                    {"@type": "ListItem", "position": 2, "name": p.get("category", "gadgets").capitalize(), "item": f"{dom}/index.html"},
+                    {"@type": "ListItem", "position": 3, "name": title_en, "item": f"{dom}/deals/{p['slug']}.html"}
+                ]
+            }
+        ]
     }, ensure_ascii=False)
 
     out = f'''<!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html lang="he" dir="rtl" data-theme="light">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -322,9 +373,15 @@ def build_deal_page(db, p):
   <meta name="twitter:title" content="{e(title_he)}">
   <meta name="twitter:description" content="{e(desc)}">
   <meta name="twitter:image" content="{dom}/{e(p['image'])}">
-  <meta name="theme-color" content="#0b0f19">
+  <meta name="theme-color" content="#0284c7">
   <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/modern.css?v=2026.2">
+  <link rel="stylesheet" href="../assets/modern.css?v=2026.3">
+  <script>
+    (function(){{
+      var t = localStorage.getItem('sp_theme') || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', t);
+    }})();
+  </script>
   <script type="application/ld+json">{schema_prod}</script>
   <script src="../assets/tracking.js"></script>
   <style>
@@ -342,7 +399,10 @@ def build_deal_page(db, p):
           <div class="brand-icon">✦</div>
           <div class="brand-text">Smart<span>Pick</span></div>
         </a>
-        <a href="../index.html" class="back-btn" style="margin-bottom:0;">➔ חזרה לקטלוג הראשי</a>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <a href="../index.html" class="back-btn" style="margin-bottom:0;">➔ חזרה לקטלוג הראשי</a>
+          <button type="button" class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Theme" title="Светлая / Темная тема">🌓</button>
+        </div>
       </div>
     </div>
   </header>
@@ -359,7 +419,7 @@ def build_deal_page(db, p):
         <div>
           {new_badge_deal}
           {disc_badge_deal}
-          <h1 style="font-size:20px;font-weight:800;color:#fff;line-height:1.4;margin-bottom:12px;">{e(title_he)}</h1>
+          <h1 style="font-size:20px;font-weight:800;color:var(--text-primary);line-height:1.4;margin-bottom:12px;">{e(title_he)}</h1>
           
           <div class="modal-price-box">
             <span class="modal-current-price">₪{pr_ils}</span>
@@ -382,7 +442,7 @@ def build_deal_page(db, p):
 
           {f'<div style="margin:14px 0;"><h4 style="font-size:13.5px;color:var(--accent-cyan);margin-bottom:8px;">⚡ יתרונות בולטים</h4><ul class="modal-bullets">{highlights_html}</ul></div>' if highlights_html else ''}
 
-          {f'<div style="margin:14px 0;background:rgba(0,0,0,0.25);padding:12px;border-radius:8px;border:1px solid var(--border-subtle);"><h4 style="font-size:12.5px;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">מפרט טכני</h4>{specs_rows}</div>' if specs_rows else ''}
+          {f'<div style="margin:14px 0;background:var(--bg-surface-hover);padding:12px;border-radius:8px;border:1px solid var(--border-subtle);"><h4 style="font-size:12.5px;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">מפרט טכני</h4>{specs_rows}</div>' if specs_rows else ''}
 
           <a href="{e(p['affiliate_url'])}" target="_blank" rel="nofollow sponsored noopener" class="modal-cta-btn" id="deal-cta-btn">
             למעבר לדיל ב-AliExpress ↗
