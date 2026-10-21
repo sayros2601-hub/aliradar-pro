@@ -9,11 +9,18 @@ class SelectionTests(unittest.TestCase):
         self.p,self.snap=evidence({'id':'fixture','item_id':'1005001234567','source':'portals','reviewed':True,'source_evidence':'Synthetic source identity evidence'})
     def evaluate(self):return evaluate_candidate(self.p,self.snap)
     def test_complete_evidence_passes(self):self.assertTrue(self.evaluate()['eligible'])
-    def test_missing_or_conditional_shipping_fails(self):
-        for field,value in [('shipping_cost',None),('shipping_cost',False),('shipping_cost',2),('minimum_order',10),('first_order_only',True),('membership_required',True),('conditional_bundle',True)]:
+    def test_shipping_cost_and_conditions_do_not_affect_selection(self):
+        baseline=self.evaluate()['score']
+        for field,value in [('shipping_cost',None),('shipping_cost',2),('free_shipping',False),('minimum_order',10),('first_order_only',True),('membership_required',True),('conditional_bundle',True)]:
             with self.subTest(field=field,value=value):
                 candidate=copy.deepcopy(self.p);candidate['offer'][field]=value
-                self.assertIn('UNCONDITIONAL_FREE_SHIPPING_REQUIRED',evaluate_candidate(candidate,self.snap)['reasons'])
+                decision=evaluate_candidate(candidate,self.snap)
+                self.assertTrue(decision['eligible'],decision['reasons'])
+                self.assertEqual(decision['score'],baseline)
+    def test_shipping_cost_fields_are_optional(self):
+        for field in ('shipping_cost','free_shipping','minimum_order','first_order_only','membership_required','conditional_bundle'):
+            self.p['offer'].pop(field,None)
+        self.assertTrue(self.evaluate()['eligible'])
     def test_wrong_destination_or_variant_fails(self):
         self.p['offer']['ship_to']='US';self.assertFalse(self.evaluate()['eligible'])
         self.p['offer']['ship_to']='IL';self.p['offer']['variant_id']='';self.assertFalse(self.evaluate()['eligible'])

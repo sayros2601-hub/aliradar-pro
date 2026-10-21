@@ -62,8 +62,7 @@ def evaluate_candidate(candidate, snapshots=None, policy=None, now=None):
     source=offer.get('source_url','')
     if str(offer.get('item_id',''))!=item or not item or not isinstance(source,str) or item not in source or not official_url(source,{'www.aliexpress.com','aliexpress.com'}) or not offer.get('variant_id') or offer.get('ship_to')!=country or offer.get('reviewed') is not True or len(offer.get('evidence_text','').strip())<30:reasons.append('EXACT_VARIANT_AND_DESTINATION_REQUIRED')
     if not fresh(offer.get('checked_at'),policy['offer_max_age_hours'],now):reasons.append('OFFER_STALE_OR_MISSING')
-    # An explicit zero and explicit false conditions are required; None/False are not numeric zero.
-    if not (number(offer.get('shipping_cost'),0,0) and number(offer.get('minimum_order'),0,0) and offer.get('free_shipping') is True and offer.get('first_order_only') is False and offer.get('membership_required') is False and offer.get('conditional_bundle') is False):reasons.append('UNCONDITIONAL_FREE_SHIPPING_REQUIRED')
+    # Shipping cost and promotional shipping conditions are buyer choices, not admission gates.
     if offer.get('in_stock') is not True or not number(offer.get('item_price'),0.01) or offer.get('currency') not in {'USD','ILS','EUR','RUB'}:reasons.append('CURRENT_PRICE_AND_STOCK_REQUIRED')
     if not number(offer.get('shipping_days_max'),1,policy['maximum_delivery_days']):reasons.append('DELIVERY_ESTIMATE_REQUIRED')
     if not number(offer.get('rating'),policy['minimum_rating'],5) or not number(offer.get('review_count'),policy['minimum_reviews']) or not number(offer.get('seller_positive_pct'),policy['minimum_seller_positive_pct'],100):reasons.append('QUALITY_EVIDENCE_INSUFFICIENT')
@@ -112,7 +111,7 @@ def write_selection_report():
     inbox=read_json(DATA_DIR/'portals_inbox.json',[])
     records={p['id']:p for p in inbox+reserve}
     ranked=rank_candidates(list(records.values()))
-    report={'checked_at':utc_now(),'mode':'evidence_based_screening','eligible':sum(r['eligible'] for r,p in ranked),'review_queue':[r for r,p in ranked],'research_plan':research_plan(),'note':'No qualified new candidate means no rotation. Existing legacy products are not certified for free shipping. Research and observations are updated through editorial review; this module does not access private ad targeting or infer sales.'}
+    report={'checked_at':utc_now(),'mode':'evidence_based_screening','eligible':sum(r['eligible'] for r,p in ranked),'review_queue':[r for r,p in ranked],'research_plan':research_plan(),'note':'No qualified new candidate means no rotation. Free shipping is optional and does not affect eligibility or score. Buyers confirm final delivery terms on AliExpress. Research and observations are updated through editorial review; this module does not access private ad targeting or infer sales.'}
     write_json(DATA_DIR/'selection_report.json',report)
     return report
 

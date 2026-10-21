@@ -74,7 +74,7 @@ The default entry is English, including on Russian-language browsers. Language s
 `product_selection.py` creates a regional research plan and evaluates every proposed reserve product before `daily_rotator.py` can publish it. `data/selection_policy.json` contains the editorial thresholds. Each candidate needs:
 
 - Original item identity, reviewed source capture, exact variant and destination.
-- Explicit free shipping with zero minimum order, no new-customer requirement, paid membership or conditional bundle. Offer, stock and delivery observations expire after 24 hours. Unknown is not free.
+- Free shipping is optional. Shipping fees and promotional shipping conditions do not block admission or change the score; buyers check final terms on AliExpress. The site does not promise free shipping. Offer, stock and delivery observations expire after 24 hours.
 - Rating, review count and seller-feedback evidence; negative-review and compatibility/safety review. These are screening thresholds, not a guarantee of quality.
 - A documented useful task, a drawback, and comparison with two distinct alternatives. Advertising placement and affiliate commission do not enter the score.
 - Fresh country-specific demand evidence (30 days) with sufficient weekly coverage. Partial current weeks and duplicate weeks are excluded. Normalized magnitudes are not compared across countries.

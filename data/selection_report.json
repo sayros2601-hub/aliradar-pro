@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-21T19:52:55+00:00",
+  "checked_at": "2026-10-21T20:08:29+00:00",
   "mode": "evidence_based_screening",
   "eligible": 0,
   "review_queue": [],
@@ -80,5 +80,5 @@
       "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
     }
   ],
-  "note": "No qualified new candidate means no rotation. Existing legacy products are not certified for free shipping. Research and observations are updated through editorial review; this module does not access private ad targeting or infer sales."
+  "note": "No qualified new candidate means no rotation. Free shipping is optional and does not affect eligibility or score. Buyers confirm final delivery terms on AliExpress. Research and observations are updated through editorial review; this module does not access private ad targeting or infer sales."
 }
