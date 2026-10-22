@@ -72,7 +72,7 @@ def rotate_deals(count=7,dry_run=False,checker=check_single_link):
             continue
         if checker(candidate)['status'] != 'RESOLVED':
             continue
-        item={**candidate,'added_at':utc_now(),'is_new':False}
+        item={**candidate,'added_at':utc_now(),'is_new':True}
         incoming.append(item)
         needs[need]=needs.get(need,0)+1; category_counts[category]=category_counts.get(category,0)+1
         item_ids.add(str(item['item_id']))
@@ -81,7 +81,8 @@ def rotate_deals(count=7,dry_run=False,checker=check_single_link):
         print('[Rotation] No candidates passed current demand, delivery, quality and editorial checks. Catalog unchanged.')
         return []
     limit=int(db['site_meta'].get('catalog_limit',len(db['products'])))
-    combined=incoming+db['products']
+    existing=[{**p,'is_new':False} for p in db['products']]
+    combined=incoming+existing
     retired=combined[limit:]
     db['products']=combined[:limit]
     new_ids={p['id'] for p in incoming}

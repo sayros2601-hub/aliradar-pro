@@ -1,169 +1,8 @@
 {
-  "checked_at": "2026-10-22T14:39:08+00:00",
+  "checked_at": "2026-10-22T14:54:26+00:00",
   "mode": "evidence_based_screening",
   "eligible": 0,
   "review_queue": [
-    {
-      "id": "1-4pcs-7-days-weekly-mini-port",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "1-4pcs-silicone-collapsible-fu",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "1pcs-car-tissue-box-towel-se",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "2025-anti-theft-slim-pop-up-wa",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "3pcs-travel-shoe-storage-pouch",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "5-10-20pcs-hot-melt-glue-stick",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "5-100pcs-transparent-hot-melt",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
     {
       "id": "500ml-portable-silicone-water",
       "country": null,
@@ -372,6 +211,29 @@
       "demand": null
     },
     {
+      "id": "automatic-wire-stripper-cutter-crimp",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "boot-storage-bag-portable-shoe",
       "country": null,
       "need_id": null,
@@ -465,6 +327,29 @@
     },
     {
       "id": "collapsible-water-bottles-sili",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "damping-mat-sound-deadening-for-bran",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -947,6 +832,29 @@
       "demand": null
     },
     {
+      "id": "outdoor-astronaut-bubble-pet-backpac",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "outdoor-sports-shoe-bag-mesh-b",
       "country": null,
       "need_id": null,
@@ -1131,6 +1039,52 @@
       "demand": null
     },
     {
+      "id": "quiet-mini-desk-fan-recharge",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "rechargeable-4g-real-time-mini-water",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "rfid-blocking-credit-card-1",
       "country": null,
       "need_id": null,
@@ -1246,7 +1200,122 @@
       "demand": null
     },
     {
+      "id": "small-portable-mini-usb-fan",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "tk-mini-usb-desk-fan-portabl",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "topk-4inch-usb-mini-desk-fan",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "topk-4inch-usb-mini-portable",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "topk-mini-portable-fan-usb-d",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "topk-usb-small-desk-mini-por",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1453,6 +1522,29 @@
       "demand": null
     },
     {
+      "id": "usb-desk-fan-small-personal",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "ve1-carry-on-card-bag-wallet-m",
       "country": null,
       "need_id": null,
@@ -1500,6 +1592,29 @@
     },
     {
       "id": "wallet-card-knife-edc-outdoor",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "warmco-mini-fan-usb-desk-fan",
       "country": null,
       "need_id": null,
       "eligible": false,
