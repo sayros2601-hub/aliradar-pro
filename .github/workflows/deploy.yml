@@ -7,6 +7,11 @@ on:
   schedule:
     - cron: '0 6 * * *'
   workflow_dispatch:
+    inputs:
+      rotate:
+        description: 'Rotate deals count (0 to keep catalog, 7 to rotate deals)'
+        required: false
+        default: '0' 
 
 permissions:
   contents: read
@@ -44,8 +49,14 @@ jobs:
       - name: Build PR without live network updates
         if: github.event_name == 'pull_request'
         run: python dealvault_pipeline.py --offline
-      - name: Update currency snapshot and build without marketplace access
-        if: github.event_name != 'pull_request'
+      - name: Daily 7-deal rotation and build (on schedule or manual rotate request)
+        if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.rotate != '0' && github.event.inputs.rotate != '')
+        run: |
+          python update_exchange_rates.py
+          python daily_rotator.py --count 7
+          python dealvault_pipeline.py --offline
+      - name: Standard build without marketplace access
+        if: github.event_name != 'pull_request' && github.event_name != 'schedule' && (github.event_name != 'workflow_dispatch' || github.event.inputs.rotate == '0' || github.event.inputs.rotate == '')
         run: |
           python update_exchange_rates.py
           python dealvault_pipeline.py --offline

@@ -4462,5 +4462,4595 @@
       "he": "קערת האכלה איטית אינטראקטיבית לכלב",
       "es": "Comedero Antivoracidad Interactivo para Perros"
     }
+  },
+  {
+    "slug": "ugreen-usb-c-to-8k-displayport-1-4-a",
+    "title_i18n": {
+      "en": "UGREEN USB C to 8K Displayport 1.4 Adapter for iPhone 15 Macbook Pro iPad U",
+      "ru": "Полезный гаджет: UGREEN USB C to 8K Displayport 1.4 Adapt",
+      "he": "גאдג'ט נבחר: UGREEN USB C to 8K Displayport 1.4 Adapt",
+      "es": "Gadget Práctico: UGREEN USB C to 8K Displayport 1.4 Adapt"
+    }
+  },
+  {
+    "slug": "m6-mini-pc-intel-n100-n200-mini-pc-l",
+    "title_i18n": {
+      "en": "M6 Mini PC Intel N100/N200 Mini PC LPDDR5 Dual Channel RAM Dual M.2 SSD Win",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "mchose-g3-v2-pro-gaming-mouse-ergono",
+    "title_i18n": {
+      "en": "MCHOSE G3 V2 Pro Gaming Mouse Ergonomics Wireless Tri-Mode 26000DPI 800mAh ",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "16k-type-c-to-displayport-cable-8k-6",
+    "title_i18n": {
+      "en": "16K Type C to DisplayPort Cable 8K@60Hz 4K@120Hz 2K@240Hz USBC to DP 2.1 Th",
+      "ru": "Полезный гаджет: 16K Type C to DisplayPort Cable 8K@60Hz ",
+      "he": "גאдג'ט נבחר: 16K Type C to DisplayPort Cable 8K@60Hz ",
+      "es": "Gadget Práctico: 16K Type C to DisplayPort Cable 8K@60Hz "
+    }
+  },
+  {
+    "slug": "firebat-t8-pro-intel-n100-mini-pc-wi",
+    "title_i18n": {
+      "en": "FIREBAT T8 Pro Intel N100 Mini PC Windows 11 16GB DDR5 512GB SSD Dual Gigab",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "2026-new-pad-v12pro-2-in-1-laptop-ta",
+    "title_i18n": {
+      "en": "2026 New Pad v12Pro 2-in-1 Laptop Tablet 11.9\" 12th Intel CPU N95 DDR5 FHD ",
+      "ru": "Полезный гаджет: 2026 New Pad v12Pro 2-in-1 Laptop Tablet",
+      "he": "גאдג'ט נבחר: 2026 New Pad v12Pro 2-in-1 Laptop Tablet",
+      "es": "Gadget Práctico: 2026 New Pad v12Pro 2-in-1 Laptop Tablet"
+    }
+  },
+  {
+    "slug": "ugreen-25158-usb-c-to-displayport-1",
+    "title_i18n": {
+      "en": "UGREEN 25158 USB-C to DisplayPort 1.4 Cable 2m 8K 60Hz 4K 240Hz 32.4Gbps Un",
+      "ru": "Полезный гаджет: UGREEN 25158 USB-C to DisplayPort 1.4 Ca",
+      "he": "גאдג'ט נבחר: UGREEN 25158 USB-C to DisplayPort 1.4 Ca",
+      "es": "Gadget Práctico: UGREEN 25158 USB-C to DisplayPort 1.4 Ca"
+    }
+  },
+  {
+    "slug": "morefine-m9s-mini-pc-12th-gen-intel",
+    "title_i18n": {
+      "en": "MOREFINE M9S Mini PC 12th Gen Intel I3 N305 N300 N200 8257U PCIE3.0x4 2xLAN",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "1-8m-usb-c-to-dp-compatible-cable-8k",
+    "title_i18n": {
+      "en": "1.8m USB-C to DP-Compatible Cable 8K@60Hz DP Type C 3.1 to 4K 144Hz 1.4 Aud",
+      "ru": "Полезный гаджет: 1.8m USB-C to DP-Compatible Cable 8K@60H",
+      "he": "גאдג'ט נבחר: 1.8m USB-C to DP-Compatible Cable 8K@60H",
+      "es": "Gadget Práctico: 1.8m USB-C to DP-Compatible Cable 8K@60H"
+    }
+  },
+  {
+    "slug": "vention-usb-c-to-dp-cable-usb-type-c",
+    "title_i18n": {
+      "en": "Vention USB C to DP Cable USB Type C to 8K 60Hz DisplayPort Bi Directional ",
+      "ru": "Полезный гаджет: Vention USB C to DP Cable USB Type C to ",
+      "he": "גאдג'ט נבחר: Vention USB C to DP Cable USB Type C to ",
+      "es": "Gadget Práctico: Vention USB C to DP Cable USB Type C to "
+    }
+  },
+  {
+    "slug": "new-fanless-mini-pc-intel-n100-windo",
+    "title_i18n": {
+      "en": "New Fanless Mini PC Intel N100 Windows 11 3xStorage 3x4K Display Dual LAN F",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "aula-sc900pro-gaming-mouse-paw3395-s",
+    "title_i18n": {
+      "en": "AULA SC900Pro Gaming Mouse PAW3395 Sensor Tri Mode Wireless Bluetooth 2.4G ",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "special-offer-8k-usb-3-1-type-c-to-d",
+    "title_i18n": {
+      "en": "SPECIAL OFFER 8K USB 3.1 Type C to Displayport Cable 8K@60Hz 4K@144Hz DP 1.",
+      "ru": "Полезный гаджет: SPECIAL OFFER 8K USB 3.1 Type C to Displ",
+      "he": "גאдג'ט נבחר: SPECIAL OFFER 8K USB 3.1 Type C to Displ",
+      "es": "Gadget Práctico: SPECIAL OFFER 8K USB 3.1 Type C to Displ"
+    }
+  },
+  {
+    "slug": "mchose-a5-v3-ultra-8k-tri-mode-wirel",
+    "title_i18n": {
+      "en": "MCHOSE A5 V3 Ultra 8K Tri-Mode Wireless Gaming Mouse PAW3395 56g Ultra Ligh",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "usb-c-to-displayport-adapter-16k-typ",
+    "title_i18n": {
+      "en": "USB C to DisplayPort Adapter 16k Type C to DP Extension Cable 8K 60Hz/4K 12",
+      "ru": "Полезный гаджет: USB C to DisplayPort Adapter 16k Type C ",
+      "he": "גאдג'ט נבחר: USB C to DisplayPort Adapter 16k Type C ",
+      "es": "Gadget Práctico: USB C to DisplayPort Adapter 16k Type C "
+    }
+  },
+  {
+    "slug": "usb-c-to-4k-144hz-display-port-cable",
+    "title_i18n": {
+      "en": "USB C To 4K 144Hz Display Port Cable 8K@60Hz DP Type C 3.1 To Display Port ",
+      "ru": "Полезный гаджет: USB C To 4K 144Hz Display Port Cable 8K@",
+      "he": "גאдג'ט נבחר: USB C To 4K 144Hz Display Port Cable 8K@",
+      "es": "Gadget Práctico: USB C To 4K 144Hz Display Port Cable 8K@"
+    }
+  },
+  {
+    "slug": "firebat-t8-pro-intel-n200-n100-quad",
+    "title_i18n": {
+      "en": "FIREBAT T8 PRO Intel N200/N100 Quad Core Pocket PC Windows 11 Pro DDR5 16G ",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "16k-usbc-type-c-to-displayport-cable",
+    "title_i18n": {
+      "en": "16K USBC/Type-C To DisplayPort Cable 8K@60Hz Unidirectional USB C to DP Cor",
+      "ru": "Полезный гаджет: 16K USBC/Type-C To DisplayPort Cable 8K@",
+      "he": "גאдג'ט נבחר: 16K USBC/Type-C To DisplayPort Cable 8K@",
+      "es": "Gadget Práctico: 16K USBC/Type-C To DisplayPort Cable 8K@"
+    }
+  },
+  {
+    "slug": "custom-attack-shark-x3-x3pro-wireles",
+    "title_i18n": {
+      "en": "Custom ATTACK SHARK X3 X3PRO Wireless Gaming Mouse 26K DPI Tri Mode Wired 2",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "mini-pc-t9-pro-intel-alder-lake-n100",
+    "title_i18n": {
+      "en": "Mini PC T9 Pro Intel Alder Lake N100 Windows11 16GB DDR5 WIFI 5 Dual SSD Sm",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "attack-shark-r3-ultra-lightweight-ma",
+    "title_i18n": {
+      "en": "ATTACK SHARK R3 Ultra-Lightweight Magnesium Alloy Wireless Gaming Mouse PAW",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "tuya-smart-life-3mp-2-4g-wifi-video",
+    "title_i18n": {
+      "en": "Tuya Smart Life 3MP 2.4G WIFI Video Doorbell Camera Outdoor Wireless Door I",
+      "ru": "Умный беспроводной видеодомофон с Wi-Fi камерой",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "attack-shark-x3pro-x3-wireless-mouse",
+    "title_i18n": {
+      "en": "Attack Shark X3Pro X3 Wireless Mouse Lightweight PAW3395 26000dpi Tri-Mode ",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "fanless-soft-router-3x2-5g-i225v-lan",
+    "title_i18n": {
+      "en": "Fanless Soft Router 3x2.5G i225V LAN Intel J6412 zxDP 1xHD 2x2.5G LAN 2xHD ",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "tuya-wifi-smart-video-doorbell-1080p",
+    "title_i18n": {
+      "en": "Tuya WiFi Smart Video Doorbell 1080P HD Outdoor Peephole Camera Two-Way Aud",
+      "ru": "Полезный гаджет: Tuya WiFi Smart Video Doorbell 1080P HD ",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "fan-mini-pc-intel-alder-lake-n-n95-n",
+    "title_i18n": {
+      "en": "Fan Mini Pc Intel Alder Lake-N N95 N100 DDR4 M.2 NVME Dual 4K HDMI Type-C W",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "kysona-saturn-pro-gaming-mouse-paw33",
+    "title_i18n": {
+      "en": "KYSONA Saturn Pro Gaming Mouse PAW3395 Sensor 58g Lightweight BT 2.4G Tri-m",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "tuya-app-wifi-call-intercom-video-sm",
+    "title_i18n": {
+      "en": "Tuya APP Wifi Call Intercom Video Smart Doorbell Camera Two-way Talk Millio",
+      "ru": "Умный беспроводной видеодомофон с Wi-Fi камерой",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "attack-shark-x3pro-x3-wirele-1",
+    "title_i18n": {
+      "en": "Attack Shark X3Pro X3 Wireless Mouse Lightweight PAW3395 26000dpi Tri-Mode ",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "tuya-1080p-hd-wireless-wifi-video-do",
+    "title_i18n": {
+      "en": "Tuya 1080P HD Wireless WiFi Video Doorbell Smart Home Security Camera Two W",
+      "ru": "Полезный гаджет: Tuya 1080P HD Wireless WiFi Video Doorbe",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "720p-hd-smart-home-wireless-wifi-doo",
+    "title_i18n": {
+      "en": "720P HD Smart Home Wireless WIFI Doorbell Camera Security Video Intercom IR",
+      "ru": "Умный беспроводной видеодомофон с Wi-Fi камерой",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "universal-dual-side-magnetic-ipad-tr",
+    "title_i18n": {
+      "en": "Universal Dual-Side Magnetic iPad Tripod Stand for Galaxy Tab A9+& iPhone 1",
+      "ru": "Полезный гаджет: Universal Dual-Side Magnetic iPad Tripod",
+      "he": "גאдג'ט נבחר: Universal Dual-Side Magnetic iPad Tripod",
+      "es": "Gadget Práctico: Universal Dual-Side Magnetic iPad Tripod"
+    }
+  },
+  {
+    "slug": "tuya-smart-1080p-doorbell-camera-wif",
+    "title_i18n": {
+      "en": "Tuya Smart 1080P Doorbell Camera WiFi Wireless IR HD Video Door Bell Phone ",
+      "ru": "Умный беспроводной видеодомофон с Wi-Fi камерой",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "2026-wifi-video-doorbell-1080p-tuya",
+    "title_i18n": {
+      "en": "2026 WiFi Video Doorbell 1080P Tuya Smart Outdoor Wireless Intercom Waterpr",
+      "ru": "Полезный гаджет: 2026 WiFi Video Doorbell 1080P Tuya Smar",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "universal-magnetic-tablet-holder-360",
+    "title_i18n": {
+      "en": "Universal Magnetic Tablet Holder 360 Degree Rotatable Ring Stand Aluminum A",
+      "ru": "Полезный гаджет: Universal Magnetic Tablet Holder 360 Deg",
+      "he": "גאдג'ט נבחר: Universal Magnetic Tablet Holder 360 Deg",
+      "es": "Gadget Práctico: Universal Magnetic Tablet Holder 360 Deg"
+    }
+  },
+  {
+    "slug": "magnetic-tablet-stand-holder-ipad-de",
+    "title_i18n": {
+      "en": "Magnetic Tablet Stand Holder,iPad Desk Mount,Foldable Tablet Arm Mount with",
+      "ru": "Магнитная поворотная подставка 360° для планшета",
+      "he": "מעמד מגנטי מסתובב 360 מעלות לטאבלט",
+      "es": "Soporte Magnético Giratorio 360° para Tablet"
+    }
+  },
+  {
+    "slug": "2-in-1-tablet-stand-ipad-desktop-mag",
+    "title_i18n": {
+      "en": "2-in-1 Tablet Stand iPad Desktop Magnetic Mobile Phone Stand 360° Rotating ",
+      "ru": "Магнитная поворотная подставка 360° для планшета",
+      "he": "מעמד מגנטי מסתובב 360 מעלות לטאבלט",
+      "es": "Soporte Magnético Giratorio 360° para Tablet"
+    }
+  },
+  {
+    "slug": "18v-ac-transformer-charger-for-ring",
+    "title_i18n": {
+      "en": "18V AC Transformer Charger for Ring Wifi Smart Video Doorbell Camera Interc",
+      "ru": "Умный беспроводной видеодомофон с Wi-Fi камерой",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "james-donkey-rsr5s-2-4g-wireless-blu",
+    "title_i18n": {
+      "en": "James Donkey RSR5S 2.4G Wireless Bluetooth Gaming Mouse Sky Biue Lightweigh",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "4k-2-in-1-usb-2-0-video-capture-card",
+    "title_i18n": {
+      "en": "4K 2 in 1 USB 2.0 Video Capture Card USB/Type-C to HDMI 1080P Game Live Rec",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "wifi-smart-video-doorbell-camera-nig",
+    "title_i18n": {
+      "en": "WiFi Smart Video Doorbell Camera Night Vision Smart Visual Doorbell Tuya AP",
+      "ru": "Умный беспроводной видеодомофон с Wi-Fi камерой",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "magnetic-tablet-mobile-phone-stand-f",
+    "title_i18n": {
+      "en": "Magnetic Tablet Mobile Phone Stand For iPad iPhone Samsung 360° Rotating De",
+      "ru": "Полезный гаджет: Magnetic Tablet Mobile Phone Stand For i",
+      "he": "גאдג'ט נבחר: Magnetic Tablet Mobile Phone Stand For i",
+      "es": "Gadget Práctico: Magnetic Tablet Mobile Phone Stand For i"
+    }
+  },
+  {
+    "slug": "4k-8k-wireless-gaming-mouse-26k-dpi",
+    "title_i18n": {
+      "en": "4K/8K Wireless Gaming Mouse, 26K DPI, Tri-Mode (Wired/2.4GHz/BT5.2), Lightw",
+      "ru": "Беспроводная игровая мышь высокой точности",
+      "he": "עכבר גיימינג אלחוטי קל משקל ומדויק",
+      "es": "Ratón Gaming Inalámbrico Ligero de Alta Precisión"
+    }
+  },
+  {
+    "slug": "magnetic-tablet-stand-holder-foldabl",
+    "title_i18n": {
+      "en": "Magnetic Tablet Stand Holder Foldable Tablet Arm iPad Desk Mount with 360° ",
+      "ru": "Магнитная поворотная подставка 360° для планшета",
+      "he": "מעמד מגנטי מסתובב 360 מעלות לטאבלט",
+      "es": "Soporte Magnético Giratorio 360° para Tablet"
+    }
+  },
+  {
+    "slug": "5g-2-4g-wi-fi-smart-video-doorbell-1",
+    "title_i18n": {
+      "en": "5G 2.4G Wi-Fi Smart Video Doorbell 1080P Wireless Door Bell Tuya Smart Outd",
+      "ru": "Полезный гаджет: 5G 2.4G Wi-Fi Smart Video Doorbell 1080P",
+      "he": "פעמון דלת חכם אלחוטי עם מצלמת וידאו Wi-Fi",
+      "es": "Timbre Inalámbrico con Cámara de Video Wi-Fi"
+    }
+  },
+  {
+    "slug": "magnetic-tablet-stand-holder-tablet",
+    "title_i18n": {
+      "en": "Magnetic Tablet Stand Holder Tablet Desk Mount Adjustable Foldable Tablet A",
+      "ru": "Магнитная поворотная подставка 360° для планшета",
+      "he": "מעמד מגנטי מסתובב 360 מעלות לטאבלט",
+      "es": "Soporte Magnético Giratorio 360° para Tablet"
+    }
+  },
+  {
+    "slug": "fanless-mini-pc-alder-lake-n100-n95",
+    "title_i18n": {
+      "en": "Fanless Mini PC Alder Lake N100 N95 Windows 11 Intel 12th DDR4 16GB RAM 512",
+      "ru": "Компактный мини-ПК на Windows 11 Intel N100",
+      "he": "מיני מחשב שולחני עוצמתי Windows 11 Intel N100",
+      "es": "Mini PC Compacto con Windows 11 Intel N100"
+    }
+  },
+  {
+    "slug": "portable-bluetooth-speaker-rgb-light",
+    "title_i18n": {
+      "en": "Portable Bluetooth Speaker RGB Light Gaming Computer Soundbar Stereo Subwoo",
+      "ru": "Настольный игровой саундбар RGB Bluetooth",
+      "he": "סאונד בר שולחני לגיימינג תאורת RGB בלוטות",
+      "es": "Barra de Sonido Gaming para Escritorio RGB Bluetooth"
+    }
+  },
+  {
+    "slug": "4k-usb-3-0-video-capture-car-1",
+    "title_i18n": {
+      "en": "4K USB 3.0 Video Capture Card HDMI-Compatible 1080P 60FPS HD Video Recorder",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "on-sale-esports-speaker-rgb-gaming-s",
+    "title_i18n": {
+      "en": "~【On Sale】Esports Speaker RGB Gaming Sound Bar Desk 2.0-Inch Hifi 12W Compu",
+      "ru": "Полезный гаджет: ~【On Sale】Esports Speaker RGB Gaming Sou",
+      "he": "גאдג'ט נבחר: ~【On Sale】Esports Speaker RGB Gaming Sou",
+      "es": "Gadget Práctico: ~【On Sale】Esports Speaker RGB Gaming Sou"
+    }
+  },
+  {
+    "slug": "tablet-stand-for-desk-ipad-desk-moun",
+    "title_i18n": {
+      "en": "Tablet Stand for Desk, iPad Desk Mount, Magnetic Tablet Holder for Desk, Fo",
+      "ru": "Магнитная поворотная подставка 360° для планшета",
+      "he": "מעמד מגנטי מסתובב 360 מעלות לטאבלט",
+      "es": "Soporte Magnético Giratorio 360° para Tablet"
+    }
+  },
+  {
+    "slug": "kebidumei-4k-hmdi-video-capture-card",
+    "title_i18n": {
+      "en": "KEBIDUMEI 4K HMDI Video Capture Card USB 2.0 to HDMI 1080P 60fps Grabber Re",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "oatsbasf-metal-magnetic-tablet-holde",
+    "title_i18n": {
+      "en": "Oatsbasf Metal Magnetic Tablet Holder with 360° Rotatable Ring Stand Bracke",
+      "ru": "Полезный гаджет: Oatsbasf Metal Magnetic Tablet Holder wi",
+      "he": "גאдג'ט נבחר: Oatsbasf Metal Magnetic Tablet Holder wi",
+      "es": "Gadget Práctico: Oatsbasf Metal Magnetic Tablet Holder wi"
+    }
+  },
+  {
+    "slug": "oatsbasf-magnetic-tablet-holder-with",
+    "title_i18n": {
+      "en": "Oatsbasf Magnetic Tablet Holder with 360° Rotatable Ring Stand Metal Bracke",
+      "ru": "Полезный гаджет: Oatsbasf Magnetic Tablet Holder with 360",
+      "he": "גאдג'ט נבחר: Oatsbasf Magnetic Tablet Holder with 360",
+      "es": "Gadget Práctico: Oatsbasf Magnetic Tablet Holder with 360"
+    }
+  },
+  {
+    "slug": "music-rhythm-rgb-ambient-light-bar-5",
+    "title_i18n": {
+      "en": "Music Rhythm RGB Ambient Light Bar 5V USB Sound Pickup Bluetooth APP Remote",
+      "ru": "Полезный гаджет: Music Rhythm RGB Ambient Light Bar 5V US",
+      "he": "גאдג'ט נבחר: Music Rhythm RGB Ambient Light Bar 5V US",
+      "es": "Gadget Práctico: Music Rhythm RGB Ambient Light Bar 5V US"
+    }
+  },
+  {
+    "slug": "new-4k-1080p-usb-3-0-2-0-hdmi-video",
+    "title_i18n": {
+      "en": "NEW 4K/1080P USB 3.0/2.0 HDMI Video Capture Card for PS4 PC Camera Live Str",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "4k-usb-3-0-video-capture-card-hdmi-c",
+    "title_i18n": {
+      "en": "4K USB 3.0 Video Capture Card HDMI-compatible 1080P 60fps HD Video Recorder",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "m2-ssd-case-nvme-sata-dual-protocol",
+    "title_i18n": {
+      "en": "M2 SSD Case NVMe SATA Dual Protocol 10Gbps 5Gbps M.2 to USB A Type C 3.2 Ge",
+      "ru": "Полезный гаджет: M2 SSD Case NVMe SATA Dual Protocol 10Gb",
+      "he": "גאдג'ט נבחר: M2 SSD Case NVMe SATA Dual Protocol 10Gb",
+      "es": "Gadget Práctico: M2 SSD Case NVMe SATA Dual Protocol 10Gb"
+    }
+  },
+  {
+    "slug": "jeyi-m-2-nvme-sata-ssd-smart-display",
+    "title_i18n": {
+      "en": "JEYI M.2 NVMe/SATA SSD Smart Display Enclosure USB 3.2 10Gbps Portable Exte",
+      "ru": "Полезный гаджет: JEYI M.2 NVMe/SATA SSD Smart Display Enc",
+      "he": "גאдג'ט נבחר: JEYI M.2 NVMe/SATA SSD Smart Display Enc",
+      "es": "Gadget Práctico: JEYI M.2 NVMe/SATA SSD Smart Display Enc"
+    }
+  },
+  {
+    "slug": "orico-portable-m2-ssd-case-nvme-sata",
+    "title_i18n": {
+      "en": "ORICO Portable M2 SSD Case NVME SATA Dual Protocol Tool Free M.2 SSD Enclos",
+      "ru": "Внешний алюминиевый корпус для M.2 NVMe SSD",
+      "he": "מארז אלומיניום חיצוני לכונן SSD M.2 NVMe",
+      "es": "Caja Externa para Disco SSD M.2 NVMe USB-C"
+    }
+  },
+  {
+    "slug": "4k-hdmi-video-capture-card-ms2130-re",
+    "title_i18n": {
+      "en": "4K HDMI Video Capture Card MS2130 Real USB 3.0 1080P 60FPS Game Screen Reco",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "aula-gs6-pro-gaming-soundbar-black-d",
+    "title_i18n": {
+      "en": "AULA GS6 Pro Gaming Soundbar Black Desktop Speaker with Detachable Noise Ca",
+      "ru": "Настольный игровой саундбар RGB Bluetooth",
+      "he": "סאונד בר שולחני לגיימינג תאורת RGB בלוטות",
+      "es": "Barra de Sonido Gaming para Escritorio RGB Bluetooth"
+    }
+  },
+  {
+    "slug": "4k-hdmi-compatible-to-usb-3-0-1080p",
+    "title_i18n": {
+      "en": "4K HDMI-Compatible to USB 3.0 1080P 60Hz Video Capture Card With Loop-Out f",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "ap01-for-tool-free-external-nvme-sat",
+    "title_i18n": {
+      "en": "AP01 for Tool-Free External NVME SATA NGFF SSD Case Portable M2 NVME Enclos",
+      "ru": "Полезный гаджет: AP01 for Tool-Free External NVME SATA NG",
+      "he": "גאдג'ט נבחר: AP01 for Tool-Free External NVME SATA NG",
+      "es": "Gadget Práctico: AP01 for Tool-Free External NVME SATA NG"
+    }
+  },
+  {
+    "slug": "n34r-orico-m2-nvme-ngff-ssd-enclosur",
+    "title_i18n": {
+      "en": "N34R-ORICO M2 Nvme NGFF SSD Enclosure 10Gbps Pcie M.2 Nvme SATA SSD Case Po",
+      "ru": "Внешний алюминиевый корпус для M.2 NVMe SSD",
+      "he": "מארז אלומיניום חיצוני לכונן SSD M.2 NVMe",
+      "es": "Caja Externa para Disco SSD M.2 NVMe USB-C"
+    }
+  },
+  {
+    "slug": "aula-n-180-bluetooth-5-3-gaming-soun",
+    "title_i18n": {
+      "en": "AULA N-180 Bluetooth 5.3 Gaming Soundbar 2.0 RGB Speaker 52mm Dual Drivers ",
+      "ru": "Настольный игровой саундбар RGB Bluetooth",
+      "he": "סאונד בר שולחני לגיימינג תאורת RGB בלוטות",
+      "es": "Barra de Sonido Gaming para Escritorio RGB Bluetooth"
+    }
+  },
+  {
+    "slug": "20gbps-nvme-m-2-ssd-enclosure-nvme-n",
+    "title_i18n": {
+      "en": "20Gbps NVMe M.2 SSD Enclosure NVMe NGFF PCIe M.2 SSD Case Portable USB C 3.",
+      "ru": "Внешний алюминиевый корпус для M.2 NVMe SSD",
+      "he": "מארז אלומיניום חיצוני לכונן SSD M.2 NVMe",
+      "es": "Caja Externa para Disco SSD M.2 NVMe USB-C"
+    }
+  },
+  {
+    "slug": "4k-hdmi-compatible-video-capture-car",
+    "title_i18n": {
+      "en": "4K HDMI-Compatible Video Capture Card Loop Out for Game Recording Live Stre",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "kebidumei-m2-ssd-enclosure-nvme-ngff",
+    "title_i18n": {
+      "en": "KEBIDUMEI M2 SSD Enclosure NVMe NGFF 10Gbps PCIe M.2 SSD Case Portable USB ",
+      "ru": "Внешний алюминиевый корпус для M.2 NVMe SSD",
+      "he": "מארז אלומיניום חיצוני לכונן SSD M.2 NVMe",
+      "es": "Caja Externa para Disco SSD M.2 NVMe USB-C"
+    }
+  },
+  {
+    "slug": "hagibis-4k-hdmi-compatible-v-1",
+    "title_i18n": {
+      "en": "Hagibis 4K HDMI-Compatible Video Capture Card Loop Out for Game Recording L",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "hagibis-4k-hdmi-compatible-video-cap",
+    "title_i18n": {
+      "en": "Hagibis 4K HDMI-Compatible Video Capture Card Loop Out for Game Recording L",
+      "ru": "Карта видеозахвата 4K USB для стриминга",
+      "he": "כרטיס לכידת וידאו 4K USB לשידור וסטרימינג",
+      "es": "Tarjeta de Captura de Video 4K USB para Streaming"
+    }
+  },
+  {
+    "slug": "bluetooth-gaming-speaker-wireless-st",
+    "title_i18n": {
+      "en": "Bluetooth Gaming Speaker Wireless Stereo 3D Heavy Bass RGB Lighting Colorfu",
+      "ru": "Полезный гаджет: Bluetooth Gaming Speaker Wireless Stereo",
+      "he": "גאдג'ט נבחר: Bluetooth Gaming Speaker Wireless Stereo",
+      "es": "Gadget Práctico: Bluetooth Gaming Speaker Wireless Stereo"
+    }
+  },
+  {
+    "slug": "50m-type-c-wireless-hdmi-video-trans",
+    "title_i18n": {
+      "en": "50M Type C Wireless HDMI Video Transmitter Receiver Extender Display Adapte",
+      "ru": "Полезный гаджет: 50M Type C Wireless HDMI Video Transmitt",
+      "he": "גאдג'ט נבחר: 50M Type C Wireless HDMI Video Transmitt",
+      "es": "Gadget Práctico: 50M Type C Wireless HDMI Video Transmitt"
+    }
+  },
+  {
+    "slug": "wireless-50m-type-c-port-hdmi-audio",
+    "title_i18n": {
+      "en": "Wireless 50M Type-C Port HDMI Audio Video Transmitter Receiver Extender Ada",
+      "ru": "Полезный гаджет: Wireless 50M Type-C Port HDMI Audio Vide",
+      "he": "גאдג'ט נבחר: Wireless 50M Type-C Port HDMI Audio Vide",
+      "es": "Gadget Práctico: Wireless 50M Type-C Port HDMI Audio Vide"
+    }
+  },
+  {
+    "slug": "external-drive-case-for-2230-2242-22",
+    "title_i18n": {
+      "en": "External Drive Case For 2230/2242/2260/2280 Portable SSD Enclosure M2 NVME ",
+      "ru": "Внешний алюминиевый корпус для M.2 NVMe SSD",
+      "he": "מארז אלומיניום חיצוני לכונן SSD M.2 NVMe",
+      "es": "Caja Externa para Disco SSD M.2 NVMe USB-C"
+    }
+  },
+  {
+    "slug": "computer-speakers-bluetooth-desktop",
+    "title_i18n": {
+      "en": "Computer Speakers Bluetooth Desktop Soundbar with RGB Lights USB Powered 2.",
+      "ru": "Настольный игровой саундбар RGB Bluetooth",
+      "he": "סאונד בר שולחני לגיימינג תאורת RGB בלוטות",
+      "es": "Barra de Sonido Gaming para Escritorio RGB Bluetooth"
+    }
+  },
+  {
+    "slug": "1080p-150m-100m-wireless-hdmi-displa",
+    "title_i18n": {
+      "en": "1080P 150m 100M Wireless HDMI Display TV Stick Extender 1 TX to 4 RX HDMI W",
+      "ru": "Полезный гаджет: 1080P 150m 100M Wireless HDMI Display TV",
+      "he": "גאдג'ט נבחר: 1080P 150m 100M Wireless HDMI Display TV",
+      "es": "Gadget Práctico: 1080P 150m 100M Wireless HDMI Display TV"
+    }
+  },
+  {
+    "slug": "m2-nvme-ssd-enclosure-10gbps-pcie-ss",
+    "title_i18n": {
+      "en": "M2 NVMe SSD Enclosure 10Gbps PCIe SSD Case Portable Box USB C 3.2 Gen2 Tool",
+      "ru": "Внешний алюминиевый корпус для M.2 NVMe SSD",
+      "he": "מארז אלומיניום חיצוני לכונן SSD M.2 NVMe",
+      "es": "Caja Externa para Disco SSD M.2 NVMe USB-C"
+    }
+  },
+  {
+    "slug": "rgb-bluetooth-soundbar-gaming-usb-po",
+    "title_i18n": {
+      "en": "RGB Bluetooth Soundbar Gaming USB Powered for TV Multimedia Computer Speake",
+      "ru": "Настольный игровой саундбар RGB Bluetooth",
+      "he": "סאונד בר שולחני לגיימינג תאורת RGB בלוטות",
+      "es": "Barra de Sonido Gaming para Escritorio RGB Bluetooth"
+    }
+  },
+  {
+    "slug": "wireless-hdmi-transmitter-and-receiv",
+    "title_i18n": {
+      "en": "Wireless HDMI Transmitter and Receiver 1080P Wireless Extender Kit Video Tr",
+      "ru": "Беспроводной комплект передачи HDMI видео 1080P/4K",
+      "he": "משדר ומקלט וידאו HDMI אלחוטי",
+      "es": "Transmisor y Receptor HDMI Inalámbrico"
+    }
+  },
+  {
+    "slug": "active-stylus-pen-for-ipad-pencil-pr",
+    "title_i18n": {
+      "en": "Active Stylus Pen for iPad Pencil Pro Air Mini 2018-2025 with Palm Rejectio",
+      "ru": "Активный стилус для планшетов с защитой от касаний",
+      "he": "עט מגע סטיילוס אקטיבי לטאבלט",
+      "es": "Lápiz Óptico Activo para Tablet con Rechazo de Palma"
+    }
+  },
+  {
+    "slug": "for-ipad-pencil-active-stylus-pen-20",
+    "title_i18n": {
+      "en": "For iPad Pencil Active Stylus Pen 2018 to 2026 10th Pro Air Mini Palm Rejec",
+      "ru": "Активный стилус для планшетов с защитой от касаний",
+      "he": "עט מגע סטיילוס אקטיבי לטאבלט",
+      "es": "Lápiz Óptico Activo para Tablet con Rechazo de Palma"
+    }
+  },
+  {
+    "slug": "vrriis-wl082k-400m-wireless-hdmi-kvm",
+    "title_i18n": {
+      "en": "VRRIIS WL082K 400m Wireless HDMI KVM Extender Video Transmitter and Receive",
+      "ru": "Полезный гаджет: VRRIIS WL082K 400m Wireless HDMI KVM Ext",
+      "he": "גאдג'ט נבחר: VRRIIS WL082K 400m Wireless HDMI KVM Ext",
+      "es": "Gadget Práctico: VRRIIS WL082K 400m Wireless HDMI KVM Ext"
+    }
+  },
+  {
+    "slug": "stylus-pen-for-ipad-2018-2025-with-p",
+    "title_i18n": {
+      "en": "Stylus Pen for iPad 2018-2025 with Palm Rejection，Fast Charge Active Pencil",
+      "ru": "Активный стилус для планшетов с защитой от касаний",
+      "he": "עט מגע סטיילוס אקטיבי לטאבלט",
+      "es": "Lápiz Óptico Activo para Tablet con Rechazo de Palma"
+    }
+  },
+  {
+    "slug": "moes-tuya-zigbee-3-0-smart-gateway-h",
+    "title_i18n": {
+      "en": "Moes Tuya ZigBee 3.0 Smart Gateway Hub Smart Home Bridge Smart Life APP Wir",
+      "ru": "Полезный гаджет: Moes Tuya ZigBee 3.0 Smart Gateway Hub S",
+      "he": "גאдג'ט נבחר: Moes Tuya ZigBee 3.0 Smart Gateway Hub S",
+      "es": "Gadget Práctico: Moes Tuya ZigBee 3.0 Smart Gateway Hub S"
+    }
+  },
+  {
+    "slug": "1080p-30m-5g-wireless-video-transmit",
+    "title_i18n": {
+      "en": "1080p 30m 5G Wireless Video Transmitter and Receiver HDMI Extender Screen S",
+      "ru": "Полезный гаджет: 1080p 30m 5G Wireless Video Transmitter ",
+      "he": "גאдג'ט נבחר: 1080p 30m 5G Wireless Video Transmitter ",
+      "es": "Gadget Práctico: 1080p 30m 5G Wireless Video Transmitter "
+    }
+  },
+  {
+    "slug": "aula-gs6-pro-gaming-soundbar-1",
+    "title_i18n": {
+      "en": "AULA GS6 Pro Gaming Soundbar Black Desktop Speaker with Detachable Noise Ca",
+      "ru": "Настольный игровой саундбар RGB Bluetooth",
+      "he": "סאונד בר שולחני לגיימינג תאורת RGB בלוטות",
+      "es": "Barra de Sonido Gaming para Escritorio RGB Bluetooth"
+    }
+  },
+  {
+    "slug": "universal-stylus-pencil-with-soft-ni",
+    "title_i18n": {
+      "en": "Universal Stylus Pencil With Soft Nib For iPhone iPad Tablets Android/iOS C",
+      "ru": "Активный стилус для планшетов с защитой от касаний",
+      "he": "עט מגע סטיילוס אקטיבי לטאבלט",
+      "es": "Lápiz Óptico Activo para Tablet con Rechazo de Palma"
+    }
+  },
+  {
+    "slug": "monster-ys02-gaming-bluetooth-5-4-sp",
+    "title_i18n": {
+      "en": "Monster YS02 Gaming Bluetooth 5.4 Speakers for PC Desktop Soundbar with Dee",
+      "ru": "Настольный игровой саундбар RGB Bluetooth",
+      "he": "סאונד בר שולחני לגיימינג תאורת RGB בלוטות",
+      "es": "Barra de Sonido Gaming para Escritorio RGB Bluetooth"
+    }
+  },
+  {
+    "slug": "50m-wireless-extender-hdmi-video-tra",
+    "title_i18n": {
+      "en": "50M Wireless Extender HDMI Video Transmitter Receiver HDMI Wireless Display",
+      "ru": "Полезный гаджет: 50M Wireless Extender HDMI Video Transmi",
+      "he": "גאдג'ט נבחר: 50M Wireless Extender HDMI Video Transmi",
+      "es": "Gadget Práctico: 50M Wireless Extender HDMI Video Transmi"
+    }
+  },
+  {
+    "slug": "wireless-hdmi-compatible-extender-vi",
+    "title_i18n": {
+      "en": "Wireless HDMI-Compatible Extender Video Transmitter Receiver 100M 1TX to 2R",
+      "ru": "Полезный гаджет: Wireless HDMI-Compatible Extender Video ",
+      "he": "גאдג'ט נבחר: Wireless HDMI-Compatible Extender Video ",
+      "es": "Gadget Práctico: Wireless HDMI-Compatible Extender Video "
+    }
+  },
+  {
+    "slug": "for-ipad-pencil-active-stylus-pen-pa",
+    "title_i18n": {
+      "en": "For iPad Pencil Active Stylus Pen Palm Rejection Tilt Magnetic Pink 10Min F",
+      "ru": "Активный стилус для планшетов с защитой от касаний",
+      "he": "עט מגע סטיילוס אקטיבי לטאבלט",
+      "es": "Lápiz Óptico Activo para Tablet con Rechazo de Palma"
+    }
+  },
+  {
+    "slug": "gitfos-stylus-pen-for-ipad-2018-2022",
+    "title_i18n": {
+      "en": "GITFOS Stylus Pen for iPad 2018-2022 with Fast Charge Palm Rejection Active",
+      "ru": "Активный стилус для планшетов с защитой от касаний",
+      "he": "עט מגע סטיילוס אקטיבי לטאבלט",
+      "es": "Lápiz Óptico Activo para Tablet con Rechazo de Palma"
+    }
+  },
+  {
+    "slug": "drawing-stylus-accessories-for-ios-t",
+    "title_i18n": {
+      "en": "Drawing Stylus Accessories For IOS Touch Screen Tablet Pen Active High Prec",
+      "ru": "Полезный гаджет: Drawing Stylus Accessories For IOS Touch",
+      "he": "גאдג'ט נבחר: Drawing Stylus Accessories For IOS Touch",
+      "es": "Gadget Práctico: Drawing Stylus Accessories For IOS Touch"
+    }
+  },
+  {
+    "slug": "tuya-20a-wifi-smart-plug-eu-socket-e",
+    "title_i18n": {
+      "en": "Tuya 20A WiFi Smart Plug EU Socket Energy Monitoring Timer App Voice Contro",
+      "ru": "Полезный гаджет: Tuya 20A WiFi Smart Plug EU Socket Energ",
+      "he": "גאдג'ט נבחר: Tuya 20A WiFi Smart Plug EU Socket Energ",
+      "es": "Gadget Práctico: Tuya 20A WiFi Smart Plug EU Socket Energ"
+    }
+  },
+  {
+    "slug": "50m-wireless-hdmi-video-transmitter",
+    "title_i18n": {
+      "en": "50M Wireless HDMI Video Transmitter Receiver 1080P Wireless HDMI Display TV",
+      "ru": "Полезный гаджет: 50M Wireless HDMI Video Transmitter Rece",
+      "he": "גאдג'ט נבחר: 50M Wireless HDMI Video Transmitter Rece",
+      "es": "Gadget Práctico: 50M Wireless HDMI Video Transmitter Rece"
+    }
+  },
+  {
+    "slug": "active-stylus-pen-for-ipad-2018-2026",
+    "title_i18n": {
+      "en": "Active Stylus Pen for iPad 2018-2026 Tilt Sensitivity Fast Charge 5Min Auto",
+      "ru": "Активный стилус для планшетов с защитой от касаний",
+      "he": "עט מגע סטיילוס אקטיבי לטאבלט",
+      "es": "Lápiz Óptico Activo para Tablet con Rechazo de Palma"
+    }
+  },
+  {
+    "slug": "wifi-zigbee3-0-eu-smart-plug-wireles",
+    "title_i18n": {
+      "en": "WiFi Zigbee3.0 EU Smart Plug Wireless Remote Control Outlet Real-Time Energ",
+      "ru": "Полезный гаджет: WiFi Zigbee3.0 EU Smart Plug Wireless Re",
+      "he": "גאдג'ט נבחר: WiFi Zigbee3.0 EU Smart Plug Wireless Re",
+      "es": "Gadget Práctico: WiFi Zigbee3.0 EU Smart Plug Wireless Re"
+    }
+  },
+  {
+    "slug": "m2-nvme-ssd-enclosure-10gbps-1",
+    "title_i18n": {
+      "en": "M2 NVMe SSD Enclosure 10Gbps PCIe SSD Case Portable Box USB C USB 3.1 Tool ",
+      "ru": "Внешний алюминиевый корпус для M.2 NVMe SSD",
+      "he": "מארז אלומיניום חיצוני לכונן SSD M.2 NVMe",
+      "es": "Caja Externa para Disco SSD M.2 NVMe USB-C"
+    }
+  },
+  {
+    "slug": "tuya-smart-plug-uk-wifi-zigb-1",
+    "title_i18n": {
+      "en": "Tuya Smart Plug UK WiFi Zigbee Socket Works with Alexa Google Home, 20A Ene",
+      "ru": "Полезный гаджет: Tuya Smart Plug UK WiFi Zigbee Socket Wo",
+      "he": "גאдג'ט נבחר: Tuya Smart Plug UK WiFi Zigbee Socket Wo",
+      "es": "Gadget Práctico: Tuya Smart Plug UK WiFi Zigbee Socket Wo"
+    }
+  },
+  {
+    "slug": "18in1-neon-car-interior-ambient-ligh",
+    "title_i18n": {
+      "en": "18in1 Neon Car Interior Ambient Light APP DIY Control Acrylic Strip Light G",
+      "ru": "Полезный гаджет: 18in1 Neon Car Interior Ambient Light AP",
+      "he": "גאдג'ט נבחר: 18in1 Neon Car Interior Ambient Light AP",
+      "es": "Gadget Práctico: 18in1 Neon Car Interior Ambient Light AP"
+    }
+  },
+  {
+    "slug": "tuya-zigbee-gateway-for-smart-home-w",
+    "title_i18n": {
+      "en": "Tuya Zigbee Gateway For Smart Home Wireless Hub Bridge APP Remote Control W",
+      "ru": "Умный шлюз Zigbee Hub для экосистемы Tuya",
+      "he": "רכזת חכמה Zigbee Gateway לשליטה מרחוק",
+      "es": "Puerta de Enlace Inteligente Zigbee Hub Tuya"
+    }
+  },
+  {
+    "slug": "car-starry-sky-atmosphere-light-4-5",
+    "title_i18n": {
+      "en": "Car Starry Sky Atmosphere Light 4/5/6 in 1 RGB Fiber Optic Star Ceiling Lig",
+      "ru": "Полезный гаджет: Car Starry Sky Atmosphere Light 4/5/6 in",
+      "he": "גאдג'ט נבחר: Car Starry Sky Atmosphere Light 4/5/6 in",
+      "es": "Gadget Práctico: Car Starry Sky Atmosphere Light 4/5/6 in"
+    }
+  },
+  {
+    "slug": "eu-smart-plug-wifi-socket-16a-20a-en",
+    "title_i18n": {
+      "en": "EU Smart Plug WiFi Socket 16A/20A Energy Monitoring & Timer, Works with Tuy",
+      "ru": "Полезный гаджет: EU Smart Plug WiFi Socket 16A/20A Energy",
+      "he": "גאдג'ט נבחר: EU Smart Plug WiFi Socket 16A/20A Energy",
+      "es": "Gadget Práctico: EU Smart Plug WiFi Socket 16A/20A Energy"
+    }
+  },
+  {
+    "slug": "universal-capacitive-active-stylus-t",
+    "title_i18n": {
+      "en": "Universal Capacitive Active Stylus Touch Screen Pen Smart For IOS/Android i",
+      "ru": "Полезный гаджет: Universal Capacitive Active Stylus Touch",
+      "he": "גאдג'ט נבחר: Universal Capacitive Active Stylus Touch",
+      "es": "Gadget Práctico: Universal Capacitive Active Stylus Touch"
+    }
+  },
+  {
+    "slug": "20a-tuya-wifi-smart-uk-plug-socket-w",
+    "title_i18n": {
+      "en": "20A Tuya WiFi Smart UK Plug Socket with Energy Monitoring, Timer & Countdow",
+      "ru": "Полезный гаджет: 20A Tuya WiFi Smart UK Plug Socket with ",
+      "he": "גאдג'ט נבחר: 20A Tuya WiFi Smart UK Plug Socket with ",
+      "es": "Gadget Práctico: 20A Tuya WiFi Smart UK Plug Socket with "
+    }
+  },
+  {
+    "slug": "20a-tuya-wifi-matter-smart-socket-eu",
+    "title_i18n": {
+      "en": "20A Tuya WiFi Matter Smart Socket EU Plug with Energy Monitor Compatible wi",
+      "ru": "Полезный гаджет: 20A Tuya WiFi Matter Smart Socket EU Plu",
+      "he": "גאдג'ט נבחר: 20A Tuya WiFi Matter Smart Socket EU Plu",
+      "es": "Gadget Práctico: 20A Tuya WiFi Matter Smart Socket EU Plu"
+    }
+  },
+  {
+    "slug": "rgb-led-car-ambient-light-kit-6-in-1",
+    "title_i18n": {
+      "en": "RGB LED Car Ambient Light Kit 6 in 1 Fiber Optic Interior Strip with APP Re",
+      "ru": "Полезный гаджет: RGB LED Car Ambient Light Kit 6 in 1 Fib",
+      "he": "גאдג'ט נבחר: RGB LED Car Ambient Light Kit 6 in 1 Fib",
+      "es": "Gadget Práctico: RGB LED Car Ambient Light Kit 6 in 1 Fib"
+    }
+  },
+  {
+    "slug": "tuya-smart-multi-mode-gateway-zigbee",
+    "title_i18n": {
+      "en": "Tuya Smart Multi-Mode Gateway ZigBee Wi-Fi Bluetooth Hub Smart Home Bridge ",
+      "ru": "Полезный гаджет: Tuya Smart Multi-Mode Gateway ZigBee Wi-",
+      "he": "גאдג'ט נבחר: Tuya Smart Multi-Mode Gateway ZigBee Wi-",
+      "es": "Gadget Práctico: Tuya Smart Multi-Mode Gateway ZigBee Wi-"
+    }
+  },
+  {
+    "slug": "active-stylus-pen-palm-rejection-til",
+    "title_i18n": {
+      "en": "Active Stylus Pen Palm Rejection Tilt Sensitivity 1.4mm Gold-Plated Tip Mag",
+      "ru": "Активный стилус для планшетов с защитой от касаний",
+      "he": "עט מגע סטיילוס אקטיבי לטאבלט",
+      "es": "Lápiz Óptico Activo para Tablet con Rechazo de Palma"
+    }
+  },
+  {
+    "slug": "girier-tuya-wifi-smart-power-plug-16",
+    "title_i18n": {
+      "en": "GIRIER Tuya WiFi Smart Power Plug 16A with Energy Monitoring 3520W Supports",
+      "ru": "Полезный гаджет: GIRIER Tuya WiFi Smart Power Plug 16A wi",
+      "he": "גאдג'ט נבחר: GIRIER Tuya WiFi Smart Power Plug 16A wi",
+      "es": "Gadget Práctico: GIRIER Tuya WiFi Smart Power Plug 16A wi"
+    }
+  },
+  {
+    "slug": "tuya-smart-life-multi-mode-g-1",
+    "title_i18n": {
+      "en": "Tuya Smart Life Multi-mode Gateway Smart Home Automation Hub ZigBee WiFi Br",
+      "ru": "Полезный гаджет: Tuya Smart Life Multi-mode Gateway Smart",
+      "he": "גאдג'ט נבחר: Tuya Smart Life Multi-mode Gateway Smart",
+      "es": "Gadget Práctico: Tuya Smart Life Multi-mode Gateway Smart"
+    }
+  },
+  {
+    "slug": "tuya-smart-life-multi-mode-gateway-s",
+    "title_i18n": {
+      "en": "Tuya Smart Life Multi-mode Gateway Smart Home Automation Hub ZigBee WiFi Br",
+      "ru": "Полезный гаджет: Tuya Smart Life Multi-mode Gateway Smart",
+      "he": "גאдג'ט נבחר: Tuya Smart Life Multi-mode Gateway Smart",
+      "es": "Gadget Práctico: Tuya Smart Life Multi-mode Gateway Smart"
+    }
+  },
+  {
+    "slug": "1-2-3-4-5m-rgb-car-interior-ambient",
+    "title_i18n": {
+      "en": "1/2/3/4/5M RGB Car Interior Ambient LED Light Strip Invisible USB Fiber Opt",
+      "ru": "Полезный гаджет: 1/2/3/4/5M RGB Car Interior Ambient LED ",
+      "he": "גאдג'ט נבחר: 1/2/3/4/5M RGB Car Interior Ambient LED ",
+      "es": "Gadget Práctico: 1/2/3/4/5M RGB Car Interior Ambient LED "
+    }
+  },
+  {
+    "slug": "140cm-usb-dreamcolor-acrylic-interio",
+    "title_i18n": {
+      "en": "140cm USB Dreamcolor Acrylic Interior Car LED Strip Light with Wireless APP",
+      "ru": "Полезный гаджет: 140cm USB Dreamcolor Acrylic Interior Ca",
+      "he": "גאдג'ט נבחר: 140cm USB Dreamcolor Acrylic Interior Ca",
+      "es": "Gadget Práctico: 140cm USB Dreamcolor Acrylic Interior Ca"
+    }
+  },
+  {
+    "slug": "lancol-micro-200pro-12v-car-battery",
+    "title_i18n": {
+      "en": "Lancol Micro 200Pro 12V Car Battery Tester 40-3000 CCA Capacity Analyzer fo",
+      "ru": "Цифровой тестер автомобильных аккумуляторов 12V",
+      "he": "בודק מצברים דיגיטלי מתקדם לרכב 12V",
+      "es": "Analizador Digital de Baterías de Coche 12V"
+    }
+  },
+  {
+    "slug": "advanced-graphene-ceramic-coating-fo",
+    "title_i18n": {
+      "en": "Advanced Graphene Ceramic Coating for Cars Kit 9H Nano Liquid Glass Paint P",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "tuya-zigbee-bluetooth-multi-mode-gat",
+    "title_i18n": {
+      "en": "Tuya Zigbee Bluetooth Multi-mode Gateway Hub Smart Home Wireless Bridge Sma",
+      "ru": "Полезный гаджет: Tuya Zigbee Bluetooth Multi-mode Gateway",
+      "he": "גאдג'ט נבחר: Tuya Zigbee Bluetooth Multi-mode Gateway",
+      "es": "Gadget Práctico: Tuya Zigbee Bluetooth Multi-mode Gateway"
+    }
+  },
+  {
+    "slug": "12v-digital-car-battery-tester-voltm",
+    "title_i18n": {
+      "en": "12V Digital Car Battery Tester Voltmeter Load Analyzer 4-20V Range LED Disp",
+      "ru": "Цифровой тестер автомобильных аккумуляторов 12V",
+      "he": "בודק מצברים דיגיטלי מתקדם לרכב 12V",
+      "es": "Analizador Digital de Baterías de Coche 12V"
+    }
+  },
+  {
+    "slug": "avatto-tuya-zigbee-gateway-with-ante",
+    "title_i18n": {
+      "en": "AVATTO Tuya ZigBee Gateway with Antenna Smart Gateway Bridge Wired Mesh Hub",
+      "ru": "Умный шлюз Zigbee Hub для экосистемы Tuya",
+      "he": "רכזת חכמה Zigbee Gateway לשליטה מרחוק",
+      "es": "Puerta de Enlace Inteligente Zigbee Hub Tuya"
+    }
+  },
+  {
+    "slug": "12v-car-battery-tester-cca-100-to-20",
+    "title_i18n": {
+      "en": "12V Car Battery Tester CCA 100 To 2000 220AH Digital Automotive Load Tester",
+      "ru": "Цифровой тестер автомобильных аккумуляторов 12V",
+      "he": "בודק מצברים דיגיטלי מתקדם לרכב 12V",
+      "es": "Analizador Digital de Baterías de Coche 12V"
+    }
+  },
+  {
+    "slug": "universal-12v-24v-car-battery-tester",
+    "title_i18n": {
+      "en": "Universal 12V 24V Car Battery Tester Digital Automotive CCA Analyzer for Ca",
+      "ru": "Цифровой тестер автомобильных аккумуляторов 12V",
+      "he": "בודק מצברים דיגיטלי מתקדם לרכב 12V",
+      "es": "Analizador Digital de Baterías de Coche 12V"
+    }
+  },
+  {
+    "slug": "a97i-20a-tuya-smart-wifi-plug-power",
+    "title_i18n": {
+      "en": "A97I 20A Tuya Smart WiFi Plug Power Socket Voice Control with Alexa for Goo",
+      "ru": "Полезный гаджет: A97I 20A Tuya Smart WiFi Plug Power Sock",
+      "he": "גאдג'ט נבחר: A97I 20A Tuya Smart WiFi Plug Power Sock",
+      "es": "Gadget Práctico: A97I 20A Tuya Smart WiFi Plug Power Sock"
+    }
+  },
+  {
+    "slug": "100ml-9h-car-ceramic-coating-kit-hig",
+    "title_i18n": {
+      "en": "100ML 9H+ Car Ceramic Coating Kit High Gloss Hydrophobic Paint Protection S",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "homekit-zigbee-gateway-hub-smart-hom",
+    "title_i18n": {
+      "en": "HomeKit ZigBee Gateway Hub Smart Home Bridge ZigBee APP Remote Control Work",
+      "ru": "Умный шлюз Zigbee Hub для экосистемы Tuya",
+      "he": "רכזת חכמה Zigbee Gateway לשליטה מרחוק",
+      "es": "Puerta de Enlace Inteligente Zigbee Hub Tuya"
+    }
+  },
+  {
+    "slug": "15w-wireless-car-charger-mount-auto",
+    "title_i18n": {
+      "en": "15W Wireless Car Charger Mount, Auto‑Clamp Air Vent Phone Holder, 90° Rotat",
+      "ru": "Полезный гаджет: 15W Wireless Car Charger Mount, Auto‑Cla",
+      "he": "גאдג'ט נבחר: 15W Wireless Car Charger Mount, Auto‑Cla",
+      "es": "Gadget Práctico: 15W Wireless Car Charger Mount, Auto‑Cla"
+    }
+  },
+  {
+    "slug": "universal-air-vent-phone-holder-66w",
+    "title_i18n": {
+      "en": "Universal Air Vent Phone Holder 66W Fast Wireless Charging Smart Sensor Aut",
+      "ru": "Полезный гаджет: Universal Air Vent Phone Holder 66W Fast",
+      "he": "גאдג'ט נבחר: Universal Air Vent Phone Holder 66W Fast",
+      "es": "Gadget Práctico: Universal Air Vent Phone Holder 66W Fast"
+    }
+  },
+  {
+    "slug": "10gbps-high-speed-usb-c-switch-2-por",
+    "title_i18n": {
+      "en": "10Gbps High Speed USB C Switch,2 Port Type C Display Switch,8K 60Hz PD 100W",
+      "ru": "Полезный гаджет: 10Gbps High Speed USB C Switch,2 Port Ty",
+      "he": "גאдג'ט נבחר: 10Gbps High Speed USB C Switch,2 Port Ty",
+      "es": "Gadget Práctico: 10Gbps High Speed USB C Switch,2 Port Ty"
+    }
+  },
+  {
+    "slug": "moes-tuya-zigbee3-0-smart-hub-wirele",
+    "title_i18n": {
+      "en": "MOES Tuya ZigBee3.0 Smart Hub, Wireless/Wired Gateway Bridge SmartLife App ",
+      "ru": "Полезный гаджет: MOES Tuya ZigBee3.0 Smart Hub, Wireless/",
+      "he": "גאдג'ט נבחר: MOES Tuya ZigBee3.0 Smart Hub, Wireless/",
+      "es": "Gadget Práctico: MOES Tuya ZigBee3.0 Smart Hub, Wireless/"
+    }
+  },
+  {
+    "slug": "led-car-interior-ambient-strip-light",
+    "title_i18n": {
+      "en": "LED Car Interior Ambient Strip Lights RGB Fiber Optic Atmosphere Neon Light",
+      "ru": "Полезный гаджет: LED Car Interior Ambient Strip Lights RG",
+      "he": "גאдג'ט נבחר: LED Car Interior Ambient Strip Lights RG",
+      "es": "Gadget Práctico: LED Car Interior Ambient Strip Lights RG"
+    }
+  },
+  {
+    "slug": "tuya-zigbee-3-0-gateway-hub-smart-ho",
+    "title_i18n": {
+      "en": "Tuya Zigbee 3.0 Gateway Hub Smart Home Wireless Bridge Smart Life APP Remot",
+      "ru": "Полезный гаджет: Tuya Zigbee 3.0 Gateway Hub Smart Home W",
+      "he": "גאдג'ט נבחר: Tuya Zigbee 3.0 Gateway Hub Smart Home W",
+      "es": "Gadget Práctico: Tuya Zigbee 3.0 Gateway Hub Smart Home W"
+    }
+  },
+  {
+    "slug": "led-car-interior-ambient-lights-64-r",
+    "title_i18n": {
+      "en": "LED Car Interior Ambient Lights 64 RGB Symphony Acrylic Guide Strip Dashboa",
+      "ru": "Полезный гаджет: LED Car Interior Ambient Lights 64 RGB S",
+      "he": "גאдג'ט נבחר: LED Car Interior Ambient Lights 64 RGB S",
+      "es": "Gadget Práctico: LED Car Interior Ambient Lights 64 RGB S"
+    }
+  },
+  {
+    "slug": "20a-tuya-wifi-matter-smart-socket-uk",
+    "title_i18n": {
+      "en": "20A Tuya WiFi Matter Smart Socket UK Plug with Energy Monitor Compatible wi",
+      "ru": "Полезный гаджет: 20A Tuya WiFi Matter Smart Socket UK Plu",
+      "he": "גאдג'ט נבחר: 20A Tuya WiFi Matter Smart Socket UK Plu",
+      "es": "Gadget Práctico: 20A Tuya WiFi Matter Smart Socket UK Plu"
+    }
+  },
+  {
+    "slug": "hgkj-s6-ultimate-ceramic-coating-spr",
+    "title_i18n": {
+      "en": "HGKJ S6 Ultimate Ceramic Coating Spray Hydrophobic High Gloss Paint Protect",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "12v-24v-automotive-relay-tester-univ",
+    "title_i18n": {
+      "en": "12V 24V Automotive Relay Tester Universal 4Pin 5Pin Car Storage Battery Dig",
+      "ru": "Полезный гаджет: 12V 24V Automotive Relay Tester Universa",
+      "he": "גאдג'ט נבחר: 12V 24V Automotive Relay Tester Universa",
+      "es": "Gadget Práctico: 12V 24V Automotive Relay Tester Universa"
+    }
+  },
+  {
+    "slug": "neon-car-interior-ambient-lights-app",
+    "title_i18n": {
+      "en": "Neon Car Interior Ambient Lights APP DIY Control Acrylic Strip Light Guide ",
+      "ru": "Полезный гаджет: Neon Car Interior Ambient Lights APP DIY",
+      "he": "גאдג'ט נבחר: Neon Car Interior Ambient Lights APP DIY",
+      "es": "Gadget Práctico: Neon Car Interior Ambient Lights APP DIY"
+    }
+  },
+  {
+    "slug": "car-battery-charge-level-indicator-1",
+    "title_i18n": {
+      "en": "Car Battery Charge Level Indicator 12V 24V 36V 48V 60V 72V Lithium Battery ",
+      "ru": "Полезный гаджет: Car Battery Charge Level Indicator 12V 2",
+      "he": "גאдג'ט נבחר: Car Battery Charge Level Indicator 12V 2",
+      "es": "Gadget Práctico: Car Battery Charge Level Indicator 12V 2"
+    }
+  },
+  {
+    "slug": "professional-9h-ceramic-car-coating",
+    "title_i18n": {
+      "en": "Professional 9H+ Ceramic Car Coating Kit, Nano Crystal Serum for Cars Polis",
+      "ru": "Полезный гаджет: Professional 9H+ Ceramic Car Coating Kit",
+      "he": "גאдג'ט נבחר: Professional 9H+ Ceramic Car Coating Kit",
+      "es": "Gadget Práctico: Professional 9H+ Ceramic Car Coating Kit"
+    }
+  },
+  {
+    "slug": "infrared-sensor-auto-clamping-car-ph",
+    "title_i18n": {
+      "en": "Infrared Sensor Auto Clamping Car Phone Holder 15W Fast Charger Car Mount A",
+      "ru": "Полезный гаджет: Infrared Sensor Auto Clamping Car Phone ",
+      "he": "גאдג'ט נבחר: Infrared Sensor Auto Clamping Car Phone ",
+      "es": "Gadget Práctico: Infrared Sensor Auto Clamping Car Phone "
+    }
+  },
+  {
+    "slug": "universal-car-ambient-light-kit-18-i",
+    "title_i18n": {
+      "en": "Universal Car Ambient Light Kit 18-in-1 256 Color RGB LED with Wireless App",
+      "ru": "Полезный гаджет: Universal Car Ambient Light Kit 18-in-1 ",
+      "he": "גאдג'ט נבחר: Universal Car Ambient Light Kit 18-in-1 ",
+      "es": "Gadget Práctico: Universal Car Ambient Light Kit 18-in-1 "
+    }
+  },
+  {
+    "slug": "foxsur-12v-24v-car-battery-tester-ba",
+    "title_i18n": {
+      "en": "FOXSUR 12V 24V Car Battery Tester Battery Analyzer for VRLA/GEL/AGM/EFB/STD",
+      "ru": "Цифровой тестер автомобильных аккумуляторов 12V",
+      "he": "בודק מצברים דיגיטלי מתקדם לרכב 12V",
+      "es": "Analizador Digital de Baterías de Coche 12V"
+    }
+  },
+  {
+    "slug": "nano-ceramic-coating-graphene-9h-pro",
+    "title_i18n": {
+      "en": "Nano Ceramic Coating Graphene 9H Pro Hydrophobic Paint Protection Car High ",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "universal-car-phone-holder-with-smar",
+    "title_i18n": {
+      "en": "Universal Car Phone Holder with Smart Sensor Auto-Clamp One-Touch Unlock Fa",
+      "ru": "Полезный гаджет: Universal Car Phone Holder with Smart Se",
+      "he": "גאдג'ט נבחר: Universal Car Phone Holder with Smart Se",
+      "es": "Gadget Práctico: Universal Car Phone Holder with Smart Se"
+    }
+  },
+  {
+    "slug": "njty-t2808-battery-tester-12v-24v-au",
+    "title_i18n": {
+      "en": "NJTY T2808 Battery Tester 12V/24V Automotive Battery Analyzer for Car/Truck",
+      "ru": "Цифровой тестер автомобильных аккумуляторов 12V",
+      "he": "בודק מצברים דיגיטלי מתקדם לרכב 12V",
+      "es": "Analizador Digital de Baterías de Coche 12V"
+    }
+  },
+  {
+    "slug": "lunovate-9h-ceramic-coating-2-4oz-se",
+    "title_i18n": {
+      "en": "LUNOVATE 9H Ceramic Coating 2.4Oz, Self-Leveling Nano Paint Sealant, Hydrop",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "30ml-car-ceramic-coating-nano-crysta",
+    "title_i18n": {
+      "en": "30ml Car Ceramic Coating Nano Crystal Liquid Polish Scratch Remover Car Car",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "100ml-ptz-graphene-ceramic-coating-9",
+    "title_i18n": {
+      "en": "100ML PTZ Graphene Ceramic Coating, 9H+ Advanced Crystal Serum Ceramic Car ",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "12v-24v-car-motorcycle-battery-teste",
+    "title_i18n": {
+      "en": "12V-24V-Car-Motorcycle-Battery-Tester-Battery-Analyzer-Digital-Analyzer-Int",
+      "ru": "Полезный гаджет: 12V-24V-Car-Motorcycle-Battery-Tester-Ba",
+      "he": "גאдג'ט נבחר: 12V-24V-Car-Motorcycle-Battery-Tester-Ba",
+      "es": "Gadget Práctico: 12V-24V-Car-Motorcycle-Battery-Tester-Ba"
+    }
+  },
+  {
+    "slug": "100ml-auto-ceramic-plating-agent-set",
+    "title_i18n": {
+      "en": "100ml Auto Ceramic Plating Agent Set Ceramic Coating 9h+ Crystal Serum Car ",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "car-wireless-charger-mount-15w-fast",
+    "title_i18n": {
+      "en": "Car Wireless Charger Mount 15W Fast Charging Phone Holder Automatic Sensor ",
+      "ru": "Полезный гаджет: Car Wireless Charger Mount 15W Fast Char",
+      "he": "גאдג'ט נבחר: Car Wireless Charger Mount 15W Fast Char",
+      "es": "Gadget Práctico: Car Wireless Charger Mount 15W Fast Char"
+    }
+  },
+  {
+    "slug": "100ml-graphene-ceramic-coating-9h-ad",
+    "title_i18n": {
+      "en": "100ml Graphene Ceramic Coating 9H+ Advanced Crystal SerumCar Ceramic Coatin",
+      "ru": "Керамическое покрытие 9H для защиты кузова авто",
+      "he": "ציפוי קרמי 9H מקצועי להגנת צבע הרכב",
+      "es": "Revestimiento Cerámico 9H para Pintura de Coche"
+    }
+  },
+  {
+    "slug": "12v-24v-bt60-car-battery-tester-digi",
+    "title_i18n": {
+      "en": "12V/24V BT60 Car Battery Tester Digital Auto Battery Analyzer Charging Cran",
+      "ru": "Цифровой тестер автомобильных аккумуляторов 12V",
+      "he": "בודק מצברים דיגיטלי מתקדם לרכב 12V",
+      "es": "Analizador Digital de Baterías de Coche 12V"
+    }
+  },
+  {
+    "slug": "tuya-smart-plug-uk-wifi-zigbee-socke",
+    "title_i18n": {
+      "en": "Tuya Smart Plug UK, WiFi Zigbee Socket Works with Alexa Google Home, 16A 20",
+      "ru": "Полезный гаджет: Tuya Smart Plug UK, WiFi Zigbee Socket W",
+      "he": "גאдג'ט נבחר: Tuya Smart Plug UK, WiFi Zigbee Socket W",
+      "es": "Gadget Práctico: Tuya Smart Plug UK, WiFi Zigbee Socket W"
+    }
+  },
+  {
+    "slug": "car-wireless-charger-66w-fast-chargi",
+    "title_i18n": {
+      "en": "Car Wireless Charger 66W Fast Charging Mount Smart Auto Clamping Phone Hold",
+      "ru": "Полезный гаджет: Car Wireless Charger 66W Fast Charging M",
+      "he": "גאдג'ט נבחר: Car Wireless Charger 66W Fast Charging M",
+      "es": "Gadget Práctico: Car Wireless Charger 66W Fast Charging M"
+    }
+  },
+  {
+    "slug": "car-air-vent-wireless-charger-auto-c",
+    "title_i18n": {
+      "en": "Car Air Vent Wireless Charger Auto Clamp Smart Sensor 15W Fast Charging Car",
+      "ru": "Полезный гаджет: Car Air Vent Wireless Charger Auto Clamp",
+      "he": "גאдג'ט נבחר: Car Air Vent Wireless Charger Auto Clamp",
+      "es": "Gadget Práctico: Car Air Vent Wireless Charger Auto Clamp"
+    }
+  },
+  {
+    "slug": "12v-auto-heated-electric-windshield",
+    "title_i18n": {
+      "en": "12V Auto Heated Electric Windshield Ice Scraper Snow Shovel for Cars Trucks",
+      "ru": "Полезный гаджет: 12V Auto Heated Electric Windshield Ice ",
+      "he": "גאдג'ט נבחר: 12V Auto Heated Electric Windshield Ice ",
+      "es": "Gadget Práctico: 12V Auto Heated Electric Windshield Ice "
+    }
+  },
+  {
+    "slug": "fast-charging-wireless-car-charger-h",
+    "title_i18n": {
+      "en": "Fast Charging Wireless Car Charger Holder 15W Auto Clamping Phone Mount For",
+      "ru": "Полезный гаджет: Fast Charging Wireless Car Charger Holde",
+      "he": "גאдג'ט נבחר: Fast Charging Wireless Car Charger Holde",
+      "es": "Gadget Práctico: Fast Charging Wireless Car Charger Holde"
+    }
+  },
+  {
+    "slug": "electric-car-ice-scraper-heated-wind",
+    "title_i18n": {
+      "en": "Electric Car Ice Scraper Heated Windshield Deicer Remover Tool with Brush D",
+      "ru": "Полезный гаджет: Electric Car Ice Scraper Heated Windshie",
+      "he": "גאдג'ט נבחר: Electric Car Ice Scraper Heated Windshie",
+      "es": "Gadget Práctico: Electric Car Ice Scraper Heated Windshie"
+    }
+  },
+  {
+    "slug": "18in1-car-led-interior-ambient-light",
+    "title_i18n": {
+      "en": "18in1 Car LED Interior Ambient Lights Fiber Optic RGB Strip 256 Colors APP ",
+      "ru": "Полезный гаджет: 18in1 Car LED Interior Ambient Lights Fi",
+      "he": "גאдג'ט נבחר: 18in1 Car LED Interior Ambient Lights Fi",
+      "es": "Gadget Práctico: 18in1 Car LED Interior Ambient Lights Fi"
+    }
+  },
+  {
+    "slug": "12v-winter-electric-heater-car-ice-s",
+    "title_i18n": {
+      "en": "12V Winter Electric Heater Car Ice Scraper Windshield Glass Snow Shovel Rem",
+      "ru": "Полезный гаджет: 12V Winter Electric Heater Car Ice Scrap",
+      "he": "גאдג'ט נבחר: 12V Winter Electric Heater Car Ice Scrap",
+      "es": "Gadget Práctico: 12V Winter Electric Heater Car Ice Scrap"
+    }
+  },
+  {
+    "slug": "winter-car-heated-snow-ice-scraper-e",
+    "title_i18n": {
+      "en": "Winter Car Heated Snow Ice Scraper Electric Auto Windshield Ice Scraper",
+      "ru": "Полезный гаджет: Winter Car Heated Snow Ice Scraper Elect",
+      "he": "גאдג'ט נבחר: Winter Car Heated Snow Ice Scraper Elect",
+      "es": "Gadget Práctico: Winter Car Heated Snow Ice Scraper Elect"
+    }
+  },
+  {
+    "slug": "portable-car-electric-ice-snow-scrap",
+    "title_i18n": {
+      "en": "Portable Car Electric Ice Snow Scraper Heated Removal USB Rechargeable Ice ",
+      "ru": "Полезный гаджет: Portable Car Electric Ice Snow Scraper H",
+      "he": "גאдג'ט נבחר: Portable Car Electric Ice Snow Scraper H",
+      "es": "Gadget Práctico: Portable Car Electric Ice Snow Scraper H"
+    }
+  },
+  {
+    "slug": "smart-sensor-car-phone-wireless-char",
+    "title_i18n": {
+      "en": "Smart Sensor Car Phone Wireless Charger 15W Fast Charging Auto-Clamping Car",
+      "ru": "Полезный гаджет: Smart Sensor Car Phone Wireless Charger ",
+      "he": "גאдג'ט נבחר: Smart Sensor Car Phone Wireless Charger ",
+      "es": "Gadget Práctico: Smart Sensor Car Phone Wireless Charger "
+    }
+  },
+  {
+    "slug": "universal-car-back-seat-headrest-mou",
+    "title_i18n": {
+      "en": "Universal Car Back Seat Headrest Mount Holder Phone Holder Stand with Doubl",
+      "ru": "Полезный гаджет: Universal Car Back Seat Headrest Mount H",
+      "he": "גאдג'ט נבחר: Universal Car Back Seat Headrest Mount H",
+      "es": "Gadget Práctico: Universal Car Back Seat Headrest Mount H"
+    }
+  },
+  {
+    "slug": "winter-car-snow-remover-heater-defro",
+    "title_i18n": {
+      "en": "Winter Car Snow Remover Heater Defroster Deicer for Windshield Electric Ice",
+      "ru": "Полезный гаджет: Winter Car Snow Remover Heater Defroster",
+      "he": "גאдג'ט נבחר: Winter Car Snow Remover Heater Defroster",
+      "es": "Gadget Práctico: Winter Car Snow Remover Heater Defroster"
+    }
+  },
+  {
+    "slug": "high-pressure-pa-foam-cannon-adjusta",
+    "title_i18n": {
+      "en": "High Pressure PA Foam Cannon Adjustable Foam Sprayer Snow Foam Gun Car Wash",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "heenvn-car-headrest-mount-holder-for",
+    "title_i18n": {
+      "en": "Heenvn Car Headrest Mount Holder for Tesla Model 3 Y Model Y Juniper Model ",
+      "ru": "Полезный гаджет: Heenvn Car Headrest Mount Holder for Tes",
+      "he": "גאдג'ט נבחר: Heenvn Car Headrest Mount Holder for Tes",
+      "es": "Gadget Práctico: Heenvn Car Headrest Mount Holder for Tes"
+    }
+  },
+  {
+    "slug": "new-universal-car-back-seat-headrest",
+    "title_i18n": {
+      "en": "New Universal Car Back Seat Headrest Support Bracket Adjustable 360 Degree ",
+      "ru": "Полезный гаджет: New Universal Car Back Seat Headrest Sup",
+      "he": "גאдג'ט נבחר: New Universal Car Back Seat Headrest Sup",
+      "es": "Gadget Práctico: New Universal Car Back Seat Headrest Sup"
+    }
+  },
+  {
+    "slug": "car-headrest-tablet-mount-holder-uni",
+    "title_i18n": {
+      "en": "Car Headrest Tablet Mount Holder, Universal Cradle Fits 4.7‑12.9 Inch, Adju",
+      "ru": "Полезный гаджет: Car Headrest Tablet Mount Holder, Univer",
+      "he": "גאдג'ט נבחר: Car Headrest Tablet Mount Holder, Univer",
+      "es": "Gadget Práctico: Car Headrest Tablet Mount Holder, Univer"
+    }
+  },
+  {
+    "slug": "telescopic-car-rear-pillow-phone-hol",
+    "title_i18n": {
+      "en": "Telescopic Car Rear Pillow Phone Holder Tablet Rotating Holder Car Back Sea",
+      "ru": "Полезный гаджет: Telescopic Car Rear Pillow Phone Holder ",
+      "he": "גאдג'ט נבחר: Telescopic Car Rear Pillow Phone Holder ",
+      "es": "Gadget Práctico: Telescopic Car Rear Pillow Phone Holder "
+    }
+  },
+  {
+    "slug": "car-headrest-tablet-mount-telescopic",
+    "title_i18n": {
+      "en": "Car Headrest Tablet Mount Telescopic Adjustable Foldable Stand, Universal B",
+      "ru": "Полезный гаджет: Car Headrest Tablet Mount Telescopic Adj",
+      "he": "גאдג'ט נבחר: Car Headrest Tablet Mount Telescopic Adj",
+      "es": "Gadget Práctico: Car Headrest Tablet Mount Telescopic Adj"
+    }
+  },
+  {
+    "slug": "car-ice-snow-scraper-usb-electric-he",
+    "title_i18n": {
+      "en": "Car Ice Snow Scraper USB Electric Heated Snow Removal Windshield Glass Defr",
+      "ru": "Полезный гаджет: Car Ice Snow Scraper USB Electric Heated",
+      "he": "גאдג'ט נבחר: Car Ice Snow Scraper USB Electric Heated",
+      "es": "Gadget Práctico: Car Ice Snow Scraper USB Electric Heated"
+    }
+  },
+  {
+    "slug": "2pcs-360-degree-adjustable-blind-spo",
+    "title_i18n": {
+      "en": "2Pcs 360 Degree Adjustable Blind Spot Mirror Car Auxiliary Rearview Convex ",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "high-pressure-washer-gun-with-5-colo",
+    "title_i18n": {
+      "en": "High Pressure Washer Gun with 5-Color Nozzles, Fan & Jet Spray, Transparent",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "universal-car-headrest-tablet-mount",
+    "title_i18n": {
+      "en": "Universal Car Headrest Tablet Mount for IPads, and Cell Phones - Hands-Free",
+      "ru": "Полезный гаджет: Universal Car Headrest Tablet Mount for ",
+      "he": "גאдג'ט נבחר: Universal Car Headrest Tablet Mount for ",
+      "es": "Gadget Práctico: Universal Car Headrest Tablet Mount for "
+    }
+  },
+  {
+    "slug": "usb-car-ice-scraper-electric-heated",
+    "title_i18n": {
+      "en": "USB Car Ice Scraper Electric Heated Snow Removal Windshield Glass Defrost C",
+      "ru": "Полезный гаджет: USB Car Ice Scraper Electric Heated Snow",
+      "he": "גאдג'ט נבחר: USB Car Ice Scraper Electric Heated Snow",
+      "es": "Gadget Práctico: USB Car Ice Scraper Electric Heated Snow"
+    }
+  },
+  {
+    "slug": "high-quality-pressure-washer-gun-car",
+    "title_i18n": {
+      "en": "High Quality Pressure Washer Gun Car Wash Foam Gun Set Snow Foam Cannon Swi",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "foldable-car-phone-holder-back-seat",
+    "title_i18n": {
+      "en": "Foldable Car Phone Holder Back Seat Tablet Mount for Children 360-Degree He",
+      "ru": "Полезный гаджет: Foldable Car Phone Holder Back Seat Tabl",
+      "he": "גאдג'ט נבחר: Foldable Car Phone Holder Back Seat Tabl",
+      "es": "Gadget Práctico: Foldable Car Phone Holder Back Seat Tabl"
+    }
+  },
+  {
+    "slug": "portable-high-pressure-car-cleaning",
+    "title_i18n": {
+      "en": "Portable High Pressure Car Cleaning Foam Gun Auto Wash Water Cannon Pet Sho",
+      "ru": "Полезный гаджет: Portable High Pressure Car Cleaning Foam",
+      "he": "גאдג'ט נבחר: Portable High Pressure Car Cleaning Foam",
+      "es": "Gadget Práctico: Portable High Pressure Car Cleaning Foam"
+    }
+  },
+  {
+    "slug": "high-pressure-pa-foam-cannon-1",
+    "title_i18n": {
+      "en": "High Pressure PA Foam Cannon Adjustable Foam Sprayer Snow Foam Gun Car Wash",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "city-wolf-g1-4-quick-release-adapter",
+    "title_i18n": {
+      "en": "City Wolf G1/4 Quick Release Adapter Foam Cannon Snow Foam Lance Stainless ",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "2-led-car-door-welcome-logo-projecto",
+    "title_i18n": {
+      "en": "2 LED Car Door Welcome Logo Projector Light Accessories For Mercedes Benz A",
+      "ru": "Полезный гаджет: 2 LED Car Door Welcome Logo Projector Li",
+      "he": "גאдג'ט נבחר: 2 LED Car Door Welcome Logo Projector Li",
+      "es": "Gadget Práctico: 2 LED Car Door Welcome Logo Projector Li"
+    }
+  },
+  {
+    "slug": "for-honda-accord-7th-8th-2003-2012-2",
+    "title_i18n": {
+      "en": "For Honda Accord 7Th 8Th 2003-2012 2005 2006 2008 2009 Accord LED Car Door ",
+      "ru": "Полезный гаджет: For Honda Accord 7Th 8Th 2003-2012 2005 ",
+      "he": "גאдג'ט נבחר: For Honda Accord 7Th 8Th 2003-2012 2005 ",
+      "es": "Gadget Práctico: For Honda Accord 7Th 8Th 2003-2012 2005 "
+    }
+  },
+  {
+    "slug": "360-rotation-round-convex-auxiliary",
+    "title_i18n": {
+      "en": "360 Rotation Round Convex Auxiliary Rearview Mirror Adjustable Wide Angle C",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "blind-spot-mirror-round-hd-glass-fra",
+    "title_i18n": {
+      "en": "Blind Spot Mirror, Round HD Glass Frameless Convex Rear View Mirror Wide An",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "2-6pcs-360-degree-car-blind-spot-rea",
+    "title_i18n": {
+      "en": "2-6Pcs 360 Degree Car Blind Spot Rear View Mirror Wide Angle Adjustable Rou",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "2-pcs-car-round-frame-convex-blind-s",
+    "title_i18n": {
+      "en": "2 Pcs Car Round Frame Convex Blind Spot Mirror Wide-angle 360 Degree Adjust",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "braid-on-steering-wheel-for-peugeot",
+    "title_i18n": {
+      "en": "Braid on Steering Wheel For Peugeot 208 Peugeot 2008 2014 2015 2016 2017 20",
+      "ru": "Полезный гаджет: Braid on Steering Wheel For Peugeot 208 ",
+      "he": "גאдג'ט נבחר: Braid on Steering Wheel For Peugeot 208 ",
+      "es": "Gadget Práctico: Braid on Steering Wheel For Peugeot 208 "
+    }
+  },
+  {
+    "slug": "universal-convex-blind-spot-mirror-a",
+    "title_i18n": {
+      "en": "Universal Convex Blind Spot Mirror Adjustable Wide Angle Design Car Side Re",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "for-chevrolet-captiva-2007-2018-2008",
+    "title_i18n": {
+      "en": "For Chevrolet Captiva 2007-2018 2008 2009 2010 2011 2012 Captiva LED Car Do",
+      "ru": "Полезный гаджет: For Chevrolet Captiva 2007-2018 2008 200",
+      "he": "גאдג'ט נבחר: For Chevrolet Captiva 2007-2018 2008 200",
+      "es": "Gadget Práctico: For Chevrolet Captiva 2007-2018 2008 200"
+    }
+  },
+  {
+    "slug": "usb-car-ice-scraper-electric-1",
+    "title_i18n": {
+      "en": "USB Car Ice Scraper Electric Heated Snow Removal Windshield Glass Defrost C",
+      "ru": "Полезный гаджет: USB Car Ice Scraper Electric Heated Snow",
+      "he": "גאдג'ט נבחר: USB Car Ice Scraper Electric Heated Snow",
+      "es": "Gadget Práctico: USB Car Ice Scraper Electric Heated Snow"
+    }
+  },
+  {
+    "slug": "2pcs-car-rearview-mirrors-360-blind",
+    "title_i18n": {
+      "en": "2PCS Car Rearview Mirrors 360 Blind Spot Mirror Adjustable Round Frame Wide",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "1pair-car-mirror-blind-spot-mirror-w",
+    "title_i18n": {
+      "en": "1pair Car Mirror Blind Spot Mirror Wide Angle Mirror 360 Rotation Adjustabl",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "wireless-car-charger-auto-phone-hold",
+    "title_i18n": {
+      "en": "Wireless Car Charger Auto Phone Holder 10W Qi Fast Charging Infrared Sensor",
+      "ru": "Полезный гаджет: Wireless Car Charger Auto Phone Holder 1",
+      "he": "גאдג'ט נבחר: Wireless Car Charger Auto Phone Holder 1",
+      "es": "Gadget Práctico: Wireless Car Charger Auto Phone Holder 1"
+    }
+  },
+  {
+    "slug": "2x-white-wired-cummins-logo-car-door",
+    "title_i18n": {
+      "en": "2x White Wired Cummins Logo Car Door Led Welcome Courtesy Laser Shadow Proj",
+      "ru": "Полезный гаджет: 2x White Wired Cummins Logo Car Door Led",
+      "he": "גאдג'ט נבחר: 2x White Wired Cummins Logo Car Door Led",
+      "es": "Gadget Práctico: 2x White Wired Cummins Logo Car Door Led"
+    }
+  },
+  {
+    "slug": "hand-braid-on-steering-wheel-for-mer",
+    "title_i18n": {
+      "en": "Hand Braid On Steering Wheel For Mercedes Benz C Class W203 2001 2002 2003 ",
+      "ru": "Полезный гаджет: Hand Braid On Steering Wheel For Mercede",
+      "he": "גאдג'ט נבחר: Hand Braid On Steering Wheel For Mercede",
+      "es": "Gadget Práctico: Hand Braid On Steering Wheel For Mercede"
+    }
+  },
+  {
+    "slug": "hand-stitched-anti-slip-carbon-fiber",
+    "title_i18n": {
+      "en": "Hand-stitched Anti-Slip Carbon Fiber Suede Braid Car Steering Wheel Cover F",
+      "ru": "Полезный гаджет: Hand-stitched Anti-Slip Carbon Fiber Sue",
+      "he": "גאдג'ט נבחר: Hand-stitched Anti-Slip Carbon Fiber Sue",
+      "es": "Gadget Práctico: Hand-stitched Anti-Slip Carbon Fiber Sue"
+    }
+  },
+  {
+    "slug": "for-old-mazda-3-axela-mazda5-mazda6",
+    "title_i18n": {
+      "en": "For Old Mazda 3 Axela Mazda5 Mazda6 Atenza 2004-2008 Pentium B70 MPV Car In",
+      "ru": "Полезный гаджет: For Old Mazda 3 Axela Mazda5 Mazda6 Aten",
+      "he": "גאдג'ט נבחר: For Old Mazda 3 Axela Mazda5 Mazda6 Aten",
+      "es": "Gadget Práctico: For Old Mazda 3 Axela Mazda5 Mazda6 Aten"
+    }
+  },
+  {
+    "slug": "2pcs-heart-shaped-hd-blind-spot-mirr",
+    "title_i18n": {
+      "en": "2Pcs Heart Shaped HD Blind Spot Mirrors Wide Angle Convex Rear View Auxilia",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "pressure-washer-gun-snow-foam-cannon",
+    "title_i18n": {
+      "en": "Pressure Washer Gun & Snow Foam Cannon Kit Compatible with Karcher K2-K7 Se",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "car-blind-spot-mirror-wide-angle-mir",
+    "title_i18n": {
+      "en": "Car Blind Spot Mirror Wide Angle Mirror 360 Rotation Adjustable Convex Rear",
+      "ru": "Широкоугольные сферические зеркала мертвых зон для авто",
+      "he": "מראות עזר פנורמיות לשטח מת ברכב",
+      "es": "Espejos de Ángulo Muerto Convexos para Coche"
+    }
+  },
+  {
+    "slug": "electric-heating-pad-for-car-vehicle",
+    "title_i18n": {
+      "en": "Electric Heating Pad For Car Vehicle Maintenance Tool Windshield Snow Remov",
+      "ru": "Полезный гаджет: Electric Heating Pad For Car Vehicle Mai",
+      "he": "גאдג'ט נבחר: Electric Heating Pad For Car Vehicle Mai",
+      "es": "Gadget Práctico: Electric Heating Pad For Car Vehicle Mai"
+    }
+  },
+  {
+    "slug": "5000psi-high-pressure-car-wash-water",
+    "title_i18n": {
+      "en": "5000psi High Pressure Car Wash Water Gun Dual Purpose Switch Stainless Stee",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "car-inner-steering-wheel-cover-perfo",
+    "title_i18n": {
+      "en": "Car Inner Steering Wheel Cover Perforated Leather Trim For Audi A2 8Z A3 8L",
+      "ru": "Полезный гаджет: Car Inner Steering Wheel Cover Perforate",
+      "he": "גאдג'ט נבחר: Car Inner Steering Wheel Cover Perforate",
+      "es": "Gadget Práctico: Car Inner Steering Wheel Cover Perforate"
+    }
+  },
+  {
+    "slug": "car-hand-braid-steering-wheel-cover",
+    "title_i18n": {
+      "en": "Car Hand Braid Steering Wheel Cover For Ford Kuga Focus 2 C-MAX Soft Perfor",
+      "ru": "Полезный гаджет: Car Hand Braid Steering Wheel Cover For ",
+      "he": "גאдג'ט נבחר: Car Hand Braid Steering Wheel Cover For ",
+      "es": "Gadget Práctico: Car Hand Braid Steering Wheel Cover For "
+    }
+  },
+  {
+    "slug": "car-door-logo-led-welcome-night-ligh",
+    "title_i18n": {
+      "en": "Car Door Logo Led Welcome Night Light Wireless Projection Laser Lamp DC 5V ",
+      "ru": "Полезный гаджет: Car Door Logo Led Welcome Night Light Wi",
+      "he": "גאдג'ט נבחר: Car Door Logo Led Welcome Night Light Wi",
+      "es": "Gadget Práctico: Car Door Logo Led Welcome Night Light Wi"
+    }
+  },
+  {
+    "slug": "2pcs-car-logo-wireless-door-control",
+    "title_i18n": {
+      "en": "2PCS Car Logo Wireless Door Control Projector LED Shadow Welcome Light Car ",
+      "ru": "Полезный гаджет: 2PCS Car Logo Wireless Door Control Proj",
+      "he": "גאдג'ט נבחר: 2PCS Car Logo Wireless Door Control Proj",
+      "es": "Gadget Práctico: 2PCS Car Logo Wireless Door Control Proj"
+    }
+  },
+  {
+    "slug": "2pcs-wireless-thundercats-led-logo-c",
+    "title_i18n": {
+      "en": "2pcs Wireless Thundercats LED Logo Car Door Welcome Laser Projector Shadow ",
+      "ru": "Полезный гаджет: 2pcs Wireless Thundercats LED Logo Car D",
+      "he": "גאдג'ט נבחר: 2pcs Wireless Thundercats LED Logo Car D",
+      "es": "Gadget Práctico: 2pcs Wireless Thundercats LED Logo Car D"
+    }
+  },
+  {
+    "slug": "foam-generator-foam-cannon-foam-nozz",
+    "title_i18n": {
+      "en": "Foam Generator Foam Cannon Foam Nozzle Car Foam Wash for Karcher K2 K3 K4 K",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "50x25cm-5mm-car-soundproof-deadening",
+    "title_i18n": {
+      "en": "50x25cm 5mm Car Soundproof Deadening Mat Firewall Insulation Audio Noise In",
+      "ru": "Полезный гаджет: 50x25cm 5mm Car Soundproof Deadening Mat",
+      "he": "גאдג'ט נבחר: 50x25cm 5mm Car Soundproof Deadening Mat",
+      "es": "Gadget Práctico: 50x25cm 5mm Car Soundproof Deadening Mat"
+    }
+  },
+  {
+    "slug": "2x-led-car-door-logo-projector-lamps",
+    "title_i18n": {
+      "en": "2X LED Car Door Logo Projector Lamps Welcome Light For BMW 1 2 3 4 5 6 7 Se",
+      "ru": "Полезный гаджет: 2X LED Car Door Logo Projector Lamps Wel",
+      "he": "גאдג'ט נבחר: 2X LED Car Door Logo Projector Lamps Wel",
+      "es": "Gadget Práctico: 2X LED Car Door Logo Projector Lamps Wel"
+    }
+  },
+  {
+    "slug": "led-round-3d-large-screen-wall-clock",
+    "title_i18n": {
+      "en": "Led Round 3D Large Screen Wall Clock Digital Temperature Humidity Date Disp",
+      "ru": "Полезный гаджет: Led Round 3D Large Screen Wall Clock Dig",
+      "he": "גאдג'ט נבחר: Led Round 3D Large Screen Wall Clock Dig",
+      "es": "Gadget Práctico: Led Round 3D Large Screen Wall Clock Dig"
+    }
+  },
+  {
+    "slug": "a13z-sound-deadening-mat-10pcs-car-b",
+    "title_i18n": {
+      "en": "A13Z-Sound Deadening Mat 10PCS Car Butyl Insulation And Damping Bonnet Hot ",
+      "ru": "Полезный гаджет: A13Z-Sound Deadening Mat 10PCS Car Butyl",
+      "he": "גאдג'ט נבחר: A13Z-Sound Deadening Mat 10PCS Car Butyl",
+      "es": "Gadget Práctico: A13Z-Sound Deadening Mat 10PCS Car Butyl"
+    }
+  },
+  {
+    "slug": "self-adhesive-sound-heat-insulation",
+    "title_i18n": {
+      "en": "Self Adhesive Sound Heat Insulation Cotton Fleece Mat 10mm 120X60cm For Car",
+      "ru": "Полезный гаджет: Self Adhesive Sound Heat Insulation Cott",
+      "he": "גאдג'ט נבחר: Self Adhesive Sound Heat Insulation Cott",
+      "es": "Gadget Práctico: Self Adhesive Sound Heat Insulation Cott"
+    }
+  },
+  {
+    "slug": "2pcs-for-mercedes-benz-w205-w212-w21",
+    "title_i18n": {
+      "en": "2PCS For Mercedes Benz W205 W212 W213 W166 X156 W167 X166 W176 W177 W246 LE",
+      "ru": "Полезный гаджет: 2PCS For Mercedes Benz W205 W212 W213 W1",
+      "he": "גאдג'ט נבחר: 2PCS For Mercedes Benz W205 W212 W213 W1",
+      "es": "Gadget Práctico: 2PCS For Mercedes Benz W205 W212 W213 W1"
+    }
+  },
+  {
+    "slug": "10pcs-car-van-sound-deadener-heat-ma",
+    "title_i18n": {
+      "en": "10pcs Car Van Sound Deadener Heat Mat Noise Insulator For Auto Hood Sound P",
+      "ru": "Полезный гаджет: 10pcs Car Van Sound Deadener Heat Mat No",
+      "he": "גאдג'ט נבחר: 10pcs Car Van Sound Deadener Heat Mat No",
+      "es": "Gadget Práctico: 10pcs Car Van Sound Deadener Heat Mat No"
+    }
+  },
+  {
+    "slug": "leather-car-steering-wheel-cover-for",
+    "title_i18n": {
+      "en": "Leather Car Steering Wheel Cover For Exlantix ES Exeed Sterra ES 2026 2027 ",
+      "ru": "Полезный гаджет: Leather Car Steering Wheel Cover For Exl",
+      "he": "גאдג'ט נבחר: Leather Car Steering Wheel Cover For Exl",
+      "es": "Gadget Práctico: Leather Car Steering Wheel Cover For Exl"
+    }
+  },
+  {
+    "slug": "tuya-wifi-smart-8-in-1-home-air-qual",
+    "title_i18n": {
+      "en": "Tuya WiFi Smart 8-in-1 Home Air Quality Monitor, CO2 HCHO TVOC PM1.0 PM2.5 ",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "smart-life-15-in-1-air-quality-monit",
+    "title_i18n": {
+      "en": "Smart Life 15 in 1 Air Quality Monitor Tuya WiFi PM2.5 Detector CO2 CO TVOC",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "automotive-sound-deadening-foam-mat",
+    "title_i18n": {
+      "en": "Automotive Sound Deadening Foam Mat Heat Shield For Vehicle Roof Door Chass",
+      "ru": "Полезный гаджет: Automotive Sound Deadening Foam Mat Heat",
+      "he": "גאдג'ט נבחר: Automotive Sound Deadening Foam Mat Heat",
+      "es": "Gadget Práctico: Automotive Sound Deadening Foam Mat Heat"
+    }
+  },
+  {
+    "slug": "for-renault-clio-3-rs-2005-2006-2007",
+    "title_i18n": {
+      "en": "For Renault Clio 3 RS 2005 2006 2007 2008 2009 2010 2011 2012 2013 Hand-sti",
+      "ru": "Полезный гаджет: For Renault Clio 3 RS 2005 2006 2007 200",
+      "he": "גאдג'ט נבחר: For Renault Clio 3 RS 2005 2006 2007 200",
+      "es": "Gadget Práctico: For Renault Clio 3 RS 2005 2006 2007 200"
+    }
+  },
+  {
+    "slug": "38cm-breathable-leather-steering-whe",
+    "title_i18n": {
+      "en": "38cm Breathable leather steering wheel cover For Geely coolray emgrand ex2 ",
+      "ru": "Полезный гаджет: 38cm Breathable leather steering wheel c",
+      "he": "גאдג'ט נבחר: 38cm Breathable leather steering wheel c",
+      "es": "Gadget Práctico: 38cm Breathable leather steering wheel c"
+    }
+  },
+  {
+    "slug": "10pcs-5mm-sound-deadening-damping-ma",
+    "title_i18n": {
+      "en": "10Pcs 5mm Sound Deadening Damping Mat Car Silent Compact Van Proofing Campe",
+      "ru": "Полезный гаджет: 10Pcs 5mm Sound Deadening Damping Mat Ca",
+      "he": "גאдג'ט נבחר: 10Pcs 5mm Sound Deadening Damping Mat Ca",
+      "es": "Gadget Práctico: 10Pcs 5mm Sound Deadening Damping Mat Ca"
+    }
+  },
+  {
+    "slug": "15in1-thousand-digit-air-quality-mon",
+    "title_i18n": {
+      "en": "15In1 Thousand-digit Air Quality Monitor Tuya WiFi PM2.5 Detector Smart Lif",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "indoor-air-quality-monitor-smart-bui",
+    "title_i18n": {
+      "en": "Indoor Air Quality Monitor Smart Building Toilet Solution CO2 PM2.5 TVOC NH",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "tuya-smart-wifi-9-in-1-iaq-monitor-a",
+    "title_i18n": {
+      "en": "Tuya Smart WiFi 9-in-1 IAQ Monitor - Air Quality Detector for PM2.5 CO2 HCH",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "3d-led-wall-clock-rgb-digital-modern",
+    "title_i18n": {
+      "en": "3D LED Wall Clock RGB Digital Modern Design Living Room Decor Temperature T",
+      "ru": "Современные 3D цифровые настенные часы с пультом",
+      "he": "שעון קיר דיגיטלי 3D מודרני עם שלט",
+      "es": "Reloj de Pared Digital 3D Moderno con Control"
+    }
+  },
+  {
+    "slug": "sound-deadening-mat-heat-insulation",
+    "title_i18n": {
+      "en": "Sound Deadening Mat Heat Insulation Cotton Pad Universal for Car Door Floor",
+      "ru": "Полезный гаджет: Sound Deadening Mat Heat Insulation Cott",
+      "he": "גאдג'ט נבחר: Sound Deadening Mat Heat Insulation Cott",
+      "es": "Gadget Práctico: Sound Deadening Mat Heat Insulation Cott"
+    }
+  },
+  {
+    "slug": "for-voyah-free-2024-2025-car-styling",
+    "title_i18n": {
+      "en": "For Voyah FREE 2024 2025 Car Styling Breathable Non-Slip Leather Steering W",
+      "ru": "Полезный гаджет: For Voyah FREE 2024 2025 Car Styling Bre",
+      "he": "גאдג'ט נבחר: For Voyah FREE 2024 2025 Car Styling Bre",
+      "es": "Gadget Práctico: For Voyah FREE 2024 2025 Car Styling Bre"
+    }
+  },
+  {
+    "slug": "tuya-fingerprint-door-lock-waterproo",
+    "title_i18n": {
+      "en": "Tuya Fingerprint Door Lock Waterproof Outdoor Gate Smart Life Wifi Passcode",
+      "ru": "Умный биометрический электронный дверной замок по отпечатку",
+      "he": "מנעול דלת חכם ביומטרי טביעת אצבע וקוד",
+      "es": "Cerradura Inteligente Electrónica con Huella Dactilar"
+    }
+  },
+  {
+    "slug": "3d-abstract-digital-perpetual-calend",
+    "title_i18n": {
+      "en": "3D abstract digital perpetual calendar living room 2026 new smart home elec",
+      "ru": "Полезный гаджет: 3D abstract digital perpetual calendar l",
+      "he": "גאдג'ט נבחר: 3D abstract digital perpetual calendar l",
+      "es": "Gadget Práctico: 3D abstract digital perpetual calendar l"
+    }
+  },
+  {
+    "slug": "3d-led-digital-wall-clock-desk-alarm",
+    "title_i18n": {
+      "en": "3D LED Digital Wall Clock Desk Alarm Clock with Remote Control for Kitchen ",
+      "ru": "Полезный гаджет: 3D LED Digital Wall Clock Desk Alarm Clo",
+      "he": "גאдג'ט נבחר: 3D LED Digital Wall Clock Desk Alarm Clo",
+      "es": "Gadget Práctico: 3D LED Digital Wall Clock Desk Alarm Clo"
+    }
+  },
+  {
+    "slug": "rcxaz-15-in-1-smart-wifi-air-quality",
+    "title_i18n": {
+      "en": "RCXAZ 15-in-1 Smart WiFi Air Quality Monitor Temp Humidity CO2 PM2.5 PM10 T",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "tuya-wifi-smart-door-lock-biometric",
+    "title_i18n": {
+      "en": "Tuya Wifi Smart Door Lock Biometric Fingerprint APP Remote Unlock Card Pass",
+      "ru": "Умный биометрический электронный дверной замок по отпечатку",
+      "he": "מנעול דלת חכם ביומטרי טביעת אצבע וקוד",
+      "es": "Cerradura Inteligente Electrónica con Huella Dactilar"
+    }
+  },
+  {
+    "slug": "smart-air-quality-monitor-iot-sensor",
+    "title_i18n": {
+      "en": "Smart air Quality Monitor Iot Sensor Co2 PM2.5 Pm10 Tvoc HCHO Temp RH WiFi ",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "moden-3d-digital-wall-clock-with-rem",
+    "title_i18n": {
+      "en": "Moden 3D Digital Wall Clock with Remote Control Night Light LED Display USB",
+      "ru": "Полезный гаджет: Moden 3D Digital Wall Clock with Remote ",
+      "he": "גאдג'ט נבחר: Moden 3D Digital Wall Clock with Remote ",
+      "es": "Gadget Práctico: Moden 3D Digital Wall Clock with Remote "
+    }
+  },
+  {
+    "slug": "zoci-for-viladepot-smart-lock-finger",
+    "title_i18n": {
+      "en": "ZOCI-FOR Viladepot Smart Lock Fingerprint Door Lock App Control Passcode Un",
+      "ru": "Умный биометрический электронный дверной замок по отпечатку",
+      "he": "מנעול דלת חכם ביומטרי טביעת אצבע וקוד",
+      "es": "Cerradura Inteligente Electrónica con Huella Dactilar"
+    }
+  },
+  {
+    "slug": "viladepot-smart-lock-fingerprint-doo",
+    "title_i18n": {
+      "en": "Viladepot Smart Lock Fingerprint Door Lock App Control Passcode Unlock Elec",
+      "ru": "Умный биометрический электронный дверной замок по отпечатку",
+      "he": "מנעול דלת חכם ביומטרי טביעת אצבע וקוד",
+      "es": "Cerradura Inteligente Electrónica con Huella Dactilar"
+    }
+  },
+  {
+    "slug": "smart-door-lock-with-knob-lock-with",
+    "title_i18n": {
+      "en": "Smart Door Lock with Knob,Lock with Handle, Fingerprint Electronic Knob for",
+      "ru": "Умный биометрический электронный дверной замок по отпечатку",
+      "he": "מנעול דלת חכם ביומטרי טביעת אצבע וקוד",
+      "es": "Cerradura Inteligente Electrónica con Huella Dactilar"
+    }
+  },
+  {
+    "slug": "8-in-1-multifunctional-air-quality-d",
+    "title_i18n": {
+      "en": "8-in-1 Multifunctional Air Quality Detector CO2 PM2.5 Formaldehyde TVOC Sma",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "3d-led-digital-wall-clock-9-06-large",
+    "title_i18n": {
+      "en": "3D LED Digital Wall Clock, 9.06”, Large Display Desk/Seat Clock without Rem",
+      "ru": "Полезный гаджет: 3D LED Digital Wall Clock, 9.06”, Large ",
+      "he": "גאдג'ט נבחר: 3D LED Digital Wall Clock, 9.06”, Large ",
+      "es": "Gadget Práctico: 3D LED Digital Wall Clock, 9.06”, Large "
+    }
+  },
+  {
+    "slug": "20-30-40-50-pc-sound-deadening-dampi",
+    "title_i18n": {
+      "en": "20/30/40/50 PC Sound Deadening Damping Mat Car Accessories Car Silent Heat ",
+      "ru": "Полезный гаджет: 20/30/40/50 PC Sound Deadening Damping M",
+      "he": "גאдג'ט נבחר: 20/30/40/50 PC Sound Deadening Damping M",
+      "es": "Gadget Práctico: 20/30/40/50 PC Sound Deadening Damping M"
+    }
+  },
+  {
+    "slug": "ac110-240v-portable-washing-machine",
+    "title_i18n": {
+      "en": "AC110-240V Portable Washing Machine Underwear with Dryer Bucket Socks Cloth",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "waterproof-physical-button-front-doo",
+    "title_i18n": {
+      "en": "Waterproof Physical Button Front Door Send PassCode Remote Electronic Deadb",
+      "ru": "Полезный гаджет: Waterproof Physical Button Front Door Se",
+      "he": "גאдג'ט נבחר: Waterproof Physical Button Front Door Se",
+      "es": "Gadget Práctico: Waterproof Physical Button Front Door Se"
+    }
+  },
+  {
+    "slug": "uxcell-4mm-18sqft-40x420cm-sound-dea",
+    "title_i18n": {
+      "en": "UXCELL 4mm 18sqft 40x420cm Sound Deadening Car Aluminum Foil Foam Heat Damp",
+      "ru": "Полезный гаджет: UXCELL 4mm 18sqft 40x420cm Sound Deadeni",
+      "he": "גאдג'ט נבחר: UXCELL 4mm 18sqft 40x420cm Sound Deadeni",
+      "es": "Gadget Práctico: UXCELL 4mm 18sqft 40x420cm Sound Deadeni"
+    }
+  },
+  {
+    "slug": "ts51-tuya-wifi-smart-airbox-air-qual",
+    "title_i18n": {
+      "en": "TS51 Tuya WiFi Smart Airbox Air Quality Detector, Monitor Temp Hum, CO2, CO",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "lint-remover-for-clothing-led-digita",
+    "title_i18n": {
+      "en": "Lint Remover for Clothing LED Digital Electric Pellet Fluff Remover USB Rec",
+      "ru": "Полезный гаджет: Lint Remover for Clothing LED Digital El",
+      "he": "גאдג'ט נבחר: Lint Remover for Clothing LED Digital El",
+      "es": "Gadget Práctico: Lint Remover for Clothing LED Digital El"
+    }
+  },
+  {
+    "slug": "portable-usb-mini-washing-machine-fo",
+    "title_i18n": {
+      "en": "Portable USB Mini Washing Machine Foldable Bucket Washer Travel Laundry for",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "7-5l-mini-wahing-machine-portable-bu",
+    "title_i18n": {
+      "en": "7.5L Mini Wahing Machine Portable Bucket Washer Foldable Washing Machine wi",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "waterproof-bluetooth-app-control-u-s",
+    "title_i18n": {
+      "en": "Waterproof Bluetooth APP Control U-Shape Electronic Bicycle Lock Smart Bike",
+      "ru": "Полезный гаджет: Waterproof Bluetooth APP Control U-Shape",
+      "he": "גאдג'ט נבחר: Waterproof Bluetooth APP Control U-Shape",
+      "es": "Gadget Práctico: Waterproof Bluetooth APP Control U-Shape"
+    }
+  },
+  {
+    "slug": "portable-washing-machine-with-draina",
+    "title_i18n": {
+      "en": "Portable Washing Machine with Drainage Pipe, Mini Foldable Bucket Washer, R",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "inkbird-smart-air-quality-monitor-10",
+    "title_i18n": {
+      "en": "INKBIRD Smart Air Quality Monitor 10-In-1 Wireless CO2 Detector Temp Humidi",
+      "ru": "Умный анализатор качества воздуха CO2 и частиц PM2.5",
+      "he": "צג מד איכות אוויר חכם CO2 ו-PM2.5",
+      "es": "Monitor Inteligente de Calidad del Aire CO2 y PM2.5"
+    }
+  },
+  {
+    "slug": "dt34-lint-remover-electric-sweater-p",
+    "title_i18n": {
+      "en": "DT34 Lint Remover Electric,Sweater Pilling Wool Trimmer Portable Fabric Clo",
+      "ru": "Полезный гаджет: DT34 Lint Remover Electric,Sweater Pilli",
+      "he": "גאдג'ט נבחר: DT34 Lint Remover Electric,Sweater Pilli",
+      "es": "Gadget Práctico: DT34 Lint Remover Electric,Sweater Pilli"
+    }
+  },
+  {
+    "slug": "europe-us-plug-electric-fabric-sweat",
+    "title_i18n": {
+      "en": "Europe/US Plug Electric Fabric Sweater Curtains Carpets Clothes Lint Remove",
+      "ru": "Полезный гаджет: Europe/US Plug Electric Fabric Sweater C",
+      "he": "גאдג'ט נבחר: Europe/US Plug Electric Fabric Sweater C",
+      "es": "Gadget Práctico: Europe/US Plug Electric Fabric Sweater C"
+    }
+  },
+  {
+    "slug": "portable-outdoor-wireless-battery-us",
+    "title_i18n": {
+      "en": "Portable Outdoor Wireless Battery/USB Electric Heating Lunch Box Rechargeab",
+      "ru": "Полезный гаджет: Portable Outdoor Wireless Battery/USB El",
+      "he": "גאдג'ט נבחר: Portable Outdoor Wireless Battery/USB El",
+      "es": "Gadget Práctico: Portable Outdoor Wireless Battery/USB El"
+    }
+  },
+  {
+    "slug": "electric-lint-remover-fabric-shaver",
+    "title_i18n": {
+      "en": "Electric Lint Remover Fabric Shaver Clothes Pilling Remover Sweater Trimmer",
+      "ru": "Полезный гаджет: Electric Lint Remover Fabric Shaver Clot",
+      "he": "גאдג'ט נבחר: Electric Lint Remover Fabric Shaver Clot",
+      "es": "Gadget Práctico: Electric Lint Remover Fabric Shaver Clot"
+    }
+  },
+  {
+    "slug": "rechargeable-lint-remover-for-clothe",
+    "title_i18n": {
+      "en": "Rechargeable Lint Remover for Clothes- Electric Lint Shaver and Fabric Shav",
+      "ru": "Полезный гаджет: Rechargeable Lint Remover for Clothes- E",
+      "he": "גאдג'ט נבחר: Rechargeable Lint Remover for Clothes- E",
+      "es": "Gadget Práctico: Rechargeable Lint Remover for Clothes- E"
+    }
+  },
+  {
+    "slug": "viladepot-handle-shaped-smart-lock-f",
+    "title_i18n": {
+      "en": "Viladepot Handle Shaped Smart Lock Fingerprint Door Lock App Control Passco",
+      "ru": "Умный биометрический электронный дверной замок по отпечатку",
+      "he": "מנעול דלת חכם ביומטרי טביעת אצבע וקוד",
+      "es": "Cerradura Inteligente Electrónica con Huella Dactilar"
+    }
+  },
+  {
+    "slug": "fingerprint-door-lock-electronic-key",
+    "title_i18n": {
+      "en": "Fingerprint Door Lock Electronic Keyless Entry Door Knob Lock with Handle R",
+      "ru": "Умный биометрический электронный дверной замок по отпечатку",
+      "he": "מנעול דלת חכם ביומטרי טביעת אצבע וקוד",
+      "es": "Cerradura Inteligente Electrónica con Huella Dactilar"
+    }
+  },
+  {
+    "slug": "2-in-1-magnetic-rechargeable-hand-wa",
+    "title_i18n": {
+      "en": "2-in-1 Magnetic Rechargeable Hand Warmers Electric Portable Handwarmers Lon",
+      "ru": "Аккумуляторная электрическая грелка для рук и повербанк",
+      "he": "מחמם ידיים חשמלי נטען נייד סוללת חירום",
+      "es": "Calentador de Manos Eléctrico Recargable Power Bank"
+    }
+  },
+  {
+    "slug": "c-hot-water-bottle-charging-cable-po",
+    "title_i18n": {
+      "en": "C Hot Water Bottle Charging Cable Power Plug Electric Bag Hand Warmer Pocke",
+      "ru": "Аккумуляторная электрическая грелка для рук и повербанк",
+      "he": "מחמם ידיים חשמלי נטען נייד סוללת חירום",
+      "es": "Calentador de Manos Eléctrico Recargable Power Bank"
+    }
+  },
+  {
+    "slug": "b07-smart-fingerprint-door-lock-app",
+    "title_i18n": {
+      "en": "B07 Smart Fingerprint Door Lock APP Wifi Control Passcode IC Card Mechanica",
+      "ru": "Умный биометрический электронный дверной замок по отпечатку",
+      "he": "מנעול דלת חכם ביומטרי טביעת אצבע וקוד",
+      "es": "Cerradura Inteligente Electrónica con Huella Dactilar"
+    }
+  },
+  {
+    "slug": "mini-foldable-washing-machine-11l-po",
+    "title_i18n": {
+      "en": "Mini Foldable Washing Machine 11L Portable Bucket Washer Automatic With Dra",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "2-in-1-magnetic-hand-warmer-electric",
+    "title_i18n": {
+      "en": "2 in 1 Magnetic Hand Warmer Electric Hand Warmer USB-C Rechargeable Split P",
+      "ru": "Аккумуляторная электрическая грелка для рук и повербанк",
+      "he": "מחמם ידיים חשמלי נטען נייד סוללת חירום",
+      "es": "Calentador de Manos Eléctrico Recargable Power Bank"
+    }
+  },
+  {
+    "slug": "led-digital-electric-fabric-shaver-u",
+    "title_i18n": {
+      "en": "LED Digital Electric Fabric Shaver USB Rechargeable Clothing Lint Remover P",
+      "ru": "Полезный гаджет: LED Digital Electric Fabric Shaver USB R",
+      "he": "גאдג'ט נבחר: LED Digital Electric Fabric Shaver USB R",
+      "es": "Gadget Práctico: LED Digital Electric Fabric Shaver USB R"
+    }
+  },
+  {
+    "slug": "warmers-electric-handwarmers-safe-in",
+    "title_i18n": {
+      "en": "Warmers Electric Handwarmers Safe in Portable Lasting Pocket Long Winter He",
+      "ru": "Полезный гаджет: Warmers Electric Handwarmers Safe in Por",
+      "he": "גאдג'ט נבחר: Warmers Electric Handwarmers Safe in Por",
+      "es": "Gadget Práctico: Warmers Electric Handwarmers Safe in Por"
+    }
+  },
+  {
+    "slug": "rechargeable-electric-hot-water-bag",
+    "title_i18n": {
+      "en": "Rechargeable Electric Hot Water Bag with Fast Charging Cable – Portable Han",
+      "ru": "Аккумуляторная электрическая грелка для рук и повербанк",
+      "he": "מחמם ידיים חשמלי נטען נייד סוללת חירום",
+      "es": "Calentador de Manos Eléctrico Recargable Power Bank"
+    }
+  },
+  {
+    "slug": "15l-portable-washing-machine-folding",
+    "title_i18n": {
+      "en": "15L Portable Washing Machine Folding Large CapacityClothes Spin Dryer Bucke",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "portable-electric-fabric-sweater-fuz",
+    "title_i18n": {
+      "en": "Portable Electric Fabric Sweater Fuzz Pills Shaver Clothing Lint Pills Remo",
+      "ru": "Полезный гаджет: Portable Electric Fabric Sweater Fuzz Pi",
+      "he": "גאдג'ט נבחר: Portable Electric Fabric Sweater Fuzz Pi",
+      "es": "Gadget Práctico: Portable Electric Fabric Sweater Fuzz Pi"
+    }
+  },
+  {
+    "slug": "foldable-portable-mini-washing-machi",
+    "title_i18n": {
+      "en": "Foldable Portable Mini Washing Machine Bucket Compact Travel Washer for Und",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "electric-lint-remover-for-clothing-s",
+    "title_i18n": {
+      "en": "Electric Lint Remover for Clothing Sweater Anti Pilling Razor Clothes Pelle",
+      "ru": "Полезный гаджет: Electric Lint Remover for Clothing Sweat",
+      "he": "גאдג'ט נבחר: Electric Lint Remover for Clothing Sweat",
+      "es": "Gadget Práctico: Electric Lint Remover for Clothing Sweat"
+    }
+  },
+  {
+    "slug": "a99g-lint-shaver-lint-remover-fabric",
+    "title_i18n": {
+      "en": "A99G-Lint Shaver, Lint Remover, Fabric Shaver, Electric Wobble Remover For ",
+      "ru": "Полезный гаджет: A99G-Lint Shaver, Lint Remover, Fabric S",
+      "he": "גאдג'ט נבחר: A99G-Lint Shaver, Lint Remover, Fabric S",
+      "es": "Gadget Práctico: A99G-Lint Shaver, Lint Remover, Fabric S"
+    }
+  },
+  {
+    "slug": "mopping-machine-smart-home-sweeping",
+    "title_i18n": {
+      "en": "Mopping Machine Smart Home Sweeping, Vacuuming, Mopping Integrated Automati",
+      "ru": "Умный робот-пылесос с функцией влажной уборки",
+      "he": "שואב אבק רובוטי חכם שוטף אוטומטי",
+      "es": "Robot Aspirador Inteligente con Función de Fregado"
+    }
+  },
+  {
+    "slug": "hot-sale-self-cleaning-automatic-las",
+    "title_i18n": {
+      "en": "Hot Sale Self Cleaning Automatic Laser Floor Clean Mopping Smart 2021 Robot",
+      "ru": "Умный робот-пылесос с функцией влажной уборки",
+      "he": "שואב אבק רובוטי חכם שוטף אוטומטי",
+      "es": "Robot Aspirador Inteligente con Función de Fregado"
+    }
+  },
+  {
+    "slug": "electric-fabric-shaver-lint-fuzz-rem",
+    "title_i18n": {
+      "en": "Electric Fabric Shaver Lint Fuzz Remover Rechargeable Household Portable Ga",
+      "ru": "Полезный гаджет: Electric Fabric Shaver Lint Fuzz Remover",
+      "he": "גאдג'ט נבחר: Electric Fabric Shaver Lint Fuzz Remover",
+      "es": "Gadget Práctico: Electric Fabric Shaver Lint Fuzz Remover"
+    }
+  },
+  {
+    "slug": "robot-aspirador-multifuncional-smart",
+    "title_i18n": {
+      "en": "Robot aspirador multifuncional Smart Automatic Floor Self Cleaning Robot Mo",
+      "ru": "Полезный гаджет: Robot aspirador multifuncional Smart Aut",
+      "he": "גאдג'ט נבחר: Robot aspirador multifuncional Smart Aut",
+      "es": "Gadget Práctico: Robot aspirador multifuncional Smart Aut"
+    }
+  },
+  {
+    "slug": "a47t-automatic-vacuum-cleaners-usb-c",
+    "title_i18n": {
+      "en": "A47T Automatic Vacuum Cleaners USB Charging Cleaning Machine Smart Sweeping",
+      "ru": "Умный робот-пылесос с функцией влажной уборки",
+      "he": "שואב אבק רובוטי חכם שוטף אוטומטי",
+      "es": "Robot Aspirador Inteligente con Función de Fregado"
+    }
+  },
+  {
+    "slug": "electric-hand-warmers-rechargeable-w",
+    "title_i18n": {
+      "en": "Electric Hand Warmers Rechargeable Warming Device With LED Light 5200mAh Po",
+      "ru": "Аккумуляторная электрическая грелка для рук и повербанк",
+      "he": "מחמם ידיים חשמלי נטען נייד סוללת חירום",
+      "es": "Calentador de Manos Eléctrico Recargable Power Bank"
+    }
+  },
+  {
+    "slug": "trash-can-sensor-board-replacement-b",
+    "title_i18n": {
+      "en": "Trash Can Sensor Board Replacement Brown Infrared Motion Sensor Vibration S",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: Trash Can Sensor Board Replacement Brown",
+      "es": "Gadget Práctico: Trash Can Sensor Board Replacement Brown"
+    }
+  },
+  {
+    "slug": "ultra-thin-smart-robot-vacuum-cleane",
+    "title_i18n": {
+      "en": "Ultra-thin Smart Robot Vacuum Cleaner Household 2-in-1 Sweeping and Mopping",
+      "ru": "Умный робот-пылесос с функцией влажной уборки",
+      "he": "שואב אבק רובוטי חכם שוטף אוטומטי",
+      "es": "Robot Aspirador Inteligente con Función de Fregado"
+    }
+  },
+  {
+    "slug": "new-hot-water-bottle-charging-cable",
+    "title_i18n": {
+      "en": "New Hot Water Bottle Charging Cable Power Plug Electric Bag Hand Warmer Poc",
+      "ru": "Аккумуляторная электрическая грелка для рук и повербанк",
+      "he": "מחמם ידיים חשמלי נטען נייד סוללת חירום",
+      "es": "Calentador de Manos Eléctrico Recargable Power Bank"
+    }
+  },
+  {
+    "slug": "trash-can-sensor-board-brown-infrare",
+    "title_i18n": {
+      "en": "Trash Can Sensor Board Brown Infrared Sensor Vibration Switch Touchless Aut",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: Trash Can Sensor Board Brown Infrared Se",
+      "es": "Gadget Práctico: Trash Can Sensor Board Brown Infrared Se"
+    }
+  },
+  {
+    "slug": "smart-robot-vacuum-cleaner-household",
+    "title_i18n": {
+      "en": "Smart Robot Vacuum Cleaner Household Automatic Sweeping Mopping Device USB ",
+      "ru": "Умный робот-пылесос с функцией влажной уборки",
+      "he": "שואב אבק רובוטי חכם שוטף אוטומטי",
+      "es": "Robot Aspirador Inteligente con Función de Fregado"
+    }
+  },
+  {
+    "slug": "for-liectroux-l200-robot-vacuum-clea",
+    "title_i18n": {
+      "en": "for LIECTROUX L200 Robot Vacuum Cleaner Smart APP Control Automatic Sweepin",
+      "ru": "Умный робот-пылесос с функцией влажной уборки",
+      "he": "שואב אבק רובוטי חכם שוטף אוטומטי",
+      "es": "Robot Aspirador Inteligente con Función de Fregado"
+    }
+  },
+  {
+    "slug": "2x-led-car-door-welcome-logo-project",
+    "title_i18n": {
+      "en": "2X LED Car Door Welcome Logo Projector Ghost Shadow Light Accessories For B",
+      "ru": "Полезный гаджет: 2X LED Car Door Welcome Logo Projector G",
+      "he": "גאдג'ט נבחר: 2X LED Car Door Welcome Logo Projector G",
+      "es": "Gadget Práctico: 2X LED Car Door Welcome Logo Projector G"
+    }
+  },
+  {
+    "slug": "3-in-1-mini-robots-vacuum-cleaner-li",
+    "title_i18n": {
+      "en": "3 In 1 Mini Robots Vacuum Cleaner Lightweight Smart Cleaning Machine Automa",
+      "ru": "Полезный гаджет: 3 In 1 Mini Robots Vacuum Cleaner Lightw",
+      "he": "גאдג'ט נבחר: 3 In 1 Mini Robots Vacuum Cleaner Lightw",
+      "es": "Gadget Práctico: 3 In 1 Mini Robots Vacuum Cleaner Lightw"
+    }
+  },
+  {
+    "slug": "tuya-smart-zigbee-3-0-smart-soil-moi",
+    "title_i18n": {
+      "en": "Tuya Smart Zigbee 3.0 Smart Soil Moisture Sensor Soil Tester Air Temperatur",
+      "ru": "Полезный гаджет: Tuya Smart Zigbee 3.0 Smart Soil Moistur",
+      "he": "גאдג'ט נבחר: Tuya Smart Zigbee 3.0 Smart Soil Moistur",
+      "es": "Gadget Práctico: Tuya Smart Zigbee 3.0 Smart Soil Moistur"
+    }
+  },
+  {
+    "slug": "smart-zigbee-plant-monitor-work-with",
+    "title_i18n": {
+      "en": "Smart Zigbee Plant Monitor Work With Tuya APP Soil Moisture Temp Humidity L",
+      "ru": "Полезный гаджет: Smart Zigbee Plant Monitor Work With Tuy",
+      "he": "גאдג'ט נבחר: Smart Zigbee Plant Monitor Work With Tuy",
+      "es": "Gadget Práctico: Smart Zigbee Plant Monitor Work With Tuy"
+    }
+  },
+  {
+    "slug": "zigbee-soil-moisture-sensor-tuya-sma",
+    "title_i18n": {
+      "en": "Zigbee Soil Moisture Sensor Tuya Smart Life Fertility Light Temperature Hum",
+      "ru": "Полезный гаджет: Zigbee Soil Moisture Sensor Tuya Smart L",
+      "he": "גאдג'ט נבחר: Zigbee Soil Moisture Sensor Tuya Smart L",
+      "es": "Gadget Práctico: Zigbee Soil Moisture Sensor Tuya Smart L"
+    }
+  },
+  {
+    "slug": "infrared-touchless-trash-can-sensor",
+    "title_i18n": {
+      "en": "Infrared Touchless Trash Can Sensor Board Replacement for Kitchen Bathroom ",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: Infrared Touchless Trash Can Sensor Boar",
+      "es": "Gadget Práctico: Infrared Touchless Trash Can Sensor Boar"
+    }
+  },
+  {
+    "slug": "automatic-sensor-trash-can-1-2",
+    "title_i18n": {
+      "en": "Automatic Sensor Trash Can 12L Touchless Infrared Motion Sensor Smart Trash",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: Automatic Sensor Trash Can 12L Touchless",
+      "es": "Gadget Práctico: Automatic Sensor Trash Can 12L Touchless"
+    }
+  },
+  {
+    "slug": "intelligent-mini-desktop-trash-can-a",
+    "title_i18n": {
+      "en": "Intelligent Mini Desktop Trash Can Automatic Touchless Infrared Motion Sens",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: Intelligent Mini Desktop Trash Can Autom",
+      "es": "Gadget Práctico: Intelligent Mini Desktop Trash Can Autom"
+    }
+  },
+  {
+    "slug": "strengthen-pet-dog-training-equipmen",
+    "title_i18n": {
+      "en": "Strengthen Pet Dog Training equipment Ultrasound Repeller 3 in 1 Control Tr",
+      "ru": "Полезный гаджет: Strengthen Pet Dog Training equipment Ul",
+      "he": "גאдג'ט נבחר: Strengthen Pet Dog Training equipment Ul",
+      "es": "Gadget Práctico: Strengthen Pet Dog Training equipment Ul"
+    }
+  },
+  {
+    "slug": "4pcs-trash-bin-control-board-infrare",
+    "title_i18n": {
+      "en": "4Pcs Trash Bin Control Board Infrared Smart Sensor Touchless Automatic Kitc",
+      "ru": "Полезный гаджет: 4Pcs Trash Bin Control Board Infrared Sm",
+      "he": "גאдג'ט נבחר: 4Pcs Trash Bin Control Board Infrared Sm",
+      "es": "Gadget Práctico: 4Pcs Trash Bin Control Board Infrared Sm"
+    }
+  },
+  {
+    "slug": "12l-automatic-sensor-trash-can-touch",
+    "title_i18n": {
+      "en": "12L Automatic Sensor Trash Can Touchless Infrared Motion Sensor Smart Trash",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: 12L Automatic Sensor Trash Can Touchless",
+      "es": "Gadget Práctico: 12L Automatic Sensor Trash Can Touchless"
+    }
+  },
+  {
+    "slug": "1-6l-foldable-mini-washing-machine-p",
+    "title_i18n": {
+      "en": "1.6L Foldable Mini Washing Machine Portable Home Clothes Socks Underwear Cl",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "smart-soil-moisture-sensor-plant-mon",
+    "title_i18n": {
+      "en": "Smart Soil Moisture Sensor Plant Monitor Split Long Probe for Deep Use Temp",
+      "ru": "Полезный гаджет: Smart Soil Moisture Sensor Plant Monitor",
+      "he": "גאдג'ט נבחר: Smart Soil Moisture Sensor Plant Monitor",
+      "es": "Gadget Práctico: Smart Soil Moisture Sensor Plant Monitor"
+    }
+  },
+  {
+    "slug": "zigbee-smart-soil-moisture-sensor-5",
+    "title_i18n": {
+      "en": "Zigbee Smart Soil Moisture Sensor 5-In-1 Tester Temperature Humidity Light ",
+      "ru": "Полезный гаджет: Zigbee Smart Soil Moisture Sensor 5-In-1",
+      "he": "גאдג'ט נבחר: Zigbee Smart Soil Moisture Sensor 5-In-1",
+      "es": "Gadget Práctico: Zigbee Smart Soil Moisture Sensor 5-In-1"
+    }
+  },
+  {
+    "slug": "flash-anti-dog-bite-dog-deterrent-de",
+    "title_i18n": {
+      "en": "Flash Anti-dog Bite Dog Deterrent Device High-power Ultrasonic Cat Repeller",
+      "ru": "Полезный гаджет: Flash Anti-dog Bite Dog Deterrent Device",
+      "he": "גאдג'ט נבחר: Flash Anti-dog Bite Dog Deterrent Device",
+      "es": "Gadget Práctico: Flash Anti-dog Bite Dog Deterrent Device"
+    }
+  },
+  {
+    "slug": "white-drinking-water-purifier-tap-pu",
+    "title_i18n": {
+      "en": "White Drinking Water Purifier Tap Pull Out Kitchen Filter Faucet For Water ",
+      "ru": "Полезный гаджет: White Drinking Water Purifier Tap Pull O",
+      "he": "גאдג'ט נבחר: White Drinking Water Purifier Tap Pull O",
+      "es": "Gadget Práctico: White Drinking Water Purifier Tap Pull O"
+    }
+  },
+  {
+    "slug": "smart-soil-tester-sensor-zigbee-3-0",
+    "title_i18n": {
+      "en": "Smart Soil Tester Sensor, Zigbee 3.0 Soil Moisture & Temperature Meter, Dig",
+      "ru": "Полезный гаджет: Smart Soil Tester Sensor, Zigbee 3.0 Soi",
+      "he": "גאдג'ט נבחר: Smart Soil Tester Sensor, Zigbee 3.0 Soi",
+      "es": "Gadget Práctico: Smart Soil Tester Sensor, Zigbee 3.0 Soi"
+    }
+  },
+  {
+    "slug": "home-use-quad-core-high-power-ultras",
+    "title_i18n": {
+      "en": "Home Use Quad-Core High-Power Ultrasound Anti-Bark Device Pet Noise Control",
+      "ru": "Полезный гаджет: Home Use Quad-Core High-Power Ultrasound",
+      "he": "גאдג'ט נבחר: Home Use Quad-Core High-Power Ultrasound",
+      "es": "Gadget Práctico: Home Use Quad-Core High-Power Ultrasound"
+    }
+  },
+  {
+    "slug": "ihseno-tuya-zigbee-smart-soil-tester",
+    "title_i18n": {
+      "en": "iHseno Tuya Zigbee Smart Soil Tester Humidity Temperature Moisture Sensor S",
+      "ru": "Полезный гаджет: iHseno Tuya Zigbee Smart Soil Tester Hum",
+      "he": "גאдג'ט נבחר: iHseno Tuya Zigbee Smart Soil Tester Hum",
+      "es": "Gadget Práctico: iHseno Tuya Zigbee Smart Soil Tester Hum"
+    }
+  },
+  {
+    "slug": "zigbee-3-0-plant-monitor-soil-moistu",
+    "title_i18n": {
+      "en": "Zigbee 3.0 Plant Monitor Soil Moisture Air Temperature Humidity Tester Supp",
+      "ru": "Полезный гаджет: Zigbee 3.0 Plant Monitor Soil Moisture A",
+      "he": "גאдג'ט נבחר: Zigbee 3.0 Plant Monitor Soil Moisture A",
+      "es": "Gadget Práctico: Zigbee 3.0 Plant Monitor Soil Moisture A"
+    }
+  },
+  {
+    "slug": "cute-pet-usb-electric-hand-warmer-30",
+    "title_i18n": {
+      "en": "Cute Pet USB Electric Hand Warmer 3000mah Portable Mini Power Bank Winter G",
+      "ru": "Аккумуляторная электрическая грелка для рук и повербанк",
+      "he": "מחמם ידיים חשמלי נטען נייד סוללת חירום",
+      "es": "Calentador de Manos Eléctrico Recargable Power Bank"
+    }
+  },
+  {
+    "slug": "tuya-smart-soil-moisture-sensor-wifi",
+    "title_i18n": {
+      "en": "Tuya Smart Soil Moisture Sensor WiFi & Bluetooth Temperature Humidity Teste",
+      "ru": "Полезный гаджет: Tuya Smart Soil Moisture Sensor WiFi & B",
+      "he": "גאдג'ט נבחר: Tuya Smart Soil Moisture Sensor WiFi & B",
+      "es": "Gadget Práctico: Tuya Smart Soil Moisture Sensor WiFi & B"
+    }
+  },
+  {
+    "slug": "stainless-steel-kitchen-drinking-wat",
+    "title_i18n": {
+      "en": "Stainless Steel Kitchen Drinking Water Tap Folding Water Purifier Faucet 36",
+      "ru": "Полезный гаджет: Stainless Steel Kitchen Drinking Water T",
+      "he": "גאдג'ט נבחר: Stainless Steel Kitchen Drinking Water T",
+      "es": "Gadget Práctico: Stainless Steel Kitchen Drinking Water T"
+    }
+  },
+  {
+    "slug": "high-power-ultrasonic-dog-cat-repell",
+    "title_i18n": {
+      "en": "High-power Ultrasonic Dog Cat Repeller, Flash Anti-dog Bite Dog Away Ultras",
+      "ru": "Полезный гаджет: High-power Ultrasonic Dog Cat Repeller, ",
+      "he": "גאдג'ט נבחר: High-power Ultrasonic Dog Cat Repeller, ",
+      "es": "Gadget Práctico: High-power Ultrasonic Dog Cat Repeller, "
+    }
+  },
+  {
+    "slug": "ultrasonic-dog-anti-barking-device-p",
+    "title_i18n": {
+      "en": "Ultrasonic Dog Anti Barking Device Powerful Bark Deterrents Rechargeable Ul",
+      "ru": "Полезный гаджет: Ultrasonic Dog Anti Barking Device Power",
+      "he": "גאдג'ט נבחר: Ultrasonic Dog Anti Barking Device Power",
+      "es": "Gadget Práctico: Ultrasonic Dog Anti Barking Device Power"
+    }
+  },
+  {
+    "slug": "pawsera-handheld-ultrasound-dog-repe",
+    "title_i18n": {
+      "en": "Pawsera Handheld Ultrasound Dog Repeller, Anti Barking Training Device Dog ",
+      "ru": "Полезный гаджет: Pawsera Handheld Ultrasound Dog Repeller",
+      "he": "גאдג'ט נבחר: Pawsera Handheld Ultrasound Dog Repeller",
+      "es": "Gadget Práctico: Pawsera Handheld Ultrasound Dog Repeller"
+    }
+  },
+  {
+    "slug": "water-filter-faucet-lead-free-purifi",
+    "title_i18n": {
+      "en": "Water Filter Faucet Lead-Free Purifier Filtered Faucet Fits Reverse Osmosis",
+      "ru": "Полезный гаджет: Water Filter Faucet Lead-Free Purifier F",
+      "he": "גאдג'ט נבחר: Water Filter Faucet Lead-Free Purifier F",
+      "es": "Gadget Práctico: Water Filter Faucet Lead-Free Purifier F"
+    }
+  },
+  {
+    "slug": "3-in-1-compact-car-robot-vacuum-auto",
+    "title_i18n": {
+      "en": "3 In 1 Compact Car Robot Vacuum Automatic Obstacle Avoidance Smart Cleaning",
+      "ru": "Умный робот-пылесос с функцией влажной уборки",
+      "he": "שואב אבק רובוטי חכם שוטף אוטומטי",
+      "es": "Robot Aspirador Inteligente con Función de Fregado"
+    }
+  },
+  {
+    "slug": "stainless-steel-kitchen-tap-water-5",
+    "title_i18n": {
+      "en": "Stainless Steel Kitchen Tap Water 5 Way Water Purifier Faucet Filter System",
+      "ru": "Полезный гаджет: Stainless Steel Kitchen Tap Water 5 Way ",
+      "he": "גאдג'ט נבחר: Stainless Steel Kitchen Tap Water 5 Way ",
+      "es": "Gadget Práctico: Stainless Steel Kitchen Tap Water 5 Way "
+    }
+  },
+  {
+    "slug": "chrome-kitchen-faucet-single-cold-pu",
+    "title_i18n": {
+      "en": "Chrome Kitchen Faucet Single Cold Purifier Tap with Clean Water Filter Sink",
+      "ru": "Полезный гаджет: Chrome Kitchen Faucet Single Cold Purifi",
+      "he": "גאдג'ט נבחר: Chrome Kitchen Faucet Single Cold Purifi",
+      "es": "Gadget Práctico: Chrome Kitchen Faucet Single Cold Purifi"
+    }
+  },
+  {
+    "slug": "1-4-water-purifier-faucet-reverse-os",
+    "title_i18n": {
+      "en": "1/4\" Water Purifier Faucet Reverse Osmosis Drinking Water Filter Faucet Ext",
+      "ru": "Полезный гаджет: 1/4\" Water Purifier Faucet Reverse Osmos",
+      "he": "גאдג'ט נבחר: 1/4\" Water Purifier Faucet Reverse Osmos",
+      "es": "Gadget Práctico: 1/4\" Water Purifier Faucet Reverse Osmos"
+    }
+  },
+  {
+    "slug": "infrared-sensor-trash-can-control-bo",
+    "title_i18n": {
+      "en": "Infrared Sensor Trash Can Control Board with Vibration Switch, Touchless Mo",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: Infrared Sensor Trash Can Control Board ",
+      "es": "Gadget Práctico: Infrared Sensor Trash Can Control Board "
+    }
+  },
+  {
+    "slug": "kitchen-water-purifier-faucet-filter",
+    "title_i18n": {
+      "en": "Kitchen Water Purifier Faucet Filter Direct Drinking Water Single Cooling 3",
+      "ru": "Полезный гаджет: Kitchen Water Purifier Faucet Filter Dir",
+      "he": "גאдג'ט נבחר: Kitchen Water Purifier Faucet Filter Dir",
+      "es": "Gadget Práctico: Kitchen Water Purifier Faucet Filter Dir"
+    }
+  },
+  {
+    "slug": "no-pull-pet-dog-harness-leash-set-ad",
+    "title_i18n": {
+      "en": "No Pull Pet Dog Harness Leash Set Adjustable Cat Harness Vest Reflective Wa",
+      "ru": "Анатомическая шлейка для собак со светоотражающими вставками",
+      "he": "רתמה אורטופדית לכלב נגד משיכות מחזירת אור",
+      "es": "Arnés Antitirones Reflectante y Ajustable para Perro"
+    }
+  },
+  {
+    "slug": "escape-proof-breathable-mesh-vest-ad",
+    "title_i18n": {
+      "en": "Escape-Proof Breathable Mesh Vest Adjustable No Pull Reflective Pet Harness",
+      "ru": "Полезный гаджет: Escape-Proof Breathable Mesh Vest Adjust",
+      "he": "גאдג'ט נבחר: Escape-Proof Breathable Mesh Vest Adjust",
+      "es": "Gadget Práctico: Escape-Proof Breathable Mesh Vest Adjust"
+    }
+  },
+  {
+    "slug": "1pcs-tuya-zigbee-soil-sensor-humidit",
+    "title_i18n": {
+      "en": "1PCS Tuya Zigbee Soil Sensor Humidity Temperature Moisture Detector Smart L",
+      "ru": "Полезный гаджет: 1PCS Tuya Zigbee Soil Sensor Humidity Te",
+      "he": "גאдג'ט נבחר: 1PCS Tuya Zigbee Soil Sensor Humidity Te",
+      "es": "Gadget Práctico: 1PCS Tuya Zigbee Soil Sensor Humidity Te"
+    }
+  },
+  {
+    "slug": "breathable-dog-harness-vest-leash-se",
+    "title_i18n": {
+      "en": "Breathable Dog Harness Vest Leash Set for Small Medium Pets Cats Reflective",
+      "ru": "Анатомическая шлейка для собак со светоотражающими вставками",
+      "he": "רתמה אורטופדית לכלב נגד משיכות מחזירת אור",
+      "es": "Arnés Antitirones Reflectante y Ajustable para Perro"
+    }
+  },
+  {
+    "slug": "pet-cat-adjustable-chest-strap-anti",
+    "title_i18n": {
+      "en": "Pet Cat Adjustable Chest Strap Anti-escape Small Medium Dog Cat Harness Lea",
+      "ru": "Полезный гаджет: Pet Cat Adjustable Chest Strap Anti-esca",
+      "he": "גאдג'ט נבחר: Pet Cat Adjustable Chest Strap Anti-esca",
+      "es": "Gadget Práctico: Pet Cat Adjustable Chest Strap Anti-esca"
+    }
+  },
+  {
+    "slug": "reflective-dog-winter-jacket-with-ha",
+    "title_i18n": {
+      "en": "Reflective Dog Winter Jacket with Harness Cold Weather Clothes for Small Me",
+      "ru": "Полезный гаджет: Reflective Dog Winter Jacket with Harnes",
+      "he": "גאдג'ט נבחר: Reflective Dog Winter Jacket with Harnes",
+      "es": "Gadget Práctico: Reflective Dog Winter Jacket with Harnes"
+    }
+  },
+  {
+    "slug": "tap-water-purifiers-filtration-syste",
+    "title_i18n": {
+      "en": "Tap Water Purifiers Filtration System Kitchen Water Filter faucet Ceramic F",
+      "ru": "Полезный гаджет: Tap Water Purifiers Filtration System Ki",
+      "he": "גאдג'ט נבחר: Tap Water Purifiers Filtration System Ki",
+      "es": "Gadget Práctico: Tap Water Purifiers Filtration System Ki"
+    }
+  },
+  {
+    "slug": "rechargeable-hand-warmers-2-pack-mag",
+    "title_i18n": {
+      "en": "Rechargeable Hand Warmers 2 Pack Magnetic 3 Settings Fast Heating Electric ",
+      "ru": "Аккумуляторная электрическая грелка для рук и повербанк",
+      "he": "מחמם ידיים חשמלי נטען נייד סוללת חירום",
+      "es": "Calentador de Manos Eléctrico Recargable Power Bank"
+    }
+  },
+  {
+    "slug": "cat-harness-lead-leash-set-adjustabl",
+    "title_i18n": {
+      "en": "Cat Harness Lead Leash Set Adjustable Reflective Escape Proof Pet Mesh Vest",
+      "ru": "Полезный гаджет: Cat Harness Lead Leash Set Adjustable Re",
+      "he": "גאдג'ט נבחר: Cat Harness Lead Leash Set Adjustable Re",
+      "es": "Gadget Práctico: Cat Harness Lead Leash Set Adjustable Re"
+    }
+  },
+  {
+    "slug": "usb-rechargeable-pet-laser-pointer-t",
+    "title_i18n": {
+      "en": "USB Rechargeable Pet Laser Pointer Toy, 5 Switchable Red Dot Patterns for I",
+      "ru": "Перезаряжаемая лазерная указка-игрушка для кошек",
+      "he": "צעצוע לייזר נטען USB למשחק עם חתולים",
+      "es": "Puntero Láser Recargable Juguete para Gatos"
+    }
+  },
+  {
+    "slug": "24-sets-pet-dog-harness-no-pull-adju",
+    "title_i18n": {
+      "en": "24 Sets Pet Dog Harness No Pull Adjustable Dog Leash Vest Classic Running L",
+      "ru": "Анатомическая шлейка для собак со светоотражающими вставками",
+      "he": "רתמה אורטופדית לכלב נגד משיכות מחזירת אור",
+      "es": "Arnés Antitirones Reflectante y Ajustable para Perro"
+    }
+  },
+  {
+    "slug": "high-pressure-car-wash-foam-cannon-g",
+    "title_i18n": {
+      "en": "High Pressure Car Wash Foam Cannon Gun, 1/4\" Quick Connect, 1L/0.264 Gal Ca",
+      "ru": "Пенная насадка-пеногенератор для мойки авто высокого давления",
+      "he": "אקדח מקציף סבון לשטיפת רכב בלחץ גבוה",
+      "es": "Cañón de Espuma para Lavado de Coche a Presión"
+    }
+  },
+  {
+    "slug": "usb-rechargeable-cat-laser-pointer-w",
+    "title_i18n": {
+      "en": "USB Rechargeable Cat Laser Pointer with 3 Modes 5 Patterns Lazer Projection",
+      "ru": "Перезаряжаемая лазерная указка-игрушка для кошек",
+      "he": "צעצוע לייזר נטען USB למשחק עם חתולים",
+      "es": "Puntero Láser Recargable Juguete para Gatos"
+    }
+  },
+  {
+    "slug": "professional-dog-dryer-high-velocity",
+    "title_i18n": {
+      "en": "Professional Dog Dryer High Velocity 3000W Dual Motor Pet Grooming Blower G",
+      "ru": "Полезный гаджет: Professional Dog Dryer High Velocity 300",
+      "he": "גאдג'ט נבחר: Professional Dog Dryer High Velocity 300",
+      "es": "Gadget Práctico: Professional Dog Dryer High Velocity 300"
+    }
+  },
+  {
+    "slug": "red-laser-pointer-pen-usb-rechargeab",
+    "title_i18n": {
+      "en": "Red Laser Pointer Pen USB Rechargeable Lazer UV Light Flashlight Cat Dog Pe",
+      "ru": "Перезаряжаемая лазерная указка-игрушка для кошек",
+      "he": "צעצוע לייזר נטען USB למשחק עם חתולים",
+      "es": "Puntero Láser Recargable Juguete para Gatos"
+    }
+  },
+  {
+    "slug": "torayvino-kitchen-water-filter-fauce",
+    "title_i18n": {
+      "en": "Torayvino Kitchen Water Filter Faucet 304 Stainless Steel Brushed Gold Tap ",
+      "ru": "Полезный гаджет: Torayvino Kitchen Water Filter Faucet 30",
+      "he": "גאдג'ט נבחר: Torayvino Kitchen Water Filter Faucet 30",
+      "es": "Gadget Práctico: Torayvino Kitchen Water Filter Faucet 30"
+    }
+  },
+  {
+    "slug": "laser-pointer-collar-for-cats-wearab",
+    "title_i18n": {
+      "en": "Laser Pointer Collar For Cats , Wearable Automatic Cat Laser Light Toy, Ele",
+      "ru": "Перезаряжаемая лазерная указка-игрушка для кошек",
+      "he": "צעצוע לייזר נטען USB למשחק עם חתולים",
+      "es": "Puntero Láser Recargable Juguete para Gatos"
+    }
+  },
+  {
+    "slug": "3-in1-pet-dog-body-dryer-quiet-dog-h",
+    "title_i18n": {
+      "en": "3 in1 Pet Dog Body Dryer Quiet Dog Hair Dryers &Comb Brush Grooming Kitten ",
+      "ru": "Полезный гаджет: 3 in1 Pet Dog Body Dryer Quiet Dog Hair ",
+      "he": "גאдג'ט נבחר: 3 in1 Pet Dog Body Dryer Quiet Dog Hair ",
+      "es": "Gadget Práctico: 3 in1 Pet Dog Body Dryer Quiet Dog Hair "
+    }
+  },
+  {
+    "slug": "custom-reflective-dog-harness-person",
+    "title_i18n": {
+      "en": "Custom Reflective Dog Harness, Personalized No-Pull Pet Vest with Paw Name ",
+      "ru": "Анатомическая шлейка для собак со светоотражающими вставками",
+      "he": "רתמה אורטופדית לכלב נגד משיכות מחזירת אור",
+      "es": "Arnés Antitirones Reflectante y Ajustable para Perro"
+    }
+  },
+  {
+    "slug": "checkered-pet-harness-cat-leash-smal",
+    "title_i18n": {
+      "en": "Checkered Pet Harness Cat Leash Small Dog Harness Kitten Outdoor Breathable",
+      "ru": "Анатомическая шлейка для собак со светоотражающими вставками",
+      "he": "רתמה אורטופדית לכלב נגד משיכות מחזירת אור",
+      "es": "Arnés Antitirones Reflectante y Ajustable para Perro"
+    }
+  },
+  {
+    "slug": "smart-laser-tease-cat-collar-electri",
+    "title_i18n": {
+      "en": "Smart Laser Tease Cat Collar Electric USB Rechargeable Pointer Kitten Autom",
+      "ru": "Полезный гаджет: Smart Laser Tease Cat Collar Electric US",
+      "he": "גאдג'ט נבחר: Smart Laser Tease Cat Collar Electric US",
+      "es": "Gadget Práctico: Smart Laser Tease Cat Collar Electric US"
+    }
+  },
+  {
+    "slug": "professional-pet-hair-dryer-for-dogs",
+    "title_i18n": {
+      "en": "Professional Pet Hair Dryer for Dogs & Cats High Power Cool/Warm Air Blower",
+      "ru": "Бесшумный профессиональный фен-компрессор для животных",
+      "he": "מייבש ומפוח שיער שקט ומקצועי לחיות מחמד",
+      "es": "Secador Silencioso de Pelo para Mascotas"
+    }
+  },
+  {
+    "slug": "usb-rechargeable-mini-green-laser-po",
+    "title_i18n": {
+      "en": "USB Rechargeable Mini Green Laser Pointer – Interactive Cat Toy with Bright",
+      "ru": "Перезаряжаемая лазерная указка-игрушка для кошек",
+      "he": "צעצוע לייזר נטען USB למשחק עם חתולים",
+      "es": "Puntero Láser Recargable Juguete para Gatos"
+    }
+  },
+  {
+    "slug": "cat-laser-toy-pen-usb-charging-led-l",
+    "title_i18n": {
+      "en": "Cat Laser Toy Pen USB Charging LED Light Pointer Rechargeable Torch UV Flas",
+      "ru": "Полезный гаджет: Cat Laser Toy Pen USB Charging LED Light",
+      "he": "גאдג'ט נבחר: Cat Laser Toy Pen USB Charging LED Light",
+      "es": "Gadget Práctico: Cat Laser Toy Pen USB Charging LED Light"
+    }
+  },
+  {
+    "slug": "2in1-usb-rechargeable-laser-pet-toy",
+    "title_i18n": {
+      "en": "2in1 USB Rechargeable Laser Pet Toy Interactive Cat Dog Toy to Relieve Bore",
+      "ru": "Перезаряжаемая лазерная указка-игрушка для кошек",
+      "he": "צעצוע לייזר נטען USB למשחק עם חתולים",
+      "es": "Puntero Láser Recargable Juguete para Gatos"
+    }
+  },
+  {
+    "slug": "manual-switch-faucet-water-purifier",
+    "title_i18n": {
+      "en": "Manual Switch Faucet Water Purifier with 0.1 Micron Ceramic Filter Easy to ",
+      "ru": "Полезный гаджет: Manual Switch Faucet Water Purifier with",
+      "he": "גאдג'ט נבחר: Manual Switch Faucet Water Purifier with",
+      "es": "Gadget Práctico: Manual Switch Faucet Water Purifier with"
+    }
+  },
+  {
+    "slug": "electronic-cat-toy-smart-interactive",
+    "title_i18n": {
+      "en": "Electronic Cat Toy Smart Interactive Cat Laser Pointer with Fun LED Rotatin",
+      "ru": "Перезаряжаемая лазерная указка-игрушка для кошек",
+      "he": "צעצוע לייזר נטען USB למשחק עם חתולים",
+      "es": "Puntero Láser Recargable Juguete para Gatos"
+    }
+  },
+  {
+    "slug": "laser-pointer-cat-toys-usb-rechargea",
+    "title_i18n": {
+      "en": "Laser Pointer Cat Toys USB Rechargeable Interactive Cat Laser Pointer with ",
+      "ru": "Перезаряжаемая лазерная указка-игрушка для кошек",
+      "he": "צעצוע לייזר נטען USB למשחק עם חתולים",
+      "es": "Puntero Láser Recargable Juguete para Gatos"
+    }
+  },
+  {
+    "slug": "3-in1-pet-dog-dryer-quiet-dog-hair-d",
+    "title_i18n": {
+      "en": "3 in1 Pet Dog Dryer Quiet Dog Hair Dryers and Comb Brush Grooming Kitten Ca",
+      "ru": "Полезный гаджет: 3 in1 Pet Dog Dryer Quiet Dog Hair Dryer",
+      "he": "גאдג'ט נבחר: 3 in1 Pet Dog Dryer Quiet Dog Hair Dryer",
+      "es": "Gadget Práctico: 3 in1 Pet Dog Dryer Quiet Dog Hair Dryer"
+    }
+  },
+  {
+    "slug": "2800w-pet-dryer-luxury-dog-grooming",
+    "title_i18n": {
+      "en": "2800W Pet Dryer Luxury Dog Grooming Hair Blower Adjustable Speed Low Noise ",
+      "ru": "Полезный гаджет: 2800W Pet Dryer Luxury Dog Grooming Hair",
+      "he": "גאдג'ט נבחר: 2800W Pet Dryer Luxury Dog Grooming Hair",
+      "es": "Gadget Práctico: 2800W Pet Dryer Luxury Dog Grooming Hair"
+    }
+  },
+  {
+    "slug": "plastic-box-room-drying-machine-air",
+    "title_i18n": {
+      "en": "Plastic Box Room Drying Machine Air Blower Dryers for Pets Automatic Low No",
+      "ru": "Полезный гаджет: Plastic Box Room Drying Machine Air Blow",
+      "he": "גאдג'ט נבחר: Plastic Box Room Drying Machine Air Blow",
+      "es": "Gadget Práctico: Plastic Box Room Drying Machine Air Blow"
+    }
+  },
+  {
+    "slug": "fully-automatic-cat-hair-dryer-intel",
+    "title_i18n": {
+      "en": "Fully Automatic Cat Hair Dryer Intelligent Professional Dog Blower Dryer Ma",
+      "ru": "Полезный гаджет: Fully Automatic Cat Hair Dryer Intellige",
+      "he": "גאдג'ט נבחר: Fully Automatic Cat Hair Dryer Intellige",
+      "es": "Gadget Práctico: Fully Automatic Cat Hair Dryer Intellige"
+    }
+  },
+  {
+    "slug": "suv-cargo-liner-waterproof-trunk-sea",
+    "title_i18n": {
+      "en": "SUV Cargo Liner - Waterproof Trunk Seat Cover for Back Cargo Area Universal",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "neck-mount-professional-pet-grooming",
+    "title_i18n": {
+      "en": "Neck‑Mount Professional Pet Grooming Blower, Low‑Noise Silent Pet Hair Drye",
+      "ru": "Бесшумный профессиональный фен-компрессор для животных",
+      "he": "מייבש ומפוח שיער שקט ומקצועי לחיות מחמד",
+      "es": "Secador Silencioso de Pelo para Mascotas"
+    }
+  },
+  {
+    "slug": "summer-cat-dog-harness-lead-leash-ad",
+    "title_i18n": {
+      "en": "Summer Cat Dog Harness Lead Leash Adjustable Vest Polyester Mesh Breathable",
+      "ru": "Анатомическая шлейка для собак со светоотражающими вставками",
+      "he": "רתמה אורטופדית לכלב נגד משיכות מחזירת אור",
+      "es": "Arnés Antitirones Reflectante y Ajustable para Perro"
+    }
+  },
+  {
+    "slug": "1pc-car-heavy-duty-waterproof-rear-b",
+    "title_i18n": {
+      "en": "1pc Car Heavy Duty Waterproof Rear Back Seat Cover Universal Black Pet Dog ",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "portable-neck-hanging-pet-dryer-low",
+    "title_i18n": {
+      "en": "Portable Neck Hanging Pet Dryer, Low Noise High Speed Blower, Lightweight G",
+      "ru": "Полезный гаджет: Portable Neck Hanging Pet Dryer, Low Noi",
+      "he": "גאдג'ט נבחר: Portable Neck Hanging Pet Dryer, Low Noi",
+      "es": "Gadget Práctico: Portable Neck Hanging Pet Dryer, Low Noi"
+    }
+  },
+  {
+    "slug": "cat-self-groomer-brush-wall-corner-s",
+    "title_i18n": {
+      "en": "Cat Self Groomer Brush Wall Corner Soft Grooming Scratcher and Brush for Sh",
+      "ru": "Полезный гаджет: Cat Self Groomer Brush Wall Corner Soft ",
+      "he": "גאдג'ט נבחר: Cat Self Groomer Brush Wall Corner Soft ",
+      "es": "Gadget Práctico: Cat Self Groomer Brush Wall Corner Soft "
+    }
+  },
+  {
+    "slug": "pets-accessories-cat-brush-comb-self",
+    "title_i18n": {
+      "en": "Pets accessories cat brush comb Self Groomer Wall Corner Massage Brush for ",
+      "ru": "Полезный гаджет: Pets accessories cat brush comb Self Gro",
+      "he": "גאдג'ט נבחר: Pets accessories cat brush comb Self Gro",
+      "es": "Gadget Práctico: Pets accessories cat brush comb Self Gro"
+    }
+  },
+  {
+    "slug": "self-cleaning-cat-massage-tool-wall",
+    "title_i18n": {
+      "en": "Self Cleaning Cat Massage Tool Wall Corner Rubbing Brush Pet Hair Removal M",
+      "ru": "Полезный гаджет: Self Cleaning Cat Massage Tool Wall Corn",
+      "he": "גאдג'ט נבחר: Self Cleaning Cat Massage Tool Wall Corn",
+      "es": "Gadget Práctico: Self Cleaning Cat Massage Tool Wall Corn"
+    }
+  },
+  {
+    "slug": "3-in1-pet-dog-body-dryer-qui-1",
+    "title_i18n": {
+      "en": "3 in1 Pet Dog Body Dryer Quiet Dog Hair Dryers &Comb Brush Grooming Kitten ",
+      "ru": "Полезный гаджет: 3 in1 Pet Dog Body Dryer Quiet Dog Hair ",
+      "he": "גאдג'ט נבחר: 3 in1 Pet Dog Body Dryer Quiet Dog Hair ",
+      "es": "Gadget Práctico: 3 in1 Pet Dog Body Dryer Quiet Dog Hair "
+    }
+  },
+  {
+    "slug": "self-cleaning-cat-massage-to-1",
+    "title_i18n": {
+      "en": "Self Cleaning Cat Massage Tool Wall Corner Rubbing Brush Pet Hair Removal M",
+      "ru": "Полезный гаджет: Self Cleaning Cat Massage Tool Wall Corn",
+      "he": "גאдג'ט נבחר: Self Cleaning Cat Massage Tool Wall Corn",
+      "es": "Gadget Práctico: Self Cleaning Cat Massage Tool Wall Corn"
+    }
+  },
+  {
+    "slug": "car-trunk-anti-dirt-pet-mat-waterpro",
+    "title_i18n": {
+      "en": "Car Trunk Anti-Dirt Pet Mat Waterproof Oxford Cloth Dog Car Seat Cover Pet ",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "washable-reusable-pet-pee-pad-four-l",
+    "title_i18n": {
+      "en": "Washable Reusable Pet Pee Pad - Four-Layer Waterproof Dog Training Pad Pet ",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "dog-toy-ball-squeaky-elastic-jumping",
+    "title_i18n": {
+      "en": "Dog Toy Ball Squeaky Elastic Jumping Fetch Ball Tough Puppy Chew Toy Intera",
+      "ru": "Полезный гаджет: Dog Toy Ball Squeaky Elastic Jumping Fet",
+      "he": "גאдג'ט נבחר: Dog Toy Ball Squeaky Elastic Jumping Fet",
+      "es": "Gadget Práctico: Dog Toy Ball Squeaky Elastic Jumping Fet"
+    }
+  },
+  {
+    "slug": "dog-car-seat-cover-pet-travel-carrie",
+    "title_i18n": {
+      "en": "Dog Car Seat Cover Pet Travel Carrier Mattress Waterproof Dog Car Seat Prot",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "dog-car-seat-cover-waterproof-pet-tr",
+    "title_i18n": {
+      "en": "Dog Car Seat Cover Waterproof Pet Travel Carrier Hammock Rear Back Protecto",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "durable-squeaky-dog-chew-toy-tough-t",
+    "title_i18n": {
+      "en": "Durable Squeaky Dog Chew Toy, Tough Teething Grinding Interactive Pet Toy, ",
+      "ru": "Полезный гаджет: Durable Squeaky Dog Chew Toy, Tough Teet",
+      "he": "גאдג'ט נבחר: Durable Squeaky Dog Chew Toy, Tough Teet",
+      "es": "Gadget Práctico: Durable Squeaky Dog Chew Toy, Tough Teet"
+    }
+  },
+  {
+    "slug": "waterproof-pet-car-back-seat-cover-n",
+    "title_i18n": {
+      "en": "Waterproof Pet Car Back Seat Cover Non‑Slip Dog Cat Cushion Protector Mat F",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "waterproof-and-anti-slip-pet-transpo",
+    "title_i18n": {
+      "en": "Waterproof and anti-slip pet transportation bag for cars, breathable dog tr",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "cat-self-groomer-brush-wall-1",
+    "title_i18n": {
+      "en": "Cat Self Groomer Brush Wall Corner Scratcher Massage Toy For Short And Long",
+      "ru": "Полезный гаджет: Cat Self Groomer Brush Wall Corner Scrat",
+      "he": "גאдג'ט נבחר: Cat Self Groomer Brush Wall Corner Scrat",
+      "es": "Gadget Práctico: Cat Self Groomer Brush Wall Corner Scrat"
+    }
+  },
+  {
+    "slug": "self-grooming-brush-for-cats-wall-co",
+    "title_i18n": {
+      "en": "Self Grooming Brush for Cats Wall Corner Dog Massage Comb Catnip Enhanced T",
+      "ru": "Полезный гаджет: Self Grooming Brush for Cats Wall Corner",
+      "he": "גאдג'ט נבחר: Self Grooming Brush for Cats Wall Corner",
+      "es": "Gadget Práctico: Self Grooming Brush for Cats Wall Corner"
+    }
+  },
+  {
+    "slug": "dog-toys-squeaky-sounding-bones-grin",
+    "title_i18n": {
+      "en": "Dog Toys Squeaky Sounding Bones Grinding Teeth Cleaning Chew Toys Tough Nyl",
+      "ru": "Полезный гаджет: Dog Toys Squeaky Sounding Bones Grinding",
+      "he": "גאдג'ט נבחר: Dog Toys Squeaky Sounding Bones Grinding",
+      "es": "Gadget Práctico: Dog Toys Squeaky Sounding Bones Grinding"
+    }
+  },
+  {
+    "slug": "waterproof-pet-car-trunk-mat-heavy-d",
+    "title_i18n": {
+      "en": "Waterproof Pet Car Trunk Mat - Heavy Duty Scratch-Resistant Seat Cover for ",
+      "ru": "Водонепроницаемый защитный авточехол на заднее сиденье для собак",
+      "he": "כיסוי הגנה עמיד במים למושב הרכב האחורי לכלב",
+      "es": "Funda Protectora Impermeable de Asiento para Perros"
+    }
+  },
+  {
+    "slug": "hipacool-telescopic-car-phone-holder",
+    "title_i18n": {
+      "en": "Hipacool Telescopic Car Phone Holder Tablet Seat Back Stand Headrest Adjust",
+      "ru": "Полезный гаджет: Hipacool Telescopic Car Phone Holder Tab",
+      "he": "גאдג'ט נבחר: Hipacool Telescopic Car Phone Holder Tab",
+      "es": "Gadget Práctico: Hipacool Telescopic Car Phone Holder Tab"
+    }
+  },
+  {
+    "slug": "dog-chew-toys-for-aggressive-chewers",
+    "title_i18n": {
+      "en": "Dog Chew Toys for Aggressive Chewers, Tough Durable Squeaky Interactive Dog",
+      "ru": "Полезный гаджет: Dog Chew Toys for Aggressive Chewers, To",
+      "he": "גאдג'ט נבחר: Dog Chew Toys for Aggressive Chewers, To",
+      "es": "Gadget Práctico: Dog Chew Toys for Aggressive Chewers, To"
+    }
+  },
+  {
+    "slug": "car-rear-seat-pet-cover-dog-mat-wate",
+    "title_i18n": {
+      "en": "Car Rear Seat Pet Cover Dog Mat Waterproof Nonslip Backseat Protector Hammo",
+      "ru": "Полезный гаджет: Car Rear Seat Pet Cover Dog Mat Waterpro",
+      "he": "גאдג'ט נבחר: Car Rear Seat Pet Cover Dog Mat Waterpro",
+      "es": "Gadget Práctico: Car Rear Seat Pet Cover Dog Mat Waterpro"
+    }
+  },
+  {
+    "slug": "1pcs-silicone-cat-corner-self-groome",
+    "title_i18n": {
+      "en": "1Pcs Silicone Cat Corner Self Groomer Brush for Wall Table Cabinet Corners ",
+      "ru": "Полезный гаджет: 1Pcs Silicone Cat Corner Self Groomer Br",
+      "he": "גאдג'ט נבחר: 1Pcs Silicone Cat Corner Self Groomer Br",
+      "es": "Gadget Práctico: 1Pcs Silicone Cat Corner Self Groomer Br"
+    }
+  },
+  {
+    "slug": "christmas-durable-dog-chew-toy-tough",
+    "title_i18n": {
+      "en": "Christmas Durable Dog Chew Toy Tough Squeaky Teething Interactive Pet Grind",
+      "ru": "Полезный гаджет: Christmas Durable Dog Chew Toy Tough Squ",
+      "he": "גאдג'ט נבחר: Christmas Durable Dog Chew Toy Tough Squ",
+      "es": "Gadget Práctico: Christmas Durable Dog Chew Toy Tough Squ"
+    }
+  },
+  {
+    "slug": "foldable-mini-washing-machine-portab",
+    "title_i18n": {
+      "en": "Foldable Mini Washing Machine Portable Small Washer Bucket for Socks & Unde",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "benepaw-cute-dog-toys-for-aggressive",
+    "title_i18n": {
+      "en": "Benepaw Cute Dog Toys For Aggressive Chewers Natural Rubber Tough Squeaky P",
+      "ru": "Полезный гаджет: Benepaw Cute Dog Toys For Aggressive Che",
+      "he": "גאдג'ט נבחר: Benepaw Cute Dog Toys For Aggressive Che",
+      "es": "Gadget Práctico: Benepaw Cute Dog Toys For Aggressive Che"
+    }
+  },
+  {
+    "slug": "pet-cat-hair-removal-massage-comb-ca",
+    "title_i18n": {
+      "en": "Pet Cat Hair Removal Massage Comb Cats Scratching Rubbing Brush Kitten Groo",
+      "ru": "Полезный гаджет: Pet Cat Hair Removal Massage Comb Cats S",
+      "he": "גאдג'ט נבחר: Pet Cat Hair Removal Massage Comb Cats S",
+      "es": "Gadget Práctico: Pet Cat Hair Removal Massage Comb Cats S"
+    }
+  },
+  {
+    "slug": "furstarpet-shop-top-rated-portable-d",
+    "title_i18n": {
+      "en": "FurStarPet Shop Top Rated Portable Double Shoulder Cat Dog Backpack, Space ",
+      "ru": "Полезный гаджет: FurStarPet Shop Top Rated Portable Doubl",
+      "he": "גאдג'ט נבחר: FurStarPet Shop Top Rated Portable Doubl",
+      "es": "Gadget Práctico: FurStarPet Shop Top Rated Portable Doubl"
+    }
+  },
+  {
+    "slug": "cat-carrier-backpack-transparent-bub",
+    "title_i18n": {
+      "en": "Cat Carrier Backpack Transparent Bubble Window Space Capsule Breathable Lar",
+      "ru": "Прозрачный рюкзак-переноска капсула для кошек и собак",
+      "he": "תרמיל נשיאה שקוף קפסולה לחתול ולכלב",
+      "es": "Mochila Cápsula Transparente para Mascotas"
+    }
+  },
+  {
+    "slug": "cat-carrying-bag-space-pet-backpack",
+    "title_i18n": {
+      "en": "Cat Carrying Bag Space Pet Backpack Breathable Clear Bubble Pet Bag Carrier",
+      "ru": "Полезный гаджет: Cat Carrying Bag Space Pet Backpack Brea",
+      "he": "גאдג'ט נבחר: Cat Carrying Bag Space Pet Backpack Brea",
+      "es": "Gadget Práctico: Cat Carrying Bag Space Pet Backpack Brea"
+    }
+  },
+  {
+    "slug": "summer-cooling-dog-bed-mat-ice-silk",
+    "title_i18n": {
+      "en": "Summer Cooling Dog Bed Mat Ice Silk Pet Sleeping Pad With Pillow Washable N",
+      "ru": "Полезный гаджет: Summer Cooling Dog Bed Mat Ice Silk Pet ",
+      "he": "גאдג'ט נבחר: Summer Cooling Dog Bed Mat Ice Silk Pet ",
+      "es": "Gadget Práctico: Summer Cooling Dog Bed Mat Ice Silk Pet "
+    }
+  },
+  {
+    "slug": "dog-cooling-mat-for-dogs-large-ice-s",
+    "title_i18n": {
+      "en": "Dog Cooling Mat for Dogs, Large Ice Silk Pet Cooling Mat with Breathable Wa",
+      "ru": "Охлаждающий шелковый коврик-лежак для животных",
+      "he": "משטח קירור מפנק לקיץ לכלבים וחתולים",
+      "es": "Alfombrilla Refrescante Transpirable para Mascotas"
+    }
+  },
+  {
+    "slug": "expandable-cat-backpack-carrier-brea",
+    "title_i18n": {
+      "en": "‌Expandable Cat Backpack Carrier Breathable Large Space Pet Travel Outdoor ",
+      "ru": "Полезный гаджет: ‌Expandable Cat Backpack Carrier Breatha",
+      "he": "גאдג'ט נבחר: ‌Expandable Cat Backpack Carrier Breatha",
+      "es": "Gadget Práctico: ‌Expandable Cat Backpack Carrier Breatha"
+    }
+  },
+  {
+    "slug": "vention-wireless-hdmi-transmitter-an",
+    "title_i18n": {
+      "en": "Vention Wireless HDMI Transmitter and Receiver 1080P@60Hz 5GHz WiFi 50M Aud",
+      "ru": "Беспроводной комплект передачи HDMI видео 1080P/4K",
+      "he": "משדר ומקלט וידאו HDMI אלחוטי",
+      "es": "Transmisor y Receptor HDMI Inalámbrico"
+    }
+  },
+  {
+    "slug": "new-indestructible-dog-squeaky-ball",
+    "title_i18n": {
+      "en": "New Indestructible Dog Squeaky Ball Toy Tough TPR Chew Toy for Aggressive C",
+      "ru": "Полезный гаджет: New Indestructible Dog Squeaky Ball Toy ",
+      "he": "גאдג'ט נבחר: New Indestructible Dog Squeaky Ball Toy ",
+      "es": "Gadget Práctico: New Indestructible Dog Squeaky Ball Toy "
+    }
+  },
+  {
+    "slug": "space-capsule-pet-backpack-breathabl",
+    "title_i18n": {
+      "en": "Space Capsule Pet Backpack Breathable Lightweight Shoulder Hand Carrier Bag",
+      "ru": "Полезный гаджет: Space Capsule Pet Backpack Breathable Li",
+      "he": "גאдג'ט נבחר: Space Capsule Pet Backpack Breathable Li",
+      "es": "Gadget Práctico: Space Capsule Pet Backpack Breathable Li"
+    }
+  },
+  {
+    "slug": "washable-round-ice-silk-pet-pad-summ",
+    "title_i18n": {
+      "en": "Washable Round Ice Silk Pet Pad Summer Cooling Breathable Scratch-resistant",
+      "ru": "Полезный гаджет: Washable Round Ice Silk Pet Pad Summer C",
+      "he": "גאдג'ט נבחר: Washable Round Ice Silk Pet Pad Summer C",
+      "es": "Gadget Práctico: Washable Round Ice Silk Pet Pad Summer C"
+    }
+  },
+  {
+    "slug": "squeaky-corn-shaped-dog-chew-toy-tou",
+    "title_i18n": {
+      "en": "Squeaky Corn‑Shaped Dog Chew Toy,Tough Durable Teething Interactive Toy for",
+      "ru": "Полезный гаджет: Squeaky Corn‑Shaped Dog Chew Toy,Tough D",
+      "he": "גאдג'ט נבחר: Squeaky Corn‑Shaped Dog Chew Toy,Tough D",
+      "es": "Gadget Práctico: Squeaky Corn‑Shaped Dog Chew Toy,Tough D"
+    }
+  },
+  {
+    "slug": "self-cooling-pet-pad-summer-mat-for",
+    "title_i18n": {
+      "en": "Self-cooling Pet Pad Summer Mat for Dogs Dog Mat Ice Silk Pad Washable Brea",
+      "ru": "Полезный гаджет: Self-cooling Pet Pad Summer Mat for Dogs",
+      "he": "גאдג'ט נבחר: Self-cooling Pet Pad Summer Mat for Dogs",
+      "es": "Gadget Práctico: Self-cooling Pet Pad Summer Mat for Dogs"
+    }
+  },
+  {
+    "slug": "summer-cat-backpack-carrier-breathab",
+    "title_i18n": {
+      "en": "Summer Cat Backpack Carrier Breathable Space Capsule Pet Travel Two Way Cat",
+      "ru": "Полезный гаджет: Summer Cat Backpack Carrier Breathable S",
+      "he": "גאдג'ט נבחר: Summer Cat Backpack Carrier Breathable S",
+      "es": "Gadget Práctico: Summer Cat Backpack Carrier Breathable S"
+    }
+  },
+  {
+    "slug": "rubber-tough-ball-dogs-toys-interact",
+    "title_i18n": {
+      "en": "Rubber Tough Ball Dogs Toys Interactive Round Squeaky Toys Dog Chewing Ball",
+      "ru": "Полезный гаджет: Rubber Tough Ball Dogs Toys Interactive ",
+      "he": "גאдג'ט נבחר: Rubber Tough Ball Dogs Toys Interactive ",
+      "es": "Gadget Práctico: Rubber Tough Ball Dogs Toys Interactive "
+    }
+  },
+  {
+    "slug": "summer-ice-silk-cooling-mat-for-pets",
+    "title_i18n": {
+      "en": "Summer Ice Silk Cooling Mat for Pets Breathable Non-Slip Washable Pad for D",
+      "ru": "Охлаждающий шелковый коврик-лежак для животных",
+      "he": "משטח קירור מפנק לקיץ לכלבים וחתולים",
+      "es": "Alfombrilla Refrescante Transpirable para Mascotas"
+    }
+  },
+  {
+    "slug": "summer-pet-cooling-mat-breathable-ic",
+    "title_i18n": {
+      "en": "Summer Pet Cooling Mat Breathable Ice Silk Dog Cat Pad Washable Scratch Res",
+      "ru": "Охлаждающий шелковый коврик-лежак для животных",
+      "he": "משטח קירור מפנק לקיץ לכלבים וחתולים",
+      "es": "Alfombrilla Refrescante Transpirable para Mascotas"
+    }
+  },
+  {
+    "slug": "summer-pet-ice-pad-cool-sleeping-mat",
+    "title_i18n": {
+      "en": "Summer Pet Ice Pad Cool Sleeping Mat Breathable Ice Silk Washable Pet Bed D",
+      "ru": "Полезный гаджет: Summer Pet Ice Pad Cool Sleeping Mat Bre",
+      "he": "גאдג'ט נבחר: Summer Pet Ice Pad Cool Sleeping Mat Bre",
+      "es": "Gadget Práctico: Summer Pet Ice Pad Cool Sleeping Mat Bre"
+    }
+  },
+  {
+    "slug": "ice-silk-cooling-mat-for-pets-breath",
+    "title_i18n": {
+      "en": "Ice Silk Cooling Mat for Pets, Breathable Summer Sofa Bed, Washable Comfort",
+      "ru": "Охлаждающий шелковый коврик-лежак для животных",
+      "he": "משטח קירור מפנק לקיץ לכלבים וחתולים",
+      "es": "Alfombrilla Refrescante Transpirable para Mascotas"
+    }
+  },
+  {
+    "slug": "large-cat-litter-mat-with-advanced-h",
+    "title_i18n": {
+      "en": "Large Cat Litter Mat with Advanced Honeycomb Double Layer Design Urine-Resi",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "cat-carrier-backpack-large-space-por",
+    "title_i18n": {
+      "en": "Cat Carrier Backpack Large Space Portable, Pet Travel Bag Capsule Breathabl",
+      "ru": "Прозрачный рюкзак-переноска капсула для кошек и собак",
+      "he": "תרמיל נשיאה שקוף קפסולה לחתול ולכלב",
+      "es": "Mochila Cápsula Transparente para Mascotas"
+    }
+  },
+  {
+    "slug": "ice-silk-pet-cooling-mat-anti-slip-b",
+    "title_i18n": {
+      "en": "Ice Silk Pet Cooling Mat Anti Slip Breathable Washable Summer Cool Pad Heat",
+      "ru": "Охлаждающий шелковый коврик-лежак для животных",
+      "he": "משטח קירור מפנק לקיץ לכלבים וחתולים",
+      "es": "Alfombrilla Refrescante Transpirable para Mascotas"
+    }
+  },
+  {
+    "slug": "new-leather-space-capsule-pet-cat-ba",
+    "title_i18n": {
+      "en": "New Leather Space Capsule Pet Cat Backpack Bubble Window for Kitty Puppy Sm",
+      "ru": "Полезный гаджет: New Leather Space Capsule Pet Cat Backpa",
+      "he": "גאдג'ט נבחר: New Leather Space Capsule Pet Cat Backpa",
+      "es": "Gadget Práctico: New Leather Space Capsule Pet Cat Backpa"
+    }
+  },
+  {
+    "slug": "double-layer-eva-cat-litter-mat-hone",
+    "title_i18n": {
+      "en": "Double Layer EVA Cat Litter Mat Honeycomb Waterproof Urine Proof Kitty Litt",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "interactive-cat-massage-brush-wall-c",
+    "title_i18n": {
+      "en": "Interactive Cat Massage Brush Wall Corner Scratching Tool With Catnip Toy F",
+      "ru": "Полезный гаджет: Interactive Cat Massage Brush Wall Corne",
+      "he": "גאдג'ט נבחר: Interactive Cat Massage Brush Wall Corne",
+      "es": "Gadget Práctico: Interactive Cat Massage Brush Wall Corne"
+    }
+  },
+  {
+    "slug": "4g-pet-collar-gps-tracker-electronic",
+    "title_i18n": {
+      "en": "4G Pet Collar GPS Tracker Electronic Geo-Fence for Dogs Cats IP67 Waterproo",
+      "ru": "Полезный гаджет: 4G Pet Collar GPS Tracker Electronic Geo",
+      "he": "גאдג'ט נבחר: 4G Pet Collar GPS Tracker Electronic Geo",
+      "es": "Gadget Práctico: 4G Pet Collar GPS Tracker Electronic Geo"
+    }
+  },
+  {
+    "slug": "cat-litter-mat-double-layer-waterpro",
+    "title_i18n": {
+      "en": "Cat Litter Mat Double Layer Waterproof Urine Proof Trapping Mat Easy to Cle",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "pet-gps-tracker-anti-lost-bluetooth",
+    "title_i18n": {
+      "en": "Pet GPS Tracker Anti-Lost Bluetooth Compatible Waterproof Smart Wearable Re",
+      "ru": "Полезный гаджет: Pet GPS Tracker Anti-Lost Bluetooth Comp",
+      "he": "גאдג'ט נבחר: Pet GPS Tracker Anti-Lost Bluetooth Comp",
+      "es": "Gadget Práctico: Pet GPS Tracker Anti-Lost Bluetooth Comp"
+    }
+  },
+  {
+    "slug": "extra-large-cat-litter-mat-honeycomb",
+    "title_i18n": {
+      "en": "Extra Large Cat Litter Mat Honeycomb Double Layer Urine Waterproof Easy Cle",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "rtyuyu-pet-tracker-gps-collar-for-do",
+    "title_i18n": {
+      "en": "Rtyuyu Pet Tracker Gps Collar for Dogs Gps Tracking Animal Real Time Tracki",
+      "ru": "Водонепроницаемый GPS-трекер ошейник для животных",
+      "he": "קולר איתור לוויני GPS עמיד במים לחיות מחמד",
+      "es": "Collar con Localizador GPS Impermeable para Mascotas"
+    }
+  },
+  {
+    "slug": "cat-litter-mat-double-layer-2",
+    "title_i18n": {
+      "en": "Cat Litter Mat Double Layer Waterproof Urine Proof Trapping Mat Easy to Cle",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "cat-litter-mat-double-layer-3",
+    "title_i18n": {
+      "en": "Cat Litter Mat Double Layer Waterproof Urine Proof Trapping Mat Easy to Cle",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "indestructible-dog-squeaky-ball-toy",
+    "title_i18n": {
+      "en": "Indestructible Dog Squeaky Ball Toy, Tough TPR Chew Toy for Aggressive Chew",
+      "ru": "Полезный гаджет: Indestructible Dog Squeaky Ball Toy, Tou",
+      "he": "גאдג'ט נבחר: Indestructible Dog Squeaky Ball Toy, Tou",
+      "es": "Gadget Práctico: Indestructible Dog Squeaky Ball Toy, Tou"
+    }
+  },
+  {
+    "slug": "1pc-cat-corner-brush-for-long-hair-s",
+    "title_i18n": {
+      "en": "1Pc Cat Corner Brush for Long Hair Squeaky Face Massage Comb Comfortable Se",
+      "ru": "Полезный гаджет: 1Pc Cat Corner Brush for Long Hair Squea",
+      "he": "גאдג'ט נבחר: 1Pc Cat Corner Brush for Long Hair Squea",
+      "es": "Gadget Práctico: 1Pc Cat Corner Brush for Long Hair Squea"
+    }
+  },
+  {
+    "slug": "must-have-real-time-tracking-gps-pet",
+    "title_i18n": {
+      "en": "【MUST-HAVE】Real Time Tracking GPS Pet Locator 4G With Adjustable Collar Ant",
+      "ru": "Полезный гаджет: 【MUST-HAVE】Real Time Tracking GPS Pet Lo",
+      "he": "גאдג'ט נבחר: 【MUST-HAVE】Real Time Tracking GPS Pet Lo",
+      "es": "Gadget Práctico: 【MUST-HAVE】Real Time Tracking GPS Pet Lo"
+    }
+  },
+  {
+    "slug": "spin-dryer-replacement-basket-collap",
+    "title_i18n": {
+      "en": "Spin Dryer Replacement Basket Collapsible Plastic Laundry Drain Bucket Port",
+      "ru": "Складная портативная мини-стиральная машина ведро",
+      "he": "מכונת כביסה ניידת מתקפלת קומפקטית",
+      "es": "Mini Lavadora Portátil Plegable de Viaje"
+    }
+  },
+  {
+    "slug": "3-in-1-mini-robots-vacuum-cleaner-au",
+    "title_i18n": {
+      "en": "3 In 1 Mini Robots Vacuum Cleaner Automatic Obstacle Avoidance Smart Cleani",
+      "ru": "Полезный гаджет: 3 In 1 Mini Robots Vacuum Cleaner Automa",
+      "he": "גאдג'ט נבחר: 3 In 1 Mini Robots Vacuum Cleaner Automa",
+      "es": "Gadget Práctico: 3 In 1 Mini Robots Vacuum Cleaner Automa"
+    }
+  },
+  {
+    "slug": "optical-multimeter-multi-function-po",
+    "title_i18n": {
+      "en": "Optical Multimeter Multi Function Power Meter RJ45 Cable Network OPM Visual",
+      "ru": "Полезный гаджет: Optical Multimeter Multi Function Power ",
+      "he": "גאдג'ט נבחר: Optical Multimeter Multi Function Power ",
+      "es": "Gadget Práctico: Optical Multimeter Multi Function Power "
+    }
+  },
+  {
+    "slug": "cat-litter-mat-double-layer-4",
+    "title_i18n": {
+      "en": "Cat Litter Mat Double Layer Waterproof Urine Proof Trapping Mat Easy to Cle",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "1pc-large-size-cat-litter-mat-advanc",
+    "title_i18n": {
+      "en": "1Pc Large Size Cat Litter Mat-Advanced Honeycomb Double Layer Design,Urine ",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "remote-pet-gps-tracker-waterproof-re",
+    "title_i18n": {
+      "en": "Remote Pet GPS Tracker Waterproof Real-Time Tracking Movement Alert Collar ",
+      "ru": "Полезный гаджет: Remote Pet GPS Tracker Waterproof Real-T",
+      "he": "גאдג'ט נבחר: Remote Pet GPS Tracker Waterproof Real-T",
+      "es": "Gadget Práctico: Remote Pet GPS Tracker Waterproof Real-T"
+    }
+  },
+  {
+    "slug": "pet-anti-lost-gps-tracker-bl-2",
+    "title_i18n": {
+      "en": "Pet Anti-Lost GPS Tracker Bluetooth Compatible Smart Wearable Waterproof Re",
+      "ru": "Полезный гаджет: Pet Anti-Lost GPS Tracker Bluetooth Comp",
+      "he": "גאдג'ט נבחר: Pet Anti-Lost GPS Tracker Bluetooth Comp",
+      "es": "Gadget Práctico: Pet Anti-Lost GPS Tracker Bluetooth Comp"
+    }
+  },
+  {
+    "slug": "pet-anti-lost-gps-tracker-bluetooth",
+    "title_i18n": {
+      "en": "Pet Anti-Lost GPS Tracker Bluetooth Compatible Smart Wearable Waterproof Re",
+      "ru": "Полезный гаджет: Pet Anti-Lost GPS Tracker Bluetooth Comp",
+      "he": "גאдג'ט נבחר: Pet Anti-Lost GPS Tracker Bluetooth Comp",
+      "es": "Gadget Práctico: Pet Anti-Lost GPS Tracker Bluetooth Comp"
+    }
+  },
+  {
+    "slug": "signal-fire-ai-6a-ai-6a-6-motor-opti",
+    "title_i18n": {
+      "en": "SIgnal Fire AI-6A AI-6A+ 6 Motor Optical Fiber Fusion Splicing Machine with",
+      "ru": "Полезный гаджет: SIgnal Fire AI-6A AI-6A+ 6 Motor Optical",
+      "he": "גאдג'ט נבחר: SIgnal Fire AI-6A AI-6A+ 6 Motor Optical",
+      "es": "Gadget Práctico: SIgnal Fire AI-6A AI-6A+ 6 Motor Optical"
+    }
+  },
+  {
+    "slug": "newa08r-fiber-optic-tester-pen-type",
+    "title_i18n": {
+      "en": "[NEWA08R】 Fiber Optic Tester Pen Type Red Light Visual Fault Locator Rechar",
+      "ru": "Полезный гаджет: [NEWA08R】 Fiber Optic Tester Pen Type Re",
+      "he": "גאдג'ט נבחר: [NEWA08R】 Fiber Optic Tester Pen Type Re",
+      "es": "Gadget Práctico: [NEWA08R】 Fiber Optic Tester Pen Type Re"
+    }
+  },
+  {
+    "slug": "nf-916-fiber-optical-power-meter-vfl",
+    "title_i18n": {
+      "en": "NF-916 Fiber Optical Power Meter VFL REF FC SC ST Visual Fault Locator LCD ",
+      "ru": "Полезный гаджет: NF-916 Fiber Optical Power Meter VFL REF",
+      "he": "גאдג'ט נבחר: NF-916 Fiber Optical Power Meter VFL REF",
+      "es": "Gadget Práctico: NF-916 Fiber Optical Power Meter VFL REF"
+    }
+  },
+  {
+    "slug": "zoerax-fc-sc-st-lc-male-to-female-fi",
+    "title_i18n": {
+      "en": "ZoeRax FC SC ST LC Male to Female Fiber Optic Connector FTTH Singlemode Ada",
+      "ru": "Полезный гаджет: ZoeRax FC SC ST LC Male to Female Fiber ",
+      "he": "גאдג'ט נבחר: ZoeRax FC SC ST LC Male to Female Fiber ",
+      "es": "Gadget Práctico: ZoeRax FC SC ST LC Male to Female Fiber "
+    }
+  },
+  {
+    "slug": "industrial-wifi-endoscope-hd1080p-si",
+    "title_i18n": {
+      "en": "Industrial WIFI Endoscope HD1080P Single Dual Triple Lens Wireless Car Pipe",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "komshine-kfi-45-optical-fiber-traffi",
+    "title_i18n": {
+      "en": "Komshine KFI-45 Optical Fiber Traffic Identifier 10mW Visual Fault Locator ",
+      "ru": "Полезный гаджет: Komshine KFI-45 Optical Fiber Traffic Id",
+      "he": "גאдג'ט נבחר: Komshine KFI-45 Optical Fiber Traffic Id",
+      "es": "Gadget Práctico: Komshine KFI-45 Optical Fiber Traffic Id"
+    }
+  },
+  {
+    "slug": "saivxian-ftth-fiber-optic-tool-kit-w",
+    "title_i18n": {
+      "en": "SAIVXIAN FTTH Fiber Optic Tool Kit with Fiber Fibra Optica Power Meter and ",
+      "ru": "Полезный гаджет: SAIVXIAN FTTH Fiber Optic Tool Kit with ",
+      "he": "גאдג'ט נבחר: SAIVXIAN FTTH Fiber Optic Tool Kit with ",
+      "es": "Gadget Práctico: SAIVXIAN FTTH Fiber Optic Tool Kit with "
+    }
+  },
+  {
+    "slug": "hd1080p-industrial-endoscope-type-c",
+    "title_i18n": {
+      "en": "HD1080P Industrial Endoscope TYPE-C Wired Camera Direct Connect IPhone Ipad",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "natalink-sc-upc-male-to-lc-upc-femal",
+    "title_i18n": {
+      "en": "Natalink SC/UPC Male to LC/UPC Female Fiber Optic Connector FTTH Singlemode",
+      "ru": "Полезный гаджет: Natalink SC/UPC Male to LC/UPC Female Fi",
+      "he": "גאдג'ט נבחר: Natalink SC/UPC Male to LC/UPC Female Fi",
+      "es": "Gadget Práctico: Natalink SC/UPC Male to LC/UPC Female Fi"
+    }
+  },
+  {
+    "slug": "kerui-2mp-endoscope-camera-4-3-ips-s",
+    "title_i18n": {
+      "en": "KERUI 2MP Endoscope Camera 4.3 IPS Screen Dual/Single Lens Waterproof Camer",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "4-3-inch-screen-endoscope-camera-hd1",
+    "title_i18n": {
+      "en": "4.3 Inch Screen Endoscope Camera HD1080P Single Dual Lens Video Car Pipe In",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "cat-litter-mat-large-double-layer-ho",
+    "title_i18n": {
+      "en": "Cat Litter Mat, Large Double Layer Honeycomb Cat Litter Trapping Mat, Non S",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "industrial-endoscope-car-inspection",
+    "title_i18n": {
+      "en": "Industrial Endoscope Car Inspection Borescope 4.3''Screen Single Dual Lens ",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "newabag-m70-4-in1-optical-power-mete",
+    "title_i18n": {
+      "en": "|NEWABAG|-M70 4 In1 Optical Power Meter Visual Fault Locator Network Cable ",
+      "ru": "Полезный гаджет: |NEWABAG|-M70 4 In1 Optical Power Meter ",
+      "he": "גאдג'ט נבחר: |NEWABAG|-M70 4 In1 Optical Power Meter ",
+      "es": "Gadget Práctico: |NEWABAG|-M70 4 In1 Optical Power Meter "
+    }
+  },
+  {
+    "slug": "dual-lens-industrial-endoscope-camer",
+    "title_i18n": {
+      "en": "Dual Lens Industrial Endoscope Camera 4.3'' IPS Screen HD1080P Rigid Cable ",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "2-4-4-8-mm-effort-less-electric-rive",
+    "title_i18n": {
+      "en": "2.4-4.8 MM Effort-less Electric Rivet Gun Adapter Kit High Efficiency Cordl",
+      "ru": "Насадка-заклёпочник на шуруповёрт и дрель",
+      "he": "מתאם אקדח מסמרות למברגה חשמלית",
+      "es": "Adaptador Remachador Eléctrico para Taladro"
+    }
+  },
+  {
+    "slug": "pet-anti-lost-gps-tracker-bl-1",
+    "title_i18n": {
+      "en": "Pet Anti-Lost GPS Tracker Bluetooth Compatible Waterproof Smart Wearable Re",
+      "ru": "Полезный гаджет: Pet Anti-Lost GPS Tracker Bluetooth Comp",
+      "he": "גאдג'ט נבחר: Pet Anti-Lost GPS Tracker Bluetooth Comp",
+      "es": "Gadget Práctico: Pet Anti-Lost GPS Tracker Bluetooth Comp"
+    }
+  },
+  {
+    "slug": "electric-riveter-guns-adapter-rivets",
+    "title_i18n": {
+      "en": "Electric Riveter Guns Adapter Rivets Power Drill Tools Cordless Riveting Dr",
+      "ru": "Полезный гаджет: Electric Riveter Guns Adapter Rivets Pow",
+      "he": "גאдג'ט נבחר: Electric Riveter Guns Adapter Rivets Pow",
+      "es": "Gadget Práctico: Electric Riveter Guns Adapter Rivets Pow"
+    }
+  },
+  {
+    "slug": "5-ips-endoscope-camera-1080p-single",
+    "title_i18n": {
+      "en": "5''IPS Endoscope Camera 1080P Single Dual Triple Lens LED Waterproof Inspec",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "kerui-dual-lens-industrial-endoscope",
+    "title_i18n": {
+      "en": "KERUI Dual Lens Industrial Endoscope Inspection Camera 4.3\" LCD With Light ",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "automatic-sensor-trash-can-1-1",
+    "title_i18n": {
+      "en": "Automatic Sensor Trash Can 12L Touchless Infrared Motion Sensor Smart Trash",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: Automatic Sensor Trash Can 12L Touchless",
+      "es": "Gadget Práctico: Automatic Sensor Trash Can 12L Touchless"
+    }
+  },
+  {
+    "slug": "rivet-gun-adapter-rivet-atta-1",
+    "title_i18n": {
+      "en": "Rivet Gun Adapter Rivet Attachment for Electric Drill and Cordless Electric",
+      "ru": "Насадка-заклёпочник на шуруповёрт и дрель",
+      "he": "מתאם אקדח מסמרות למברגה חשמלית",
+      "es": "Adaptador Remachador Eléctrico para Taladro"
+    }
+  },
+  {
+    "slug": "libraton-rivet-gun-adapter-rivet-att",
+    "title_i18n": {
+      "en": "LIBRATON Rivet Gun Adapter Rivet Attachment for Electric Drill and Cordless",
+      "ru": "Насадка-заклёпочник на шуруповёрт и дрель",
+      "he": "מתאם אקדח מסמרות למברגה חשמלית",
+      "es": "Adaptador Remachador Eléctrico para Taladro"
+    }
+  },
+  {
+    "slug": "rivet-gun-adapter-rivet-attachment-f",
+    "title_i18n": {
+      "en": "Rivet Gun Adapter Rivet Attachment for Electric Drill and Cordless Electric",
+      "ru": "Насадка-заклёпочник на шуруповёрт и дрель",
+      "he": "מתאם אקדח מסמרות למברגה חשמלית",
+      "es": "Adaptador Remachador Eléctrico para Taladro"
+    }
+  },
+  {
+    "slug": "6mm-10mm-electric-drill-to-angle-gri",
+    "title_i18n": {
+      "en": "6mm/10mm Electric Drill to Angle Grinder Converter Connecting Rod Adapter S",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: 6mm/10mm Electric Drill to Angle Grinder",
+      "es": "Gadget Práctico: 6mm/10mm Electric Drill to Angle Grinder"
+    }
+  },
+  {
+    "slug": "riveting-drill-adapter-electric-rive",
+    "title_i18n": {
+      "en": "Riveting Drill Adapter Electric Rivet Nut Gun Riveting Tool Rivet Adapter I",
+      "ru": "Полезный гаджет: Riveting Drill Adapter Electric Rivet Nu",
+      "he": "גאдג'ט נבחר: Riveting Drill Adapter Electric Rivet Nu",
+      "es": "Gadget Práctico: Riveting Drill Adapter Electric Rivet Nu"
+    }
+  },
+  {
+    "slug": "sigma-m6-threaded-rivet-nut-drill-ad",
+    "title_i18n": {
+      "en": "Sigma #M6 Threaded Rivet Nut Drill Adapter Cordless or Electric power tool ",
+      "ru": "Полезный гаджет: Sigma #M6 Threaded Rivet Nut Drill Adapt",
+      "he": "גאдג'ט נבחר: Sigma #M6 Threaded Rivet Nut Drill Adapt",
+      "es": "Gadget Práctico: Sigma #M6 Threaded Rivet Nut Drill Adapt"
+    }
+  },
+  {
+    "slug": "3inch-pneumatic-cutting-machine-mini",
+    "title_i18n": {
+      "en": "3Inch Pneumatic Cutting Machine Mini Grinding Disc High Speed Air Angle Gri",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: 3Inch Pneumatic Cutting Machine Mini Gri",
+      "es": "Gadget Práctico: 3Inch Pneumatic Cutting Machine Mini Gri"
+    }
+  },
+  {
+    "slug": "dual-camera-inspection-endoscope-4-3",
+    "title_i18n": {
+      "en": "Dual Camera Inspection Endoscope 4.3''IPS Screen Borescope with Waterproof ",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "sigma-gm12-ultra-heavy-duty-rivet-nu",
+    "title_i18n": {
+      "en": "Sigma #GM12 ULTRA HEAVY DUTY Rivet Nut Drill Adapter Cordless or Electric p",
+      "ru": "Полезный гаджет: Sigma #GM12 ULTRA HEAVY DUTY Rivet Nut D",
+      "he": "גאдג'ט נבחר: Sigma #GM12 ULTRA HEAVY DUTY Rivet Nut D",
+      "es": "Gadget Práctico: Sigma #GM12 ULTRA HEAVY DUTY Rivet Nut D"
+    }
+  },
+  {
+    "slug": "factory-smart-dog-gps-tracker-collar",
+    "title_i18n": {
+      "en": "Factory Smart Dog GPS Tracker Collar Waterproof IPX7 Real-Time Tracking Blu",
+      "ru": "Полезный гаджет: Factory Smart Dog GPS Tracker Collar Wat",
+      "he": "גאдג'ט נבחר: Factory Smart Dog GPS Tracker Collar Wat",
+      "es": "Gadget Práctico: Factory Smart Dog GPS Tracker Collar Wat"
+    }
+  },
+  {
+    "slug": "5pcs-set-75mm-cutting-disc-3-grindin",
+    "title_i18n": {
+      "en": "5pcs/Set 75mm Cutting Disc 3 \" Grinding Wheel Metal Woodworking Stone Marbl",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: 5pcs/Set 75mm Cutting Disc 3 \" Grinding ",
+      "es": "Gadget Práctico: 5pcs/Set 75mm Cutting Disc 3 \" Grinding "
+    }
+  },
+  {
+    "slug": "3-pcs-black-wood-carving-disc-set-fo",
+    "title_i18n": {
+      "en": "3 Pcs Black Wood Carving Disc Set For 4\" Or 4 1/2\" Angle Grinder Wood Shapi",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: 3 Pcs Black Wood Carving Disc Set For 4\"",
+      "es": "Gadget Práctico: 3 Pcs Black Wood Carving Disc Set For 4\""
+    }
+  },
+  {
+    "slug": "electric-rivet-gun-2-4mm-4-8mm-rivet",
+    "title_i18n": {
+      "en": "Electric Rivet Gun 2.4mm-4.8mm rivet nut gun drill adapter Cordless rivetin",
+      "ru": "Насадка-заклёпочник на шуруповёрт и дрель",
+      "he": "מתאם אקדח מסמרות למברגה חשמלית",
+      "es": "Adaptador Remachador Eléctrico para Taladro"
+    }
+  },
+  {
+    "slug": "1pc-75-100-125mm-grinding-wheel-angl",
+    "title_i18n": {
+      "en": "1Pc 75/100/125mm Grinding Wheel Angle Grinder Cutting Disc Metal Polishing ",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: 1Pc 75/100/125mm Grinding Wheel Angle Gr",
+      "es": "Gadget Práctico: 1Pc 75/100/125mm Grinding Wheel Angle Gr"
+    }
+  },
+  {
+    "slug": "1pc-wood-carving-disc-with-universal",
+    "title_i18n": {
+      "en": "1pc Wood Carving Disc with Universal Grinder Wrench for Angle Grinder with ",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: 1pc Wood Carving Disc with Universal Gri",
+      "es": "Gadget Práctico: 1pc Wood Carving Disc with Universal Gri"
+    }
+  },
+  {
+    "slug": "wifi-endoscope-camera-hd1080p-single",
+    "title_i18n": {
+      "en": "WIFI Endoscope Camera HD1080P Single Dual Triple Auto Focus Lens Waterproof",
+      "ru": "Двухобъективный водонепроницаемый эндоскоп для смартфона",
+      "he": "מצלמת אנדוסקופ גמישה עמידה במים עם שתי עדשות",
+      "es": "Cámara Endoscópica de Doble Lente Impermeable"
+    }
+  },
+  {
+    "slug": "professional-multifunctional-automat",
+    "title_i18n": {
+      "en": "Professional Multifunctional Automatic Wire Stripper Pliers for Electrician",
+      "ru": "Автоматический многофункциональный стриппер проводов",
+      "he": "גאдג'ט נבחר: Professional Multifunctional Automatic W",
+      "es": "Gadget Práctico: Professional Multifunctional Automatic W"
+    }
+  },
+  {
+    "slug": "portable-cat-pet-carrier-backpack-tr",
+    "title_i18n": {
+      "en": "Portable Cat Pet Carrier Backpack Transparent Capsule Bubble Pet Backpack S",
+      "ru": "Прозрачный рюкзак-переноска капсула для кошек и собак",
+      "he": "תרמיל נשיאה שקוף קפסולה לחתול ולכלב",
+      "es": "Mochila Cápsula Transparente para Mascotas"
+    }
+  },
+  {
+    "slug": "professional-multifunctional-1",
+    "title_i18n": {
+      "en": "Professional Multifunctional Automatic Wire Stripper Pliers for Electrician",
+      "ru": "Автоматический многофункциональный стриппер проводов",
+      "he": "גאдג'ט נבחר: Professional Multifunctional Automatic W",
+      "es": "Gadget Práctico: Professional Multifunctional Automatic W"
+    }
+  },
+  {
+    "slug": "automatic-wire-stripper-and-cutter-y",
+    "title_i18n": {
+      "en": "Automatic Wire Stripper and Cutter YE-D10 Pliers 2 in 1 Heavy Duty Tools 0.",
+      "ru": "Автоматический многофункциональный стриппер проводов",
+      "he": "גאдג'ט נבחר: Automatic Wire Stripper and Cutter YE-D1",
+      "es": "Gadget Práctico: Automatic Wire Stripper and Cutter YE-D1"
+    }
+  },
+  {
+    "slug": "headrest-tablet-holder-adjustable-cl",
+    "title_i18n": {
+      "en": "Headrest Tablet Holder Adjustable Clamp Car Seat Mount 360 Rotation Univers",
+      "ru": "Полезный гаджет: Headrest Tablet Holder Adjustable Clamp ",
+      "he": "גאдג'ט נבחר: Headrest Tablet Holder Adjustable Clamp ",
+      "es": "Gadget Práctico: Headrest Tablet Holder Adjustable Clamp "
+    }
+  },
+  {
+    "slug": "fse-d7026-cable-stripper-professiona",
+    "title_i18n": {
+      "en": "FSE-D7026 Cable Stripper - Professional Electrician Automatic Wire Strippin",
+      "ru": "Полезный гаджет: FSE-D7026 Cable Stripper - Professional ",
+      "he": "גאдג'ט נבחר: FSE-D7026 Cable Stripper - Professional ",
+      "es": "Gadget Práctico: FSE-D7026 Cable Stripper - Professional "
+    }
+  },
+  {
+    "slug": "mini-cordless-angle-grinder-recharge",
+    "title_i18n": {
+      "en": "Mini Cordless Angle Grinder Rechargeable Handheld Polishing Cutting Grinder",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: Mini Cordless Angle Grinder Rechargeable",
+      "es": "Gadget Práctico: Mini Cordless Angle Grinder Rechargeable"
+    }
+  },
+  {
+    "slug": "6pcs-precision-tweezers-set-esd-anti",
+    "title_i18n": {
+      "en": "6PCS Precision Tweezers Set ESD Anti Static Stainless Steel Tweezers Repair",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: 6PCS Precision Tweezers Set ESD Anti Sta",
+      "es": "Gadget Práctico: 6PCS Precision Tweezers Set ESD Anti Sta"
+    }
+  },
+  {
+    "slug": "3-inch-heavy-duty-power-tools-cuttin",
+    "title_i18n": {
+      "en": "3 Inch Heavy Duty Power Tools Cutting Disc Metal Accessories Angle Grinder ",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: 3 Inch Heavy Duty Power Tools Cutting Di",
+      "es": "Gadget Práctico: 3 Inch Heavy Duty Power Tools Cutting Di"
+    }
+  },
+  {
+    "slug": "laoa-automatic-wire-stripper-with-bu",
+    "title_i18n": {
+      "en": "LAOA Automatic Wire Stripper with Built-in Springs New Type Electrician Cab",
+      "ru": "Автоматический многофункциональный стриппер проводов",
+      "he": "גאдג'ט נבחר: LAOA Automatic Wire Stripper with Built-",
+      "es": "Gadget Práctico: LAOA Automatic Wire Stripper with Built-"
+    }
+  },
+  {
+    "slug": "sigma-br5-blind-pop-rivet-drill-adap",
+    "title_i18n": {
+      "en": "Sigma #BR5 Blind Pop Rivet Drill Adapter Cordless or Electric power drill a",
+      "ru": "Насадка-заклёпочник на шуруповёрт и дрель",
+      "he": "מתאם אקדח מסמרות למברגה חשמלית",
+      "es": "Adaptador Remachador Eléctrico para Taladro"
+    }
+  },
+  {
+    "slug": "summer-ice-silk-pet-cooling-mat-wate",
+    "title_i18n": {
+      "en": "Summer Ice Silk Pet Cooling Mat Waterproof Dog Cat Sleeping Pad Anti Slip W",
+      "ru": "Охлаждающий шелковый коврик-лежак для животных",
+      "he": "משטח קירור מפנק לקיץ לכלבים וחתולים",
+      "es": "Alfombrilla Refrescante Transpirable para Mascotas"
+    }
+  },
+  {
+    "slug": "6pcs-precision-long-tweezers-set-esd",
+    "title_i18n": {
+      "en": "6pcs Precision Long Tweezers Set ESD Anti-Static Stainless SteelTweezers Re",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: 6pcs Precision Long Tweezers Set ESD Ant",
+      "es": "Gadget Práctico: 6pcs Precision Long Tweezers Set ESD Ant"
+    }
+  },
+  {
+    "slug": "anti-static-stainless-steel-tweezers",
+    "title_i18n": {
+      "en": "Anti-Static Stainless Steel Tweezers Set, Precision Industrial Tweezers for",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: Anti-Static Stainless Steel Tweezers Set",
+      "es": "Gadget Práctico: Anti-Static Stainless Steel Tweezers Set"
+    }
+  },
+  {
+    "slug": "crimper-cable-cutter-automatic-wire",
+    "title_i18n": {
+      "en": "Crimper Cable Cutter Automatic Wire Stripper Multifunctional Stripping Tool",
+      "ru": "Автоматический многофункциональный стриппер проводов",
+      "he": "גאдג'ט נבחר: Crimper Cable Cutter Automatic Wire Stri",
+      "es": "Gadget Práctico: Crimper Cable Cutter Automatic Wire Stri"
+    }
+  },
+  {
+    "slug": "mini-multifunction-table-saw-handmad",
+    "title_i18n": {
+      "en": "Mini Multifunction Table Saw Handmade Woodworking Bench Lathe Electric Poli",
+      "ru": "Полезный гаджет: Mini Multifunction Table Saw Handmade Wo",
+      "he": "גאдג'ט נבחר: Mini Multifunction Table Saw Handmade Wo",
+      "es": "Gadget Práctico: Mini Multifunction Table Saw Handmade Wo"
+    }
+  },
+  {
+    "slug": "precision-anti-static-10pcs-set-curv",
+    "title_i18n": {
+      "en": "Precision Anti-Static 10Pcs/Set Curved Straight Tweezers ESD Tweezers Stain",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: Precision Anti-Static 10Pcs/Set Curved S",
+      "es": "Gadget Práctico: Precision Anti-Static 10Pcs/Set Curved S"
+    }
+  },
+  {
+    "slug": "6pcs-esd-anti-static-stainless-steel",
+    "title_i18n": {
+      "en": "6pcs ESD Anti-Static Stainless SteelTweezers Repair Tools for Electronics R",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: 6pcs ESD Anti-Static Stainless SteelTwee",
+      "es": "Gadget Práctico: 6pcs ESD Anti-Static Stainless SteelTwee"
+    }
+  },
+  {
+    "slug": "6-pcs-precision-tweezers-set-esd-ant",
+    "title_i18n": {
+      "en": "6 Pcs Precision Tweezers Set ESD Anti-Static Stainless Steel Tweezers Repai",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: 6 Pcs Precision Tweezers Set ESD Anti-St",
+      "es": "Gadget Práctico: 6 Pcs Precision Tweezers Set ESD Anti-St"
+    }
+  },
+  {
+    "slug": "6pcs-precision-long-tweezers-1",
+    "title_i18n": {
+      "en": "6pcs Precision Long Tweezers Set ESD Anti-Static Stainless SteelTweezers Re",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: 6pcs Precision Long Tweezers Set ESD Ant",
+      "es": "Gadget Práctico: 6pcs Precision Long Tweezers Set ESD Ant"
+    }
+  },
+  {
+    "slug": "mini-table-saw-blade-handmade-woodwo",
+    "title_i18n": {
+      "en": "Mini Table Saw Blade Handmade Woodworking Bench Lathe Electric Cutting Grin",
+      "ru": "Полезный гаджет: Mini Table Saw Blade Handmade Woodworkin",
+      "he": "גאдג'ט נבחר: Mini Table Saw Blade Handmade Woodworkin",
+      "es": "Gadget Práctico: Mini Table Saw Blade Handmade Woodworkin"
+    }
+  },
+  {
+    "slug": "mini-diy-table-saw-handmade-2",
+    "title_i18n": {
+      "en": "Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Model Crafts Li",
+      "ru": "Полезный гаджет: Mini DIY Table Saw Handmade Woodworking ",
+      "he": "גאдג'ט נבחר: Mini DIY Table Saw Handmade Woodworking ",
+      "es": "Gadget Práctico: Mini DIY Table Saw Handmade Woodworking "
+    }
+  },
+  {
+    "slug": "mini-multifunction-table-saw-1",
+    "title_i18n": {
+      "en": "Mini Multifunction Table Saw Handmade Woodworking Bench Lathe Electric Poli",
+      "ru": "Полезный гаджет: Mini Multifunction Table Saw Handmade Wo",
+      "he": "גאдג'ט נבחר: Mini Multifunction Table Saw Handmade Wo",
+      "es": "Gadget Práctico: Mini Multifunction Table Saw Handmade Wo"
+    }
+  },
+  {
+    "slug": "adjustable-flat-wire-stripper-multif",
+    "title_i18n": {
+      "en": "Adjustable flat wire stripper Multifunctional Automatic Wire Stripping Plie",
+      "ru": "Полезный гаджет: Adjustable flat wire stripper Multifunct",
+      "he": "גאдג'ט נבחר: Adjustable flat wire stripper Multifunct",
+      "es": "Gadget Práctico: Adjustable flat wire stripper Multifunct"
+    }
+  },
+  {
+    "slug": "multifunctional-mini-table-saw-handm",
+    "title_i18n": {
+      "en": "Multifunctional Mini Table Saw Handmade Woodworking Bench Lathe Electric Po",
+      "ru": "Полезный гаджет: Multifunctional Mini Table Saw Handmade ",
+      "he": "גאдג'ט נבחר: Multifunctional Mini Table Saw Handmade ",
+      "es": "Gadget Práctico: Multifunctional Mini Table Saw Handmade "
+    }
+  },
+  {
+    "slug": "6pcs-precision-long-tweezers-2",
+    "title_i18n": {
+      "en": "6pcs Precision Long Tweezers Set ESD Anti-Static Stainless SteelTweezers Re",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: 6pcs Precision Long Tweezers Set ESD Ant",
+      "es": "Gadget Práctico: 6pcs Precision Long Tweezers Set ESD Ant"
+    }
+  },
+  {
+    "slug": "mini-diy-table-saw-handmade-woodwork",
+    "title_i18n": {
+      "en": "Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Model Crafts Li",
+      "ru": "Полезный гаджет: Mini DIY Table Saw Handmade Woodworking ",
+      "he": "גאдג'ט נבחר: Mini DIY Table Saw Handmade Woodworking ",
+      "es": "Gadget Práctico: Mini DIY Table Saw Handmade Woodworking "
+    }
+  },
+  {
+    "slug": "stainless-steel-black-tweezers-anti",
+    "title_i18n": {
+      "en": "Stainless Steel Black Tweezers Anti-Static ESD1mm Elbow Tip 6-piece Set Bir",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: Stainless Steel Black Tweezers Anti-Stat",
+      "es": "Gadget Práctico: Stainless Steel Black Tweezers Anti-Stat"
+    }
+  },
+  {
+    "slug": "9000rpm-360w-mini-diy-table-1",
+    "title_i18n": {
+      "en": "9000RPM 360W Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Mo",
+      "ru": "Полезный гаджет: 9000RPM 360W Mini DIY Table Saw Handmade",
+      "he": "גאдג'ט נבחר: 9000RPM 360W Mini DIY Table Saw Handmade",
+      "es": "Gadget Práctico: 9000RPM 360W Mini DIY Table Saw Handmade"
+    }
+  },
+  {
+    "slug": "automatic-wire-stripper-tool-0-2-6-m",
+    "title_i18n": {
+      "en": "Automatic Wire Stripper Tool–0.2-6 mmAdjustable Cable Cutter–Multifunctiona",
+      "ru": "Автоматический многофункциональный стриппер проводов",
+      "he": "גאдג'ט נבחר: Automatic Wire Stripper Tool–0.2-6 mmAdj",
+      "es": "Gadget Práctico: Automatic Wire Stripper Tool–0.2-6 mmAdj"
+    }
+  },
+  {
+    "slug": "mini-diy-table-saw-handmade-3",
+    "title_i18n": {
+      "en": "Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Model Crafts Li",
+      "ru": "Полезный гаджет: Mini DIY Table Saw Handmade Woodworking ",
+      "he": "גאдג'ט נבחר: Mini DIY Table Saw Handmade Woodworking ",
+      "es": "Gadget Práctico: Mini DIY Table Saw Handmade Woodworking "
+    }
+  },
+  {
+    "slug": "hs-d1-self-adjusting-wire-stripper-3",
+    "title_i18n": {
+      "en": "HS-D1 Self-Adjusting Wire Stripper,3 in 1 Stripper/Cutter/Crimping Heavy Du",
+      "ru": "Полезный гаджет: HS-D1 Self-Adjusting Wire Stripper,3 in ",
+      "he": "גאдג'ט נבחר: HS-D1 Self-Adjusting Wire Stripper,3 in ",
+      "es": "Gadget Práctico: HS-D1 Self-Adjusting Wire Stripper,3 in "
+    }
+  },
+  {
+    "slug": "3-pcs-blcak-wood-carving-disc-set-fo",
+    "title_i18n": {
+      "en": "3 Pcs Blcak Wood Carving Disc Set For 4\" Or 4 1/2\" Angle Grinder Wood Shapi",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: 3 Pcs Blcak Wood Carving Disc Set For 4\"",
+      "es": "Gadget Práctico: 3 Pcs Blcak Wood Carving Disc Set For 4\""
+    }
+  },
+  {
+    "slug": "9000rpm-360w-mini-diy-table-saw-hand",
+    "title_i18n": {
+      "en": "9000RPM 360W Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Mo",
+      "ru": "Полезный гаджет: 9000RPM 360W Mini DIY Table Saw Handmade",
+      "he": "גאдג'ט נבחר: 9000RPM 360W Mini DIY Table Saw Handmade",
+      "es": "Gadget Práctico: 9000RPM 360W Mini DIY Table Saw Handmade"
+    }
+  },
+  {
+    "slug": "woodworking-saw-blade-110mm-multifun",
+    "title_i18n": {
+      "en": "Woodworking Saw Blade 110mm Multifunctional Plastic Metal Wood Angle Grinde",
+      "ru": "Пильные и обдирочные диски по дереву и металлу",
+      "he": "גאдג'ט נבחר: Woodworking Saw Blade 110mm Multifunctio",
+      "es": "Gadget Práctico: Woodworking Saw Blade 110mm Multifunctio"
+    }
+  },
+  {
+    "slug": "cat-litter-mat-double-layer-1",
+    "title_i18n": {
+      "en": "Cat Litter Mat Double Layer Waterproof Urine Proof Trapping Mat Easy to Cle",
+      "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
+      "he": "שטיח כפול עמיד במים לתפיסת חול חתולים",
+      "es": "Alfombra Doble Capa Impermeable para Arena de Gatos"
+    }
+  },
+  {
+    "slug": "new-6pcs-precision-long-tweezers-set",
+    "title_i18n": {
+      "en": "NEW 6pcs Precision Long Tweezers Set ESD Anti-Static Stainless SteelTweezer",
+      "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
+      "he": "גאдג'ט נבחר: NEW 6pcs Precision Long Tweezers Set ESD",
+      "es": "Gadget Práctico: NEW 6pcs Precision Long Tweezers Set ESD"
+    }
+  },
+  {
+    "slug": "fc-to-lc-fiber-optic-adapter-for-opt",
+    "title_i18n": {
+      "en": "FC to LC Fiber Optic Adapter for Optical Power Meter and Visual Fault Locat",
+      "ru": "Полезный гаджет: FC to LC Fiber Optic Adapter for Optical",
+      "he": "גאдג'ט נבחר: FC to LC Fiber Optic Adapter for Optical",
+      "es": "Gadget Práctico: FC to LC Fiber Optic Adapter for Optical"
+    }
+  },
+  {
+    "slug": "automatic-sensor-trash-can-12l-touch",
+    "title_i18n": {
+      "en": "Automatic Sensor Trash Can 12L Touchless Infrared Motion Sensor Smart Trash",
+      "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
+      "he": "גאдג'ט נבחר: Automatic Sensor Trash Can 12L Touchless",
+      "es": "Gadget Práctico: Automatic Sensor Trash Can 12L Touchless"
+    }
+  },
+  {
+    "slug": "mini-diy-table-saw-handmade-1",
+    "title_i18n": {
+      "en": "Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Model Crafts Li",
+      "ru": "Полезный гаджет: Mini DIY Table Saw Handmade Woodworking ",
+      "he": "גאдג'ט נבחר: Mini DIY Table Saw Handmade Woodworking ",
+      "es": "Gadget Práctico: Mini DIY Table Saw Handmade Woodworking "
+    }
+  },
+  {
+    "slug": "automatic-wire-stripper-cutter-crimp",
+    "title_i18n": {
+      "en": "Automatic Wire Stripper Cutter Crimper Pliers Multifunctional Electrician H",
+      "ru": "Автоматический многофункциональный стриппер проводов",
+      "he": "גאдג'ט נבחר: Automatic Wire Stripper Cutter Crimper P",
+      "es": "Gadget Práctico: Automatic Wire Stripper Cutter Crimper P"
+    }
+  },
+  {
+    "slug": "damping-mat-sound-deadening-for-bran",
+    "title_i18n": {
+      "en": "Damping Mat Sound Deadening for Brand New 250mm X 180mm 5mm Accessories Rep",
+      "ru": "Полезный гаджет: Damping Mat Sound Deadening for Brand Ne",
+      "he": "גאдג'ט נבחר: Damping Mat Sound Deadening for Brand Ne",
+      "es": "Gadget Práctico: Damping Mat Sound Deadening for Brand Ne"
+    }
+  },
+  {
+    "slug": "outdoor-astronaut-bubble-pet-backpac",
+    "title_i18n": {
+      "en": "Outdoor Astronaut Bubble Pet Backpack, Portable Window Travel Bag, Breathab",
+      "ru": "Полезный гаджет: Outdoor Astronaut Bubble Pet Backpack, P",
+      "he": "גאдג'ט נבחר: Outdoor Astronaut Bubble Pet Backpack, P",
+      "es": "Gadget Práctico: Outdoor Astronaut Bubble Pet Backpack, P"
+    }
+  },
+  {
+    "slug": "rechargeable-4g-real-time-mini-water",
+    "title_i18n": {
+      "en": "Rechargeable 4G real-time mini waterproof cat and dog smart pet GPS locator",
+      "ru": "Полезный гаджет: Rechargeable 4G real-time mini waterproo",
+      "he": "גאдג'ט נבחר: Rechargeable 4G real-time mini waterproo",
+      "es": "Gadget Práctico: Rechargeable 4G real-time mini waterproo"
+    }
+  },
+  {
+    "slug": "small-portable-mini-usb-fan",
+    "title_i18n": {
+      "en": "Small Portable Mini USB Fan Rechargeable Table Desk Fan Lightweight Handhel",
+      "ru": "Полезный гаджет: Small Portable Mini USB Fan Rechargeable",
+      "he": "גאדג'ט נבחר: Small Portable Mini USB Fan Rechargeable",
+      "es": "Dispositivo Útil: Small Portable Mini USB Fan Rechargeable"
+    }
+  },
+  {
+    "slug": "topk-usb-small-desk-mini-por",
+    "title_i18n": {
+      "en": "TOPK USB Small Desk Mini Portable Fan 3 Speeds Quiet Desktop Fan 360° Rotat",
+      "ru": "Полезный гаджет: TOPK USB Small Desk Mini Portable Fan 3 ",
+      "he": "גאדג'ט נבחר: TOPK USB Small Desk Mini Portable Fan 3 ",
+      "es": "Dispositivo Útil: TOPK USB Small Desk Mini Portable Fan 3 "
+    }
+  },
+  {
+    "slug": "usb-desk-fan-small-personal",
+    "title_i18n": {
+      "en": "USB Desk Fan Small Personal Table Air Conditioning Fan Strong Wind Quiet Op",
+      "ru": "Полезный гаджет: USB Desk Fan Small Personal Table Air Co",
+      "he": "גאדג'ט נבחר: USB Desk Fan Small Personal Table Air Co",
+      "es": "Dispositivo Útil: USB Desk Fan Small Personal Table Air Co"
+    }
+  },
+  {
+    "slug": "quiet-mini-desk-fan-recharge",
+    "title_i18n": {
+      "en": "Quiet Mini Desk Fan Rechargeable Air Cooling Circulator Portable Table Fan ",
+      "ru": "Полезный гаджет: Quiet Mini Desk Fan Rechargeable Air Coo",
+      "he": "גאדג'ט נבחר: Quiet Mini Desk Fan Rechargeable Air Coo",
+      "es": "Dispositivo Útil: Quiet Mini Desk Fan Rechargeable Air Coo"
+    }
+  },
+  {
+    "slug": "topk-4inch-usb-mini-portable",
+    "title_i18n": {
+      "en": "TOPK 4Inch USB Mini Portable Fan for Camping,3 Speeds Quiet Desk Table Pers",
+      "ru": "Полезный гаджет: TOPK 4Inch USB Mini Portable Fan for Cam",
+      "he": "גאדג'ט נבחר: TOPK 4Inch USB Mini Portable Fan for Cam",
+      "es": "Dispositivo Útil: TOPK 4Inch USB Mini Portable Fan for Cam"
+    }
+  },
+  {
+    "slug": "topk-mini-portable-fan-usb-d",
+    "title_i18n": {
+      "en": "TOPK Mini Portable Fan,USB Desk Fan Table,Quiet 3 Speed Wind Personal Fan 3",
+      "ru": "Полезный гаджет: TOPK Mini Portable Fan,USB Desk Fan Tabl",
+      "he": "גאדג'ט נבחר: TOPK Mini Portable Fan,USB Desk Fan Tabl",
+      "es": "Dispositivo Útil: TOPK Mini Portable Fan,USB Desk Fan Tabl"
+    }
+  },
+  {
+    "slug": "warmco-mini-fan-usb-desk-fan",
+    "title_i18n": {
+      "en": "Warmco Mini Fan USB Desk Fan Portable Rechargeable 3 Speed Small Desktop Co",
+      "ru": "Полезный гаджет: Warmco Mini Fan USB Desk Fan Portable Re",
+      "he": "גאדג'ט נבחר: Warmco Mini Fan USB Desk Fan Portable Re",
+      "es": "Dispositivo Útil: Warmco Mini Fan USB Desk Fan Portable Re"
+    }
+  },
+  {
+    "slug": "topk-4inch-usb-mini-desk-fan",
+    "title_i18n": {
+      "en": "TOPK 4Inch USB Mini Desk Fan,3 Speeds Quiet Portable Desktop Table Fan,360°",
+      "ru": "Полезный гаджет: TOPK 4Inch USB Mini Desk Fan,3 Speeds Qu",
+      "he": "גאדג'ט נבחר: TOPK 4Inch USB Mini Desk Fan,3 Speeds Qu",
+      "es": "Dispositivo Útil: TOPK 4Inch USB Mini Desk Fan,3 Speeds Qu"
+    }
   }
 ]

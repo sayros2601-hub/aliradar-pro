@@ -20,4 +20,27 @@ work/
 *.key
 data/.pipeline.lock
 data/rotation_pending.json
+inbox/
+data/portals_inbox.json
+data/.adapter_idempotency.json
+data/.portals_inbox.lock
 broadcasts/current/
+
+# Temporary harvest scratch files
+data/harvested_*.json
+harvest_*.py
+expand_catalog_engine*.py
+explore_ad_center_deep.py
+inspect_ad_center.py
+live_portals_inspector.py
+reach_exact_1005.py
+top_up_to_1005_and_stock_reserve.py
+add_unadded_and_stock_reserve.py
+enrich_legacy.py
+fix_slugs_and_validate.py
+test_cards_details.py
+test_dom_bottom.py
+test_pagination.py
+test_search_dom.py
+ad_center_deep_structure.json
+README_ADAPTER_RU.txt

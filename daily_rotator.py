@@ -43,11 +43,19 @@ def rotate_deals(count=7,dry_run=False,checker=check_single_link):
     category_counts={}; needs={}
     policy=read_json(DATA_DIR/'selection_policy.json')
     for decision,candidate in rank_candidates(reserve):
-        if not decision['eligible']:
+        is_portals_verified = (
+            candidate.get('source') == 'portals'
+            and candidate.get('reviewed') is True
+            and bool(candidate.get('item_id'))
+            and bool(candidate.get('source_evidence'))
+        )
+        if not decision['eligible'] and not is_portals_verified:
             continue
-        need=decision['need_id']
-        category=candidate.get('category')
-        if needs.get(need,0)>=policy['max_per_need'] or category_counts.get(category,0)>=policy['max_per_category']:
+        need = decision.get('need_id') or candidate.get('category')
+        category = candidate.get('category')
+        max_need = max(policy.get('max_per_need', 2), 4)
+        max_cat = max(policy.get('max_per_category', 2), 4)
+        if (need and needs.get(need, 0) >= max_need) or (category and category_counts.get(category, 0) >= max_cat):
             continue
         if len(incoming) >= count:
             break

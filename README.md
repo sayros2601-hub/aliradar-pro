@@ -41,6 +41,12 @@ EN is the default. RU, HE (RTL) and ES have static, crawlable URLs with reciproc
 
 Cloudflare Web Analytics was enabled in the Pages dashboard; the beacon is injected on deployment. It measures visits and loading performance, not AliExpress orders or commissions. The privacy page describes it and all saved preferences. Browser storage is optional and failure-safe. Currency rates are fetched once per update, cached with the actual provider date, and attributed to ExchangeRate-API. Network failures preserve the old dated snapshot or fall back to USD.
 
+## Offline adapter (October 22, 2026)
+
+`dealvault_adapter.py status --json`, `validate-import --file <inbox-file.json> --offline` and `stage-import --file <inbox-file.json> --offline` support bounded, pending observations. Both import paths use a shared queue lock; corrupt queues are preserved, and timestamps and original URLs remain distinct from import time. Exact repeat observations deduplicate, while fresh observations of the same link are retained. Local captures and the queue are ignored by Git. See `README_ADAPTER_RU.txt` for the contract and limitations.
+
+This adapter has no enabled browser/account access, live harvesting, API search or financial-summary operation. `check-session` returns a disabled-access result without opening a browser. A new wrapper is not authorization to bypass an existing tool restriction. The legacy `import_portals.py` also defaults to offline and no longer includes a network checker.
+
 ## Local marketing tools
 
 `broadcasts/current/dealvault_*.csv` contains drafts, without scheduling or claims of universal CSV importer compatibility. `promo_dispatcher.html` is a local copy desk. Neither is deployed publicly.
