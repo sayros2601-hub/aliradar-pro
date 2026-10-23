@@ -79,7 +79,10 @@ class SiteBuilder:
         target.write_text(content, encoding='utf-8', newline='\n')
 
     def prepare_assets(self):
-        for name in ('modern.css', 'modern_app.js', 'tracking.js', 'icon.svg'):
+        from brand_assets import build_brand_icons
+        self.out.mkdir(parents=True, exist_ok=True)
+        build_brand_icons(self.out)
+        for name in ('modern.css', 'modern_app.js', 'tracking.js', 'icon.svg', 'brand/dealvault-cover.png'):
             source = BASE_DIR / 'assets' / name
             digest = hashlib.sha256(source.read_bytes()).hexdigest()[:10]
             self.images[name] = f'assets/{source.stem}.{digest}{source.suffix}'
@@ -165,23 +168,36 @@ class SiteBuilder:
                    'rates':self.rates, 'paths':{p['id']:relative_url(page_path(lang,p['slug']),current) for p in visible_products}}
         social_product = next((p for p in self.products if p['slug'] == slug),self.products[0])
         hero_image = self.images[social_product['image']]
+        homepage = not slug and not legal and not noindex
+        document_schema = schemas or schema
+        if homepage:
+            hero_image = self.images['brand/dealvault-cover.png']
+            document_schema = [document_schema, {
+                '@context':'https://schema.org', '@type':'WebSite',
+                '@id':self.domain+'/#website', 'url':self.domain+'/',
+                'name':'DealVault', 'alternateName':['Deal Vault','dealvault.pages.dev'],
+                'image':self.domain+'/'+hero_image,
+                'inLanguage':list(LANGUAGES)}]
+        page_title = f'DealVault | {c["tagline"]}' if homepage else f'{title} | DealVault'
         description = (f'{title}. {c["about_text"]}' if slug else c.get(f'{legal}_text',c['intro']))[:200]
         return f'''<!doctype html>
 <html lang="{lang}" dir="{'rtl' if lang == 'he' else 'ltr'}" data-theme="light">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>{esc(title)} | DealVault</title><meta name="description" content="{esc(description)}">
+<title>{esc(page_title)}</title><meta name="description" content="{esc(description)}">
+<meta name="application-name" content="DealVault"><meta name="robots" content="max-image-preview:large">
 <meta name="google-site-verification" content="{esc(self.integrations.get('google_site_verification',''))}">
 <meta name="p:domain_verify" content="c0f81b8dc452173100fb9d91208205a1">
 <link rel="canonical" href="{esc(url)}">{alternates}<link rel="alternate" hreflang="x-default" href="{esc(alt('en'))}">
 {'<meta name="robots" content="noindex,follow">' if noindex else ''}
-<meta property="og:type" content="website"><meta property="og:title" content="{esc(title)} | DealVault">
+<meta property="og:type" content="website"><meta property="og:site_name" content="DealVault"><meta property="og:title" content="{esc(page_title)}">
 <meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(url)}"><meta property="og:image" content="{self.domain}/{hero_image}">
-<meta name="twitter:card" content="summary_large_image"><meta name="theme-color" content="#f5f7fb">
-<link rel="icon" type="image/svg+xml" href="{rel(self.images['icon.svg'])}"><link rel="manifest" href="{rel('manifest.json')}">
+<meta property="og:image:alt" content="{esc('DealVault — useful everyday finds' if homepage else title)}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(page_title)}"><meta name="twitter:image" content="{self.domain}/{hero_image}"><meta name="theme-color" content="#f5f7fb">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon.png"><link rel="icon" type="image/svg+xml" href="{rel(self.images['icon.svg'])}"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="{rel('manifest.json')}">
 <link rel="alternate" type="application/rss+xml" title="DealVault" href="{rel('rss.xml')}">
 <link rel="stylesheet" href="{rel(self.images['modern.css'])}">
 <script>try{{var t=localStorage.getItem('sp_theme');document.documentElement.dataset.theme=['dark','light'].includes(t)?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.motion=localStorage.getItem('dv_motion')==='off'?'off':'on'}}catch(e){{}}</script>
-<script type="application/ld+json">{script_json(schemas or schema)}</script>
+<script type="application/ld+json">{script_json(document_schema)}</script>
 <script id="products-db" type="application/json">{script_json(payload)}</script>
 <script defer src="{rel(self.images['tracking.js'])}"></script><script defer src="{rel(self.images['modern_app.js'])}"></script>
 </head><body>
@@ -338,7 +354,7 @@ class SiteBuilder:
         from search_integrations import build_search_integrations
         build_search_integrations(self.out, self.integrations)
         self.write('_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
-        self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'/','display':'standalone','background_color':'#f5f7fb','theme_color':'#2459eb','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}]}))
+        self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'/','display':'standalone','background_color':'#f5f7fb','theme_color':'#2459eb','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}, {'src':'/favicon-192.png','sizes':'192x192','type':'image/png'}, {'src':'/favicon-512.png','sizes':'512x512','type':'image/png'}]}))
         self.write('build-info.json',json.dumps({'version':'2026.10','built_at':utc_now(),'products':len(self.products),'languages':list(LANGUAGES),'catalog_sha256':hashlib.sha256(json.dumps(self.db,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},indent=2))
         self.write('404.html',self.shell('en','404.html','Page not found',f'<main id="main" class="wrap prose"><p class="eyebrow">404</p><h1>{COPY["en"]["unavailable"]}</h1><a class="button primary" href="/">{COPY["en"]["home"]} ↗</a></main>',noindex=True))
 

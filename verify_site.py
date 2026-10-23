@@ -90,7 +90,7 @@ def verify_site(root=BASE_DIR/'dist'):
             if not affiliate_key(link): errors.append(f'{relative}: invalid affiliate link')
         errors.extend(f'{relative}: {error}' for error in page.errors)
     for p in root.rglob('*'):
-        if p.is_file() and (p.suffix.lower() not in ('.html','.json','.webp','.jpg','.jpeg','.png','.svg','.css','.js','.txt','.xml') and p.name not in ('CNAME','_headers','_redirects')):
+        if p.is_file() and (p.suffix.lower() not in ('.html','.json','.webp','.jpg','.jpeg','.png','.svg','.ico','.css','.js','.txt','.xml') and p.name not in ('CNAME','_headers','_redirects')):
             errors.append('Non-public file in artifact: '+str(p.relative_to(root)))
         if any(part.startswith('.') for part in p.relative_to(root).parts): errors.append('Hidden file in public artifact')
     try:
