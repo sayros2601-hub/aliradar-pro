@@ -72,6 +72,9 @@ def evaluate_candidate(candidate, snapshots=None, policy=None, now=None):
     for key in ('selection','offer','ad_review','editorial'):
         if candidate.get(key) is not None and not isinstance(candidate[key],dict):return invalid
     selection=candidate.get('selection') or {}
+    if any(selection.get(key) is not None and not isinstance(selection[key], str)
+           for key in ('country', 'need_id', 'demand_snapshot_id')):
+        return invalid
     if not isinstance(selection.get('alternatives',[]),list):return invalid
     editorial=candidate.get('editorial') or {}
     if any(not isinstance(editorial.get(key,{}),dict) for key in ('use_i18n','check_i18n')):return invalid
@@ -84,7 +87,7 @@ def evaluate_candidate(candidate, snapshots=None, policy=None, now=None):
     valid_alternatives={str(a.get('item_id')) for a in alternatives if isinstance(a,dict) and str(a.get('item_id'))!=item and text_length(a.get('comparison'))>=20 and item_url(a.get('source_url'),str(a.get('item_id')))}
     if len(valid_alternatives)<2:reasons.append('COMPARE_TWO_ALTERNATIVES')
     source=offer.get('source_url','')
-    if str(offer.get('item_id',''))!=item or not item_url(source,item) or not offer.get('variant_id') or offer.get('ship_to')!=country or offer.get('reviewed') is not True or text_length(offer.get('evidence_text'))<30:reasons.append('EXACT_VARIANT_AND_DESTINATION_REQUIRED')
+    if str(offer.get('item_id',''))!=item or not item_url(source,item) or text_length(offer.get('variant_id')) == 0 or offer.get('ship_to')!=country or offer.get('reviewed') is not True or text_length(offer.get('evidence_text'))<30:reasons.append('EXACT_VARIANT_AND_DESTINATION_REQUIRED')
     if not fresh(offer.get('checked_at'),policy['offer_max_age_hours'],now):reasons.append('OFFER_STALE_OR_MISSING')
     # Shipping cost and promotional shipping conditions are buyer choices, not admission gates.
     if offer.get('in_stock') is not True or not number(offer.get('item_price'),0.01) or offer.get('currency') not in ('USD','ILS','EUR','RUB'):reasons.append('CURRENT_PRICE_AND_STOCK_REQUIRED')

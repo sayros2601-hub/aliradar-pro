@@ -17,17 +17,24 @@ def analyse_periods(records):
     previous_end = None
     for record in sorted(records, key=lambda r: r.get('start', '') if isinstance(r, dict) else ''):
         if not isinstance(record, dict):raise ValueError('Invalid period')
-        start, end = date.fromisoformat(record['start']), date.fromisoformat(record['end'])
+        try:
+            start, end = date.fromisoformat(record['start']), date.fromisoformat(record['end'])
+        except (KeyError, TypeError, ValueError) as error:
+            raise ValueError('Each period needs valid start and end dates') from error
         if start > end or end > datetime.now(timezone.utc).date() or (previous_end and start <= previous_end):
             raise ValueError('Periods must be past/current, ordered and non-overlapping')
         previous_end = end
         if record.get('currency') != 'USD':raise ValueError('Use USD consistently; do not mix currencies')
         values = {}
+        references = record.get('evidence') or {}
+        if not isinstance(references, dict):
+            raise ValueError('Evidence must map metric names to report references')
         for key in METRICS:
             value = record.get(key)
             from product_selection import number
             if value is not None and not number(value):raise ValueError(f'Invalid {key}')
-            if value is not None and not (record.get('evidence') or {}).get(key):
+            reference = references.get(key)
+            if value is not None and (not isinstance(reference, str) or not reference.strip()):
                 raise ValueError(f'{key} needs a report reference; zero also needs evidence')
             if key in ('visits', 'partner_clicks', 'orders') and value is not None and int(value) != value:
                 raise ValueError(f'{key} must be a count')
@@ -55,7 +62,7 @@ def build_report(directory=None):
               'eligible_new_candidates':selection.get('eligible'),
               'selection_checked_at':selection.get('checked_at'),
               'link_summary':links.get('summary'), 'rates_observed_at':rates.get('observed_at'),
-              'periods':periods,'revenue_status':'reported' if periods else 'not_measured',
+              'periods':periods,'revenue_status':'reported' if any(p[k] is not None for p in periods for k in ('approved_commission','paid_commission')) else 'not_measured',
               'limitations':['A successful scheduled build is not proof of new products or buyers.',
                              'Live AliExpress collection and account payout eligibility are unverified.',
                              'Country selection is a delivery reminder, not a localized inventory filter.',

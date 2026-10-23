@@ -19,7 +19,9 @@ from playwright.sync_api import sync_playwright
 
 sys.stdout.reconfigure(encoding='utf-8', errors='replace')
 
-ROOT = (r"C:\Users\Nika\Desktop\Antigravity_Projects\PAWSVAULT_STUDIO" if os.path.exists(r"C:\Users\Nika\Desktop\Antigravity_Projects\PAWSVAULT_STUDIO") else r(r"C:\Users\Nika\Desktop\Antigravity_Projects\PAWSVAULT_STUDIO" if os.path.exists(r"C:\Users\Nika\Desktop\Antigravity_Projects\PAWSVAULT_STUDIO") else r"C:\Users\Nika\Desktop\PAWSVAULT_STUDIO"))
+ROOT = (r"C:\Users\Nika\Desktop\Antigravity_Projects\PAWSVAULT_STUDIO"
+        if os.path.exists(r"C:\Users\Nika\Desktop\Antigravity_Projects\PAWSVAULT_STUDIO")
+        else r"C:\Users\Nika\Desktop\PAWSVAULT_STUDIO")
 PROFILE_DIR = os.path.join(ROOT, "chrome_affiliate_profile")
 HUB_DIR = r"C:\Users\Nika\.gemini\antigravity\scratch\aliexpress_seo_hub"
 PRODUCTS_FILE = os.path.join(HUB_DIR, "data", "products.json")

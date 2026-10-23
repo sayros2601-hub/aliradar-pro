@@ -18,7 +18,7 @@ npm ci --ignore-scripts
 .\.venv\Scripts\python preview_server.py
 ```
 
-Open http://127.0.0.1:8080 to preview. The current scheduled workflow updates public currency data, then runs the offline pipeline. Marketplace collection and network rotation are not enabled in this release; live access was blocked during the audit. `--offline --rotate` is rejected before any files or network checks are touched. The selection engine still evaluates imported evidence and its freshness each day, but a successful build does not mean new products were collected.
+Open http://127.0.0.1:8080 to preview. The scheduled workflow refreshes a private currency snapshot, evaluates up to seven reviewed reserve candidates through `daily_rotator.py`, then runs the offline builder. Rotation makes destination checks only for candidates that pass all evidence gates. The current reserve has no eligible candidates, so the daily run changes no products. It does not harvest fresh marketplace data. Live marketplace access was blocked during the audit and was not bypassed. `--offline --rotate` is rejected before any files or network checks are touched. The selection engine still evaluates imported evidence and its freshness each day, but a successful build does not mean new products were collected.
 
 Publish with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environment and `npm run deploy`. `SURGE_TOKEN` is used only for the legacy mirror. Never publish the source directory. The GitHub Actions workflow publishes the same validated `dist/` artifact after a push to `main`, or once a day at 06:00 UTC. The Cloudflare token has Pages Write only and expires October 21, 2027; replace the GitHub secret before then. Concurrent production jobs are serialized. PR builds never receive the deployment secret. GitHub is used for source and CI, not for hosting this commercial catalog on GitHub Pages.
 
@@ -27,7 +27,7 @@ Publish with `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the environme
 Use the project's isolated Python environment for all Python commands below. Pillow is pinned to 13.0.0 after reviewing published advisories for 12.3.0. Only static JPEG, PNG, WebP and AVIF photos are decoded; inputs are capped at 20 MB and 20 megapixels. The imported photos are AVIF data with old .jpg names; public legacy photo URLs are now re-encoded to match their extension for social-platform compatibility. Changing the image-pipeline version invalidates old optimized-image caches. Other Python projects do not need to change their Pillow installation.
 
 - `data/products.json` is the active catalog. Original affiliate shortlinks are preserved exactly, including any existing query parameters. Undocumented attribution parameters are not appended.
-- The imported prices are **unverified reference estimates**, not current offers. No old-price discounts, unverified ratings, stock assertions, coupon promises or customs guarantees are published.
+- The imported prices are **unverified historical values retained for audit only**. They are absent from public cards, product pages, quick views, browser data, feeds and generated social drafts. Buyers see a clear instruction to check the current price on AliExpress. No old-price discounts, unverified ratings, stock assertions, coupon promises or customs guarantees are published.
 - `RESOLVED` means the affiliate URL leads to a specific product URL. It does **not** verify stock, shipping, price, quality, eligibility or commission credit. Timeouts, CAPTCHA, 403 and inconclusive 200 responses are `UNKNOWN`, never deletion signals.
 - `data/link_health_report.json` is a non-destructive audit. A specific unavailable/mismatched URL is withheld from the public build. If an unusual number of URLs fail, the builder refuses to replace the last artifact.
 - The initial migration quarantined seven unrelated products sharing one affiliate URL and all 35 reserve placeholders in `data/quarantine.json`.
@@ -37,9 +37,9 @@ Use the project's isolated Python environment for all Python commands below. Pil
 
 ## Browser behavior
 
-EN is the default. RU, HE (RTL) and ES have static, crawlable URLs with reciprocal hreflang and self-canonical links. The catalog and original outbound links work without JavaScript. The script adds search, category/budget filters, sorting, approximate currency display, theme selection, native dialog focus handling and sharing of the actual localized product page.
+EN is the default. RU, HE (RTL) and ES have static, crawlable URLs with reciprocal hreflang and self-canonical links. The catalog and original outbound links work without JavaScript. The script adds search, category and saved-item filters, theme selection, native dialog focus handling and sharing of the actual localized product page. Price filters, price sorting and currency controls were removed because the underlying prices are unverified. Old price-filter URLs still show the catalog. A new badge expires seven days after a known addition date. Each language links to its own RSS feed; English remains `/rss.xml`.
 
-Cloudflare Web Analytics was enabled in the Pages dashboard; the beacon is injected on deployment. It measures visits and loading performance, not AliExpress orders or commissions. The privacy page describes it and all saved preferences. Browser storage is optional and failure-safe. Currency rates are fetched once per update, cached with the actual provider date, and attributed to ExchangeRate-API. Network failures preserve the old dated snapshot or fall back to USD.
+Cloudflare Web Analytics was enabled in the Pages dashboard; the beacon is injected on deployment. It measures visits and loading performance, not AliExpress orders or commissions. The privacy page describes it and all saved preferences. Browser storage is optional and failure-safe. Currency rates remain a private dated operational snapshot and are not used to manufacture seller prices. The public builder no longer depends on this file. Network failures preserve the previous dated snapshot or fall back to USD.
 
 ## Offline adapter (October 22, 2026)
 
@@ -49,7 +49,7 @@ This adapter has no enabled browser/account access, live harvesting, API search 
 
 ## Local marketing tools
 
-`broadcasts/current/dealvault_*.csv` contains drafts, without scheduling or claims of universal CSV importer compatibility. `promo_dispatcher.html` is a local copy desk. Neither is deployed publicly.
+`broadcasts/current/dealvault_*.csv` contains drafts, without scheduling or claims of universal CSV importer compatibility. The pipeline writes a local copy desk to `.local/copy-desk.html` and preserves any existing customized `promo_dispatcher.html`. Neither is deployed publicly.
 
 `telegram_mass_poster.py` and `vk_mass_poster.py` preview by default. Actual sending requires `--send`, credentials and an explicit channel/owner. They use plain text, preserve affiliate URLs, stop on ambiguous outcomes and log acknowledged posts to avoid repeats. The website update workflow never invokes them. No social messages were sent during this repair.
 
@@ -63,7 +63,7 @@ python -m playwright install chromium
 python tests/browser_qa.py --output .qa
 ```
 
-Tests use a hidden browser and localhost. They cover network failure classification, data validation, safe JSON embedding, dry-run immutability, rotation/recovery, all four locales, 16 viewport/locale combinations, search/filter/sort, modal keyboard handling, original affiliate URLs, sharing, disabled storage and disabled JavaScript.
+Tests use a hidden browser and localhost. They cover network failure classification, data validation, safe JSON embedding, dry-run immutability, rotation/recovery, all four locales, 16 viewport/locale combinations, search/category/saved filters, absence of unverified prices, modal keyboard handling, original affiliate URLs, sharing, disabled storage and disabled JavaScript.
 
 ## Operational limits
 
@@ -136,3 +136,16 @@ The pre-repair source/data archive and original working-tree diff are stored loc
 The release workflow captures the previous public catalog before building, then `submit_indexnow.py --submit` notifies participating engines after the public release passes verification. Unchanged catalog hashes send nothing. New, changed and retired English feed entries notify all four language URLs and the four homepages. A localized-only catalog change uses the current canonical map. Missing prior observations fail explicitly; an initial full notification requires an explicit `--force --submit`. HTTP 200 is receipt, HTTP 202 is pending key validation, and neither means indexing. There is no Google Indexing API abuse and no paid account integration.
 
 The old Pinterest launcher that forcibly killed all Chrome processes and enabled broad remote debugging is retired. Browser/account setup and RSS publication must be verified through the actual Pinterest business account; clicking an arbitrary Save button is not proof of successful scheduling.
+
+
+## Repeated whole-system audit — October 23, 2026
+
+All 994 active records had `price_status: unverified_reference`; 920 lacked a price observation timestamp and none had an exact variant/destination offer record. Local historical harvesters used fallback amounts and hard-coded conversions. The retired recalibration script divided non-`real-` values by 3.090788 on every run, guessing ILS from the record ID. Its archive establishes unsafe transformation logic, not the number of executions or a recoverable current seller price. No mass multiplication or new inferred price was applied. Original price values and affiliate URLs are preserved.
+
+A numeric price may return only after an explicit implementation based on a permitted official source or user-supplied export with item ID, exact variant, delivery country, original currency, seller amount, observation time, offer eligibility conditions and traceable evidence. Old observation dates or a fresh exchange rate do not meet that standard. Shipping/tax/checkout differences must remain explicit. The current publisher intentionally exports no numeric seller price, even if a record has a `reviewed` flag.
+
+The repeated audit also repaired 61 remaining Spanish placeholder titles using the imported English title, with editorial translation provenance; it did not verify product claims. Generic copy no longer implies that all imported products passed current research or independent testing. The former budget category uses neutral wording. New-arrival badges now expire.
+
+Data protection fixes: the builder can replace only a direct `dist` or `dist-<name>` folder; the copy-desk generator no longer overwrites the user's customized dispatcher. Fresh timestamped observations of existing affiliate links can enter the legacy offline review queue, exact replays deduplicate, and active catalog data is unchanged. Malformed selection identifiers and nontext variants cannot pass candidate screening. Measured business figures require a nonblank textual evidence reference; empty periods do not imply reported revenue. The Studio integration copy has a repaired fallback-path expression; no live session or selector validation was performed.
+
+The manual workflow rotation input is now honored; scheduled evaluation remains capped at seven. Artifact upload follows browser checks. This does not create seven fresh source products or measure affiliate conversions. `trackAffiliateClick` remains a no-op, so there is no verified site-to-order funnel. Existing external integrations and account settings were not changed during this audit.

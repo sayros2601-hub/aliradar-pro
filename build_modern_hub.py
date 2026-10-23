@@ -12,7 +12,7 @@ from contextlib import contextmanager
 from urllib.parse import urljoin
 import xml.etree.ElementTree as ET
 from PIL import Image, ImageOps
-from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, page_path, public_path, product_title, validate_catalog, utc_now
+from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, page_path, public_path, product_title, validate_catalog, utc_now, recently_added
 from site_content import COPY, LANG_NAMES
 from buyer_guide import GUIDE
 
@@ -64,7 +64,6 @@ class SiteBuilder:
         self.cats = [c for c in db['categories'] if c['id'] != 'all' and any(p['category'] == c['id'] for p in self.products)]
         self.images = {}
         self.thumbnails = {}
-        self.rates = read_json(DATA_DIR / 'exchange_rates.json', {'rates': {'USD': 1}, 'observed_at': None})
         self.public_products = []
         self.integrations = read_json(DATA_DIR/'site_integrations.json', {})
         for language in LANGUAGES:
@@ -121,8 +120,8 @@ class SiteBuilder:
                 gallery.append(self.images[source])
             self.public_products.append({
                 'id': p['id'], 'slug': p['slug'], 'category': p['category'],
-                'title_i18n': p['title_i18n'], 'price_usd': p['price_usd'],
-                'affiliate_url': p['affiliate_url'], 'is_new': bool(p.get('is_new')), 'image': gallery[0], 'gallery': gallery,
+                'title_i18n': p['title_i18n'],
+                'affiliate_url': p['affiliate_url'], 'is_new': recently_added(p), 'image': gallery[0], 'gallery': gallery,
                 'use_i18n': self.editorial.get(p['id'],{}).get('use_i18n',{}),
             })
             raw=BASE_DIR/p['image']
@@ -153,7 +152,6 @@ class SiteBuilder:
         alternates = ''.join(f'<link rel="alternate" hreflang="{l}" href="{esc(alt(l))}">' for l in LANGUAGES)
         languages = ''.join(f'<a href="{rel(page_path(l, slug, legal))}" lang="{l}" hreflang="{l}" data-lang-link="{l}" {"aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGUAGES)
         legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('guide', 'privacy', 'terms', 'disclosure', 'contact', 'returns'))
-        cur_options = ''.join(f'<option value="{cur}">{cur}</option>' for cur in ('USD', 'ILS', 'EUR', 'RUB') if cur in self.rates['rates'])
         schema = {'@context':'https://schema.org', '@type':'WebPage', 'name':title, 'url':url, 'inLanguage':lang}
         visible_products = self.public_products
         if legal or archived:
@@ -165,7 +163,7 @@ class SiteBuilder:
                 related = [p for p in self.public_products if p['id'] != main_product['id']][:4]
             visible_products = [main_product,*related]
         payload = {'lang':lang, 'domain':self.domain, 'copy':c, 'products':visible_products,
-                   'rates':self.rates, 'paths':{p['id']:relative_url(page_path(lang,p['slug']),current) for p in visible_products}}
+                   'paths':{p['id']:relative_url(page_path(lang,p['slug']),current) for p in visible_products}}
         social_product = next((p for p in self.products if p['slug'] == slug),self.products[0])
         hero_image = self.images[social_product['image']]
         homepage = not slug and not legal and not noindex
@@ -194,7 +192,7 @@ class SiteBuilder:
 <meta property="og:image:alt" content="{esc('DealVault — useful everyday finds' if homepage else title)}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(page_title)}"><meta name="twitter:image" content="{self.domain}/{hero_image}"><meta name="theme-color" content="#f5f7fb">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png"><link rel="icon" type="image/svg+xml" href="{rel(self.images['icon.svg'])}"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="{rel('manifest.json')}">
-<link rel="alternate" type="application/rss+xml" title="DealVault" href="{rel('rss.xml')}">
+<link rel="alternate" type="application/rss+xml" title="DealVault" href="{rel('rss.xml' if lang == 'en' else f'rss_{lang}.xml')}">
 <link rel="stylesheet" href="{rel(self.images['modern.css'])}">
 <script>try{{var t=localStorage.getItem('sp_theme');document.documentElement.dataset.theme=['dark','light'].includes(t)?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.motion=localStorage.getItem('dv_motion')==='off'?'off':'on'}}catch(e){{}}</script>
 <script type="application/ld+json">{script_json(document_schema)}</script>
@@ -205,10 +203,9 @@ class SiteBuilder:
 <header class="site-header"><div class="wrap header-inner">
 <a class="brand" href="{rel(page_path(lang))}"><span class="brand-mark" aria-hidden="true">d<span>v</span></span><span>DealVault<small>{esc(c['tagline'])}</small></span></a>
 <div class="header-controls"><nav class="languages" aria-label="{esc(c['language'])}">{languages}</nav>
-<label class="currency-label"><span class="sr-only">{esc(c['currency'])}</span><select id="currency-select" aria-label="{esc(c['currency'])}">{cur_options}</select></label>
 <div class="control-pair"><button class="motion-toggle" id="motion-toggle" type="button" aria-label="{esc(c['motion'])}" title="{esc(c['motion'])}" aria-pressed="false">Ⅱ</button><button class="theme-toggle" id="theme-toggle" type="button" aria-label="{esc(c['theme'])}" title="{esc(c['theme'])}">◐</button></div></div></div></header>
 {body}
-<footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="{rel(page_path(lang))}">DealVault<span>↗</span></a><p>{esc(c['affiliate'])}</p></div><nav aria-label="DealVault">{legal_nav}<a href="{rel('rss.xml')}">RSS</a><a href="https://www.exchangerate-api.com" rel="noopener">Rates by ExchangeRate-API</a></nav></div><div class="wrap footer-bottom"><span>© 2026 DealVault</span><span>{esc(c['seller_note'])}</span></div></footer>
+<footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="{rel(page_path(lang))}">DealVault<span>↗</span></a><p>{esc(c['affiliate'])}</p></div><nav aria-label="DealVault">{legal_nav}<a href="{rel('rss.xml' if lang == 'en' else f'rss_{lang}.xml')}">RSS</a></nav></div><div class="wrap footer-bottom"><span>© 2026 DealVault</span><span>{esc(c['seller_note'])}</span></div></footer>
 <dialog id="product-modal" aria-labelledby="modal-title"><button type="button" class="modal-close" data-close-modal aria-label="{esc(c['close'])}">×</button><div id="modal-content-area"></div></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 </body></html>'''
@@ -226,12 +223,12 @@ class SiteBuilder:
         link = esc(relative_url(page_path(lang, p['slug']), current))
         image = esc(relative_url(self.thumbnails[p['image']], current))
         search = ' '.join([*p['title_i18n'].values(), p['slug'], *[self.category_name(p['category'], l) for l in LANGUAGES]])
-        badge = f'<span class="card-badge-new"><b aria-hidden="true">✦</b> {esc(c.get("new_badge", "NEW"))}</span>' if p.get('is_new') else ''
-        card_cls = 'product-card is-new' if p.get('is_new') else 'product-card'
-        return f'''<article class="{card_cls}" data-id="{esc(p['id'])}" data-category="{esc(p['category'])}" data-price="{p['price_usd']}" data-order="{index}" data-search="{esc(search)}">
+        badge = f'<span class="card-badge-new"><b aria-hidden="true">✦</b> {esc(c.get("new_badge", "NEW"))}</span>' if recently_added(p) else ''
+        card_cls = 'product-card is-new' if recently_added(p) else 'product-card'
+        return f'''<article class="{card_cls}" data-id="{esc(p['id'])}" data-category="{esc(p['category'])}" data-order="{index}" data-search="{esc(search)}">
 {badge}<button type="button" class="save-product" data-save-id="{esc(p['id'])}" aria-pressed="false" aria-label="{esc(c['save'] + ': ' + title)}">♡</button><a href="{link}" class="card-image"><img src="{image}" alt="{esc(title)}" width="600" height="600" loading="{'eager' if index < 4 else 'lazy'}" decoding="async"></a>
 <div class="card-content"><span class="card-category">{esc(self.category_name(p['category'], lang))}</span><h3><a href="{link}">{esc(title)}</a></h3><p class="card-use">{esc(use)}</p>
-<div class="card-price"><span class="price-caption">{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div>
+<p class="price-unavailable">{esc(c['price_status'])}</p>
 <div class="card-actions"><a href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}" class="detail-link">{esc(c['shop'])} <span aria-hidden="true">↗</span></a><button class="quick-button" type="button" data-modal-id="{esc(p['id'])}" aria-label="{esc(c['quick'] + ': ' + title)}">＋</button></div></div></article>'''
 
     def index(self, lang):
@@ -244,14 +241,13 @@ class SiteBuilder:
             pills += f'<button type="button" data-cat="{esc(cat["id"])}" class="category-pill" aria-pressed="false">{esc(cat["name_i18n"][lang])}<span>{count}</span></button>'
         cards = ''.join(self.card(p, lang, current, i) for i,p in enumerate(self.products))
         body = f'''<main id="main"><section class="wrap hero"><div class="hero-copy"><p class="eyebrow"><span></span>{esc(c['eyebrow'])}</p><h1>{c['hero']}</h1><p class="hero-intro">{esc(c['intro'])}</p><div class="hero-actions"><a class="button primary" href="#collection">{esc(c['explore'])}<span aria-hidden="true">↗</span></a><a class="text-link" href="#approach">{esc(c['how'])}</a></div><div class="hero-proof"><span>○ {esc(c['independent'])}</span><span>↗ {esc(c['direct'])}</span></div></div>
-<div class="orbit-stage"><span class="orbit-ring" aria-hidden="true"></span><span class="orbit-ring ring-two" aria-hidden="true"></span><span class="orbit-chip chip-top"><b aria-hidden="true">✧</b>{esc(c['orbit_top'])}</span><a class="spotlight" href="{rel(page_path(lang, feature['slug']))}"><div class="spotlight-top"><span>{esc(c['spotlight'])}</span><span class="round-arrow">↗</span></div><img src="{rel(self.images[feature['image']])}" width="600" height="600" fetchpriority="high" alt="{esc(product_title(feature,lang))}"><div class="spotlight-bottom"><span>{esc(product_title(feature,lang))}</span><span class="spotlight-price" data-money="{feature['price_usd']}">${feature['price_usd']:.2f}</span></div><span class="spotlight-caption">{esc(c['reference'])}</span></a><span class="orbit-chip chip-bottom"><b aria-hidden="true">↗</b>{esc(c['orbit_bottom'])}</span><span class="orbit-index">DEALVAULT / EDIT 01</span></div></section>
+<div class="orbit-stage"><span class="orbit-ring" aria-hidden="true"></span><span class="orbit-ring ring-two" aria-hidden="true"></span><span class="orbit-chip chip-top"><b aria-hidden="true">✧</b>{esc(c['orbit_top'])}</span><a class="spotlight" href="{rel(page_path(lang, feature['slug']))}"><div class="spotlight-top"><span>{esc(c['spotlight'])}</span><span class="round-arrow">↗</span></div><img src="{rel(self.images[feature['image']])}" width="600" height="600" fetchpriority="high" alt="{esc(product_title(feature,lang))}"><div class="spotlight-bottom"><span>{esc(product_title(feature,lang))}</span></div><span class="spotlight-caption">{esc(c['price_status'])}</span></a><span class="orbit-chip chip-bottom"><b aria-hidden="true">↗</b>{esc(c['orbit_bottom'])}</span><span class="orbit-index">DEALVAULT / EDIT 01</span></div></section>
 <div class="wrap disclosure-strip"><span aria-hidden="true">↗</span><p>{esc(c['affiliate'])}</p></div>
 <section class="wrap collection" id="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="eyebrow">DEALVAULT / 01</p><h2 id="collection-title">{esc(c['collection'])}</h2><p>{esc(c['collection_sub'])}</p></div><span id="items-counter" role="status" aria-live="polite">{len(self.products)} {esc(c['found'])}</span></div>
 <div class="category-nav" id="category-nav" aria-label="{esc(c['collection'])}">{pills}</div>
 <div class="filter-bar"><label class="search"><span aria-hidden="true">⌕</span><span class="sr-only">{esc(c['search_label'])}</span><input type="search" id="global-search-input" placeholder="{esc(c['search'])}" autocomplete="off"></label>
-<label class="filter-select"><span class="sr-only">{esc(c['budget'])}</span><select id="price-select" aria-label="{esc(c['budget'])}"><option value="all">{esc(c['any'])}</option><option value="10">{esc(c['under'].format(price='$10'))}</option><option value="25">{esc(c['under'].format(price='$25'))}</option><option value="50">{esc(c['under'].format(price='$50'))}</option><option value="over50">{esc(c['over'].format(price='$50'))}</option></select></label>
-<label class="filter-select"><span class="sr-only">{esc(c['sort'])}</span><select id="sort-select" aria-label="{esc(c['sort'])}"><option value="curated">{esc(c['curated'])}</option><option value="price_asc">{esc(c['asc'])}</option><option value="price_desc">{esc(c['desc'])}</option></select></label><button type="button" class="saved-filter" id="saved-filter" aria-pressed="false">♡ {esc(c['saved'])} <span id="saved-count">0</span></button></div>
-<div class="price-notice"><p>{esc(c['price_note'])}</p><span id="rates-note"></span></div>
+<button type="button" class="saved-filter" id="saved-filter" aria-pressed="false">♡ {esc(c['saved'])} <span id="saved-count">0</span></button></div>
+<div class="price-notice"><p>{esc(c['price_note'])}</p></div>
 <div class="product-grid" id="product-grid">{cards}</div><div id="empty-state" class="empty-state" hidden><h3>{esc(c['empty'])}</h3><button class="button primary" type="button" id="clear-filters">{esc(c['reset'])}</button></div></section>
 {self.market_bar(lang)}<section class="wrap approach" id="approach"><div><p class="eyebrow">DEALVAULT / 02</p><h2>{esc(c['method'])}</h2></div><p>{esc(c['method_text'])}</p></section></main>'''
         schema = {'@context':'https://schema.org','@type':'CollectionPage','name':c['collection'],'url':self.domain+public_path(current),'inLanguage':lang,'mainEntity':{'@type':'ItemList','numberOfItems':len(self.products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':self.domain+public_path(page_path(lang,p["slug"])),'name':product_title(p,lang)} for i,p in enumerate(self.products)]}}
@@ -269,7 +265,7 @@ class SiteBuilder:
         if not others:
             others = [x for x in self.products if x['id'] != p['id']][:4]
         related = ''.join(self.card(x,lang,current,i+10) for i,x in enumerate(others))
-        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}{' · <span class="deal-badge-new">✦ ' + esc(c.get('new_badge','NEW')) + '</span>' if p.get('is_new') else ''}</p><h1>{esc(product_title(p,lang))}</h1><p class="deal-purpose">{esc(purpose)}</p><div class="deal-price"><span>{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div><p class="muted">{esc(c['price_note'])}</p><p class="rate-detail" id="rates-note"></p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><p>{esc(check)}</p><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
+        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}{' · <span class="deal-badge-new">✦ ' + esc(c.get('new_badge','NEW')) + '</span>' if recently_added(p) else ''}</p><h1>{esc(product_title(p,lang))}</h1><p class="deal-purpose">{esc(purpose)}</p><p class="price-unavailable price-unavailable-detail">{esc(c['price_status'])}</p><p class="muted">{esc(c['price_note'])}</p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><p>{esc(check)}</p><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
         schema = {'@context':'https://schema.org','@type':'WebPage','url':self.domain+public_path(current),'name':product_title(p,lang),'inLanguage':lang,'about':{'@type':'Product','name':product_title(p,lang),'image':[f'{self.domain}/{self.images[src]}' for src in gallery]},'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'DealVault','item':self.domain+public_path(page_path(lang))},{'@type':'ListItem','position':2,'name':product_title(p,lang),'item':self.domain+public_path(current)}]}}
         self.write(current,self.shell(lang,current,product_title(p,lang),body,slug=p['slug'],schemas=schema))
 
@@ -304,8 +300,7 @@ class SiteBuilder:
                 title = product_title(p, lang)
                 ed = self.editorial.get(p['id'], {})
                 use = ed.get('use_i18n', {}).get(lang, '')
-                price_str = f"${p['price_usd']:.2f}"
-                text = f"{title}. {use}. {c['reference']}: {price_str}."
+                text = f"{title}. {use}. {c['price_note']} {c['affiliate']}"
                 item = ET.SubElement(channel, 'item')
                 for k, v in [('title', title), ('link', link), ('description', text)]:
                     ET.SubElement(item, k).text = v
@@ -362,8 +357,9 @@ class SiteBuilder:
 def build_site(output=None, db=None):
     db=db or read_json(DATA_DIR/'products.json')
     dest=Path(output or BASE_DIR/'dist').resolve()
-    if dest == BASE_DIR or BASE_DIR not in dest.parents:
-        raise ValueError('Build destination must be a child of the project directory')
+    # Replacing a generic child (e.g. data/ or assets/) would destroy source data.
+    if dest.parent != BASE_DIR or not (dest.name == 'dist' or dest.name.startswith('dist-')):
+        raise ValueError('Build destination must be dist or dist-<name> directly inside the project')
     stage=Path(tempfile.mkdtemp(prefix='.build-',dir=BASE_DIR)).resolve()
     previous=dest.with_name(dest.name+'.previous')
     try:

@@ -24,3 +24,13 @@ html[data-page-hidden=true] .orbit-ring,html[data-page-hidden=true] .spotlight,h
 .card-badge-new b{color:#ffd700;font-size:11px}
 .deal-badge-new{display:inline-flex;align-items:center;gap:3px;padding:2px 8px;font-size:10px;font-weight:750;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:linear-gradient(135deg,#2459eb,#7033ff);border-radius:12px;vertical-align:middle}
 @media(max-width:768px){.card-badge-new{font-size:9px;padding:3px 7px;top:7px;inset-inline-start:7px}}
+
+/* Prices are confirmed at the seller; no sorting or conversion of legacy amounts. */
+.filter-bar{grid-template-columns:minmax(0,1fr) auto}
+.filter-bar .search{grid-column:auto}
+.filter-bar .saved-filter{grid-column:auto}
+.price-unavailable{font-size:12px;line-height:1.5;color:var(--muted);margin-top:auto;margin-bottom:0}
+.price-unavailable-detail{font-size:18px;font-weight:650;color:var(--ink);margin-block:16px 8px}
+.spotlight-caption{text-align:start;font-size:11px;line-height:1.4;margin-top:8px}
+.price-notice{font-size:12px;line-height:1.6}
+@media(max-width:720px){.filter-bar{grid-template-columns:1fr}.filter-bar .search,.filter-bar .saved-filter{grid-column:1/-1}.price-unavailable{font-size:10px}.price-unavailable-detail{font-size:17px}.price-notice{font-size:11px}}

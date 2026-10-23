@@ -134,3 +134,48 @@ _RETURN_COPY = {
 }
 for _language, (_title, _text) in _RETURN_COPY.items():
     COPY[_language].update(returns=_title, returns_text=_text)
+
+
+# Seller prices need exact variant/country/currency evidence. Legacy amounts are
+# retained in the source catalog for audit, never exported as public offers.
+_PRICE_COPY = {
+    'en': {
+        'price_status': 'Current price on AliExpress',
+        'price_note': 'We do not have a verified current price for this listing. Select the variant and delivery country on AliExpress to see the price, shipping, taxes and any account-specific offer.',
+        'shop': 'Check price on AliExpress',
+        'method_text': 'We organize imported product ideas by everyday use. Titles and photos describe the source listing; we have not independently tested these products. Confirm the exact variant and current terms with the seller. Affiliate links are clearly marked.',
+        'privacy_text': 'This site stores theme, motion, saved items and the country reminder in your browser. Older visits may also have saved a display currency. Campaign parameters are kept for the session. Cloudflare Web Analytics measures visits and loading performance without analytics cookies or a persistent visitor identifier. It does not report your AliExpress orders to us. The host may process technical request logs. Images are served with the site. AliExpress and sharing services have their own privacy policies. The button below clears DealVault preferences.',
+        'terms_text': 'DealVault is an independent product discovery site. Imported names and photos may be incomplete or outdated. We do not publish current seller prices without reliable evidence. The AliExpress seller determines stock, exact specifications, delivery, taxes, payment, returns and warranties. DealVault does not sell products or handle orders.',
+    },
+    'ru': {
+        'price_status': 'Актуальная цена — на AliExpress',
+        'price_note': 'У нас нет подтверждённой актуальной цены этого товара. Выберите вариант и страну доставки на AliExpress: там указаны цена, доставка, налоги и доступные вашему аккаунту предложения.',
+        'shop': 'Узнать цену на AliExpress',
+        'method_text': 'Мы группируем идеи из импортированного каталога по повседневным задачам. Названия и фотографии относятся к исходному объявлению; мы не проводили независимое тестирование этих товаров. Точный вариант и актуальные условия уточняйте у продавца. Партнёрские ссылки обозначены открыто.',
+        'privacy_text': 'Сайт сохраняет в браузере тему, настройку анимации, избранное и напоминание о стране. После прежних посещений также могла сохраниться валюта отображения. Параметры кампаний хранятся до конца сеанса. Cloudflare Web Analytics измеряет посещения и скорость загрузки без аналитических cookies и постоянного идентификатора посетителя. Сервис не сообщает нам о ваших заказах AliExpress. Хостинг может обрабатывать технические журналы запросов. Изображения загружаются с сайта. У AliExpress и сервисов обмена ссылками свои правила конфиденциальности. Кнопка ниже удаляет настройки DealVault.',
+        'terms_text': 'DealVault — независимый каталог идей для покупок. Импортированные названия и фотографии могут быть неполными или устаревшими. Мы не публикуем актуальную цену продавца без надёжного подтверждения. Наличие, комплектацию, доставку, налоги, оплату, возврат и гарантию определяет продавец AliExpress. DealVault не продаёт товары и не оформляет заказы.',
+    },
+    'he': {
+        'price_status': 'המחיר העדכני ב-AliExpress',
+        'price_note': 'אין לנו מחיר עדכני מאומת למוצר הזה. בחרו דגם ומדינת משלוח ב-AliExpress כדי לראות מחיר, משלוח, מסים והצעות שזמינות לחשבון שלכם.',
+        'shop': 'בדיקת מחיר ב-AliExpress',
+        'method_text': 'אנחנו מסדרים רעיונות מקטלוג מיובא לפי שימושים יומיומיים. השמות והתמונות מתארים את ההצעה המקורית; לא בדקנו את המוצרים באופן עצמאי. בדקו אצל המוכר את הדגם המדויק ואת התנאים העדכניים. קישורי השותפים מסומנים בבירור.',
+        'privacy_text': 'האתר שומר בדפדפן ערכת צבעים, תנועה, פריטים שמורים ותזכורת מדינה. מביקורים קודמים ייתכן שנשמר גם מטבע תצוגה. פרמטרי קמפיין נשמרים למשך הביקור. Cloudflare Web Analytics מודד ביקורים וביצועי טעינה ללא עוגיות ניתוח או מזהה מבקר קבוע. הוא אינו מדווח לנו על הזמנות AliExpress שלכם. ספק האחסון עשוי לעבד יומני בקשות טכניים. התמונות מוגשות עם האתר. ל-AliExpress ולשירותי השיתוף מדיניות פרטיות משלהם. הכפתור למטה מוחק את העדפות DealVault.',
+        'terms_text': 'DealVault הוא קטלוג עצמאי לגילוי רעיונות למוצרים. שמות ותמונות מיובאים עשויים להיות חסרים או לא עדכניים. לא נפרסם מחיר מוכר עדכני ללא ראיות אמינות. המוכר ב-AliExpress קובע מלאי, מפרט, משלוח, מסים, תשלום, החזרות ואחריות. DealVault אינו מוכר מוצרים ואינו מטפל בהזמנות.',
+    },
+    'es': {
+        'price_status': 'Precio actual en AliExpress',
+        'price_note': 'No tenemos un precio actual verificado para este artículo. Elige la variante y el país de entrega en AliExpress para consultar precio, envío, impuestos y ofertas disponibles para tu cuenta.',
+        'shop': 'Consultar precio en AliExpress',
+        'method_text': 'Organizamos ideas de un catálogo importado según su uso cotidiano. Los títulos y las fotos describen el anuncio original; no hemos probado estos productos de forma independiente. Confirma la variante exacta y las condiciones actuales con el vendedor. Los enlaces de afiliación están identificados.',
+        'privacy_text': 'Este sitio guarda en tu navegador el tema, el movimiento, los favoritos y el recordatorio de país. Una visita anterior puede haber guardado también una moneda de visualización. Los parámetros de campaña se conservan durante la sesión. Cloudflare Web Analytics mide visitas y rendimiento sin cookies analíticas ni un identificador persistente del visitante. No nos informa sobre tus pedidos en AliExpress. El alojamiento puede procesar registros técnicos. Las fotos se sirven con el sitio. AliExpress y los servicios para compartir tienen sus propias políticas de privacidad. El botón siguiente elimina las preferencias de DealVault.',
+        'terms_text': 'DealVault es un catálogo independiente para descubrir productos. Los nombres y las imágenes importados pueden estar incompletos o desactualizados. No publicamos precios actuales del vendedor sin pruebas fiables. El vendedor de AliExpress determina existencias, especificaciones, envío, impuestos, pagos, devoluciones y garantías. DealVault no vende productos ni gestiona pedidos.',
+    },
+}
+for _language, _copy in _PRICE_COPY.items():
+    COPY[_language].update(_copy)
+
+# Do not ship retired price/filter labels in the public browser payload.
+for _copy in COPY.values():
+    for _key in ('reference', 'budget', 'any', 'under', 'over', 'asc', 'desc', 'sort', 'curated', 'currency', 'rates'):
+        _copy.pop(_key, None)

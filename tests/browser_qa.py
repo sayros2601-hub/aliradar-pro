@@ -57,10 +57,10 @@ def run(output):
             page.locator('#motion-toggle').click()
             page.locator('#country-select').select_option('IL')
             assert page.locator('html').get_attribute('lang')=='en'
-            assert page.locator('#currency-select').input_value()=='USD'
+            assert page.locator('#currency-select').count()==0
             page.reload(wait_until='networkidle')
             assert page.locator('#country-select').input_value()=='IL'
-            passed('Motion preference persists; country choice does not change English or currency')
+            passed('Motion preference persists; country choice does not change English')
             russian=browser.new_context(locale='ru-RU',reduced_motion='reduce',color_scheme='light')
             rp=russian.new_page();rp.goto(base+'/',wait_until='networkidle')
             assert rp.locator('html').get_attribute('lang')=='en'
@@ -77,20 +77,19 @@ def run(output):
             page.locator('[data-cat=tech]').click()
             assert all(value=='tech' for value in page.locator('#product-grid .product-card:visible').evaluate_all('(els)=>els.map(x=>x.dataset.category)'))
             page.locator('[data-cat=all]').click()
-            page.locator('#sort-select').select_option('price_asc')
-            prices=page.locator('#product-grid .product-card:visible').evaluate_all('(els)=>els.map(x=>Number(x.dataset.price))')
-            assert prices==sorted(prices)
-            page.locator('#price-select').select_option('10')
-            assert all(value<10 for value in page.locator('#product-grid .product-card:visible').evaluate_all('(els)=>els.map(x=>Number(x.dataset.price))'))
-            passed('Search, empty state, reset, category, sorting and budget filters')
-            for cur in ('ILS','EUR','RUB','USD'):
-                page.locator('#currency-select').select_option(cur)
-                assert page.locator('.current-price').count()==0
-                assert page.locator('[data-money]').first.inner_text()
-            passed('Four currencies and converted budget labels')
+            passed('Search, empty state, reset and category filters')
+            assert page.locator('[data-money], #price-select, #sort-select, #currency-select').count()==0
+            assert 'price_usd' not in page.locator('#products-db').text_content()
+            assert page.locator('.price-unavailable').count()==expected
+            page.goto(base+'/index.html?budget=10&sort=price_asc',wait_until='networkidle')
+            assert page.locator('#product-grid .product-card:visible').count()==expected
+            page.locator('#global-search-input').fill('ugreen')
+            assert 'budget=' not in page.url and 'sort=' not in page.url
+            passed('Unverified prices are absent; old price-filter URLs cannot hide items')
             page.goto(base+'/index.html?utm_source=qa',wait_until='networkidle')
             quick=page.locator('[data-modal-id]').first; quick.focus(); quick.click()
             assert page.locator('#product-modal').is_visible()
+            assert page.locator('#product-modal [data-money]').count()==0
             assert page.locator('#product-modal [data-aff-id]').get_attribute('href')==first['affiliate_url']
             page.locator('#product-modal [data-share=copy]').click()
             assert page.evaluate('window.__copied')==f'{DOMAIN}/deals/{first["slug"]}'
@@ -104,6 +103,7 @@ def run(output):
             passed('Modal, exact partner URL, canonical share, Escape, focus restore and browser Back')
             page.goto(base+f'/index.html?q=ugreen#{first["slug"]}',wait_until='networkidle')
             assert page.locator('#product-modal').is_visible()
+            assert page.locator('#product-modal [data-money]').count()==0
             page.keyboard.press('Escape')
             passed('Direct search URLs and product deep links')
             for lang in ('ru','he','es','en'):
@@ -122,12 +122,11 @@ def run(output):
             page.locator('[data-lang-link=ru]').click()
             page.wait_for_load_state('networkidle')
             assert 'utm_campaign=test' in page.url
-            page.locator('#currency-select').select_option('EUR')
             page.locator('#theme-toggle').click()
             page.reload(wait_until='networkidle')
             assert page.locator('html').get_attribute('data-theme')=='dark'
-            assert page.locator('#currency-select').input_value()=='EUR'
-            passed('Campaign context and persisted currency/theme')
+            assert page.locator('#currency-select').count()==0
+            passed('Campaign context and persisted theme')
             for width in (360,390,768,1440):
                 page.set_viewport_size({'width':width,'height':900})
                 for lang in ('en','he','ru','es'):
@@ -148,10 +147,10 @@ def run(output):
             bp=blocked.new_page(); bp.on('pageerror',lambda error:errors.append(str(error)))
             bp.goto(base+'/index.html',wait_until='networkidle')
             assert bp.locator('.product-card:visible').count()==expected
-            bp.locator('#currency-select').select_option('ILS'); bp.locator('#theme-toggle').click()
+            bp.locator('#theme-toggle').click()
             bp.locator('[data-save-id]').first.click();bp.locator('#saved-filter').click()
             assert bp.locator('#product-grid .product-card:visible').count()>=1
-            passed('Storage disabled: catalog, currency, theme and saved filtering still work')
+            passed('Storage disabled: catalog, theme and saved filtering still work')
             nojs=browser.new_context(java_script_enabled=False)
             np=nojs.new_page(); np.goto(base+'/index.html',wait_until='networkidle')
             assert np.locator('.product-card').count()==expected

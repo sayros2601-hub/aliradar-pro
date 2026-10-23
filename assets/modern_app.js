@@ -46,39 +46,12 @@
     const updateCountry=()=>{const name=countrySelect.selectedOptions[0].textContent;document.getElementById('market-note').textContent=countrySelect.value?C.market_selected.replace('{country}',name):C.market_note;};
     countrySelect.addEventListener('change',()=>{storage.set('dv_country',countrySelect.value);updateCountry();});updateCountry();
   }
-  const rates = Object.fromEntries(Object.entries(DB.rates.rates || {USD:1}).filter(([,n]) => typeof n === 'number' && Number.isFinite(n) && n > 0));
-  rates.USD = 1;
-  const langCurrencies = { he: 'ILS', es: 'EUR', ru: 'RUB' };
-  const defaultCur = langCurrencies[lang] || 'USD';
-  let currency = Object.hasOwn(rates,storage.get('sp_cur')) ? storage.get('sp_cur') : (rates[defaultCur] ? defaultCur : 'USD');
-  const currencySelect = document.getElementById('currency-select');
-  if (currencySelect) currencySelect.value = currency;
-  let moneyFormat;
-  const money = usd => moneyFormat.format(Number(usd) * rates[currency]);
-  function renderMoney() {
-    moneyFormat=new Intl.NumberFormat(lang === 'he' ? 'he-IL' : lang,{style:'currency',currency,maximumFractionDigits:currency === 'RUB' ? 0 : 2});
-    document.querySelectorAll('[data-money]').forEach(el => {el.textContent = money(el.dataset.money);});
-    const priceSelect = document.getElementById('price-select');
-    if (priceSelect) for (const option of priceSelect.options) {
-      if (option.value === 'all') continue;
-      option.textContent = C[option.value === 'over50' ? 'over' : 'under'].replace('{price}',money(option.value === 'over50' ? 50 : Number(option.value)));
-    }
-    const ratesNote = document.getElementById('rates-note');
-    if (ratesNote && currency !== 'USD') {
-      let date = DB.rates.observed_at;
-      try {date = date ? new Intl.DateTimeFormat(lang,{dateStyle:'medium',timeZone:'UTC'}).format(new Date(date)) : '';} catch {date = '';}
-      ratesNote.textContent = date ? `${C.rates}: ${date} · ExchangeRate-API` : '';
-    } else if (ratesNote) ratesNote.textContent = '';
-  }
   let toastTimer;
   window.DealVaultToast = text => {
     const el = document.getElementById('toast');
     el.textContent = text; el.hidden = false;
     clearTimeout(toastTimer); toastTimer = setTimeout(() => {el.hidden = true;},3500);
   };
-  currencySelect?.addEventListener('change', () => {
-    if (Object.hasOwn(rates,currencySelect.value)) {currency = currencySelect.value; storage.set('sp_cur',currency); renderMoney();}
-  });
   document.getElementById('theme-toggle')?.addEventListener('click', () => {
     const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = theme; storage.set('sp_theme',theme);
@@ -92,39 +65,29 @@
   const grid = document.getElementById('product-grid');
   const cards = grid ? [...grid.querySelectorAll('.product-card')] : [];
   const input = document.getElementById('global-search-input');
-  const budget = document.getElementById('price-select');
-  const sort = document.getElementById('sort-select');
   const query = new URLSearchParams(location.search);
   let category = query.get('cat') || 'all';
   if (![...document.querySelectorAll('[data-cat]')].some(el => el.dataset.cat === category)) category = 'all';
   onlySaved=query.get('saved')==='1';
   if(savedFilter)savedFilter.setAttribute('aria-pressed',String(onlySaved));
   if (input) input.value = (query.get('q') || '').slice(0,200);
-  if (budget && [...budget.options].some(o => o.value === query.get('budget'))) budget.value = query.get('budget');
-  if (sort && [...sort.options].some(o => o.value === query.get('sort'))) sort.value = query.get('sort');
   const searchText=new Map(cards.map(card=>[card,normalise(card.dataset.search)]));
-  let previousSort='curated';
   function filter(updateUrl = true) {
     if (!grid) return;
     const words = normalise(input.value.trim()).split(/\s+/).filter(Boolean);
     let count = 0;
-    const ordered = [...cards].sort((a,b) => sort.value === 'price_asc' ? Number(a.dataset.price)-Number(b.dataset.price) : sort.value === 'price_desc' ? Number(b.dataset.price)-Number(a.dataset.price) : Number(a.dataset.order)-Number(b.dataset.order));
-    for (const card of ordered) {
-      const price = Number(card.dataset.price);
+    for (const card of cards) {
       card.hidden = !((!onlySaved || saved.has(card.dataset.id)) && (category === 'all' || card.dataset.category === category) &&
-        (budget.value === 'all' || (budget.value === 'over50' ? price >= 50 : price < Number(budget.value))) &&
         words.every(word => searchText.get(card).includes(word)));
       if (!card.hidden) count++;
-      if(previousSort!==sort.value)grid.appendChild(card);
     }
-    previousSort=sort.value;
     document.querySelector('#empty-state h3').textContent=onlySaved?C.saved_empty:C.empty;
     document.getElementById('items-counter').textContent = `${count} ${C.found}`;
     document.getElementById('empty-state').hidden = count !== 0;
     document.querySelectorAll('[data-cat]').forEach(el => {const selected = el.dataset.cat === category; el.classList.toggle('active',selected); el.setAttribute('aria-pressed',String(selected));});
     if (updateUrl) {
       const url = new URL(location.href);
-      for (const [key,value] of Object.entries({saved:onlySaved?'1':'',q:input.value.trim(),cat:category === 'all' ? '' : category,budget:budget.value === 'all' ? '' : budget.value,sort:sort.value === 'curated' ? '' : sort.value})) {
+      for (const [key,value] of Object.entries({saved:onlySaved?'1':'',q:input.value.trim(),cat:category === 'all' ? '' : category,budget:'',sort:''})) {
         if (value) url.searchParams.set(key,value); else url.searchParams.delete(key);
       }
       history.replaceState(history.state,'',url);
@@ -133,9 +96,7 @@
   document.getElementById('category-nav')?.addEventListener('click', event => {const pill = event.target.closest('[data-cat]'); if (pill) {category = pill.dataset.cat; filter();}});
   savedFilter?.addEventListener('click',()=>{onlySaved=!onlySaved;savedFilter.setAttribute('aria-pressed',String(onlySaved));filter();});
   input?.addEventListener('input', () => filter());
-  budget?.addEventListener('change', () => filter());
-  sort?.addEventListener('change', () => filter());
-  document.getElementById('clear-filters')?.addEventListener('click', () => {category = 'all'; onlySaved=false; savedFilter?.setAttribute('aria-pressed','false'); input.value = ''; budget.value = 'all'; sort.value = 'curated'; filter(); input.focus();});
+  document.getElementById('clear-filters')?.addEventListener('click', () => {category = 'all'; onlySaved=false; savedFilter?.setAttribute('aria-pressed','false'); input.value = ''; filter(); input.focus();});
   const dialog = document.getElementById('product-modal');
   let modalProduct = null;
   let returnFocus = null;
@@ -145,8 +106,7 @@
     if (!dialog.open) returnFocus = document.activeElement;
     modalProduct = product;
     const title = product.title_i18n[lang];
-    document.getElementById('modal-content-area').innerHTML = `<div class="modal-layout"><a class="modal-photo" href="${esc(DB.paths[id])}"><img src="${esc(asset(product.image))}" width="600" height="600" alt="${esc(title)}"></a><div class="modal-details"><p class="eyebrow">DEALVAULT${product.is_new ? ' · <span class="deal-badge-new">✦ ' + esc(C.new_badge || 'NEW') + '</span>' : ''}</p><h2 id="modal-title">${esc(title)}</h2><p class="muted">${esc(product.use_i18n?.[lang] || '')}</p><div class="deal-price"><span>${esc(C.reference)}</span><strong data-money="${product.price_usd}"></strong></div><p class="muted">${esc(C.price_note)}</p><a class="button primary" href="${esc(product.affiliate_url)}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="${esc(id)}">${esc(C.shop)} ↗</a><p class="affiliate-note">${esc(C.affiliate)}</p><a class="detail-link" href="${esc(DB.paths[id])}">${esc(C.details)} ↗</a><div class="share-row" data-product-id="${esc(id)}"><button type="button" data-share="copy">${esc(C.copy)}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div>`;
-    renderMoney();
+    document.getElementById('modal-content-area').innerHTML = `<div class="modal-layout"><a class="modal-photo" href="${esc(DB.paths[id])}"><img src="${esc(asset(product.image))}" width="600" height="600" alt="${esc(title)}"></a><div class="modal-details"><p class="eyebrow">DEALVAULT${product.is_new ? ' · <span class="deal-badge-new">✦ ' + esc(C.new_badge || 'NEW') + '</span>' : ''}</p><h2 id="modal-title">${esc(title)}</h2><p class="muted">${esc(product.use_i18n?.[lang] || '')}</p><p class="price-unavailable price-unavailable-detail">${esc(C.price_status)}</p><p class="muted">${esc(C.price_note)}</p><a class="button primary" href="${esc(product.affiliate_url)}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="${esc(id)}">${esc(C.shop)} ↗</a><p class="affiliate-note">${esc(C.affiliate)}</p><a class="detail-link" href="${esc(DB.paths[id])}">${esc(C.details)} ↗</a><div class="share-row" data-product-id="${esc(id)}"><button type="button" data-share="copy">${esc(C.copy)}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div>`;
     if (!dialog.open) dialog.showModal();
     document.body.style.overflow = 'hidden';
     if (push && location.hash !== '#' + product.slug) {const url = new URL(location.href); url.hash = product.slug; history.pushState({deal:product.slug},'',url);}
@@ -197,5 +157,5 @@
       }
     }
   });
-  renderMoney(); filter(false); syncHash();
+ filter(false); syncHash();
 })();

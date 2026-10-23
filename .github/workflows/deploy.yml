@@ -53,17 +53,21 @@ jobs:
       - name: Build PR without live network updates
         if: github.event_name == 'pull_request'
         run: python dealvault_pipeline.py --offline
-      - name: Daily 7-deal rotation and build (on schedule or manual rotate request)
+      - name: Evaluate reviewed reserve candidates and build
         if: github.event_name == 'schedule' || (github.event_name == 'workflow_dispatch' && github.event.inputs.rotate != '0' && github.event.inputs.rotate != '')
+        env:
+          ROTATE_COUNT: ${{ github.event_name == 'schedule' && '7' || github.event.inputs.rotate }}
         run: |
           python update_exchange_rates.py
-          python daily_rotator.py --count 7
+          python daily_rotator.py --count "$ROTATE_COUNT"
           python dealvault_pipeline.py --offline
       - name: Standard build without marketplace access
         if: github.event_name != 'pull_request' && github.event_name != 'schedule' && (github.event_name != 'workflow_dispatch' || github.event.inputs.rotate == '0' || github.event.inputs.rotate == '')
         run: |
           python update_exchange_rates.py
           python dealvault_pipeline.py --offline
+      - name: Headless browser checks
+        run: python tests/browser_qa.py --output .qa
       - name: Archive the public artifact
         if: github.event_name != 'schedule'
         uses: actions/upload-artifact@v4
@@ -71,8 +75,6 @@ jobs:
           name: dealvault-public-site
           path: dist/
           retention-days: 3
-      - name: Headless browser checks
-        run: python tests/browser_qa.py --output .qa
       - name: Save the tested catalog before publishing it
         if: github.event_name != 'pull_request'
         run: |

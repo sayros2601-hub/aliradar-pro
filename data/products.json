@@ -99,12 +99,12 @@
     {
       "id": "under10",
       "icon": "💰",
-      "name": "מציאות עד ₪35",
+      "name": "פריטים נוספים",
       "name_i18n": {
-        "en": "Budget finds",
-        "ru": "Недорогие находки",
-        "he": "מציאות קטנות",
-        "es": "Ideas económicas"
+        "en": "More everyday finds",
+        "ru": "Ещё полезные вещи",
+        "he": "פריטים נוספים",
+        "es": "Más ideas útiles"
       }
     }
   ],
@@ -2935,7 +2935,7 @@
       "title_i18n": {
         "en": "KOVA P80 120000RPM Cordless Air Duster 5200mAh Turbo Blower 4-Speed LED Dus",
         "ru": "KOVA P80 120000 об/мин Аккумуляторный воздушный пылесос 5200 мАч Турбовентилятор 4-скоростной светодиодный светильник",
-        "es": "Gadget Inteligente: KOVA P80 120000RPM Cordless Air Duster 5",
+        "es": "Soplador de aire inalámbrico KOVA P80, 120000 RPM, 5200 mAh y 4 velocidades",
         "he": "KOVA P80 120000RPM דוסטר אוויר אלחוטי 5200mAh מפוח טורבו 4 מהירויות LED Dus"
       },
       "price_usd": 53.2841,
@@ -2962,6 +2962,11 @@
         "he": {
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
           "product_claims_verified": false
         }
       }
@@ -3001,7 +3006,7 @@
       "title_i18n": {
         "en": "65W USB-C GaN Charger with Foldable US Plug & Detachable EU/UK/AU Plugs",
         "ru": "Зарядное устройство USB-C GaN мощностью 65 Вт со складной вилкой стандарта США и съемными вилками стандарта ЕС/Великобритании/Австралии",
-        "es": "Gadget Inteligente: 65W USB-C GaN Charger with Foldable US P",
+        "es": "Cargador GaN USB-C de 65 W con enchufe estadounidense plegable y adaptadores EU/UK/AU",
         "he": "מטען USB-C GaN 65W עם תקע ארה\"ב מתקפל ותקעי EU/UK/AU ניתנים להסרה"
       },
       "price_usd": 21.3214,
@@ -3029,6 +3034,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3040,7 +3050,7 @@
       "title_i18n": {
         "en": "65W GaN Dual Port Ultra Thin Charger, Fast USB C Charging Block for MacBook",
         "ru": "Сверхтонкое зарядное устройство GaN с двумя портами, 65 Вт, быстрый зарядный блок USB C для MacBook",
-        "es": "Gadget Inteligente: 65W GaN Dual Port Ultra Thin Charger, Fa",
+        "es": "Cargador GaN ultrafino de 65 W con dos puertos y carga USB-C para MacBook",
         "he": "65W GaN Dual Port מטען דק במיוחד, בלוק טעינה USB C מהיר עבור MacBook"
       },
       "price_usd": 21.9685,
@@ -3067,6 +3077,11 @@
         "he": {
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
           "product_claims_verified": false
         }
       }
@@ -3133,7 +3148,7 @@
       "title_i18n": {
         "en": "4K 60Hz Type C to HDMI Adapter USB 3.1 HUB HDTV Converter Cable for iPhone",
         "ru": "Адаптер 4K 60 Гц типа C к HDMI Кабель-конвертер USB 3.1 HUB HDTV для iPhone",
-        "es": "Gadget Inteligente: 4K 60Hz  Type C to HDMI Adapter USB 3.1 ",
+        "es": "Adaptador USB-C a HDMI 4K a 60 Hz con concentrador USB 3.1 para iPhone",
         "he": "4K 60Hz Type C ל-HDMI מתאם USB 3.1 HUB HDTV ממיר כבל לאייפון"
       },
       "price_usd": 4.2352,
@@ -3161,6 +3176,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3172,7 +3192,7 @@
       "title_i18n": {
         "en": "For Steam Deck Docking Station 5 in 1 Dock Holder Hub USB C to 4K@60Hz HDM1",
         "ru": "Для док-станции Steam Deck Держатель док-станции 5 в 1 Концентратор USB C до 4K при 60 Гц HDM1",
-        "es": "Gadget Inteligente: For Steam Deck Docking Station 5 in 1 Do",
+        "es": "Base de conexión 5 en 1 para Steam Deck con USB-C y HDMI 4K a 60 Hz",
         "he": "עבור תחנת עגינה לסיפון Steam 5 ב-1 רכזת מחזיק עגינה USB C ל-4K@60Hz HDM1"
       },
       "price_usd": 16.1739,
@@ -3200,6 +3220,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3211,7 +3236,7 @@
       "title_i18n": {
         "en": "16A Tuya Wifi Socket Us Plug Outlet Timing Smart Life App Wall Electrical",
         "ru": "Розетка Tuya Wi-Fi 16А, вилка для США, синхронизация, приложение Smart Life, настенное электрическое оборудование",
-        "es": "Gadget Inteligente: 16A Tuya Wifi Socket Us Plug Outlet Timi",
+        "es": "Enchufe inteligente Tuya Wi-Fi de 16 A con clavija estadounidense y aplicación Smart Life",
         "he": "16A Tuya Wifi Socket Us Plug Outlet תזמון Smart Life App קיר חשמלי"
       },
       "price_usd": 20.1858,
@@ -3239,6 +3264,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3250,7 +3280,7 @@
       "title_i18n": {
         "en": "HomeKit US Round Smart Plug 10A WiFi Socket, Siri Alexa Google Home Voice",
         "ru": "HomeKit, круглая умная розетка Wi-Fi, США, 10 А, Siri Alexa, Google Home Voice",
-        "es": "Gadget Inteligente: HomeKit US Round Smart Plug 10A WiFi Soc",
+        "es": "Enchufe inteligente redondo HomeKit de 10 A con Wi-Fi para Siri, Alexa y Google Home",
         "he": "שקע חכם עגול בתקן אמריקאי HomeKit עם Wi-Fi, עד 10A"
       },
       "price_usd": 6.3382,
@@ -3277,6 +3307,11 @@
         "he": {
           "method": "editorial_translation_of_imported_title",
           "observed_at": "2026-10-23T15:42:40+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
           "product_claims_verified": false
         }
       }
@@ -3357,7 +3392,7 @@
       "title_i18n": {
         "en": "1.5L Cat Water Fountain 2026 New Ultra Quiet Circulating Filter Automatic",
         "ru": "Фонтан для кошек объемом 1,5 л 2026 Новый ультра тихий циркуляционный фильтр автоматический",
-        "es": "Gadget Inteligente: 1.5L Cat Water Fountain 2026 New Ultra Q",
+        "es": "Fuente automática para gatos de 1,5 litros con filtro de circulación",
         "he": "מזרקת מים לחתול 1.5 ליטר 2026 מסנן מחזורי חדש במיוחד שקט במיוחד"
       },
       "price_usd": 9.8972,
@@ -3385,6 +3420,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3396,7 +3436,7 @@
       "title_i18n": {
         "en": "Automatic Water Dispenser Special Filters for 7L Pet Water Feeder",
         "ru": "Специальные фильтры автоматического диспенсера для воды для устройства подачи воды для домашних животных на 7 л",
-        "es": "Gadget Inteligente: 6/12pcs Automatic Water Dispenser Specia",
+        "es": "Filtros de recambio para dispensador de agua para mascotas de 7 litros",
         "he": "מתקן מים אוטומטי מסננים מיוחדים למזין מים לחיות מחמד 7 ליטר"
       },
       "price_usd": 9.1854,
@@ -3424,6 +3464,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3435,7 +3480,7 @@
       "title_i18n": {
         "en": "Interactive Automatic LED Laser Toy for Cats Multi-Angle Rotating Funny Exe",
         "ru": "Интерактивная автоматическая светодиодная лазерная игрушка для кошек, вращающаяся под разными углами, забавная Exe",
-        "es": "Gadget Inteligente: Interactive Automatic LED Laser Toy for ",
+        "es": "Juguete láser LED automático para gatos con rotación en varios ángulos",
         "he": "צעצוע לייזר LED אוטומטי אינטראקטיבי לחתולים מרובה זוויות מסתובב Funny Exe"
       },
       "price_usd": 26.9802,
@@ -3463,6 +3508,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3474,7 +3524,7 @@
       "title_i18n": {
         "en": "Interactive Cat Toy Gun: Engaging Laser Chase & Feathery Fun for Energetic",
         "ru": "Интерактивный игрушечный пистолет для кошек: захватывающая лазерная погоня и веселье с перьями для энергичных",
-        "es": "Gadget Inteligente: Interactive Cat Toy Gun: Engaging Laser ",
+        "es": "Juguete interactivo para gatos con láser y plumas",
         "he": "אקדח צעצוע חתולים אינטראקטיבי: מרדף לייזר מרתק וכיף נוצה לאנרגטיים"
       },
       "price_usd": 1.7115,
@@ -3501,6 +3551,11 @@
         "he": {
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
           "product_claims_verified": false
         }
       }
@@ -3540,7 +3595,7 @@
       "title_i18n": {
         "en": "L30 L50P Mini Laser Distance Meter USB-C Rechargeable 30m 50m Digital Range",
         "ru": "L30 L50P Мини-лазерный дальномер USB-C перезаряжаемый цифровой диапазон 30 м 50 м",
-        "es": "Gadget Inteligente: L30 L50P Mini Laser Distance Meter USB-C",
+        "es": "Medidor láser de distancia L30/L50P de 30 o 50 metros, recargable por USB-C",
         "he": "L30 L50P מד מרחק לייזר מיני USB-C נטענת 30 מ' 50 מ' טווח דיגיטלי"
       },
       "price_usd": 19.9593,
@@ -3568,6 +3623,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3579,7 +3639,7 @@
       "title_i18n": {
         "en": "Mini Printer for IPhone and Android, Wireless Mini Photo Printer Label Prin",
         "ru": "Портативный мини-термопринтер",
-        "es": "Gadget Inteligente: Mini Printer for IPhone and Android, Wir",
+        "es": "Miniimpresora inalámbrica de fotos y etiquetas para iPhone y Android",
         "he": "מדפסת מיני לאייפון ואנדרואיד, מדפסת מיני אלחוטית לצילום תווית Prin"
       },
       "price_usd": 5.2058,
@@ -3602,6 +3662,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3613,7 +3678,7 @@
       "title_i18n": {
         "en": "Smart AI Voice Mini Thermal Printer Red Box BT WiFi Pocket Sticker Maker",
         "ru": "Портативный мини-термопринтер",
-        "es": "Gadget Inteligente: Smart AI Voice Mini Thermal Printer Red ",
+        "es": "Miniimpresora térmica de bolsillo con Bluetooth, Wi-Fi y control de voz",
         "he": "מדפסת תרמית מיני ניידת למדבקות עם Bluetooth ו-Wi-Fi"
       },
       "price_usd": 35.8129,
@@ -3635,6 +3700,11 @@
         "he": {
           "method": "editorial_translation_of_imported_title",
           "observed_at": "2026-10-23T15:42:40+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
           "product_claims_verified": false
         }
       }
@@ -3674,7 +3744,7 @@
       "title_i18n": {
         "en": "New Mini Portable Fan Portable Rechargeable Bladeless Turbo Ultra Quiet Stu",
         "ru": "Новый мини-портативный вентилятор, портативный перезаряжаемый безлопастной турбо-ультратихийный вентилятор",
-        "es": "Gadget Inteligente: New Mini Portable Fan Portable Rechargea",
+        "es": "Miniventilador portátil sin aspas, recargable",
         "he": "חדש מיני נייד מאוורר נייד נטענת ללא להבים Turbo Ultra Quiet Stu"
       },
       "price_usd": 12.2267,
@@ -3702,6 +3772,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3713,7 +3788,7 @@
       "title_i18n": {
         "en": "Desktop Magnetic Wire Organizer Storage Buckle Charging Cable Bedside Cable",
         "ru": "Настольный органайзер с магнитной проволокой, пряжка для хранения, зарядный кабель, прикроватный кабель",
-        "es": "Gadget Inteligente: Desktop Magnetic Wire Organizer Storage ",
+        "es": "Organizador magnético de cables para escritorio o mesita de noche",
         "he": "ארגונית חוט מגנטי שולחני אבזם אחסון כבל טעינה כבל ליד המיטה"
       },
       "price_usd": 2.556,
@@ -3741,6 +3816,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3752,7 +3832,7 @@
       "title_i18n": {
         "en": "Self Adhesive Cable Clips Cord Management Wire Organizers Desk Tidy Clamp",
         "ru": "Самоклеящиеся кабельные зажимы, органайзеры для проводов, аккуратный зажим для стола",
-        "es": "Gadget Inteligente: Self Adhesive Cable Clips Cord Managemen",
+        "es": "Clips autoadhesivos para organizar cables en el escritorio",
         "he": "תפסי כבל דביקים עצמיים ניהול חוט ארגוניות שולחן כתיבה מסודר מהדק"
       },
       "price_usd": 1.1292,
@@ -3780,6 +3860,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3791,7 +3876,7 @@
       "title_i18n": {
         "en": "4-in-1 Smart CarPlay Adapter 2026 Upgraded Version, Wireless Bluetooth Scre",
         "ru": "Адаптер Smart CarPlay 4-в-1, обновленная версия 2026 года, беспроводной Bluetooth Scre",
-        "es": "Gadget Inteligente: 4-in-1 Smart CarPlay Adapter 2026 Upgrad",
+        "es": "Adaptador inalámbrico CarPlay 4 en 1 con Bluetooth, versión 2026",
         "he": "מתאם אלחוטי לרכב CarPlay / Android Auto"
       },
       "price_usd": 17.7625,
@@ -3814,6 +3899,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:38:33+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3825,7 +3915,7 @@
       "title_i18n": {
         "en": "2 In 1 Wireless Plug&Play Carbitlink Adapter To Carplay Android Auto Dongle",
         "ru": "Беспроводной адаптер Carbitlink Plug&Play 2 в 1 для автоматического ключа Carplay Android",
-        "es": "Gadget Inteligente: 2 In 1 Wireless Plug&Play Carbitlink Ada",
+        "es": "Adaptador inalámbrico Carbitlink 2 en 1 para CarPlay y Android Auto",
         "he": "מתאם אלחוטי לרכב CarPlay / Android Auto"
       },
       "price_usd": 104.1482,
@@ -3848,6 +3938,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:38:33+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3859,7 +3954,7 @@
       "title_i18n": {
         "en": "Car Interior Ambient Foot Strip Light Neon LED Kit Accessories Backlight",
         "ru": "Интерьер автомобиля окружающая полоса света для ног неоновый светодиодный комплект аксессуары подсветка",
-        "es": "Gadget Inteligente: Car Interior Ambient Foot Strip Light Ne",
+        "es": "Kit de tiras LED de iluminación ambiental para el interior del coche",
         "he": "רכב פנים רכב רצועת רגל אור ניאון ערכת LED אביזרי תאורה אחורית"
       },
       "price_usd": 7.7618,
@@ -3887,6 +3982,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3898,7 +3998,7 @@
       "title_i18n": {
         "en": "Car Underglow Neon Light Flexible LED Strip Underbody Remote/APP Control",
         "ru": "Автомобильная подсветка неонового света Гибкая светодиодная лента под днищем автомобиля Дистанционное управление/управление через приложение",
-        "es": "Gadget Inteligente: Car Underglow Neon Light Flexible LED St",
+        "es": "Tira LED flexible para los bajos del coche con control remoto o por aplicación",
         "he": "לרכב Underglow אור ניאון גמיש רצועת LED תחתית מרכב/בקרת APP"
       },
       "price_usd": 16.1092,
@@ -3926,6 +4026,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3937,7 +4042,7 @@
       "title_i18n": {
         "en": "Creepy Ghost Hand Light Car SunShade Windshield Funny Sun Shade Foldable",
         "ru": "Жуткий призрак ручной светильник автомобильный козырек от солнца на лобовом стекле забавный складной козырек от солнца",
-        "es": "Gadget Inteligente: Creepy Ghost Hand Light Car SunShade Win",
+        "es": "Parasol plegable de parabrisas con diseño de mano fantasma",
         "he": "Creepy Ghost Hand Light Car SunShade שמשה קדמית Funny Sun Shade מתקפל"
       },
       "price_usd": 12.0972,
@@ -3965,6 +4070,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -3976,7 +4086,7 @@
       "title_i18n": {
         "en": "S-Spirited Away Fashion Cute Summer Car Sunshade Front Windshield Sunshade",
         "ru": "Складной зонт-шторка от солнца на лобовое стекло",
-        "es": "Gadget Inteligente: S-Spirited Away Fashion Cute Summer Car ",
+        "es": "Parasol de parabrisas para coche con diseño inspirado en El viaje de Chihiro",
         "he": "S-Spirited Away Fashion חמוד קיץ שמשייה לרכב שמשיה קדמית שמשיה קדמית"
       },
       "price_usd": 12.0325,
@@ -3999,6 +4109,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4010,7 +4125,7 @@
       "title_i18n": {
         "en": "For ZEEKR X 001 009 007 2022 2023 2024 suede Car Seat Sewn Gap Crevice Slot",
         "ru": "Для ZEEKR X 001 009 007 2022 2023 2024 замшевое автокресло с прошитым зазором, щелевой прорезью",
-        "es": "Gadget Inteligente: For ZEEKR X 001 009 007 2022 2023 2024 s",
+        "es": "Accesorio de ante para el hueco del asiento de ZEEKR X, 001, 009 y 007",
         "he": "עבור ZEEKR X 001 009 007 2022 2023 2024 זמש לרכב מושב רכב תפור חריץ חריץ"
       },
       "price_usd": 19.3802,
@@ -4038,6 +4153,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4049,7 +4169,7 @@
       "title_i18n": {
         "en": "1 Pair Waterproof Car Seat Gap Plug Strip Car Seat Gap Filler Organizer wit",
         "ru": "Органайзер в щель между сиденьями авто",
-        "es": "Gadget Inteligente: 1 Pair Waterproof Car Seat Gap Plug Stri",
+        "es": "Par de tiras impermeables para rellenar el hueco del asiento del coche",
         "he": "1 זוג עמיד למים מושב בטיחות מרווח תקע רצועת מושב רכב ארגונית מילוי מרווח שנינות"
       },
       "price_usd": 5.6264,
@@ -4072,6 +4192,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4083,7 +4208,7 @@
       "title_i18n": {
         "en": "Tuya WiFi Zigbee Water Sensor Smart Leak Detector Flood Water Leakage Alarm",
         "ru": "Датчик воды Tuya WiFi Zigbee, умный детектор утечек, сигнализация об утечке паводковой воды",
-        "es": "Gadget Inteligente: Tuya WiFi Zigbee Water Sensor Smart Leak",
+        "es": "Detector inteligente de fugas de agua Tuya Wi-Fi/Zigbee",
         "he": "Tuya WiFi Zigbee חיישן מים חכם גלאי דליפות אזעקה לנזילת מים"
       },
       "price_usd": 6.3673,
@@ -4111,6 +4236,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4122,7 +4252,7 @@
       "title_i18n": {
         "en": "KONLEN Tuya Water Level Sensor WIFI Controller Smart Home Leakage Flood Ala",
         "ru": "KONLEN Tuya Датчик уровня воды WIFI Контроллер Умный дом Утечка Наводнение Ала",
-        "es": "Gadget Inteligente: KONLEN Tuya Water Level Sensor WIFI Cont",
+        "es": "Sensor de nivel de agua y controlador Wi-Fi KONLEN Tuya",
         "he": "KONLEN Tuya חיישן מפלס מים בקר WIFI דליפת בית חכם הצפה עלא"
       },
       "price_usd": 55.6169,
@@ -4150,6 +4280,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4161,7 +4296,7 @@
       "title_i18n": {
         "en": "WiFi Temperature Humidity Sensor with Backlit LCD Smart Life App Indoor The",
         "ru": "Беспроводной датчик температуры и влажности с LCD",
-        "es": "Gadget Inteligente: WiFi Temperature Humidity Sensor with Ba",
+        "es": "Sensor Wi-Fi de temperatura y humedad con pantalla LCD retroiluminada y Smart Life",
         "he": "חיישן לחות טמפרטורת WiFi עם תאורה אחורית LCD Smart Life אפליקציית Indoor The"
       },
       "price_usd": 15.7209,
@@ -4184,6 +4319,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4195,7 +4335,7 @@
       "title_i18n": {
         "en": "ORYZIC WiFi Temperature Humidity Sensor LCD Indoor Thermometer Hygrometer",
         "ru": "Беспроводной датчик температуры и влажности с LCD",
-        "es": "Gadget Inteligente: ORYZIC WiFi Temperature Humidity Sensor ",
+        "es": "Termómetro e higrómetro interior ORYZIC con Wi-Fi y pantalla LCD",
         "he": "ORYZIC WiFi חיישן לחות טמפרטורה LCD מדחום מקורה מד לחות"
       },
       "price_usd": 11.5149,
@@ -4218,6 +4358,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4229,7 +4374,7 @@
       "title_i18n": {
         "en": "Smart Electric Curtain Robot Track Motor Remote Control Home Electric Drive",
         "ru": "Умный электропривод для штор с авто-открытием",
-        "es": "Gadget Inteligente: Smart Electric Curtain Robot Track Motor",
+        "es": "Motor inteligente para cortinas con control remoto",
         "he": "וילון חשמלי חכם רובוט מסלול מנוע שלט רחוק כונן חשמלי ביתי"
       },
       "price_usd": 16.1092,
@@ -4252,6 +4397,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4263,7 +4413,7 @@
       "title_i18n": {
         "en": "A02M-WIFI Smart Electric Curtain Robot Timing Auto Opener Voice Control Rem",
         "ru": "Умный электропривод для штор с авто-открытием",
-        "es": "Gadget Inteligente: A02M-WIFI Smart Electric Curtain Robot T",
+        "es": "Motor inteligente para cortinas A02M-WIFI con temporizador y control por voz",
         "he": "A02M-WIFI חכם וילון חשמלי רובוט תזמון אוטומטי פותחן שליטה קולית Rem"
       },
       "price_usd": 60.4021,
@@ -4286,6 +4436,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4297,7 +4452,7 @@
       "title_i18n": {
         "en": "RGB Wireless Wall Lamp LED Night Light Rechargeable Magnetic Sunset Lamp",
         "ru": "Беспроводной настенный светильник RGB, светодиодный ночник, перезаряжаемая магнитная лампа заката",
-        "es": "Gadget Inteligente: RGB Wireless Wall Lamp LED Night Light R",
+        "es": "Lámpara de pared RGB inalámbrica, recargable y magnética",
         "he": "מנורת קיר אלחוטית RGB LED מנורת לילה נטענת מנורת שקיעה מגנטית"
       },
       "price_usd": 4.3322,
@@ -4325,6 +4480,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4336,7 +4496,7 @@
       "title_i18n": {
         "en": "USB Rechargeable LED Night Light with Switch, Motion Sensor Magnetic Wirele",
         "ru": "Перезаряжаемый USB светодиодный ночник с переключателем, магнитным датчиком движения Wirele",
-        "es": "Gadget Inteligente: USB Rechargeable LED Night Light with Sw",
+        "es": "Luz nocturna LED recargable por USB con interruptor, sensor de movimiento y base magnética",
         "he": "מנורת לילה LED נטענת USB עם מתג, חוט מגנטי של חיישן תנועה"
       },
       "price_usd": 2.9086,
@@ -4364,6 +4524,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4375,7 +4540,7 @@
       "title_i18n": {
         "en": "Wireless Charging RGB Gaming Mouse Pad, LED Mouse Pad 800x300x4MM, 14 Light",
         "ru": "Игровой коврик для мыши RGB с беспроводной зарядкой, коврик для мыши со светодиодной подсветкой, 800x300x4 мм, 14 лампочек",
-        "es": "Gadget Inteligente: Wireless Charging RGB Gaming Mouse Pad, ",
+        "es": "Alfombrilla gaming RGB con carga inalámbrica, 800 × 300 × 4 mm",
         "he": "משטח עכבר לטעינה אלחוטי RGB Gaming, Pad עכבר LED 800x300x4MM, 14 אור"
       },
       "price_usd": 45.9106,
@@ -4403,6 +4568,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4414,7 +4584,7 @@
       "title_i18n": {
         "en": "Super Sale RGB Wireless Charging Mouse Pad Desk Carpet Mouse Mat Gaming Lap",
         "ru": "Суперраспродажа RGB коврик для мыши с беспроводной зарядкой, настольный ковер, коврик для мыши, игровой коврик",
-        "es": "Gadget Inteligente: Super Sale RGB Wireless Charging Mouse P",
+        "es": "Alfombrilla de escritorio RGB con carga inalámbrica",
         "he": "סופר סייל RGB משטח עכבר לטעינה אלחוטית שטיח עכבר שטיח מחצלת משחק"
       },
       "price_usd": 28.5979,
@@ -4442,6 +4612,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4453,7 +4628,7 @@
       "title_i18n": {
         "en": "Foldable Magnetic Laptop Stand Aluminum Alloy Portable Adjustable Stand Hea",
         "ru": "Складная магнитная подставка для ноутбука, портативная регулируемая подставка из алюминиевого сплава Hea",
-        "es": "Gadget Inteligente: Foldable Magnetic Laptop Stand Aluminum ",
+        "es": "Soporte magnético plegable y ajustable para portátil, de aleación de aluminio",
         "he": "מעמד מגנטי מתקפל למחשב נייד סגסוגת אלומיניום מעמד נייד מתכוונן Hea"
       },
       "price_usd": 10.0427,
@@ -4481,6 +4656,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4492,7 +4672,7 @@
       "title_i18n": {
         "en": "ORICO 360° Adjustable Notebook Stand Laptop Stand Foldable Aluminum Alloy",
         "ru": "ORICO Регулируемая на 360° подставка для ноутбука Подставка для ноутбука Складная подставка из алюминиевого сплава",
-        "es": "Gadget Inteligente: ORICO 360° Adjustable Notebook Stand Lap",
+        "es": "Soporte ORICO plegable de aluminio para portátil con ajuste de 360 grados",
         "he": "מעמד למחשב נייד מתכוונן 360° ORICO מעמד למחשב נייד סגסוגת אלומיניום מתקפלת"
       },
       "price_usd": 75.835,
@@ -4519,6 +4699,11 @@
         "he": {
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
           "product_claims_verified": false
         }
       }
@@ -4585,7 +4770,7 @@
       "title_i18n": {
         "en": "2 In 1 Car Wireless Bluetooth 5.0 Transmitter 3.5mm Jack AUX Audio Car Audi",
         "ru": "2 в 1 автомобильный беспроводной передатчик Bluetooth 5.0 с разъемом 3,5 мм AUX Audio Car Audi",
-        "es": "Gadget Inteligente: 2 In 1 Car Wireless Bluetooth 5.0 Transm",
+        "es": "Transmisor Bluetooth 5.0 de audio 2 en 1 para coche con conector AUX de 3,5 mm",
         "he": "2 ב-1 רכב אלחוטי Bluetooth 5.0 משדר 3.5 מ\"מ ג'ק AUX אודיו לרכב אאודי"
       },
       "price_usd": 2.7469,
@@ -4613,6 +4798,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4624,7 +4814,7 @@
       "title_i18n": {
         "en": "Car Bluetooth 5.0 Receiver Handsfree 3.5mm Jack Stereo Music Audio Car Tran",
         "ru": "Автомобильный приемник Bluetooth 5.0, громкая связь, разъем 3,5 мм, стерео музыка, аудио, автомобильный тран",
-        "es": "Gadget Inteligente: Car Bluetooth 5.0 Receiver Handsfree 3.5",
+        "es": "Receptor Bluetooth 5.0 para coche con manos libres y conector de 3,5 mm",
         "he": "מקלט Bluetooth 5.0 לרכב דיבורית 3.5 מ\"מ ג'ק סטריאו מוזיקה אודיו רכב טראן"
       },
       "price_usd": 3.0057,
@@ -4652,6 +4842,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4663,7 +4858,7 @@
       "title_i18n": {
         "en": "ROJECO Pet Steam Comb Cat Electric Spray Brushes for Dog Hair Removal Combs",
         "ru": "Паровая расческа для домашних животных ROJECO, электрические распылительные щетки для кошек, расчески для удаления шерсти собак",
-        "es": "Gadget Inteligente: ROJECO Pet Steam Comb Cat Electric Spray",
+        "es": "Cepillo eléctrico ROJECO con pulverizador para gatos y perros",
         "he": "ROJECO Pet Steam Comb Cat מברשות ספריי חשמליות למסרקים להסרת שיער לכלבים"
       },
       "price_usd": 19.5387,
@@ -4691,6 +4886,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4702,7 +4902,7 @@
       "title_i18n": {
         "en": "Cat Steam Brush Comb Hair Dryers Pet Brush Electric Spray Brushes Massage",
         "ru": "Паровая щетка-дешеддер для вычесывания кошек и собак",
-        "es": "Gadget Inteligente: Cat Steam Brush Comb Hair Dryers Pet Bru",
+        "es": "Cepillo eléctrico con pulverizador y función de masaje para mascotas",
         "he": "מברשת קיטור חתול מסרק מייבשי שיער לחיות מחמד מברשת ריסוס חשמלי מברשות עיסוי"
       },
       "price_usd": 4.0734,
@@ -4725,6 +4925,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4736,7 +4941,7 @@
       "title_i18n": {
         "en": "Pet Silicone Paw Cleaner Cup Portable Dog Cat Foot Washer Soft Silicone Cle",
         "ru": "Силиконовая чашка для чистки лап для домашних животных, портативная мойка для ног для собак и кошек, мягкий силикон Cle",
-        "es": "Gadget Inteligente: Pet Silicone Paw Cleaner Cup Portable Do",
+        "es": "Vaso portátil de silicona para limpiar las patas de perros y gatos",
         "he": "כוס לניקוי כפות מחמד סיליקון נייד כלב חתול מכונת כביסה רך סיליקון Cle"
       },
       "price_usd": 4.2999,
@@ -4764,6 +4969,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4775,7 +4985,7 @@
       "title_i18n": {
         "en": "6L Double Bowl Tuya Smart WIFi Pet Feeder Automatic Cat Dog Slow Food Machi",
         "ru": "Умная кормушка для домашних животных с двойной чашей Tuya, 6 л, Wi-Fi, автоматическая кормушка для кошек и собак Slow Food Machi",
-        "es": "Gadget Inteligente: 6L Double Bowl Tuya Smart WIFi Pet Feede",
+        "es": "Comedero automático Tuya Wi-Fi de 6 litros con dos cuencos para mascotas",
         "he": "קערה זוגית 6 ליטר Tuya Smart WiFi מזין לחיות מחמד אוטומטי חתול כלב מאצי סלואו פוד"
       },
       "price_usd": 69.7719,
@@ -4803,6 +5013,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4814,7 +5029,7 @@
       "title_i18n": {
         "en": "HOT 4L Dual Bowl Automatic Pet Feeder with Double Camera and Wifi Plastic",
         "ru": "Умная автоматическая кормушка для питомцев",
-        "es": "Gadget Inteligente: HOT 4L Dual Bowl Automatic Pet Feeder wi",
+        "es": "Comedero automático de 4 litros con dos cuencos, doble cámara y Wi-Fi",
         "he": "מאכיל חיות מחמד אוטומטי 4L כפול עם מצלמה כפולה ו-Wifi פלסטיק"
       },
       "price_usd": 72.4411,
@@ -4837,6 +5052,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4848,7 +5068,7 @@
       "title_i18n": {
         "en": "4 Sides*360 Degree Vertical Laser Level Green Beam Self-leveling Vertical 1",
         "ru": "Лазерный уровень нивелир 360° с зеленым лучом",
-        "es": "Gadget Inteligente: 4 Sides*360 Degree Vertical Laser Level ",
+        "es": "Nivel láser de haz verde con autonivelación y cobertura de 360 grados",
         "he": "4 צדדים*360 מעלות אנכית ברמת לייזר קרן ירוקה פילוס עצמי אנכי 1"
       },
       "price_usd": 56.264,
@@ -4871,6 +5091,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4882,7 +5107,7 @@
       "title_i18n": {
         "en": "Pracmanu Mini Laser Level 12 Lines 3D level Self-Leveling 360° Horizontal",
         "ru": "Лазерный уровень нивелир 360° с зеленым лучом",
-        "es": "Gadget Inteligente: Pracmanu Mini Laser Level 12 Lines 3D le",
+        "es": "Mininivel láser Pracmanu 3D de 12 líneas con autonivelación de 360 grados",
         "he": "Pracmanu מיני לייזר ברמה 12 קווים רמת תלת מימד פילוס עצמי 360° אופקי"
       },
       "price_usd": 38.4012,
@@ -4905,6 +5130,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4916,7 +5146,7 @@
       "title_i18n": {
         "en": "VICTOR 606D 3999 Counts LCD Display True RMS Smart Digital Clamp Multimeter",
         "ru": "VICTOR 606D 3999 отсчетов с ЖК-дисплеем и интеллектуальными цифровыми клещами True RMS",
-        "es": "Gadget Inteligente: VICTOR 606D 3999 Counts LCD Display True",
+        "es": "Pinza multímetro digital VICTOR 606D True RMS con pantalla LCD de 3999 cuentas",
         "he": "VICTOR 606D 3999 ספירות תצוגת LCD True RMS מודד מהדק דיגיטלי חכם"
       },
       "price_usd": 49.4696,
@@ -4944,6 +5174,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4955,7 +5190,7 @@
       "title_i18n": {
         "en": "BSIDE A1X USB Charge Smart Digital Multimeter LCD Non-Contact AC DC Voltage",
         "ru": "Цифровой умный мультиметр с авто-диапазоном",
-        "es": "Gadget Inteligente: BSIDE A1X USB Charge Smart Digital Multi",
+        "es": "Multímetro digital BSIDE A1X recargable por USB con detección de tensión sin contacto",
         "he": "BSIDE A1X USB טעינת מודד דיגיטלי חכם LCD ללא מגע AC DC מתח"
       },
       "price_usd": 16.7562,
@@ -4978,6 +5213,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -4989,7 +5229,7 @@
       "title_i18n": {
         "en": "Multifunctional Hand Tool Electrician Wire Plier Cable Wire Stripper Cutter",
         "ru": "Многофункциональный ручной инструмент электрик плоскогубцы кабель для зачистки проводов резак",
-        "es": "Gadget Inteligente: Multifunctional Hand Tool Electrician Wi",
+        "es": "Alicates multifunción para electricista con pelacables y cortacables",
         "he": "כלי יד רב תכליתי חשמלאי תיל פלייר חותך חוטי חוט"
       },
       "price_usd": 11.709,
@@ -5017,6 +5257,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5028,7 +5273,7 @@
       "title_i18n": {
         "en": "Automatic 5-in-1 Wire Stripper Multitool Electrician Repair Pliers - Stripp",
         "ru": "Автоматические щипцы для зачистки проводов 5-в-1, многофункциональные клещи для ремонта электрики — зачистка",
-        "es": "Gadget Inteligente: Automatic 5-in-1 Wire Stripper Multitool",
+        "es": "Alicates pelacables automáticos 5 en 1 para reparaciones eléctricas",
         "he": "צבת לתיקון חשמלאי חשמל 5 ב-1 אוטומטית 5 ב-1 - Stripp"
       },
       "price_usd": 15.0738,
@@ -5056,6 +5301,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5067,7 +5317,7 @@
       "title_i18n": {
         "en": "Smart Tag GPS Tracker Works with Google & iOS Find My Dual System Bluetooth",
         "ru": "GPS-трекер Smart Tag работает с Google и iOS Find My Dual System Bluetooth",
-        "es": "Gadget Inteligente: Smart Tag GPS Tracker Works with Google ",
+        "es": "Localizador Bluetooth Smart Tag para sistemas de búsqueda de Google e iOS",
         "he": "Smart Tag GPS Tracker עובד עם Google ו- iOS Find My Dual System Bluetooth"
       },
       "price_usd": 5.4323,
@@ -5095,6 +5345,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5106,7 +5361,7 @@
       "title_i18n": {
         "en": "Lenovo Mini GPS Tracker Smart Anti-Lost Device Bluetooth 5.0 Finder Air Tag",
         "ru": "Компактная метка Lenovo для поиска вещей по Bluetooth 5.0",
-        "es": "Gadget Inteligente: Lenovo Mini GPS Tracker Smart Anti-Lost ",
+        "es": "Localizador Bluetooth 5.0 Lenovo para encontrar objetos",
         "he": "תג איתור קטן של Lenovo עם Bluetooth 5.0"
       },
       "price_usd": 3.1675,
@@ -5134,6 +5389,11 @@
           "method": "editorial_translation_of_imported_title",
           "observed_at": "2026-10-23T15:42:40+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5145,7 +5405,7 @@
       "title_i18n": {
         "en": "Mini Portable Heat Sealing Machine Food Vacuum Sealer Seal Packing Plastic",
         "ru": "Мини-портативная машина для термосварки пищевых продуктов, вакуумный упаковщик, пластиковая упаковка",
-        "es": "Gadget Inteligente: Mini Portable Heat Sealing Machine Food ",
+        "es": "Miniselladora térmica portátil para bolsas de plástico y alimentos",
         "he": "מיני נייד מכונת איטום חום מזון ואקום אוטם אריזה פלסטיק"
       },
       "price_usd": 5.7235,
@@ -5173,6 +5433,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5184,7 +5449,7 @@
       "title_i18n": {
         "en": "Mini Vacuum Sealer, Heat Sealer And Cutter, Two-in-one Portable Heat Vacuum",
         "ru": "Мини-вакуумный упаковщик, термосварщик и резак, портативный термовакуум «два в одном»",
-        "es": "Gadget Inteligente: Mini Vacuum Sealer, Heat Sealer And Cutt",
+        "es": "Miniselladora térmica portátil 2 en 1 con cortador",
         "he": "מיני אוטם ואקום, אוטם חום וחותך, שואב חום נייד דו-באחד"
       },
       "price_usd": 9.0268,
@@ -5212,6 +5477,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5223,7 +5493,7 @@
       "title_i18n": {
         "en": "Bladeless Hanging Neck Fan, Portable USB Rechargeable Cooler Fan With 5 Win",
         "ru": "Портативный шейный вентилятор без лопастей",
-        "es": "Gadget Inteligente: Bladeless Hanging Neck Fan, Portable USB",
+        "es": "Ventilador de cuello portátil sin aspas, recargable por USB",
         "he": "מאוורר צוואר תלוי ללא להבים, מאוורר מצנן נייד USB נטענת עם 5 Win"
       },
       "price_usd": 4.8208,
@@ -5246,6 +5516,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5257,7 +5532,7 @@
       "title_i18n": {
         "en": "Bladeless Hanging Neck Fan, Portable USB Rechargeable Cooler Fan With 5 Win",
         "ru": "Портативный шейный вентилятор без лопастей",
-        "es": "Gadget Inteligente: Bladeless Hanging Neck Fan, Portable USB",
+        "es": "Ventilador de cuello portátil sin aspas, recargable por USB",
         "he": "מאוורר צוואר תלוי ללא להבים, מאוורר מצנן נייד USB נטענת עם 5 Win"
       },
       "price_usd": 16.4327,
@@ -5280,6 +5555,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5291,7 +5571,7 @@
       "title_i18n": {
         "en": "Y2k Sticker Nail Mini Ancient Animals Pvc Waterproof Cute Stytle",
         "ru": "Y2k наклейка для ногтей мини древние животные ПВХ водонепроницаемый милый стиль",
-        "es": "Gadget Inteligente: 2026 New Y2k Sticker Nail Mini Ancient A",
+        "es": "Pegatinas de PVC resistentes al agua con dibujos de animales",
         "he": "Y2k מדבקה נייל מיני חיות עתיקות Pvc עמיד למים בסגנון חמוד"
       },
       "price_usd": 1.5498,
@@ -5319,6 +5599,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5330,7 +5615,7 @@
       "title_i18n": {
         "en": "Cartoon Waterproof Phone Case Pouch Swimming Underwater Photography Air Cus",
         "ru": "Водонепроницаемый чехол для телефона с рисунком из мультфильма, чехол для плавания, подводной фотографии, Air Cus",
-        "es": "Gadget Inteligente: Cartoon Waterproof Phone Case Pouch Swim",
+        "es": "Funda impermeable para teléfono con dibujos, para natación y fotografía bajo el agua",
         "he": "נרתיק טלפון מצויר עמיד למים פאוץ שחייה תת מימי צילום Air Cus"
       },
       "price_usd": 1.8733,
@@ -5358,6 +5643,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5369,7 +5659,7 @@
       "title_i18n": {
         "en": "2 in 1 Spray Cleaner Wipe for Phone Screen Tablet Car Touchscreen Cleaning",
         "ru": "Очиститель-спрей 2 в 1, салфетка для очистки экрана телефона, планшета, сенсорного экрана автомобиля",
-        "es": "Gadget Inteligente: 2 in 1 Spray Cleaner Wipe for Phone Scre",
+        "es": "Limpiador de pantallas 2 en 1 con pulverizador y paño para teléfono, tableta y coche",
         "he": "מגבון מנקה ספריי 2 ב-1 לטלפון מסך טאבלט לרכב ניקוי מסך מגע לרכב"
       },
       "price_usd": 2.3586,
@@ -5396,6 +5686,11 @@
         "he": {
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
           "product_claims_verified": false
         }
       }
@@ -5435,7 +5730,7 @@
       "title_i18n": {
         "en": "Cable Protector Silicone Charging Cable USB Protection Sleeve Rope",
         "ru": "Защитный чехол для кабеля Силиконовый зарядный кабель Защитный рукав USB Веревка",
-        "es": "Gadget Inteligente: 10pcs Cable Protector Silicone Charging ",
+        "es": "Funda protectora de silicona para cable de carga USB",
         "he": "מגן כבלים כבל טעינה מסיליקון חבל שרוול הגנה USB"
       },
       "price_usd": 2.3586,
@@ -5463,6 +5758,11 @@
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
           "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
+          "product_claims_verified": false
         }
       }
     },
@@ -5474,7 +5774,7 @@
       "title_i18n": {
         "en": "Soft Silicone Spiral Cable Protector Flexible Wire Saver Anti Break Data",
         "ru": "Мягкий силиконовый спиральный протектор кабеля, гибкая проводная защита, анти-лом данных",
-        "es": "Gadget Inteligente: Soft Silicone Spiral Cable Protector Fle",
+        "es": "Protector flexible de silicona en espiral para cables",
         "he": "מגן כבל ספירלה סיליקון רך גמיש חוט חוסך נתונים נגד שבירה"
       },
       "price_usd": 2.8116,
@@ -5501,6 +5801,11 @@
         "he": {
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:41:54+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "editorial_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T18:28:52+00:00",
           "product_claims_verified": false
         }
       }

@@ -2,6 +2,7 @@
 import argparse
 import hashlib
 import re
+import json
 from pathlib import Path
 
 from dealvault_core import DATA_DIR, affiliate_key, read_json, write_json, utc_now
@@ -124,14 +125,19 @@ def stage_records(records, check_links=False, link_checker=None):
         inbox = read_queue(DATA_DIR / 'portals_inbox.json')
         existing = _catalog_keys(read_json(DATA_DIR / 'products.json'))
         existing.update(affiliate_key(_record_url(item)) for item in inbox)
+        observations = {item.get('capture_fingerprint') or observation_key(item) for item in inbox}
         added = []
         for raw in records:
             candidate = _candidate(raw)
             if candidate is None:
                 continue
             key = affiliate_key(candidate['affiliate_url'])
-            if key in existing:
+            observation = observation_key(candidate)
+            # A fresh timestamped capture can update evidence for an existing item.
+            # Undated legacy duplicates still cannot grow the queue on every run.
+            if observation in observations or (key in existing and not candidate.get('observed_at')):
                 continue
+            candidate['capture_fingerprint'] = observation
             check = (link_checker(candidate) if check_links
                      else {'status': 'UNCHECKED_OFFLINE', 'item_id': candidate['item_id']})
             if not isinstance(check, dict):
@@ -141,11 +147,21 @@ def stage_records(records, check_links=False, link_checker=None):
             inbox.append(candidate)
             added.append(candidate)
             existing.add(key)
+            observations.add(observation)
         if added:
             ensure_queue_size(inbox)
             write_json(DATA_DIR / 'portals_inbox.json', inbox)
     print(f'[Portals] Staged {len(added)} captured records for review. Live catalog unchanged.')
     return added
+
+
+def observation_key(record):
+    fields = ('affiliate_url', 'observed_at', 'raw_title', 'source_evidence', 'item_id',
+              'variant_id', 'currency', 'target_country', 'offer', 'fields', 'evidence',
+              'images', 'category', 'query', 'selection', 'ad_review', 'editorial',
+              'source_ref', 'source_kind', 'schema_version', 'missing_fields')
+    content = {key: record.get(key) for key in fields}
+    return hashlib.sha256(json.dumps(content, sort_keys=True, ensure_ascii=False, allow_nan=False).encode()).hexdigest()
 
 
 def main(argv=None):

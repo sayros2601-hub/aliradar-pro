@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 import re
 import tempfile
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from urllib.parse import urlparse
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -44,6 +44,8 @@ def write_json(path, value):
 
 def affiliate_key(url):
     """Validate shortlink shape; preserve all original tracking parameters."""
+    if not isinstance(url, str) or len(url) > 4096 or any(ord(c) <= 32 or ord(c) == 127 for c in url):
+        return None
     try:
         parsed = urlparse(url)
         if (parsed.scheme == "https" and parsed.hostname == "s.click.aliexpress.com"
@@ -74,6 +76,17 @@ def public_path(path):
 
 def product_title(product, lang="en"):
     return product.get("title_i18n", {}).get(lang) or product.get("title_i18n", {}).get("en") or product.get("title", "")
+
+
+def recently_added(product, now=None):
+    """New means added within seven days, never a permanent imported flag."""
+    if product.get('is_new') is not True:
+        return False
+    try:
+        added = datetime.fromisoformat(product['added_at'].replace('Z', '+00:00'))
+        return added.tzinfo is not None and timedelta(0) <= (now or datetime.now(timezone.utc)) - added <= timedelta(days=7)
+    except (KeyError, TypeError, ValueError, AttributeError):
+        return False
 
 
 def validate_catalog(db, root=BASE_DIR):
