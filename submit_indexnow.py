@@ -47,6 +47,9 @@ def plan(previous, root=BASE_DIR/'dist', force=False):
     if not previous.get('available'):
         raise ValueError('Previous public state unavailable; no automatic bulk notification')
     if previous['build']['catalog_sha256'] == current['catalog_sha256']:
+        # Templates, navigation and translations can change without a product edit.
+        if current.get('html_sha256') and previous['build'].get('html_sha256') != current['html_sha256']:
+            return sorted(set(all_urls))
         return []
     def items(feed):
         result = {}

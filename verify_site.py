@@ -62,6 +62,10 @@ def verify_site(root=BASE_DIR/'dist'):
         if read_error:
             errors.append(f'{relative}: read failure {read_error}'); continue
         page=Page()
+        if len(content.encode('utf-8')) >= 1_000_000:
+            errors.append(f'{relative}: HTML exceeds the crawler size budget')
+        if '<h1' in content and 'id="products-db"' in content and content.index('<h1') > content.index('id="products-db"'):
+            errors.append(f'{relative}: catalog data precedes visible content')
         try:
             page.feed(content)
         except Exception as error:

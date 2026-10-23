@@ -63,7 +63,7 @@
   });
   const normalise = value => String(value).normalize('NFKD').replace(/[\u0300-\u036f\u0591-\u05c7]/g,'').toLocaleLowerCase();
   const grid = document.getElementById('product-grid');
-  const cards = grid ? [...grid.querySelectorAll('.product-card')] : [];
+  let cards = grid ? [...grid.querySelectorAll('.product-card')] : [];
   const input = document.getElementById('global-search-input');
   const query = new URLSearchParams(location.search);
   let category = query.get('cat') || 'all';
@@ -71,9 +71,49 @@
   onlySaved=query.get('saved')==='1';
   if(savedFilter)savedFilter.setAttribute('aria-pressed',String(onlySaved));
   if (input) input.value = (query.get('q') || '').slice(0,200);
-  const searchText=new Map(cards.map(card=>[card,normalise(card.dataset.search)]));
-  function filter(updateUrl = true) {
+  let searchText=new Map(cards.map(card=>[card,normalise(card.dataset.search)]));
+  let catalogLoaded = !DB.catalogUrl || cards.length === DB.catalogCount;
+  let catalogPromise = null;
+  let filterVersion = 0;
+  const catalogMessages = {
+    en:['Loading the full collection…','Search could not load. Try again or use the page links.'],
+    ru:['Загружаем весь каталог…','Поиск не загрузился. Попробуйте ещё раз или перейдите по номерам страниц.'],
+    he:['טוען את הקטלוג המלא…','החיפוש לא נטען. נסו שוב או השתמשו בקישורי העמודים.'],
+    es:['Cargando toda la colección…','No se pudo cargar la búsqueda. Inténtalo de nuevo o usa los enlaces de página.']
+  }[lang];
+  async function ensureCatalog() {
+    if(catalogLoaded || !grid)return;
+    if(catalogPromise)return catalogPromise;
+    grid.setAttribute('aria-busy','true');
+    document.getElementById('items-counter').textContent=catalogMessages[0];
+    catalogPromise=(async()=>{
+      const response=await fetch(DB.catalogUrl);
+      if(!response.ok)throw new Error('Catalog unavailable');
+      const full=await response.json();
+      if(!Array.isArray(full.products) || full.products.length!==DB.catalogCount || typeof full.cards!=='string' || !full.paths)throw new Error('Invalid catalog');
+      const fragment=new DOMParser().parseFromString(full.cards,'text/html');
+      const next=[...fragment.body.children];
+      if(next.length!==DB.catalogCount || next.some(el=>el.tagName!=='ARTICLE' || !el.classList.contains('product-card')))throw new Error('Invalid cards');
+      DB.products=full.products;DB.paths=full.paths;
+      grid.replaceChildren(...next);
+      cards=[...grid.querySelectorAll('.product-card')];
+      searchText=new Map(cards.map(card=>[card,normalise(card.dataset.search)]));
+      catalogLoaded=true;paintSaved();
+      const pagination=document.getElementById('catalog-pagination');if(pagination)pagination.hidden=true;
+    })();
+    try {await catalogPromise;} catch(error) {catalogPromise=null;throw error;}
+    finally {grid.removeAttribute('aria-busy');}
+  }
+  async function filter(updateUrl = true) {
     if (!grid) return;
+    const version=++filterVersion;
+    if(!catalogLoaded && (input.value.trim() || category!=='all' || onlySaved)) {
+      try {await ensureCatalog();} catch {
+        document.getElementById('items-counter').textContent=`${cards.length} / ${DB.catalogCount} ${C.found}`;
+        window.DealVaultToast(catalogMessages[1]);return;
+      }
+      if(version!==filterVersion)return filter(false);
+    }
     const words = normalise(input.value.trim()).split(/\s+/).filter(Boolean);
     let count = 0;
     for (const card of cards) {
@@ -82,7 +122,7 @@
       if (!card.hidden) count++;
     }
     document.querySelector('#empty-state h3').textContent=onlySaved?C.saved_empty:C.empty;
-    document.getElementById('items-counter').textContent = `${count} ${C.found}`;
+    document.getElementById('items-counter').textContent = `${count}${catalogLoaded?'':` / ${DB.catalogCount}`} ${C.found}`;
     document.getElementById('empty-state').hidden = count !== 0;
     document.querySelectorAll('[data-cat]').forEach(el => {const selected = el.dataset.cat === category; el.classList.toggle('active',selected); el.setAttribute('aria-pressed',String(selected));});
     if (updateUrl) {
@@ -123,7 +163,14 @@
   }
   dialog?.addEventListener('cancel', event => {event.preventDefault(); closeModal();});
   dialog?.addEventListener('click', event => {if (event.target === dialog) {const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) closeModal();}});
-  function syncHash() {let slug; try {slug = decodeURIComponent(location.hash.slice(1));} catch {return;} const p = DB.products.find(p => p.slug === slug); if (p && grid) openModal(p.id,false); else if (dialog?.open) closeModal(false);}
+  function syncHash() {
+    let slug;try {slug=decodeURIComponent(location.hash.slice(1));} catch {return;}
+    const p=DB.products.find(p=>p.slug===slug);
+    if(p && grid)openModal(p.id,false);
+    else if(slug && slug!=='collection' && slug!=='approach' && grid && !catalogLoaded) {
+      ensureCatalog().then(()=>{filter(false);syncHash();}).catch(()=>window.DealVaultToast(catalogMessages[1]));
+    } else if(dialog?.open)closeModal(false);
+  }
   window.addEventListener('popstate',syncHash);
   window.addEventListener('hashchange',syncHash);
   function canonicalProduct(product) {

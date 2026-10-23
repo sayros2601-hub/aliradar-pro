@@ -15,8 +15,14 @@ from PIL import Image, ImageOps
 from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, page_path, public_path, product_title, validate_catalog, utc_now, recently_added
 from site_content import COPY, LANG_NAMES
 from buyer_guide import GUIDE
+from hero_variety import hero_products, hero_payload
 
 IMAGE_PIPELINE_VERSION = b'webp-v3-pillow-13'
+CATALOG_PAGE_SIZE = 100
+
+
+def catalog_path(lang, page=1):
+    return page_path(lang) if page == 1 else ('' if lang == 'en' else lang+'/')+f'catalog/{page}.html'
 
 
 @contextmanager
@@ -65,6 +71,7 @@ class SiteBuilder:
         self.images = {}
         self.thumbnails = {}
         self.public_products = []
+        self.page_hashes = {}
         self.integrations = read_json(DATA_DIR/'site_integrations.json', {})
         for language in LANGUAGES:
             COPY[language]['guide'] = GUIDE[language]['title']
@@ -76,6 +83,8 @@ class SiteBuilder:
         target = self.out / path
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(content, encoding='utf-8', newline='\n')
+        if str(path).endswith('.html'):
+            self.page_hashes[str(path)] = hashlib.sha256(content.encode()).hexdigest()
 
     def prepare_assets(self):
         from brand_assets import build_brand_icons
@@ -144,18 +153,22 @@ class SiteBuilder:
     def category_name(self, category, lang):
         return next((c.get('name_i18n', {}).get(lang, category) for c in self.cats if c['id'] == category), category)
 
-    def shell(self, lang, current, title, body, slug=None, legal=None, noindex=False, schemas=None, archived=False):
+    def shell(self, lang, current, title, body, slug=None, legal=None, noindex=False, schemas=None, archived=False, catalog_page=None):
         c = COPY[lang]
         rel = lambda path: esc(relative_url(path, current))
         url = self.domain+public_path(current)
-        alt = lambda language: self.domain+public_path(page_path(language, slug, legal))
+        route = lambda language: catalog_path(language,catalog_page) if catalog_page else page_path(language,slug,legal)
+        alt = lambda language: self.domain+public_path(route(language))
         alternates = ''.join(f'<link rel="alternate" hreflang="{l}" href="{esc(alt(l))}">' for l in LANGUAGES)
-        languages = ''.join(f'<a href="{rel(page_path(l, slug, legal))}" lang="{l}" hreflang="{l}" data-lang-link="{l}" {"aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGUAGES)
+        languages = ''.join(f'<a href="{rel(route(l))}" lang="{l}" hreflang="{l}" data-lang-link="{l}" {"aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGUAGES)
         legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('guide', 'privacy', 'terms', 'disclosure', 'contact', 'returns'))
         schema = {'@context':'https://schema.org', '@type':'WebPage', 'name':title, 'url':url, 'inLanguage':lang}
         visible_products = self.public_products
-        if legal or archived:
+        if legal or archived or noindex:
             visible_products = []
+        elif catalog_page:
+            start = (catalog_page-1)*CATALOG_PAGE_SIZE
+            visible_products = self.public_products[start:start+CATALOG_PAGE_SIZE]
         elif slug:
             main_product = next(p for p in self.public_products if p['slug'] == slug)
             related = [p for p in self.public_products if p['id'] != main_product['id'] and p['category'] == main_product['category']][:4]
@@ -164,9 +177,11 @@ class SiteBuilder:
             visible_products = [main_product,*related]
         payload = {'lang':lang, 'domain':self.domain, 'copy':c, 'products':visible_products,
                    'paths':{p['id']:relative_url(page_path(lang,p['slug']),current) for p in visible_products}}
+        if catalog_page:
+            payload.update(catalogUrl='/'+self.catalog_assets[lang], catalogCount=len(self.products))
         social_product = next((p for p in self.products if p['slug'] == slug),self.products[0])
         hero_image = self.images[social_product['image']]
-        homepage = not slug and not legal and not noindex
+        homepage = not slug and not legal and not noindex and catalog_page in (None,1)
         document_schema = schemas or schema
         if homepage:
             hero_image = self.images['brand/dealvault-cover.png']
@@ -196,7 +211,6 @@ class SiteBuilder:
 <link rel="stylesheet" href="{rel(self.images['modern.css'])}">
 <script>try{{var t=localStorage.getItem('sp_theme');document.documentElement.dataset.theme=['dark','light'].includes(t)?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.motion=localStorage.getItem('dv_motion')==='off'?'off':'on'}}catch(e){{}}</script>
 <script type="application/ld+json">{script_json(document_schema)}</script>
-<script id="products-db" type="application/json">{script_json(payload)}</script>
 <script defer src="{rel(self.images['tracking.js'])}"></script><script defer src="{rel(self.images['modern_app.js'])}"></script>
 </head><body>
 <a class="skip-link" href="#main">{esc(c['skip'])}</a>
@@ -208,6 +222,7 @@ class SiteBuilder:
 <footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="{rel(page_path(lang))}">DealVault<span>↗</span></a><p>{esc(c['affiliate'])}</p></div><nav aria-label="DealVault">{legal_nav}<a href="{rel('rss.xml' if lang == 'en' else f'rss_{lang}.xml')}">RSS</a></nav></div><div class="wrap footer-bottom"><span>© 2026 DealVault</span><span>{esc(c['seller_note'])}</span></div></footer>
 <dialog id="product-modal" aria-labelledby="modal-title"><button type="button" class="modal-close" data-close-modal aria-label="{esc(c['close'])}">×</button><div id="modal-content-area"></div></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script id="products-db" type="application/json">{script_json(payload)}</script>
 </body></html>'''
 
     def market_bar(self, lang):
@@ -231,27 +246,45 @@ class SiteBuilder:
 <p class="price-unavailable">{esc(c['price_status'])}</p>
 <div class="card-actions"><a href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}" class="detail-link">{esc(c['shop'])} <span aria-hidden="true">↗</span></a><button class="quick-button" type="button" data-modal-id="{esc(p['id'])}" aria-label="{esc(c['quick'] + ': ' + title)}">＋</button></div></div></article>'''
 
-    def index(self, lang):
-        c, current = COPY[lang], page_path(lang)
+    def index(self, lang, page=1):
+        c, current = COPY[lang], catalog_path(lang,page)
+        if not hasattr(self,'catalog_assets'): self.catalog_assets = {}
+        if lang not in self.catalog_assets:
+            complete = {'products':self.public_products,
+                        'paths':{p['id']:public_path(page_path(lang,p['slug'])) for p in self.products},
+                        'cards':''.join(self.card(p,lang,current,i) for i,p in enumerate(self.products))}
+            data = script_json(complete)
+            name = f'assets/catalog-{lang}.{hashlib.sha256(data.encode()).hexdigest()[:10]}.json'
+            self.write(name,data)
+            self.catalog_assets[lang] = name
+        start = (page-1)*CATALOG_PAGE_SIZE
+        subset = self.products[start:start+CATALOG_PAGE_SIZE]
+        pages = (len(self.products)+CATALOG_PAGE_SIZE-1)//CATALOG_PAGE_SIZE
+        pagination = '<nav class="catalog-pagination" id="catalog-pagination" aria-label="'+esc(c['collection'])+'">'+''.join(
+            f'<a class="category-pill" href="{public_path(catalog_path(lang,n))}"'+(' aria-current="page"' if n==page else '')+f'>{n}</a>'
+            for n in range(1,pages+1))+'</nav>' if pages > 1 else ''
         rel = lambda path: esc(relative_url(path, current))
-        feature = next((p for p in self.products if p['id'] == 'real-101'), self.products[0])
+        selection = hero_products(self.products)
+        feature = selection[0][0]
+        hero_data = script_json(hero_payload(selection, self.images, lang))
+        hero_script = (BASE_DIR / 'assets/hero_variety.js').read_text(encoding='utf-8')
         pills = f'<button type="button" data-cat="all" class="category-pill active" aria-pressed="true">{esc(c["all"])}<span>{len(self.products)}</span></button>'
         for cat in self.cats:
             count = sum(p['category'] == cat['id'] for p in self.products)
             pills += f'<button type="button" data-cat="{esc(cat["id"])}" class="category-pill" aria-pressed="false">{esc(cat["name_i18n"][lang])}<span>{count}</span></button>'
-        cards = ''.join(self.card(p, lang, current, i) for i,p in enumerate(self.products))
+        cards = ''.join(self.card(p, lang, current, i) for i,p in enumerate(subset))
         body = f'''<main id="main"><section class="wrap hero"><div class="hero-copy"><p class="eyebrow"><span></span>{esc(c['eyebrow'])}</p><h1>{c['hero']}</h1><p class="hero-intro">{esc(c['intro'])}</p><div class="hero-actions"><a class="button primary" href="#collection">{esc(c['explore'])}<span aria-hidden="true">↗</span></a><a class="text-link" href="#approach">{esc(c['how'])}</a></div><div class="hero-proof"><span>○ {esc(c['independent'])}</span><span>↗ {esc(c['direct'])}</span></div></div>
-<div class="orbit-stage"><span class="orbit-ring" aria-hidden="true"></span><span class="orbit-ring ring-two" aria-hidden="true"></span><span class="orbit-chip chip-top"><b aria-hidden="true">✧</b>{esc(c['orbit_top'])}</span><a class="spotlight" href="{rel(page_path(lang, feature['slug']))}"><div class="spotlight-top"><span>{esc(c['spotlight'])}</span><span class="round-arrow">↗</span></div><img src="{rel(self.images[feature['image']])}" width="600" height="600" fetchpriority="high" alt="{esc(product_title(feature,lang))}"><div class="spotlight-bottom"><span>{esc(product_title(feature,lang))}</span></div><span class="spotlight-caption">{esc(c['price_status'])}</span></a><span class="orbit-chip chip-bottom"><b aria-hidden="true">↗</b>{esc(c['orbit_bottom'])}</span><span class="orbit-index">DEALVAULT / EDIT 01</span></div></section>
+<div class="orbit-stage"><span class="orbit-ring" aria-hidden="true"></span><span class="orbit-ring ring-two" aria-hidden="true"></span><span class="orbit-chip chip-top"><b aria-hidden="true">✧</b>{esc(c['orbit_top'])}</span><a class="spotlight" data-hero-id="{esc(feature['id'])}" href="{rel(page_path(lang, feature['slug']))}"><div class="spotlight-top"><span>{esc(c['spotlight'])}</span><span class="round-arrow">↗</span></div><img src="{rel(self.images[feature['image']])}" width="600" height="600" fetchpriority="high" alt="{esc(product_title(feature,lang))}"><div class="spotlight-bottom"><span>{esc(product_title(feature,lang))}</span></div><span class="spotlight-caption">{esc(c['price_status'])}</span></a><span class="orbit-chip chip-bottom"><b aria-hidden="true">↗</b>{esc(c['orbit_bottom'])}</span><span class="orbit-index">DEALVAULT / EDIT 01</span></div><script id="hero-candidates" type="application/json">{hero_data}</script><script>{hero_script}</script></section>
 <div class="wrap disclosure-strip"><span aria-hidden="true">↗</span><p>{esc(c['affiliate'])}</p></div>
 <section class="wrap collection" id="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="eyebrow">DEALVAULT / 01</p><h2 id="collection-title">{esc(c['collection'])}</h2><p>{esc(c['collection_sub'])}</p></div><span id="items-counter" role="status" aria-live="polite">{len(self.products)} {esc(c['found'])}</span></div>
 <div class="category-nav" id="category-nav" aria-label="{esc(c['collection'])}">{pills}</div>
 <div class="filter-bar"><label class="search"><span aria-hidden="true">⌕</span><span class="sr-only">{esc(c['search_label'])}</span><input type="search" id="global-search-input" placeholder="{esc(c['search'])}" autocomplete="off"></label>
 <button type="button" class="saved-filter" id="saved-filter" aria-pressed="false">♡ {esc(c['saved'])} <span id="saved-count">0</span></button></div>
 <div class="price-notice"><p>{esc(c['price_note'])}</p></div>
-<div class="product-grid" id="product-grid">{cards}</div><div id="empty-state" class="empty-state" hidden><h3>{esc(c['empty'])}</h3><button class="button primary" type="button" id="clear-filters">{esc(c['reset'])}</button></div></section>
+<div class="product-grid" id="product-grid">{cards}</div>{pagination}<div id="empty-state" class="empty-state" hidden><h3>{esc(c['empty'])}</h3><button class="button primary" type="button" id="clear-filters">{esc(c['reset'])}</button></div></section>
 {self.market_bar(lang)}<section class="wrap approach" id="approach"><div><p class="eyebrow">DEALVAULT / 02</p><h2>{esc(c['method'])}</h2></div><p>{esc(c['method_text'])}</p></section></main>'''
-        schema = {'@context':'https://schema.org','@type':'CollectionPage','name':c['collection'],'url':self.domain+public_path(current),'inLanguage':lang,'mainEntity':{'@type':'ItemList','numberOfItems':len(self.products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':self.domain+public_path(page_path(lang,p["slug"])),'name':product_title(p,lang)} for i,p in enumerate(self.products)]}}
-        self.write(current, self.shell(lang,current,c['collection'],body,schemas=schema))
+        schema = {'@context':'https://schema.org','@type':'CollectionPage','name':c['collection'],'url':self.domain+public_path(current),'inLanguage':lang,'mainEntity':{'@type':'ItemList','numberOfItems':len(subset),'itemListElement':[{'@type':'ListItem','position':start+i+1,'url':self.domain+public_path(page_path(lang,p["slug"])),'name':product_title(p,lang)} for i,p in enumerate(subset)]}}
+        self.write(current, self.shell(lang,current,c['collection']+(f' · {page}' if page>1 else ''),body,schemas=schema,catalog_page=page))
 
     def deal(self, p, lang):
         c, current = COPY[lang], page_path(lang,p['slug'])
@@ -317,7 +350,8 @@ class SiteBuilder:
     def build(self):
         self.prepare_assets()
         for lang in LANGUAGES:
-            self.index(lang)
+            for page in range(1,(len(self.products)+CATALOG_PAGE_SIZE-1)//CATALOG_PAGE_SIZE+1):
+                self.index(lang,page)
             for p in self.products:
                 self.deal(p,lang)
             for name in ('guide','privacy','terms','disclosure','contact','returns'):
@@ -350,7 +384,7 @@ class SiteBuilder:
         build_search_integrations(self.out, self.integrations)
         self.write('_headers',"/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: DENY\n  Permissions-Policy: camera=(), microphone=(), geolocation=()\n  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; frame-ancestors 'none'; form-action 'none'; upgrade-insecure-requests\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n")
         self.write('manifest.json',json.dumps({'name':'DealVault','short_name':'DealVault','start_url':'/','display':'standalone','background_color':'#f5f7fb','theme_color':'#2459eb','icons':[{'src':self.images['icon.svg'],'sizes':'any','type':'image/svg+xml','purpose':'any'}, {'src':'/favicon-192.png','sizes':'192x192','type':'image/png'}, {'src':'/favicon-512.png','sizes':'512x512','type':'image/png'}]}))
-        self.write('build-info.json',json.dumps({'version':'2026.10','built_at':utc_now(),'products':len(self.products),'languages':list(LANGUAGES),'catalog_sha256':hashlib.sha256(json.dumps(self.db,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},indent=2))
+        self.write('build-info.json',json.dumps({'version':'2026.10','built_at':utc_now(),'products':len(self.products),'languages':list(LANGUAGES),'html_sha256':hashlib.sha256(json.dumps(self.page_hashes,sort_keys=True).encode()).hexdigest(),'catalog_sha256':hashlib.sha256(json.dumps(self.db,sort_keys=True,ensure_ascii=False).encode()).hexdigest()},indent=2))
         self.write('404.html',self.shell('en','404.html','Page not found',f'<main id="main" class="wrap prose"><p class="eyebrow">404</p><h1>{COPY["en"]["unavailable"]}</h1><a class="button primary" href="/">{COPY["en"]["home"]} ↗</a></main>',noindex=True))
 
 

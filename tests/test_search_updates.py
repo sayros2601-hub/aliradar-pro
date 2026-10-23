@@ -65,6 +65,13 @@ class SearchNotificationsTests(unittest.TestCase):
         self.assertIn(DOMAIN+'/ru/deals/retired', urls)
         self.assertIn(DOMAIN+'/', urls)
 
+    def test_html_only_release_is_not_silently_skipped(self):
+        self.previous['build']={'catalog_sha256':'new','html_sha256':'old-layout'}
+        write_json(self.root/'build-info.json',{'catalog_sha256':'new','html_sha256':'new-layout'})
+        self.assertEqual(plan(self.previous,self.root),[DOMAIN+'/deals/sample'])
+        self.previous['build']['html_sha256']='new-layout'
+        self.assertEqual(plan(self.previous,self.root),[])
+
     def test_missing_observation_cannot_silently_trigger_bulk_send(self):
         with self.assertRaisesRegex(ValueError, 'unavailable'):
             plan({'available':False}, self.root)

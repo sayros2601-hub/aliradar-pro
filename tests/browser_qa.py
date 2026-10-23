@@ -6,12 +6,13 @@ import json
 from pathlib import Path
 import sys
 import threading
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, expect
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT))
 from dealvault_core import DATA_DIR, DOMAIN, read_json
 from preview_server import PagesHandler
+from build_modern_hub import CATALOG_PAGE_SIZE
 
 
 class QuietHandler(PagesHandler):
@@ -21,6 +22,7 @@ class QuietHandler(PagesHandler):
 def run(output):
     output=Path(output); output.mkdir(parents=True,exist_ok=True)
     db=read_json(DATA_DIR/'products.json'); expected=len(db['products']); first=db['products'][0]
+    initial=min(CATALOG_PAGE_SIZE,expected)
     server=ThreadingHTTPServer(('127.0.0.1',0),partial(QuietHandler,directory=str(ROOT/'dist')))
     threading.Thread(target=server.serve_forever,daemon=True).start()
     base=f'http://127.0.0.1:{server.server_port}'
@@ -33,7 +35,7 @@ def run(output):
             context.add_init_script("Object.defineProperty(navigator,'clipboard',{value:{writeText:async(text)=>{window.__copied=text}}})")
             page=context.new_page(); page.on('pageerror',lambda error:errors.append(str(error)))
             page.goto(base+'/index.html',wait_until='networkidle')
-            assert page.locator('.product-card:visible').count()==expected
+            assert page.locator('.product-card:visible').count()==initial
             assert page.locator('html').get_attribute('lang')=='en'
             assert page.locator('img').first.evaluate('(img)=>img.complete && img.naturalWidth > 0')
             page.screenshot(path=str(output/'dealvault-desktop.png'),full_page=False)
@@ -41,7 +43,7 @@ def run(output):
             heart=page.locator('[data-save-id]').first
             heart.click(); assert heart.get_attribute('aria-pressed')=='true'
             page.locator('#saved-filter').click()
-            assert page.locator('#product-grid .product-card:visible').count()>=1
+            expect(page.locator('#product-grid .product-card:visible')).to_have_count(1,timeout=15000)
             page.reload(wait_until='networkidle')
             assert page.locator('#product-grid .product-card:visible').count()>=1
             page.locator('[data-save-id]:visible').click()
@@ -70,6 +72,7 @@ def run(output):
             passed('English entry even with Russian browser; reduced motion disables animation')
 
             page.locator('#global-search-input').fill('ugreen')
+            expect(page.locator('#items-counter')).not_to_contain_text('Loading',timeout=15000)
             assert page.locator('#product-grid .product-card:visible').count()>=1
             page.locator('#global-search-input').fill('definitely-no-match')
             assert page.locator('#empty-state').is_visible()
@@ -82,8 +85,9 @@ def run(output):
             assert 'price_usd' not in page.locator('#products-db').text_content()
             assert page.locator('.price-unavailable').count()==expected
             page.goto(base+'/index.html?budget=10&sort=price_asc',wait_until='networkidle')
-            assert page.locator('#product-grid .product-card:visible').count()==expected
+            assert page.locator('#product-grid .product-card:visible').count()==initial
             page.locator('#global-search-input').fill('ugreen')
+            expect(page.locator('#items-counter')).not_to_contain_text('Loading',timeout=15000)
             assert 'budget=' not in page.url and 'sort=' not in page.url
             passed('Unverified prices are absent; old price-filter URLs cannot hide items')
             page.goto(base+'/index.html?utm_source=qa',wait_until='networkidle')
@@ -111,7 +115,7 @@ def run(output):
                 page.goto(base+'/'+prefix+'index.html',wait_until='networkidle')
                 assert page.locator('html').get_attribute('lang')==lang
                 assert page.locator('html').get_attribute('dir')==('rtl' if lang=='he' else 'ltr')
-                assert page.locator('#product-grid .product-card:visible').count()==expected
+                assert page.locator('#product-grid .product-card:visible').count()==initial
                 page.locator('#product-grid h3 a').first.click()
                 assert '/deals/' in page.url
                 assert page.locator('.buy-button').get_attribute('href')==first['affiliate_url']
@@ -146,17 +150,38 @@ def run(output):
             blocked.add_init_script("Object.defineProperty(window,'localStorage',{get(){throw new Error('blocked')}});Object.defineProperty(window,'sessionStorage',{get(){throw new Error('blocked')}})")
             bp=blocked.new_page(); bp.on('pageerror',lambda error:errors.append(str(error)))
             bp.goto(base+'/index.html',wait_until='networkidle')
-            assert bp.locator('.product-card:visible').count()==expected
+            assert bp.locator('.product-card:visible').count()==initial
             bp.locator('#theme-toggle').click()
             bp.locator('[data-save-id]').first.click();bp.locator('#saved-filter').click()
-            assert bp.locator('#product-grid .product-card:visible').count()>=1
+            expect(bp.locator('#product-grid .product-card:visible')).to_have_count(1,timeout=15000)
             passed('Storage disabled: catalog, theme and saved filtering still work')
             nojs=browser.new_context(java_script_enabled=False)
             np=nojs.new_page(); np.goto(base+'/index.html',wait_until='networkidle')
-            assert np.locator('.product-card').count()==expected
+            assert np.locator('.product-card').count()==initial
+            if expected>initial:
+                np.locator('#catalog-pagination a').nth(1).click()
+                assert '/catalog/2' in np.url
+                assert np.locator('.product-card').count()==min(initial,expected-initial)
+                np.goto(base+'/index.html',wait_until='networkidle')
             np.locator('#product-grid h3 a').first.click()
             assert np.locator('.buy-button').get_attribute('href')==first['affiliate_url']
-            passed('JavaScript disabled: complete catalog and purchase links remain usable')
+            passed('JavaScript disabled: static catalog pagination and purchase links remain usable')
+            if expected>initial:
+                late=db['products'][-1]
+                page.goto(base+'/',wait_until='networkidle')
+                page.route('**/assets/catalog-*.json',lambda route:route.abort())
+                page.locator('#global-search-input').fill(late['slug'])
+                expect(page.locator('#toast')).to_contain_text('Search could not load',timeout=15000)
+                assert page.locator('#catalog-pagination').is_visible()
+                page.unroute('**/assets/catalog-*.json')
+                page.locator('#global-search-input').fill('')
+                page.locator('#global-search-input').fill(late['slug'])
+                expect(page.locator('#product-grid .product-card:visible')).to_have_count(1,timeout=15000)
+                assert page.locator('#product-grid .product-card:visible').get_attribute('data-id')==late['id']
+                page.goto(base+'/#'+late['slug'],wait_until='networkidle')
+                expect(page.locator('#product-modal')).to_be_visible(timeout=15000)
+                assert page.locator('#product-modal [data-aff-id]').get_attribute('href')==late['affiliate_url']
+                passed('Full catalog search beyond page one, retry after network failure and old deep links')
             context.close(); blocked.close(); nojs.close(); browser.close()
         assert not errors,errors
         report={'checks':checks,'passed':len(checks),'javascript_errors':errors,'visible_windows':0}

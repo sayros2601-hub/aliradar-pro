@@ -37,6 +37,10 @@ Use the project's isolated Python environment for all Python commands below. Pil
 
 ## Browser behavior
 
+Catalog pages contain at most 100 static cards, with crawlable numbered links and matching language alternatives. Search and saved-item filters load the complete versioned catalog only when needed; failed requests preserve usable page links and can be retried. Product hash links beyond the first page still resolve. Large catalog data is placed after the visible content, and verification rejects HTML documents of 1 MB or more. This fixes Bing's observed truncated document and missing-heading diagnosis.
+
+IndexNow observes both the catalog and rendered HTML fingerprints, so template-only releases no longer disappear as unchanged. Accepted notifications do not prove indexing. The homepage spotlight cycles through twelve existing product photographs, keeping the image, localized name and link together; local history avoids repetitions within a cycle.
+
 EN is the default. RU, HE (RTL) and ES have static, crawlable URLs with reciprocal hreflang and self-canonical links. The catalog and original outbound links work without JavaScript. The script adds search, category and saved-item filters, theme selection, native dialog focus handling and sharing of the actual localized product page. Price filters, price sorting and currency controls were removed because the underlying prices are unverified. Old price-filter URLs still show the catalog. A new badge expires seven days after a known addition date. Each language links to its own RSS feed; English remains `/rss.xml`.
 
 Cloudflare Web Analytics was enabled in the Pages dashboard; the beacon is injected on deployment. It measures visits and loading performance, not AliExpress orders or commissions. The privacy page describes it and all saved preferences. Browser storage is optional and failure-safe. Currency rates remain a private dated operational snapshot and are not used to manufacture seller prices. The public builder no longer depends on this file. Network failures preserve the previous dated snapshot or fall back to USD.
