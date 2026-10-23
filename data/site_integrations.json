@@ -1,5 +1,6 @@
 {
   "google_site_verification": "ZCpUhQcRvNfqDoE6eKuwtcX2ShUC6AJwKC2euAHHkQU",
   "cloudflare_web_analytics": "enabled_in_pages_dashboard",
-  "note": "Verification metadata is public. No authentication secret belongs in this file. Cloudflare injects its beacon on deployment. Sales are not measured by this beacon."
+  "note": "Verification metadata is public. No authentication secret belongs in this file. Cloudflare injects its beacon on deployment. Sales are not measured by this beacon.",
+  "indexnow_key": "e5a87b33d02b48a195b0213d2f954ec7"
 }

@@ -119,7 +119,7 @@ class SiteBuilder:
             self.public_products.append({
                 'id': p['id'], 'slug': p['slug'], 'category': p['category'],
                 'title_i18n': p['title_i18n'], 'price_usd': p['price_usd'],
-                'affiliate_url': p['affiliate_url'], 'image': gallery[0], 'gallery': gallery,
+                'affiliate_url': p['affiliate_url'], 'is_new': bool(p.get('is_new')), 'image': gallery[0], 'gallery': gallery,
                 'use_i18n': self.editorial.get(p['id'],{}).get('use_i18n',{}),
             })
             raw=BASE_DIR/p['image']
@@ -149,7 +149,7 @@ class SiteBuilder:
         alt = lambda language: self.domain+public_path(page_path(language, slug, legal))
         alternates = ''.join(f'<link rel="alternate" hreflang="{l}" href="{esc(alt(l))}">' for l in LANGUAGES)
         languages = ''.join(f'<a href="{rel(page_path(l, slug, legal))}" lang="{l}" hreflang="{l}" data-lang-link="{l}" {"aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGUAGES)
-        legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('guide', 'privacy', 'terms', 'disclosure', 'contact'))
+        legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('guide', 'privacy', 'terms', 'disclosure', 'contact', 'returns'))
         cur_options = ''.join(f'<option value="{cur}">{cur}</option>' for cur in ('USD', 'ILS', 'EUR', 'RUB') if cur in self.rates['rates'])
         schema = {'@context':'https://schema.org', '@type':'WebPage', 'name':title, 'url':url, 'inLanguage':lang}
         visible_products = self.public_products
@@ -171,6 +171,7 @@ class SiteBuilder:
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{esc(title)} | DealVault</title><meta name="description" content="{esc(description)}">
 <meta name="google-site-verification" content="{esc(self.integrations.get('google_site_verification',''))}">
+<meta name="p:domain_verify" content="c0f81b8dc452173100fb9d91208205a1">
 <link rel="canonical" href="{esc(url)}">{alternates}<link rel="alternate" hreflang="x-default" href="{esc(alt('en'))}">
 {'<meta name="robots" content="noindex,follow">' if noindex else ''}
 <meta property="og:type" content="website"><meta property="og:title" content="{esc(title)} | DealVault">
@@ -209,7 +210,7 @@ class SiteBuilder:
         link = esc(relative_url(page_path(lang, p['slug']), current))
         image = esc(relative_url(self.thumbnails[p['image']], current))
         search = ' '.join([*p['title_i18n'].values(), p['slug'], *[self.category_name(p['category'], l) for l in LANGUAGES]])
-        badge = f'<span class="card-badge-new"><b aria-hidden="true">?</b> {esc(c.get("new_badge", "NEW"))}</span>' if p.get('is_new') else ''
+        badge = f'<span class="card-badge-new"><b aria-hidden="true">✦</b> {esc(c.get("new_badge", "NEW"))}</span>' if p.get('is_new') else ''
         card_cls = 'product-card is-new' if p.get('is_new') else 'product-card'
         return f'''<article class="{card_cls}" data-id="{esc(p['id'])}" data-category="{esc(p['category'])}" data-price="{p['price_usd']}" data-order="{index}" data-search="{esc(search)}">
 {badge}<button type="button" class="save-product" data-save-id="{esc(p['id'])}" aria-pressed="false" aria-label="{esc(c['save'] + ': ' + title)}">♡</button><a href="{link}" class="card-image"><img src="{image}" alt="{esc(title)}" width="600" height="600" loading="{'eager' if index < 4 else 'lazy'}" decoding="async"></a>
@@ -252,7 +253,7 @@ class SiteBuilder:
         if not others:
             others = [x for x in self.products if x['id'] != p['id']][:4]
         related = ''.join(self.card(x,lang,current,i+10) for i,x in enumerate(others))
-        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}{' ? <span class="deal-badge-new">? ' + esc(c.get('new_badge','NEW')) + '</span>' if p.get('is_new') else ''}</p><h1>{esc(product_title(p,lang))}</h1><p class="deal-purpose">{esc(purpose)}</p><div class="deal-price"><span>{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div><p class="muted">{esc(c['price_note'])}</p><p class="rate-detail" id="rates-note"></p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><p>{esc(check)}</p><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
+        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}{' · <span class="deal-badge-new">✦ ' + esc(c.get('new_badge','NEW')) + '</span>' if p.get('is_new') else ''}</p><h1>{esc(product_title(p,lang))}</h1><p class="deal-purpose">{esc(purpose)}</p><div class="deal-price"><span>{esc(c['reference'])}</span><strong data-money="{p['price_usd']}">${p['price_usd']:.2f}</strong></div><p class="muted">{esc(c['price_note'])}</p><p class="rate-detail" id="rates-note"></p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><p>{esc(check)}</p><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
         schema = {'@context':'https://schema.org','@type':'WebPage','url':self.domain+public_path(current),'name':product_title(p,lang),'inLanguage':lang,'about':{'@type':'Product','name':product_title(p,lang),'image':[f'{self.domain}/{self.images[src]}' for src in gallery]},'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'DealVault','item':self.domain+public_path(page_path(lang))},{'@type':'ListItem','position':2,'name':product_title(p,lang),'item':self.domain+public_path(current)}]}}
         self.write(current,self.shell(lang,current,product_title(p,lang),body,slug=p['slug'],schemas=schema))
 
@@ -275,21 +276,32 @@ class SiteBuilder:
                                      slug=item['slug'], noindex=True, archived=True))
 
     def feeds(self):
-        channel = ET.Element('channel')
-        for k,v in [('title','DealVault — everyday finds'),('link',self.domain),('description',COPY['en']['intro']),('language','en')]:
-            ET.SubElement(channel,k).text=v
-        items=[]
-        for p in self.products:
-            link=self.domain+public_path(page_path("en",p["slug"]))
-            text=f'{product_title(p)}. {COPY["en"]["reference"]}: ${p["price_usd"]:.2f}. {COPY["en"]["price_note"]} {COPY["en"]["affiliate"]}'
-            item=ET.SubElement(channel,'item')
-            for k,v in [('title',product_title(p)),('link',link),('description',text)]:
-                ET.SubElement(item,k).text=v
-            ET.SubElement(item,'guid',isPermaLink='true').text=link
-            items.append({'id':link,'url':link,'title':product_title(p),'content_text':text,'image':f'{self.domain}/{self.images[p["image"]]}'})
-        rss=ET.Element('rss',version='2.0'); rss.append(channel)
-        self.write('rss.xml','<?xml version="1.0" encoding="utf-8"?>\n'+ET.tostring(rss,encoding='unicode'))
-        self.write('feed.json',json.dumps({'version':'https://jsonfeed.org/version/1.1','title':'DealVault','home_page_url':self.domain,'feed_url':f'{self.domain}/feed.json','items':items},ensure_ascii=False,indent=2))
+        for lang in LANGUAGES:
+            c = COPY[lang]
+            channel = ET.Element('channel')
+            for k, v in [('title', f"DealVault — {c['eyebrow']}"), ('link', f"{self.domain}{public_path(page_path(lang))}"), ('description', c['intro']), ('language', lang)]:
+                ET.SubElement(channel, k).text = v
+            items = []
+            for p in self.products:
+                link = f"{self.domain}{public_path(page_path(lang, p['slug']))}"
+                img_url = f"{self.domain}/{self.images[p['image']]}"
+                title = product_title(p, lang)
+                ed = self.editorial.get(p['id'], {})
+                use = ed.get('use_i18n', {}).get(lang, '')
+                price_str = f"${p['price_usd']:.2f}"
+                text = f"{title}. {use}. {c['reference']}: {price_str}."
+                item = ET.SubElement(channel, 'item')
+                for k, v in [('title', title), ('link', link), ('description', text)]:
+                    ET.SubElement(item, k).text = v
+                ET.SubElement(item, 'guid', isPermaLink='true').text = link
+                ET.SubElement(item, 'enclosure', url=img_url, type='image/webp', length=str((self.out / self.images[p['image']]).stat().st_size))
+                items.append({'id': link, 'url': link, 'title': title, 'content_text': text, 'image': img_url})
+            rss = ET.Element('rss', version='2.0')
+            rss.append(channel)
+            feed_name = 'rss.xml' if lang == 'en' else f'rss_{lang}.xml'
+            self.write(feed_name, '<?xml version="1.0" encoding="utf-8"?>\n' + ET.tostring(rss, encoding='unicode'))
+            if lang == 'en':
+                self.write('feed.json', json.dumps({'version': 'https://jsonfeed.org/version/1.1', 'title': 'DealVault', 'home_page_url': self.domain, 'feed_url': f"{self.domain}/feed.json", 'items': items}, ensure_ascii=False, indent=2))
 
     def build(self):
         self.prepare_assets()
@@ -297,9 +309,19 @@ class SiteBuilder:
             self.index(lang)
             for p in self.products:
                 self.deal(p,lang)
-            for name in ('guide','privacy','terms','disclosure','contact'):
+            for name in ('guide','privacy','terms','disclosure','contact','returns'):
                 self.legal(lang,name)
         self.feeds()
+        from build_google_merchant_feeds import build_google_feed
+        build_google_feed(output=self.out)
+        build_google_feed(lang='es', currency='EUR', country='ES', output=self.out)
+        key = self.integrations.get('indexnow_key')
+        if key:
+            import re
+            if not re.fullmatch(r'[A-Za-z0-9-]{8,128}', key):
+                raise ValueError('Invalid public IndexNow verification key')
+            self.write(f'{key}.txt', key)
+            self.write('indexnow.txt', key)
         urls=ET.Element('urlset',xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
         for page in sorted(self.out.rglob('*.html')):
             ET.SubElement(ET.SubElement(urls,'url'),'loc').text=self.domain+public_path(page.relative_to(self.out).as_posix())

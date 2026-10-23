@@ -15,7 +15,7 @@
     set(key,value) {try {localStorage.setItem(key,value);} catch {}}
   };
   let saved;
-  try {const raw=JSON.parse(storage.get('dv_saved') || '[]'); saved=new Set(Array.isArray(raw)?raw.filter(x=>typeof x==='string' && x.length<100).slice(0,200):[]);} catch {saved=new Set();}
+  try {const raw=JSON.parse(storage.get('dv_saved') || '[]'); saved=new Set(Array.isArray(raw)?raw.filter(x=>typeof x==='string' && x.length<100).slice(0,5000):[]);} catch {saved=new Set();}
   const savedFilter=document.getElementById('saved-filter');
   let onlySaved=false;
   function paintSaved() {
@@ -48,7 +48,9 @@
   }
   const rates = Object.fromEntries(Object.entries(DB.rates.rates || {USD:1}).filter(([,n]) => typeof n === 'number' && Number.isFinite(n) && n > 0));
   rates.USD = 1;
-  let currency = Object.hasOwn(rates,storage.get('sp_cur')) ? storage.get('sp_cur') : 'USD';
+  const langCurrencies = { he: 'ILS', es: 'EUR', ru: 'RUB' };
+  const defaultCur = langCurrencies[lang] || 'USD';
+  let currency = Object.hasOwn(rates,storage.get('sp_cur')) ? storage.get('sp_cur') : (rates[defaultCur] ? defaultCur : 'USD');
   const currencySelect = document.getElementById('currency-select');
   if (currencySelect) currencySelect.value = currency;
   let moneyFormat;
@@ -64,7 +66,7 @@
     const ratesNote = document.getElementById('rates-note');
     if (ratesNote && currency !== 'USD') {
       let date = DB.rates.observed_at;
-      try {date = new Intl.DateTimeFormat(lang,{dateStyle:'medium',timeZone:'UTC'}).format(new Date(date));} catch {date = '';}
+      try {date = date ? new Intl.DateTimeFormat(lang,{dateStyle:'medium',timeZone:'UTC'}).format(new Date(date)) : '';} catch {date = '';}
       ratesNote.textContent = date ? `${C.rates}: ${date} · ExchangeRate-API` : '';
     } else if (ratesNote) ratesNote.textContent = '';
   }
@@ -143,7 +145,7 @@
     if (!dialog.open) returnFocus = document.activeElement;
     modalProduct = product;
     const title = product.title_i18n[lang];
-    document.getElementById('modal-content-area').innerHTML = `<div class="modal-layout"><a class="modal-photo" href="${esc(DB.paths[id])}"><img src="${esc(asset(product.image))}" width="600" height="600" alt="${esc(title)}"></a><div class="modal-details"><p class="eyebrow">DEALVAULT${product.is_new ? ' ? <span class="deal-badge-new">? ' + esc(C.new_badge || 'NEW') + '</span>' : ''}</p><h2 id="modal-title">${esc(title)}</h2><p class="muted">${esc(product.use_i18n?.[lang] || '')}</p><div class="deal-price"><span>${esc(C.reference)}</span><strong data-money="${product.price_usd}"></strong></div><p class="muted">${esc(C.price_note)}</p><a class="button primary" href="${esc(product.affiliate_url)}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="${esc(id)}">${esc(C.shop)} ↗</a><p class="affiliate-note">${esc(C.affiliate)}</p><a class="detail-link" href="${esc(DB.paths[id])}">${esc(C.details)} ↗</a><div class="share-row" data-product-id="${esc(id)}"><button type="button" data-share="copy">${esc(C.copy)}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div>`;
+    document.getElementById('modal-content-area').innerHTML = `<div class="modal-layout"><a class="modal-photo" href="${esc(DB.paths[id])}"><img src="${esc(asset(product.image))}" width="600" height="600" alt="${esc(title)}"></a><div class="modal-details"><p class="eyebrow">DEALVAULT${product.is_new ? ' · <span class="deal-badge-new">✦ ' + esc(C.new_badge || 'NEW') + '</span>' : ''}</p><h2 id="modal-title">${esc(title)}</h2><p class="muted">${esc(product.use_i18n?.[lang] || '')}</p><div class="deal-price"><span>${esc(C.reference)}</span><strong data-money="${product.price_usd}"></strong></div><p class="muted">${esc(C.price_note)}</p><a class="button primary" href="${esc(product.affiliate_url)}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="${esc(id)}">${esc(C.shop)} ↗</a><p class="affiliate-note">${esc(C.affiliate)}</p><a class="detail-link" href="${esc(DB.paths[id])}">${esc(C.details)} ↗</a><div class="share-row" data-product-id="${esc(id)}"><button type="button" data-share="copy">${esc(C.copy)}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div>`;
     renderMoney();
     if (!dialog.open) dialog.showModal();
     document.body.style.overflow = 'hidden';

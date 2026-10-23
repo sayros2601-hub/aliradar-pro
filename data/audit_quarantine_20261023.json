@@ -1,0 +1,390 @@
+{
+  "reason": "Integrity repair; records retained for review, not eligible for automatic rotation",
+  "records": [
+    {
+      "reason": "FABRICATED_PRODUCT_ID_AND_UNSUPPORTED_AFFILIATE_LINK",
+      "product": {
+        "id": "cordless-handheld-car-vacuum-cleaner",
+        "slug": "cordless-handheld-car-vacuum-cleaner",
+        "category": "auto",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4aTNX01",
+        "price_usd": 13.8,
+        "price_ils": 51.0,
+        "price_eur": 12.4,
+        "shipping_days": 8,
+        "is_new": true,
+        "image": "assets/img/cordless-handheld-car-vacuum-cleaner-1.jpg",
+        "gallery": [
+          "assets/img/cordless-handheld-car-vacuum-cleaner-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "High Power 9000Pa Cordless Handheld Car Vacuum Cleaner Rechargeable",
+          "es": "Aspiradora de Coche Inalámbrica Portátil 9000Pa Potente Recargable",
+          "ru": "Мощный беспроводной автомобильный мини-пылесос 9000Pa аккумуляторный",
+          "he": "שואב אבק אלחוטי נייד עוצמתי לרכב 9000Pa נטען"
+        },
+        "source": "curated_ai_studio",
+        "reviewed": true,
+        "item_id": "ai_cordless-han",
+        "source_evidence": "Curated viral product with 100% unique AI studio imagery",
+        "added_at": "2026-10-23T11:23:14.234714+00:00"
+      }
+    },
+    {
+      "reason": "FABRICATED_PRODUCT_ID_AND_UNSUPPORTED_AFFILIATE_LINK",
+      "product": {
+        "id": "ultra-quiet-smart-pet-water-fountain",
+        "slug": "ultra-quiet-smart-pet-water-fountain",
+        "category": "pets",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4aTNX02",
+        "price_usd": 11.5,
+        "price_ils": 42.5,
+        "price_eur": 10.4,
+        "shipping_days": 9,
+        "is_new": true,
+        "image": "assets/img/ultra-quiet-smart-pet-water-fountain-1.jpg",
+        "gallery": [
+          "assets/img/ultra-quiet-smart-pet-water-fountain-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "Ultra-Quiet Smart Pet Water Fountain with Stainless Steel Top Filter",
+          "es": "Fuente de Agua Silenciosa Inteligente para Mascotas de Acero Inoxidable",
+          "ru": "Ультратихий умный фонтанчик-поилка для кошек и собак с фильтром",
+          "he": "מזרקת מים שקטה וחכמה לחיות מחמד עם סינון נירוסטה"
+        },
+        "source": "curated_ai_studio",
+        "reviewed": true,
+        "item_id": "ai_ultra-quiet-",
+        "source_evidence": "Curated viral product with 100% unique AI studio imagery",
+        "added_at": "2026-10-23T11:23:14.234714+00:00"
+      }
+    },
+    {
+      "reason": "FABRICATED_PRODUCT_ID_AND_UNSUPPORTED_AFFILIATE_LINK",
+      "product": {
+        "id": "foldable-3in1-magnetic-wireless-charger",
+        "slug": "foldable-3in1-magnetic-wireless-charger",
+        "category": "tech",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4aTNX03",
+        "price_usd": 14.2,
+        "price_ils": 52.9,
+        "price_eur": 12.8,
+        "shipping_days": 8,
+        "is_new": true,
+        "image": "assets/img/foldable-3in1-magnetic-wireless-charger-1.jpg",
+        "gallery": [
+          "assets/img/foldable-3in1-magnetic-wireless-charger-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "Foldable 3-in-1 Fast Magnetic Wireless Charging Station Stand",
+          "es": "Estación de Carga Inalámbrica Magnética Plegable 3 en 1 Rápida",
+          "ru": "Складная магнитная беспроводная зарядная станция 3-в-1 для гаджетов",
+          "he": "תחנת עגינה וטעינה אלחוטית מגנטית מתקפלת 3 ב-1"
+        },
+        "source": "curated_ai_studio",
+        "reviewed": true,
+        "item_id": "ai_foldable-3in",
+        "source_evidence": "Curated viral product with 100% unique AI studio imagery",
+        "added_at": "2026-10-23T11:23:14.234714+00:00"
+      }
+    },
+    {
+      "reason": "FABRICATED_PRODUCT_ID_AND_UNSUPPORTED_AFFILIATE_LINK",
+      "product": {
+        "id": "electric-makeup-brush-cleaner-dryer",
+        "slug": "electric-makeup-brush-cleaner-dryer",
+        "category": "gadgets",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4aTNX04",
+        "price_usd": 8.9,
+        "price_ils": 32.9,
+        "price_eur": 8.0,
+        "shipping_days": 7,
+        "is_new": true,
+        "image": "assets/img/electric-makeup-brush-cleaner-dryer-1.jpg",
+        "gallery": [
+          "assets/img/electric-makeup-brush-cleaner-dryer-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "Automatic Electric Makeup Brush Cleaner and Fast Drying Machine",
+          "es": "Limpiador Automático Eléctrico de Brochas de Maquillaje y Secado Rápido",
+          "ru": "Автоматический электрический очиститель и сушилка кистей для макияжа",
+          "he": "מנקה מברשות איפור חשמלי אוטומטי עם ייבוש מהיר"
+        },
+        "source": "curated_ai_studio",
+        "reviewed": true,
+        "item_id": "ai_electric-mak",
+        "source_evidence": "Curated viral product with 100% unique AI studio imagery",
+        "added_at": "2026-10-23T11:23:14.234714+00:00"
+      }
+    },
+    {
+      "reason": "FABRICATED_PRODUCT_ID_AND_UNSUPPORTED_AFFILIATE_LINK",
+      "product": {
+        "id": "smart-touch-coffee-mug-warmer",
+        "slug": "smart-touch-coffee-mug-warmer",
+        "category": "smarthome",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4aTNX05",
+        "price_usd": 7.8,
+        "price_ils": 28.9,
+        "price_eur": 7.0,
+        "shipping_days": 8,
+        "is_new": true,
+        "image": "assets/img/smart-touch-coffee-mug-warmer-1.jpg",
+        "gallery": [
+          "assets/img/smart-touch-coffee-mug-warmer-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "Smart Touch Electric Coffee Mug Warmer with LED Temp Display 55C",
+          "es": "Calentador Eléctrico de Tazas de Café con Pantalla LED 55C",
+          "ru": "Умная сенсорная подставка для подогрева кружки с LED экраном 55C",
+          "he": "משטח חימום חשמלי חכם לספלי קפה עם תצוגת טמפרטורה"
+        },
+        "source": "curated_ai_studio",
+        "reviewed": true,
+        "item_id": "ai_smart-touch-",
+        "source_evidence": "Curated viral product with 100% unique AI studio imagery",
+        "added_at": "2026-10-23T11:23:14.234714+00:00"
+      }
+    },
+    {
+      "reason": "FABRICATED_PRODUCT_ID_AND_UNSUPPORTED_AFFILIATE_LINK",
+      "product": {
+        "id": "magnetic-levitating-3d-moon-lamp",
+        "slug": "magnetic-levitating-3d-moon-lamp",
+        "category": "smarthome",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4aTNX06",
+        "price_usd": 24.5,
+        "price_ils": 91.0,
+        "price_eur": 22.1,
+        "shipping_days": 9,
+        "is_new": true,
+        "image": "assets/img/magnetic-levitating-3d-moon-lamp-1.jpg",
+        "gallery": [
+          "assets/img/magnetic-levitating-3d-moon-lamp-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "Magnetic Levitating 3D Moon Lamp with Floating Ambient Night Light",
+          "es": "Lámpara Luna 3D de Levitación Magnética con Luz Nocturna Flotante",
+          "ru": "Магнитная левитирующая 3D лампа Луна с парящим ночником",
+          "he": "מנורת ירח תלת ממדית מרחפת מגנטית עם תאורת לילה נעימה"
+        },
+        "source": "curated_ai_studio",
+        "reviewed": true,
+        "item_id": "ai_magnetic-lev",
+        "source_evidence": "Curated viral product with 100% unique AI studio imagery",
+        "added_at": "2026-10-23T11:23:14.234714+00:00"
+      }
+    },
+    {
+      "reason": "FABRICATED_PRODUCT_ID_AND_UNSUPPORTED_AFFILIATE_LINK",
+      "product": {
+        "id": "mini-pocket-wireless-thermal-printer",
+        "slug": "mini-pocket-wireless-thermal-printer",
+        "category": "gadgets",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4aTNX07",
+        "price_usd": 12.4,
+        "price_ils": 45.9,
+        "price_eur": 11.2,
+        "shipping_days": 8,
+        "is_new": true,
+        "image": "assets/img/mini-pocket-wireless-thermal-printer-1.jpg",
+        "gallery": [
+          "assets/img/mini-pocket-wireless-thermal-printer-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "Mini Pocket Wireless Thermal Printer for Notes Labels and Photos",
+          "es": "Mini Impresora Térmica Portátil Inalámbrica para Notas y Fotos",
+          "ru": "Мини карманный беспроводной термопринтер для заметок и фото",
+          "he": "מדפסת תרמית מיני ניידת אלחוטית להדפסת פתקים ותמונות"
+        },
+        "source": "curated_ai_studio",
+        "reviewed": true,
+        "item_id": "ai_mini-pocket-",
+        "source_evidence": "Curated viral product with 100% unique AI studio imagery",
+        "added_at": "2026-10-23T11:23:14.234714+00:00"
+      }
+    },
+    {
+      "reason": "UNRELATED_GARAGE_CONTROLLER_PHOTO_USED_AS_FALLBACK",
+      "product": {
+        "id": "2025-anti-theft-slim-pop-up-wa",
+        "slug": "2025-anti-theft-slim-pop-up-wa",
+        "category": "under10",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4SFIs0r",
+        "price_usd": 4.7528,
+        "price_ils": 14.69,
+        "price_eur": 13.51,
+        "shipping_days": 10,
+        "is_new": true,
+        "image": "assets/img/2025-anti-theft-slim-pop-up-wa-1.jpg",
+        "gallery": [
+          "assets/img/2025-anti-theft-slim-pop-up-wa-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "Anti-theft Slim Pop Up Wallet Minimalist Credit Card Holder for Men",
+          "ru": "Anti-theft Slim Pop Up Wallet Minimalist Credit Card Holder for Men",
+          "es": "Anti-theft Slim Pop Up Wallet Minimalist Credit Card Holder for Men",
+          "he": "ארנק דק למניעת גניבה 2025 עם מחזיק כרטיסי אשראי מינימליסטי לגברים ונשים, חסימת RFID, תיק מתכת מיני עם מחזיק כרטיסים מרובה"
+        },
+        "source": "portals",
+        "reviewed": true,
+        "item_id": "1005008565037310",
+        "source_evidence": "Verified live product with item id 1005008565037310",
+        "added_at": "2026-10-22T14:53:53+00:00"
+      }
+    },
+    {
+      "reason": "UNRELATED_GARAGE_CONTROLLER_PHOTO_USED_AS_FALLBACK",
+      "product": {
+        "id": "5-10-20pcs-hot-melt-glue-stick",
+        "slug": "5-10-20pcs-hot-melt-glue-stick",
+        "category": "tools",
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c3CzHH4T",
+        "price_usd": 3.6204,
+        "price_ils": 11.19,
+        "price_eur": 10.29,
+        "shipping_days": 10,
+        "is_new": true,
+        "image": "assets/img/5-10-20pcs-hot-melt-glue-stick-1.jpg",
+        "gallery": [
+          "assets/img/5-10-20pcs-hot-melt-glue-stick-1.jpg"
+        ],
+        "title_i18n": {
+          "en": "5/10/20Pcs Hot Melt Glue Stick Adhesive 7mm /11mm Diameter Transparent Stro",
+          "ru": "5/10/20Pcs Hot Melt Glue Stick Adhesive 7mm /11mm Diameter Transparent Stro",
+          "es": "5/10/20Pcs Hot Melt Glue Stick Adhesive 7mm /11mm Diameter Transparent Stro",
+          "he": "5/10/20pcs חם דבק מקל דבק 7 מ"
+        },
+        "source": "portals",
+        "reviewed": true,
+        "item_id": "1005007281616001",
+        "source_evidence": "Verified live product with item id 1005007281616001",
+        "added_at": "2026-10-22T14:53:53+00:00"
+      }
+    },
+    {
+      "reason": "DUPLICATE_MARKETPLACE_ITEM_ID",
+      "product": {
+        "id": "real-305",
+        "slug": "magnetic-car-phone-holder-universal-car-phone",
+        "category": "auto",
+        "title": "Magnetic Car Phone Holder Universal Car Phone Stand for iPhone Xiaomi Huawe",
+        "title_i18n": {
+          "en": "Magnetic Car Phone Holder Universal Car Phone Stand for iPhone Xiaomi Huawe",
+          "ru": "Магнитный автомобильный держатель для смартфона 360°",
+          "es": "Soporte Magnético de Coche para Móvil 360°",
+          "he": "מעמד מגנטי חכם לסמארטפון לרכב 360°"
+        },
+        "price_usd": 0.838,
+        "old_price_usd": 4.14,
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c3noT4HZ",
+        "image": "assets/img/magnetic-car-phone-holder-universal-car-phone-1.jpg",
+        "gallery": [
+          "assets/img/magnetic-car-phone-holder-universal-car-phone-1.jpg"
+        ],
+        "is_new": false,
+        "legacy_claims": false,
+        "source": "portals",
+        "price_status": "verified",
+        "price_observed_at": "2026-10-22T12:18:23+00:00",
+        "item_id": "1005012577847276",
+        "reviewed": true,
+        "source_evidence": "Verified live product with item id 1005012577847276",
+        "price_ils": 2.59
+      }
+    },
+    {
+      "reason": "DUPLICATE_MARKETPLACE_ITEM_ID",
+      "product": {
+        "id": "real-321",
+        "slug": "6-in-1-sk-l1-high-hardness-screwdriver-kit-co",
+        "category": "tools",
+        "title": "6 In 1 SK-L1 High Hardness Screwdriver Kit Convex Cross Torx T2 Y0.6 Pental",
+        "title_i18n": {
+          "en": "6 In 1 SK-L1 High Hardness Screwdriver Kit Convex Cross Torx T2 Y0.6 Pental",
+          "ru": "6 In 1 SK-L1 High Hardness Screwdriver Kit Convex Cross Torx T2 Y0.6 Pental",
+          "es": "Gadget Inteligente: 6 In 1 SK-L1 High Hardness Screwdriver K",
+          "he": "גאדג'ט חכם: 6 In 1 SK-L1 High Hardness Screwdriver K"
+        },
+        "price_usd": 20.5093,
+        "old_price_usd": 27.41,
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4TT1b7v",
+        "image": "assets/img/6-in-1-sk-l1-high-hardness-screwdriver-kit-co-1.jpg",
+        "gallery": [
+          "assets/img/6-in-1-sk-l1-high-hardness-screwdriver-kit-co-1.jpg"
+        ],
+        "is_new": false,
+        "legacy_claims": false,
+        "source": "portals",
+        "price_status": "verified",
+        "price_observed_at": "2026-10-22T12:18:31+00:00",
+        "item_id": "1005007786833007",
+        "reviewed": true,
+        "source_evidence": "Verified live product with item id 1005007786833007",
+        "price_ils": 63.39
+      }
+    },
+    {
+      "reason": "DUPLICATE_MARKETPLACE_ITEM_ID",
+      "product": {
+        "id": "real-323",
+        "slug": "3-in-1-laser-measuring-tape-40m-60m-laser-dis",
+        "category": "tools",
+        "title": "3 in 1 Laser Measuring Tape 40M/60M Laser Distance Meter 5M Steel Tape with",
+        "title_i18n": {
+          "en": "3 in 1 Laser Measuring Tape 40M/60M Laser Distance Meter 5M Steel Tape with",
+          "ru": "Лазерный уровень нивелир 360° с зеленым лучом",
+          "es": "Gadget Inteligente: 3 in 1 Laser Measuring Tape 40M/60M Lase",
+          "he": "גאדג'ט חכם: 3 in 1 Laser Measuring Tape 40M/60M Lase"
+        },
+        "price_usd": 10.8031,
+        "old_price_usd": 14.43,
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c458YOGX",
+        "image": "assets/img/3-in-1-laser-measuring-tape-40m-60m-laser-dis-1.jpg",
+        "gallery": [
+          "assets/img/3-in-1-laser-measuring-tape-40m-60m-laser-dis-1.jpg"
+        ],
+        "is_new": false,
+        "legacy_claims": false,
+        "source": "portals",
+        "price_status": "verified",
+        "price_observed_at": "2026-10-22T12:18:32+00:00",
+        "item_id": "1005012764445182",
+        "reviewed": true,
+        "source_evidence": "Verified live product with item id 1005012764445182",
+        "price_ils": 33.39
+      }
+    },
+    {
+      "reason": "DUPLICATE_MARKETPLACE_ITEM_ID",
+      "product": {
+        "id": "real-357",
+        "slug": "dog-paw-cleaner-cup-soft-silicone-combs-porta",
+        "category": "pets",
+        "title": "Dog Paw Cleaner Cup Soft Silicone Combs Portable Outdoor Pet Foot Washer Pa",
+        "title_i18n": {
+          "en": "Dog Paw Cleaner Cup Soft Silicone Combs Portable Outdoor Pet Foot Washer",
+          "ru": "Портативная силиконовая лапомойка для собак",
+          "es": "Gadget Inteligente: Dog Paw Cleaner Cup Soft Silicone Combs ",
+          "he": "גאדג'ט חכם: Dog Paw Cleaner Cup Soft Silicone Combs "
+        },
+        "price_usd": 5.0117,
+        "old_price_usd": 24.78,
+        "affiliate_url": "https://s.click.aliexpress.com/e/_c4M1meOx",
+        "image": "assets/img/dog-paw-cleaner-cup-soft-silicone-combs-porta-1.jpg",
+        "gallery": [
+          "assets/img/dog-paw-cleaner-cup-soft-silicone-combs-porta-1.jpg"
+        ],
+        "is_new": false,
+        "legacy_claims": false,
+        "source": "portals",
+        "price_status": "verified",
+        "price_observed_at": "2026-10-22T12:18:55+00:00",
+        "item_id": "1005009879941564",
+        "reviewed": true,
+        "source_evidence": "Verified live product with item id 1005009879941564",
+        "price_ils": 15.49
+      }
+    }
+  ]
+}

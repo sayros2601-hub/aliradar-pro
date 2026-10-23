@@ -81,11 +81,18 @@ def validate_catalog(db, root=BASE_DIR):
     products = db.get("products", [])
     if not products:
         errors.append("Refusing to build an empty catalog")
-    ids, slugs, links = set(), set(), set()
+    ids, slugs, links, item_ids = set(), set(), set(), set()
     cats = {c["id"] for c in db.get("categories", [])}
     for p in products:
         pid, slug = p.get("id"), p.get("slug", "")
         key = affiliate_key(p.get("affiliate_url"))
+        item = p.get('item_id')
+        if p.get('source') == 'curated_ai_studio' or (item and not str(item).isdigit()):
+            errors.append(f'{pid}: marketplace identity must come from an actual product')
+        if item:
+            if str(item) in item_ids:
+                errors.append(f'{pid}: duplicate marketplace item ID')
+            item_ids.add(str(item))
         for value, seen, label in [(pid, ids, "id"), (slug, slugs, "slug"), (key, links, "affiliate destination")]:
             if not value or value in seen:
                 errors.append(f"{pid}: missing/duplicate {label}")

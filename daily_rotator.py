@@ -43,18 +43,12 @@ def rotate_deals(count=7,dry_run=False,checker=check_single_link):
     category_counts={}; needs={}
     policy=read_json(DATA_DIR/'selection_policy.json')
     for decision,candidate in rank_candidates(reserve):
-        is_portals_verified = (
-            candidate.get('source') == 'portals'
-            and candidate.get('reviewed') is True
-            and bool(candidate.get('item_id'))
-            and bool(candidate.get('source_evidence'))
-        )
-        if not decision['eligible'] and not is_portals_verified:
+        if not decision['eligible']:
             continue
         need = decision.get('need_id') or candidate.get('category')
         category = candidate.get('category')
-        max_need = max(policy.get('max_per_need', 2), 4)
-        max_cat = max(policy.get('max_per_category', 2), 4)
+        max_need = policy.get('max_per_need', 1)
+        max_cat = policy.get('max_per_category', 2)
         if (need and needs.get(need, 0) >= max_need) or (category and category_counts.get(category, 0) >= max_cat):
             continue
         if len(incoming) >= count:
@@ -80,7 +74,8 @@ def rotate_deals(count=7,dry_run=False,checker=check_single_link):
     if not incoming:
         print('[Rotation] No candidates passed current demand, delivery, quality and editorial checks. Catalog unchanged.')
         return []
-    limit=int(db['site_meta'].get('catalog_limit',len(db['products'])))
+    # Rotation replaces admitted items; resizing is a separate editorial operation.
+    limit=len(db['products'])
     existing=[{**p,'is_new':False} for p in db['products']]
     combined=incoming+existing
     retired=combined[limit:]

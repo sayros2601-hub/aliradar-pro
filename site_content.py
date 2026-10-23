@@ -123,3 +123,14 @@ EXPERIENCE = {
 }
 for _lang, _copy in EXPERIENCE.items():
     COPY[_lang].update(_copy)
+
+
+# DealVault is an affiliate publisher, so seller-specific terms cannot be guaranteed here.
+_RETURN_COPY = {
+    'en': ('Returns and refunds', 'DealVault is an independent affiliate catalog and does not sell products, take payments or process returns. Before buying, check the exact listing and your destination on AliExpress for the applicable return window, eligibility, shipping fees and refund conditions. These vary by seller, item, country and order. DealVault does not promise a universal 30-day return, free return shipping or a refund deadline. For an existing order, sign in to AliExpress, open the order and use its return/refund or support options.'),
+    'ru': ('Возвраты и возмещение', 'DealVault — независимый партнёрский каталог: мы не продаём товары, не принимаем оплату и не оформляем возвраты. Перед покупкой проверьте условия конкретного товара и страны доставки на AliExpress: сроки и возможность возврата, стоимость пересылки и условия возмещения. Они зависят от продавца, товара, страны и заказа. DealVault не обещает единый срок возврата в 30 дней, бесплатную обратную доставку или фиксированный срок возмещения. По существующему заказу войдите в AliExpress, откройте заказ и воспользуйтесь доступными вариантами возврата, возмещения или поддержки.'),
+    'es': ('Devoluciones y reembolsos', 'DealVault es un catálogo de afiliación independiente: no vende productos, no cobra pagos ni tramita devoluciones. Antes de comprar, consulte en AliExpress las condiciones del artículo y del país de entrega: plazo, requisitos, gastos de envío y reembolso. Estas condiciones varían según vendedor, artículo, país y pedido. DealVault no garantiza un plazo universal de 30 días, devolución gratuita ni una fecha fija de reembolso. Para un pedido existente, inicie sesión en AliExpress, abra el pedido y utilice sus opciones de devolución, reembolso o asistencia.'),
+    'he': ('החזרות והחזרים כספיים', 'DealVault הוא קטלוג שותפים עצמאי ואינו מוכר מוצרים, גובה תשלומים או מטפל בהחזרות. לפני הרכישה בדקו ב-AliExpress את תנאי המוצר ומדינת המשלוח: תקופת ההחזרה, הזכאות, עלויות המשלוח ותנאי ההחזר הכספי. התנאים משתנים לפי המוכר, המוצר, המדינה וההזמנה. DealVault אינו מבטיח תקופת החזרה אחידה של 30 יום, משלוח החזרה חינם או מועד החזר קבוע. להזמנה קיימת היכנסו ל-AliExpress, פתחו את ההזמנה והשתמשו באפשרויות ההחזרה, ההחזר או התמיכה הזמינות בה.')
+}
+for _language, (_title, _text) in _RETURN_COPY.items():
+    COPY[_language].update(returns=_title, returns_text=_text)
