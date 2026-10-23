@@ -16,6 +16,7 @@ from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, pag
 from site_content import COPY, LANG_NAMES
 from buyer_guide import GUIDE
 from hero_variety import hero_products, hero_payload
+from journal import build_journal, navigation as journal_navigation, teaser as journal_teaser, feed_path as journal_feed
 
 IMAGE_PIPELINE_VERSION = b'webp-v3-pillow-13'
 CATALOG_PAGE_SIZE = 100
@@ -153,7 +154,7 @@ class SiteBuilder:
     def category_name(self, category, lang):
         return next((c.get('name_i18n', {}).get(lang, category) for c in self.cats if c['id'] == category), category)
 
-    def shell(self, lang, current, title, body, slug=None, legal=None, noindex=False, schemas=None, archived=False, catalog_page=None):
+    def shell(self, lang, current, title, body, slug=None, legal=None, noindex=False, schemas=None, archived=False, catalog_page=None, social_image=None, summary=None, article=False):
         c = COPY[lang]
         rel = lambda path: esc(relative_url(path, current))
         url = self.domain+public_path(current)
@@ -162,6 +163,7 @@ class SiteBuilder:
         alternates = ''.join(f'<link rel="alternate" hreflang="{l}" href="{esc(alt(l))}">' for l in LANGUAGES)
         languages = ''.join(f'<a href="{rel(route(l))}" lang="{l}" hreflang="{l}" data-lang-link="{l}" {"aria-current=\"page\"" if l == lang else ""}>{LANG_NAMES[l]}</a>' for l in LANGUAGES)
         legal_nav = ''.join(f'<a href="{rel(page_path(lang, legal=name))}">{esc(c[name])}</a>' for name in ('guide', 'privacy', 'terms', 'disclosure', 'contact', 'returns'))
+        legal_nav += journal_navigation(lang)
         schema = {'@context':'https://schema.org', '@type':'WebPage', 'name':title, 'url':url, 'inLanguage':lang}
         visible_products = self.public_products
         if legal or archived or noindex:
@@ -191,8 +193,14 @@ class SiteBuilder:
                 'name':'DealVault', 'alternateName':['Deal Vault','dealvault.pages.dev'],
                 'image':self.domain+'/'+hero_image,
                 'inLanguage':list(LANGUAGES)}]
+        if social_image:
+            hero_image = social_image
+        if homepage:
+            body = body.replace('</main>', journal_teaser(lang)+'</main>')
         page_title = f'DealVault | {c["tagline"]}' if homepage else f'{title} | DealVault'
         description = (f'{title}. {c["about_text"]}' if slug else c.get(f'{legal}_text',c['intro']))[:200]
+        if summary:
+            description = summary[:200]
         return f'''<!doctype html>
 <html lang="{lang}" dir="{'rtl' if lang == 'he' else 'ltr'}" data-theme="light">
 <head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
@@ -202,12 +210,13 @@ class SiteBuilder:
 <meta name="p:domain_verify" content="c0f81b8dc452173100fb9d91208205a1">
 <link rel="canonical" href="{esc(url)}">{alternates}<link rel="alternate" hreflang="x-default" href="{esc(alt('en'))}">
 {'<meta name="robots" content="noindex,follow">' if noindex else ''}
-<meta property="og:type" content="website"><meta property="og:site_name" content="DealVault"><meta property="og:title" content="{esc(page_title)}">
+<meta property="og:type" content="{'article' if article else 'website'}"><meta property="og:site_name" content="DealVault"><meta property="og:title" content="{esc(page_title)}">
 <meta property="og:description" content="{esc(description)}"><meta property="og:url" content="{esc(url)}"><meta property="og:image" content="{self.domain}/{hero_image}">
 <meta property="og:image:alt" content="{esc('DealVault — useful everyday finds' if homepage else title)}">
 <meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(page_title)}"><meta name="twitter:image" content="{self.domain}/{hero_image}"><meta name="theme-color" content="#f5f7fb">
 <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png"><link rel="icon" type="image/svg+xml" href="{rel(self.images['icon.svg'])}"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="manifest" href="{rel('manifest.json')}">
 <link rel="alternate" type="application/rss+xml" title="DealVault" href="{rel('rss.xml' if lang == 'en' else f'rss_{lang}.xml')}">
+<link rel="alternate" type="application/rss+xml" title="DealVault Journal" href="{rel(journal_feed(lang))}">
 <link rel="stylesheet" href="{rel(self.images['modern.css'])}">
 <script>try{{var t=localStorage.getItem('sp_theme');document.documentElement.dataset.theme=['dark','light'].includes(t)?t:(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');document.documentElement.dataset.motion=localStorage.getItem('dv_motion')==='off'?'off':'on'}}catch(e){{}}</script>
 <script type="application/ld+json">{script_json(document_schema)}</script>
@@ -310,6 +319,8 @@ class SiteBuilder:
         email = self.db['site_meta'].get('contact_email')
         if name == 'contact' and email:
             extra = f'<p><a href="mailto:{esc(email)}">{esc(email)}</a></p>'
+            from journal_content import COPY as JOURNAL_COPY
+            c = dict(c, contact_text=JOURNAL_COPY[lang]['about_text']+' '+JOURNAL_COPY[lang]['contact'])
         body = f'<main id="main" class="wrap prose"><p class="eyebrow">DEALVAULT</p><h1>{esc(c[name])}</h1><p>{esc(c[name+"_text"])}</p>{extra}<a class="back-link" href="{esc(relative_url(page_path(lang),current))}">← {esc(c["back"])}</a></main>'
         self.write(current,self.shell(lang,current,c[name],body,legal=name))
 
@@ -356,6 +367,7 @@ class SiteBuilder:
                 self.deal(p,lang)
             for name in ('guide','privacy','terms','disclosure','contact','returns'):
                 self.legal(lang,name)
+        build_journal(self)
         self.feeds()
         from build_google_merchant_feeds import build_google_feed
         build_google_feed(output=self.out)
