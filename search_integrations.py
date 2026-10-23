@@ -7,9 +7,18 @@ from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json
 NS = 'http://www.sitemaps.org/schemas/sitemap/0.9'
 
 
+def legacy_redirects():
+    """Preserve product URLs already distributed in Pinterest imports."""
+    return ''.join(
+        f'{prefix}/deal/:slug {prefix}/deals/:slug 301\n'
+        for prefix in ('', '/ru', '/he', '/es')
+    )
+
+
 def build_search_integrations(root=BASE_DIR/'dist', config=None):
     root = Path(root)
     config = read_json(DATA_DIR/'site_integrations.json') if config is None else config
+    (root/'_redirects').write_text(legacy_redirects(), encoding='utf-8')
     key = config.get('bing_site_verification')
     if key:
         if not re.fullmatch(r'[A-Fa-f0-9]{32}', key):

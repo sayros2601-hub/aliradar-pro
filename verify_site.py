@@ -94,6 +94,9 @@ def verify_site(root=BASE_DIR/'dist'):
             errors.append('Non-public file in artifact: '+str(p.relative_to(root)))
         if any(part.startswith('.') for part in p.relative_to(root).parts): errors.append('Hidden file in public artifact')
     try:
+        from search_integrations import legacy_redirects
+        if (root/'_redirects').read_text(encoding='utf-8') != legacy_redirects():
+            errors.append('Legacy social product redirects missing or changed')
         sitemap=ET.parse(root/'sitemap.xml')
         for loc in sitemap.findall('.//{*}loc'):
             if not loc.text.startswith(DOMAIN+'/'): errors.append('Foreign sitemap domain')
