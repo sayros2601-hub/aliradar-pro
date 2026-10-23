@@ -110,6 +110,188 @@
   ],
   "products": [
     {
+      "id": "500ml-portable-silicone-water",
+      "slug": "500ml-portable-silicone-water",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3EzgScX",
+      "price_usd": 38.19,
+      "price_ils": 141.3,
+      "price_eur": 35.13,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/500ml-portable-silicone-water-1.jpg",
+      "gallery": [
+        "assets/img/500ml-portable-silicone-water-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "500ML Portable Silicone Water Bottle Retractable Folding Coffee Bottle Cups",
+        "ru": "Полезный гаджет: 500ML Portable Silicone Water Bottle Ret",
+        "es": "Dispositivo Útil: 500ML Portable Silicone Water Bottle Ret",
+        "he": "גאדג'ט נבחר: 500ML Portable Silicone Water Bottle Ret"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013052169590",
+      "source_evidence": "Verified live product with item id 1005013052169590",
+      "added_at": "2026-10-23T10:37:27+00:00"
+    },
+    {
+      "id": "5pcs-reader-credit-cards-alumi",
+      "slug": "5pcs-reader-credit-cards-alumi",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3uIIe0f",
+      "price_usd": 1.85,
+      "price_ils": 6.8,
+      "price_eur": 1.7,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/5pcs-reader-credit-cards-alumi-1.jpg",
+      "gallery": [
+        "assets/img/5pcs-reader-credit-cards-alumi-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "5Pcs Reader Credit Cards Aluminium Anti-theft RFID Blocking Protect Case Co",
+        "ru": "Полезный гаджет: 5Pcs Reader Credit Cards Aluminium Anti-",
+        "es": "Dispositivo Útil: 5Pcs Reader Credit Cards Aluminium Anti-",
+        "he": "גאדג'ט נבחר: 5Pcs Reader Credit Cards Aluminium Anti-"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005012608839629",
+      "source_evidence": "Verified live product with item id 1005012608839629",
+      "added_at": "2026-10-23T10:37:27+00:00"
+    },
+    {
+      "id": "5pcs-ultrathin-anti-rfid-walle",
+      "slug": "5pcs-ultrathin-anti-rfid-walle",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3ChCRwP",
+      "price_usd": 5.59,
+      "price_ils": 20.7,
+      "price_eur": 5.14,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/5pcs-ultrathin-anti-rfid-walle-1.jpg",
+      "gallery": [
+        "assets/img/5pcs-ultrathin-anti-rfid-walle-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "5Pcs Ultrathin Anti Rfid Wallet Blocking Reader Lock Bank Card Holder Anti ",
+        "ru": "Полезный гаджет: 5Pcs Ultrathin Anti Rfid Wallet Blocking",
+        "es": "Dispositivo Útil: 5Pcs Ultrathin Anti Rfid Wallet Blocking",
+        "he": "גאדג'ט נבחר: 5Pcs Ultrathin Anti Rfid Wallet Blocking"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005009615396204",
+      "source_evidence": "Verified live product with item id 1005009615396204",
+      "added_at": "2026-10-23T10:37:27+00:00"
+    },
+    {
+      "id": "600ml-silicone-collapsible-spo",
+      "slug": "600ml-silicone-collapsible-spo",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3Cu0riR",
+      "price_usd": 41.39,
+      "price_ils": 153.1,
+      "price_eur": 38.08,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/600ml-silicone-collapsible-spo-1.jpg",
+      "gallery": [
+        "assets/img/600ml-silicone-collapsible-spo-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "600ml Silicone Collapsible Sports Water Bottles Outdoor Camping Folding Wat",
+        "ru": "Полезный гаджет: 600ml Silicone Collapsible Sports Water ",
+        "es": "Dispositivo Útil: 600ml Silicone Collapsible Sports Water ",
+        "he": "גאדג'ט נבחר: 600ml Silicone Collapsible Sports Water "
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005010547266925",
+      "source_evidence": "Verified live product with item id 1005010547266925",
+      "added_at": "2026-10-23T10:37:28+00:00"
+    },
+    {
+      "id": "7mm-11mm-transparent-hot-melt",
+      "slug": "7mm-11mm-transparent-hot-melt",
+      "category": "tools",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c2uQIkQ3",
+      "price_usd": 5.29,
+      "price_ils": 19.6,
+      "price_eur": 4.87,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/7mm-11mm-transparent-hot-melt-1.jpg",
+      "gallery": [
+        "assets/img/7mm-11mm-transparent-hot-melt-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "7mm / 11mm Transparent Hot Melt Glue Sticks Strong Visco Home DIY Tools for",
+        "ru": "Полезный гаджет: 7mm / 11mm Transparent Hot Melt Glue Sti",
+        "es": "Dispositivo Útil: 7mm / 11mm Transparent Hot Melt Glue Sti",
+        "he": "גאדג'ט נבחר: 7mm / 11mm Transparent Hot Melt Glue Sti"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005012305406299",
+      "source_evidence": "Verified live product with item id 1005012305406299",
+      "added_at": "2026-10-23T10:37:28+00:00"
+    },
+    {
+      "id": "8-inch-desktop-fan-usb-recha",
+      "slug": "8-inch-desktop-fan-usb-recha",
+      "category": "tech",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3VrTRqn",
+      "price_usd": 42.99,
+      "price_ils": 159.1,
+      "price_eur": 39.55,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/8-inch-desktop-fan-usb-recha-1.jpg",
+      "gallery": [
+        "assets/img/8-inch-desktop-fan-usb-recha-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "8 Inch Desktop Fan USB Rechargeable Cooling Air Circulator Portable Quiet W",
+        "ru": "Полезный гаджет: 8 Inch Desktop Fan USB Rechargeable Cool",
+        "es": "Dispositivo Útil: 8 Inch Desktop Fan USB Rechargeable Cool",
+        "he": "גאדג'ט נבחר: 8 Inch Desktop Fan USB Rechargeable Cool"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013150622450",
+      "source_evidence": "Authentic Portals extraction with confirmed item 1005013150622450",
+      "added_at": "2026-10-23T10:37:28+00:00"
+    },
+    {
+      "id": "automatic-wire-stripper-cutter-crimp",
+      "slug": "automatic-wire-stripper-cutter-crimp",
+      "category": "tools",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3mzowjV",
+      "price_usd": 22.79,
+      "price_ils": 84.3,
+      "price_eur": 20.97,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/automatic-wire-stripper-cutter-crimp-1.jpg",
+      "gallery": [
+        "assets/img/automatic-wire-stripper-cutter-crimp-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Automatic Wire Stripper Cutter Crimper Pliers Multifunctional Electrician H",
+        "ru": "Автоматический многофункциональный стриппер проводов",
+        "es": "Gadget Práctico: Automatic Wire Stripper Cutter Crimper P",
+        "he": "גאдג'ט נבחר: Automatic Wire Stripper Cutter Crimper P"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013419696728",
+      "source_evidence": "Mega extraction with item 1005013419696728",
+      "added_at": "2026-10-23T10:37:28+00:00"
+    },
+    {
       "id": "1-4pcs-7-days-weekly-mini-port",
       "slug": "1-4pcs-7-days-weekly-mini-port",
       "category": "under10",
@@ -118,7 +300,7 @@
       "price_ils": 24.8,
       "price_eur": 6.15,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/1-4pcs-7-days-weekly-mini-port-1.jpg",
       "gallery": [
         "assets/img/1-4pcs-7-days-weekly-mini-port-1.jpg"
@@ -144,7 +326,7 @@
       "price_ils": 29.2,
       "price_eur": 7.27,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/1-4pcs-silicone-collapsible-fu-1.jpg",
       "gallery": [
         "assets/img/1-4pcs-silicone-collapsible-fu-1.jpg"
@@ -170,7 +352,7 @@
       "price_ils": 54.2,
       "price_eur": 13.49,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/1pcs-car-tissue-box-towel-se-1.jpg",
       "gallery": [
         "assets/img/1pcs-car-tissue-box-towel-se-1.jpg"
@@ -196,7 +378,7 @@
       "price_ils": 54.4,
       "price_eur": 13.51,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/2025-anti-theft-slim-pop-up-wa-1.jpg",
       "gallery": [
         "assets/img/2025-anti-theft-slim-pop-up-wa-1.jpg"
@@ -222,7 +404,7 @@
       "price_ils": 86.5,
       "price_eur": 21.52,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/3pcs-travel-shoe-storage-pouch-1.jpg",
       "gallery": [
         "assets/img/3pcs-travel-shoe-storage-pouch-1.jpg"
@@ -248,7 +430,7 @@
       "price_ils": 41.4,
       "price_eur": 10.29,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/5-10-20pcs-hot-melt-glue-stick-1.jpg",
       "gallery": [
         "assets/img/5-10-20pcs-hot-melt-glue-stick-1.jpg"
@@ -274,7 +456,7 @@
       "price_ils": 25.1,
       "price_eur": 6.25,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/5-100pcs-transparent-hot-melt-1.jpg",
       "gallery": [
         "assets/img/5-100pcs-transparent-hot-melt-1.jpg"
@@ -26723,181 +26905,6 @@
       "reviewed": true,
       "item_id": "1005007436173016",
       "source_evidence": "Mega extraction with item 1005007436173016"
-    },
-    {
-      "id": "9000rpm-360w-mini-diy-table-saw-hand",
-      "slug": "9000rpm-360w-mini-diy-table-saw-hand",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4a2hKTz",
-      "price_usd": 199.69,
-      "price_ils": 738.9,
-      "price_eur": 183.71,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/9000rpm-360w-mini-diy-table-saw-hand-1.jpg",
-      "gallery": [
-        "assets/img/9000rpm-360w-mini-diy-table-saw-hand-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "9000RPM 360W Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Mo",
-        "ru": "Полезный гаджет: 9000RPM 360W Mini DIY Table Saw Handmade",
-        "es": "Gadget Práctico: 9000RPM 360W Mini DIY Table Saw Handmade",
-        "he": "גאдג'ט נבחר: 9000RPM 360W Mini DIY Table Saw Handmade"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005010349079761",
-      "source_evidence": "Mega extraction with item 1005010349079761"
-    },
-    {
-      "id": "woodworking-saw-blade-110mm-multifun",
-      "slug": "woodworking-saw-blade-110mm-multifun",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4aFp6tt",
-      "price_usd": 16.9,
-      "price_ils": 62.5,
-      "price_eur": 15.55,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/woodworking-saw-blade-110mm-multifun-1.jpg",
-      "gallery": [
-        "assets/img/woodworking-saw-blade-110mm-multifun-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Woodworking Saw Blade 110mm Multifunctional Plastic Metal Wood Angle Grinde",
-        "ru": "Пильные и обдирочные диски по дереву и металлу",
-        "es": "Gadget Práctico: Woodworking Saw Blade 110mm Multifunctio",
-        "he": "גאдג'ט נבחר: Woodworking Saw Blade 110mm Multifunctio"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005010749540911",
-      "source_evidence": "Mega extraction with item 1005010749540911"
-    },
-    {
-      "id": "cat-litter-mat-double-layer-1",
-      "slug": "cat-litter-mat-double-layer-1",
-      "category": "pets",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4F3BUMB",
-      "price_usd": 14.49,
-      "price_ils": 53.6,
-      "price_eur": 13.33,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/cat-litter-mat-double-layer-1-1.jpg",
-      "gallery": [
-        "assets/img/cat-litter-mat-double-layer-1-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Cat Litter Mat Double Layer Waterproof Urine Proof Trapping Mat Easy to Cle",
-        "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
-        "es": "Alfombra Doble Capa Impermeable para Arena de Gatos",
-        "he": "שטיח כפול עמיד במים לתפיסת חול חתולים"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005005674780713",
-      "source_evidence": "Mega extraction with item 1005005674780713"
-    },
-    {
-      "id": "new-6pcs-precision-long-tweezers-set",
-      "slug": "new-6pcs-precision-long-tweezers-set",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4Ed0f9d",
-      "price_usd": 14.79,
-      "price_ils": 54.7,
-      "price_eur": 13.61,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/new-6pcs-precision-long-tweezers-set-1.jpg",
-      "gallery": [
-        "assets/img/new-6pcs-precision-long-tweezers-set-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "NEW 6pcs Precision Long Tweezers Set ESD Anti-Static Stainless SteelTweezer",
-        "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
-        "es": "Gadget Práctico: NEW 6pcs Precision Long Tweezers Set ESD",
-        "he": "גאдג'ט נבחר: NEW 6pcs Precision Long Tweezers Set ESD"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005012321479344",
-      "source_evidence": "Mega extraction with item 1005012321479344"
-    },
-    {
-      "id": "fc-to-lc-fiber-optic-adapter-for-opt",
-      "slug": "fc-to-lc-fiber-optic-adapter-for-opt",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c3tSyQ5D",
-      "price_usd": 5.59,
-      "price_ils": 20.7,
-      "price_eur": 5.14,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/fc-to-lc-fiber-optic-adapter-for-opt-1.jpg",
-      "gallery": [
-        "assets/img/fc-to-lc-fiber-optic-adapter-for-opt-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "FC to LC Fiber Optic Adapter for Optical Power Meter and Visual Fault Locat",
-        "ru": "Полезный гаджет: FC to LC Fiber Optic Adapter for Optical",
-        "es": "Gadget Práctico: FC to LC Fiber Optic Adapter for Optical",
-        "he": "גאдג'ט נבחר: FC to LC Fiber Optic Adapter for Optical"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005012145594472",
-      "source_evidence": "Mega extraction with item 1005012145594472"
-    },
-    {
-      "id": "automatic-sensor-trash-can-12l-touch",
-      "slug": "automatic-sensor-trash-can-12l-touch",
-      "category": "smarthome",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c3eiaovv",
-      "price_usd": 118.39,
-      "price_ils": 438.0,
-      "price_eur": 108.92,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/automatic-sensor-trash-can-12l-touch-1.jpg",
-      "gallery": [
-        "assets/img/automatic-sensor-trash-can-12l-touch-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Automatic Sensor Trash Can 12L Touchless Infrared Motion Sensor Smart Trash",
-        "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
-        "es": "Gadget Práctico: Automatic Sensor Trash Can 12L Touchless",
-        "he": "גאдג'ט נבחר: Automatic Sensor Trash Can 12L Touchless"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005009092023540",
-      "source_evidence": "Mega extraction with item 1005009092023540"
-    },
-    {
-      "id": "mini-diy-table-saw-handmade-1",
-      "slug": "mini-diy-table-saw-handmade-1",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c40mV5MT",
-      "price_usd": 285.9,
-      "price_ils": 1057.8,
-      "price_eur": 263.03,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/mini-diy-table-saw-handmade-1-1.jpg",
-      "gallery": [
-        "assets/img/mini-diy-table-saw-handmade-1-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Model Crafts Li",
-        "ru": "Полезный гаджет: Mini DIY Table Saw Handmade Woodworking ",
-        "es": "Gadget Práctico: Mini DIY Table Saw Handmade Woodworking ",
-        "he": "גאдג'ט נבחר: Mini DIY Table Saw Handmade Woodworking "
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005011937283305",
-      "source_evidence": "Mega extraction with item 1005011937283305"
     }
   ]
 }

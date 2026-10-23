@@ -1,148 +1,10 @@
 {
-  "checked_at": "2026-10-22T15:03:07+00:00",
+  "checked_at": "2026-10-23T10:37:29+00:00",
   "mode": "evidence_based_screening",
   "eligible": 0,
   "review_queue": [
     {
-      "id": "500ml-portable-silicone-water",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "5pcs-reader-credit-cards-alumi",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "5pcs-ultrathin-anti-rfid-walle",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "600ml-silicone-collapsible-spo",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
       "id": "7-days-weekly-pill-box-colorfu",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "7mm-11mm-transparent-hot-melt",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "8-inch-desktop-fan-usb-recha",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -188,6 +50,29 @@
       "demand": null
     },
     {
+      "id": "9000rpm-360w-mini-diy-table-saw-hand",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "anti-theft-scanning-protect-ho",
       "country": null,
       "need_id": null,
@@ -211,7 +96,7 @@
       "demand": null
     },
     {
-      "id": "automatic-wire-stripper-cutter-crimp",
+      "id": "automatic-sensor-trash-can-12l-touch",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -281,6 +166,29 @@
     },
     {
       "id": "car-tissue-box-sunshade-seat",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "cat-litter-mat-double-layer-1",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -396,6 +304,29 @@
     },
     {
       "id": "elegant-convenient-car-tissu",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "fc-to-lc-fiber-optic-adapter-for-opt",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -648,6 +579,29 @@
       "demand": null
     },
     {
+      "id": "mini-diy-table-saw-handmade-1",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "mini-sealed-pill-organizer-7-d",
       "country": null,
       "need_id": null,
@@ -695,6 +649,29 @@
     },
     {
       "id": "mini-small-portable-travel-vit",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "new-6pcs-precision-long-tweezers-set",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1638,6 +1615,29 @@
     },
     {
       "id": "waterproof-shoe-storage-bag-tr",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "woodworking-saw-blade-110mm-multifun",
       "country": null,
       "need_id": null,
       "eligible": false,
