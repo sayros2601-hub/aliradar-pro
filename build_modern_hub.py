@@ -5,6 +5,8 @@ import hashlib
 import html
 import json
 import os
+from datetime import datetime, timezone
+from email.utils import format_datetime
 from pathlib import Path
 import shutil
 import tempfile
@@ -350,6 +352,12 @@ class SiteBuilder:
                     ET.SubElement(item, k).text = v
                 ET.SubElement(item, 'guid', isPermaLink='true').text = link
                 ET.SubElement(item, 'enclosure', url=img_url, type='image/webp', length=str((self.out / self.images[p['image']]).stat().st_size))
+                added = p.get('added_at')
+                try:
+                    dt = datetime.fromisoformat(added.replace('Z', '+00:00')) if added else datetime.now(timezone.utc)
+                except Exception:
+                    dt = datetime.now(timezone.utc)
+                ET.SubElement(item, 'pubDate').text = format_datetime(dt)
                 items.append({'id': link, 'url': link, 'title': title, 'content_text': text, 'image': img_url})
             rss = ET.Element('rss', version='2.0')
             rss.append(channel)

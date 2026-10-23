@@ -17006,112 +17006,119 @@
       "research_term": "thermal_printer",
       "use_i18n": {
         "en": "Inkless instant printing via Bluetooth for study notes, to-do lists, and labels",
-        "es": "Impresión instantánea sin tinta mediante Bluetooth para notas y etiquetas",
         "ru": "Мгновенная печать без чернил по Bluetooth для заметок, списков и стикеров",
+        "es": "Impresión instantánea sin tinta mediante Bluetooth para notas y etiquetas",
         "he": "הדפסה מיידית ללא דיו באמצעות בלוטות לפתקים ותוויות"
       },
       "check_i18n": {
         "en": "Includes starter thermal paper roll; standard 57mm refill rolls supported",
-        "es": "Incluye rollo de papel térmico inicial; compatible con rollos estándar de 57 mm",
         "ru": "Стартовый рулон термобумаги в комплекте; стандартный размер 57 мм",
+        "es": "Incluye rollo de papel térmico inicial; compatible con rollos estándar de 57 mm",
         "he": "כולל גליל נייר תרמי התחלתי; תואם לגלילי 57 מ\"מ סטנדרטיים"
-      }
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
     },
     "magnetic-levitating-3d-moon-lamp": {
       "need": "ambience",
       "research_term": "levitating_lamp",
       "use_i18n": {
         "en": "Magnetic levitation technology floats the lunar globe seamlessly with warm glowing light",
-        "es": "Tecnología de levitación magnética que hace flotar la luna con luz cálida",
         "ru": "Технология магнитной левитации удерживает светящуюся Луну в воздухе",
+        "es": "Tecnología de levitación magnética que hace flotar la luna con luz cálida",
         "he": "טכנולוגיית ריחוף מגנטי המחזיקה את הירח הזוהר באוויר"
       },
       "check_i18n": {
         "en": "Requires flat stable surface to align magnetic center during initial setup",
-        "es": "Requiere superficie plana para alinear el centro magnético al encender",
         "ru": "Требует ровной поверхности для балансировки при первом включении",
+        "es": "Requiere superficie plana para alinear el centro magnético al encender",
         "he": "דורש משטח ישר ליישור המרכז המגנטי בהפעלה ראשונה"
-      }
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
     },
     "smart-touch-coffee-mug-warmer": {
       "need": "comfort",
       "research_term": "mug_warmer",
       "use_i18n": {
         "en": "Maintains drinks at optimal 55°C drinking temperature throughout your workday",
-        "es": "Mantiene tus bebidas a 55°C durante toda tu jornada de trabajo",
         "ru": "Поддерживает напитки при идеальной температуре 55°C весь рабочий день",
+        "es": "Mantiene tus bebidas a 55°C durante toda tu jornada de trabajo",
         "he": "שומר על המשקה בטמפרטורה אידיאלית של 55 מעלות לאורך כל היום"
       },
       "check_i18n": {
         "en": "Best results with flat-bottomed ceramic, glass, or stainless steel cups",
-        "es": "Mejores resultados con tazas de fondo plano de cerámica o vidrio",
         "ru": "Максимальный эффект с кружками с плоским дном из керамики или стекла",
+        "es": "Mejores resultados con tazas de fondo plano de cerámica o vidrio",
         "he": "התוצאות הטובות ביותר עם ספלים בעלי תחתית שטוחה"
-      }
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
     },
     "electric-makeup-brush-cleaner-dryer": {
       "need": "beauty",
       "research_term": "brush_cleaner",
       "use_i18n": {
         "en": "Sonic vortex cleaning removes foundation and powder residue in 30 seconds",
-        "es": "Limpieza profunda por vórtex sónico que elimina restos en 30 segundos",
         "ru": "Вихревая звуковая очистка удаляет остатки косметики за 30 секунд",
+        "es": "Limpieza profunda por vórtex sónico que elimina restos en 30 segundos",
         "he": "ניקוי עמוק בעזרת מערבולת קולית להסרת שאריות איפור בחצי דקה"
       },
       "check_i18n": {
         "en": "USB-powered; flexible silicone collar fits brushes of all handle sizes",
-        "es": "Alimentado por USB; collar de silicona flexible para todo tamaño de brochas",
         "ru": "Питание от USB; эластичная силиконовая насадка подходит под любые кисти",
+        "es": "Alimentado por USB; collar de silicona flexible para todo tamaño de brochas",
         "he": "מופעל באמצעות כבל USB; מתאים למברשות בכל הגדלים"
-      }
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
     },
     "foldable-3in1-magnetic-wireless-charger": {
       "need": "charging",
       "research_term": "wireless_charger",
       "use_i18n": {
         "en": "Simultaneously charges phone, smartwatch, and earbuds on a single minimalist stand",
-        "es": "Carga simultáneamente móvil, reloj y auriculares en un soporte minimalista",
         "ru": "Одновременная быстрая зарядка смартфона, часов и наушников без лишних проводов",
+        "es": "Carga simultáneamente móvil, reloj y auriculares en un soporte minimalista",
         "he": "טעינה בו-זמנית של סמארטפון, שעון ואוזניות במעמד אלגנטי אחד"
       },
       "check_i18n": {
         "en": "Requires 20W+ QC or PD adapter for full simultaneous high-speed fast charging",
-        "es": "Requiere adaptador de 20W+ para velocidad de carga rápida simultánea",
         "ru": "Для одновременной быстрой зарядки рекомендуется адаптер от 20W",
+        "es": "Requiere adaptador de 20W+ para velocidad de carga rápida simultánea",
         "he": "דורש ראש טעינה של 20 ואט ומעלה לטעינה מהירה מלאה"
-      }
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
     },
     "ultra-quiet-smart-pet-water-fountain": {
       "need": "pet_care",
       "research_term": "pet_fountain",
       "use_i18n": {
         "en": "Continuous oxygenated fresh flowing water encourages pets to stay healthy and hydrated",
-        "es": "Agua fresca en circulación continua que anima a tus mascotas a beber más",
         "ru": "Постоянная циркуляция и обогащение кислородом мотивируют питомцев пить свежую воду",
+        "es": "Agua fresca en circulación continua que anima a tus mascotas a beber más",
         "he": "זרימת מים מסוננת ומחומצנת המעודדת את חיות המחמד לשתות יותר"
       },
       "check_i18n": {
         "en": "Includes replaceable multi-layer carbon filter; pump runs below 20dB whisper quiet",
-        "es": "Incluye filtro de carbón multicapa; bomba ultrasilenciosa por debajo de 20dB",
         "ru": "Сменный многослойный угольный фильтр в комплекте; уровень шума помпы до 20 дБ",
+        "es": "Incluye filtro de carbón multicapa; bomba ultrasilenciosa por debajo de 20dB",
         "he": "כולל מסנן פחם רב שכבתי להחלפה; פעולה שקטה במיוחד מתחת ל-20 דציבל"
-      }
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
     },
     "cordless-handheld-car-vacuum-cleaner": {
       "need": "car_care",
       "research_term": "car_vacuum",
       "use_i18n": {
         "en": "Compact 9000Pa high-suction portable cleaner for car seats, vents, and keyboard crumbs",
-        "es": "Potente succión de 9000Pa para asientos de coche, rejillas y teclados",
         "ru": "Мощная тяга 9000Pa для чистки автомобильных сидений, дефлекторов и клавиатуры",
+        "es": "Potente succión de 9000Pa para asientos de coche, rejillas y teclados",
         "he": "שאיבה חזקה של 9000Pa למושבי רכב, פתחי אוורור ומקלדות"
       },
       "check_i18n": {
         "en": "Washable reusable HEPA filter with crevice and brush nozzle attachments included",
-        "es": "Filtro HEPA lavable reutilizable con boquillas de cepillo y rincones incluidas",
         "ru": "Многоразовый моющийся HEPA-фильтр и насадки (щелевая + щетка) в комплекте",
+        "es": "Filtro HEPA lavable reutilizable con boquillas de cepillo y rincones incluidas",
         "he": "מסנן HEPA רחיץ ורב-פעמי עם מתאמי מברשת ופייה צרה כלולים"
-      }
+      },
+      "basis": "editorial_use_case_from_catalog; not a hands-on review"
     }
   }
 }

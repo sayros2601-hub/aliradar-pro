@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-23T19:09:04+00:00",
+  "checked_at": "2026-10-23T20:03:40+00:00",
   "mode": "evidence_based_screening",
   "eligible": 0,
   "review_queue": [
@@ -120,29 +120,6 @@
     },
     {
       "id": "7mm-11mm-transparent-hot-melt",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "8-inch-desktop-fan-usb-recha",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1039,29 +1016,6 @@
       "demand": null
     },
     {
-      "id": "quiet-mini-desk-fan-recharge",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
       "id": "rechargeable-4g-real-time-mini-water",
       "country": null,
       "need_id": null,
@@ -1201,98 +1155,6 @@
     },
     {
       "id": "small-portable-mini-usb-fan",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "tk-mini-usb-desk-fan-portabl",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "topk-4inch-usb-mini-desk-fan",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "topk-4inch-usb-mini-portable",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "topk-mini-portable-fan-usb-d",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1592,29 +1454,6 @@
     },
     {
       "id": "wallet-card-knife-edc-outdoor",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
-    },
-    {
-      "id": "warmco-mini-fan-usb-desk-fan",
       "country": null,
       "need_id": null,
       "eligible": false,

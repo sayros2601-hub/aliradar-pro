@@ -110,6 +110,321 @@
   ],
   "products": [
     {
+      "id": "mini-pocket-wireless-thermal-printer",
+      "slug": "mini-pocket-wireless-thermal-printer",
+      "category": "gadgets",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3bOnrwX",
+      "price_usd": 12.4,
+      "price_ils": 45.9,
+      "price_eur": 11.2,
+      "shipping_days": 8,
+      "is_new": true,
+      "image": "assets/img/mini-pocket-wireless-thermal-printer-1.jpg",
+      "gallery": [
+        "assets/img/mini-pocket-wireless-thermal-printer-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Mini Pocket Wireless Thermal Printer for Notes Labels and Photos",
+        "ru": "Мини карманный беспроводной термопринтер для заметок и фото",
+        "es": "Mini Impresora Térmica Portátil Inalámbrica para Notas y Fotos",
+        "he": "מדפסת תרמית מיני ניידת אלחוטית להדפסת פתקים ותמונות"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013305939413",
+      "source_evidence": "Curated viral product with verified Portals item id 1005013305939413 and studio photography",
+      "added_at": "2026-10-23T20:03:18+00:00",
+      "price_status": "unverified_reference",
+      "price_observed_at": null,
+      "translation_provenance": {
+        "ru": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "es": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "he": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        }
+      }
+    },
+    {
+      "id": "magnetic-levitating-3d-moon-lamp",
+      "slug": "magnetic-levitating-3d-moon-lamp",
+      "category": "smarthome",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c4mbk2Td",
+      "price_usd": 24.5,
+      "price_ils": 91.0,
+      "price_eur": 22.1,
+      "shipping_days": 9,
+      "is_new": true,
+      "image": "assets/img/magnetic-levitating-3d-moon-lamp-1.jpg",
+      "gallery": [
+        "assets/img/magnetic-levitating-3d-moon-lamp-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Magnetic Levitating 3D Moon Lamp with Floating Ambient Night Light",
+        "ru": "Магнитная левитирующая 3D лампа Луна с парящим ночником",
+        "es": "Lámpara Luna 3D de Levitación Magnética con Luz Nocturna Flotante",
+        "he": "מנורת ירח תלת ממדית מרחפת מגנטית עם תאורת לילה נעימה"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005006840511922",
+      "source_evidence": "Curated viral product with verified Portals item id 1005006840511922 and studio photography",
+      "added_at": "2026-10-23T20:03:18+00:00",
+      "price_status": "unverified_reference",
+      "price_observed_at": null,
+      "translation_provenance": {
+        "ru": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "es": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "he": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        }
+      }
+    },
+    {
+      "id": "smart-touch-coffee-mug-warmer",
+      "slug": "smart-touch-coffee-mug-warmer",
+      "category": "smarthome",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3F9bRSB",
+      "price_usd": 7.8,
+      "price_ils": 28.9,
+      "price_eur": 7.0,
+      "shipping_days": 8,
+      "is_new": true,
+      "image": "assets/img/smart-touch-coffee-mug-warmer-1.jpg",
+      "gallery": [
+        "assets/img/smart-touch-coffee-mug-warmer-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Smart Touch Electric Coffee Mug Warmer with LED Temp Display 55C",
+        "ru": "Умная сенсорная подставка для подогрева кружки с LED экраном 55C",
+        "es": "Calentador Eléctrico de Tazas de Café con Pantalla LED 55C",
+        "he": "משטח חימום חשמלי חכם לספלי קפה עם תצוגת טמפרטורה"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005005702114807",
+      "source_evidence": "Curated viral product with verified Portals item id 1005005702114807 and studio photography",
+      "added_at": "2026-10-23T20:03:18+00:00",
+      "price_status": "unverified_reference",
+      "price_observed_at": null,
+      "translation_provenance": {
+        "ru": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "es": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "he": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        }
+      }
+    },
+    {
+      "id": "electric-makeup-brush-cleaner-dryer",
+      "slug": "electric-makeup-brush-cleaner-dryer",
+      "category": "gadgets",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c4LN1Y2j",
+      "price_usd": 8.9,
+      "price_ils": 32.9,
+      "price_eur": 8.0,
+      "shipping_days": 7,
+      "is_new": true,
+      "image": "assets/img/electric-makeup-brush-cleaner-dryer-1.jpg",
+      "gallery": [
+        "assets/img/electric-makeup-brush-cleaner-dryer-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Automatic Electric Makeup Brush Cleaner and Fast Drying Machine",
+        "ru": "Автоматический электрический очиститель и сушилка кистей для макияжа",
+        "es": "Limpiador Automático Eléctrico de Brochas de Maquillaje y Secado Rápido",
+        "he": "מנקה מברשות איפור חשמלי אוטומטי עם ייבוש מהיר"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005008515981247",
+      "source_evidence": "Curated viral product with verified Portals item id 1005008515981247 and studio photography",
+      "added_at": "2026-10-23T20:03:18+00:00",
+      "price_status": "unverified_reference",
+      "price_observed_at": null,
+      "translation_provenance": {
+        "ru": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "es": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "he": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        }
+      }
+    },
+    {
+      "id": "foldable-3in1-magnetic-wireless-charger",
+      "slug": "foldable-3in1-magnetic-wireless-charger",
+      "category": "tech",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c4dcylkx",
+      "price_usd": 14.2,
+      "price_ils": 52.9,
+      "price_eur": 12.8,
+      "shipping_days": 8,
+      "is_new": true,
+      "image": "assets/img/foldable-3in1-magnetic-wireless-charger-1.jpg",
+      "gallery": [
+        "assets/img/foldable-3in1-magnetic-wireless-charger-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Foldable 3-in-1 Fast Magnetic Wireless Charging Station Stand",
+        "ru": "Складная магнитная беспроводная зарядная станция 3-в-1 для гаджетов",
+        "es": "Estación de Carga Inalámbrica Magnética Plegable 3 en 1 Rápida",
+        "he": "תחנת עגינה וטעינה אלחוטית מגנטית מתקפלת 3 ב-1"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005007162010965",
+      "source_evidence": "Curated viral product with verified Portals item id 1005007162010965 and studio photography",
+      "added_at": "2026-10-23T20:03:18+00:00",
+      "price_status": "unverified_reference",
+      "price_observed_at": null,
+      "translation_provenance": {
+        "ru": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "es": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "he": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        }
+      }
+    },
+    {
+      "id": "ultra-quiet-smart-pet-water-fountain",
+      "slug": "ultra-quiet-smart-pet-water-fountain",
+      "category": "pets",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c4P1qUrH",
+      "price_usd": 11.5,
+      "price_ils": 42.5,
+      "price_eur": 10.4,
+      "shipping_days": 9,
+      "is_new": true,
+      "image": "assets/img/ultra-quiet-smart-pet-water-fountain-1.jpg",
+      "gallery": [
+        "assets/img/ultra-quiet-smart-pet-water-fountain-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Ultra-Quiet Smart Pet Water Fountain with Stainless Steel Top Filter",
+        "ru": "Ультратихий умный фонтанчик-поилка для кошек и собак с фильтром",
+        "es": "Fuente de Agua Silenciosa Inteligente para Mascotas de Acero Inoxidable",
+        "he": "מזרקת מים שקטה וחכמה לחיות מחמד עם סינון נירוסטה"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013101491500",
+      "source_evidence": "Curated viral product with verified Portals item id 1005013101491500 and studio photography",
+      "added_at": "2026-10-23T20:03:18+00:00",
+      "price_status": "unverified_reference",
+      "price_observed_at": null,
+      "translation_provenance": {
+        "ru": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "es": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "he": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        }
+      }
+    },
+    {
+      "id": "cordless-handheld-car-vacuum-cleaner",
+      "slug": "cordless-handheld-car-vacuum-cleaner",
+      "category": "auto",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3VrTRqn",
+      "price_usd": 13.8,
+      "price_ils": 51.0,
+      "price_eur": 12.4,
+      "shipping_days": 8,
+      "is_new": true,
+      "image": "assets/img/cordless-handheld-car-vacuum-cleaner-1.jpg",
+      "gallery": [
+        "assets/img/cordless-handheld-car-vacuum-cleaner-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "High Power 9000Pa Cordless Handheld Car Vacuum Cleaner Rechargeable",
+        "ru": "Мощный беспроводной автомобильный мини-пылесос 9000Pa аккумуляторный",
+        "es": "Aspiradora de Coche Inalámbrica Portátil 9000Pa Potente Recargable",
+        "he": "שואב אבק אלחוטי נייד עוצמתי לרכב 9000Pa נטען"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013150622450",
+      "source_evidence": "Curated viral product with verified Portals item id 1005013150622450 and studio photography",
+      "added_at": "2026-10-23T20:03:18+00:00",
+      "price_status": "unverified_reference",
+      "price_observed_at": null,
+      "translation_provenance": {
+        "ru": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "es": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        },
+        "he": {
+          "method": "curated_studio_translation",
+          "observed_at": "2026-10-23T20:03:18+00:00",
+          "product_claims_verified": true
+        }
+      }
+    },
+    {
       "id": "1-4pcs-7-days-weekly-mini-port",
       "slug": "1-4pcs-7-days-weekly-mini-port",
       "category": "under10",
