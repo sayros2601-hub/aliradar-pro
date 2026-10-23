@@ -126,6 +126,19 @@ def verify_site(root=BASE_DIR/'dist'):
         key = integrations.get('indexnow_key')
         if key and (root / (key + '.txt')).read_text(encoding='utf-8').strip() != key:
             errors.append('IndexNow verification key mismatch')
+        bing = integrations.get('bing_site_verification')
+        if bing and ET.parse(root/'BingSiteAuth.xml').findtext('./user') != bing:
+            errors.append('Bing verification key mismatch')
+        index = ET.parse(root/'sitemap-index.xml')
+        combined = []
+        for loc in index.findall('.//{*}loc'):
+            names = {f'{DOMAIN}/sitemap-{lang}.xml' for lang in ('en','ru','he','es')}
+            if loc.text not in names:
+                errors.append('Unexpected discovery map'); continue
+            combined.extend(node.text for node in ET.parse(root/loc.text.removeprefix(DOMAIN+'/')).findall('.//{*}loc'))
+        canonical = [node.text for node in sitemap.findall('.//{*}loc')]
+        if len(combined) != len(set(combined)) or set(combined) != set(canonical):
+            errors.append('Language discovery maps do not match canonical sitemap')
         feed=json.loads((root/'feed.json').read_text(encoding='utf-8'))
         if not all(item.get('content_text') or item.get('content_html') for item in feed['items']): errors.append('Invalid JSON Feed content')
         if len({item['id'] for item in feed['items']}) != len(feed['items']): errors.append('Duplicate feed IDs')

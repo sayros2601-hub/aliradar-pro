@@ -127,3 +127,12 @@ The handoff folder contains five summaries, not a full conversation export. Thei
 - A complete affiliate destination pass returned 501 matching product destinations and 493 inconclusive responses. Unknown responses are retained, and none is presented as confirmed stock or valid current pricing. This pass itself is test activity and must not be counted as organic demand.
 
 The pre-repair source/data archive and original working-tree diff are stored locally under `.local/codex-audit-20261023T153454Z/`. They include the unsafe original scripts for recovery/reference. Credentials were not added to the archive or Git. Existing daily commits were reconciled by preserving route history and rotation logs; repaired local catalog data is the authoritative replacement.
+
+
+## Search channel connection follow-up
+
+`search_integrations.py` reproduces the public Bing ownership XML and four language-specific maps plus `sitemap-index.xml`, all based on the canonical `sitemap.xml`. Robots advertises both maps. Archived pages remain excluded. The added maps support separate processing diagnostics; their existence alone does not establish Google ingestion.
+
+The release workflow captures the previous public catalog before building, then `submit_indexnow.py --submit` notifies participating engines after the public release passes verification. Unchanged catalog hashes send nothing. New, changed and retired English feed entries notify all four language URLs and the four homepages. A localized-only catalog change uses the current canonical map. Missing prior observations fail explicitly; an initial full notification requires an explicit `--force --submit`. HTTP 200 is receipt, HTTP 202 is pending key validation, and neither means indexing. There is no Google Indexing API abuse and no paid account integration.
+
+The old Pinterest launcher that forcibly killed all Chrome processes and enabled broad remote debugging is retired. Browser/account setup and RSS publication must be verified through the actual Pinterest business account; clicking an arbitrary Save button is not proof of successful scheduling.

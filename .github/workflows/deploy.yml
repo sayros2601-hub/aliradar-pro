@@ -46,6 +46,9 @@ jobs:
           python -m unittest discover -s tests -p 'test_*.py' -v
           node --check assets/modern_app.js
           node --check assets/tracking.js
+      - name: Observe current public release before updating
+        if: github.event_name != 'pull_request'
+        run: python submit_indexnow.py --capture
       - name: Build PR without live network updates
         if: github.event_name == 'pull_request'
         run: python dealvault_pipeline.py --offline
@@ -91,6 +94,9 @@ jobs:
       - name: Verify the public Cloudflare release
         if: github.event_name != 'pull_request'
         run: python verify_deployment.py
+      - name: Notify search engines of published changes
+        if: github.event_name != 'pull_request'
+        run: python submit_indexnow.py --submit
       - name: Keep the original Surge address current
         if: github.event_name != 'pull_request'
         id: mirror
