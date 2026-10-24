@@ -31,19 +31,19 @@ def get_token():
     raw = unprotect(dpapi_path.read_bytes()).decode('utf-8').strip()
     return raw
 
-def deploy():
+def deploy(dist_dir="dist"):
     token = get_token()
     env = os.environ.copy()
     env["CLOUDFLARE_API_TOKEN"] = token
     env["CLOUDFLARE_ACCOUNT_ID"] = "a4be28e05f73ad2b3939d364ea8b2817"
     
     cmd = [
-        "npx.cmd", "wrangler", "pages", "deploy", "dist",
+        "npx.cmd", "wrangler", "pages", "deploy", dist_dir,
         "--project-name=dealvault",
         "--branch=main",
         "--commit-dirty=true"
     ]
-    print("[Deploy] Starting Cloudflare Pages deployment...")
+    print(f"[Deploy] Starting Cloudflare Pages deployment from {dist_dir}...")
     proc = subprocess.run(cmd, cwd=BASE_DIR, env=env, capture_output=True, text=True, encoding='utf-8', errors='replace')
     print("STDOUT:")
     print(proc.stdout)
@@ -56,4 +56,5 @@ def deploy():
     print("[Deploy] Cloudflare Pages deployment completed successfully!")
 
 if __name__ == '__main__':
-    deploy()
+    dist_arg = sys.argv[1] if len(sys.argv) > 1 else ("dist-live" if (BASE_DIR / "dist-live").exists() else "dist")
+    deploy(dist_arg)
