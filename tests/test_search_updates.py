@@ -22,9 +22,10 @@ class SearchMapsTests(unittest.TestCase):
             key = 'A'*32
             self.assertEqual(build_search_integrations(root, {'bing_site_verification':key}), 4)
             redirects = (root/'_redirects').read_text(encoding='utf-8').splitlines()
-            self.assertEqual(len(redirects), 4)
+            self.assertEqual(len(redirects), 7)
             for prefix in ('', '/ru', '/he', '/es'):
                 self.assertIn(f'{prefix}/deal/:slug {prefix}/deals/:slug 301', redirects)
+            self.assertIn('/sitemap /sitemap.xml 301', redirects)
             self.assertEqual(ET.parse(root/'BingSiteAuth.xml').findtext('./user'), key)
             combined = []
             for name in ('en','ru','he','es'):

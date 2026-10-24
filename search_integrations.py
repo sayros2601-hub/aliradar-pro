@@ -8,11 +8,17 @@ NS = 'http://www.sitemaps.org/schemas/sitemap/0.9'
 
 
 def legacy_redirects():
-    """Preserve product URLs already distributed in Pinterest imports."""
-    return ''.join(
+    """Preserve product URLs already distributed in Pinterest imports and convenience sitemap aliases."""
+    deal_rules = ''.join(
         f'{prefix}/deal/:slug {prefix}/deals/:slug 301\n'
         for prefix in ('', '/ru', '/he', '/es')
     )
+    sitemap_rules = (
+        '/sitemap /sitemap.xml 301\n'
+        '/sitemap/ /sitemap.xml 301\n'
+        '/sitemap-index /sitemap-index.xml 301\n'
+    )
+    return deal_rules + sitemap_rules
 
 
 def build_search_integrations(root=BASE_DIR/'dist', config=None):
