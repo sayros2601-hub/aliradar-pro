@@ -231,7 +231,7 @@ class SiteBuilder:
 <div class="header-controls"><nav class="languages" aria-label="{esc(c['language'])}">{languages}</nav>
 <div class="control-pair"><button class="motion-toggle" id="motion-toggle" type="button" aria-label="{esc(c['motion'])}" title="{esc(c['motion'])}" aria-pressed="false">Ⅱ</button><button class="theme-toggle" id="theme-toggle" type="button" aria-label="{esc(c['theme'])}" title="{esc(c['theme'])}">◐</button></div></div></div></header>
 {body}
-<footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="{rel(page_path(lang))}">DealVault<span>↗</span></a><p>{esc(c['affiliate'])}</p></div><nav aria-label="DealVault">{legal_nav}<a href="{rel('rss.xml' if lang == 'en' else f'rss_{lang}.xml')}">RSS</a></nav></div><div class="wrap footer-bottom"><span>© 2026 DealVault</span><span>{esc(c['seller_note'])}</span></div></footer>
+<footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="{rel(page_path(lang))}">DealVault<span>↗</span></a><p>{esc(c['affiliate'])}</p></div><nav aria-label="DealVault">{legal_nav}<a href="{rel('rss.xml' if lang == 'en' else f'rss_{lang}.xml')}">RSS</a><a href="/sitemap.xml">Sitemap</a></nav></div><div class="wrap footer-bottom"><span>© 2026 DealVault</span><span>{esc(c['seller_note'])}</span></div></footer>
 <dialog id="product-modal" aria-labelledby="modal-title"><button type="button" class="modal-close" data-close-modal aria-label="{esc(c['close'])}">×</button><div id="modal-content-area"></div></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
 <script id="products-db" type="application/json">{script_json(payload)}</script>
@@ -390,7 +390,8 @@ class SiteBuilder:
             self.write('indexnow.txt', key)
         urls=ET.Element('urlset',xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
         for page in sorted(self.out.rglob('*.html')):
-            ET.SubElement(ET.SubElement(urls,'url'),'loc').text=self.domain+public_path(page.relative_to(self.out).as_posix())
+            if page.name != '404.html':
+                ET.SubElement(ET.SubElement(urls,'url'),'loc').text=self.domain+public_path(page.relative_to(self.out).as_posix())
         ET.indent(urls)
         self.write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n'+ET.tostring(urls,encoding='unicode')+'\n')
         # Retired URLs stay useful for existing shares, but no longer advertise an offer.
