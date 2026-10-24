@@ -25,7 +25,8 @@ def build_search_integrations(root=BASE_DIR/'dist', config=None):
             raise ValueError('Invalid public Bing verification key')
         users = ET.Element('users')
         ET.SubElement(users, 'user').text = key
-        ET.ElementTree(users).write(root/'BingSiteAuth.xml', encoding='utf-8', xml_declaration=True)
+        ET.indent(users)
+        (root/'BingSiteAuth.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n'+ET.tostring(users, encoding='unicode')+'\n', encoding='utf-8')
     urls = [loc.text for loc in ET.parse(root/'sitemap.xml').findall('.//{*}loc')]
     if not urls or len(urls) != len(set(urls)):
         raise ValueError('Discovery map must contain distinct canonical pages')
@@ -44,9 +45,11 @@ def build_search_integrations(root=BASE_DIR/'dist', config=None):
         document = ET.Element('urlset', xmlns=NS)
         for url in subset:
             ET.SubElement(ET.SubElement(document, 'url'), 'loc').text = url
-        ET.ElementTree(document).write(root/name, encoding='utf-8', xml_declaration=True)
+        ET.indent(document)
+        (root/name).write_text('<?xml version="1.0" encoding="UTF-8"?>\n'+ET.tostring(document, encoding='unicode')+'\n', encoding='utf-8')
         ET.SubElement(ET.SubElement(index, 'sitemap'), 'loc').text = DOMAIN+'/'+name
-    ET.ElementTree(index).write(root/'sitemap-index.xml', encoding='utf-8', xml_declaration=True)
+    ET.indent(index)
+    (root/'sitemap-index.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n'+ET.tostring(index, encoding='unicode')+'\n', encoding='utf-8')
     (root/'robots.txt').write_text(
         f'User-agent: *\nAllow: /\nSitemap: {DOMAIN}/sitemap.xml\nSitemap: {DOMAIN}/sitemap-index.xml\n',
         encoding='utf-8')

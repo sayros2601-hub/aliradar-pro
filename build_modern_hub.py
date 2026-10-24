@@ -209,6 +209,7 @@ class SiteBuilder:
 <title>{esc(page_title)}</title><meta name="description" content="{esc(description)}">
 <meta name="application-name" content="DealVault"><meta name="robots" content="max-image-preview:large">
 <meta name="google-site-verification" content="{esc(self.integrations.get('google_site_verification',''))}">
+<meta name="msvalidate.01" content="{esc(self.integrations.get('bing_site_verification',''))}">
 <meta name="p:domain_verify" content="c0f81b8dc452173100fb9d91208205a1">
 <link rel="canonical" href="{esc(url)}">{alternates}<link rel="alternate" hreflang="x-default" href="{esc(alt('en'))}">
 {'<meta name="robots" content="noindex,follow">' if noindex else ''}
@@ -390,7 +391,8 @@ class SiteBuilder:
         urls=ET.Element('urlset',xmlns='http://www.sitemaps.org/schemas/sitemap/0.9')
         for page in sorted(self.out.rglob('*.html')):
             ET.SubElement(ET.SubElement(urls,'url'),'loc').text=self.domain+public_path(page.relative_to(self.out).as_posix())
-        self.write('sitemap.xml','<?xml version="1.0" encoding="utf-8"?>\n'+ET.tostring(urls,encoding='unicode'))
+        ET.indent(urls)
+        self.write('sitemap.xml','<?xml version="1.0" encoding="UTF-8"?>\n'+ET.tostring(urls,encoding='unicode')+'\n')
         # Retired URLs stay useful for existing shares, but no longer advertise an offer.
         # Add them after the sitemap so search engines see only current indexable pages.
         from published_routes import known_routes
