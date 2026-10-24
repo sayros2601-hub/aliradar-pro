@@ -10,8 +10,9 @@ import json
 import re
 from playwright.sync_api import sync_playwright
 
-USER_DATA_DIR = r"C:\Users\Nika\Desktop\PAWSVAULT_STUDIO\chrome_affiliate_profile"
-SCREENSHOTS_DIR = r"C:\Users\Nika\Desktop\PAWSVAULT_STUDIO\ALIEXPRESS_EXPLORATION"
+_STUDIO_DIR = r"C:\Users\Nika\Desktop\Antigravity_Projects\PAWSVAULT_STUDIO" if os.path.exists(r"C:\Users\Nika\Desktop\Antigravity_Projects\PAWSVAULT_STUDIO") else r"C:\Users\Nika\Desktop\PAWSVAULT_STUDIO"
+USER_DATA_DIR = os.path.join(_STUDIO_DIR, "chrome_affiliate_profile")
+SCREENSHOTS_DIR = os.path.join(_STUDIO_DIR, "ALIEXPRESS_EXPLORATION")
 
 class AliAffiliateEngine:
     def __init__(self, headless=True):

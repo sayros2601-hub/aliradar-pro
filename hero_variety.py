@@ -5,8 +5,14 @@ from dealvault_core import BASE_DIR, LANGUAGES, page_path, product_title, public
 # Reviewed together for distinct subjects: travel, repair, pets and home.
 # Missing/withdrawn products are omitted, rather than resurrected from this list.
 HERO_IDS = (
-    'real-109', 'real-111', 'real-123', 'real-125', 'real-106', 'real-113',
-    'real-116', 'real-126', 'real-128', 'real-131', 'real-102', 'real-103',
+    'mini-pocket-wireless-thermal-printer',
+    'magnetic-levitating-3d-moon-lamp',
+    'smart-touch-coffee-mug-warmer',
+    'electric-makeup-brush-cleaner-dryer',
+    'foldable-3in1-magnetic-wireless-charger',
+    'ultra-quiet-smart-pet-water-fountain',
+    'cordless-handheld-car-vacuum-cleaner',
+    'real-109', 'real-111', 'real-123', 'real-125', 'real-106',
 )
 
 

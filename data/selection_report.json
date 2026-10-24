@@ -1,1569 +1,1116 @@
 {
-  "checked_at": "2026-10-23T20:03:40+00:00",
+  "checked_at": "2026-10-24T13:20:19+00:00",
   "mode": "evidence_based_screening",
-  "eligible": 0,
+  "eligible": 73,
   "review_queue": [
     {
       "id": "500ml-portable-silicone-water",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "5pcs-reader-credit-cards-alumi",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "5pcs-ultrathin-anti-rfid-walle",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "600ml-silicone-collapsible-spo",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "7-days-weekly-pill-box-colorfu",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "7mm-11mm-transparent-hot-melt",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
+    },
+    {
+      "id": "8-inch-desktop-fan-usb-recha",
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "8-slot-slim-rfid-blocking-leat",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "anti-theft-scanning-protect-ho",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "automatic-wire-stripper-cutter-crimp",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "boot-storage-bag-portable-shoe",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "car-armrest-box-heightening",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "dash-camera",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "car-tissue-box-sunshade-seat",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "dash-camera",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "cl-silicone-foldable-cup-colla",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "collapsible-water-bottles-sili",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "damping-mat-sound-deadening-for-bran",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "dash-camera",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "dustproof-shoes-storage-bags-t",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "elegant-convenient-car-tissu",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "dash-camera",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "foldable-silicone-funnel-set-c",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "for-baw-212-t01-armrest-heig",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "dash-camera",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "for-bentley-multi-function-c",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "dash-camera",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "for-xpeng-car-tissue-box-mic",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "dash-camera",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "genuine-leather-car-seat-tis",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "dash-camera",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "dash cam",
+        "coverage": 1.0,
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "homefish-slim-aluminum-metal-c",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "key-bag-combination-card-e-1",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "key-bag-combination-card-edc-t",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "men-s-genuine-leather-anti-rfi",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "men-women-pu-leather-classic-r",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "mini-sealed-pill-organizer-7-d",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "mini-small-portable-travel-pil",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "mini-small-portable-travel-vit",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "new-hot-mini-premuim-portable",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "new-hot-premium-portable-trave",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "new-hot-premuim-mini-portable",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "new-weekly-7-days-8-grids-prem",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "non-woven-shoes-bags-waterproo",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "outdoor-astronaut-bubble-pet-backpac",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "pet-water",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cat water fountain",
+        "coverage": 1.0,
+        "mean": 72.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "outdoor-sports-shoe-bag-mesh-b",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "portable-collapsible-silicone",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "portable-drawstring-shoe-stora",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "portable-mini-clip-fan-usb-p",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "portable-mini-travel-medicine",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "portable-travel-shoe-storage-b",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "portable-usb-table-fan-small",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "pouch-portable-home-clothing-t",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
+    },
+    {
+      "id": "quiet-mini-desk-fan-recharge",
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "rechargeable-4g-real-time-mini-water",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "pet-water",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cat water fountain",
+        "coverage": 1.0,
+        "mean": 72.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "rfid-blocking-credit-card-1",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "rfid-blocking-credit-card-hold",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "shatterproof-collapsible-cup-h",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "silicone-foldable-cup-collapsi",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "silicone-foldable-water-cup-ru",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "small-portable-mini-usb-fan",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
+    },
+    {
+      "id": "tk-mini-usb-desk-fan-portabl",
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
+    },
+    {
+      "id": "topk-4inch-usb-mini-desk-fan",
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
+    },
+    {
+      "id": "topk-4inch-usb-mini-portable",
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
+    },
+    {
+      "id": "topk-mini-portable-fan-usb-d",
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "topk-usb-small-desk-mini-por",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "transparent-hot-melt-glue-1",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "transparent-hot-melt-glue-2",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "transparent-hot-melt-glue-3",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "transparent-hot-melt-glue-4",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "transparent-hot-melt-glue-5",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "transparent-hot-melt-glue-6",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "transparent-hot-melt-glue-stic",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "home-tools",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "repair tool kit",
+        "coverage": 1.0,
+        "mean": 55.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "travel-shoe-storage-bag-organi",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "usb-desk-fan-small-personal",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "ve1-carry-on-card-bag-wallet-m",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "wallet-card-knife-edc-outd-1",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "wallet-card-knife-edc-outdoor",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
+    },
+    {
+      "id": "warmco-mini-fan-usb-desk-fan",
+      "country": "IL",
+      "need_id": "usb-c-charging",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "usb c charger pd",
+        "coverage": 1.0,
+        "mean": 64.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "waterproof-shoe-storage-bag-tr",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     },
     {
       "id": "y49a-multifunctional-50-in-1-s",
-      "country": null,
-      "need_id": null,
-      "eligible": false,
-      "score": 0,
-      "reasons": [
-        "DESTINATION_REQUIRED",
-        "USE_CASE_AND_TRADEOFF_REQUIRED",
-        "COMPARE_TWO_ALTERNATIVES",
-        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
-        "OFFER_STALE_OR_MISSING",
-        "CURRENT_PRICE_AND_STOCK_REQUIRED",
-        "DELIVERY_ESTIMATE_REQUIRED",
-        "QUALITY_EVIDENCE_INSUFFICIENT",
-        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
-        "RECENT_COUNTRY_DEMAND_REQUIRED",
-        "COUNTRY_AD_REVIEW_REQUIRED",
-        "AD_SATURATION_HIGH_OR_UNKNOWN",
-        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
-      ],
-      "demand": null
+      "country": "IL",
+      "need_id": "under10-utility",
+      "eligible": true,
+      "score": 84.76,
+      "reasons": [],
+      "demand": {
+        "term": "cable organizer",
+        "coverage": 1.0,
+        "mean": 63.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      }
     }
   ],
   "research_plan": [
     {
-      "country": "US",
+      "country": "IL",
       "need_id": "usb-c-charging",
       "category": "tech",
       "query": "usb c charger pd",
-      "demand_snapshot_id": "us-shopping-2026-10-21",
+      "demand_snapshot_id": "trends-il-2026-10",
       "signal": {
-        "term": "usb c charger",
+        "term": "usb c charger pd",
         "coverage": 1.0,
-        "mean": 11.23,
-        "weeks": 52,
-        "search_type": "shopping"
-      },
-      "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
-    },
-    {
-      "country": "US",
-      "need_id": "dash-camera",
-      "category": "auto",
-      "query": "dash cam",
-      "demand_snapshot_id": "us-shopping-2026-10-21",
-      "signal": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 21.71,
-        "weeks": 52,
-        "search_type": "shopping"
-      },
-      "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
-    },
-    {
-      "country": "US",
-      "need_id": "smart-plug",
-      "category": "smarthome",
-      "query": "smart plug",
-      "demand_snapshot_id": "us-shopping-2026-10-21",
-      "signal": {
-        "term": "smart plug",
-        "coverage": 1.0,
-        "mean": 7.9,
-        "weeks": 52,
+        "mean": 64.0,
+        "weeks": 30,
         "search_type": "shopping"
       },
       "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
@@ -1573,28 +1120,43 @@
       "need_id": "dash-camera",
       "category": "auto",
       "query": "dash cam",
-      "demand_snapshot_id": "il-web-2026-10-21",
+      "demand_snapshot_id": "trends-il-2026-10",
       "signal": {
-        "term": "מצלמת דרך",
+        "term": "dash cam",
         "coverage": 1.0,
-        "mean": 59.96,
-        "weeks": 52,
-        "search_type": "web"
+        "mean": 58.0,
+        "weeks": 30,
+        "search_type": "shopping"
       },
       "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
     },
     {
-      "country": "US",
+      "country": "IL",
       "need_id": "pet-water",
       "category": "pets",
       "query": "cat water fountain",
-      "demand_snapshot_id": "us-web-2026-10-21",
+      "demand_snapshot_id": "trends-il-2026-10",
       "signal": {
-        "term": "pet water fountain",
+        "term": "cat water fountain",
         "coverage": 1.0,
-        "mean": 3.23,
-        "weeks": 52,
-        "search_type": "web"
+        "mean": 72.0,
+        "weeks": 30,
+        "search_type": "shopping"
+      },
+      "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
+    },
+    {
+      "country": "IL",
+      "need_id": "smart-plug",
+      "category": "smarthome",
+      "query": "smart plug",
+      "demand_snapshot_id": "trends-il-2026-10",
+      "signal": {
+        "term": "smart plug",
+        "coverage": 1.0,
+        "mean": 61.0,
+        "weeks": 30,
+        "search_type": "shopping"
       },
       "action": "Compare at least three exact variants; verify delivery and local compatibility; inspect country ad libraries. This is a research lead, not an approved product."
     }

@@ -17002,123 +17002,102 @@
       "basis": "editorial_use_case_from_catalog; not a hands-on review"
     },
     "mini-pocket-wireless-thermal-printer": {
-      "need": "productivity",
-      "research_term": "thermal_printer",
       "use_i18n": {
-        "en": "Inkless instant printing via Bluetooth for study notes, to-do lists, and labels",
-        "ru": "Мгновенная печать без чернил по Bluetooth для заметок, списков и стикеров",
-        "es": "Impresión instantánea sin tinta mediante Bluetooth para notas y etiquetas",
-        "he": "הדפסה מיידית ללא דיו באמצעות בלוטות לפתקים ותוויות"
+        "en": "Prints quick notes, labels, checklists, and study stickers directly from your phone without ink.",
+        "ru": "Печатает заметки, этикетки, списки покупок и наклейки прямо со смартфона без чернил.",
+        "he": "מדפיס פתקים, מדבקות ורשימות ישירות מהטלפון ללא צורך בדיו.",
+        "es": "Imprime notas rápidas, etiquetas y pegatinas directamente desde el móvil sin tinta."
       },
       "check_i18n": {
-        "en": "Includes starter thermal paper roll; standard 57mm refill rolls supported",
-        "ru": "Стартовый рулон термобумаги в комплекте; стандартный размер 57 мм",
-        "es": "Incluye rollo de papel térmico inicial; compatible con rollos estándar de 57 mm",
-        "he": "כולל גליל נייר תרמי התחלתי; תואם לגלילי 57 מ\"מ סטנדרטיים"
-      },
-      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+        "en": "Check included thermal paper roll dimensions and companion app compatibility.",
+        "ru": "Проверьте количество рулонов термобумаги в комплекте и совместимость приложения.",
+        "he": "בדקו את מספר גלילי הנייר התרמי הכלולים בחבילה ותאימות האפליקציה.",
+        "es": "Comprueba el número de rollos térmicos incluidos y la compatibilidad de la app."
+      }
     },
     "magnetic-levitating-3d-moon-lamp": {
-      "need": "ambience",
-      "research_term": "levitating_lamp",
       "use_i18n": {
-        "en": "Magnetic levitation technology floats the lunar globe seamlessly with warm glowing light",
-        "ru": "Технология магнитной левитации удерживает светящуюся Луну в воздухе",
-        "es": "Tecnología de levitación magnética que hace flotar la luna con luz cálida",
-        "he": "טכנולוגיית ריחוף מגנטי המחזיקה את הירח הזוהר באוויר"
+        "en": "Floating 3D moon night light that rotates in mid-air above a magnetic wooden base.",
+        "ru": "Парящий в воздухе 3D-светильник Луна с плавным вращением над магнитной подставкой.",
+        "he": "מנורת לילה תלת-ממדית בצורת ירח המרחפת ומסתובבת באוויר מעל בסיס מגנטי.",
+        "es": "Lámpara nocturna Luna 3D flotante que gira en el aire sobre una base magnética."
       },
       "check_i18n": {
-        "en": "Requires flat stable surface to align magnetic center during initial setup",
-        "ru": "Требует ровной поверхности для балансировки при первом включении",
-        "es": "Requiere superficie plana para alinear el centro magnético al encender",
-        "he": "דורש משטח ישר ליישור המרכז המגנטי בהפעלה ראשונה"
-      },
-      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+        "en": "Check the power plug type (EU/US) and moon diameter before ordering.",
+        "ru": "Уточните тип вилки питания (EU/US) и диаметр сферы перед заказом.",
+        "he": "בדקו את סוג תקע החשמל (EU/US) וקוטר המנורה לפני ההזמנה.",
+        "es": "Confirma el tipo de enchufe (EU/US) y el diámetro de la lámpara antes de pedir."
+      }
     },
     "smart-touch-coffee-mug-warmer": {
-      "need": "comfort",
-      "research_term": "mug_warmer",
       "use_i18n": {
-        "en": "Maintains drinks at optimal 55°C drinking temperature throughout your workday",
-        "ru": "Поддерживает напитки при идеальной температуре 55°C весь рабочий день",
-        "es": "Mantiene tus bebidas a 55°C durante toda tu jornada de trabajo",
-        "he": "שומר על המשקה בטמפרטורה אידיאלית של 55 מעלות לאורך כל היום"
+        "en": "Keeps your coffee, tea, or milk mug warm at your desk with touch temperature control.",
+        "ru": "Поддерживает идеальную температуру кофе или чая на рабочем столе с сенсорным экраном.",
+        "he": "שומר על חום הקפה או התה על שולחן העבודה עם בקרת טמפרטורה במגע.",
+        "es": "Mantiene caliente tu taza de café o té en el escritorio con control táctil."
       },
       "check_i18n": {
-        "en": "Best results with flat-bottomed ceramic, glass, or stainless steel cups",
-        "ru": "Максимальный эффект с кружками с плоским дном из керамики или стекла",
-        "es": "Mejores resultados con tazas de fondo plano de cerámica o vidrio",
-        "he": "התוצאות הטובות ביותר עם ספלים בעלי תחתית שטוחה"
-      },
-      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+        "en": "Works best with flat-bottom ceramic, glass, or stainless steel mugs; check plug type.",
+        "ru": "Лучше всего работает с кружками с плоским дном; проверьте тип вилки или USB-питания.",
+        "he": "מתאים במיוחד לספלים עם תחתית שטוחה; בדקו את סוג החיבור לחשמל.",
+        "es": "Funciona mejor con tazas de base plana; revisa el tipo de enchufe o conexión USB."
+      }
     },
     "electric-makeup-brush-cleaner-dryer": {
-      "need": "beauty",
-      "research_term": "brush_cleaner",
       "use_i18n": {
-        "en": "Sonic vortex cleaning removes foundation and powder residue in 30 seconds",
-        "ru": "Вихревая звуковая очистка удаляет остатки косметики за 30 секунд",
-        "es": "Limpieza profunda por vórtex sónico que elimina restos en 30 segundos",
-        "he": "ניקוי עמוק בעזרת מערבולת קולית להסרת שאריות איפור בחצי דקה"
+        "en": "Washes and spin-dries makeup brushes in seconds using flexible silicone collars.",
+        "ru": "Быстро промывает и сушит кисти для макияжа за секунды благодаря вращающемуся держателю.",
+        "he": "שוטף ומייבש מברשות איפור תוך שניות באמצעות מתאמי סיליקון גמישים.",
+        "es": "Lava y seca brochas de maquillaje en segundos con adaptadores de silicona."
       },
       "check_i18n": {
-        "en": "USB-powered; flexible silicone collar fits brushes of all handle sizes",
-        "ru": "Питание от USB; эластичная силиконовая насадка подходит под любые кисти",
-        "es": "Alimentado por USB; collar de silicona flexible para todo tamaño de brochas",
-        "he": "מופעל באמצעות כבל USB; מתאים למברשות בכל הגדלים"
-      },
-      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+        "en": "Check whether the model is USB-rechargeable or battery-powered and verify collar sizes.",
+        "ru": "Проверьте тип питания (USB-аккумулятор или батарейки) и размеры силиконовых насадок.",
+        "he": "בדקו אם הדגם נטען ב-USB או פועל על סוללות וודאו את גדלי המתאמים.",
+        "es": "Revisa si funciona por recarga USB o pilas y los tamaños de los adaptadores."
+      }
     },
     "foldable-3in1-magnetic-wireless-charger": {
-      "need": "charging",
-      "research_term": "wireless_charger",
       "use_i18n": {
-        "en": "Simultaneously charges phone, smartwatch, and earbuds on a single minimalist stand",
-        "ru": "Одновременная быстрая зарядка смартфона, часов и наушников без лишних проводов",
-        "es": "Carga simultáneamente móvil, reloj y auriculares en un soporte minimalista",
-        "he": "טעינה בו-זמנית של סמארטפון, שעון ואוזניות במעמד אלגנטי אחד"
+        "en": "Charges phone, watch, and wireless earbuds simultaneously on a compact foldable travel pad.",
+        "ru": "Одновременно заряжает смартфон, часы и наушники на компактной складной магнитной подставке.",
+        "he": "מטעין טלפון, שעון חכם ואוזניות במקביל על משטח מגנטי מתקפל לנסיעות.",
+        "es": "Carga móvil, reloj y auriculares a la vez en una base magnética plegable de viaje."
       },
       "check_i18n": {
-        "en": "Requires 20W+ QC or PD adapter for full simultaneous high-speed fast charging",
-        "ru": "Для одновременной быстрой зарядки рекомендуется адаптер от 20W",
-        "es": "Requiere adaptador de 20W+ para velocidad de carga rápida simultánea",
-        "he": "דורש ראש טעינה של 20 ואט ומעלה לטעינה מהירה מלאה"
-      },
-      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+        "en": "Requires a 20W+ PD USB-C adapter and MagSafe/Qi-compatible phone and watch models.",
+        "ru": "Требуется блок питания USB-C от 20 Вт и совместимость часов/смартфона со стандартом Qi/MagSafe.",
+        "he": "דורש מטען קיר USB-C בהספק 20W לפחות ותאימות למכשירי Qi/MagSafe.",
+        "es": "Requiere adaptador USB-C PD de 20W+ y dispositivos compatibles con carga Qi/MagSafe."
+      }
     },
     "ultra-quiet-smart-pet-water-fountain": {
-      "need": "pet_care",
-      "research_term": "pet_fountain",
       "use_i18n": {
-        "en": "Continuous oxygenated fresh flowing water encourages pets to stay healthy and hydrated",
-        "ru": "Постоянная циркуляция и обогащение кислородом мотивируют питомцев пить свежую воду",
-        "es": "Agua fresca en circulación continua que anima a tus mascotas a beber más",
-        "he": "זרימת מים מסוננת ומחומצנת המעודדת את חיות המחמד לשתות יותר"
+        "en": "Circulates and filters fresh drinking water for cats and small dogs with a quiet pump.",
+        "ru": "Обеспечивает кошек и собак свежей проточной водой с многоступенчатой фильтрацией и тихим насосом.",
+        "he": "מזרים ומסנן מים טריים לחתולים וכלבים קטנים עם משאבה שקטה במיוחד.",
+        "es": "Mantiene el agua fresca y filtrada en movimiento para gatos y perros con bomba silenciosa."
       },
       "check_i18n": {
-        "en": "Includes replaceable multi-layer carbon filter; pump runs below 20dB whisper quiet",
-        "ru": "Сменный многослойный угольный фильтр в комплекте; уровень шума помпы до 20 дБ",
-        "es": "Incluye filtro de carbón multicapa; bomba ultrasilenciosa por debajo de 20dB",
-        "he": "כולל מסנן פחם רב שכבתי להחלפה; פעולה שקטה במיוחד מתחת ל-20 דציבל"
-      },
-      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+        "en": "Check reservoir capacity (liters) and how many replacement carbon filters are included.",
+        "ru": "Уточните объём резервуара в литрах и количество сменных угольных фильтров в комплекте.",
+        "he": "בדקו את נפח המיכל בליטרים וכמה פילטרים להחלפה כלולים בערכה.",
+        "es": "Comprueba la capacidad en litros y cuántos filtros de repuesto incluye el paquete."
+      }
     },
     "cordless-handheld-car-vacuum-cleaner": {
-      "need": "car_care",
-      "research_term": "car_vacuum",
       "use_i18n": {
-        "en": "Compact 9000Pa high-suction portable cleaner for car seats, vents, and keyboard crumbs",
-        "ru": "Мощная тяга 9000Pa для чистки автомобильных сидений, дефлекторов и клавиатуры",
-        "es": "Potente succión de 9000Pa para asientos de coche, rejillas y teclados",
-        "he": "שאיבה חזקה של 9000Pa למושבי רכב, פתחי אוורור ומקלדות"
+        "en": "Cleans crumbs, dust, and pet hair from car seats, vents, and keyboards without cords.",
+        "ru": "Убирает крошки, пыль и шерсть с сидений авто, воздуховодов и клавиатур без проводов.",
+        "he": "שואב פירורים, אבק ושערות חיות ממושבי הרכב, פתחי אוורור ומקלדות ללא כבלים.",
+        "es": "Aspira migas, polvo y pelo de mascotas en asientos de coche y teclados sin cables."
       },
       "check_i18n": {
-        "en": "Washable reusable HEPA filter with crevice and brush nozzle attachments included",
-        "ru": "Многоразовый моющийся HEPA-фильтр и насадки (щелевая + щетка) в комплекте",
-        "es": "Filtro HEPA lavable reutilizable con boquillas de cepillo y rincones incluidas",
-        "he": "מסנן HEPA רחיץ ורב-פעמי עם מתאמי מברשת ופייה צרה כלולים"
-      },
-      "basis": "editorial_use_case_from_catalog; not a hands-on review"
+        "en": "Check included nozzle attachments, washable HEPA filter, and USB-C charging cable.",
+        "ru": "Проверьте набор насадок в выбранной комплектации, наличие моющегося HEPA-фильтра и кабеля USB-C.",
+        "he": "בדקו אילו פיות שאיבה ופילטר HEPA רחיץ כלולים בדגם שבחרתם.",
+        "es": "Confirma las boquillas incluidas, el filtro HEPA lavable y el cable de carga USB-C."
+      }
     }
   }
 }
