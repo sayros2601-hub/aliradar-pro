@@ -1,113 +1,8 @@
 {
-  "checked_at": "2026-10-25T01:04:40+00:00",
+  "checked_at": "2026-10-25T10:17:25+00:00",
   "mode": "evidence_based_screening",
-  "eligible": 73,
+  "eligible": 66,
   "review_queue": [
-    {
-      "id": "500ml-portable-silicone-water",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "5pcs-reader-credit-cards-alumi",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "5pcs-ultrathin-anti-rfid-walle",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "600ml-silicone-collapsible-spo",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "7-days-weekly-pill-box-colorfu",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "7mm-11mm-transparent-hot-melt",
-      "country": "IL",
-      "need_id": "home-tools",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "repair tool kit",
-        "coverage": 1.0,
-        "mean": 55.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "8-inch-desktop-fan-usb-recha",
-      "country": "IL",
-      "need_id": "usb-c-charging",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "usb c charger pd",
-        "coverage": 1.0,
-        "mean": 64.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
     {
       "id": "8-slot-slim-rfid-blocking-leat",
       "country": "IL",
@@ -1097,6 +992,167 @@
         "weeks": 30,
         "search_type": "shopping"
       }
+    },
+    {
+      "id": "9000rpm-360w-mini-diy-table-saw-hand",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "automatic-sensor-trash-can-12l-touch",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "cat-litter-mat-double-layer-1",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "fc-to-lc-fiber-optic-adapter-for-opt",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "mini-diy-table-saw-handmade-1",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "new-6pcs-precision-long-tweezers-set",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "woodworking-saw-blade-110mm-multifun",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
     }
   ],
   "research_plan": [

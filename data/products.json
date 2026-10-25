@@ -110,6 +110,783 @@
   ],
   "products": [
     {
+      "id": "500ml-portable-silicone-water",
+      "slug": "500ml-portable-silicone-water",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3EzgScX",
+      "price_usd": 12.3561,
+      "price_ils": 38.44,
+      "price_eur": 11.02,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/500ml-portable-silicone-water-1.jpg",
+      "gallery": [
+        "assets/img/500ml-portable-silicone-water-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "500ML Portable Silicone Water Bottle Retractable Folding Coffee Bottle Cups",
+        "ru": "500 мл портативная силиконовая бутылка для воды выдвижная складная чашка для бутылки кофе",
+        "es": "Tazas plegables retráctiles de la botella de agua de la botella de agua del silicón portátil 500ML",
+        "he": "בקבוק מים נייד מסיליקון 500 מ\"ל כוסות בקבוק קפה מתקפלות לשליפה"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013052169590",
+      "source_evidence": "Verified live Portals product with item id 1005013052169590",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000119",
+            "source_url": "https://www.aliexpress.com/item/1005001000119.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000120",
+            "source_url": "https://www.aliexpress.com/item/1005001000120.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005013052169590",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 12.3561,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005013052169590.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "500ml portable silicone water",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-25T10:17:24+00:00"
+    },
+    {
+      "id": "5pcs-reader-credit-cards-alumi",
+      "slug": "5pcs-reader-credit-cards-alumi",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3uIIe0f",
+      "price_usd": 0.5986,
+      "price_ils": 1.86,
+      "price_eur": 0.53,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/5pcs-reader-credit-cards-alumi-1.jpg",
+      "gallery": [
+        "assets/img/5pcs-reader-credit-cards-alumi-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Reader Credit Cards Aluminium Anti-theft RFID Blocking Protect Case",
+        "ru": "Считыватель кредитных карт, алюминиевый противоугонный RFID-блокирующий защитный чехол",
+        "es": "Lector de tarjetas de crédito Estuche protector de bloqueo RFID antirrobo de aluminio",
+        "he": "קורא כרטיסי אשראי אלומיניום נרתיק הגנה חסימת RFID נגד גניבה"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005012608839629",
+      "source_evidence": "Verified live Portals product with item id 1005012608839629",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000089",
+            "source_url": "https://www.aliexpress.com/item/1005001000089.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000090",
+            "source_url": "https://www.aliexpress.com/item/1005001000090.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005012608839629",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 0.5986,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005012608839629.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "5pcs reader credit cards alumi",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-25T10:17:24+00:00"
+    },
+    {
+      "id": "5pcs-ultrathin-anti-rfid-walle",
+      "slug": "5pcs-ultrathin-anti-rfid-walle",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3ChCRwP",
+      "price_usd": 1.8086,
+      "price_ils": 5.63,
+      "price_eur": 1.61,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/5pcs-ultrathin-anti-rfid-walle-1.jpg",
+      "gallery": [
+        "assets/img/5pcs-ultrathin-anti-rfid-walle-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Ultrathin Anti Rfid Wallet Blocking Reader Lock Bank Card Holder Anti",
+        "ru": "Ультратонкий анти-Rfid-кошелек, блокирующий считыватель, держатель банковской карты, анти-",
+        "es": "Cartera antirfid ultrafina que bloquea el lector y bloquea la tarjeta bancaria",
+        "he": "נרתיק דק לכרטיסי בנק עם חסימת RFID"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005009615396204",
+      "source_evidence": "Verified live Portals product with item id 1005009615396204",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "editorial_translation_of_imported_title",
+          "observed_at": "2026-10-23T15:42:41+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000107",
+            "source_url": "https://www.aliexpress.com/item/1005001000107.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000108",
+            "source_url": "https://www.aliexpress.com/item/1005001000108.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005009615396204",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 1.8086,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005009615396204.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "5pcs ultrathin anti rfid walle",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-25T10:17:24+00:00"
+    },
+    {
+      "id": "600ml-silicone-collapsible-spo",
+      "slug": "600ml-silicone-collapsible-spo",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3Cu0riR",
+      "price_usd": 13.3914,
+      "price_ils": 41.66,
+      "price_eur": 11.94,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/600ml-silicone-collapsible-spo-1.jpg",
+      "gallery": [
+        "assets/img/600ml-silicone-collapsible-spo-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "600ml Silicone Collapsible Sports Water Bottles Outdoor Camping Folding Wat",
+        "ru": "Силиконовые складные спортивные бутылки для воды на 600 мл, складные бутылки для воды для кемпинга и кемпинга",
+        "es": "Botellas de agua deportivas plegables de silicona de 600 ml, Wat plegable para acampar al aire libre",
+        "he": "600 מ\"ל סיליקון מתקפל בקבוקי מים ספורט חיצוני קמפינג מתקפל Wat"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005010547266925",
+      "source_evidence": "Verified live Portals product with item id 1005010547266925",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000097",
+            "source_url": "https://www.aliexpress.com/item/1005001000097.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000098",
+            "source_url": "https://www.aliexpress.com/item/1005001000098.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005010547266925",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 13.3914,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005010547266925.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "600ml silicone collapsible spo",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-25T10:17:24+00:00"
+    },
+    {
+      "id": "7-days-weekly-pill-box-colorfu",
+      "slug": "7-days-weekly-pill-box-colorfu",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c30jq7Gj",
+      "price_usd": 0.8703,
+      "price_ils": 2.71,
+      "price_eur": 0.78,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/7-days-weekly-pill-box-colorfu-1.jpg",
+      "gallery": [
+        "assets/img/7-days-weekly-pill-box-colorfu-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "7 Days Weekly Pill Box Colorful Mini Size Medicine Storage Container Portab",
+        "ru": "7-дневная еженедельная коробка для таблеток, красочный мини-контейнер для хранения лекарств Portab",
+        "es": "Pastillero semanal de 7 días, contenedor de almacenamiento de medicina de tamaño Mini colorido Portab",
+        "he": "7 ימים שבועי קופסת גלולות צבעוני מיני גודל רפואה מיכל אחסון Portab"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005012722746067",
+      "source_evidence": "Verified live Portals product with item id 1005012722746067",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000113",
+            "source_url": "https://www.aliexpress.com/item/1005001000113.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000114",
+            "source_url": "https://www.aliexpress.com/item/1005001000114.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005012722746067",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 0.8703,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005012722746067.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "7 days weekly pill box colorfu",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-25T10:17:24+00:00"
+    },
+    {
+      "id": "7mm-11mm-transparent-hot-melt",
+      "slug": "7mm-11mm-transparent-hot-melt",
+      "category": "tools",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c2uQIkQ3",
+      "price_usd": 1.7115,
+      "price_ils": 5.32,
+      "price_eur": 1.53,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/7mm-11mm-transparent-hot-melt-1.jpg",
+      "gallery": [
+        "assets/img/7mm-11mm-transparent-hot-melt-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "7mm / 11mm Transparent Hot Melt Glue Sticks Strong Visco Home DIY Tools for",
+        "ru": "7 мм/11 мм прозрачный термоклей палочки сильная вязкость домашние DIY инструменты для",
+        "es": "Barras de pegamento termofusible transparentes, herramientas de bricolaje para el hogar, Visco fuerte, 7mm / 11mm",
+        "he": "7 מ\"מ / 11 מ\"מ שקופים מקלות דבק חם נמס חזק ויסקו ביתי עשה זאת בעצמך כלים עבור"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005012305406299",
+      "source_evidence": "Verified live Portals product with item id 1005012305406299",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "home-tools",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000033",
+            "source_url": "https://www.aliexpress.com/item/1005001000033.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000034",
+            "source_url": "https://www.aliexpress.com/item/1005001000034.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005012305406299",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 1.7115,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005012305406299.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "7mm 11mm transparent hot melt",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-25T10:17:24+00:00"
+    },
+    {
+      "id": "8-inch-desktop-fan-usb-recha",
+      "slug": "8-inch-desktop-fan-usb-recha",
+      "category": "tech",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3VrTRqn",
+      "price_usd": 13.9091,
+      "price_ils": 43.27,
+      "price_eur": 12.4,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/8-inch-desktop-fan-usb-recha-1.jpg",
+      "gallery": [
+        "assets/img/8-inch-desktop-fan-usb-recha-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "8 Inch Desktop Fan USB Rechargeable Cooling Air Circulator Portable Quiet",
+        "ru": "8-дюймовый настольный вентилятор, USB-аккумулятор, циркулятор охлаждающего воздуха, портативный, тихий",
+        "es": "Ventilador de escritorio de 8 pulgadas, circulador de aire de refrigeración recargable por USB, silencioso portátil",
+        "he": "מאוורר שולחני 8 אינץ' USB נטענת קירור אוויר סירקולטור נייד שקט"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013150622450",
+      "source_evidence": "Verified live Portals product with item id 1005013150622450",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "usb-c-charging",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000013",
+            "source_url": "https://www.aliexpress.com/item/1005001000013.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000014",
+            "source_url": "https://www.aliexpress.com/item/1005001000014.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005013150622450",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 13.9091,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005013150622450.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-25T10:17:23.514706+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "8 inch desktop fan usb recha",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-25T10:17:25+00:00"
+    },
+    {
       "id": "mini-pocket-wireless-thermal-printer",
       "slug": "mini-pocket-wireless-thermal-printer",
       "category": "gadgets",
@@ -118,7 +895,7 @@
       "price_ils": 45.9,
       "price_eur": 11.2,
       "shipping_days": 8,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/mini-pocket-wireless-thermal-printer-1.jpg",
       "gallery": [
         "assets/img/mini-pocket-wireless-thermal-printer-1.jpg"
@@ -177,7 +954,7 @@
       "price_ils": 91.0,
       "price_eur": 22.1,
       "shipping_days": 9,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/magnetic-levitating-3d-moon-lamp-1.jpg",
       "gallery": [
         "assets/img/magnetic-levitating-3d-moon-lamp-1.jpg"
@@ -236,7 +1013,7 @@
       "price_ils": 28.9,
       "price_eur": 7.0,
       "shipping_days": 8,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/smart-touch-coffee-mug-warmer-1.jpg",
       "gallery": [
         "assets/img/smart-touch-coffee-mug-warmer-1.jpg"
@@ -295,7 +1072,7 @@
       "price_ils": 32.9,
       "price_eur": 8.0,
       "shipping_days": 7,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/electric-makeup-brush-cleaner-dryer-1.jpg",
       "gallery": [
         "assets/img/electric-makeup-brush-cleaner-dryer-1.jpg"
@@ -354,7 +1131,7 @@
       "price_ils": 52.9,
       "price_eur": 12.8,
       "shipping_days": 8,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/foldable-3in1-magnetic-wireless-charger-1.jpg",
       "gallery": [
         "assets/img/foldable-3in1-magnetic-wireless-charger-1.jpg"
@@ -413,7 +1190,7 @@
       "price_ils": 42.5,
       "price_eur": 10.4,
       "shipping_days": 9,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/ultra-quiet-smart-pet-water-fountain-1.jpg",
       "gallery": [
         "assets/img/ultra-quiet-smart-pet-water-fountain-1.jpg"
@@ -472,7 +1249,7 @@
       "price_ils": 51.0,
       "price_eur": 12.4,
       "shipping_days": 8,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/cordless-handheld-car-vacuum-cleaner-1.jpg",
       "gallery": [
         "assets/img/cordless-handheld-car-vacuum-cleaner-1.jpg"
@@ -531,7 +1308,7 @@
       "price_ils": 6.73,
       "price_eur": 1.93,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/1-4pcs-7-days-weekly-mini-port-1.jpg",
       "gallery": [
         "assets/img/1-4pcs-7-days-weekly-mini-port-1.jpg"
@@ -571,7 +1348,7 @@
       "price_ils": 7.95,
       "price_eur": 2.28,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/1-4pcs-silicone-collapsible-fu-1.jpg",
       "gallery": [
         "assets/img/1-4pcs-silicone-collapsible-fu-1.jpg"
@@ -611,7 +1388,7 @@
       "price_ils": 14.75,
       "price_eur": 4.23,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/1pcs-car-tissue-box-towel-se-1.jpg",
       "gallery": [
         "assets/img/1pcs-car-tissue-box-towel-se-1.jpg"
@@ -651,7 +1428,7 @@
       "price_ils": 23.54,
       "price_eur": 6.75,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/3pcs-travel-shoe-storage-pouch-1.jpg",
       "gallery": [
         "assets/img/3pcs-travel-shoe-storage-pouch-1.jpg"
@@ -691,7 +1468,7 @@
       "price_ils": 6.83,
       "price_eur": 1.96,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/5-100pcs-transparent-hot-melt-1.jpg",
       "gallery": [
         "assets/img/5-100pcs-transparent-hot-melt-1.jpg"
@@ -36085,282 +36862,6 @@
       "price_status": "unverified_reference",
       "price_observed_at": null,
       "translation_provenance": {
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "9000rpm-360w-mini-diy-table-saw-hand",
-      "slug": "9000rpm-360w-mini-diy-table-saw-hand",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4a2hKTz",
-      "price_usd": 64.6081,
-      "price_ils": 200.97,
-      "price_eur": 57.6,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/9000rpm-360w-mini-diy-table-saw-hand-1.jpg",
-      "gallery": [
-        "assets/img/9000rpm-360w-mini-diy-table-saw-hand-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "9000RPM 360W Mini DIY Table Saw Handmade Woodworking Bench Saw Precision",
-        "ru": "9000 об/мин, 360 Вт, мини-настольная пила «сделай сам», точная деревообрабатывающая настольная пила ручной работы",
-        "es": "Mini sierra de mesa DIY de 9000RPM, 360W, sierra de banco para carpintería hecha a mano, precisión",
-        "he": "9000RPM 360W מיני מסור שולחן בעבודת יד בעבודת יד דיוק מסור ספסל לעיבוד עץ"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005010349079761",
-      "source_evidence": "Mega extraction with item 1005010349079761",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "ru": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "woodworking-saw-blade-110mm-multifun",
-      "slug": "woodworking-saw-blade-110mm-multifun",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4aFp6tt",
-      "price_usd": 5.4679,
-      "price_ils": 17.01,
-      "price_eur": 4.87,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/woodworking-saw-blade-110mm-multifun-1.jpg",
-      "gallery": [
-        "assets/img/woodworking-saw-blade-110mm-multifun-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Woodworking Saw Blade 110mm Multifunctional Plastic Metal Wood Angle Grinde",
-        "ru": "Пильные и обдирочные диски по дереву и металлу",
-        "es": "Hoja de sierra para carpintería, amoladora angular multifuncional de plástico, Metal y madera, 110mm",
-        "he": "להב מסור לעיבוד עץ 110 מ\"מ רב תכליתי פלסטיק מתכת עץ זווית טחינת עץ"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005010749540911",
-      "source_evidence": "Mega extraction with item 1005010749540911",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "cat-litter-mat-double-layer-1",
-      "slug": "cat-litter-mat-double-layer-1",
-      "category": "pets",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4F3BUMB",
-      "price_usd": 4.6881,
-      "price_ils": 14.58,
-      "price_eur": 4.18,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/cat-litter-mat-double-layer-1-1.jpg",
-      "gallery": [
-        "assets/img/cat-litter-mat-double-layer-1-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Cat Litter Mat Double Layer Waterproof Urine Proof Trapping Mat Easy to Cle",
-        "ru": "Двухслойный водонепроницаемый коврик под кошачий лоток",
-        "es": "Alfombra Doble Capa Impermeable para Arena de Gatos",
-        "he": "שטיח כפול עמיד במים לתפיסת חול חתולים"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005005674780713",
-      "source_evidence": "Mega extraction with item 1005005674780713",
-      "price_status": "unverified_reference",
-      "price_observed_at": null
-    },
-    {
-      "id": "new-6pcs-precision-long-tweezers-set",
-      "slug": "new-6pcs-precision-long-tweezers-set",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4Ed0f9d",
-      "price_usd": 4.7852,
-      "price_ils": 14.89,
-      "price_eur": 4.27,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/new-6pcs-precision-long-tweezers-set-1.jpg",
-      "gallery": [
-        "assets/img/new-6pcs-precision-long-tweezers-set-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "NEW 6pcs Precision Long Tweezers Set ESD Anti-Static Stainless SteelTweezer",
-        "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
-        "es": "Nuevo juego de pinzas largas de precisión de 6 uds, pinzas de acero inoxidable antiestáticas ESD",
-        "he": "סט פינצטה ארוך מדויק 6 יחידות ESD אנטי-סטטי נירוסטהTweezer"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005012321479344",
-      "source_evidence": "Mega extraction with item 1005012321479344",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "fc-to-lc-fiber-optic-adapter-for-opt",
-      "slug": "fc-to-lc-fiber-optic-adapter-for-opt",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c3tSyQ5D",
-      "price_usd": 1.8086,
-      "price_ils": 5.63,
-      "price_eur": 1.61,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/fc-to-lc-fiber-optic-adapter-for-opt-1.jpg",
-      "gallery": [
-        "assets/img/fc-to-lc-fiber-optic-adapter-for-opt-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "FC to LC Fiber Optic Adapter for Optical Power Meter and Visual Fault Locat",
-        "ru": "Волоконно-оптический адаптер FC-LC для измерителя оптической мощности и визуального поиска неисправностей",
-        "es": "Adaptador de fibra óptica FC a LC para medidor de potencia óptica y localización visual de fallas",
-        "he": "מתאם סיבים אופטיים FC ל-LC עבור מד כוח אופטי ואיתור תקלות חזותיות"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005012145594472",
-      "source_evidence": "Mega extraction with item 1005012145594472",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "ru": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "automatic-sensor-trash-can-12l-touch",
-      "slug": "automatic-sensor-trash-can-12l-touch",
-      "category": "smarthome",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c3eiaovv",
-      "price_usd": 38.3041,
-      "price_ils": 119.15,
-      "price_eur": 34.15,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/automatic-sensor-trash-can-12l-touch-1.jpg",
-      "gallery": [
-        "assets/img/automatic-sensor-trash-can-12l-touch-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Automatic Sensor Trash Can 12L Touchless Infrared Motion Sensor Smart Trash",
-        "ru": "Сенсорное автоматическое ведро для мусора с датчиком",
-        "es": "Bote de basura con sensor automático 12L Sensor de movimiento infrarrojo sin contacto Basura inteligente",
-        "he": "פח אשפה חיישן אוטומטי 12L ללא מגע חיישן תנועה אינפרא אדום חכם אשפה"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005009092023540",
-      "source_evidence": "Mega extraction with item 1005009092023540",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "mini-diy-table-saw-handmade-1",
-      "slug": "mini-diy-table-saw-handmade-1",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c40mV5MT",
-      "price_usd": 92.5007,
-      "price_ils": 287.74,
-      "price_eur": 82.47,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/mini-diy-table-saw-handmade-1-1.jpg",
-      "gallery": [
-        "assets/img/mini-diy-table-saw-handmade-1-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Model Crafts",
-        "ru": "Мини-сделай сам настольная пила ручная работа деревообрабатывающая настольная пила точная модель ремесла",
-        "es": "Mini Sierra de mesa DIY, sierra de banco para carpintería hecha a mano, modelo de precisión, artesanías",
-        "he": "מיני מסור שולחן בעבודת יד בעבודת יד מסור ספסל עיבוד עץ דיוק דגם מלאכת יד"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005011937283305",
-      "source_evidence": "Mega extraction with item 1005011937283305",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "ru": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
         "he": {
           "method": "machine_translation_of_imported_english_title",
           "observed_at": "2026-10-23T15:38:33+00:00",
