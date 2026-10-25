@@ -133,7 +133,7 @@ def run(output):
             assert page.locator('html').get_attribute('data-theme')==('light' if previous_theme=='dark' else 'dark')
             assert page.locator('#currency-select').count()==0
             passed('Campaign context and persisted theme')
-            for width in (360,390,768,1440):
+            for width in (319,360,390,768,1440):
                 page.set_viewport_size({'width':width,'height':900})
                 for lang in ('en','he','ru','es'):
                     prefix='' if lang=='en' else lang+'/'
@@ -147,7 +147,7 @@ def run(output):
                     assert page.locator('#product-modal').bounding_box()['width']<=width
                     page.screenshot(path=str(output/'dealvault-mobile-modal.png'))
                     page.keyboard.press('Escape')
-            passed('16 viewport/language combinations, RTL and mobile quick view')
+            passed('20 viewport/language combinations, RTL and mobile quick view')
             blocked=browser.new_context()
             blocked.add_init_script("Object.defineProperty(window,'localStorage',{get(){throw new Error('blocked')}});Object.defineProperty(window,'sessionStorage',{get(){throw new Error('blocked')}})")
             bp=blocked.new_page(); bp.on('pageerror',lambda error:errors.append(str(error)))
