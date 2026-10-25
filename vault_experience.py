@@ -1,0 +1,24 @@
+"""Immersive entrance and editorial exhibit, with static shopping links intact."""
+TEXT = {
+ 'en': dict(kicker='A NEW PERSPECTIVE ON EVERYDAY', title='Beyond the',em='ordinary.', intro='Unexpected objects. Real everyday possibilities.',enter='Enter the collection',scroll='SCROLL TO DISCOVER',scene='CHANGE THE SCULPTURE',modes=['Orbit','Prism','Signal'],drag='MOVE TO EXPLORE',chapter='01 / THE DISCOVERY',statement='Small things.<br><em>Different possibilities.</em>',body='A smarter corner of your home. A better way to work. Something you never knew you needed. Your next discovery starts here.',feature='THE OBJECT OF THE MOMENT',details='Discover this object',next='Another discovery',index='02 / THE COLLECTION'),
+ 'ru': dict(kicker='НОВЫЙ ВЗГЛЯД НА ПРИВЫЧНОЕ',title='За гранью',em='обычного.',intro='Неожиданные вещи. Новые возможности каждый день.',enter='Открыть коллекцию',scroll='ЛИСТАЙТЕ И ОТКРЫВАЙТЕ',scene='СМЕНИТЬ СКУЛЬПТУРУ',modes=['Орбита','Призма','Сигнал'],drag='ДВИГАЙТЕ КУРСОР',chapter='01 / ОТКРЫТИЕ',statement='Маленькие вещи.<br><em>Другие возможности.</em>',body='Сделать дом удобнее. По-новому организовать работу. Найти то, о чём даже не думали. Ваше следующее открытие начинается здесь.',feature='НАХОДКА В ЦЕНТРЕ ВНИМАНИЯ',details='Рассмотреть находку',next='Другая находка',index='02 / КОЛЛЕКЦИЯ'),
+ 'he': dict(kicker='מבט חדש על היום יום',title='מעבר',em='לרגיל.',intro='דברים לא צפויים. אפשרויות חדשות בכל יום.',enter='כניסה לאוסף',scroll='גללו כדי לגלות',scene='החלפת הפסל',modes=['מסלול','מנסרה','אות'],drag='הזיזו את הסמן',chapter='01 / הגילוי',statement='דברים קטנים.<br><em>אפשרויות חדשות.</em>',body='בית נוח יותר. דרך חדשה לעבוד. משהו שלא ידעתם שאתם צריכים. הגילוי הבא מתחיל כאן.',feature='במרכז הבמה',details='גלו את הפריט',next='גילוי נוסף',index='02 / האוסף'),
+ 'es': dict(kicker='OTRA MIRADA A LO COTIDIANO',title='Más allá de',em='lo habitual.',intro='Objetos inesperados. Nuevas posibilidades cada día.',enter='Entrar en la colección',scroll='DESLIZA Y DESCUBRE',scene='CAMBIAR ESCULTURA',modes=['Órbita','Prisma','Señal'],drag='MUEVE PARA EXPLORAR',chapter='01 / EL DESCUBRIMIENTO',statement='Pequeños objetos.<br><em>Nuevas posibilidades.</em>',body='Un hogar más cómodo. Otra forma de trabajar. Algo que no sabías que necesitabas. Tu próximo descubrimiento empieza aquí.',feature='EL OBJETO DEL MOMENTO',details='Descubre este objeto',next='Otro descubrimiento',index='02 / LA COLECCIÓN')
+}
+
+def entrance(lang,room,small,hero_data,hero_script,image,href,title,product_id,price):
+    from html import escape as e
+    t=TEXT[lang]
+    modes=''.join(f'<button type="button" data-scene="{i}" aria-pressed="{str(i==0).lower()}"><span>0{i+1}</span>{e(label)}</button>' for i,label in enumerate(t['modes']))
+    return f'''<div class="vault-journey" id="entrance"><section class="vault-world" aria-labelledby="vault-title" data-scene="0">
+<picture class="vault-environment"><source media="(max-width:720px)" srcset="{e(small)}"><img src="{e(room)}" width="1672" height="941" fetchpriority="high" alt=""></picture>
+<div class="vault-shade" aria-hidden="true"></div><div class="vault-grain" aria-hidden="true"></div>
+<div class="vault-heading"><p>{e(t['kicker'])}</p><h1 id="vault-title">{e(t['title'])} <em>{e(t['em'])}</em></h1></div>
+<div class="vault-core" aria-hidden="true"><div class="core-fallback"></div><canvas id="vault-canvas"></canvas></div>
+<div class="vault-coordinate" aria-hidden="true">DV—001<br>THE DISCOVERY SPACE<br><span>∞ POSSIBILITIES</span></div>
+<div class="vault-scene-select" role="group" aria-label="{e(t['scene'])}">{modes}</div>
+<div class="vault-bottom"><p class="vault-intro">{e(t['intro'])}</p><a class="vault-enter" href="#collection"><span>{e(t['enter'])}</span><b aria-hidden="true">↗</b></a><p class="vault-scroll"><span aria-hidden="true">↓</span>{e(t['scroll'])}</p></div>
+<div class="vault-progress" aria-hidden="true"><span></span></div></section></div>
+<section class="vault-discovery wrap" id="discovery"><div class="discovery-copy"><p class="vault-label">{e(t['chapter'])}</p><h2>{t['statement']}</h2><p>{e(t['body'])}</p><a class="discovery-catalog" href="#collection">{e(t['enter'])} <span aria-hidden="true">↗</span></a></div>
+<div class="vault-exhibit"><div class="exhibit-halo" aria-hidden="true"></div><p class="vault-label exhibit-label">{e(t['feature'])}</p><a class="spotlight" data-hero-id="{e(product_id)}" href="{e(href)}"><div class="exhibit-photo"><img src="{e(image)}" width="600" height="600" loading="lazy" alt="{e(title)}"></div><div class="spotlight-bottom"><span>{e(title)}</span><b aria-hidden="true">↗</b></div><span class="spotlight-caption">{e(price)}</span></a><button class="exhibit-next" id="exhibit-next" type="button">{e(t['next'])}<span aria-hidden="true">↻</span></button></div>
+<script id="hero-candidates" type="application/json">{hero_data}</script><script>{hero_script}</script></section>'''

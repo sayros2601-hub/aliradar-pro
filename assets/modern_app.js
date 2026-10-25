@@ -6,6 +6,8 @@
   const DB = JSON.parse(data.textContent);
   const C = DB.copy;
   const lang = DB.lang;
+  const plural = new Intl.PluralRules(lang);
+  const foundWord = count => ({en:{one:'find',other:'finds'},ru:{one:'находка',few:'находки',many:'находок',other:'находки'},he:{one:'פריט',other:'פריטים'},es:{one:'hallazgo',other:'hallazgos'}}[lang]?.[plural.select(count)] || ({he:'פריטים',en:'finds',es:'hallazgos',ru:'находок'}[lang]) || C.found);
   const script = document.currentScript;
   const root = new URL('../', script.src);
   const asset = path => new URL(path, root).href;
@@ -109,7 +111,7 @@
     const version=++filterVersion;
     if(!catalogLoaded && (input.value.trim() || category!=='all' || onlySaved)) {
       try {await ensureCatalog();} catch {
-        document.getElementById('items-counter').textContent=`${cards.length} / ${DB.catalogCount} ${C.found}`;
+        document.getElementById('items-counter').textContent=`${cards.length} / ${DB.catalogCount} ${foundWord(DB.catalogCount)}`;
         window.DealVaultToast(catalogMessages[1]);return;
       }
       if(version!==filterVersion)return filter(false);
@@ -122,7 +124,7 @@
       if (!card.hidden) count++;
     }
     document.querySelector('#empty-state h3').textContent=onlySaved?C.saved_empty:C.empty;
-    document.getElementById('items-counter').textContent = `${count}${catalogLoaded?'':` / ${DB.catalogCount}`} ${C.found}`;
+    document.getElementById('items-counter').textContent = `${count}${catalogLoaded?'':` / ${DB.catalogCount}`} ${foundWord(catalogLoaded?count:DB.catalogCount)}`;
     document.getElementById('empty-state').hidden = count !== 0;
     document.querySelectorAll('[data-cat]').forEach(el => {const selected = el.dataset.cat === category; el.classList.toggle('active',selected); el.setAttribute('aria-pressed',String(selected));});
     if (updateUrl) {
@@ -145,8 +147,8 @@
     if (!product || !dialog) return;
     if (!dialog.open) returnFocus = document.activeElement;
     modalProduct = product;
-    const title = product.title_i18n[lang];
-    document.getElementById('modal-content-area').innerHTML = `<div class="modal-layout"><a class="modal-photo" href="${esc(DB.paths[id])}"><img src="${esc(asset(product.image))}" width="600" height="600" alt="${esc(title)}"></a><div class="modal-details"><p class="eyebrow">DEALVAULT${product.is_new ? ' · <span class="deal-badge-new">✦ ' + esc(C.new_badge || 'NEW') + '</span>' : ''}</p><h2 id="modal-title">${esc(title)}</h2><p class="muted">${esc(product.use_i18n?.[lang] || '')}</p><p class="price-unavailable price-unavailable-detail">${esc(C.price_status)}</p><p class="muted">${esc(C.price_note)}</p><a class="button primary" href="${esc(product.affiliate_url)}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="${esc(id)}">${esc(C.shop)} ↗</a><p class="affiliate-note">${esc(C.affiliate)}</p><a class="detail-link" href="${esc(DB.paths[id])}">${esc(C.details)} ↗</a><div class="share-row" data-product-id="${esc(id)}"><button type="button" data-share="copy">${esc(C.copy)}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div>`;
+    const title = product.display_title_i18n?.[lang] || product.title_i18n[lang];
+    document.getElementById('modal-content-area').innerHTML = `<div class="modal-layout"><a class="modal-photo" href="${esc(DB.paths[id])}"><img src="${esc(asset(product.image))}" width="600" height="600" alt="${esc(title)}"></a><div class="modal-details"><p class="vault-label">DEALVAULT${product.is_new ? ' · <span class="deal-badge-new">✦ ' + esc(C.new_badge || 'NEW') + '</span>' : ''}</p><h2 id="modal-title">${esc(title)}</h2><p class="muted">${esc(product.use_i18n?.[lang] || '')}</p><p class="studio-price-note">${esc(C.price_note)}</p><a class="button primary" href="${esc(product.affiliate_url)}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="${esc(id)}">${esc(C.shop)} ↗</a><p class="affiliate-note">${esc(C.affiliate)}</p><a class="detail-link" href="${esc(DB.paths[id])}">${esc(C.details)} ↗</a><div class="share-row" data-product-id="${esc(id)}"><button type="button" data-share="copy">${esc(C.copy)}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div>`;
     if (!dialog.open) dialog.showModal();
     document.body.style.overflow = 'hidden';
     if (push && location.hash !== '#' + product.slug) {const url = new URL(location.href); url.hash = product.slug; history.pushState({deal:product.slug},'',url);}
@@ -178,7 +180,7 @@
   }
   async function share(platform, product) {
     const url = canonicalProduct(product);
-    const title = product.title_i18n[lang];
+    const title = product.display_title_i18n?.[lang] || product.title_i18n[lang];
     if (platform === 'copy') {
       try {await navigator.clipboard.writeText(url); window.DealVaultToast(C.copied);} catch {window.DealVaultToast(`${C.copy_failed} ${url}`);}
     } else {
@@ -205,29 +207,4 @@
     }
   });
  filter(false); syncHash();
-})();
-
-// Pointer-responsive exhibit. No loop, tracking, canvas or extra network request.
-(() => {
-  const stage = document.querySelector('.orbit-stage');
-  if (!stage) return;
-  const fine = matchMedia('(hover: hover) and (pointer: fine)');
-  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
-  let frame = 0;
-  const reset = () => { cancelAnimationFrame(frame); frame=0; stage.style.removeProperty('--tilt-x'); stage.style.removeProperty('--tilt-y'); };
-  stage.addEventListener('pointermove', event => {
-    if (!fine.matches || reduce.matches || document.documentElement.dataset.motion === 'off') return;
-    const x=event.clientX, y=event.clientY;
-    cancelAnimationFrame(frame);
-    frame=requestAnimationFrame(() => {
-      const r=stage.getBoundingClientRect();
-      stage.style.setProperty('--tilt-x', `${(0.5-(y-r.top)/r.height)*7}deg`);
-      stage.style.setProperty('--tilt-y', `${((x-r.left)/r.width-0.5)*9}deg`);
-      frame=0;
-    });
-  }, {passive:true});
-  stage.addEventListener('pointerleave',reset);
-  reduce.addEventListener('change',reset);
-  document.getElementById('motion-toggle')?.addEventListener('click',reset);
-  document.addEventListener('visibilitychange',reset);
 })();

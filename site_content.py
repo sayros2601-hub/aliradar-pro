@@ -189,3 +189,8 @@ _OBSERVATORY = {
 }
 for _language, _copy in _OBSERVATORY.items():
     COPY[_language].update(_copy)
+
+# Plain labels shared by cards, quick view and the object studio.
+from studio_content import LABELS as _STUDIO_LABELS
+for _language, _copy in _STUDIO_LABELS.items():
+    COPY[_language].update(_copy)

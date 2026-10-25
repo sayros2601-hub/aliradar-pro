@@ -18,6 +18,8 @@ from dealvault_core import BASE_DIR, DATA_DIR, DOMAIN, LANGUAGES, read_json, pag
 from site_content import COPY, LANG_NAMES
 from buyer_guide import GUIDE
 from hero_variety import hero_products, hero_payload
+from vault_experience import entrance
+from studio_content import display_title, display_titles
 from journal import build_journal, navigation as journal_navigation, teaser as journal_teaser, feed_path as journal_feed
 
 IMAGE_PIPELINE_VERSION = b'webp-v3-pillow-13'
@@ -93,7 +95,7 @@ class SiteBuilder:
         from brand_assets import build_brand_icons
         self.out.mkdir(parents=True, exist_ok=True)
         build_brand_icons(self.out)
-        for name in ('modern.css', 'modern_app.js', 'tracking.js', 'icon.svg', 'brand/dealvault-cover.png'):
+        for name in ('modern.css', 'modern_app.js', 'vault.css', 'vault.js', 'object_studio.js', 'vault-room.webp', 'vault-room-small.webp', 'tracking.js', 'icon.svg', 'brand/dealvault-cover.png'):
             source = BASE_DIR / 'assets' / name
             digest = hashlib.sha256(source.read_bytes()).hexdigest()[:10]
             self.images[name] = f'assets/{source.stem}.{digest}{source.suffix}'
@@ -132,7 +134,7 @@ class SiteBuilder:
                 gallery.append(self.images[source])
             self.public_products.append({
                 'id': p['id'], 'slug': p['slug'], 'category': p['category'],
-                'title_i18n': p['title_i18n'],
+                'title_i18n': p['title_i18n'], 'display_title_i18n': display_titles(p),
                 'affiliate_url': p['affiliate_url'], 'is_new': recently_added(p), 'image': gallery[0], 'gallery': gallery,
                 'use_i18n': self.editorial.get(p['id'],{}).get('use_i18n',{}),
             })
@@ -221,14 +223,16 @@ class SiteBuilder:
 <link rel="alternate" type="application/rss+xml" title="DealVault" href="{rel('rss.xml' if lang == 'en' else f'rss_{lang}.xml')}">
 <link rel="alternate" type="application/rss+xml" title="DealVault Journal" href="{rel(journal_feed(lang))}">
 <link rel="stylesheet" href="{rel(self.images['modern.css'])}">
+<link rel="stylesheet" href="{rel(self.images['vault.css'])}">
 <script>try{{var t=localStorage.getItem('sp_theme');document.documentElement.dataset.theme=['dark','light'].includes(t)?t:'dark';document.documentElement.dataset.motion=localStorage.getItem('dv_motion')==='off'?'off':'on'}}catch(e){{}}</script>
 <script type="application/ld+json">{script_json(document_schema)}</script>
-<script defer src="{rel(self.images['tracking.js'])}"></script><script defer src="{rel(self.images['modern_app.js'])}"></script>
-</head><body>
+<script defer src="{rel(self.images['tracking.js'])}"></script><script defer src="{rel(self.images['modern_app.js'])}"></script><script defer src="{rel(self.images['object_studio.js'])}"></script>
+{chr(60)+'script defer src="'+rel(self.images["vault.js"])+'">'+chr(60)+'/script>' if 'vault-world' in body else ''}
+</head><body class="{'vault-home' if 'vault-world' in body else 'vault-inner'}">
 <a class="skip-link" href="#main">{esc(c['skip'])}</a>
 <header class="site-header"><div class="wrap header-inner">
 <a class="brand" href="{rel(page_path(lang))}"><span class="brand-mark" aria-hidden="true">d<span>v</span></span><span>DealVault<small>{esc(c['tagline'])}</small></span></a>
-<div class="header-controls"><nav class="languages" aria-label="{esc(c['language'])}">{languages}</nav>
+<a class="header-collection" href="{rel(page_path(lang))}#collection">{esc(c["all"])} <span aria-hidden="true">↗</span></a><div class="header-controls"><nav class="languages" aria-label="{esc(c['language'])}">{languages}</nav>
 <div class="control-pair"><button class="motion-toggle" id="motion-toggle" type="button" aria-label="{esc(c['motion'])}" title="{esc(c['motion'])}" aria-pressed="false">Ⅱ</button><button class="theme-toggle" id="theme-toggle" type="button" aria-label="{esc(c['theme'])}" title="{esc(c['theme'])}">◐</button></div></div></div></header>
 {body}
 <footer class="site-footer"><div class="wrap footer-inner"><div><a class="footer-brand" href="{rel(page_path(lang))}">DealVault<span>↗</span></a><p>{esc(c['affiliate'])}</p></div><nav aria-label="DealVault">{legal_nav}<a href="{rel('rss.xml' if lang == 'en' else f'rss_{lang}.xml')}">RSS</a><a href="/sitemap.xml">Sitemap</a></nav></div><div class="wrap footer-bottom"><span>© 2026 DealVault</span><span>{esc(c['seller_note'])}</span></div></footer>
@@ -249,13 +253,12 @@ class SiteBuilder:
         use = self.editorial.get(p['id'],{}).get('use_i18n',{}).get(lang,'')
         link = esc(relative_url(page_path(lang, p['slug']), current))
         image = esc(relative_url(self.thumbnails[p['image']], current))
-        search = ' '.join([*p['title_i18n'].values(), p['slug'], *[self.category_name(p['category'], l) for l in LANGUAGES]])
+        search = ' '.join([*p['title_i18n'].values(), *display_titles(p).values(), p['slug'], *[self.category_name(p['category'], l) for l in LANGUAGES]])
         badge = f'<span class="card-badge-new"><b aria-hidden="true">✦</b> {esc(c.get("new_badge", "NEW"))}</span>' if recently_added(p) else ''
         card_cls = 'product-card is-new' if recently_added(p) else 'product-card'
         return f'''<article class="{card_cls}" data-id="{esc(p['id'])}" data-category="{esc(p['category'])}" data-order="{index}" data-search="{esc(search)}">
 {badge}<button type="button" class="save-product" data-save-id="{esc(p['id'])}" aria-pressed="false" aria-label="{esc(c['save'] + ': ' + title)}">♡</button><a href="{link}" class="card-image"><img src="{image}" alt="{esc(title)}" width="600" height="600" loading="{'eager' if index < 4 else 'lazy'}" decoding="async"></a>
-<div class="card-content"><span class="card-category">{esc(self.category_name(p['category'], lang))}</span><h3><a href="{link}">{esc(title)}</a></h3><p class="card-use">{esc(use)}</p>
-<p class="price-unavailable">{esc(c['price_status'])}</p>
+<div class="card-content"><span class="card-category">{esc(self.category_name(p['category'], lang))}</span><h3><a href="{link}">{esc(display_title(p,lang))}</a></h3><p class="card-use">{esc(use)}</p>
 <div class="card-actions"><a href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}" class="detail-link">{esc(c['shop'])} <span aria-hidden="true">↗</span></a><button class="quick-button" type="button" data-modal-id="{esc(p['id'])}" aria-label="{esc(c['quick'] + ': ' + title)}">＋</button></div></div></article>'''
 
     def index(self, lang, page=1):
@@ -278,17 +281,20 @@ class SiteBuilder:
         rel = lambda path: esc(relative_url(path, current))
         selection = hero_products(self.products)
         feature = selection[0][0]
-        hero_data = script_json(hero_payload(selection, self.images, lang))
+        hero_entries = hero_payload(selection, self.images, lang)
+        for entry, (product, _) in zip(hero_entries, selection):
+            entry['title'] = display_title(product,lang)
+        hero_data = script_json(hero_entries)
         hero_script = (BASE_DIR / 'assets/hero_variety.js').read_text(encoding='utf-8')
         pills = f'<button type="button" data-cat="all" class="category-pill active" aria-pressed="true">{esc(c["all"])}<span>{len(self.products)}</span></button>'
         for cat in self.cats:
             count = sum(p['category'] == cat['id'] for p in self.products)
             pills += f'<button type="button" data-cat="{esc(cat["id"])}" class="category-pill" aria-pressed="false">{esc(cat["name_i18n"][lang])}<span>{count}</span></button>'
         cards = ''.join(self.card(p, lang, current, i) for i,p in enumerate(subset))
-        body = f'''<main id="main"><section class="wrap hero"><div class="hero-copy"><p class="eyebrow"><span></span>{esc(c['eyebrow'])}</p><h1>{c['hero']}</h1><p class="hero-intro">{esc(c['intro'])}</p><div class="hero-actions"><a class="button primary" href="#collection">{esc(c['explore'])}<span aria-hidden="true">↗</span></a><a class="text-link" href="#approach">{esc(c['how'])}</a></div><div class="hero-proof"><span>○ {esc(c['independent'])}</span><span>↗ {esc(c['direct'])}</span></div></div>
-<div class="orbit-stage"><svg class="holo-art" viewBox="0 0 600 600" fill="none" aria-hidden="true" focusable="false"><defs><linearGradient id="holo-line" x1="0" y1="0" x2="600" y2="600" gradientUnits="userSpaceOnUse"><stop stop-color="currentColor" stop-opacity="0"/><stop offset=".5" stop-color="currentColor"/><stop offset="1" stop-color="currentColor" stop-opacity="0"/></linearGradient></defs><g stroke="url(#holo-line)" stroke-width=".7"><ellipse cx="300" cy="300" rx="280" ry="190" transform="rotate(-35 300 300)"/><ellipse cx="300" cy="300" rx="275" ry="205" transform="rotate(-35 300 300)"/><ellipse cx="300" cy="300" rx="270" ry="220" transform="rotate(-35 300 300)"/><path d="M30 150H570M30 450H570M150 30V570M450 30V570M90 90L510 510M90 510L510 90" stroke-dasharray="2 9"/><circle cx="300" cy="300" r="250" stroke-dasharray="1 11"/></g><g fill="currentColor"><circle cx="65" cy="230" r="3"/><circle cx="530" cy="370" r="3"/><path d="M480 60v18m-9-9h18M80 470v18m-9-9h18" stroke="currentColor"/></g></svg><span class="orbit-ring" aria-hidden="true"></span><span class="orbit-ring ring-two" aria-hidden="true"></span><span class="orbit-chip chip-top"><b aria-hidden="true">✧</b>{esc(c['orbit_top'])}</span><a class="spotlight" data-hero-id="{esc(feature['id'])}" href="{rel(page_path(lang, feature['slug']))}"><div class="spotlight-top"><span>{esc(c['spotlight'])}</span><span class="round-arrow">↗</span></div><img src="{rel(self.images[feature['image']])}" width="600" height="600" fetchpriority="high" alt="{esc(product_title(feature,lang))}"><div class="spotlight-bottom"><span>{esc(product_title(feature,lang))}</span></div><span class="spotlight-caption">{esc(c['price_status'])}</span></a><span class="orbit-chip chip-bottom"><b aria-hidden="true">↗</b>{esc(c['orbit_bottom'])}</span><span class="orbit-index">DEALVAULT / OBSERVATORY 01</span></div><script id="hero-candidates" type="application/json">{hero_data}</script><script>{hero_script}</script></section>
+        experience = entrance(lang, rel(self.images['vault-room.webp']), rel(self.images['vault-room-small.webp']), hero_data, hero_script, rel(self.images[feature['image']]), rel(page_path(lang, feature['slug'])), display_title(feature,lang), feature['id'], c['price_status']) if page == 1 else f'<section class="wrap catalog-heading"><p class="vault-label">DEALVAULT / {page:02}</p><h1>{esc(c["collection"])}</h1></section>'
+        body = f'''<main id="main">{experience}
 <div class="wrap disclosure-strip"><span aria-hidden="true">↗</span><p>{esc(c['affiliate'])}</p></div>
-<section class="wrap collection" id="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="eyebrow">DEALVAULT / 01</p><h2 id="collection-title">{esc(c['collection'])}</h2><p>{esc(c['collection_sub'])}</p></div><span id="items-counter" role="status" aria-live="polite">{len(self.products)} {esc(c['found'])}</span></div>
+<section class="wrap collection" id="collection" aria-labelledby="collection-title"><div class="section-title"><div><p class="eyebrow">DEALVAULT / 02</p><h2 id="collection-title">{esc(c['collection'])}</h2><p>{esc(c['collection_sub'])}</p></div><span id="items-counter" role="status" aria-live="polite">{len(self.products)} {esc(c['found'])}</span></div>
 <div class="category-nav" id="category-nav" aria-label="{esc(c['collection'])}">{pills}</div>
 <div class="filter-bar"><label class="search"><span aria-hidden="true">⌕</span><span class="sr-only">{esc(c['search_label'])}</span><input type="search" id="global-search-input" placeholder="{esc(c['search'])}" autocomplete="off"></label>
 <button type="button" class="saved-filter" id="saved-filter" aria-pressed="false">♡ {esc(c['saved'])} <span id="saved-count">0</span></button></div>
@@ -305,12 +311,20 @@ class SiteBuilder:
         check = note.get('check_i18n',{}).get(lang,c['check1'])
         rel = lambda path: esc(relative_url(path,current))
         gallery = list(dict.fromkeys([p['image'], *p.get('gallery',[])]))
-        images = ''.join(f'<a href="{rel(self.images[src])}" class="gallery-image"><img src="{rel(self.images[src])}" alt="{esc(product_title(p,lang))} · {i+1}" width="800" height="800" loading="{"eager" if i==0 else "lazy"}"></a>' for i,src in enumerate(gallery))
+        images = ''.join(f'<a href="{rel(self.images[src])}" class="gallery-image studio-photo" data-enlarge="{rel(self.images[src])}" data-image-title="{esc(product_title(p,lang))}"><img src="{rel(self.images[src])}" alt="{esc(product_title(p,lang))} · {i+1}" width="800" height="800" loading="{"eager" if i==0 else "lazy"}"></a>' for i,src in enumerate(gallery))
         others = [x for x in self.products if x['id'] != p['id'] and x['category'] == p['category']][:4]
         if not others:
             others = [x for x in self.products if x['id'] != p['id']][:4]
         related = ''.join(self.card(x,lang,current,i+10) for i,x in enumerate(others))
-        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}">← {esc(c['back'])}</a><div class="deal-layout"><div class="deal-gallery">{images}</div><div class="deal-info"><p class="eyebrow">{esc(self.category_name(p['category'],lang))}{' · <span class="deal-badge-new">✦ ' + esc(c.get('new_badge','NEW')) + '</span>' if recently_added(p) else ''}</p><h1>{esc(product_title(p,lang))}</h1><p class="deal-purpose">{esc(purpose)}</p><p class="price-unavailable price-unavailable-detail">{esc(c['price_status'])}</p><p class="muted">{esc(c['price_note'])}</p><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])} ↗</a><p class="affiliate-note">{esc(c['affiliate'])}</p><div class="buyer-check"><h2>{esc(c['before'])}</h2><p>{esc(check)}</p><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check2','check3'))}</ul></div><h2 class="small-heading">{esc(c['about'])}</h2><p class="muted">{esc(c['about_text'])}</p><div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div></div></div><section class="related"><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
+        body = f'''<main id="main" class="wrap deal-page"><a class="back-link" href="{rel(page_path(lang))}#collection">← {esc(c['back'])}</a>
+<div class="deal-layout object-studio"><section class="studio-stage" aria-label="{esc(c['image_note'])}"><div class="studio-orbit" aria-hidden="true"></div><p class="studio-coordinate">{esc(c['object_label'])}</p><div class="deal-gallery">{images}</div><a class="studio-enlarge" href="{rel(self.images[p['image']])}" data-enlarge="{rel(self.images[p['image']])}" data-image-title="{esc(product_title(p,lang))}">{esc(c['image_open'])}<span aria-hidden="true">⤢</span></a></section>
+<div class="deal-info"><p class="vault-label">{esc(self.category_name(p['category'],lang))}</p><h1>{esc(display_title(p,lang))}</h1><p class="deal-purpose">{esc(purpose)}</p>
+<div class="studio-action-row"><a class="button primary buy-button" href="{esc(p['affiliate_url'])}" target="_blank" rel="sponsored nofollow noopener" data-aff-id="{esc(p['id'])}">{esc(c['shop'])}<span aria-hidden="true">↗</span></a><button type="button" class="studio-save" data-save-id="{esc(p['id'])}" aria-pressed="false" aria-label="{esc(c['save']+': '+display_title(p,lang))}">♡</button></div>
+<p class="studio-price-note">{esc(c['price_note'])}</p><p class="affiliate-note">{esc(c['affiliate'])}</p>
+<details class="object-accordion buyer-check"><summary>{esc(c['before'])}<span aria-hidden="true">＋</span></summary><p>{esc(check)}</p><ul>{''.join(f'<li>{esc(c[k])}</li>' for k in ('check2','check3'))}</ul></details>
+<details class="object-accordion"><summary>{esc(c['about'])}<span aria-hidden="true">＋</span></summary><p>{esc(c['about_text'])}</p><p class="original-listing"><b>{esc(c['full_title'])}</b><br>{esc(product_title(p,lang))}</p></details>
+<div class="share-row" data-product-id="{esc(p['id'])}"><span>{esc(c['share'])}</span><button type="button" data-share="copy">{esc(c['copy'])}</button><button type="button" data-share="whatsapp">WhatsApp</button><button type="button" data-share="telegram">Telegram</button></div>
+</div></div><section class="related"><p class="vault-label">DEALVAULT / DISCOVER</p><h2>{esc(c['related'])}</h2><div class="product-grid">{related}</div></section></main>'''
         schema = {'@context':'https://schema.org','@type':'WebPage','url':self.domain+public_path(current),'name':product_title(p,lang),'inLanguage':lang,'about':{'@type':'Product','name':product_title(p,lang),'image':[f'{self.domain}/{self.images[src]}' for src in gallery]},'breadcrumb':{'@type':'BreadcrumbList','itemListElement':[{'@type':'ListItem','position':1,'name':'DealVault','item':self.domain+public_path(page_path(lang))},{'@type':'ListItem','position':2,'name':product_title(p,lang),'item':self.domain+public_path(current)}]}}
         self.write(current,self.shell(lang,current,product_title(p,lang),body,slug=p['slug'],schemas=schema))
 

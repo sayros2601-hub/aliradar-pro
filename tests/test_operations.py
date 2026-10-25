@@ -61,7 +61,7 @@ class PublishedRouteTests(unittest.TestCase):
             self.assertEqual(len(routes),len(db['products']))
             self.assertNotIn('affiliate_url',routes[0]);self.assertNotIn('price_usd',routes[0])
             builder=SiteBuilder(db,Path(temp)/'site')
-            builder.images.update({name:f'assets/{name}' for name in ('modern.css','modern_app.js','tracking.js','icon.svg')})
+            builder.images.update({name:f'assets/{name}' for name in ('modern.css','vault.css','modern_app.js','object_studio.js','tracking.js','icon.svg')})
             builder.images[old['image']]='assets/photo.webp'
             builder.archived_deal(old,'en')
             html=(Path(temp)/'site'/'deals'/f'{old["slug"]}.html').read_text(encoding='utf-8')

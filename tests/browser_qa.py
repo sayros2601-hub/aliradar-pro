@@ -55,7 +55,7 @@ def run(output):
             assert page.locator('html').get_attribute('data-motion')=='off'
             page.reload(wait_until='networkidle')
             assert page.locator('html').get_attribute('data-motion')=='off'
-            assert page.locator('.orbit-ring').first.evaluate("e=>getComputedStyle(e).animationName")=='none'
+            assert page.locator('.vault-scroll span').first.evaluate("e=>getComputedStyle(e).animationName")=='none'
             page.locator('#motion-toggle').click()
             page.locator('#country-select').select_option('IL')
             assert page.locator('html').get_attribute('lang')=='en'
@@ -67,7 +67,7 @@ def run(output):
             rp=russian.new_page();rp.goto(base+'/',wait_until='networkidle')
             assert rp.locator('html').get_attribute('lang')=='en'
             assert rp.locator('#motion-toggle').is_hidden()
-            assert rp.locator('.orbit-ring').first.evaluate("e=>getComputedStyle(e).animationName")=='none'
+            assert rp.locator('.vault-scroll span').first.evaluate("e=>getComputedStyle(e).animationName")=='none'
             russian.close()
             passed('English entry even with Russian browser; reduced motion disables animation')
 
@@ -83,7 +83,8 @@ def run(output):
             passed('Search, empty state, reset and category filters')
             assert page.locator('[data-money], #price-select, #sort-select, #currency-select').count()==0
             assert 'price_usd' not in page.locator('#products-db').text_content()
-            assert page.locator('.price-unavailable').count()==expected
+            assert page.locator('.price-notice').is_visible()
+            assert page.locator('#product-grid [data-aff-id]').count()==expected
             page.goto(base+'/index.html?budget=10&sort=price_asc',wait_until='networkidle')
             assert page.locator('#product-grid .product-card:visible').count()==initial
             page.locator('#global-search-input').fill('ugreen')
@@ -126,9 +127,10 @@ def run(output):
             page.locator('[data-lang-link=ru]').click()
             page.wait_for_load_state('networkidle')
             assert 'utm_campaign=test' in page.url
+            previous_theme=page.locator('html').get_attribute('data-theme')
             page.locator('#theme-toggle').click()
             page.reload(wait_until='networkidle')
-            assert page.locator('html').get_attribute('data-theme')=='dark'
+            assert page.locator('html').get_attribute('data-theme')==('light' if previous_theme=='dark' else 'dark')
             assert page.locator('#currency-select').count()==0
             passed('Campaign context and persisted theme')
             for width in (360,390,768,1440):
