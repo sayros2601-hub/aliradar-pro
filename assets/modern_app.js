@@ -206,3 +206,28 @@
   });
  filter(false); syncHash();
 })();
+
+// Pointer-responsive exhibit. No loop, tracking, canvas or extra network request.
+(() => {
+  const stage = document.querySelector('.orbit-stage');
+  if (!stage) return;
+  const fine = matchMedia('(hover: hover) and (pointer: fine)');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  let frame = 0;
+  const reset = () => { cancelAnimationFrame(frame); frame=0; stage.style.removeProperty('--tilt-x'); stage.style.removeProperty('--tilt-y'); };
+  stage.addEventListener('pointermove', event => {
+    if (!fine.matches || reduce.matches || document.documentElement.dataset.motion === 'off') return;
+    const x=event.clientX, y=event.clientY;
+    cancelAnimationFrame(frame);
+    frame=requestAnimationFrame(() => {
+      const r=stage.getBoundingClientRect();
+      stage.style.setProperty('--tilt-x', `${(0.5-(y-r.top)/r.height)*7}deg`);
+      stage.style.setProperty('--tilt-y', `${((x-r.left)/r.width-0.5)*9}deg`);
+      frame=0;
+    });
+  }, {passive:true});
+  stage.addEventListener('pointerleave',reset);
+  reduce.addEventListener('change',reset);
+  document.getElementById('motion-toggle')?.addEventListener('click',reset);
+  document.addEventListener('visibilitychange',reset);
+})();

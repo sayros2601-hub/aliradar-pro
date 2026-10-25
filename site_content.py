@@ -179,3 +179,13 @@ for _language, _copy in _PRICE_COPY.items():
 for _copy in COPY.values():
     for _key in ('reference', 'budget', 'any', 'under', 'over', 'asc', 'desc', 'sort', 'curated', 'currency', 'rates'):
         _copy.pop(_key, None)
+
+# Observatory visual edition. Describes the collection without stock/test claims.
+_OBSERVATORY = {
+ 'en': {'hero':'Everyday life.<em>Upgraded.</em>', 'eyebrow':'DEALVAULT / THE EVERYDAY FUTURE', 'intro':'Small discoveries. A different everyday. Explore useful objects for your space, your work and wherever you go.', 'collection':'Discover your next upgrade', 'collection_sub':'Objects with a purpose. Find what fits your everyday.', 'orbit_top':'A different perspective', 'orbit_bottom':'Discover the details'},
+ 'ru': {'hero':'Обычный день.<em>Новый уровень.</em>', 'eyebrow':'DEALVAULT / БУДУЩЕЕ В ДЕТАЛЯХ', 'intro':'Маленькие открытия меняют привычный день. Находите полезные вещи для дома, работы и всего, что между ними.', 'collection':'Найдите своё открытие', 'collection_sub':'Вещи со смыслом. Выберите то, что пригодится именно вам.', 'orbit_top':'Новый взгляд на привычное', 'orbit_bottom':'Рассмотрите детали'},
+ 'he': {'hero':'יום רגיל.<em>ברמה אחרת.</em>', 'eyebrow':'DEALVAULT / העתיד בפרטים', 'intro':'תגליות קטנות משנות את היום. גלו דברים שימושיים לבית, לעבודה ולכל מה שביניהם.', 'collection':'גלו את השדרוג הבא שלכם', 'collection_sub':'דברים עם מטרה. מצאו את מה שמתאים ליום שלכם.', 'orbit_top':'נקודת מבט חדשה', 'orbit_bottom':'גלו את הפרטים'},
+ 'es': {'hero':'Tu día a día.<em>A otro nivel.</em>', 'eyebrow':'DEALVAULT / EL FUTURO COTIDIANO', 'intro':'Pequeños descubrimientos cambian tu día. Explora objetos útiles para tu espacio, tu trabajo y cada aventura.', 'collection':'Descubre tu próxima mejora', 'collection_sub':'Objetos con propósito. Encuentra lo que encaja contigo.', 'orbit_top':'Una nueva perspectiva', 'orbit_bottom':'Descubre los detalles'}
+}
+for _language, _copy in _OBSERVATORY.items():
+    COPY[_language].update(_copy)
