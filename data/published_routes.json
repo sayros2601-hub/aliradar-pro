@@ -8948,9 +8948,9 @@
   {
     "slug": "automatic-wire-stripper-cutter-crimp",
     "title_i18n": {
-      "en": "Automatic Wire Stripper Cutter Crimper Pliers Multifunctional Electrician H",
+      "en": "Automatic Wire Stripper Cutter Crimper Pliers Multifunctional Electrician",
       "ru": "Автоматический многофункциональный стриппер проводов",
-      "he": "גאдג'ט נבחר: Automatic Wire Stripper Cutter Crimper P",
+      "he": "חותך חותך חוט אוטומטי צבת חשמלאי רב תכליתי",
       "es": "Gadget Práctico: Automatic Wire Stripper Cutter Crimper P"
     }
   },
@@ -9240,6 +9240,60 @@
       "ru": "7-дневная еженедельная коробка для таблеток, красочный мини-контейнер для хранения лекарств Portab",
       "he": "7 ימים שבועי קופסת גלולות צבעוני מיני גודל רפואה מיכל אחסון Portab",
       "es": "Pastillero semanal de 7 días, contenedor de almacenamiento de medicina de tamaño Mini colorido Portab"
+    }
+  },
+  {
+    "slug": "8-slot-slim-rfid-blocking-leat",
+    "title_i18n": {
+      "en": "8 Slot Slim RFID Blocking Leather Wallet Credit ID Card Holder Purse Money",
+      "ru": "Тонкий кожаный кошелек с блокировкой RFID на 8 слотов, держатель для кредитных карт, кошелек для денег",
+      "he": "8 חריץ Slim RFID חוסם ארנק עור מחזיק תעודת זהות אשראי ארנק כסף",
+      "es": "Cartera de cuero con bloqueo RFID delgada de 8 ranuras, tarjetero de identificación de crédito, monedero, dinero"
+    }
+  },
+  {
+    "slug": "anti-theft-scanning-protect-ho",
+    "title_i18n": {
+      "en": "Anti-theft Scanning Protect Holder Aluminum Metal Plastic Bankcard Blocking",
+      "ru": "Защита от кражи, сканирование, защита, держатель, алюминий, металл, пластик, блокировка банковских карт",
+      "he": "סריקה נגד גניבה מחזיק הגנה אלומיניום מתכת פלסטיק חסימת כרטיס בנק",
+      "es": "Soporte protector de escaneo antirrobo, bloqueo de tarjetas bancarias de plástico y Metal de aluminio"
+    }
+  },
+  {
+    "slug": "boot-storage-bag-portable-shoe",
+    "title_i18n": {
+      "en": "Boot Storage Bag Portable Shoes Organizer Waterproof Dustproof Protection",
+      "ru": "Сумка для хранения ботинок, портативный органайзер для обуви, водонепроницаемый, пылезащитный, защита",
+      "he": "תיק אחסון למגפיים ארגונית נעליים ניידות הגנה עמידה בפני אבק",
+      "es": "Bolsa de almacenamiento para botas, organizador de zapatos portátil, protección impermeable a prueba de polvo"
+    }
+  },
+  {
+    "slug": "car-armrest-box-heightening",
+    "title_i18n": {
+      "en": "Car Armrest Box Heightening Pad PU Leather Armrest Cushion Cup Holder Tissu",
+      "ru": "Автомобильный подлокотник, увеличивающий накладку, подлокотник из искусственной кожи, подушка, держатель для чашки, Tissu",
+      "he": "משענת יד לרכב כרית הגבהה משענת עור PU מחזיק כוס כרית משענת יד Tissu",
+      "es": "Caja para reposabrazos de coche, almohadilla elevadora de cuero PU, cojín para reposabrazos, portavasos Tissu"
+    }
+  },
+  {
+    "slug": "car-tissue-box-sunshade-seat",
+    "title_i18n": {
+      "en": "Car Tissue Box Sunshade Seat Backrest Suspension Holder Armrest Box Storage",
+      "ru": "Автомобильная коробка для салфеток, солнцезащитный козырек, подвеска спинки сиденья, держатель подлокотника, коробка для хранения",
+      "he": "תיבת רקמות לרכב שמשיה מושב משענת משענת מחזיק תליה משענת יד מאחסנת קופסא",
+      "es": "Caja de pañuelos de coche, parasol, respaldo de asiento, soporte de suspensión, reposabrazos, almacenamiento"
+    }
+  },
+  {
+    "slug": "cl-silicone-foldable-cup-colla",
+    "title_i18n": {
+      "en": "[CL]Silicone Foldable Cup Collapsible Telescopic Cute Water Bottle Outdoor",
+      "ru": "[CL] Силиконовая складная чашка, складная телескопическая милая бутылка для воды на открытом воздухе",
+      "he": "[CL]כוס סיליקון מתקפלת טלסקופית בקבוק מים חמוד חיצוני",
+      "es": "[CL] Taza plegable de silicona, linda botella de agua telescópica plegable para exteriores"
     }
   }
 ]

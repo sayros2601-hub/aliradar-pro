@@ -1,113 +1,8 @@
 {
-  "checked_at": "2026-10-25T10:17:25+00:00",
+  "checked_at": "2026-10-27T11:11:02+00:00",
   "mode": "evidence_based_screening",
-  "eligible": 66,
+  "eligible": 59,
   "review_queue": [
-    {
-      "id": "8-slot-slim-rfid-blocking-leat",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "anti-theft-scanning-protect-ho",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "automatic-wire-stripper-cutter-crimp",
-      "country": "IL",
-      "need_id": "home-tools",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "repair tool kit",
-        "coverage": 1.0,
-        "mean": 55.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "boot-storage-bag-portable-shoe",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "car-armrest-box-heightening",
-      "country": "IL",
-      "need_id": "dash-camera",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 58.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "car-tissue-box-sunshade-seat",
-      "country": "IL",
-      "need_id": "dash-camera",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 58.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "cl-silicone-foldable-cup-colla",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
     {
       "id": "collapsible-water-bottles-sili",
       "country": "IL",
@@ -994,6 +889,52 @@
       }
     },
     {
+      "id": "3-pcs-blcak-wood-carving-disc-set-fo",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "9000rpm-360w-mini-diy-table-1",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "9000rpm-360w-mini-diy-table-saw-hand",
       "country": null,
       "need_id": null,
@@ -1018,6 +959,29 @@
     },
     {
       "id": "automatic-sensor-trash-can-12l-touch",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "automatic-wire-stripper-tool-0-2-6-m",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1086,6 +1050,29 @@
       "demand": null
     },
     {
+      "id": "hs-d1-self-adjusting-wire-stripper-3",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "mini-diy-table-saw-handmade-1",
       "country": null,
       "need_id": null,
@@ -1109,7 +1096,76 @@
       "demand": null
     },
     {
+      "id": "mini-diy-table-saw-handmade-3",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "mini-diy-table-saw-handmade-woodwork",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "new-6pcs-precision-long-tweezers-set",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "stainless-steel-black-tweezers-anti",
       "country": null,
       "need_id": null,
       "eligible": false,

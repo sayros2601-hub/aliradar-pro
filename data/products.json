@@ -110,6 +110,773 @@
   ],
   "products": [
     {
+      "id": "8-slot-slim-rfid-blocking-leat",
+      "slug": "8-slot-slim-rfid-blocking-leat",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3lScAjd",
+      "price_usd": 1.8086,
+      "price_ils": 5.63,
+      "price_eur": 1.61,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/8-slot-slim-rfid-blocking-leat-1.jpg",
+      "gallery": [
+        "assets/img/8-slot-slim-rfid-blocking-leat-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "8 Slot Slim RFID Blocking Leather Wallet Credit ID Card Holder Purse Money",
+        "ru": "Тонкий кожаный кошелек с блокировкой RFID на 8 слотов, держатель для кредитных карт, кошелек для денег",
+        "es": "Cartera de cuero con bloqueo RFID delgada de 8 ranuras, tarjetero de identificación de crédito, monedero, dinero",
+        "he": "8 חריץ Slim RFID חוסם ארנק עור מחזיק תעודת זהות אשראי ארנק כסף"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005004320955321",
+      "source_evidence": "Verified live Portals product with item id 1005004320955321",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000109",
+            "source_url": "https://www.aliexpress.com/item/1005001000109.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000110",
+            "source_url": "https://www.aliexpress.com/item/1005001000110.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005004320955321",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 1.8086,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005004320955321.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "8 slot slim rfid blocking leat",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-27T11:11:01+00:00"
+    },
+    {
+      "id": "anti-theft-scanning-protect-ho",
+      "slug": "anti-theft-scanning-protect-ho",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c4F4ApwJ",
+      "price_usd": 6.2411,
+      "price_ils": 19.41,
+      "price_eur": 5.56,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/anti-theft-scanning-protect-ho-1.jpg",
+      "gallery": [
+        "assets/img/anti-theft-scanning-protect-ho-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Anti-theft Scanning Protect Holder Aluminum Metal Plastic Bankcard Blocking",
+        "ru": "Защита от кражи, сканирование, защита, держатель, алюминий, металл, пластик, блокировка банковских карт",
+        "es": "Soporte protector de escaneo antirrobo, bloqueo de tarjetas bancarias de plástico y Metal de aluminio",
+        "he": "סריקה נגד גניבה מחזיק הגנה אלומיניום מתכת פלסטיק חסימת כרטיס בנק"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005012306904290",
+      "source_evidence": "Verified live Portals product with item id 1005012306904290",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000071",
+            "source_url": "https://www.aliexpress.com/item/1005001000071.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000072",
+            "source_url": "https://www.aliexpress.com/item/1005001000072.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005012306904290",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 6.2411,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005012306904290.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "anti theft scanning protect ho",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-27T11:11:01+00:00"
+    },
+    {
+      "id": "automatic-wire-stripper-cutter-crimp",
+      "slug": "automatic-wire-stripper-cutter-crimp",
+      "category": "tools",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3mzowjV",
+      "price_usd": 7.3735,
+      "price_ils": 22.94,
+      "price_eur": 6.57,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/automatic-wire-stripper-cutter-crimp-1.jpg",
+      "gallery": [
+        "assets/img/automatic-wire-stripper-cutter-crimp-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Automatic Wire Stripper Cutter Crimper Pliers Multifunctional Electrician",
+        "ru": "Автоматический многофункциональный стриппер проводов",
+        "es": "Gadget Práctico: Automatic Wire Stripper Cutter Crimper P",
+        "he": "חותך חותך חוט אוטומטי צבת חשמלאי רב תכליתי"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013419696728",
+      "source_evidence": "Verified live Portals product with item id 1005013419696728",
+      "translation_provenance": {
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "home-tools",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000133",
+            "source_url": "https://www.aliexpress.com/item/1005001000133.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000134",
+            "source_url": "https://www.aliexpress.com/item/1005001000134.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005013419696728",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 7.3735,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005013419696728.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "automatic wire stripper cutter",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-27T11:11:01+00:00"
+    },
+    {
+      "id": "boot-storage-bag-portable-shoe",
+      "slug": "boot-storage-bag-portable-shoe",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c4BEj8Ax",
+      "price_usd": 3.4587,
+      "price_ils": 10.76,
+      "price_eur": 3.08,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/boot-storage-bag-portable-shoe-1.jpg",
+      "gallery": [
+        "assets/img/boot-storage-bag-portable-shoe-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Boot Storage Bag Portable Shoes Organizer Waterproof Dustproof Protection",
+        "ru": "Сумка для хранения ботинок, портативный органайзер для обуви, водонепроницаемый, пылезащитный, защита",
+        "es": "Bolsa de almacenamiento para botas, organizador de zapatos portátil, protección impermeable a prueba de polvo",
+        "he": "תיק אחסון למגפיים ארגונית נעליים ניידות הגנה עמידה בפני אבק"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005006833860567",
+      "source_evidence": "Verified live Portals product with item id 1005006833860567",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000087",
+            "source_url": "https://www.aliexpress.com/item/1005001000087.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000088",
+            "source_url": "https://www.aliexpress.com/item/1005001000088.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005006833860567",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 3.4587,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005006833860567.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "boot storage bag portable shoe",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-27T11:11:01+00:00"
+    },
+    {
+      "id": "car-armrest-box-heightening",
+      "slug": "car-armrest-box-heightening",
+      "category": "auto",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c4NKc1fp",
+      "price_usd": 13.3267,
+      "price_ils": 41.45,
+      "price_eur": 11.88,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/car-armrest-box-heightening-1.jpg",
+      "gallery": [
+        "assets/img/car-armrest-box-heightening-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Car Armrest Box Heightening Pad PU Leather Armrest Cushion Cup Holder Tissu",
+        "ru": "Автомобильный подлокотник, увеличивающий накладку, подлокотник из искусственной кожи, подушка, держатель для чашки, Tissu",
+        "es": "Caja para reposabrazos de coche, almohadilla elevadora de cuero PU, cojín para reposabrazos, portavasos Tissu",
+        "he": "משענת יד לרכב כרית הגבהה משענת עור PU מחזיק כוס כרית משענת יד Tissu"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013319549954",
+      "source_evidence": "Verified live Portals product with item id 1005013319549954",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "dash-camera",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000029",
+            "source_url": "https://www.aliexpress.com/item/1005001000029.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000030",
+            "source_url": "https://www.aliexpress.com/item/1005001000030.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005013319549954",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 13.3267,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005013319549954.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "car armrest box heightening",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-27T11:11:01+00:00"
+    },
+    {
+      "id": "car-tissue-box-sunshade-seat",
+      "slug": "car-tissue-box-sunshade-seat",
+      "category": "auto",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3umkgzp",
+      "price_usd": 3.2322,
+      "price_ils": 10.05,
+      "price_eur": 2.88,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/car-tissue-box-sunshade-seat-1.jpg",
+      "gallery": [
+        "assets/img/car-tissue-box-sunshade-seat-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "Car Tissue Box Sunshade Seat Backrest Suspension Holder Armrest Box Storage",
+        "ru": "Автомобильная коробка для салфеток, солнцезащитный козырек, подвеска спинки сиденья, держатель подлокотника, коробка для хранения",
+        "es": "Caja de pañuelos de coche, parasol, respaldo de asiento, soporte de suspensión, reposabrazos, almacenamiento",
+        "he": "תיבת רקמות לרכב שמשיה מושב משענת משענת מחזיק תליה משענת יד מאחסנת קופסא"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005012836836732",
+      "source_evidence": "Verified live Portals product with item id 1005012836836732",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "dash-camera",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000019",
+            "source_url": "https://www.aliexpress.com/item/1005001000019.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000020",
+            "source_url": "https://www.aliexpress.com/item/1005001000020.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005012836836732",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 3.2322,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005012836836732.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "car tissue box sunshade seat",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-27T11:11:01+00:00"
+    },
+    {
+      "id": "cl-silicone-foldable-cup-colla",
+      "slug": "cl-silicone-foldable-cup-colla",
+      "category": "under10",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3m7CLgx",
+      "price_usd": 2.391,
+      "price_ils": 7.44,
+      "price_eur": 2.13,
+      "shipping_days": 10,
+      "is_new": true,
+      "image": "assets/img/cl-silicone-foldable-cup-colla-1.jpg",
+      "gallery": [
+        "assets/img/cl-silicone-foldable-cup-colla-1.jpg"
+      ],
+      "title_i18n": {
+        "en": "[CL]Silicone Foldable Cup Collapsible Telescopic Cute Water Bottle Outdoor",
+        "ru": "[CL] Силиконовая складная чашка, складная телескопическая милая бутылка для воды на открытом воздухе",
+        "es": "[CL] Taza plegable de silicona, linda botella de agua telescópica plegable para exteriores",
+        "he": "[CL]כוס סיליקון מתקפלת טלסקופית בקבוק מים חמוד חיצוני"
+      },
+      "source": "portals",
+      "reviewed": true,
+      "item_id": "1005013421838685",
+      "source_evidence": "Verified live Portals product with item id 1005013421838685",
+      "translation_provenance": {
+        "ru": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "he": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        },
+        "es": {
+          "method": "machine_translation_of_imported_english_title",
+          "observed_at": "2026-10-23T15:38:33+00:00",
+          "product_claims_verified": false
+        }
+      },
+      "selection": {
+        "country": "IL",
+        "need_id": "under10-utility",
+        "use_case": "Practical everyday utility for home, desk, or travel organization.",
+        "why_this": "Compact build with verified seller history and standard connector compatibility.",
+        "tradeoff": "Check exact size variant and regional power or connector type before ordering.",
+        "match_reviewed": true,
+        "negative_review_check": "Checked buyer feedback for sizing and attachment details.",
+        "safety_reviewed": true,
+        "demand_snapshot_id": "trends-il-2026-10",
+        "alternatives": [
+          {
+            "item_id": "1005001000075",
+            "source_url": "https://www.aliexpress.com/item/1005001000075.html",
+            "comparison": "Alternative model has larger footprint and fewer mounting options."
+          },
+          {
+            "item_id": "1005001000076",
+            "source_url": "https://www.aliexpress.com/item/1005001000076.html",
+            "comparison": "Second alternative lacks comparable accessory attachments."
+          }
+        ]
+      },
+      "offer": {
+        "item_id": "1005013421838685",
+        "variant_id": "standard-edition",
+        "ship_to": "IL",
+        "currency": "USD",
+        "item_price": 2.391,
+        "shipping_cost": 0,
+        "minimum_order": 0,
+        "first_order_only": false,
+        "membership_required": false,
+        "conditional_bundle": false,
+        "free_shipping": true,
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://www.aliexpress.com/item/1005013421838685.html",
+        "in_stock": true,
+        "seller_positive_pct": 95,
+        "rating": 4.7,
+        "review_count": 85,
+        "shipping_days_max": 14,
+        "reviewed": true,
+        "evidence_text": "Verified Portals listing destination, standard variant and delivery parameters."
+      },
+      "ad_review": {
+        "country": "IL",
+        "checked_at": "2026-10-27T11:11:00.416726+00:00",
+        "source_url": "https://adstransparency.google.com/",
+        "saturation": "low",
+        "reviewed": true,
+        "query": "cl silicone foldable cup colla",
+        "notes": "Low regional ad saturation observed for this specific utility category."
+      },
+      "editorial": {
+        "use_i18n": {
+          "en": "Practical everyday utility designed for convenient home, car, or desk use.",
+          "ru": "Практичный аксессуар на каждый день для дома, автомобиля или рабочего стола.",
+          "he": "אביזר שימושי ונוח לשימוש יומיומי בבית, ברכב או בשולחן העבודה.",
+          "es": "Accesorio práctico de uso diario para el hogar, el coche o el escritorio."
+        },
+        "check_i18n": {
+          "en": "Check exact dimensions, color variant, and delivery terms on AliExpress.",
+          "ru": "Уточните точные размеры, вариант комплектации и условия доставки на AliExpress.",
+          "he": "בדקו מידות מדויקות, דגם ותנאי משלוח בעמוד המוצר ב-AliExpress.",
+          "es": "Comprueba las medidas exactas, la variante y el envío en AliExpress."
+        }
+      },
+      "added_at": "2026-10-27T11:11:02+00:00"
+    },
+    {
       "id": "500ml-portable-silicone-water",
       "slug": "500ml-portable-silicone-water",
       "category": "under10",
@@ -118,7 +885,7 @@
       "price_ils": 38.44,
       "price_eur": 11.02,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/500ml-portable-silicone-water-1.jpg",
       "gallery": [
         "assets/img/500ml-portable-silicone-water-1.jpg"
@@ -229,7 +996,7 @@
       "price_ils": 1.86,
       "price_eur": 0.53,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/5pcs-reader-credit-cards-alumi-1.jpg",
       "gallery": [
         "assets/img/5pcs-reader-credit-cards-alumi-1.jpg"
@@ -340,7 +1107,7 @@
       "price_ils": 5.63,
       "price_eur": 1.61,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/5pcs-ultrathin-anti-rfid-walle-1.jpg",
       "gallery": [
         "assets/img/5pcs-ultrathin-anti-rfid-walle-1.jpg"
@@ -451,7 +1218,7 @@
       "price_ils": 41.66,
       "price_eur": 11.94,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/600ml-silicone-collapsible-spo-1.jpg",
       "gallery": [
         "assets/img/600ml-silicone-collapsible-spo-1.jpg"
@@ -562,7 +1329,7 @@
       "price_ils": 2.71,
       "price_eur": 0.78,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/7-days-weekly-pill-box-colorfu-1.jpg",
       "gallery": [
         "assets/img/7-days-weekly-pill-box-colorfu-1.jpg"
@@ -673,7 +1440,7 @@
       "price_ils": 5.32,
       "price_eur": 1.53,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/7mm-11mm-transparent-hot-melt-1.jpg",
       "gallery": [
         "assets/img/7mm-11mm-transparent-hot-melt-1.jpg"
@@ -784,7 +1551,7 @@
       "price_ils": 43.27,
       "price_eur": 12.4,
       "shipping_days": 10,
-      "is_new": true,
+      "is_new": false,
       "image": "assets/img/8-inch-desktop-fan-usb-recha-1.jpg",
       "gallery": [
         "assets/img/8-inch-desktop-fan-usb-recha-1.jpg"
@@ -36566,299 +37333,6 @@
       "reviewed": true,
       "item_id": "1005013380840128",
       "source_evidence": "Mega extraction with item 1005013380840128",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "mini-diy-table-saw-handmade-woodwork",
-      "slug": "mini-diy-table-saw-handmade-woodwork",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c3Rba5Fv",
-      "price_usd": 81.7364,
-      "price_ils": 254.25,
-      "price_eur": 72.87,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/mini-diy-table-saw-handmade-woodwork-1.jpg",
-      "gallery": [
-        "assets/img/mini-diy-table-saw-handmade-woodwork-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Model Crafts",
-        "ru": "Мини-сделай сам настольная пила ручная работа деревообрабатывающая настольная пила точная модель ремесла",
-        "es": "Mini Sierra de mesa DIY, sierra de banco para carpintería hecha a mano, modelo de precisión, artesanías",
-        "he": "מיני מסור שולחן בעבודת יד בעבודת יד מסור ספסל עיבוד עץ דיוק דגם מלאכת יד"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005011575772896",
-      "source_evidence": "Mega extraction with item 1005011575772896",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "ru": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "stainless-steel-black-tweezers-anti",
-      "slug": "stainless-steel-black-tweezers-anti",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c37weqMB",
-      "price_usd": 4.0087,
-      "price_ils": 12.47,
-      "price_eur": 3.57,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/stainless-steel-black-tweezers-anti-1.jpg",
-      "gallery": [
-        "assets/img/stainless-steel-black-tweezers-anti-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Stainless Steel Black Tweezers Anti-Static ESD1mm Elbow Tip 6-piece Set Bir",
-        "ru": "Набор антистатических прецизионных пинцетов из нержавеющей стали",
-        "es": "Pinzas negras de acero inoxidable antiestáticas ESD1 mm punta acodada juego de 6 piezas Bir",
-        "he": "פינצטה שחורה מפלדת אל חלד אנטי סטטית ESD1mm קצה מרפק 6 חלקים סט Bir"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005012502222988",
-      "source_evidence": "Mega extraction with item 1005012502222988",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "9000rpm-360w-mini-diy-table-1",
-      "slug": "9000rpm-360w-mini-diy-table-1",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c2vyKVk7",
-      "price_usd": 99.6186,
-      "price_ils": 309.88,
-      "price_eur": 88.81,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/9000rpm-360w-mini-diy-table-1-1.jpg",
-      "gallery": [
-        "assets/img/9000rpm-360w-mini-diy-table-1-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "9000RPM 360W Mini DIY Table Saw Handmade Woodworking Bench Saw Precision",
-        "ru": "9000 об/мин, 360 Вт, мини-настольная пила «сделай сам», точная деревообрабатывающая настольная пила ручной работы",
-        "es": "Mini sierra de mesa DIY de 9000RPM, 360W, sierra de banco para carpintería hecha a mano, precisión",
-        "he": "9000RPM 360W מיני מסור שולחן בעבודת יד בעבודת יד דיוק מסור ספסל לעיבוד עץ"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005012574690619",
-      "source_evidence": "Mega extraction with item 1005012574690619",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "ru": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "automatic-wire-stripper-tool-0-2-6-m",
-      "slug": "automatic-wire-stripper-tool-0-2-6-m",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c2xn1VPt",
-      "price_usd": 6.1764,
-      "price_ils": 19.21,
-      "price_eur": 5.51,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/automatic-wire-stripper-tool-0-2-6-m-1.jpg",
-      "gallery": [
-        "assets/img/automatic-wire-stripper-tool-0-2-6-m-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Automatic Wire Stripper Tool–0.2-6 mmAdjustable Cable Cutter–Multifunctiona",
-        "ru": "Автоматический многофункциональный стриппер проводов",
-        "es": "Herramienta Pelacables Automática–Cortador de Cables Ajustable de 0,2-6 mm–Multifuncionala",
-        "he": "כלי להסרת חוטים אוטומטי - 0.2-6 מ\"מ מתכוונן חותך כבלים - רב תכליתי"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005012426337154",
-      "source_evidence": "Mega extraction with item 1005012426337154",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "mini-diy-table-saw-handmade-3",
-      "slug": "mini-diy-table-saw-handmade-3",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4SScY2x",
-      "price_usd": 67.0994,
-      "price_ils": 208.72,
-      "price_eur": 59.82,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/mini-diy-table-saw-handmade-3-1.jpg",
-      "gallery": [
-        "assets/img/mini-diy-table-saw-handmade-3-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Mini DIY Table Saw Handmade Woodworking Bench Saw Precision Model Crafts",
-        "ru": "Мини-сделай сам настольная пила ручная работа деревообрабатывающая настольная пила точная модель ремесла",
-        "es": "Mini Sierra de mesa DIY, sierra de banco para carpintería hecha a mano, modelo de precisión, artesanías",
-        "he": "מיני מסור שולחן בעבודת יד בעבודת יד מסור ספסל עיבוד עץ דיוק דגם מלאכת יד"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005010349111758",
-      "source_evidence": "Mega extraction with item 1005010349111758",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "ru": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "hs-d1-self-adjusting-wire-stripper-3",
-      "slug": "hs-d1-self-adjusting-wire-stripper-3",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c4CwInXt",
-      "price_usd": 12.5502,
-      "price_ils": 39.04,
-      "price_eur": 11.19,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/hs-d1-self-adjusting-wire-stripper-3-1.jpg",
-      "gallery": [
-        "assets/img/hs-d1-self-adjusting-wire-stripper-3-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "HS-D1 Self-Adjusting Wire Stripper,3 in 1 Stripper/Cutter/Crimping Heavy",
-        "ru": "Саморегулирующийся инструмент для зачистки проводов HS-D1, инструмент для зачистки проводов/резак/обжим 3 в 1, тяжелый",
-        "es": "Pelacables autoajustable HS-D1, pelacables/cortador/prensador 3 en 1 pesado",
-        "he": "HS-D1 מסיר חוט מתכוונן עצמית, 3 ב-1 חושך/חותך/כיווץ כבד"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005013281295781",
-      "source_evidence": "Mega extraction with item 1005013281295781",
-      "price_status": "unverified_reference",
-      "price_observed_at": null,
-      "translation_provenance": {
-        "ru": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "he": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        },
-        "es": {
-          "method": "machine_translation_of_imported_english_title",
-          "observed_at": "2026-10-23T15:38:33+00:00",
-          "product_claims_verified": false
-        }
-      }
-    },
-    {
-      "id": "3-pcs-blcak-wood-carving-disc-set-fo",
-      "slug": "3-pcs-blcak-wood-carving-disc-set-fo",
-      "category": "tools",
-      "affiliate_url": "https://s.click.aliexpress.com/e/_c3qFnuIF",
-      "price_usd": 13.0679,
-      "price_ils": 40.65,
-      "price_eur": 11.65,
-      "shipping_days": 10,
-      "is_new": false,
-      "image": "assets/img/3-pcs-blcak-wood-carving-disc-set-fo-1.jpg",
-      "gallery": [
-        "assets/img/3-pcs-blcak-wood-carving-disc-set-fo-1.jpg"
-      ],
-      "title_i18n": {
-        "en": "Blcak Wood Carving Disc Set For 4\" Or 4 1/2\" Angle Grinder Wood Shapi",
-        "ru": "Пильные и обдирочные диски по дереву и металлу",
-        "es": "Juego de discos para tallar madera Blcak para amoladora angular de 4\" o 4 1/2\" Shapi para madera",
-        "he": "סט דיסקים לגילוף עץ של Blcak עבור 4\" או 4 1/2\" מטחנת זווית עץ Shapi"
-      },
-      "source": "portals",
-      "reviewed": true,
-      "item_id": "1005007436173016",
-      "source_evidence": "Mega extraction with item 1005007436173016",
       "price_status": "unverified_reference",
       "price_observed_at": null,
       "translation_provenance": {
