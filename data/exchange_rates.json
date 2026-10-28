@@ -1,10 +1,10 @@
 {
   "source": "https://open.er-api.com/v6/latest/USD",
-  "observed_at": "2026-10-27T00:02:31+00:00",
+  "observed_at": "2026-10-28T00:02:31+00:00",
   "rates": {
     "USD": 1.0,
-    "ILS": 3.079309,
-    "EUR": 0.893935,
-    "RUB": 80.787369
+    "ILS": 3.056403,
+    "EUR": 0.897453,
+    "RUB": 80.56162
   }
 }

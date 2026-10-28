@@ -1,113 +1,8 @@
 {
-  "checked_at": "2026-10-27T11:11:02+00:00",
+  "checked_at": "2026-10-28T11:46:12+00:00",
   "mode": "evidence_based_screening",
-  "eligible": 59,
+  "eligible": 52,
   "review_queue": [
-    {
-      "id": "collapsible-water-bottles-sili",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "damping-mat-sound-deadening-for-bran",
-      "country": "IL",
-      "need_id": "dash-camera",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 58.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "dustproof-shoes-storage-bags-t",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "elegant-convenient-car-tissu",
-      "country": "IL",
-      "need_id": "dash-camera",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 58.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "foldable-silicone-funnel-set-c",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "for-baw-212-t01-armrest-heig",
-      "country": "IL",
-      "need_id": "dash-camera",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 58.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "for-bentley-multi-function-c",
-      "country": "IL",
-      "need_id": "dash-camera",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 58.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
     {
       "id": "for-xpeng-car-tissue-box-mic",
       "country": "IL",
@@ -912,6 +807,52 @@
       "demand": null
     },
     {
+      "id": "6pcs-precision-long-tweezers-1",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "6pcs-precision-long-tweezers-2",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "9000rpm-360w-mini-diy-table-1",
       "country": null,
       "need_id": null,
@@ -936,6 +877,29 @@
     },
     {
       "id": "9000rpm-360w-mini-diy-table-saw-hand",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "adjustable-flat-wire-stripper-multif",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1096,6 +1060,29 @@
       "demand": null
     },
     {
+      "id": "mini-diy-table-saw-handmade-2",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "mini-diy-table-saw-handmade-3",
       "country": null,
       "need_id": null,
@@ -1120,6 +1107,75 @@
     },
     {
       "id": "mini-diy-table-saw-handmade-woodwork",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "mini-multifunction-table-saw-1",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "mini-table-saw-blade-handmade-woodwo",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "multifunctional-mini-table-saw-handm",
       "country": null,
       "need_id": null,
       "eligible": false,

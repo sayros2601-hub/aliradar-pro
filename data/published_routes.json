@@ -8958,8 +8958,8 @@
     "slug": "damping-mat-sound-deadening-for-bran",
     "title_i18n": {
       "en": "Damping Mat Sound Deadening for Brand New 250mm X 180mm 5mm Accessories Rep",
-      "ru": "Полезный гаджет: Damping Mat Sound Deadening for Brand Ne",
-      "he": "גאдג'ט נבחר: Damping Mat Sound Deadening for Brand Ne",
+      "ru": "Демпфирующий коврик, шумопоглощающий для совершенно новых аксессуаров 250 x 180 мм, 5 мм, представитель",
+      "he": "מחצלת שיכוך רדיית צליל עבור אביזרים חדשים לגמרי 250 מ\"מ X 180 מ\"מ 5 מ\"מ",
       "es": "Gadget Práctico: Damping Mat Sound Deadening for Brand Ne"
     }
   },
@@ -9294,6 +9294,60 @@
       "ru": "[CL] Силиконовая складная чашка, складная телескопическая милая бутылка для воды на открытом воздухе",
       "he": "[CL]כוס סיליקון מתקפלת טלסקופית בקבוק מים חמוד חיצוני",
       "es": "[CL] Taza plegable de silicona, linda botella de agua telescópica plegable para exteriores"
+    }
+  },
+  {
+    "slug": "collapsible-water-bottles-sili",
+    "title_i18n": {
+      "en": "Collapsible Water Bottles Silicone Foldable Portable Water Bottle,BPA-Free",
+      "ru": "Складные бутылки для воды Силиконовая складная портативная бутылка для воды, без BPA",
+      "he": "בקבוקי מים מתקפלים סיליקון בקבוק מים נייד מתקפל, ללא BPA",
+      "es": "Botella de agua portátil plegable del silicón plegable de las botellas de agua, sin BPA"
+    }
+  },
+  {
+    "slug": "dustproof-shoes-storage-bags-t",
+    "title_i18n": {
+      "en": "Dustproof Shoes Storage Bags Travel Portable Nylon Shoes Bag with Sturdy",
+      "ru": "Пылезащитные сумки для хранения обуви, дорожная портативная нейлоновая сумка для обуви, прочная",
+      "he": "שקיות אחסון נעליים חסינות אבק נסיעות תיק נעלי ניילון נייד עם יציבות",
+      "es": "Bolsas de almacenamiento de zapatos a prueba de polvo, bolsa de zapatos de nailon portátil de viaje con resistente"
+    }
+  },
+  {
+    "slug": "elegant-convenient-car-tissu",
+    "title_i18n": {
+      "en": "Elegant & Convenient Car Tissue and Mask Holder: Universal Sun Visor Attach",
+      "ru": "Элегантный и удобный автомобильный держатель для салфеток и маски: универсальное крепление для солнцезащитного козырька",
+      "he": "מחזיק לרקמות ומסכות לרכב אלגנטי ונוח: צרף מגן שמש אוניברסלי",
+      "es": "Soporte para mascarillas y pañuelos para el automóvil elegante y conveniente: accesorio universal para visera solar"
+    }
+  },
+  {
+    "slug": "foldable-silicone-funnel-set-c",
+    "title_i18n": {
+      "en": "Foldable Silicone Funnel Set – Collapsible Small & Large Funnels for Kitche",
+      "ru": "Набор складных силиконовых воронок – складные маленькие и большие воронки для кухни",
+      "he": "סט משפכי סיליקון מתקפל - משפכים קטנים וגדולים מתקפלים לקיצ'ה",
+      "es": "Juego de embudos de silicona plegables: embudos grandes y pequeños plegables para cocina"
+    }
+  },
+  {
+    "slug": "for-baw-212-t01-armrest-heig",
+    "title_i18n": {
+      "en": "For BAW 212 T01 Armrest Heightening Pad Tissue Box Cup Holder Elbow Support",
+      "ru": "Для BAW 212 T01 Подлокотник, увеличивающая накладку, коробка для салфеток, держатель для чашки, поддержка локтя",
+      "he": "עבור BAW 212 T01 משענת הגבהה כרית רקמות תיבת כוס מחזיק תמיכה במרפק",
+      "es": "Para BAW 212 T01 Reposabrazos Almohadilla elevadora Caja de pañuelos Portavasos Soporte para codo"
+    }
+  },
+  {
+    "slug": "for-bentley-multi-function-c",
+    "title_i18n": {
+      "en": "For Bentley Multi-Function Car Tissue Box Storage Box Interior Accessories",
+      "ru": "Многофункциональная автомобильная коробка для хранения салфеток для Bentley, аксессуары для интерьера",
+      "he": "לבנטלי רב תכליתית לרכב אביזרי פנים לאחסון קופסת רקמות",
+      "es": "Para Bentley caja de pañuelos de coche multifunción caja de almacenamiento accesorios interiores"
     }
   }
 ]
