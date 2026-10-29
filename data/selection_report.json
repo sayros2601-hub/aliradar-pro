@@ -1,113 +1,8 @@
 {
-  "checked_at": "2026-10-28T11:46:12+00:00",
+  "checked_at": "2026-10-29T11:53:40+00:00",
   "mode": "evidence_based_screening",
-  "eligible": 52,
+  "eligible": 45,
   "review_queue": [
-    {
-      "id": "for-xpeng-car-tissue-box-mic",
-      "country": "IL",
-      "need_id": "dash-camera",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 58.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "genuine-leather-car-seat-tis",
-      "country": "IL",
-      "need_id": "dash-camera",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "dash cam",
-        "coverage": 1.0,
-        "mean": 58.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "homefish-slim-aluminum-metal-c",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "key-bag-combination-card-e-1",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "key-bag-combination-card-edc-t",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "men-s-genuine-leather-anti-rfi",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "men-women-pu-leather-classic-r",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
     {
       "id": "mini-sealed-pill-organizer-7-d",
       "country": "IL",
@@ -807,6 +702,52 @@
       "demand": null
     },
     {
+      "id": "6-pcs-precision-tweezers-set-esd-ant",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "6pcs-esd-anti-static-stainless-steel",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "6pcs-precision-long-tweezers-1",
       "country": null,
       "need_id": null,
@@ -831,6 +772,29 @@
     },
     {
       "id": "6pcs-precision-long-tweezers-2",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "6pcs-precision-long-tweezers-set-esd",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -922,6 +886,29 @@
       "demand": null
     },
     {
+      "id": "anti-static-stainless-steel-tweezers",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "automatic-sensor-trash-can-12l-touch",
       "country": null,
       "need_id": null,
@@ -969,6 +956,29 @@
     },
     {
       "id": "cat-litter-mat-double-layer-1",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "crimper-cable-cutter-automatic-wire",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1152,6 +1162,29 @@
       "demand": null
     },
     {
+      "id": "mini-multifunction-table-saw-handmad",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "mini-table-saw-blade-handmade-woodwo",
       "country": null,
       "need_id": null,
@@ -1199,6 +1232,29 @@
     },
     {
       "id": "new-6pcs-precision-long-tweezers-set",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "precision-anti-static-10pcs-set-curv",
       "country": null,
       "need_id": null,
       "eligible": false,
