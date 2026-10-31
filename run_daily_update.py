@@ -12,6 +12,8 @@ if hasattr(sys.stdout, 'reconfigure'):
 
 
 def run_daily_update(force=False):
+    print("[DISABLED] Legacy DealVault daily autopilot is disabled so it never overwrites FLUXIXO (fluxixo.shop).")
+    return
     print("=" * 60)
     print(f"[{datetime.now(timezone.utc).isoformat()}] Starting Daily DealVault Autopilot")
     print("=" * 60)
