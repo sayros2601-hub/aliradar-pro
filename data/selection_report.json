@@ -1,113 +1,8 @@
 {
-  "checked_at": "2026-10-29T11:53:40+00:00",
+  "checked_at": "2026-10-31T11:20:16+00:00",
   "mode": "evidence_based_screening",
-  "eligible": 45,
+  "eligible": 38,
   "review_queue": [
-    {
-      "id": "mini-sealed-pill-organizer-7-d",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "mini-small-portable-travel-pil",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "mini-small-portable-travel-vit",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "new-hot-mini-premuim-portable",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "new-hot-premium-portable-trave",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "new-hot-premuim-mini-portable",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
-    {
-      "id": "new-weekly-7-days-8-grids-prem",
-      "country": "IL",
-      "need_id": "under10-utility",
-      "eligible": true,
-      "score": 84.76,
-      "reasons": [],
-      "demand": {
-        "term": "cable organizer",
-        "coverage": 1.0,
-        "mean": 63.0,
-        "weeks": 30,
-        "search_type": "shopping"
-      }
-    },
     {
       "id": "non-woven-shoes-bags-waterproo",
       "country": "IL",
@@ -679,6 +574,29 @@
       }
     },
     {
+      "id": "3-inch-heavy-duty-power-tools-cuttin",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "3-pcs-blcak-wood-carving-disc-set-fo",
       "country": null,
       "need_id": null,
@@ -795,6 +713,29 @@
     },
     {
       "id": "6pcs-precision-long-tweezers-set-esd",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "6pcs-precision-tweezers-set-esd-anti",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1024,7 +965,76 @@
       "demand": null
     },
     {
+      "id": "fse-d7026-cable-stripper-professiona",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "hs-d1-self-adjusting-wire-stripper-3",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "laoa-automatic-wire-stripper-with-bu",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "mini-cordless-angle-grinder-recharge",
       "country": null,
       "need_id": null,
       "eligible": false,
@@ -1277,7 +1287,53 @@
       "demand": null
     },
     {
+      "id": "sigma-br5-blind-pop-rivet-drill-adap",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
       "id": "stainless-steel-black-tweezers-anti",
+      "country": null,
+      "need_id": null,
+      "eligible": false,
+      "score": 0,
+      "reasons": [
+        "DESTINATION_REQUIRED",
+        "USE_CASE_AND_TRADEOFF_REQUIRED",
+        "COMPARE_TWO_ALTERNATIVES",
+        "EXACT_VARIANT_AND_DESTINATION_REQUIRED",
+        "OFFER_STALE_OR_MISSING",
+        "CURRENT_PRICE_AND_STOCK_REQUIRED",
+        "DELIVERY_ESTIMATE_REQUIRED",
+        "QUALITY_EVIDENCE_INSUFFICIENT",
+        "LIMITATIONS_AND_SAFETY_REVIEW_REQUIRED",
+        "RECENT_COUNTRY_DEMAND_REQUIRED",
+        "COUNTRY_AD_REVIEW_REQUIRED",
+        "AD_SATURATION_HIGH_OR_UNKNOWN",
+        "CONCISE_LOCALIZED_EDITORIAL_REQUIRED"
+      ],
+      "demand": null
+    },
+    {
+      "id": "summer-ice-silk-pet-cooling-mat-wate",
       "country": null,
       "need_id": null,
       "eligible": false,
