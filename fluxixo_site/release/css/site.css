@@ -96,3 +96,59 @@ body.is-reduced .stage-hint{opacity:.5}
 @media (max-width:520px){
  .site-header{flex-wrap:wrap;row-gap:7px}.header-actions{width:100%;justify-content:space-between}.collection-button{margin-left:auto}
 }
+
+/* Multi-language selector & Safe RTL Text Mode (no layout flip) */
+.lang-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: rgba(255, 255, 255, 0.08);
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 100px;
+  padding: 9px 26px 9px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  background-image: linear-gradient(45deg, transparent 50%, currentColor 50%), linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position: calc(100% - 13px) 52%, calc(100% - 8px) 52%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+.lang-select:hover, .lang-select:focus-visible {
+  background-color: rgba(255, 255, 255, 0.16);
+  border-color: rgba(255, 255, 255, 0.42);
+  outline: none;
+}
+.lang-select option {
+  background: #102142;
+  color: #ffffff;
+}
+/* Hebrew (HE) safe text RTL: keep 3D showroom & header geometry strictly LTR so page never flips */
+body.is-rtl-text {
+  direction: ltr;
+}
+body.is-rtl-text .product-copy,
+body.is-rtl-text .details-copy,
+body.is-rtl-text #about-dialog,
+body.is-rtl-text #collection-dialog .sheet-header > div,
+body.is-rtl-text #collection-dialog .sheet-footnote,
+body.is-rtl-text .collection-card strong,
+body.is-rtl-text .collection-card .card-category {
+  direction: rtl;
+  unicode-bidi: plaintext;
+  text-align: right;
+}
+body.is-rtl-text .product-copy .eyebrow,
+body.is-rtl-text .product-copy .product-actions {
+  justify-content: flex-start;
+}
+@media (max-width: 520px) {
+  .lang-select {
+    padding: 8px 22px 8px 9px;
+    font-size: 11px;
+  }
+}

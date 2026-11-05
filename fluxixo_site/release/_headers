@@ -36,13 +36,16 @@
 /social-feed.json
   Content-Type: application/json; charset=utf-8
 
-/js/app.5c3bf5d57dd2.js
+/js/app.be39eade9dc0.js
   Cache-Control: public, max-age=31536000, immutable
 
 /js/catalog-core.41cc5f57f316.js
   Cache-Control: public, max-age=31536000, immutable
 
 /js/catalog.6a02c656bff5.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/i18n.2dc1bf0cc745.js
   Cache-Control: public, max-age=31536000, immutable
 
 /js/motion.9b46b7b8b844.js
@@ -54,7 +57,7 @@
 /css/search.dbda0a010f1d.css
   Cache-Control: public, max-age=31536000, immutable
 
-/css/site.9e1ead2a456f.css
+/css/site.9bf6563f2d1f.css
   Cache-Control: public, max-age=31536000, immutable
 
 /css/watch-inline.80e48bfb584a.css

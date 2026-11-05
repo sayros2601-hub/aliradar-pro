@@ -1,10 +1,17 @@
 (function () {
   'use strict';
   const $ = id => document.getElementById(id);
-  // The published catalog is the same on every device. Local editor drafts
-  // remain available in the editor and take effect after catalog.js is exported.
   const catalog = window.MiraCatalog.defaults();
   const products = catalog.products;
+  const i18n = window.FluxixoI18n || {
+    getLang: () => 'ru',
+    setLang: l => l,
+    t: k => '',
+    localizeProduct: p => p,
+    applyStaticUI: () => {},
+    applyDocumentDirection: () => {}
+  };
+  const loc = p => i18n.localizeProduct(p, i18n.getLang());
   const mobileLayout = window.matchMedia('(max-width: 1100px), (max-height: 480px) and (pointer: coarse)');
   const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
   let motionPreference = '';
@@ -23,9 +30,12 @@
   });
   const count = n => String(n).padStart(2, '0');
   const normalize = n => (n % products.length + products.length) % products.length;
-  const current = () => products[active];
+  const current = () => loc(products[active]);
   const dialogOpen = () => dialogs.some(d => d.open);
-  const forStage = product => ({image: product.image, alt: product.name, scale: product.scale, rotation: product.rotation});
+  const forStage = product => {
+    const lp = loc(product);
+    return {image: lp.image, alt: lp.name, scale: lp.scale, rotation: lp.rotation};
+  };
   const atmospheres = Array.from(document.querySelectorAll('.ambient-scene'));
   let atmosphereIndex = 0, atmosphereTheme = '', atmosphereAnimations = [], copyAnimation = null;
 
@@ -40,7 +50,6 @@
     next.style.opacity = '1';
     previous.style.opacity = '0';
     if (animate && !reduced && next.animate) {
-      // Rasterize each palette once; crossfade only the cached layer opacity.
       atmosphereAnimations = [
         previous.animate([{opacity: 1}, {opacity: 0}], {duration: 500, easing: 'ease-out'}),
         next.animate([{opacity: 0}, {opacity: 1}], {duration: 500, easing: 'ease-out'})
@@ -86,15 +95,15 @@
     if (isAffiliate) $('product-cta').setAttribute('href', product.affiliateUrl);
     else $('product-cta').removeAttribute('href');
     $('affiliate-note').textContent = isAffiliate
-      ? 'Партнёрская ссылка. Мы можем получить комиссию за покупку.'
-      : product.pendingLink ? 'Ссылка на продавца уточняется.' : 'Демонстрационный предмет. Без привязки к продавцу.';
+      ? (i18n.t('affiliateNote') || 'Партнёрская ссылка. Мы можем получить комиссию за покупку.')
+      : product.pendingLink ? (i18n.t('ctaPending') || 'Ссылка на продавца уточняется.') : 'Демонстрационный предмет.';
     $('large-index').textContent = count(index + 1);
     $('large-total').textContent = count(products.length);
     $('collection-count').textContent = count(products.length);
     renderRail(index);
     document.title = 'FLUXIXO — ' + product.name;
     try { history.replaceState(null, '', '#' + product.id); } catch (_) {}
-    if (announceChange) announce(product.name + '. Товар ' + (index + 1) + ' из ' + products.length + (product.demo ? '. Демонстрационный образец.' : '. Партнёрская ссылка AliExpress.'));
+    if (announceChange) announce(product.name + ' (' + (index + 1) + '/' + products.length + ')');
     stage.preload([products[normalize(index + 1)], products[normalize(index - 1)]]);
   }
   async function navigate(index, direction) {
@@ -111,8 +120,6 @@
       await stage.transitionTo(forStage(products[index]), direction || 1, () => {
         if (copyAnimation) copyAnimation.cancel();
         updateCopy(index, true);
-        // Keep the previous copy readable while an image decodes. Native reveal
-        // starts only when the new object arrives, without a forced layout read.
         if ($('product-copy').animate) copyAnimation = $('product-copy').animate(
           reduced ? [{opacity: 0}, {opacity: 1}] : [{opacity: 0, transform: 'translateY(7px)'}, {opacity: 1, transform: 'translateY(0)'}],
           {duration: reduced ? 100 : 240, easing: 'cubic-bezier(.2,.7,.2,1)'}
@@ -146,7 +153,7 @@
     rail.replaceChildren();
     const indices = products.length <= 3 ? products.map((_, i) => i) : [normalize(index - 1), index, normalize(index + 1)];
     indices.forEach(i => {
-      const product = products[i];
+      const product = loc(products[i]);
       const button = document.createElement('button');
       button.className = 'rail-item';
       button.dataset.productIndex = String(i);
@@ -167,13 +174,14 @@
   function createNav() {
     renderRail(active);
     $('collection-grid').replaceChildren();
-    products.forEach((product, i) => {
+    products.forEach((rawProduct, i) => {
+      const product = loc(rawProduct);
       const card = document.createElement('button'); card.className = 'collection-card';
       const number = document.createElement('span'); number.className = 'card-number'; number.textContent = count(i + 1);
       const picture = document.createElement('img'); picture.loading = 'lazy'; picture.decoding = 'async'; picture.src = product.image; picture.alt = '';
       const name = document.createElement('strong'); name.textContent = product.name;
       const category = document.createElement('span'); category.className = 'card-category'; category.textContent = product.category;
-      const status = document.createElement('span'); status.className = 'card-status'; status.textContent = product.pendingLink ? 'Ссылка уточняется' : product.demo ? 'Демо' : 'AliExpress';
+      const status = document.createElement('span'); status.className = 'card-status'; status.textContent = product.pendingLink ? (i18n.t('ctaPending') || 'Ссылка уточняется') : product.demo ? 'Demo' : 'AliExpress';
       card.append(number, picture, name, category, status);
       card.addEventListener('click', () => { $('collection-dialog').close(); direct(i); });
       $('collection-grid').append(card);
@@ -189,10 +197,10 @@
     const product = current();
     $('details-title').textContent = product.name;
     $('details-category').textContent = product.category;
-    $('details-status').textContent = product.pendingLink ? 'Ссылка на продавца уточняется' : product.demo ? 'Демонстрационный образец' : 'Из вашей подборки AliExpress';
+    $('details-status').textContent = product.pendingLink ? (i18n.t('ctaPending') || 'Ссылка уточняется') : 'FLUXIXO · AliExpress';
     $('details-image').src = product.image; $('details-image').alt = product.name;
-    $('details-image-label').textContent = product.imageNote;
-    $('details-description').textContent = product.details;
+    $('details-image-label').textContent = i18n.t('sceneCaption') || product.imageNote;
+    $('details-description').textContent = product.description || product.details;
     $('details-facts').replaceChildren();
     product.facts.forEach(f => {
       const dt = document.createElement('dt'); dt.textContent = f.label;
@@ -202,9 +210,7 @@
     $('details-cta').hidden = product.demo || !product.affiliateUrl;
     if (!product.demo && product.affiliateUrl) $('details-cta').setAttribute('href', product.affiliateUrl);
     else $('details-cta').removeAttribute('href');
-    $('details-disclosure').textContent = product.pendingLink ? 'Ссылка на продавца уточняется. Покупка временно недоступна.' : product.demo
-      ? 'У этого демонстрационного предмета нет цены и ссылки на продавца.'
-      : 'Партнёрская ссылка: мы можем получить комиссию за покупку. Актуальные цена, комплектация и условия — на AliExpress.';
+    $('details-disclosure').textContent = i18n.t('affiliateNote') || 'Партнёрская ссылка AliExpress.';
     $('source-details').hidden = !product.original;
     $('source-details').open = false;
     if (product.original) $('source-image').src = product.original;
@@ -244,9 +250,9 @@
     }
     document.body.classList.toggle('is-reduced', reduced);
     $('motion-button').setAttribute('aria-pressed', String(reduced));
-    $('motion-button').querySelector('span').textContent = reduced ? 'Включить движение' : 'Меньше движения';
-    $('motion-button').title = reduced ? 'Включить движение в глубину' : 'Уменьшить движение';
-    $('stage-hint').lastChild.textContent = reduced ? ' Спокойный режим' : window.matchMedia('(pointer: coarse)').matches ? ' Свайпни влево или вправо' : ' Наведи, чтобы изменить ракурс';
+    $('motion-button').querySelector('span').textContent = reduced ? (i18n.t('motionMore') || 'Включить движение') : (i18n.t('motionLess') || 'Меньше движения');
+    $('motion-button').title = reduced ? (i18n.t('motionMore') || 'Включить движение') : (i18n.t('motionLess') || 'Меньше движения');
+    $('stage-hint').lastChild.textContent = ' ' + (reduced ? (i18n.t('stageHintQuiet') || 'Спокойный режим') : window.matchMedia('(pointer: coarse)').matches ? (i18n.t('stageHintTouch') || 'Свайпни влево или вправо') : (i18n.t('stageHintMouse') || 'Наведи, чтобы изменить ракурс'));
     stage.setReducedMotion(reduced);
   }
   $('motion-button').addEventListener('click', () => {
@@ -256,7 +262,18 @@
   });
   prefersReduced.addEventListener('change', event => { if (!motionPreference) { reduced = event.matches; applyMotion(); } });
 
-  // One wheel gesture advances one object. Trackpad inertia only extends the gesture latch.
+  const langSelect = $('lang-select');
+  if (langSelect) {
+    langSelect.value = i18n.getLang();
+    langSelect.addEventListener('change', event => {
+      i18n.setLang(event.target.value);
+      createNav();
+      updateCopy(active, false);
+      applyMotion();
+      if ($('details-dialog').open) openDetails();
+    });
+  }
+
   let wheelSum = 0, wheelLatched = false, wheelReset;
   $('showroom').addEventListener('wheel', event => {
     if (mobileLayout.matches || event.ctrlKey || event.metaKey || dialogOpen() || event.target.closest('a,button,input,textarea,select')) return;
@@ -295,5 +312,7 @@
   });
   window.addEventListener('pagehide', () => stage.setPaused(true));
   window.addEventListener('pageshow', () => { if (!dialogOpen()) stage.setPaused(window.MiraWatch.active); });
-  createNav(); updateCopy(active); stage.setInitial(forStage(current())); applyMotion();
+  i18n.applyDocumentDirection(i18n.getLang());
+  i18n.applyStaticUI(i18n.getLang());
+  createNav(); updateCopy(active); stage.setInitial(forStage(products[active])); applyMotion();
 })();
