@@ -3944,24 +3944,17 @@
   }
 };
 
-  const SUPPORTED = ['ru', 'en', 'pt', 'es', 'fr', 'he'];
+  const SUPPORTED = ['en', 'ru', 'pt', 'es', 'fr', 'he'];
 
   function detectLang() {
     try {
       const params = new URLSearchParams(window.location.search);
       const q = (params.get('lang') || '').toLowerCase().trim();
       if (SUPPORTED.includes(q)) return q;
-      const saved = (localStorage.getItem('fluxixo.lang') || '').toLowerCase().trim();
+      const saved = (localStorage.getItem('fluxixo.lang.v2') || '').toLowerCase().trim();
       if (SUPPORTED.includes(saved)) return saved;
-      const nav = (navigator.language || navigator.userLanguage || 'ru').toLowerCase();
-      if (nav.startsWith('pt')) return 'pt';
-      if (nav.startsWith('es')) return 'es';
-      if (nav.startsWith('fr')) return 'fr';
-      if (nav.startsWith('he') || nav.startsWith('iw')) return 'he';
-      if (nav.startsWith('ru') || nav.startsWith('uk') || nav.startsWith('be') || nav.startsWith('kk')) return 'ru';
-      if (nav.startsWith('en')) return 'en';
     } catch (e) {}
-    return 'ru';
+    return 'en';
   }
 
   let currentLang = detectLang();
@@ -3971,10 +3964,10 @@
   }
 
   function setLang(lang) {
-    if (!SUPPORTED.includes(lang)) lang = 'ru';
+    if (!SUPPORTED.includes(lang)) lang = 'en';
     currentLang = lang;
     try {
-      localStorage.setItem('fluxixo.lang', lang);
+      localStorage.setItem('fluxixo.lang.v2', lang);
     } catch (e) {}
     applyDocumentDirection(lang);
     applyStaticUI(lang);
@@ -3983,7 +3976,6 @@
 
   function applyDocumentDirection(lang) {
     document.documentElement.lang = lang;
-    // Keep root layout in LTR so 3D stage, mouse tilt, and grid geometry never flip!
     document.documentElement.dir = 'ltr';
     if (document.body) {
       document.body.classList.toggle('is-rtl-text', lang === 'he');
@@ -3996,7 +3988,7 @@
 
   function t(key, lang) {
     const l = lang || currentLang;
-    return (UI[l] && UI[l][key]) || UI.ru[key] || '';
+    return (UI[l] && UI[l][key]) || UI.en[key] || UI.ru[key] || '';
   }
 
   function translateCategory(cat, lang) {

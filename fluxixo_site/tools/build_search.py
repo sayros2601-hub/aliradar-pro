@@ -225,15 +225,15 @@ if i18n_file.exists():
         write(f'{l_code}/index.html', l_html)
 
 index=(DIST/'index.html').read_text(encoding='utf-8')
-meta=metadata('FLUXIXO — находки с другой стороны','Интерактивная 3D-витрина полезных находок с AliExpress: техника, дом, кухня, инструменты и аксессуары.','/',products[0]['image']) + hreflang_block
+meta=metadata('FLUXIXO — Curated AliExpress Product Showroom','Interactive 3D studio showroom of curated AliExpress finds: tech, home, kitchen, tools, auto, and accessories.','/',products[0]['image']).replace('ru_RU','en_US') + hreflang_block
 meta+=f'\n<meta name="google-site-verification" content="{GOOGLE}"><meta name="msvalidate.01" content="{BING}">'
-meta+=structured({'@context':'https://schema.org','@type':'WebSite','name':'FLUXIXO','url':ORIGIN+'/','inLanguage':'ru'})
+meta+=structured({'@context':'https://schema.org','@type':'WebSite','name':'FLUXIXO','url':ORIGIN+'/','inLanguage':'en'})
 block='<!-- SEARCH START -->\n'+meta+'\n<!-- SEARCH END -->'
 if '<!-- SEARCH START -->' in index:
     index=re.sub(r'<!-- SEARCH START -->.*?<!-- SEARCH END -->',lambda _:block,index,flags=re.S)
 else:
     index=index.replace('</head>',block+'\n</head>')
-first_p = products[0]
+first_p = dict(products[0]); first_p.update({'name': 'Ultrasonic Cleaner', 'category': 'Home & Living', 'headline': ['Ultrasonic', 'cleaning.'], 'description': 'Stainless steel tank with timer for gentle ultrasonic cleaning of glasses, jewelry, and small accessories.'})
 h1_spans = ''.join(
     f'<span>{e(line[:-1])}<span class="accent-dot">.</span></span>' if line.endswith('.') else f'<span>{e(line)}</span>'
     for line in first_p['headline']
