@@ -37,7 +37,7 @@ headers=(RELEASE/'_headers').read_text(encoding='utf-8')
 headers=headers.replace('  Cache-Control: public, max-age=0, must-revalidate\n','')
 for original,versioned in mapping.items():
     headers+='\n/'+versioned+'\n  Cache-Control: public, max-age=31536000, immutable\n'
-for route in ['/','/index.html','/catalog/*','/products/*']:
+for route in ['/','/index.html','/catalog/*','/categories/*','/products/*','/rss.xml','/sitemap.xml']:
     headers+='\n'+route+'\n  Cache-Control: public, max-age=0, must-revalidate\n'
 (RELEASE/'_headers').write_text(headers,encoding='utf-8')
 for file in RELEASE.rglob('*.html'):

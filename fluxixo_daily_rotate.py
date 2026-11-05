@@ -1,3 +1,4 @@
+import xml.etree.ElementTree as ET
 #!/usr/bin/env python3
 """
 Cloud Daily Accumulator & Builder for FLUXIXO (https://www.fluxixo.shop/).
@@ -299,6 +300,41 @@ def deploy_and_clean() -> None:
             print(f"Kept latest Cloudflare deployment {latest_id}; cleaned {deleted} older deployment snapshots.")
 
 
+
+
+def submit_indexnow() -> None:
+    """Push all canonical URLs from sitemap.xml to IndexNow (Bing, Yandex, Naver, Seznam)."""
+    key_file = SITE_ROOT / "tools" / "indexnow-key.txt"
+    sitemap_file = DIST / "sitemap.xml"
+    if not key_file.exists() or not sitemap_file.exists():
+        return
+    key = key_file.read_text(encoding="utf-8").strip()
+    urls = [loc.text for loc in ET.parse(sitemap_file).findall(".//{*}loc") if loc.text]
+    if not urls:
+        return
+    payload = {
+        "host": "www.fluxixo.shop",
+        "key": key,
+        "keyLocation": f"https://www.fluxixo.shop/{key}.txt",
+        "urlList": urls,
+    }
+    data = json.dumps(payload).encode("utf-8")
+    for endpoint in ["https://api.indexnow.org/indexnow", "https://yandex.com/indexnow"]:
+        try:
+            req = urllib.request.Request(
+                endpoint,
+                data=data,
+                headers={"Content-Type": "application/json; charset=utf-8", "User-Agent": "FLUXIXO-SEO-Bot/2.0"},
+                method="POST",
+            )
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                print(f"IndexNow ({endpoint}): HTTP {resp.status} for {len(urls)} URLs")
+        except urllib.error.HTTPError as e:
+            print(f"IndexNow ({endpoint}): HTTP {e.code} for {len(urls)} URLs")
+        except Exception as e:
+            print(f"IndexNow ({endpoint}) warning: {e}")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--rotate", "--add", dest="add_count", type=int, default=3, help="Number of new products to add (0 to rebuild only)")
@@ -313,6 +349,7 @@ def main() -> None:
 
     if args.deploy:
         deploy_and_clean()
+        submit_indexnow()
 
 
 if __name__ == "__main__":
