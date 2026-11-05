@@ -59,11 +59,14 @@
   }
   function defaults() { return validate(clone(window.MIRA_CATALOG)); }
   function load() {
-    try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) return {catalog: validate(JSON.parse(raw)), custom: true, warning: ''};
-    } catch (_) {
-      return {catalog: defaults(), custom: false, warning: 'Локальные изменения не удалось прочитать. Открыта исходная коллекция.'};
+    const isEditor = typeof location !== 'undefined' && /editor\.html$/i.test(location.pathname);
+    if (isEditor) {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (raw) return {catalog: validate(JSON.parse(raw)), custom: true, warning: ''};
+      } catch (_) {
+        return {catalog: defaults(), custom: false, warning: 'Локальные изменения не удалось прочитать. Открыта исходная коллекция.'};
+      }
     }
     return {catalog: defaults(), custom: false, warning: ''};
   }
