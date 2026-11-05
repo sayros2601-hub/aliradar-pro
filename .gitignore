@@ -44,3 +44,6 @@ test_pagination.py
 test_search_dom.py
 ad_center_deep_structure.json
 README_ADAPTER_RU.txt
+
+!fluxixo_site/dist/
+!fluxixo_site/dist/**
