@@ -242,8 +242,8 @@ def accumulate_catalog(count: int) -> None:
             shutil.copy2(src_orig, DIST / "assets" / "originals" / f"{pid}.webp")
             src_orig.unlink()
 
-    # Keep index 0 (import-0024 smart watch) first, insert new items right after it, and preserve ALL existing items!
-    catalog["products"] = [products[0]] + incoming + products[1:]
+    # Always place the 3 newest products at positions #1, #2, #3 (index 0, 1, 2) and preserve ALL existing items!
+    catalog["products"] = incoming + products
     cat_path.write_text(
         "/* FLUXIXO catalog: existing collection + daily accumulated finds. */\nwindow.MIRA_CATALOG = "
         + json.dumps(catalog, ensure_ascii=False, indent=2)

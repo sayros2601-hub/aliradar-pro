@@ -64,7 +64,7 @@ for p in products:
     write(path.strip('/')+'/index.html',page(title,p['description'],path,body,data,p['image']))
 
 listing={'@context':'https://schema.org','@type':'ItemList','name':'Каталог FLUXIXO','numberOfItems':len(products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':ORIGIN+route(p),'name':p['name']} for i,p in enumerate(products)]}
-write('catalog/index.html',page('Каталог FLUXIXO — техника, аксессуары и товары для питомцев','26 товаров из подборки FLUXIXO: фотографии, описания и партнёрские ссылки на AliExpress.','/catalog/','<p class="eyebrow">Находки с другой стороны</p><h1>Коллекция FLUXIXO</h1><p>Техника, аксессуары для поездок и товары для питомцев. Рассмотрите предмет и исходное фото, а актуальные условия покупки уточните на AliExpress.</p><ul class="grid">'+''.join(items)+'</ul>',listing))
+write('catalog/index.html',page('Каталог FLUXIXO — техника, аксессуары и товары для питомцев',f'{len(products)} товаров из подборки FLUXIXO: фотографии, описания и партнёрские ссылки на AliExpress.','/catalog/','<p class="eyebrow">Находки с другой стороны</p><h1>Коллекция FLUXIXO</h1><p>Техника, аксессуары для поездок и товары для питомцев. Рассмотрите предмет и исходное фото, а актуальные условия покупки уточните на AliExpress.</p><ul class="grid">'+''.join(items)+'</ul>',listing))
 
 index=(DIST/'index.html').read_text(encoding='utf-8')
 meta=metadata('FLUXIXO — находки с другой стороны','Небольшая коллекция техники, аксессуаров и товаров для питомцев. Фотографии, описания и ссылки на AliExpress.','/')
@@ -75,6 +75,18 @@ if '<!-- SEARCH START -->' in index:
     index=re.sub(r'<!-- SEARCH START -->.*?<!-- SEARCH END -->',lambda _:block,index,flags=re.S)
 else:
     index=index.replace('</head>',block+'\n</head>')
+first_p = products[0]
+h1_spans = ''.join(
+    f'<span>{e(line[:-1])}<span class="accent-dot">.</span></span>' if line.endswith('.') else f'<span>{e(line)}</span>'
+    for line in first_p['headline']
+)
+index = re.sub(r'<h1 id="product-heading">.*?</h1>', lambda _: f'<h1 id="product-heading">{h1_spans}</h1>', index, flags=re.S)
+index = re.sub(r'<h2 id="product-name">.*?</h2>', lambda _: f'<h2 id="product-name">{e(first_p["name"])}</h2>', index, flags=re.S)
+index = re.sub(r'<p id="product-description">.*?</p>', lambda _: f'<p id="product-description">{e(first_p["description"])}</p>', index, flags=re.S)
+index = re.sub(r'<span id="product-category">.*?</span>', lambda _: f'<span id="product-category">{e(first_p["category"])}</span>', index)
+index = re.sub(r'<span id="object-category">.*?</span>', lambda _: f'<span id="object-category">{e(first_p["category"])}</span>', index)
+index = re.sub(r'<span id="collection-count">.*?</span>', lambda _: f'<span id="collection-count">{len(products):02d}</span>', index)
+index = re.sub(r'<span id="large-total">.*?</span>', lambda _: f'<span id="large-total">{len(products):02d}</span>', index)
 write('index.html',index)
 # Public editor and security/redirect configuration are owned by the release process.
 write('404.html',page('Страница не найдена | FLUXIXO','Такой страницы в FLUXIXO нет.','/404.html','<h1>Такой страницы нет</h1><p>Возможно, адрес изменился. Загляните в актуальную коллекцию.</p><a class="button" href="/catalog/">Открыть каталог</a>',noindex=True))

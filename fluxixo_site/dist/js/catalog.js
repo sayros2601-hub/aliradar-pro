@@ -1,35 +1,9 @@
-/* FLUXIXO catalog: existing collection + daily rotated finds. */
+/* FLUXIXO catalog: newest 3 finds always first + accumulated collection. */
 window.MIRA_CATALOG = {
   "version": 1,
   "brand": "FLUXIXO",
   "tagline": "Находки с другой стороны",
   "products": [
-    {
-      "id": "import-0024",
-      "name": "Умные часы",
-      "category": "Техника",
-      "headline": [
-        "Умные",
-        "часы."
-      ],
-      "description": "Умные часы из подборки FLUXIXO. Рассмотри форму и детали, сравни визуализацию с исходным фото и открой карточку AliExpress, чтобы выбрать подходящий вариант.",
-      "image": "assets/images/import-0024.webp",
-      "original": "assets/originals/import-0024.jpg",
-      "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
-      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2vkUuwb",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2vkUuwb",
-      "demo": false,
-      "theme": "blue",
-      "scale": 1,
-      "rotation": 0,
-      "details": "Название в исходной подборке: 2025 New Business Smart Watch Men Bluetooth Call 1.53-inch AMOLED HD Display Multi-Sport Modes Heart Rate Monitor Smartwatch Man\n\nПодборка: Бразилия. Визуализация подготовлена по фото продавца. Варианты цвета, комплект поставки, характеристики и доступность доставки уточняйте в карточке товара.",
-      "facts": [
-        {
-          "label": "Подборка",
-          "value": "Бразилия"
-        }
-      ]
-    },
     {
       "id": "find-051-ultrasonic-cleaner",
       "name": "Ультразвуковая мойка",
@@ -105,6 +79,32 @@ window.MIRA_CATALOG = {
         {
           "label": "Подборка",
           "value": "Франция"
+        }
+      ]
+    },
+    {
+      "id": "import-0024",
+      "name": "Умные часы",
+      "category": "Техника",
+      "headline": [
+        "Умные",
+        "часы."
+      ],
+      "description": "Умные часы из подборки FLUXIXO. Рассмотри форму и детали, сравни визуализацию с исходным фото и открой карточку AliExpress, чтобы выбрать подходящий вариант.",
+      "image": "assets/images/import-0024.webp",
+      "original": "assets/originals/import-0024.jpg",
+      "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2vkUuwb",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c2vkUuwb",
+      "demo": false,
+      "theme": "blue",
+      "scale": 1,
+      "rotation": 0,
+      "details": "Название в исходной подборке: 2025 New Business Smart Watch Men Bluetooth Call 1.53-inch AMOLED HD Display Multi-Sport Modes Heart Rate Monitor Smartwatch Man\n\nПодборка: Бразилия. Визуализация подготовлена по фото продавца. Варианты цвета, комплект поставки, характеристики и доступность доставки уточняйте в карточке товара.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Бразилия"
         }
       ]
     },

@@ -1,15 +1,11 @@
 {
   "/": {
-    "sha256": "a4ab42f927d67a0877013d82d41a6e100bfbc43ab01b99b2cef5e68c14a00483",
-    "lastmod": "2026-10-30T21:06:09+00:00"
+    "sha256": "b93770c614d5d26614fe4a94cab4307983cee85cd871ed0a540881129e256afd",
+    "lastmod": "2026-11-05T14:57:47+00:00"
   },
   "/catalog/": {
-    "sha256": "f44c38508944012edfe42d1b7b12cadcaa5adea83953936b84ad36aeedf653b1",
-    "lastmod": "2026-11-05T14:10:08+00:00"
-  },
-  "/products/import-0024/": {
-    "sha256": "7774b50f6dc4447e5148698367d61fa74259426e387d7421c4a62e5b188e0d44",
-    "lastmod": "2026-10-30T21:04:16+00:00"
+    "sha256": "d1e255fec7fe42f7441641601de41e4697487db8b6ec64cc249c35ae19e1feb7",
+    "lastmod": "2026-11-05T14:57:47+00:00"
   },
   "/products/find-051-ultrasonic-cleaner/": {
     "sha256": "d423879d6d7e048aa8a0bd6bacd76efaa8fd5865d7821e9dab6d5d670abb05a5",
@@ -22,6 +18,10 @@
   "/products/find-053-vacuum-sealer/": {
     "sha256": "7e1d1bb3fd652e9ec8a3ef0985333a5ff9a062cc4572e1dd8f6f2183bd7c2955",
     "lastmod": "2026-11-05T14:10:08+00:00"
+  },
+  "/products/import-0024/": {
+    "sha256": "7774b50f6dc4447e5148698367d61fa74259426e387d7421c4a62e5b188e0d44",
+    "lastmod": "2026-10-30T21:04:16+00:00"
   },
   "/products/find-001-neck-cooler/": {
     "sha256": "1bbd1a87f61c27fd4778c512aca8f016bdae06d57b951c844bc5ebe38859ac91",
