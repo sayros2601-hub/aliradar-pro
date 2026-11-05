@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Cloud Daily Rotator & Builder for FLUXIXO (https://www.fluxixo.shop/).
+Cloud Daily Accumulator & Builder for FLUXIXO (https://www.fluxixo.shop/).
 Runs daily in GitHub Actions (100% cloud, PC off):
-- Rotates 3 old products out (deleting their .webp and HTML files so hosting size stays constant)
-- Rotates 3 new unique studio-cutout products in (right after import-0024 smart watch)
-- Automatically replenishes reserve_pool.json via AliExpress Official API + rembg studio cutout pipeline when reserve runs low
-- Rebuilds SEO pages, sitemap.xml, and hashed release bundle
-- Deploys to Cloudflare Pages (`dealvault` -> https://www.fluxixo.shop/) and cleans old deployments
+- NEVER deletes any existing products, images, or HTML pages from the catalog.
+- Adds +3 new unique studio-cutout products every day (right after import-0024 smart watch), continuously growing the catalog.
+- Automatically replenishes reserve_pool.json via AliExpress Official API (AppKey 557652) + rembg studio cutout pipeline when reserve runs low.
+- Rebuilds SEO pages, sitemap.xml, and hashed release bundle.
+- Deploys to Cloudflare Pages (`dealvault` -> https://www.fluxixo.shop/).
 """
 import argparse
 import hashlib
@@ -15,6 +15,7 @@ import json
 import os
 import shutil
 import subprocess
+import sys
 import time
 import urllib.parse
 import urllib.request
@@ -22,7 +23,7 @@ from pathlib import Path
 import requests
 
 REPO_ROOT = Path(__file__).resolve().parent
-SITE_ROOT = REPO_ROOT / "fluxixo_site"
+SITE_ROOT = REPO_ROOT / "fluxixo_site" if (REPO_ROOT / "fluxixo_site").exists() else REPO_ROOT
 DIST = SITE_ROOT / "dist"
 RELEASE = SITE_ROOT / "release"
 RESERVE_DIR = SITE_ROOT / "reserve"
@@ -33,17 +34,20 @@ ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "a4be28e05f73ad2b3939d364ea
 PROJECT_NAME = "dealvault"
 API_URL = "https://api-sg.aliexpress.com/sync"
 
-# Backup catalog of unique product queries for automatic cloud replenishment when reserve_pool runs low
+# Unique product discovery pool for automatic cloud replenishment when reserve_pool runs low
 CLOUD_DISCOVERY_POOL = [
     ("find-060-tire-inflator", "portable cordless car tire inflator digital air compressor", "BR", "Бразилия", "Аккумуляторный компрессор", ["Воздух", "в дороге."], "В дороге", "Портативный компрессор с цифровым манометром и автостопом для подкачки шин автомобиля, мотоцикла или велосипеда.", "blue"),
     ("find-061-neck-massager", "smart pulse neck massager heating wireless portable", "ES", "Испания", "Импульсный массажёр шеи", ["Отдых", "для шеи."], "Уход", "Лёгкий дугообразный массажёр с прогревом и импульсными электродами для расслабления мышц шеи.", "coral"),
     ("find-062-coffee-scale", "digital espresso coffee scale timer pour over led", "FR", "Франция", "Кофейные весы с таймером", ["Точный", "пролив."], "Кухня", "Кухонные весы с секундомером и скрытым LED-экраном для заваривания фильтр-кофе и эспрессо.", "sand"),
     ("find-063-cable-tester", "network cable tester rj45 rj11 lan wire tracker", "BR", "Бразилия", "Тестер сетевого кабеля", ["Проверка", "линии."], "Инструменты", "Двухблочный прибор со светодиодной индикацией для быстрой прозвонки витой пары и патч-кордов.", "lavender"),
-    ("find-064-book-light", "rechargeableamber book reading light clip on led", "ES", "Испания", "Клипса-фонарик для чтения", ["Тёплый", "свет страницы."], "Дом", "Миниатюрная лампа на гибкой ножке с прищепкой для чтения бумажных книг без нагрузки на глаза.", "rose"),
+    ("find-064-book-light", "rechargeable amber book reading light clip on led", "ES", "Испания", "Клипса-фонарик для чтения", ["Тёплый", "свет страницы."], "Дом", "Миниатюрная лампа на гибкой ножке с прищепкой для чтения бумажных книг без нагрузки на глаза.", "rose"),
     ("find-065-spice-grinder", "electric gravity salt pepper grinder adjustable coarseness", "FR", "Франция", "Гравитационная мельница", ["Свежий", "помол."], "Кухня", "Электрическая мельница для соли и перца с керамическими жерновами и автоматическим включением при наклоне.", "blue"),
-    ("find-066-shoe-dryer", "portable electric shoe dryer warmer sterilization folding", "BR", "Бразилия", "Сушилка для обуви", ["Сухая", "паpа."], "Дом", "Складная электрическая сушилка с таймером и мягким обдувом для бережного ухода за обувью.", "coral"),
+    ("find-066-shoe-dryer", "portable electric shoe dryer warmer sterilization folding", "BR", "Бразилия", "Сушилка для обуви", ["Сухая", "пара."], "Дом", "Складная электрическая сушилка с таймером и мягким обдувом для бережного ухода за обувью.", "coral"),
     ("find-067-pill-organizer", "weekly travel metal pill organizer waterproof case", "ES", "Испания", "Дорожный органайзер капсул", ["Порядок", "в мелочах."], "В дороге", "Герметичный секционный пенал из анодированного сплава для удобного хранения витаминов в поездке.", "sand"),
     ("find-068-screen-cleaner", "2 in 1 screen cleaner spray microfiber block phone laptop", "FR", "Франция", "Спрей-брусок для экранов", ["Чистый", "дисплей."], "Техника", "Компактный флакон-пульверизатор в оболочке из микрофибры для быстрой очистки экрана смартфона и ноутбука.", "lavender"),
+    ("find-069-luggage-scale", "digital hanging luggage scale portable travel suitcase", "BR", "Бразилия", "Дорожный безмен для багажа", ["Точный", "вес чемодана."], "В дороге", "Карманные подвесные весы на прочном ремешке с ЖК-экраном для взвешивания чемоданов перед вылетом.", "rose"),
+    ("find-070-milk-thermometer", "digital kitchen probe thermometer cooking liquid candy", "ES", "Испания", "Кулинарный щуп-термометр", ["Контроль", "градуса."], "Кухня", "Тонкий стальной термощуп с мгновенным откликом на цифровом дисплее для напитков, сиропов и выпечки.", "blue"),
+    ("find-071-key-safe", "wall mounted combination key lock box weatherproof", "FR", "Франция", "Кодовый мини-сейф для ключей", ["Доступ", "по коду."], "Дом", "Настенный металлический бокс с кодовым замком и защитной крышкой для безопасного хранения запасных ключей.", "coral"),
 ]
 
 
@@ -70,7 +74,7 @@ def call_ae_api(method: str, extra_params: dict, app_key: str, app_secret: str) 
     return {}
 
 
-def replenish_reserve_via_api(existing_ids: set, reserve: list, needed: int = 3) -> list:
+def replenish_reserve_via_api(existing_ids: set, existing_names: set, reserve: list, needed: int = 3) -> list:
     app_key = os.environ.get("ALI_APP_KEY", "557652")
     app_secret = os.environ.get("ALI_APP_SECRET", "")
     if not app_secret:
@@ -90,7 +94,7 @@ def replenish_reserve_via_api(existing_ids: set, reserve: list, needed: int = 3)
 
     added = 0
     for pid, kw, country, country_ru, name, headline, category, desc, theme in CLOUD_DISCOVERY_POOL:
-        if pid in existing_ids or any(r["id"] == pid for r in reserve):
+        if pid in existing_ids or name in existing_names or any(r["id"] == pid for r in reserve):
             continue
         res = call_ae_api(
             "aliexpress.affiliate.product.query",
@@ -198,7 +202,12 @@ def replenish_reserve_via_api(existing_ids: set, reserve: list, needed: int = 3)
     return reserve
 
 
-def rotate_catalog(count: int) -> None:
+def accumulate_catalog(count: int) -> None:
+    """
+    Purely additive catalog update:
+    Adds `count` new unique products right after `import-0024` (index 0).
+    NEVER deletes any existing products, images, or HTML pages from the catalog.
+    """
     cat_path = DIST / "js" / "catalog.js"
     reserve_path = RESERVE_DIR / "reserve_pool.json"
     catalog = json.loads(cat_path.read_text(encoding="utf-8").split("=", 1)[1].strip().rstrip(";"))
@@ -206,37 +215,21 @@ def rotate_catalog(count: int) -> None:
     reserve = json.loads(reserve_path.read_text(encoding="utf-8")) if reserve_path.exists() else []
 
     existing_ids = {p["id"] for p in products}
-    reserve = [r for r in reserve if r["id"] not in existing_ids]
+    existing_names = {p["name"] for p in products}
+    reserve = [r for r in reserve if r["id"] not in existing_ids and r["name"] not in existing_names]
 
     if len(reserve) < count:
-        reserve = replenish_reserve_via_api(existing_ids, reserve, needed=count - len(reserve))
+        reserve = replenish_reserve_via_api(existing_ids, existing_names, reserve, needed=count - len(reserve))
 
     if not reserve:
-        print("No reserve items available to rotate today; keeping current 78 products.")
+        print(f"No new reserve items to add today; keeping all {len(products)} existing products intact.")
         return
 
     incoming = reserve[:count]
     remaining_reserve = reserve[count:]
 
-    # Remove `len(incoming)` oldest products from the tail (never touch index 0 import-0024)
-    removed = []
-    for _ in range(len(incoming)):
-        if len(products) > 1:
-            old_p = products.pop()
-            removed.append(old_p)
-
-    for old_p in removed:
-        for field in ("image", "original"):
-            rel = old_p.get(field)
-            if rel:
-                f_path = DIST / rel
-                if f_path.exists():
-                    f_path.unlink()
-                    print(f"Removed old asset: {rel}")
-        prod_dir = DIST / "products" / old_p["id"]
-        if prod_dir.exists():
-            shutil.rmtree(prod_dir)
-            print(f"Removed old product dir: products/{old_p['id']}")
+    (DIST / "assets" / "images").mkdir(parents=True, exist_ok=True)
+    (DIST / "assets" / "originals").mkdir(parents=True, exist_ok=True)
 
     for p in incoming:
         pid = p["id"]
@@ -249,16 +242,17 @@ def rotate_catalog(count: int) -> None:
             shutil.copy2(src_orig, DIST / "assets" / "originals" / f"{pid}.webp")
             src_orig.unlink()
 
+    # Keep index 0 (import-0024 smart watch) first, insert new items right after it, and preserve ALL existing items!
     catalog["products"] = [products[0]] + incoming + products[1:]
     cat_path.write_text(
-        "/* FLUXIXO catalog: existing collection + daily rotated finds. */\nwindow.MIRA_CATALOG = "
+        "/* FLUXIXO catalog: existing collection + daily accumulated finds. */\nwindow.MIRA_CATALOG = "
         + json.dumps(catalog, ensure_ascii=False, indent=2)
         + ";\n",
         encoding="utf-8",
     )
     reserve_path.write_text(json.dumps(remaining_reserve, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Rotated in {len(incoming)} new products: {[p['id'] for p in incoming]}")
-    print(f"Rotated out {len(removed)} old products: {[p['id'] for p in removed]}")
+    print(f"Added +{len(incoming)} new products (0 deleted): {[p['id'] for p in incoming]}")
+    print(f"Total products in catalog now: {len(catalog['products'])}")
     print(f"Remaining pre-rendered reserve items: {len(remaining_reserve)}")
 
 
@@ -301,20 +295,20 @@ def deploy_and_clean() -> None:
                 del_r = requests.delete(f"{url}/{did}?force=true", headers=headers, timeout=20)
                 if del_r.status_code == 200:
                     deleted += 1
-            print(f"Kept latest Cloudflare deployment {latest_id}; deleted {deleted} old deployments.")
+            print(f"Kept latest Cloudflare deployment {latest_id}; cleaned {deleted} older deployment snapshots.")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--rotate", type=int, default=3, help="Number of products to rotate (0 to rebuild only)")
-    parser.add_argument("--deploy", action="store_true", help="Deploy to Cloudflare Pages and clean old deployments")
+    parser.add_argument("--rotate", "--add", dest="add_count", type=int, default=3, help="Number of new products to add (0 to rebuild only)")
+    parser.add_argument("--deploy", action="store_true", help="Deploy to Cloudflare Pages")
     args = parser.parse_args()
 
-    if args.rotate > 0:
-        rotate_catalog(args.rotate)
+    if args.add_count > 0:
+        accumulate_catalog(args.add_count)
 
-    subprocess.run(["python", str(SITE_ROOT / "tools" / "build_search.py")], check=True)
-    subprocess.run(["python", str(SITE_ROOT / "build_release.py")], check=True)
+    subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_search.py")], check=True)
+    subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
 
     if args.deploy:
         deploy_and_clean()
