@@ -978,8 +978,8 @@ window.MIRA_CATALOG = {
       "image": "assets/images/find-034-smart-rope.webp",
       "original": "assets/originals/find-034-smart-rope.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
-      "affiliateUrl": "",
-      "sourceUrl": "",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2wS7T1v",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c2wS7T1v",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -990,8 +990,7 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ],
-      "pendingLink": true
+      ]
     },
     {
       "id": "find-035-cordless-scissors",

@@ -277,6 +277,7 @@ def deploy_and_clean() -> None:
             f"--project-name={PROJECT_NAME}",
             "--branch=main",
             "--commit-dirty=true",
+            "--commit-message=Deploy FLUXIXO release",
         ],
         env=env,
         check=True,
