@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "description": "Retire public editor URLs; the storefront remains static.",
+  "include": ["/editor", "/editor/", "/editor.html", "/js/editor.js", "/css/editor.css"],
+  "exclude": []
+}

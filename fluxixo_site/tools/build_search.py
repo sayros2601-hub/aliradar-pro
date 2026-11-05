@@ -181,12 +181,51 @@ for slug, c_prods in by_cat.items():
     write(c_path.strip('/')+'/index.html', page(c_title, c_desc, c_path, c_body, c_listing, c_prods[0]['image']))
 
 cat_bar = '<div class="cat-links" style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px">' + ''.join(cat_nav_links) + '</div>'
+lang_bar = '<div class="lang-links" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px"><a class="button secondary" href="/catalog/">RU · Русский</a><a class="button secondary" href="/en/">EN · English</a><a class="button secondary" href="/pt/">PT · Brasil</a><a class="button secondary" href="/es/">ES · España</a><a class="button secondary" href="/fr/">FR · France</a><a class="button secondary" href="/he/">HE · עברית</a></div>'
+hreflang_block = f'''
+<link rel="alternate" hreflang="ru" href="{ORIGIN}/">
+<link rel="alternate" hreflang="en" href="{ORIGIN}/en/">
+<link rel="alternate" hreflang="pt-BR" href="{ORIGIN}/pt/">
+<link rel="alternate" hreflang="es" href="{ORIGIN}/es/">
+<link rel="alternate" hreflang="fr" href="{ORIGIN}/fr/">
+<link rel="alternate" hreflang="he" href="{ORIGIN}/he/">
+<link rel="alternate" hreflang="x-default" href="{ORIGIN}/">'''
 
 listing={'@context':'https://schema.org','@type':'ItemList','name':'Каталог FLUXIXO','numberOfItems':len(products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':ORIGIN+route(p),'name':p['name']} for i,p in enumerate(products)]}
-write('catalog/index.html',page('Каталог FLUXIXO — техника, товары для дома, кухни и поездок с AliExpress',f'{len(products)} товаров из подборки FLUXIXO: студийные фотографии, описания, рубрики и партнёрские ссылки на AliExpress.','/catalog/','<p class="eyebrow">Находки с другой стороны</p><h1>Коллекция FLUXIXO ('+str(len(products))+')</h1><p>Техника, инструменты, товары для дома, кухни, поездок и питомцев. Выберите рубрику или рассмотрите все находки ниже.</p>'+cat_bar+'<ul class="grid">'+''.join(items)+'</ul>',listing))
+write('catalog/index.html',page('Каталог FLUXIXO — техника, товары для дома, кухни и поездок с AliExpress',f'{len(products)} товаров из подборки FLUXIXO: студийные фотографии, описания, рубрики и партнёрские ссылки на AliExpress.','/catalog/','<p class="eyebrow">Находки с другой стороны</p><h1>Коллекция FLUXIXO ('+str(len(products))+')</h1><p>Техника, инструменты, товары для дома, кухни, поездок и питомцев. Выберите язык, рубрику или рассмотрите все находки ниже.</p>'+lang_bar+cat_bar+'<ul class="grid">'+''.join(items)+'</ul>',listing))
+
+# Generate localized SEO catalog hubs (/en/, /pt/, /es/, /fr/, /he/)
+i18n_file = ROOT / 'tools/i18n_data.json'
+lang_paths = []
+if i18n_file.exists():
+    i18n = json.loads(i18n_file.read_text(encoding='utf-8'))
+    LOCALE_META = {
+        'en': ('FLUXIXO Catalog — Curated AliExpress Finds & 3D Studio Reviews', 'Explore curated gadgets, home & kitchen tools, auto accessories, and pet gear on AliExpress with clean studio visuals.', 'Curated Product Showroom', 'FLUXIXO Collection', 'Open in 3D Showroom', 'View on AliExpress ↗'),
+        'pt': ('Catálogo FLUXIXO Brasil — Achados do AliExpress em Estúdio 3D', 'Explore gadgets, ferramentas, casa, cozinha, automotivo e pets no AliExpress com visual de estúdio limpo.', 'Vitrine de Produtos', 'Coleção FLUXIXO Brasil', 'Abrir na Vitrine 3D', 'Ver no AliExpress ↗'),
+        'es': ('Catálogo FLUXIXO España — Hallazgos de AliExpress en Estudio 3D', 'Explora tecnología, hogar, cocina, herramientas, motor y mascotas en AliExpress con presentación de estudio.', 'Escaparate de Productos', 'Colección FLUXIXO', 'Abrir en Escaparate 3D', 'Ver en AliExpress ↗'),
+        'fr': ('Catalogue FLUXIXO France — Trouvailles AliExpress en Studio 3D', 'Découvrez des gadgets high-tech, maison, cuisine, outils, auto et animaux sur AliExpress en mise en scène studio.', 'Vitrine d\'Objets', 'Collection FLUXIXO', 'Ouvrir la Vitrine 3D', 'Voir sur AliExpress ↗'),
+        'he': ('קטלוג FLUXIXO ישראל — מציאות נבחרות מ-AliExpress בתצוגת תלת-ממד', 'גלו גאדג\'טים, מוצרים לבית ולמטבח, אביזרים לרכב, כלי עבודה ומוצרים לחיות מחמד מ-AliExpress בתצוגת סטודיו נקייה.', 'תצוגת מוצרים נבחרים', 'קולקציית FLUXIXO', 'פתיחה בתצוגת 3D', 'למוצר ב-AliExpress ↗')
+    }
+    for l_code, (l_title, l_desc, l_eye, l_h1, l_3d, l_ali) in LOCALE_META.items():
+        l_path = f'/{l_code}/'
+        lang_paths.append(l_path)
+        l_cards = []
+        for p in products:
+            tr = i18n['products'].get(p['id'], {}).get(l_code, {})
+            p_name = tr.get('name', p['name'])
+            p_desc = tr.get('description', p['description'])
+            p_cat = i18n['cats'].get(p['category'], {}).get(l_code, p['category'])
+            rtl_style = ' style="direction:rtl;unicode-bidi:plaintext;text-align:right"' if l_code == 'he' else ''
+            l_cards.append(f'<li{rtl_style}><div class="card"><a href="/?lang={l_code}#{e(p["id"])}" style="text-decoration:none;color:inherit"><img src="/{e(p["image"])}" alt="{e(p_name)}" loading="lazy" width="400" height="300"><p class="eyebrow">{e(p_cat)}</p><h2>{e(p_name)}</h2><p>{e(p_desc)}</p></a><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><a class="button" href="{e(p["affiliateUrl"])}" target="_blank" rel="sponsored noopener">{e(l_ali)}</a><a class="button secondary" href="/?lang={l_code}#{e(p["id"])}">{e(l_3d)}</a></div></div></li>')
+        rtl_head = ' style="direction:rtl;unicode-bidi:plaintext;text-align:right"' if l_code == 'he' else ''
+        l_body = f'<div{rtl_head}><p class="eyebrow">{e(l_eye)}</p><h1>{e(l_h1)} ({len(products)})</h1><p>{e(l_desc)}</p></div>{lang_bar}<ul class="grid">{"".join(l_cards)}</ul>'
+        l_listing = {'@context':'https://schema.org','@type':'ItemList','name':l_title,'inLanguage':l_code,'numberOfItems':len(products)}
+        l_html = page(l_title, l_desc, l_path, l_body, l_listing)
+        l_html = l_html.replace('<html lang="ru">', f'<html lang="{l_code}" dir="ltr">').replace('href="/"', f'href="/?lang={l_code}"')
+        write(f'{l_code}/index.html', l_html)
 
 index=(DIST/'index.html').read_text(encoding='utf-8')
-meta=metadata('FLUXIXO — находки с другой стороны','Интерактивная 3D-витрина полезных находок с AliExpress: техника, дом, кухня, инструменты и аксессуары.','/',products[0]['image'])
+meta=metadata('FLUXIXO — находки с другой стороны','Интерактивная 3D-витрина полезных находок с AliExpress: техника, дом, кухня, инструменты и аксессуары.','/',products[0]['image']) + hreflang_block
 meta+=f'\n<meta name="google-site-verification" content="{GOOGLE}"><meta name="msvalidate.01" content="{BING}">'
 meta+=structured({'@context':'https://schema.org','@type':'WebSite','name':'FLUXIXO','url':ORIGIN+'/','inLanguage':'ru'})
 block='<!-- SEARCH START -->\n'+meta+'\n<!-- SEARCH END -->'
@@ -280,7 +319,7 @@ state={}
 ns='http://www.sitemaps.org/schemas/sitemap/0.9'
 ET.register_namespace('',ns)
 sitemap=ET.Element('{'+ns+'}urlset')
-all_routes = ['/', '/catalog/'] + sorted(cat_paths) + [route(p) for p in products]
+all_routes = ['/', '/catalog/'] + lang_paths + sorted(cat_paths) + [route(p) for p in products]
 for path in all_routes:
     file=DIST/(path.strip('/')+'/index.html' if path!='/' else 'index.html')
     digest=hashlib.sha256(file.read_bytes()).hexdigest()

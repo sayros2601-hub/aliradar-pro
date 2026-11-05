@@ -1,0 +1,85 @@
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
+  Strict-Transport-Security: max-age=2592000
+  Content-Security-Policy: default-src 'none'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://static.cloudflareinsights.com/beacon.min.js; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; manifest-src 'self'; upgrade-insecure-requests
+
+/editor
+  X-Robots-Tag: noindex, nofollow
+/editor.html
+  X-Robots-Tag: noindex, nofollow
+/js/editor.js
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+/css/editor.css
+  Cache-Control: no-store
+  X-Robots-Tag: noindex, nofollow
+/sitemap.xml
+  Content-Type: application/xml; charset=utf-8
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+
+/404
+  X-Robots-Tag: noindex
+/404.html
+  X-Robots-Tag: noindex
+
+/assets/fonts/*
+  Cache-Control: public, max-age=604800
+
+/rss.xml
+  Content-Type: application/rss+xml; charset=utf-8
+/pinterest-feed.csv
+  Content-Type: text/csv; charset=utf-8
+/social-feed.json
+  Content-Type: application/json; charset=utf-8
+
+/js/app.5c3bf5d57dd2.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/catalog-core.41cc5f57f316.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/catalog.6a02c656bff5.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/motion.9b46b7b8b844.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/watch-inline.04228acb2d7b.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/css/search.dbda0a010f1d.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/css/site.9e1ead2a456f.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/css/watch-inline.80e48bfb584a.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/favicon.31b10536e8b3.svg
+  Cache-Control: public, max-age=31536000, immutable
+
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/catalog/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/categories/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/products/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/rss.xml
+  Cache-Control: public, max-age=0, must-revalidate
+
+/sitemap.xml
+  Cache-Control: public, max-age=0, must-revalidate

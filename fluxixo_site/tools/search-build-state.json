@@ -1,11 +1,31 @@
 {
   "/": {
-    "sha256": "0f4de0dbd54f83f10b6ceb59f93d72fa2ed50e54c10c4694743e32bcaa78d5ae",
-    "lastmod": "2026-11-05T15:19:02+00:00"
+    "sha256": "da19ddb9b858c0ddb0aad84b52c6f75068d8b88d63075367aaf5f657ae4849c7",
+    "lastmod": "2026-11-05T15:42:44+00:00"
   },
   "/catalog/": {
-    "sha256": "9f33cc61548852adc6ab8757c9f8f81f71285066283c3f0185ebd50366600c76",
-    "lastmod": "2026-11-05T15:19:02+00:00"
+    "sha256": "2d137bd19aa280525f7a0800f2dfc16b8a9ff5a63b02c284a8f4f3be7047add7",
+    "lastmod": "2026-11-05T15:42:44+00:00"
+  },
+  "/en/": {
+    "sha256": "168b132f00893ad28d20171b72a9bdf247060a3351f340b186f8f7c39e167d36",
+    "lastmod": "2026-11-05T15:42:44+00:00"
+  },
+  "/pt/": {
+    "sha256": "d24684e8344cb541147cb8ff9924088e39f128cadc9c7887687437b303cad43c",
+    "lastmod": "2026-11-05T15:42:44+00:00"
+  },
+  "/es/": {
+    "sha256": "4607abdcc72c73cdb5ea45f03e004e607f9a51d64c5afde391e75504acc31ea9",
+    "lastmod": "2026-11-05T15:42:44+00:00"
+  },
+  "/fr/": {
+    "sha256": "056fe8d8e1264b65a984fe9b334a5d1afe9aba4b5e45f10c030fbc68d3adde2b",
+    "lastmod": "2026-11-05T15:42:44+00:00"
+  },
+  "/he/": {
+    "sha256": "005fc24ded047741537b3df773165f330c92ba3f09a39cd4455096fb918e4f21",
+    "lastmod": "2026-11-05T15:42:44+00:00"
   },
   "/categories/dom/": {
     "sha256": "d72241fb50ffb79c73d6bb747a53685acc424370c3ad231bdd6e17ede7341302",
