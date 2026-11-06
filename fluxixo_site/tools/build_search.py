@@ -1,6 +1,7 @@
 """Rebuild crawlable FLUXIXO pages, category SEO hubs, RSS/Pinterest feeds, and sitemap."""
 from pathlib import Path
 from html import escape
+from locales import LANGUAGES, DISCLOSURE, alternates, catalog_path, generate, language_links, product_path, sync_showroom, translations
 import csv
 import hashlib
 import io
@@ -19,6 +20,10 @@ BING = '49287D3DFF71EA9430905E14A0A426F2'
 catalog = json.loads((DIST/'js/catalog.js').read_text(encoding='utf-8').split('=', 1)[1].strip().rstrip(';'))
 products = [p for p in catalog['products'] if not p['demo']]
 e = escape
+i18n = json.loads((ROOT/'tools/i18n_data.json').read_text(encoding='utf-8'))
+sync_showroom(DIST, i18n)
+first_product = catalog['products'][0]
+default_image = first_product['image']
 
 CAT_SLUGS = {
     'Техника': ('tehnika', 'Гаджеты, электроника и умные аксессуары для дома и работы'),
@@ -53,25 +58,32 @@ def cat_route(slug):
 def structured(data):
     return '<script type="application/ld+json">'+json.dumps(data,ensure_ascii=False).replace('<','\\u003c')+'</script>'
 
-def metadata(title, description, path, image='assets/images/find-051-ultrasonic-cleaner.webp'):
+def metadata(title, description, path, image=default_image, language="ru"):
     return f'''<link rel="canonical" href="{ORIGIN}{path}">
 <link rel="alternate" type="application/rss+xml" title="FLUXIXO — Новые находки с AliExpress" href="{ORIGIN}/rss.xml">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="website"><meta property="og:site_name" content="FLUXIXO">
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(description)}">
 <meta property="og:url" content="{ORIGIN}{path}"><meta property="og:image" content="{ORIGIN}/{e(image)}">
-<meta property="og:locale" content="ru_RU"><meta name="twitter:card" content="summary_large_image">'''
+<meta property="og:locale" content="{LANGUAGES[language][1]}"><meta name="twitter:card" content="summary_large_image">'''
 
-def page(title, description, path, body, data=None, image='assets/images/find-051-ultrasonic-cleaner.webp', noindex=False):
-    meta=metadata(title, description,path,image)
+def page(title, description, path, body, data=None, image=default_image, noindex=False, language='ru', alternate_paths=None):
+    tag, _, _, catalog_label, showroom, _, _ = LANGUAGES[language]
+    direction = 'rtl' if language == 'he' else 'ltr'
+    home = f'/?lang={language}'
+    catalog_url = catalog_path(language)
+    disclosure = DISCLOSURE.get(language, 'По партнёрским ссылкам FLUXIXO может получить комиссию. Цены, наличие и доставку уточняйте у продавца на AliExpress.')
+    meta=metadata(title, description, path, image, language)
+    if alternate_paths:
+        meta += '\n' + alternates(ORIGIN, alternate_paths)
     if noindex: meta=meta.replace('index,follow,max-image-preview:large','noindex,follow')
     return f'''<!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<html lang="{tag}" dir="{direction}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><meta name="description" content="{e(description)}">{meta}
 <link rel="icon" href="/assets/favicon.svg?v=mira213-fluxixo-20261030"><link rel="stylesheet" href="/css/search.css?v=mira213-fluxixo-20261030">
 {structured(data) if data else ''}</head><body>
-<header><a class="brand" href="/" aria-label="FLUXIXO — интерактивная витрина">FLUXIXO</a><nav aria-label="Основная навигация"><a href="/catalog/">Каталог</a><a href="/">Витрина</a></nav></header>
-<main>{body}</main><footer><p>FLUXIXO — курируемая коллекция интересных находок с AliExpress.</p><p>Ссылки на AliExpress — партнёрские: мы можем получить комиссию. Цены, варианты, наличие, доставка и возврат определяются продавцом на AliExpress.</p><a href="/catalog/">Все товары</a> · <a href="/rss.xml">RSS-лента</a></footer></body></html>'''
+<header><a class="brand" href="{home}">FLUXIXO</a><nav><a href="{catalog_url}">{e(catalog_label)}</a><a href="{home}">{e(showroom)}</a></nav></header>
+<main>{body}</main><footer><p>{e(disclosure)}</p><a href="{catalog_url}">{e(catalog_label)}</a> · <a href="/rss.xml">RSS</a></footer></body></html>'''
 
 # Group products by category slug
 by_cat = {}
@@ -106,6 +118,7 @@ for idx, p in enumerate(products):
 
     body=f'''<nav class="breadcrumb" aria-label="Навигационная цепочка"><a href="/">FLUXIXO</a> / <a href="/catalog/">Каталог</a> / <a href="{c_path}">{e(cat_titles[slug])}</a></nav>
 <article><div class="product"><figure><img class="hero-image" src="/{e(p['image'])}" alt="{e(p['name'])}" width="600" height="600"><figcaption>{e(p.get('imageNote',''))}</figcaption></figure><section><p class="eyebrow"><a href="{c_path}">{e(p['category'])}</a></p><h1>{e(p['name'])}</h1><p>{e(p['description'])}</p><a class="button" href="{e(p['affiliateUrl'])}" target="_blank" rel="sponsored noopener">Посмотреть на AliExpress ↗</a><a class="button secondary" href="/#{e(p['id'])}">Открыть в 3D-витрине</a><p class="muted">Партнёрская ссылка. FLUXIXO может получить комиссию за покупку. Покупка оформляется на AliExpress.</p><dl>{facts}</dl></section></div><section><h2>О товаре</h2><p class="detail-text">{e(p['details'])}</p></section>{source}{related_section}</article>'''
+    body = body.replace('href="/#', 'href="/?lang=ru#')
     if p.get('pendingLink'):
         body=re.sub(r'<a class="button" href="".*?</a>', '<p class="muted">Ссылка на продавца уточняется.</p>', body)
     data={
@@ -153,7 +166,10 @@ for idx, p in enumerate(products):
             }
         ]
     }
-    write(path.strip('/')+'/index.html',page(title,seo_desc,path,body,data,p['image']))
+    variant_paths = {language: product_path(p, language) for language in ('ru', *translations(i18n, p))}
+    body += language_links(variant_paths)
+    data['@graph'] = [entry for entry in data['@graph'] if entry['@type'] != 'FAQPage']
+    write(path.strip('/')+'/index.html',page(title,seo_desc,path,body,data,p['image'], alternate_paths=variant_paths))
 
 # Build category hub pages (/categories/<slug>/index.html)
 cat_nav_links = []
@@ -181,59 +197,30 @@ for slug, c_prods in by_cat.items():
     write(c_path.strip('/')+'/index.html', page(c_title, c_desc, c_path, c_body, c_listing, c_prods[0]['image']))
 
 cat_bar = '<div class="cat-links" style="display:flex;flex-wrap:wrap;gap:8px;margin:16px 0 24px">' + ''.join(cat_nav_links) + '</div>'
-lang_bar = '<div class="lang-links" style="display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 16px"><a class="button secondary" href="/catalog/">RU · Русский</a><a class="button secondary" href="/en/">EN · English</a><a class="button secondary" href="/pt/">PT · Brasil</a><a class="button secondary" href="/es/">ES · España</a><a class="button secondary" href="/fr/">FR · France</a><a class="button secondary" href="/he/">HE · עברית</a></div>'
-hreflang_block = f'''
-<link rel="alternate" hreflang="ru" href="{ORIGIN}/">
-<link rel="alternate" hreflang="en" href="{ORIGIN}/en/">
-<link rel="alternate" hreflang="pt-BR" href="{ORIGIN}/pt/">
-<link rel="alternate" hreflang="es" href="{ORIGIN}/es/">
-<link rel="alternate" hreflang="fr" href="{ORIGIN}/fr/">
-<link rel="alternate" hreflang="he" href="{ORIGIN}/he/">
-<link rel="alternate" hreflang="x-default" href="{ORIGIN}/">'''
+catalog_paths = {language: catalog_path(language) for language in LANGUAGES}
+lang_bar = language_links(catalog_paths)
 
 listing={'@context':'https://schema.org','@type':'ItemList','name':'Каталог FLUXIXO','numberOfItems':len(products),'itemListElement':[{'@type':'ListItem','position':i+1,'url':ORIGIN+route(p),'name':p['name']} for i,p in enumerate(products)]}
-write('catalog/index.html',page('Каталог FLUXIXO — техника, товары для дома, кухни и поездок с AliExpress',f'{len(products)} товаров из подборки FLUXIXO: студийные фотографии, описания, рубрики и партнёрские ссылки на AliExpress.','/catalog/','<p class="eyebrow">Находки с другой стороны</p><h1>Коллекция FLUXIXO ('+str(len(products))+')</h1><p>Техника, инструменты, товары для дома, кухни, поездок и питомцев. Выберите язык, рубрику или рассмотрите все находки ниже.</p>'+lang_bar+cat_bar+'<ul class="grid">'+''.join(items)+'</ul>',listing))
+write('catalog/index.html',page('Каталог FLUXIXO — техника, товары для дома, кухни и поездок с AliExpress',f'{len(products)} товаров из подборки FLUXIXO: студийные фотографии, описания, рубрики и партнёрские ссылки на AliExpress.','/catalog/','<p class="eyebrow">Находки с другой стороны</p><h1>Коллекция FLUXIXO ('+str(len(products))+')</h1><p>Техника, инструменты, товары для дома, кухни, поездок и питомцев. Выберите язык, рубрику или рассмотрите все находки ниже.</p>'+lang_bar+cat_bar+'<ul class="grid">'+''.join(items)+'</ul>',listing, alternate_paths=catalog_paths))
 
-# Generate localized SEO catalog hubs (/en/, /pt/, /es/, /fr/, /he/)
-i18n_file = ROOT / 'tools/i18n_data.json'
-lang_paths = []
-if i18n_file.exists():
-    i18n = json.loads(i18n_file.read_text(encoding='utf-8'))
-    LOCALE_META = {
-        'en': ('FLUXIXO Catalog — Curated AliExpress Finds & 3D Studio Reviews', 'Explore curated gadgets, home & kitchen tools, auto accessories, and pet gear on AliExpress with clean studio visuals.', 'Curated Product Showroom', 'FLUXIXO Collection', 'Open in 3D Showroom', 'View on AliExpress ↗'),
-        'pt': ('Catálogo FLUXIXO Brasil — Achados do AliExpress em Estúdio 3D', 'Explore gadgets, ferramentas, casa, cozinha, automotivo e pets no AliExpress com visual de estúdio limpo.', 'Vitrine de Produtos', 'Coleção FLUXIXO Brasil', 'Abrir na Vitrine 3D', 'Ver no AliExpress ↗'),
-        'es': ('Catálogo FLUXIXO España — Hallazgos de AliExpress en Estudio 3D', 'Explora tecnología, hogar, cocina, herramientas, motor y mascotas en AliExpress con presentación de estudio.', 'Escaparate de Productos', 'Colección FLUXIXO', 'Abrir en Escaparate 3D', 'Ver en AliExpress ↗'),
-        'fr': ('Catalogue FLUXIXO France — Trouvailles AliExpress en Studio 3D', 'Découvrez des gadgets high-tech, maison, cuisine, outils, auto et animaux sur AliExpress en mise en scène studio.', 'Vitrine d\'Objets', 'Collection FLUXIXO', 'Ouvrir la Vitrine 3D', 'Voir sur AliExpress ↗'),
-        'he': ('קטלוג FLUXIXO ישראל — מציאות נבחרות מ-AliExpress בתצוגת תלת-ממד', 'גלו גאדג\'טים, מוצרים לבית ולמטבח, אביזרים לרכב, כלי עבודה ומוצרים לחיות מחמד מ-AliExpress בתצוגת סטודיו נקייה.', 'תצוגת מוצרים נבחרים', 'קולקציית FLUXIXO', 'פתיחה בתצוגת 3D', 'למוצר ב-AliExpress ↗')
-    }
-    for l_code, (l_title, l_desc, l_eye, l_h1, l_3d, l_ali) in LOCALE_META.items():
-        l_path = f'/{l_code}/'
-        lang_paths.append(l_path)
-        l_cards = []
-        for p in products:
-            tr = i18n['products'].get(p['id'], {}).get(l_code, {})
-            p_name = tr.get('name', p['name'])
-            p_desc = tr.get('description', p['description'])
-            p_cat = i18n['cats'].get(p['category'], {}).get(l_code, p['category'])
-            rtl_style = ' style="direction:rtl;unicode-bidi:plaintext;text-align:right"' if l_code == 'he' else ''
-            l_cards.append(f'<li{rtl_style}><div class="card"><a href="/?lang={l_code}#{e(p["id"])}" style="text-decoration:none;color:inherit"><img src="/{e(p["image"])}" alt="{e(p_name)}" loading="lazy" width="400" height="300"><p class="eyebrow">{e(p_cat)}</p><h2>{e(p_name)}</h2><p>{e(p_desc)}</p></a><div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap"><a class="button" href="{e(p["affiliateUrl"])}" target="_blank" rel="sponsored noopener">{e(l_ali)}</a><a class="button secondary" href="/?lang={l_code}#{e(p["id"])}">{e(l_3d)}</a></div></div></li>')
-        rtl_head = ' style="direction:rtl;unicode-bidi:plaintext;text-align:right"' if l_code == 'he' else ''
-        l_body = f'<div{rtl_head}><p class="eyebrow">{e(l_eye)}</p><h1>{e(l_h1)} ({len(products)})</h1><p>{e(l_desc)}</p></div>{lang_bar}<ul class="grid">{"".join(l_cards)}</ul>'
-        l_listing = {'@context':'https://schema.org','@type':'ItemList','name':l_title,'inLanguage':l_code,'numberOfItems':len(products)}
-        l_html = page(l_title, l_desc, l_path, l_body, l_listing)
-        l_html = l_html.replace('<html lang="ru">', f'<html lang="{l_code}" dir="ltr">').replace('href="/"', f'href="/?lang={l_code}"')
-        write(f'{l_code}/index.html', l_html)
+localized_paths = generate(ORIGIN, i18n, products, page, write, default_image)
 
-index=(DIST/'index.html').read_text(encoding='utf-8')
-meta=metadata('FLUXIXO — Curated AliExpress Product Showroom','Interactive 3D studio showroom of curated AliExpress finds: tech, home, kitchen, tools, auto, and accessories.','/',products[0]['image']).replace('ru_RU','en_US') + hreflang_block
-meta+=f'\n<meta name="google-site-verification" content="{GOOGLE}"><meta name="msvalidate.01" content="{BING}">'
-meta+=structured({'@context':'https://schema.org','@type':'WebSite','name':'FLUXIXO','url':ORIGIN+'/','inLanguage':'en'})
-block='<!-- SEARCH START -->\n'+meta+'\n<!-- SEARCH END -->'
+index = (DIST/'index.html').read_text(encoding='utf-8')
+title = 'FLUXIXO | Curated AliExpress Finds'
+description = 'Explore gadgets, home and kitchen tools, and travel accessories in the interactive FLUXIXO showroom. Compare studio images with original seller photos.'
+meta = metadata(title, description, '/', default_image, 'en')
+meta += f'\n<meta name="google-site-verification" content="{GOOGLE}"><meta name="msvalidate.01" content="{BING}">'
+meta += structured({'@context':'https://schema.org','@type':'WebSite','name':'FLUXIXO','url':ORIGIN+'/','inLanguage':'en'})
+block = '<!-- SEARCH START -->\n'+meta+'\n<!-- SEARCH END -->'
 if '<!-- SEARCH START -->' in index:
-    index=re.sub(r'<!-- SEARCH START -->.*?<!-- SEARCH END -->',lambda _:block,index,flags=re.S)
+    index = re.sub(r'<!-- SEARCH START -->.*?<!-- SEARCH END -->',lambda _:block,index,flags=re.S)
 else:
-    index=index.replace('</head>',block+'\n</head>')
-first_p = dict(products[0]); first_p.update({'name': 'Ultrasonic Cleaner', 'category': 'Home & Living', 'headline': ['Ultrasonic', 'cleaning.'], 'description': 'Stainless steel tank with timer for gentle ultrasonic cleaning of glasses, jewelry, and small accessories.'})
+    index = index.replace('</head>',block+'\n</head>')
+index = re.sub(r'<title>.*?</title>', lambda _: f'<title>{e(title)}</title>', index, count=1)
+index = re.sub(r'<meta name="description" content="[^"]*">', lambda _: f'<meta name="description" content="{e(description)}">', index, count=1)
+first_p = dict(first_product)
+first_p.update(translations(i18n, first_product).get('en', {}))
+first_p['category'] = i18n['cats'].get(first_product['category'], {}).get('en', first_product['category'])
 h1_spans = ''.join(
     f'<span>{e(line[:-1])}<span class="accent-dot">.</span></span>' if line.endswith('.') else f'<span>{e(line)}</span>'
     for line in first_p['headline']
@@ -319,7 +306,7 @@ state={}
 ns='http://www.sitemaps.org/schemas/sitemap/0.9'
 ET.register_namespace('',ns)
 sitemap=ET.Element('{'+ns+'}urlset')
-all_routes = ['/', '/catalog/'] + lang_paths + sorted(cat_paths) + [route(p) for p in products]
+all_routes = ['/', '/catalog/'] + localized_paths + sorted(cat_paths) + [route(p) for p in products]
 for path in all_routes:
     file=DIST/(path.strip('/')+'/index.html' if path!='/' else 'index.html')
     digest=hashlib.sha256(file.read_bytes()).hexdigest()

@@ -2,3 +2,6 @@
 /* Keep long product names and the FLUXIXO wordmark inside narrow layouts. */
 header{gap:16px;flex-wrap:wrap}header>nav{flex-wrap:wrap;row-gap:8px}header>nav a{display:inline-flex;align-items:center;min-height:44px}.product>*{min-width:0}h1,h2,.card,.product p,dd{overflow-wrap:anywhere}.button{max-width:100%;overflow-wrap:anywhere}.breadcrumb{flex-wrap:wrap;column-gap:10px;row-gap:4px}.hero-image{height:auto}
 @media(max-width:440px){.brand{font-size:29px}header{padding:18px 0;gap:8px 14px}header>nav{font-size:14px;gap:14px}.button{margin-right:0}}
+.locale-links{flex-wrap:wrap;gap:8px;margin-block:12px 20px}.locale-links .button{margin:0}
+[dir="rtl"] .button{margin-right:0;margin-inline-end:12px}
+[dir="rtl"] .locale-links .button{margin:0}

@@ -1,10 +1,9 @@
-import xml.etree.ElementTree as ET
 #!/usr/bin/env python3
 """
 Cloud Daily Accumulator & Builder for FLUXIXO (https://www.fluxixo.shop/).
 Runs daily in GitHub Actions (100% cloud, PC off):
 - NEVER deletes any existing products, images, or HTML pages from the catalog.
-- Adds +3 new unique studio-cutout products every day (right after import-0024 smart watch), continuously growing the catalog.
+- Adds +3 new unique studio-cutout products every day at the front of the collection, continuously growing the catalog.
 - Automatically replenishes reserve_pool.json via AliExpress Official API (AppKey 557652) + rembg studio cutout pipeline when reserve runs low.
 - Rebuilds SEO pages, sitemap.xml, and hashed release bundle.
 - Deploys to Cloudflare Pages (`dealvault` -> https://www.fluxixo.shop/).
@@ -18,6 +17,7 @@ import shutil
 import subprocess
 import sys
 import time
+import xml.etree.ElementTree as ET
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -206,7 +206,7 @@ def replenish_reserve_via_api(existing_ids: set, existing_names: set, reserve: l
 def accumulate_catalog(count: int) -> None:
     """
     Purely additive catalog update:
-    Adds `count` new unique products right after `import-0024` (index 0).
+    Adds `count` new unique products before the previous collection.
     NEVER deletes any existing products, images, or HTML pages from the catalog.
     """
     cat_path = DIST / "js" / "catalog.js"
@@ -257,7 +257,7 @@ def accumulate_catalog(count: int) -> None:
     print(f"Remaining pre-rendered reserve items: {len(remaining_reserve)}")
 
 
-def deploy_and_clean() -> None:
+def deploy_release() -> None:
     token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
     if not token:
         from deploy_to_cloudflare import get_token
@@ -283,22 +283,6 @@ def deploy_and_clean() -> None:
         env=env,
         check=True,
     )
-
-    headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
-    url = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/pages/projects/{PROJECT_NAME}/deployments"
-    r = requests.get(url, headers=headers, timeout=20)
-    if r.status_code == 200:
-        deployments = r.json().get("result", [])
-        if deployments:
-            latest_id = deployments[0]["id"]
-            deleted = 0
-            for d in deployments[1:]:
-                did = d["id"]
-                del_r = requests.delete(f"{url}/{did}?force=true", headers=headers, timeout=20)
-                if del_r.status_code == 200:
-                    deleted += 1
-            print(f"Kept latest Cloudflare deployment {latest_id}; cleaned {deleted} older deployment snapshots.")
-
 
 
 
@@ -348,7 +332,7 @@ def main() -> None:
     subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
 
     if args.deploy:
-        deploy_and_clean()
+        deploy_release()
         submit_indexnow()
 
 

@@ -36,16 +36,16 @@
 /social-feed.json
   Content-Type: application/json; charset=utf-8
 
-/js/app.be39eade9dc0.js
+/js/app.ade3757ccd07.js
   Cache-Control: public, max-age=31536000, immutable
 
 /js/catalog-core.41cc5f57f316.js
   Cache-Control: public, max-age=31536000, immutable
 
-/js/catalog.6a02c656bff5.js
+/js/catalog.f2a589d5a3c1.js
   Cache-Control: public, max-age=31536000, immutable
 
-/js/i18n.4603866b7b32.js
+/js/i18n.19a848e3997e.js
   Cache-Control: public, max-age=31536000, immutable
 
 /js/motion.9b46b7b8b844.js
@@ -54,16 +54,16 @@
 /js/watch-inline.04228acb2d7b.js
   Cache-Control: public, max-age=31536000, immutable
 
-/css/search.dbda0a010f1d.css
+/css/search.3bac18b3a01e.css
   Cache-Control: public, max-age=31536000, immutable
 
-/css/site.9bf6563f2d1f.css
+/css/site.9dbf8c7adca8.css
   Cache-Control: public, max-age=31536000, immutable
 
 /css/watch-inline.80e48bfb584a.css
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/favicon.31b10536e8b3.svg
+/assets/favicon.0f1dbcda9604.svg
   Cache-Control: public, max-age=31536000, immutable
 
 /
@@ -79,6 +79,21 @@
   Cache-Control: public, max-age=0, must-revalidate
 
 /products/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/en/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/es/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/pt/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/fr/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/he/*
   Cache-Control: public, max-age=0, must-revalidate
 
 /rss.xml

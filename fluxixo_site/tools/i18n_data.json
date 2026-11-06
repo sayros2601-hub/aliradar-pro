@@ -2,7 +2,7 @@
   "ui": {
     "ru": {
       "brandLine": "Предметная витрина",
-      "catalogLink": "Поиск и список",
+      "catalogLink": "Каталог",
       "collectionBtn": "Каталог",
       "sceneCaption": "Предмет в фокусе",
       "depthLabel": "Глубина сцены",
@@ -11,13 +11,13 @@
       "detailsBtn": "Исходное фото",
       "watchExplodeBtn": "Разобрать часы",
       "watchAssembleBtn": "Собрать часы",
-      "affiliateNote": "Партнёрская ссылка ведёт на страницу товара в AliExpress. Перед заказом сверяйте комплектацию, характеристики и цену у продавца.",
+      "affiliateNote": "По партнёрским ссылкам FLUXIXO может получить комиссию. Цену, комплектацию и доставку уточняйте у продавца.",
       "exploreStrong": "Дальше в подборке",
-      "exploreSpan": "Крути колесо, смахивай вверх или открой весь каталог.",
+      "exploreSpan": "Листайте колесом мыши, смахивайте влево или вправо либо откройте каталог.",
       "motionLess": "Спокойнее",
       "motionMore": "Живее",
       "stageHintMouse": "Двигай курсор по карточке — свет и глубина мягко откликаются.",
-      "stageHintTouch": "Наклоняй карточку касанием и листай вверх или вниз.",
+      "stageHintTouch": "Смахните влево или вправо, чтобы сменить товар.",
       "stageHintQuiet": "Спокойный режим включён: сцена остаётся ровной и тихой.",
       "collectionEyebrow": "Спокойный выбор",
       "collectionTitle": "Все предметы в одном каталоге",
@@ -35,7 +35,7 @@
     },
     "en": {
       "brandLine": "Curated Product Showroom",
-      "catalogLink": "Search & Index",
+      "catalogLink": "Catalog",
       "collectionBtn": "Catalog",
       "sceneCaption": "Object in focus",
       "depthLabel": "Scene depth",
@@ -44,13 +44,13 @@
       "detailsBtn": "Original photo",
       "watchExplodeBtn": "Explode view",
       "watchAssembleBtn": "Assemble watch",
-      "affiliateNote": "Affiliate link leads directly to the AliExpress product page. Please verify package contents, specs, and final price with the seller before ordering.",
+      "affiliateNote": "We may earn a commission through affiliate links. Check price, options and shipping on AliExpress.",
       "exploreStrong": "Next in collection",
-      "exploreSpan": "Scroll the wheel, swipe up, or open the full catalog.",
+      "exploreSpan": "Use the mouse wheel, swipe left or right, or open the catalog.",
       "motionLess": "Calmer",
       "motionMore": "Livelier",
       "stageHintMouse": "Move your cursor across the card — light and depth gently respond.",
-      "stageHintTouch": "Tilt the card by touch and swipe up or down.",
+      "stageHintTouch": "Swipe left or right to browse products.",
       "stageHintQuiet": "Calm mode enabled: the stage remains steady and quiet.",
       "collectionEyebrow": "Calm selection",
       "collectionTitle": "All objects in one catalog",
@@ -68,7 +68,7 @@
     },
     "pt": {
       "brandLine": "Vitrine de Produtos",
-      "catalogLink": "Busca e Lista",
+      "catalogLink": "Catálogo",
       "collectionBtn": "Catálogo",
       "sceneCaption": "Produto em foco",
       "depthLabel": "Profundidade 3D",
@@ -77,13 +77,13 @@
       "detailsBtn": "Foto original",
       "watchExplodeBtn": "Desmontar relógio",
       "watchAssembleBtn": "Montar relógio",
-      "affiliateNote": "O link de afiliado leva direto à página do produto no AliExpress. Confira o conteúdo, especificações e preço final com o vendedor antes de pedir.",
+      "affiliateNote": "Podemos receber uma comissão por links de afiliados. Confira preço, opções e frete no AliExpress.",
       "exploreStrong": "Próximo na coleção",
-      "exploreSpan": "Role a roda do mouse, deslize para cima ou abra o catálogo completo.",
+      "exploreSpan": "Use a roda do mouse, deslize para os lados ou abra o catálogo.",
       "motionLess": "Mais calmo",
       "motionMore": "Mais vivo",
       "stageHintMouse": "Mova o cursor sobre o cartão — a luz e a profundidade respondem suavemente.",
-      "stageHintTouch": "Incline o cartão com o toque e deslize para cima ou para baixo.",
+      "stageHintTouch": "Deslize para a esquerda ou direita para ver outros produtos.",
       "stageHintQuiet": "Modo calmo ativado: a cena permanece estável e silenciosa.",
       "collectionEyebrow": "Escolha tranquila",
       "collectionTitle": "Todos os produtos em um só catálogo",
@@ -100,8 +100,8 @@
       "aboutFootnote": "Para conferir o visual original do produto, abra 'Foto original' no cartão ou acesse o anúncio no AliExpress."
     },
     "es": {
-      "brandLine": "Escaparate de Productos",
-      "catalogLink": "Búsqueda y Lista",
+      "brandLine": "Vitrina de productos",
+      "catalogLink": "Catálogo",
       "collectionBtn": "Catálogo",
       "sceneCaption": "Objeto en foco",
       "depthLabel": "Profundidad 3D",
@@ -110,17 +110,17 @@
       "detailsBtn": "Foto original",
       "watchExplodeBtn": "Desmontar reloj",
       "watchAssembleBtn": "Montar reloj",
-      "affiliateNote": "El enlace de afiliado lleva a la página del producto en AliExpress. Comprueba el contenido, especificaciones y precio con el vendedor antes de comprar.",
+      "affiliateNote": "Podemos recibir una comisión por los enlaces de afiliados. Consulta precio, variantes y envío en AliExpress.",
       "exploreStrong": "Siguiente en la colección",
-      "exploreSpan": "Gira la rueda, desliza hacia arriba o abre el catálogo completo.",
+      "exploreSpan": "Usa la rueda del mouse, desliza hacia los lados o abre el catálogo.",
       "motionLess": "Más calmo",
       "motionMore": "Más vivo",
       "stageHintMouse": "Mueve el cursor sobre la tarjeta: la luz y la profundidad responden suavemente.",
-      "stageHintTouch": "Inclina la tarjeta al tocar y desliza hacia arriba o abajo.",
+      "stageHintTouch": "Desliza a la izquierda o a la derecha para ver otros productos.",
       "stageHintQuiet": "Modo tranquilo activado: la escena permanece estable.",
       "collectionEyebrow": "Selección cuidada",
       "collectionTitle": "Todos los artículos en un solo catálogo",
-      "collectionFootnote": "Los enlaces de afiliado llevan a AliExpress. Verifica disponibilidad, opciones y envío antes de realizar tu pedido.",
+      "collectionFootnote": "Consulta disponibilidad, variantes y envío a México directamente en AliExpress.",
       "sourceSummary": "Foto del vendedor en la ficha del producto",
       "sourceNote": "En el escenario principal se muestra una presentación de estudio. Aquí puedes comparar el aspecto original y el paquete según la foto del vendedor.",
       "aboutEyebrow": "Sobre el proyecto",
@@ -134,7 +134,7 @@
     },
     "fr": {
       "brandLine": "Vitrine d'Objets",
-      "catalogLink": "Recherche & Liste",
+      "catalogLink": "Catalogue",
       "collectionBtn": "Catalogue",
       "sceneCaption": "Objet en focus",
       "depthLabel": "Profondeur 3D",
@@ -143,13 +143,13 @@
       "detailsBtn": "Photo d'origine",
       "watchExplodeBtn": "Vue éclatée",
       "watchAssembleBtn": "Assembler la montre",
-      "affiliateNote": "Le lien affilié mène directement à la fiche produit sur AliExpress. Vérifiez le contenu, les options et le prix chez le vendeur avant de commander.",
+      "affiliateNote": "Nous pouvons toucher une commission via les liens affiliés. Vérifiez le prix, les options et la livraison sur AliExpress.",
       "exploreStrong": "Suivant dans la sélection",
-      "exploreSpan": "Faites défiler la molette, glissez vers le haut ou ouvrez le catalogue complet.",
+      "exploreSpan": "Utilisez la molette, balayez à gauche ou à droite, ou ouvrez le catalogue.",
       "motionLess": "Plus calme",
       "motionMore": "Plus vivant",
       "stageHintMouse": "Déplacez le curseur sur la carte — la lumière et la profondeur réagissent en douceur.",
-      "stageHintTouch": "Inclinez la carte au toucher et faites glisser vers le haut ou le bas.",
+      "stageHintTouch": "Balayez à gauche ou à droite pour changer de produit.",
       "stageHintQuiet": "Mode calme activé : la scène reste stable et silencieuse.",
       "collectionEyebrow": "Sélection épurée",
       "collectionTitle": "Tous les objets dans un seul catalogue",
@@ -166,34 +166,34 @@
       "aboutFootnote": "Pour comparer avec l'image d'origine du vendeur, ouvrez « Photo d'origine » ou consultez la fiche AliExpress."
     },
     "he": {
-      "brandLine": "תצוגת מוצרים נבחרים",
-      "catalogLink": "חיפוש ורשימה",
+      "brandLine": "מוצרים נבחרים",
+      "catalogLink": "קטלוג",
       "collectionBtn": "קטלוג",
       "sceneCaption": "מוצר במוקד",
       "depthLabel": "עומק תלת-ממד",
       "ctaBtn": "לפתיחת המוצר ב-AliExpress",
       "ctaPending": "הקישור יעלה בקרוב",
-      "detailsBtn": "תמונה מקורית",
+      "detailsBtn": "תמונת המוכר",
       "watchExplodeBtn": "פירוק השעון",
       "watchAssembleBtn": "הרכבת השעון",
-      "affiliateNote": "קישור השותפים מוביל ישירות לעמוד המוצר ב-AliExpress. מומלץ לבדוק את תכולת הערכה, המפרט והמחיר הסופי מול המוכר לפני ההזמנה.",
+      "affiliateNote": "אנחנו עשויים לקבל עמלה מרכישות דרך קישורי שותפים. את המחיר, הדגם והמשלוח יש לבדוק ב־AliExpress.",
       "exploreStrong": "הבא בקולקציה",
-      "exploreSpan": "גלול בגלגלת העכבר, החלק למעלה או פתח את הקטלוג המלא.",
+      "exploreSpan": "גללו עם העכבר, החליקו ימינה או שמאלה, או פתחו את הקטלוג.",
       "motionLess": "רגוע יותר",
       "motionMore": "חי יותר",
       "stageHintMouse": "הזז את הסמן על הכרטיס — התאורה והעומק מגיבים בעדינות.",
-      "stageHintTouch": "הטה את הכרטיס במגע והחלק למעלה או למטה.",
-      "stageHintQuiet": "מצב רגוע מופעל: הבמה נשארת יציבה ושקטה.",
-      "collectionEyebrow": "בחירה נקייה",
-      "collectionTitle": "כל המוצרים בקטלוג אחד",
+      "stageHintTouch": "החליקו ימינה או שמאלה כדי לעבור בין המוצרים.",
+      "stageHintQuiet": "מצב תנועה מופחתת",
+      "collectionEyebrow": "מבחר מוצרים",
+      "collectionTitle": "כל המוצרים",
       "collectionFootnote": "קישורי השותפים מובילים לעמודי המוצר ב-AliExpress. בדקו זמינות, אפשרויות ומשלוח לישראל מול המוכר לפני הרכישה.",
       "sourceSummary": "תמונת המוכר מתוך עמוד המוצר",
-      "sourceNote": "בבמה הראשית מוצגת הדמיית סטודיו נקייה. כאן ניתן להשוות את המראה המקורי ואת תכולת החבילה לפי תמונת המוכר.",
+      "sourceNote": "אפשר להשוות בין ההדמיה בתצוגה לבין תמונת המוכר. את פרטי הדגם והערכה יש לבדוק בעמוד המוצר.",
       "aboutEyebrow": "אודות הפרויקט",
-      "aboutTitle": "איך חלון הראווה הזה עובד",
+      "aboutTitle": "איך התצוגה עובדת",
       "aboutIntro": "FLUXIXO מרכזת מציאות בולטות מ-AliExpress ומציגה אותן בתצוגת סטודיו נקייה — מוצר אחד בכל מסך, ללא רעש פרסומי.",
       "aboutLinksTitle": "קישורי שותפים",
-      "aboutLinksBody": "הכפתור 'לפתיחת המוצר ב-AliExpress' משתמש בקישור שותפים ללא עלות נוספת לקונה. בדקו תמיד מחיר, משלוח ומפרט בעמוד המוכר.",
+      "aboutLinksBody": "אנחנו עשויים לקבל עמלה מרכישות דרך קישורי שותפים. את המחיר, הדגם והמשלוח יש לבדוק ב־AliExpress.",
       "aboutDemoTitle": "סצנות אינטראקטיביות",
       "aboutDemoBody": "עבור פריטים נבחרים קיימת הדמיית פירוק אינטראקטיבית המציגה את מבנה המוצר על המסך.",
       "aboutFootnote": "כדי לבדוק את המראה המקורי של המוצר, לחצו על 'תמונה מקורית' או עברו לעמוד המוכר ב-AliExpress."
@@ -301,7 +301,7 @@
           "Limpeza",
           "ultrassônica."
         ],
-        "description": "Cuba de aço inox com timer para limpeza ultrassônica suave de óculos, joias, relógios e pequenos objetos."
+        "description": "Cuba de aço inox com temporizador para limpeza ultrassônica de óculos, joias e pequenos objetos compatíveis."
       },
       "es": {
         "name": "Limpiador Ultrasónico",
@@ -309,7 +309,7 @@
           "Limpieza",
           "ultrasónica."
         ],
-        "description": "Cuba de acero inoxidable con temporizador para la limpieza ultrasónica suave de gafas, joyas y objetos pequeños."
+        "description": "Tina de acero inoxidable con temporizador para la limpieza ultrasónica de lentes, joyería y objetos pequeños compatibles."
       },
       "fr": {
         "name": "Nettoyeur à Ultrasons",
@@ -325,7 +325,7 @@
           "ניקוי",
           "אולטרסוני."
         ],
-        "description": "אמבט נירוסטה עם טיימר לניקוי אולטרסוני עדין של משקפיים, תכשיטים, שעונים ופריטים קטנים."
+        "description": "מכל נירוסטה עם טיימר לניקוי אולטרסוני של משקפיים, תכשיטים ופריטים קטנים. בדקו בהוראות היצרן לאילו חומרים המכשיר מתאים."
       }
     },
     "find-052-laser-meter": {
@@ -656,7 +656,7 @@
         "description": "Écran compact affichant la pression et la température des deux pneus de moto."
       },
       "he": {
-        "name": "חיישני לחץ אוויר לאופנוע TPMS",
+        "name": "צג לחץ אוויר לצמיגי אופנוע",
         "headline": [
           "בקרת",
           "לחץ אוויר."
@@ -1076,7 +1076,7 @@
         "description": "Indicateur compact fixé sur la canne avec antenne lumineuse et clochette."
       },
       "he": {
-        "name": "מתריע אכילה לחכת דיג",
+        "name": "גלאי נשיכות לחכת דיג",
         "headline": [
           "אל תפספס",
           "אכילה."
@@ -1706,7 +1706,7 @@
         "description": "Enregistreur vocal plat de poche avec petit écran et boutons physiques."
       },
       "he": {
-        "name": "טייפ מנהלים דק עם Bluetooth",
+        "name": "מכשיר הקלטה קומפקטי עם Bluetooth",
         "headline": [
           "מחשבות",
           "מוקלטות."
@@ -1790,7 +1790,7 @@
         "description": "Circulateur thermique avec écran rond et pince de fixation pour bain-marie."
       },
       "he": {
-        "name": "מכשיר סו-וויד (Sous Vide) טבילה",
+        "name": "מכשיר סו־ויד לבישול במים",
         "headline": [
           "בישול",
           "מדויק."
@@ -2042,7 +2042,7 @@
         "description": "Compteur cycliste compact avec grands chiffres à l'écran et suivi GPS."
       },
       "he": {
-        "name": "מחשבון רכיבה XOSS GPS לאופניים",
+        "name": "מחשב רכיבה לאופניים של XOSS",
         "headline": [
           "המסלול",
           "במספרים."
@@ -2420,7 +2420,7 @@
         "description": "Scanner de poche avec écran couleur pour lire et traduire du texte imprimé."
       },
       "he": {
-        "name": "עט סורק ומתרגם חכם",
+        "name": "עט לסריקה ולתרגום טקסט",
         "headline": [
           "מילים",
           "מתקרבות."
@@ -2924,7 +2924,7 @@
         "description": "Adaptateur multiport USB-C UGREEN pour ordinateurs portables."
       },
       "he": {
-        "name": "מפצל USB-C האב UGREEN",
+        "name": "רכזת USB-C של UGREEN",
         "headline": [
           "מפצל",
           "USB-C."

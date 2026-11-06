@@ -102,7 +102,12 @@
     $('collection-count').textContent = count(products.length);
     renderRail(index);
     document.title = 'FLUXIXO — ' + product.name;
-    try { history.replaceState(null, '', '#' + product.id); } catch (_) {}
+    try {
+      const address = new URL(location.href);
+      if (i18n.getLang() !== 'en' || address.searchParams.has('lang')) address.searchParams.set('lang', i18n.getLang());
+      address.hash = product.id;
+      history.replaceState(null, '', address);
+    } catch (_) {}
     if (announceChange) announce(product.name + ' (' + (index + 1) + '/' + products.length + ')');
     stage.preload([products[normalize(index + 1)], products[normalize(index - 1)]]);
   }
