@@ -1,9 +1,87 @@
-/* FLUXIXO catalog: newest 3 finds always first + accumulated collection. */
+/* FLUXIXO catalog: existing collection + daily accumulated finds. */
 window.MIRA_CATALOG = {
   "version": 1,
   "brand": "FLUXIXO",
   "tagline": "Находки с другой стороны",
   "products": [
+    {
+      "id": "find-054-soldering-iron",
+      "name": "Цифровой USB-паяльник",
+      "headline": [
+        "Точная",
+        "пайка."
+      ],
+      "category": "Инструменты",
+      "description": "Аккумуляторный паяльник в форме ручки с OLED-дисплеем и точной регулировкой температуры жала.",
+      "image": "assets/images/find-054-soldering-iron.webp",
+      "original": "assets/originals/find-054-soldering-iron.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3WQPIKX",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c3WQPIKX",
+      "demo": false,
+      "theme": "lavender",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Аккумуляторный паяльник в форме ручки с OLED-дисплеем и точной регулировкой температуры жала.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Бразилия"
+        }
+      ]
+    },
+    {
+      "id": "find-055-lint-remover",
+      "name": "Машинка от катышков",
+      "headline": [
+        "Гладкая",
+        "ткань."
+      ],
+      "category": "Дом",
+      "description": "Аккумуляторная машинка для ухода за трикотажем и свитерами с цифровым индикатором заряда на круглом экране.",
+      "image": "assets/images/find-055-lint-remover.webp",
+      "original": "assets/originals/find-055-lint-remover.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4PU2gP1",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c4PU2gP1",
+      "demo": false,
+      "theme": "rose",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Аккумуляторная машинка для ухода за трикотажем и свитерами с цифровым индикатором заряда на круглом экране.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Испания"
+        }
+      ]
+    },
+    {
+      "id": "find-056-milk-frother",
+      "name": "Капучинатор на подставке",
+      "headline": [
+        "Пышная",
+        "пенка."
+      ],
+      "category": "Кухня",
+      "description": "Ручной электрический венчик на металлической настольной подставке для быстрого взбивания молока к кофе.",
+      "image": "assets/images/find-056-milk-frother.webp",
+      "original": "assets/originals/find-056-milk-frother.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3yjRGbh",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c3yjRGbh",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Ручной электрический венчик на металлической настольной подставке для быстрого взбивания молока к кофе.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Франция"
+        }
+      ]
+    },
     {
       "id": "find-051-ultrasonic-cleaner",
       "name": "Ультразвуковая мойка",
