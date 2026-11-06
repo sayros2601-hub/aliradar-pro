@@ -39,6 +39,9 @@
 /js/app.ade3757ccd07.js
   Cache-Control: public, max-age=31536000, immutable
 
+/js/arcade.6e41dafce0b9.js
+  Cache-Control: public, max-age=31536000, immutable
+
 /js/catalog-core.41cc5f57f316.js
   Cache-Control: public, max-age=31536000, immutable
 
@@ -52,6 +55,9 @@
   Cache-Control: public, max-age=31536000, immutable
 
 /js/watch-inline.04228acb2d7b.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/css/arcade.a374277162b2.css
   Cache-Control: public, max-age=31536000, immutable
 
 /css/search.3bac18b3a01e.css
