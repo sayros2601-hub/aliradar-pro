@@ -5,6 +5,84 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "find-057-uv-toothbrush",
+      "name": "УФ-стерилизатор для щёток",
+      "headline": [
+        "Чистота",
+        "в ванной."
+      ],
+      "category": "Уход",
+      "description": "Настенный держатель с ультрафиолетовой обработкой, сушкой и цифровым экраном для зубных щёток.",
+      "image": "assets/images/find-057-uv-toothbrush.webp",
+      "original": "assets/originals/find-057-uv-toothbrush.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c44Z1h6x",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c44Z1h6x",
+      "demo": false,
+      "theme": "coral",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Настенный держатель с ультрафиолетовой обработкой, сушкой и цифровым экраном для зубных щёток.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Бразилия"
+        }
+      ]
+    },
+    {
+      "id": "find-058-key-finder",
+      "name": "Bluetooth-брелок искатель",
+      "headline": [
+        "Ключи",
+        "под контролем."
+      ],
+      "category": "В дороге",
+      "description": "Компактный поисковый брелок со звуковым сигналом для ключей, дорожной сумки или рюкзака.",
+      "image": "assets/images/find-058-key-finder.webp",
+      "original": "assets/originals/find-058-key-finder.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2wLDGGT",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c2wLDGGT",
+      "demo": false,
+      "theme": "sand",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Компактный поисковый брелок со звуковым сигналом для ключей, дорожной сумки или рюкзака.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Испания"
+        }
+      ]
+    },
+    {
+      "id": "find-059-label-printer",
+      "name": "Карманный термопринтер",
+      "headline": [
+        "Печать",
+        "наклеек."
+      ],
+      "category": "Техника",
+      "description": "Беспроводной мини-принтер для быстрой печати заметок, бирок и самоклеящихся этикеток без чернил.",
+      "image": "assets/images/find-059-label-printer.webp",
+      "original": "assets/originals/find-059-label-printer.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3MdAJWb",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c3MdAJWb",
+      "demo": false,
+      "theme": "lavender",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Беспроводной мини-принтер для быстрой печати заметок, бирок и самоклеящихся этикеток без чернил.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Франция"
+        }
+      ]
+    },
+    {
       "id": "find-054-soldering-iron",
       "name": "Цифровой USB-паяльник",
       "headline": [
