@@ -209,6 +209,7 @@ index = (DIST/'index.html').read_text(encoding='utf-8')
 title = 'FLUXIXO | Curated AliExpress Finds'
 description = 'Explore gadgets, home and kitchen tools, and travel accessories in the interactive FLUXIXO showroom. Compare studio images with original seller photos.'
 meta = metadata(title, description, '/', default_image, 'en')
+meta += '\n' + alternates(ORIGIN, catalog_paths)
 meta += f'\n<meta name="google-site-verification" content="{GOOGLE}"><meta name="msvalidate.01" content="{BING}">'
 meta += structured({'@context':'https://schema.org','@type':'WebSite','name':'FLUXIXO','url':ORIGIN+'/','inLanguage':'en'})
 block = '<!-- SEARCH START -->\n'+meta+'\n<!-- SEARCH END -->'

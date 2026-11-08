@@ -34,10 +34,13 @@ def product_path(product, language):
     return f"{prefix}/products/{product['id']}/"
 
 def alternates(origin, paths):
-    return '\n'.join(
+    tags = [
         f'<link rel="alternate" hreflang="{LANGUAGES[language][0]}" href="{origin}{path}">'
         for language, path in paths.items()
-    )
+    ]
+    if 'en' in paths:
+        tags.append(f'<link rel="alternate" hreflang="x-default" href="{origin}{paths["en"]}">')
+    return '\n'.join(tags)
 
 def language_links(paths):
     return '<nav class="locale-links" aria-label="Language">' + ''.join(
