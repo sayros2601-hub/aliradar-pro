@@ -25,7 +25,7 @@ ITEM_IDS = ROOT / 'tools' / 'item_ids.json'
 OFFERS = ROOT / 'tools' / 'offers.json'
 API_URL = 'https://api-sg.aliexpress.com/sync'
 BROWSER = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36'
-BATCH = 40
+BATCH = 10
 
 
 class NoRedirect(urllib.request.HTTPRedirectHandler):
@@ -103,15 +103,23 @@ def main():
     refreshed = 0
     for start in range(0, len(ids), BATCH):
         chunk = ids[start:start + BATCH]
-        try:
-            response = call_api('aliexpress.affiliate.productdetail.get', {
-                'product_ids': ','.join(chunk), 'target_currency': 'USD', 'target_language': 'EN',
-                'tracking_id': 'default',
-                'fields': 'product_id,target_sale_price,target_sale_price_currency,target_original_price,discount,evaluate_rate,lastest_volume',
-            }, app_key, app_secret)
-        except Exception as error:  # network or API outage: keep what we have
-            print(f'Offer batch {start // BATCH + 1} failed: {type(error).__name__}')
-            continue
+        response = {}
+        for attempt in range(4):
+            try:
+                response = call_api('aliexpress.affiliate.productdetail.get', {
+                    'product_ids': ','.join(chunk), 'target_currency': 'USD', 'target_language': 'EN',
+                    'tracking_id': 'default',
+                    'fields': 'product_id,target_sale_price,target_sale_price_currency,target_original_price,discount,evaluate_rate,lastest_volume',
+                }, app_key, app_secret)
+            except Exception as error:  # network or API outage: keep what we have
+                print(f'Offer batch {start // BATCH + 1} failed: {type(error).__name__}')
+                response = {}
+            problem = response.get('error_response')
+            if not problem:
+                break
+            # Error code and message describe the request, not the credentials.
+            print(f'Offer batch {start // BATCH + 1} attempt {attempt + 1}: {problem.get("code")} {str(problem.get("msg"))[:80]}')
+            time.sleep(3 + 2 * attempt)
         body = response.get('aliexpress_affiliate_productdetail_get_response', {}).get('resp_result', {})
         rows = (body.get('result') or {}).get('products', {}).get('product', []) if isinstance(body, dict) else []
         if not rows:
