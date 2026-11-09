@@ -32,9 +32,13 @@
   const normalize = n => (n % products.length + products.length) % products.length;
   const current = () => loc(products[active]);
   const dialogOpen = () => dialogs.some(d => d.open);
+  // Pre-built smaller copies keep thumbnails and phone screens from downloading the full-size studio image.
+  const thumb = (src, width) => String(src || '').replace('assets/images/', 'assets/thumbs/').replace(/\.webp$/, '-' + width + '.webp');
+  const compactStage = window.matchMedia('(max-width: 1100px)');
+  const withFallback = (image, original) => { image.onerror = () => { image.onerror = null; image.src = original; }; };
   const forStage = product => {
     const lp = loc(product);
-    return {image: lp.image, alt: lp.name, scale: lp.scale, rotation: lp.rotation};
+    return {image: compactStage.matches ? thumb(lp.image, 800) : lp.image, alt: lp.name, scale: lp.scale, rotation: lp.rotation};
   };
   const atmospheres = Array.from(document.querySelectorAll('.ambient-scene'));
   let atmosphereIndex = 0, atmosphereTheme = '', atmosphereAnimations = [], copyAnimation = null;
@@ -109,7 +113,7 @@
       history.replaceState(null, '', address);
     } catch (_) {}
     if (announceChange) announce(product.name + ' (' + (index + 1) + '/' + products.length + ')');
-    stage.preload([products[normalize(index + 1)], products[normalize(index - 1)]]);
+    stage.preload([forStage(products[normalize(index + 1)]), forStage(products[normalize(index - 1)])]);
   }
   async function navigate(index, direction) {
     index = normalize(index);
@@ -166,7 +170,8 @@
       button.setAttribute('aria-current', i === index ? 'true' : 'false');
       button.title = product.name;
       const image = document.createElement('img');
-      image.src = product.image; image.alt = ''; image.draggable = false;
+      withFallback(image, product.image);
+      image.src = thumb(product.image, 480); image.alt = ''; image.draggable = false;
       button.append(image);
       button.addEventListener('click', () => direct(i));
       rail.append(button);
@@ -183,7 +188,7 @@
       const product = loc(rawProduct);
       const card = document.createElement('button'); card.className = 'collection-card';
       const number = document.createElement('span'); number.className = 'card-number'; number.textContent = count(i + 1);
-      const picture = document.createElement('img'); picture.loading = 'lazy'; picture.decoding = 'async'; picture.src = product.image; picture.alt = '';
+      const picture = document.createElement('img'); picture.loading = 'lazy'; picture.decoding = 'async'; withFallback(picture, product.image); picture.src = thumb(product.image, 480); picture.alt = '';
       const name = document.createElement('strong'); name.textContent = product.name;
       const category = document.createElement('span'); category.className = 'card-category'; category.textContent = product.category;
       const status = document.createElement('span'); status.className = 'card-status'; status.textContent = product.pendingLink ? (i18n.t('ctaPending') || 'Ссылка уточняется') : product.demo ? 'Demo' : 'AliExpress';
@@ -203,11 +208,15 @@
     $('details-title').textContent = product.name;
     $('details-category').textContent = product.category;
     $('details-status').textContent = product.pendingLink ? (i18n.t('ctaPending') || 'Link coming soon') : 'FLUXIXO · AliExpress';
-    $('details-image').src = product.image; $('details-image').alt = product.name;
-    $('details-image-label').textContent = product.imageNote || i18n.t('imageNote') || '';
+    withFallback($('details-image'), product.image);
+    $('details-image').src = thumb(product.image, 800); $('details-image').alt = product.name;
+    // The per-product note exists only in Russian; other languages use the translated interface note.
+    $('details-image-label').textContent = (i18n.getLang() === 'ru' ? product.imageNote : '') || i18n.t('imageNote') || '';
     $('details-description').textContent = product.description || product.details;
     $('details-facts').replaceChildren();
-    product.facts.filter(f => f.label !== 'Подборка').forEach(f => {
+    // Labels are already translated here, so the internal editorial note is matched on the source record.
+    const sourceFacts = products[active].facts || [];
+    product.facts.filter((f, i) => (sourceFacts[i] || {}).label !== 'Подборка').forEach(f => {
       const dt = document.createElement('dt'); dt.textContent = f.label;
       const dd = document.createElement('dd'); dd.textContent = f.value;
       $('details-facts').append(dt, dd);
@@ -313,12 +322,18 @@
     touchStart = {x: event.clientX, y: event.clientY, id: event.pointerId};
     try { $('showroom').setPointerCapture(event.pointerId); } catch (_) {}
   });
+  // On touch screens the product leans toward the finger while it drags, like the mouse tilt on desktop.
+  $('showroom').addEventListener('pointermove', event => {
+    if (!touchStart || touchStart.id !== event.pointerId) return;
+    stage.setPointer((event.clientX - touchStart.x) / (innerWidth * .4), (event.clientY - touchStart.y) / (innerHeight * .4));
+  }, {passive: true});
   $('showroom').addEventListener('pointerup', event => {
     if (!touchStart || touchStart.id !== event.pointerId) return;
     const dx = event.clientX - touchStart.x, dy = event.clientY - touchStart.y; touchStart = null;
+    stage.setPointer(0, 0);
     if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.2) step(dx < 0 ? 1 : -1);
   });
-  $('showroom').addEventListener('pointercancel', () => { touchStart = null; });
+  $('showroom').addEventListener('pointercancel', () => { touchStart = null; stage.setPointer(0, 0); });
   window.addEventListener('hashchange', () => {
     const found = products.findIndex(p => '#' + p.id === location.hash);
     if (found >= 0 && found !== active) direct(found);

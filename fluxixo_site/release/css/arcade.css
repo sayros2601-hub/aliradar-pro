@@ -959,5 +959,15 @@ body.is-rtl-text .eyebrow{letter-spacing:0}
   .spin-label{font-size:12px}
 }
 
+/* Desktop reading sizes: body copy and controls were below comfortable size. */
+@media(min-width:901px){
+  .product-summary h2{font-size:17px}
+  .product-summary p{font-size:16px;line-height:1.6}
+  .primary-button{font-size:13.5px}
+  .text-button{font-size:13px}
+  .affiliate-note{font-size:12px;line-height:1.5}
+  .stage-hint{font-size:12px}
+}
+
 .about-languages{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:13px}
 .about-languages a{display:inline-block;padding:11px 0;color:#f3ebff;text-decoration:underline;text-underline-offset:3px}

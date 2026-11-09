@@ -47,3 +47,7 @@ README_ADAPTER_RU.txt
 
 !fluxixo_site/dist/
 !fluxixo_site/dist/**
+
+# Local browser sessions and assistant tooling must never be published
+.browser_session_portals/
+.claude/

@@ -4,7 +4,7 @@ from html import escape
 from locales import (
     ABOUT, BREADCRUMB_ARIA, CATALOG_TITLE, CATEGORY_TITLE, IMAGE_SIZES, LANGUAGES, DISCLOSURE, STAGE_CAPTION, about_path, alternates,
     card_image, catalog_path, category_key, category_paths, fit_description, fit_title, generate, generate_about,
-    header_lang_select, hero_image, item_page_schema, language_links, product_path, public_facts, sync_showroom, thumb,
+    header_lang_select, hero_image, item_page_schema, language_links, product_path, public_facts, sticky_cta, sync_showroom, thumb,
     translations
 )
 from PIL import Image
@@ -183,7 +183,7 @@ for idx, p in enumerate(products):
         ('FLUXIXO', '/'), ('Каталог', '/catalog/'), (cat_titles[slug], c_path), (p['name'], path)
     ])
     variant_paths = {language: product_path(p, language) for language in ('ru', *translations(i18n, p))}
-    body += language_links(variant_paths)
+    body += language_links(variant_paths) + sticky_cta(cta_ru)
     write(path.strip('/')+'/index.html', page(title, seo_desc, path, body, data, p['image'], alternate_paths=variant_paths, studio_url=studio_ru, theme=p.get('theme')))
 
 # Build category hub pages (/categories/<slug>/index.html)
@@ -235,7 +235,9 @@ title = 'FLUXIXO | Curated AliExpress Finds'
 description = 'Explore gadgets, home and kitchen tools, and travel accessories in the interactive FLUXIXO showroom. Compare studio images with original seller photos.'
 meta = metadata(title, description, '/', default_image, 'en')
 # The showroom is not a translation of any catalog page, so it stays outside the hreflang clusters.
-meta += f'\n<link rel="preload" as="image" href="/{e(default_image)}" fetchpriority="high"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">'
+stage_small = thumb(default_image, 800)
+# Phones and tablets get the 800px copy, matching the breakpoint app.js uses for the stage image.
+meta += f'\n<link rel="preload" as="image" href="/{e(stage_small)}" media="(max-width: 1100px)" fetchpriority="high"><link rel="preload" as="image" href="/{e(default_image)}" media="(min-width: 1101px)" fetchpriority="high"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">'
 meta += f'\n<meta name="google-site-verification" content="{GOOGLE}"><meta name="msvalidate.01" content="{BING}"><meta name="yandex-verification" content="{YANDEX}">'
 meta += structured({'@context': 'https://schema.org', '@graph': [
     {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN+'/', 'inLanguage': 'en'},
@@ -262,6 +264,10 @@ index = re.sub(r'<span id="product-category">.*?</span>', lambda _: f'<span id="
 index = re.sub(r'<span id="object-category">.*?</span>', lambda _: f'<span id="object-category">{e(first_p["category"])}</span>', index)
 index = re.sub(r'<span id="collection-count">.*?</span>', lambda _: f'<span id="collection-count">{len(products):02d}</span>', index)
 index = re.sub(r'<span id="large-total">.*?</span>', lambda _: f'<span id="large-total">{len(products):02d}</span>', index)
+# The first product is in the markup itself, so it can paint before the scripts finish loading.
+index = re.sub(r'<div class="product-plane"><img [^>]*fetchpriority="high"[^>]*>',
+               lambda _: f'<div class="product-plane"><img src="{e(stage_small)}" alt="{e(first_p["name"])}" draggable="false" decoding="async" fetchpriority="high">',
+               index, count=1)
 write('index.html', index)
 
 write('404.html', page('Page Not Found | FLUXIXO', 'The requested page was not found on FLUXIXO.', '/404.html', '<p class="eyebrow">404</p><h1>Page not found</h1><p>This link may have changed. Explore the full interactive showroom or browse the catalog below.</p><div class="cta-row"><a class="button" href="/">Open 3D Showroom</a><a class="button secondary" href="/en/">Browse Catalog</a></div>', noindex=True, language='en'))

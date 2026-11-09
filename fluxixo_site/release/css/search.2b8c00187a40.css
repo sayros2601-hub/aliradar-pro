@@ -494,6 +494,18 @@ footer p{margin:0;font-size:12px;max-width:68ch}
   .footer-links a{display:inline-block;padding:11px 0}
 }
 
+/* Buy button stays reachable on phones, where it otherwise sits below the first screen. */
+.sticky-cta{display:none}
+@media(max-width:520px){
+  .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(16,15,38,0.94);border-top:1px solid rgba(255,255,255,0.14)}
+  .sticky-cta .button{width:100%}
+  body:has(.sticky-cta){padding-bottom:104px}
+}
+
+/* The card image travels to the product stage when a page opens (browsers without support just navigate). */
+@view-transition{navigation:auto}
+@media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
+
 .about-page section{margin-top:28px}
 .about-page section:target h2{color:var(--accent)}
 

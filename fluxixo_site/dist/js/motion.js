@@ -230,6 +230,14 @@
       this._startIdle();
     }
 
+    // Tilt target in the -1..1 range, for callers that track touch input themselves.
+    setPointer(x, y) {
+      if (this.disposed || this.reducedMotion || this.paused || this._hidden || this._busy) return;
+      this._pointer.x = clamp(number(x, 0), -1, 1);
+      this._pointer.y = clamp(number(y, 0), -1, 1);
+      this._requestTick();
+    }
+
     setPaused(value) {
       if (this.disposed) return;
       this.paused = Boolean(value);

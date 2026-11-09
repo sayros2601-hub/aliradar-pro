@@ -298,9 +298,19 @@ def thumb(image, width=480):
     return f'assets/thumbs/{PurePosixPath(image).stem}-{width}.webp'
 
 
+def transition_name(image):
+    # Shared by a product's card and its page hero so the browser can morph one into the other.
+    return 'p-' + re.sub(r'[^a-z0-9-]', '-', PurePosixPath(image).stem.lower())
+
+
 def card_image(image, alt, index=99, width=400, height=300):
     priority = 'fetchpriority="high"' if index == 0 else ('loading="eager"' if index < 3 else 'loading="lazy"')
-    return f'<img src="/{e(thumb(image))}" alt="{e(alt)}" {priority} decoding="async" width="{width}" height="{height}">'
+    return (f'<img src="/{e(thumb(image))}" alt="{e(alt)}" {priority} decoding="async" width="{width}" height="{height}" '
+            f'style="view-transition-name:{transition_name(image)}">')
+
+
+def sticky_cta(link):
+    return f'<div class="sticky-cta">{link}</div>' if link.startswith('<a ') else ''
 
 
 def hero_image(image, alt):
@@ -309,7 +319,7 @@ def hero_image(image, alt):
                            for path in (thumb(image), thumb(image, 800), image) if path in IMAGE_SIZES)
     return (f'<img class="hero-image" src="/{e(image)}" srcset="{candidates}" '
             f'sizes="(max-width:900px) 86vw, 560px" alt="{e(alt)}" width="{width}" height="{height}" '
-            f'fetchpriority="high" decoding="async">')
+            f'fetchpriority="high" decoding="async" style="view-transition-name:{transition_name(image)}">')
 
 
 def fit_title(name, language, limit=60):
@@ -397,6 +407,9 @@ def alternates(origin, paths):
         f'<link rel="alternate" hreflang="{LANGUAGES[language][0]}" href="{origin}{path}">'
         for language, path in paths.items()
     ]
+    # Spanish and Portuguese speakers outside Mexico and Brazil get these pages instead of the English fallback.
+    tags += [f'<link rel="alternate" hreflang="{language}" href="{origin}{paths[language]}">'
+             for language in ('es', 'pt') if language in paths]
     if 'en' in paths:
         tags.append(f'<link rel="alternate" hreflang="x-default" href="{origin}{paths["en"]}">')
     return '\n'.join(tags)
@@ -524,7 +537,7 @@ def generate(origin, data, products, page, write, image):
                 f'<p class="product-headline-sub">{e(headline)}</p><p>{e(desc)}</p>'
                 f'<div class="cta-row">{buy}<a class="button secondary" href="{studio}">{e(showroom)}</a></div>'
                 f'<p class="affiliate-disclosure">{e(ui["affiliateNote"])}</p>'
-                f'{dl_block}</section></div>{original}{related_block}</article>{language_links(paths)}'
+                f'{dl_block}</section></div>{original}{related_block}</article>{language_links(paths)}{sticky_cta(buy)}'
             )
             title = fit_title(name, language)
             description = fit_description(desc, language)
