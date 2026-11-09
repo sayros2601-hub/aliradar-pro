@@ -1,0 +1,72 @@
+{
+  "import-0064": {
+    "checked": "2026-11-09T20:48:30+00:00",
+    "currency": "USD",
+    "discount": "59%",
+    "item_id": "1005008888378454",
+    "orders": 86,
+    "original_price": "9.98",
+    "price": "4.06",
+    "rating": "90.4%"
+  },
+  "import-0129": {
+    "checked": "2026-11-09T20:48:30+00:00",
+    "currency": "USD",
+    "discount": "51%",
+    "item_id": "1005013363359765",
+    "orders": 0,
+    "original_price": "29.67",
+    "price": "14.54",
+    "rating": ""
+  },
+  "import-0211": {
+    "checked": "2026-11-09T20:48:30+00:00",
+    "currency": "USD",
+    "discount": "51%",
+    "item_id": "1005013169167872",
+    "orders": 0,
+    "original_price": "47.39",
+    "price": "23.22",
+    "rating": ""
+  },
+  "import-0216": {
+    "checked": "2026-11-09T20:48:30+00:00",
+    "currency": "USD",
+    "discount": "50%",
+    "item_id": "1005013008804363",
+    "orders": 0,
+    "original_price": "7.23",
+    "price": "3.62",
+    "rating": ""
+  },
+  "import-0231": {
+    "checked": "2026-11-09T20:48:30+00:00",
+    "currency": "USD",
+    "discount": "55%",
+    "item_id": "1005013323272142",
+    "orders": 0,
+    "original_price": "38.90",
+    "price": "17.51",
+    "rating": ""
+  },
+  "import-0530": {
+    "checked": "2026-11-09T20:48:30+00:00",
+    "currency": "USD",
+    "discount": "55%",
+    "item_id": "1005013088900668",
+    "orders": 0,
+    "original_price": "25.83",
+    "price": "11.62",
+    "rating": ""
+  },
+  "import-0545": {
+    "checked": "2026-11-09T20:48:30+00:00",
+    "currency": "USD",
+    "discount": "50%",
+    "item_id": "1005012904650795",
+    "orders": 0,
+    "original_price": "14.17",
+    "price": "7.09",
+    "rating": ""
+  }
+}
