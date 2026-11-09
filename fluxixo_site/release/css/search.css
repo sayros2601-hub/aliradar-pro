@@ -482,13 +482,20 @@ footer p{margin:0;font-size:12px;max-width:68ch}
   .brand{font-size:27px}
   .brand::before{font-size:23px}
   header nav{width:100%;justify-content:space-between;gap:8px}
-  .nav-pill{height:38px;padding:0 12px;font-size:11px;flex:1}
-  .lang-select{height:38px;font-size:11px}
+  .nav-pill{height:44px;padding:0 12px;font-size:12px;flex:1}
+  .lang-select{height:44px;font-size:12px}
   main{padding:24px 0 36px}
   .grid{grid-template-columns:1fr}
   .card img{height:200px}
+  .card .eyebrow{font-size:12px}
   .cta-row .button{width:100%}
+  .cat-links .button.secondary,.locale-links .button.secondary{min-height:44px;font-size:13px}
+  .breadcrumb a{display:inline-block;padding:11px 0}
+  .footer-links a{display:inline-block;padding:11px 0}
 }
+
+.about-page section{margin-top:28px}
+.about-page section:target h2{color:var(--accent)}
 
 body[data-theme="coral"]{--base:#180f1d;--accent:#ff9d79;--card-border:rgba(255,157,121,0.32);--card-bg:linear-gradient(155deg,#2e172a 0%,#190f1d 100%)}
 body[data-theme="sand"]{--base:#191410;--accent:#ffd273;--card-border:rgba(255,210,115,0.32);--card-bg:linear-gradient(155deg,#2a2118 0%,#191410 100%)}

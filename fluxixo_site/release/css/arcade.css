@@ -949,3 +949,15 @@ body.is-rtl-text .eyebrow{letter-spacing:0}
     background:rgba(255,255,255,0.05);
   }
 }
+
+/* Keep real copy legible on phones; decorative scene labels stay small. */
+@media(max-width:900px){
+  .affiliate-note,.stage-hint{font-size:12px;line-height:1.45}
+  .primary-button,.text-button,.collection-button,#collection-count{font-size:12px}
+}
+@media(max-width:440px){
+  .spin-label{font-size:12px}
+}
+
+.about-languages{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:13px}
+.about-languages a{display:inline-block;padding:11px 0;color:#f3ebff;text-decoration:underline;text-underline-offset:3px}

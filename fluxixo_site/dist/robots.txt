@@ -3,7 +3,13 @@ Allow: /
 
 User-agent: Yandex
 Allow: /
+Disallow: /en/
+Disallow: /pt/
+Disallow: /es/
+Disallow: /fr/
+Disallow: /he/
 Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term
 Clean-param: lang /
 
 Sitemap: https://www.fluxixo.shop/sitemap.xml
+Sitemap: https://www.fluxixo.shop/sitemap-ru.xml

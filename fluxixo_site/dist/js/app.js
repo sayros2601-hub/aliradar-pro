@@ -72,7 +72,7 @@
         span.append(document.createTextNode(line.slice(0, -1)));
         const dot = document.createElement('span'); dot.className = 'accent-dot'; dot.textContent = '.'; span.append(dot);
       } else span.textContent = line;
-      heading.append(span);
+      heading.append(span, ' ');
     });
     heading.dataset.long = product.headline.some(s => s.length > 19) ? 'true' : 'false';
   }
@@ -207,7 +207,7 @@
     $('details-image-label').textContent = product.imageNote || i18n.t('imageNote') || '';
     $('details-description').textContent = product.description || product.details;
     $('details-facts').replaceChildren();
-    product.facts.forEach(f => {
+    product.facts.filter(f => f.label !== 'Подборка').forEach(f => {
       const dt = document.createElement('dt'); dt.textContent = f.label;
       const dd = document.createElement('dd'); dd.textContent = f.value;
       $('details-facts').append(dt, dd);
