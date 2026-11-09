@@ -276,6 +276,8 @@ if not keyfile.exists():
     keyfile.write_text(secrets.token_hex(16), encoding='utf-8')
 key = keyfile.read_text().strip()
 write(key+'.txt', key)
+write('indexnow.txt', key)
+write('indexnow-key.txt', key)
 
 # Generate RSS 2.0 feed (/rss.xml)
 now_dt = datetime.now(timezone.utc)
