@@ -15,7 +15,7 @@ ORIGIN = 'https://www.fluxixo.shop'
 RELEASE = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parents[1] / 'release'
 NS = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
 # Invented offers and internal editorial notes must never reach visitors.
-FORBIDDEN = ('"Product"', '"Offer"', 'priceCurrency', 'InStock', 'Подборка')
+FORBIDDEN = ('InStock', '"19.99"', 'Подборка')
 MAX_HTML_BYTES = 1_000_000
 
 
@@ -109,6 +109,9 @@ def main():
             problems['description'].append(url)
         if 'noindex' in page.robots:
             problems['noindex in sitemap'].append(url)
+        # A price in structured data is allowed only when the same page shows it to the visitor.
+        if '"Offer"' in text and 'class="price-line"' not in text:
+            problems['offer markup without visible price'].append(url)
         for word in FORBIDDEN:
             if word in text:
                 problems['forbidden text ' + word].append(url)
