@@ -49,6 +49,36 @@ CLOUD_DISCOVERY_POOL = [
     ("find-069-luggage-scale", "digital hanging luggage scale portable travel suitcase", "BR", "Бразилия", "Дорожный безмен для багажа", ["Точный", "вес чемодана."], "В дороге", "Карманные подвесные весы на прочном ремешке с ЖК-экраном для взвешивания чемоданов перед вылетом.", "rose"),
     ("find-070-milk-thermometer", "digital kitchen probe thermometer cooking liquid candy", "ES", "Испания", "Кулинарный щуп-термометр", ["Контроль", "градуса."], "Кухня", "Тонкий стальной термощуп с мгновенным откликом на цифровом дисплее для напитков, сиропов и выпечки.", "blue"),
     ("find-071-key-safe", "wall mounted combination key lock box weatherproof", "FR", "Франция", "Кодовый мини-сейф для ключей", ["Доступ", "по коду."], "Дом", "Настенный металлический бокс с кодовым замком и защитной крышкой для безопасного хранения запасных ключей.", "coral"),
+    ("find-072-usb-tester", "usb c tester digital voltmeter ammeter power meter", "BR", "Бразилия", "USB-тестер тока и напряжения", ["Замер", "заряда."], "Техника", "Компактный прибор с цветным экраном показывает напряжение, ток и мощность зарядки через порт USB-C.", "sand"),
+    ("find-073-cabinet-light", "rechargeable motion sensor under cabinet led light bar magnetic", "MX", "Мексика", "Светильник с датчиком движения", ["Свет", "по шагу."], "Дом", "Тонкая аккумуляторная LED-планка на магнитном креплении включается при движении в шкафу, на кухне или в коридоре.", "lavender"),
+    ("find-074-oil-sprayer", "glass olive oil sprayer bottle kitchen cooking mister", "BR", "Бразилия", "Распылитель масла для кухни", ["Тонкий", "слой масла."], "Кухня", "Стеклянная бутылка с помпой распыляет масло мелким облаком для сковороды, салата, гриля и аэрогриля.", "rose"),
+    ("find-075-seat-gap-organizer", "car seat gap filler organizer storage box cup holder", "MX", "Мексика", "Органайзер в щель у сиденья", ["Всё", "под рукой."], "В дороге", "Узкий карман-вставка между сиденьем и консолью автомобиля удерживает телефон, ключи, карты и мелочи.", "blue"),
+    ("find-076-digital-caliper", "digital vernier caliper 150mm stainless steel lcd measuring tool", "BR", "Бразилия", "Цифровой штангенциркуль", ["Точность", "до сотых."], "Инструменты", "Стальной измерительный инструмент с ЖК-экраном для замера наружных и внутренних размеров и глубины деталей.", "coral"),
+    ("find-077-scalp-massager", "electric scalp massager rechargeable head kneading waterproof", "MX", "Мексика", "Электрический массажёр для головы", ["Отдых", "для головы."], "Уход", "Беспроводной массажёр с вращающимися силиконовыми насадками мягко разминает кожу головы дома и в душе.", "sand"),
+    ("find-078-hand-gripper", "adjustable hand grip strengthener counter forearm trainer", "BR", "Бразилия", "Кистевой эспандер со счётчиком", ["Крепкий", "хват."], "Спорт", "Пружинный тренажёр для кисти и предплечья с регулировкой нагрузки и механическим счётчиком сжатий.", "lavender"),
+    ("find-079-camping-lantern", "rechargeable led camping lantern magnetic hook tent light", "MX", "Мексика", "Аккумуляторный кемпинговый фонарь", ["Свет", "в палатке."], "На природе", "Подвесной светодиодный фонарь с крючком, магнитом и несколькими режимами яркости для палатки и стоянки.", "rose"),
+    ("find-080-paw-cleaner", "dog paw cleaner cup silicone portable pet foot washer", "BR", "Бразилия", "Лапомойка для собак", ["Чистые", "лапы."], "Питомцы", "Стакан с мягкими силиконовыми щетинками внутри помогает смыть грязь с лап собаки после прогулки.", "blue"),
+    ("find-081-presenter-remote", "wireless presenter remote clicker usb powerpoint slide pointer", "MX", "Мексика", "Беспроводной пульт для презентаций", ["Слайды", "одним нажатием."], "Техника", "Компактный кликер с USB-приёмником переключает слайды и управляет показом презентации на расстоянии.", "coral"),
+    ("find-082-soap-dispenser", "automatic touchless foaming soap dispenser rechargeable sensor", "BR", "Бразилия", "Сенсорный дозатор мыла", ["Пена", "без касаний."], "Дом", "Аккумуляторный диспенсер с инфракрасным датчиком выдаёт порцию мыльной пены, когда подносишь ладонь.", "sand"),
+    ("find-083-spoon-scale", "digital measuring spoon scale kitchen gram electronic lcd", "MX", "Мексика", "Мерная ложка-весы", ["Грамм", "в ложке."], "Кухня", "Электронная ложка с ЖК-экраном на ручке взвешивает специи, муку, чай и другие сыпучие продукты.", "lavender"),
+    ("find-084-sunshade-umbrella", "car windshield sun shade umbrella foldable front window", "BR", "Бразилия", "Зонт-шторка на лобовое стекло", ["Тень", "в салоне."], "В дороге", "Складной солнцезащитный экран раскрывается как зонт и закрывает лобовое стекло автомобиля на стоянке.", "rose"),
+    ("find-085-magnetic-wristband", "magnetic wristband tool holder screws nails drill bits", "MX", "Мексика", "Магнитный браслет для крепежа", ["Винты", "на запястье."], "Инструменты", "Тканевый напульсник со встроенными магнитами удерживает саморезы, гвозди, биты и свёрла во время работы.", "blue"),
+    ("find-086-makeup-mirror", "rechargeable led travel makeup mirror foldable lighted vanity", "BR", "Бразилия", "Складное зеркало с подсветкой", ["Ровный", "свет."], "Уход", "Компактное аккумуляторное зеркало со светодиодной рамкой и регулировкой яркости для макияжа в поездке.", "coral"),
+    ("find-087-ab-roller", "ab roller wheel automatic rebound elbow support core trainer", "MX", "Мексика", "Ролик для пресса с возвратом", ["Сильный", "кор."], "Спорт", "Широкое колесо с пружинным возвратом и упорами для локтей для тренировки мышц пресса и спины дома.", "sand"),
+    ("find-088-camping-hammock", "camping hammock with mosquito net portable nylon tree straps", "BR", "Бразилия", "Гамак с москитной сеткой", ["Сон", "под кронами."], "На природе", "Лёгкий нейлоновый гамак со встроенной сеткой от насекомых и стропами для крепления между деревьями.", "lavender"),
+    ("find-089-lick-mat", "silicone pet lick mat suction cup slow feeder dog", "MX", "Мексика", "Коврик для слизывания", ["Вкусная", "пауза."], "Питомцы", "Силиконовый рельефный коврик на присосках занимает питомца лакомством во время купания или стрижки когтей.", "rose"),
+    ("find-090-endoscope-camera", "usb c endoscope inspection camera waterproof led borescope cable", "BR", "Бразилия", "Гибкая камера-эндоскоп", ["Взгляд", "внутрь."], "Техника", "Тонкая водозащищённая камера на гибком кабеле с подсветкой для осмотра труб, моторов и узких полостей.", "blue"),
+    ("find-091-sunrise-alarm", "sunrise alarm clock wake up light bedside nature sounds", "MX", "Мексика", "Будильник с имитацией рассвета", ["Мягкое", "утро."], "Дом", "Прикроватная лампа-будильник постепенно прибавляет яркость перед сигналом и проигрывает звуки природы.", "coral"),
+    ("find-092-garlic-chopper", "mini electric garlic chopper usb rechargeable food processor", "BR", "Бразилия", "Мини-измельчитель чеснока", ["Быстрая", "нарезка."], "Кухня", "Компактный аккумуляторный чоппер с чашей и стальными ножами для чеснока, зелени, орехов и перца чили.", "sand"),
+    ("find-093-travel-adapter", "universal travel adapter worldwide plug usb c charger international", "MX", "Мексика", "Универсальный дорожный адаптер", ["Розетка", "в любой стране."], "В дороге", "Переходник с выдвижными вилками разных стандартов и портами USB для зарядки устройств в путешествии.", "lavender"),
+    ("find-094-electric-screwdriver", "mini electric precision screwdriver set rechargeable magnetic bits", "BR", "Бразилия", "Электрическая отвёртка для точных работ", ["Тонкая", "работа."], "Инструменты", "Аккумуляторная отвёртка-ручка с набором магнитных бит для ремонта телефонов, ноутбуков и мелкой техники.", "rose"),
+    ("find-095-brush-cleaner", "electric makeup brush cleaner spinner dryer usb", "MX", "Мексика", "Очиститель кистей для макияжа", ["Чистые", "кисти."], "Уход", "Электрическое устройство с чашей и вращающейся насадкой промывает и подсушивает косметические кисти.", "blue"),
+    ("find-096-weighted-hoop", "smart weighted hula hoop detachable links counter fitness", "BR", "Бразилия", "Обруч с грузом и счётчиком", ["Талия", "в движении."], "Спорт", "Разборный обруч из звеньев с грузиком на тросе и счётчиком оборотов для домашних кардиотренировок.", "coral"),
+    ("find-097-camp-shower", "portable rechargeable camping shower pump outdoor handheld", "MX", "Мексика", "Портативный походный душ", ["Душ", "без водопровода."], "На природе", "Аккумуляторная помпа с лейкой и шлангом подаёт воду из ведра или канистры на даче, в кемпинге и на пляже.", "sand"),
+    ("find-098-pet-water-bottle", "portable dog water bottle travel leak proof drinking cup", "BR", "Бразилия", "Дорожная поилка для собак", ["Вода", "на прогулке."], "Питомцы", "Бутылка с откидной чашей и кнопкой-клапаном позволяет напоить питомца на прогулке и слить остаток обратно.", "lavender"),
+    ("find-099-mini-keyboard", "mini wireless keyboard touchpad 2.4g backlit handheld tv box", "MX", "Мексика", "Мини-клавиатура с тачпадом", ["Пульт", "с клавишами."], "Техника", "Карманная беспроводная клавиатура с сенсорной панелью и подсветкой для ТВ-приставок, ПК и проекторов.", "rose"),
+    ("find-100-kinetic-doorbell", "wireless doorbell self powered no battery waterproof kinetic", "BR", "Бразилия", "Беспроводной звонок без батареек", ["Гость", "у двери."], "Дом", "Уличная кнопка вырабатывает энергию от нажатия и передаёт сигнал на приёмник в розетке с выбором мелодий.", "blue"),
+    ("find-101-cold-brew-maker", "cold brew coffee maker glass pitcher mesh filter", "MX", "Мексика", "Кувшин для колд-брю", ["Холодный", "настой."], "Кухня", "Стеклянный кувшин с мелким сетчатым фильтром для приготовления холодного кофе и чая в холодильнике.", "coral"),
 ]
 
 
@@ -294,7 +324,20 @@ def submit_indexnow() -> None:
         return
     key = key_file.read_text(encoding="utf-8").strip()
     urls = [loc.text for loc in ET.parse(sitemap_file).findall(".//{*}loc") if loc.text]
+    # Search engines ask for changed pages only; resubmitting the whole site every run gets the signal ignored.
+    state_file = SITE_ROOT / "tools" / "search-build-state.json"
+    if state_file.exists():
+        from datetime import datetime, timedelta, timezone
+        cutoff = datetime.now(timezone.utc) - timedelta(hours=36)
+        state = json.loads(state_file.read_text(encoding="utf-8"))
+        recent = {
+            "https://www.fluxixo.shop" + path
+            for path, entry in state.items()
+            if datetime.fromisoformat(entry["lastmod"]) >= cutoff
+        }
+        urls = [url for url in urls if url in recent]
     if not urls:
+        print("IndexNow: no pages changed, nothing to submit.")
         return
     payload = {
         "host": "www.fluxixo.shop",
@@ -330,6 +373,8 @@ def main() -> None:
 
     subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_search.py")], check=True)
     subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
+    # A release with broken pages stops here instead of reaching the live site.
+    subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "verify_release.py"), str(RELEASE)], check=True)
 
     if args.deploy:
         deploy_release()

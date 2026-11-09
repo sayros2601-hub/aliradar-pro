@@ -4721,6 +4721,1266 @@
       ],
       "description": "תיבת מתכת מוגנת לקיר עם מנעול קומבינציה ומכסה מגן לאחסון בטוח של מפתחות רזרביים."
     }
+  },
+  "find-072-usb-tester": {
+    "en": {
+      "name": "USB-C Power Meter Tester",
+      "headline": [
+        "Charge",
+        "measured."
+      ],
+      "description": "Compact inline tester with a color display that shows voltage, current and wattage while a USB-C device charges."
+    },
+    "pt": {
+      "name": "Testador USB-C de Tensão e Corrente",
+      "headline": [
+        "Carga",
+        "sob medida."
+      ],
+      "description": "Medidor compacto com tela colorida que mostra tensão, corrente e potência durante a recarga via USB-C."
+    },
+    "es": {
+      "name": "Probador USB-C de Voltaje y Corriente",
+      "headline": [
+        "Carga",
+        "bajo control."
+      ],
+      "description": "Medidor compacto con pantalla a color que muestra voltaje, corriente y potencia mientras carga un dispositivo USB-C."
+    },
+    "fr": {
+      "name": "Testeur USB-C de tension et de courant",
+      "headline": [
+        "Charge",
+        "mesurée."
+      ],
+      "description": "Testeur compact à écran couleur qui affiche la tension, l'intensité et la puissance pendant la recharge en USB-C."
+    },
+    "he": {
+      "name": "בודק מתח וזרם USB-C",
+      "headline": [
+        "טעינה",
+        "במדידה."
+      ],
+      "description": "מד קומפקטי עם צג צבעוני שמציג מתח, זרם והספק בזמן טעינה דרך חיבור USB-C."
+    }
+  },
+  "find-073-cabinet-light": {
+    "en": {
+      "name": "Rechargeable Motion Sensor Cabinet Light",
+      "headline": [
+        "Light",
+        "on cue."
+      ],
+      "description": "Slim rechargeable LED bar with a magnetic mount that switches on when it senses movement in closets, kitchens or hallways."
+    },
+    "pt": {
+      "name": "Luminária LED Recarregável com Sensor de Movimento",
+      "headline": [
+        "Luz",
+        "na hora."
+      ],
+      "description": "Barra de LED fina e recarregável com fixação magnética que acende ao detectar movimento em armários, cozinhas e corredores."
+    },
+    "es": {
+      "name": "Luz LED Recargable con Sensor de Movimiento",
+      "headline": [
+        "Luz",
+        "al paso."
+      ],
+      "description": "Barra LED delgada y recargable con montaje magnético que se enciende al detectar movimiento en clósets, cocinas y pasillos."
+    },
+    "fr": {
+      "name": "Réglette LED rechargeable à détecteur de mouvement",
+      "headline": [
+        "Lumière",
+        "au passage."
+      ],
+      "description": "Fine réglette LED rechargeable à fixation magnétique qui s'allume au moindre mouvement dans un placard, une cuisine ou un couloir."
+    },
+    "he": {
+      "name": "תאורת לד נטענת עם חיישן תנועה",
+      "headline": [
+        "אור",
+        "בכל צעד."
+      ],
+      "description": "פס לד דק ונטען עם חיבור מגנטי שנדלק כשמזוהה תנועה בארון, במטבח או במסדרון."
+    }
+  },
+  "find-074-oil-sprayer": {
+    "en": {
+      "name": "Glass Cooking Oil Sprayer Bottle",
+      "headline": [
+        "A fine",
+        "mist of oil."
+      ],
+      "description": "Refillable glass bottle with a pump nozzle that sprays oil in a fine mist for pans, salads, grills and air fryers."
+    },
+    "pt": {
+      "name": "Borrifador de Azeite em Vidro para Cozinha",
+      "headline": [
+        "Névoa",
+        "de azeite."
+      ],
+      "description": "Frasco de vidro recarregável com bico spray que distribui o óleo em névoa fina para frigideiras, saladas e air fryers."
+    },
+    "es": {
+      "name": "Atomizador de Aceite de Vidrio para Cocina",
+      "headline": [
+        "Rocío",
+        "de aceite."
+      ],
+      "description": "Botella de vidrio recargable con boquilla que rocía el aceite en una bruma fina para sartenes, ensaladas y freidoras de aire."
+    },
+    "fr": {
+      "name": "Vaporisateur d'huile en verre pour la cuisine",
+      "headline": [
+        "Un voile",
+        "d'huile."
+      ],
+      "description": "Flacon en verre rechargeable dont la buse diffuse l'huile en brume fine pour les poêles, les salades et les friteuses à air."
+    },
+    "he": {
+      "name": "בקבוק זכוכית לריסוס שמן",
+      "headline": [
+        "שכבה דקה",
+        "של שמן."
+      ],
+      "description": "בקבוק זכוכית למילוי חוזר עם משאבה שמרססת שמן בערפל עדין למחבת, לסלט, לגריל ולסיר הטיגון באוויר."
+    }
+  },
+  "find-075-seat-gap-organizer": {
+    "en": {
+      "name": "Car Seat Gap Filler Organizer",
+      "headline": [
+        "All",
+        "within reach."
+      ],
+      "description": "Narrow storage pocket that fits between the car seat and center console to hold a phone, keys, cards and small items."
+    },
+    "pt": {
+      "name": "Organizador para Vão do Banco do Carro",
+      "headline": [
+        "Tudo",
+        "à mão."
+      ],
+      "description": "Porta-objetos estreito que se encaixa entre o banco e o console do carro para guardar celular, chaves, cartões e miudezas."
+    },
+    "es": {
+      "name": "Organizador para Hueco del Asiento del Auto",
+      "headline": [
+        "Todo",
+        "a la mano."
+      ],
+      "description": "Bolsillo angosto que se coloca entre el asiento y la consola del auto para guardar celular, llaves, tarjetas y objetos pequeños."
+    },
+    "fr": {
+      "name": "Rangement d'interstice pour siège de voiture",
+      "headline": [
+        "Tout",
+        "à portée."
+      ],
+      "description": "Vide-poche étroit qui se glisse entre le siège et la console centrale pour ranger téléphone, clés, cartes et petits objets."
+    },
+    "he": {
+      "name": "אורגנייזר לרווח שבין מושבי הרכב",
+      "headline": [
+        "הכול",
+        "בהישג יד."
+      ],
+      "description": "כיס אחסון צר שמשתלב בין המושב לקונסולה ברכב ומחזיק טלפון, מפתחות, כרטיסים וחפצים קטנים."
+    }
+  },
+  "find-076-digital-caliper": {
+    "en": {
+      "name": "Stainless Steel Digital Caliper",
+      "headline": [
+        "Measured",
+        "to the hundredth."
+      ],
+      "description": "Stainless steel measuring tool with an LCD readout for outside, inside and depth dimensions of small parts."
+    },
+    "pt": {
+      "name": "Paquímetro Digital em Aço Inox",
+      "headline": [
+        "Medida",
+        "exata."
+      ],
+      "description": "Instrumento de aço inox com visor LCD para medir dimensões externas, internas e de profundidade de peças pequenas."
+    },
+    "es": {
+      "name": "Calibrador Vernier Digital de Acero Inoxidable",
+      "headline": [
+        "Medida",
+        "exacta."
+      ],
+      "description": "Herramienta de acero inoxidable con pantalla LCD para medir dimensiones exteriores, interiores y de profundidad en piezas pequeñas."
+    },
+    "fr": {
+      "name": "Pied à coulisse numérique en inox",
+      "headline": [
+        "Mesure",
+        "au centième."
+      ],
+      "description": "Outil de mesure en acier inoxydable à écran LCD pour relever les cotes extérieures, intérieures et la profondeur des petites pièces."
+    },
+    "he": {
+      "name": "קליבר דיגיטלי מנירוסטה",
+      "headline": [
+        "מדידה",
+        "מדויקת."
+      ],
+      "description": "כלי מדידה מנירוסטה עם צג LCD למדידת קוטר חיצוני, פנימי ועומק של חלקים קטנים."
+    }
+  },
+  "find-077-scalp-massager": {
+    "en": {
+      "name": "Rechargeable Electric Scalp Massager",
+      "headline": [
+        "Unwind",
+        "from the top."
+      ],
+      "description": "Cordless handheld massager with rotating silicone nodes that gently knead the scalp at home or in the shower."
+    },
+    "pt": {
+      "name": "Massageador Elétrico de Couro Cabeludo",
+      "headline": [
+        "Relaxe",
+        "a cabeça."
+      ],
+      "description": "Massageador sem fio com pontas giratórias de silicone que massageiam suavemente o couro cabeludo em casa ou no banho."
+    },
+    "es": {
+      "name": "Masajeador Eléctrico para Cuero Cabelludo",
+      "headline": [
+        "Descanso",
+        "para la cabeza."
+      ],
+      "description": "Masajeador inalámbrico con cabezales giratorios de silicón que masajean suavemente el cuero cabelludo en casa o en la regadera."
+    },
+    "fr": {
+      "name": "Masseur électrique pour cuir chevelu",
+      "headline": [
+        "Détente",
+        "de la tête."
+      ],
+      "description": "Masseur sans fil à têtes rotatives en silicone qui pétrissent délicatement le cuir chevelu, à la maison comme sous la douche."
+    },
+    "he": {
+      "name": "מכשיר עיסוי חשמלי לקרקפת",
+      "headline": [
+        "רגע",
+        "של רוגע."
+      ],
+      "description": "מכשיר עיסוי אלחוטי עם ראשי סיליקון מסתובבים שמעסים בעדינות את הקרקפת בבית או במקלחת."
+    }
+  },
+  "find-078-hand-gripper": {
+    "en": {
+      "name": "Adjustable Hand Grip Strengthener with Counter",
+      "headline": [
+        "Firm",
+        "grip."
+      ],
+      "description": "Spring-loaded hand and forearm trainer with adjustable resistance and a mechanical counter that tracks each squeeze."
+    },
+    "pt": {
+      "name": "Hand Grip Ajustável com Contador",
+      "headline": [
+        "Pegada",
+        "firme."
+      ],
+      "description": "Exercitador de mão e antebraço com mola, resistência regulável e contador mecânico de repetições."
+    },
+    "es": {
+      "name": "Ejercitador de Mano Ajustable con Contador",
+      "headline": [
+        "Agarre",
+        "firme."
+      ],
+      "description": "Ejercitador de resorte para mano y antebrazo con resistencia ajustable y contador mecánico de repeticiones."
+    },
+    "fr": {
+      "name": "Pince de musculation réglable avec compteur",
+      "headline": [
+        "Poigne",
+        "solide."
+      ],
+      "description": "Pince à ressort pour la main et l'avant-bras, avec résistance réglable et compteur mécanique de répétitions."
+    },
+    "he": {
+      "name": "מאמן אחיזה מתכוונן עם מונה",
+      "headline": [
+        "אחיזה",
+        "חזקה."
+      ],
+      "description": "מאמן קפיצי לכף היד ולאמה עם התנגדות מתכווננת ומונה מכני שסופר כל לחיצה."
+    }
+  },
+  "find-079-camping-lantern": {
+    "en": {
+      "name": "Rechargeable LED Camping Lantern",
+      "headline": [
+        "Light",
+        "for the tent."
+      ],
+      "description": "Hanging LED lantern with a hook, magnetic base and several brightness modes for tents and campsites."
+    },
+    "pt": {
+      "name": "Lanterna de Camping LED Recarregável",
+      "headline": [
+        "Luz",
+        "na barraca."
+      ],
+      "description": "Lampião de LED para pendurar, com gancho, base magnética e vários níveis de brilho para barracas e acampamentos."
+    },
+    "es": {
+      "name": "Linterna LED Recargable para Acampar",
+      "headline": [
+        "Luz",
+        "en la tienda."
+      ],
+      "description": "Lámpara LED colgante con gancho, base magnética y varios niveles de brillo para tiendas de campaña y campamentos."
+    },
+    "fr": {
+      "name": "Lanterne de camping LED rechargeable",
+      "headline": [
+        "Lumière",
+        "sous la tente."
+      ],
+      "description": "Lanterne LED à suspendre avec crochet, base aimantée et plusieurs niveaux d'intensité pour la tente et le bivouac."
+    },
+    "he": {
+      "name": "פנס קמפינג לד נטען",
+      "headline": [
+        "אור",
+        "באוהל."
+      ],
+      "description": "פנס לד לתלייה עם וו, בסיס מגנטי וכמה מצבי תאורה לאוהל ולמחנה."
+    }
+  },
+  "find-080-paw-cleaner": {
+    "en": {
+      "name": "Silicone Dog Paw Cleaner Cup",
+      "headline": [
+        "Clean",
+        "paws."
+      ],
+      "description": "Portable cup lined with soft silicone bristles that helps rinse dirt from a dog's paws after a walk."
+    },
+    "pt": {
+      "name": "Lava-Patas Portátil de Silicone para Cães",
+      "headline": [
+        "Patas",
+        "limpas."
+      ],
+      "description": "Copo portátil com cerdas macias de silicone que ajuda a tirar a sujeira das patas do cachorro depois do passeio."
+    },
+    "es": {
+      "name": "Limpiador de Patas de Silicón para Perros",
+      "headline": [
+        "Patas",
+        "limpias."
+      ],
+      "description": "Vaso portátil con cerdas suaves de silicón que ayuda a quitar la suciedad de las patas del perro después del paseo."
+    },
+    "fr": {
+      "name": "Nettoyeur de pattes en silicone pour chien",
+      "headline": [
+        "Pattes",
+        "propres."
+      ],
+      "description": "Gobelet portable garni de picots souples en silicone pour rincer les pattes du chien au retour de promenade."
+    },
+    "he": {
+      "name": "כוס סיליקון לניקוי כפות כלבים",
+      "headline": [
+        "כפות",
+        "נקיות."
+      ],
+      "description": "כוס ניידת עם זיפי סיליקון רכים שעוזרת לשטוף לכלוך מכפות הכלב אחרי הטיול."
+    }
+  },
+  "find-081-presenter-remote": {
+    "en": {
+      "name": "Wireless Presentation Clicker Remote",
+      "headline": [
+        "Slides",
+        "at a click."
+      ],
+      "description": "Compact clicker with a USB receiver that flips slides and controls a presentation from across the room."
+    },
+    "pt": {
+      "name": "Passador de Slides Sem Fio para Apresentações",
+      "headline": [
+        "Slides",
+        "em um clique."
+      ],
+      "description": "Controle compacto com receptor USB que avança os slides e comanda a apresentação à distância."
+    },
+    "es": {
+      "name": "Presentador Inalámbrico para Diapositivas",
+      "headline": [
+        "Diapositivas",
+        "con un clic."
+      ],
+      "description": "Control compacto con receptor USB que cambia las diapositivas y maneja la presentación a distancia."
+    },
+    "fr": {
+      "name": "Télécommande de présentation sans fil",
+      "headline": [
+        "Diapos",
+        "en un clic."
+      ],
+      "description": "Télécommande compacte avec récepteur USB pour faire défiler les diapositives et piloter une présentation à distance."
+    },
+    "he": {
+      "name": "שלט אלחוטי למצגות",
+      "headline": [
+        "שקפים",
+        "בלחיצה."
+      ],
+      "description": "שלט קומפקטי עם מקלט USB שמעביר שקפים ושולט במצגת מכל מקום בחדר."
+    }
+  },
+  "find-082-soap-dispenser": {
+    "en": {
+      "name": "Touchless Automatic Foaming Soap Dispenser",
+      "headline": [
+        "Foam,",
+        "hands-free."
+      ],
+      "description": "Rechargeable dispenser with an infrared sensor that releases a portion of soap foam when a hand comes near."
+    },
+    "pt": {
+      "name": "Dispenser Automático de Sabonete em Espuma",
+      "headline": [
+        "Espuma",
+        "sem toque."
+      ],
+      "description": "Saboneteira recarregável com sensor infravermelho que libera uma dose de espuma ao aproximar a mão."
+    },
+    "es": {
+      "name": "Dispensador Automático de Jabón en Espuma",
+      "headline": [
+        "Espuma",
+        "sin tocar."
+      ],
+      "description": "Dispensador recargable con sensor infrarrojo que libera una dosis de espuma de jabón al acercar la mano."
+    },
+    "fr": {
+      "name": "Distributeur automatique de savon mousse",
+      "headline": [
+        "Mousse",
+        "sans contact."
+      ],
+      "description": "Distributeur rechargeable à capteur infrarouge qui délivre une dose de mousse de savon dès qu'une main s'approche."
+    },
+    "he": {
+      "name": "מתקן סבון קצף אוטומטי ללא מגע",
+      "headline": [
+        "קצף",
+        "בלי מגע."
+      ],
+      "description": "מתקן נטען עם חיישן אינפרה-אדום שמוציא מנת קצף סבון כשמקרבים את היד."
+    }
+  },
+  "find-083-spoon-scale": {
+    "en": {
+      "name": "Digital Measuring Spoon Scale",
+      "headline": [
+        "Grams",
+        "by the spoon."
+      ],
+      "description": "Electronic spoon with an LCD in the handle that weighs spices, flour, tea and other loose ingredients."
+    },
+    "pt": {
+      "name": "Colher Medidora com Balança Digital",
+      "headline": [
+        "Gramas",
+        "na colher."
+      ],
+      "description": "Colher eletrônica com visor LCD no cabo que pesa temperos, farinha, chá e outros ingredientes secos."
+    },
+    "es": {
+      "name": "Cuchara Medidora con Báscula Digital",
+      "headline": [
+        "Gramos",
+        "en la cuchara."
+      ],
+      "description": "Cuchara electrónica con pantalla LCD en el mango que pesa especias, harina, té y otros ingredientes secos."
+    },
+    "fr": {
+      "name": "Cuillère doseuse à balance numérique",
+      "headline": [
+        "Le gramme",
+        "à la cuillère."
+      ],
+      "description": "Cuillère électronique à écran LCD intégré au manche pour peser épices, farine, thé et autres ingrédients secs."
+    },
+    "he": {
+      "name": "כף מדידה עם משקל דיגיטלי",
+      "headline": [
+        "גרמים",
+        "בכף אחת."
+      ],
+      "description": "כף אלקטרונית עם צג LCD בידית ששוקלת תבלינים, קמח, תה ומרכיבים יבשים אחרים."
+    }
+  },
+  "find-084-sunshade-umbrella": {
+    "en": {
+      "name": "Foldable Car Windshield Sun Shade Umbrella",
+      "headline": [
+        "Shade",
+        "inside."
+      ],
+      "description": "Folding sun screen that opens like an umbrella to cover the car windshield while parked."
+    },
+    "pt": {
+      "name": "Protetor Solar Tipo Guarda-Chuva para Para-Brisa",
+      "headline": [
+        "Sombra",
+        "no carro."
+      ],
+      "description": "Quebra-sol dobrável que abre como um guarda-chuva e cobre o para-brisa do carro estacionado."
+    },
+    "es": {
+      "name": "Parasol Tipo Sombrilla para Parabrisas",
+      "headline": [
+        "Sombra",
+        "en el auto."
+      ],
+      "description": "Parasol plegable que se abre como sombrilla y cubre el parabrisas del auto mientras está estacionado."
+    },
+    "fr": {
+      "name": "Pare-soleil parapluie pour pare-brise",
+      "headline": [
+        "Ombre",
+        "à bord."
+      ],
+      "description": "Pare-soleil pliant qui s'ouvre comme un parapluie pour couvrir le pare-brise de la voiture en stationnement."
+    },
+    "he": {
+      "name": "מגן שמש מתקפל דמוי מטרייה לשמשת הרכב",
+      "headline": [
+        "צל",
+        "בתוך הרכב."
+      ],
+      "description": "מגן שמש מתקפל שנפתח כמו מטרייה ומכסה את השמשה הקדמית בזמן חנייה."
+    }
+  },
+  "find-085-magnetic-wristband": {
+    "en": {
+      "name": "Magnetic Wristband for Screws and Bits",
+      "headline": [
+        "Screws",
+        "on your wrist."
+      ],
+      "description": "Fabric wrist strap with embedded magnets that holds screws, nails, bits and drill bits while you work."
+    },
+    "pt": {
+      "name": "Pulseira Magnética para Parafusos e Brocas",
+      "headline": [
+        "Parafusos",
+        "no pulso."
+      ],
+      "description": "Munhequeira de tecido com ímãs embutidos que segura parafusos, pregos, bits e brocas durante o trabalho."
+    },
+    "es": {
+      "name": "Pulsera Magnética para Tornillos y Brocas",
+      "headline": [
+        "Tornillos",
+        "en la muñeca."
+      ],
+      "description": "Muñequera de tela con imanes integrados que sujeta tornillos, clavos, puntas y brocas mientras trabajas."
+    },
+    "fr": {
+      "name": "Bracelet magnétique pour vis et forets",
+      "headline": [
+        "Vis",
+        "au poignet."
+      ],
+      "description": "Bracelet en tissu à aimants intégrés qui retient vis, clous, embouts et forets pendant les travaux."
+    },
+    "he": {
+      "name": "רצועת יד מגנטית לברגים ומקדחים",
+      "headline": [
+        "ברגים",
+        "על היד."
+      ],
+      "description": "רצועת בד עם מגנטים מובנים שמחזיקה ברגים, מסמרים, ביטים ומקדחים בזמן העבודה."
+    }
+  },
+  "find-086-makeup-mirror": {
+    "en": {
+      "name": "Rechargeable LED Travel Makeup Mirror",
+      "headline": [
+        "Even",
+        "light."
+      ],
+      "description": "Compact folding mirror with an LED frame and adjustable brightness for doing makeup on the go."
+    },
+    "pt": {
+      "name": "Espelho de Maquiagem Dobrável com LED Recarregável",
+      "headline": [
+        "Luz",
+        "uniforme."
+      ],
+      "description": "Espelho compacto e dobrável com moldura de LED e brilho ajustável para se maquiar em qualquer lugar."
+    },
+    "es": {
+      "name": "Espejo de Maquillaje Plegable con Luz LED Recargable",
+      "headline": [
+        "Luz",
+        "pareja."
+      ],
+      "description": "Espejo compacto y plegable con marco LED y brillo ajustable para maquillarte donde sea."
+    },
+    "fr": {
+      "name": "Miroir de maquillage pliant à LED rechargeable",
+      "headline": [
+        "Lumière",
+        "homogène."
+      ],
+      "description": "Miroir compact et pliant à cadre lumineux LED et intensité réglable pour se maquiller en déplacement."
+    },
+    "he": {
+      "name": "מראת איפור מתקפלת עם תאורת לד נטענת",
+      "headline": [
+        "אור",
+        "אחיד."
+      ],
+      "description": "מראה קומפקטית ומתקפלת עם מסגרת לד ועוצמת תאורה מתכווננת לאיפור בדרכים."
+    }
+  },
+  "find-087-ab-roller": {
+    "en": {
+      "name": "Rebound Ab Roller Wheel with Elbow Support",
+      "headline": [
+        "Strong",
+        "core."
+      ],
+      "description": "Wide wheel with spring-assisted return and elbow pads for training abdominal and back muscles at home."
+    },
+    "pt": {
+      "name": "Roda Abdominal com Retorno Automático e Apoio de Cotovelos",
+      "headline": [
+        "Core",
+        "forte."
+      ],
+      "description": "Roda larga com retorno por mola e apoio para os cotovelos para treinar abdômen e costas em casa."
+    },
+    "es": {
+      "name": "Rueda Abdominal con Rebote Automático y Soporte para Codos",
+      "headline": [
+        "Core",
+        "fuerte."
+      ],
+      "description": "Rueda ancha con retorno por resorte y apoyo para codos para entrenar abdomen y espalda en casa."
+    },
+    "fr": {
+      "name": "Roue abdominale à retour automatique avec appui-coudes",
+      "headline": [
+        "Gainage",
+        "solide."
+      ],
+      "description": "Large roue à retour assisté par ressort et appuis pour les coudes pour travailler abdominaux et dos à la maison."
+    },
+    "he": {
+      "name": "גלגל בטן עם החזרה אוטומטית ותמיכה למרפקים",
+      "headline": [
+        "ליבה",
+        "חזקה."
+      ],
+      "description": "גלגל רחב עם קפיץ החזרה ומשענות למרפקים לאימון שרירי הבטן והגב בבית."
+    }
+  },
+  "find-088-camping-hammock": {
+    "en": {
+      "name": "Camping Hammock with Mosquito Net",
+      "headline": [
+        "Sleep",
+        "among the trees."
+      ],
+      "description": "Lightweight nylon hammock with a built-in bug net and straps for hanging between two trees."
+    },
+    "pt": {
+      "name": "Rede de Camping com Mosquiteiro",
+      "headline": [
+        "Sono",
+        "entre árvores."
+      ],
+      "description": "Rede leve de nylon com mosquiteiro embutido e fitas para prender entre duas árvores."
+    },
+    "es": {
+      "name": "Hamaca para Acampar con Mosquitero",
+      "headline": [
+        "Sueño",
+        "entre árboles."
+      ],
+      "description": "Hamaca ligera de nailon con mosquitero integrado y correas para colgarla entre dos árboles."
+    },
+    "fr": {
+      "name": "Hamac de camping avec moustiquaire",
+      "headline": [
+        "Sieste",
+        "sous les arbres."
+      ],
+      "description": "Hamac léger en nylon avec moustiquaire intégrée et sangles pour l'accrocher entre deux arbres."
+    },
+    "he": {
+      "name": "ערסל קמפינג עם כילה נגד יתושים",
+      "headline": [
+        "שינה",
+        "בין העצים."
+      ],
+      "description": "ערסל ניילון קל עם רשת מובנית נגד חרקים ורצועות לתלייה בין שני עצים."
+    }
+  },
+  "find-089-lick-mat": {
+    "en": {
+      "name": "Silicone Pet Lick Mat with Suction Cups",
+      "headline": [
+        "A tasty",
+        "pause."
+      ],
+      "description": "Textured silicone mat with suction cups that keeps a pet busy with a treat during baths or nail trims."
+    },
+    "pt": {
+      "name": "Tapete de Lamber em Silicone com Ventosas para Pets",
+      "headline": [
+        "Pausa",
+        "gostosa."
+      ],
+      "description": "Tapete de silicone texturizado com ventosas que distrai o pet com um petisco durante o banho ou o corte de unhas."
+    },
+    "es": {
+      "name": "Tapete de Lamer de Silicón con Ventosas para Mascotas",
+      "headline": [
+        "Pausa",
+        "sabrosa."
+      ],
+      "description": "Tapete texturizado de silicón con ventosas que entretiene a tu mascota con un premio durante el baño o el corte de uñas."
+    },
+    "fr": {
+      "name": "Tapis de léchage en silicone à ventouses",
+      "headline": [
+        "Pause",
+        "gourmande."
+      ],
+      "description": "Tapis en silicone texturé à ventouses qui occupe l'animal avec une friandise pendant le bain ou la coupe des griffes."
+    },
+    "he": {
+      "name": "משטח ליקוק מסיליקון עם ואקום לחיות מחמד",
+      "headline": [
+        "הפסקה",
+        "טעימה."
+      ],
+      "description": "משטח סיליקון מחוספס עם כוסות יניקה שמעסיק את חיית המחמד בחטיף בזמן רחצה או גזיזת ציפורניים."
+    }
+  },
+  "find-090-endoscope-camera": {
+    "en": {
+      "name": "USB-C Endoscope Inspection Camera",
+      "headline": [
+        "A look",
+        "inside."
+      ],
+      "description": "Slim waterproof camera on a flexible cable with LED lighting for inspecting pipes, engines and tight cavities."
+    },
+    "pt": {
+      "name": "Câmera Endoscópica de Inspeção USB-C",
+      "headline": [
+        "Olhar",
+        "por dentro."
+      ],
+      "description": "Câmera fina à prova d'água em cabo flexível com LEDs para inspecionar canos, motores e cavidades estreitas."
+    },
+    "es": {
+      "name": "Cámara Endoscópica de Inspección USB-C",
+      "headline": [
+        "Mirada",
+        "al interior."
+      ],
+      "description": "Cámara delgada a prueba de agua en cable flexible con luces LED para revisar tuberías, motores y huecos estrechos."
+    },
+    "fr": {
+      "name": "Caméra endoscope d'inspection USB-C",
+      "headline": [
+        "Regard",
+        "à l'intérieur."
+      ],
+      "description": "Fine caméra étanche sur câble flexible avec éclairage LED pour inspecter canalisations, moteurs et recoins étroits."
+    },
+    "he": {
+      "name": "מצלמת אנדוסקופ לבדיקה בחיבור USB-C",
+      "headline": [
+        "מבט",
+        "פנימה."
+      ],
+      "description": "מצלמה דקה ועמידה במים על כבל גמיש עם תאורת לד לבדיקת צנרת, מנועים וחללים צרים."
+    }
+  },
+  "find-091-sunrise-alarm": {
+    "en": {
+      "name": "Sunrise Simulation Alarm Clock",
+      "headline": [
+        "Gentle",
+        "mornings."
+      ],
+      "description": "Bedside lamp alarm that gradually brightens before the wake-up time and plays nature sounds."
+    },
+    "pt": {
+      "name": "Despertador com Simulação de Nascer do Sol",
+      "headline": [
+        "Manhã",
+        "suave."
+      ],
+      "description": "Luminária despertador de cabeceira que aumenta o brilho aos poucos antes do alarme e toca sons da natureza."
+    },
+    "es": {
+      "name": "Despertador con Simulación de Amanecer",
+      "headline": [
+        "Mañanas",
+        "suaves."
+      ],
+      "description": "Lámpara despertador de buró que aumenta su brillo poco a poco antes de la alarma y reproduce sonidos de la naturaleza."
+    },
+    "fr": {
+      "name": "Réveil simulateur d'aube",
+      "headline": [
+        "Matin",
+        "en douceur."
+      ],
+      "description": "Lampe-réveil de chevet dont la lumière s'intensifie progressivement avant la sonnerie, avec sons de la nature."
+    },
+    "he": {
+      "name": "שעון מעורר עם הדמיית זריחה",
+      "headline": [
+        "בוקר",
+        "רך."
+      ],
+      "description": "מנורת לילה מעוררת שמגבירה את האור בהדרגה לפני הצלצול ומשמיעה צלילי טבע."
+    }
+  },
+  "find-092-garlic-chopper": {
+    "en": {
+      "name": "Mini Electric Garlic Chopper",
+      "headline": [
+        "Quick",
+        "chopping."
+      ],
+      "description": "Compact rechargeable chopper with a bowl and steel blades for garlic, herbs, nuts and chili peppers."
+    },
+    "pt": {
+      "name": "Mini Processador Elétrico de Alho",
+      "headline": [
+        "Corte",
+        "rápido."
+      ],
+      "description": "Triturador compacto e recarregável com copo e lâminas de aço para alho, ervas, castanhas e pimenta."
+    },
+    "es": {
+      "name": "Mini Picador Eléctrico de Ajo",
+      "headline": [
+        "Picado",
+        "rápido."
+      ],
+      "description": "Picador compacto y recargable con vaso y cuchillas de acero para ajo, hierbas, nueces y chiles."
+    },
+    "fr": {
+      "name": "Mini hachoir électrique à ail",
+      "headline": [
+        "Hachage",
+        "express."
+      ],
+      "description": "Hachoir compact et rechargeable avec bol et lames en acier pour l'ail, les herbes, les noix et le piment."
+    },
+    "he": {
+      "name": "קוצץ שום חשמלי מיני",
+      "headline": [
+        "קיצוץ",
+        "מהיר."
+      ],
+      "description": "קוצץ קומפקטי ונטען עם קערה ולהבי פלדה לשום, עשבי תיבול, אגוזים ופלפל חריף."
+    }
+  },
+  "find-093-travel-adapter": {
+    "en": {
+      "name": "Universal Travel Plug Adapter with USB-C",
+      "headline": [
+        "One plug,",
+        "many countries."
+      ],
+      "description": "All-in-one adapter with sliding plugs for different socket standards and USB ports for charging devices abroad."
+    },
+    "pt": {
+      "name": "Adaptador de Tomada Universal de Viagem com USB-C",
+      "headline": [
+        "Tomada",
+        "em qualquer país."
+      ],
+      "description": "Adaptador com pinos retráteis de vários padrões e portas USB para carregar aparelhos durante a viagem."
+    },
+    "es": {
+      "name": "Adaptador Universal de Viaje con USB-C",
+      "headline": [
+        "Enchufe",
+        "en cualquier país."
+      ],
+      "description": "Adaptador con clavijas retráctiles de distintos estándares y puertos USB para cargar tus dispositivos en el extranjero."
+    },
+    "fr": {
+      "name": "Adaptateur de voyage universel avec USB-C",
+      "headline": [
+        "Une prise",
+        "pour chaque pays."
+      ],
+      "description": "Adaptateur tout-en-un à fiches rétractables de différents standards et ports USB pour recharger ses appareils à l'étranger."
+    },
+    "he": {
+      "name": "מתאם חשמל אוניברסלי לנסיעות עם USB-C",
+      "headline": [
+        "שקע",
+        "בכל מדינה."
+      ],
+      "description": "מתאם עם תקעים נשלפים בתקנים שונים ויציאות USB לטעינת מכשירים בחו\"ל."
+    }
+  },
+  "find-094-electric-screwdriver": {
+    "en": {
+      "name": "Mini Electric Precision Screwdriver Set",
+      "headline": [
+        "Fine",
+        "work."
+      ],
+      "description": "Rechargeable pen-style screwdriver with a set of magnetic bits for repairing phones, laptops and small electronics."
+    },
+    "pt": {
+      "name": "Kit de Chave de Precisão Elétrica Recarregável",
+      "headline": [
+        "Trabalho",
+        "fino."
+      ],
+      "description": "Parafusadeira recarregável em formato de caneta com bits magnéticos para consertar celulares, notebooks e eletrônicos pequenos."
+    },
+    "es": {
+      "name": "Juego de Destornillador Eléctrico de Precisión",
+      "headline": [
+        "Trabajo",
+        "fino."
+      ],
+      "description": "Destornillador recargable tipo pluma con puntas magnéticas para reparar celulares, laptops y electrónicos pequeños."
+    },
+    "fr": {
+      "name": "Tournevis électrique de précision avec embouts",
+      "headline": [
+        "Travail",
+        "minutieux."
+      ],
+      "description": "Tournevis stylo rechargeable avec jeu d'embouts magnétiques pour réparer téléphones, ordinateurs portables et petite électronique."
+    },
+    "he": {
+      "name": "סט מברגה חשמלית עדינה נטענת",
+      "headline": [
+        "עבודה",
+        "עדינה."
+      ],
+      "description": "מברגה נטענת בצורת עט עם סט ביטים מגנטיים לתיקון טלפונים, מחשבים ניידים ומכשירים קטנים."
+    }
+  },
+  "find-095-brush-cleaner": {
+    "en": {
+      "name": "Electric Makeup Brush Cleaner and Dryer",
+      "headline": [
+        "Clean",
+        "brushes."
+      ],
+      "description": "Electric device with a bowl and spinning holder that washes and spin-dries cosmetic brushes."
+    },
+    "pt": {
+      "name": "Limpador Elétrico de Pincéis de Maquiagem",
+      "headline": [
+        "Pincéis",
+        "limpos."
+      ],
+      "description": "Aparelho elétrico com cuba e suporte giratório que lava e seca pincéis de maquiagem."
+    },
+    "es": {
+      "name": "Limpiador Eléctrico de Brochas de Maquillaje",
+      "headline": [
+        "Brochas",
+        "limpias."
+      ],
+      "description": "Aparato eléctrico con recipiente y soporte giratorio que lava y seca las brochas de maquillaje."
+    },
+    "fr": {
+      "name": "Nettoyeur électrique de pinceaux de maquillage",
+      "headline": [
+        "Pinceaux",
+        "nets."
+      ],
+      "description": "Appareil électrique avec bol et support rotatif qui lave puis essore les pinceaux de maquillage."
+    },
+    "he": {
+      "name": "מנקה חשמלי למברשות איפור",
+      "headline": [
+        "מברשות",
+        "נקיות."
+      ],
+      "description": "מכשיר חשמלי עם קערה ומתאם מסתובב ששוטף ומייבש מברשות איפור."
+    }
+  },
+  "find-096-weighted-hoop": {
+    "en": {
+      "name": "Smart Weighted Fitness Hoop with Counter",
+      "headline": [
+        "Waist",
+        "in motion."
+      ],
+      "description": "Detachable link hoop with a weighted ball on a cord and a rotation counter for cardio workouts at home."
+    },
+    "pt": {
+      "name": "Bambolê Fitness com Peso e Contador",
+      "headline": [
+        "Cintura",
+        "em movimento."
+      ],
+      "description": "Bambolê de elos removíveis com peso preso por cabo e contador de voltas para treinos aeróbicos em casa."
+    },
+    "es": {
+      "name": "Aro Fitness con Peso y Contador",
+      "headline": [
+        "Cintura",
+        "en movimiento."
+      ],
+      "description": "Aro de eslabones desmontables con peso sujeto a un cordón y contador de vueltas para hacer cardio en casa."
+    },
+    "fr": {
+      "name": "Cerceau de fitness lesté avec compteur",
+      "headline": [
+        "Taille",
+        "en mouvement."
+      ],
+      "description": "Cerceau à maillons démontables avec poids au bout d'un cordon et compteur de tours pour le cardio à la maison."
+    },
+    "he": {
+      "name": "חישוק כושר עם משקולת ומונה",
+      "headline": [
+        "מותניים",
+        "בתנועה."
+      ],
+      "description": "חישוק חוליות מתפרק עם משקולת על חבל ומונה סיבובים לאימוני אירובי בבית."
+    }
+  },
+  "find-097-camp-shower": {
+    "en": {
+      "name": "Portable Rechargeable Camping Shower",
+      "headline": [
+        "A shower",
+        "off the grid."
+      ],
+      "description": "Battery-powered pump with a hose and shower head that draws water from a bucket or jug at camp, the cabin or the beach."
+    },
+    "pt": {
+      "name": "Chuveiro Portátil Recarregável para Camping",
+      "headline": [
+        "Banho",
+        "sem encanamento."
+      ],
+      "description": "Bomba a bateria com mangueira e ducha que puxa água de um balde ou galão no acampamento, no sítio ou na praia."
+    },
+    "es": {
+      "name": "Regadera Portátil Recargable para Acampar",
+      "headline": [
+        "Baño",
+        "sin tubería."
+      ],
+      "description": "Bomba de batería con manguera y regadera que toma agua de una cubeta o garrafón en el campamento o la playa."
+    },
+    "fr": {
+      "name": "Douche de camping portable rechargeable",
+      "headline": [
+        "La douche",
+        "sans robinet."
+      ],
+      "description": "Pompe sur batterie avec tuyau et pommeau qui puise l'eau dans un seau ou un jerrican, au camping comme à la plage."
+    },
+    "he": {
+      "name": "מקלחת שטח ניידת נטענת",
+      "headline": [
+        "מקלחת",
+        "בלי ברז."
+      ],
+      "description": "משאבה נטענת עם צינור וראש מקלחת ששואבת מים מדלי או מג'ריקן בקמפינג, בגינה או בחוף."
+    }
+  },
+  "find-098-pet-water-bottle": {
+    "en": {
+      "name": "Portable Dog Water Bottle with Drinking Cup",
+      "headline": [
+        "Water",
+        "on walks."
+      ],
+      "description": "Bottle with a flip-out trough and valve button for giving a pet a drink on walks and draining leftover water back in."
+    },
+    "pt": {
+      "name": "Garrafa Portátil de Água com Bebedouro para Cães",
+      "headline": [
+        "Água",
+        "no passeio."
+      ],
+      "description": "Garrafa com bebedouro acoplado e botão de válvula para dar água ao pet no passeio e devolver a sobra ao reservatório."
+    },
+    "es": {
+      "name": "Botella Portátil de Agua con Bebedero para Perros",
+      "headline": [
+        "Agua",
+        "en el paseo."
+      ],
+      "description": "Botella con bebedero integrado y botón de válvula para dar de beber a tu mascota en el paseo y regresar el agua sobrante."
+    },
+    "fr": {
+      "name": "Gourde portable avec abreuvoir pour chien",
+      "headline": [
+        "De l'eau",
+        "en balade."
+      ],
+      "description": "Gourde à abreuvoir intégré et bouton à valve pour faire boire l'animal en promenade et récupérer l'eau restante."
+    },
+    "he": {
+      "name": "בקבוק מים נייד עם שוקת לכלבים",
+      "headline": [
+        "מים",
+        "בטיול."
+      ],
+      "description": "בקבוק עם קערית מובנית וכפתור שסתום שמאפשר להשקות את הכלב בטיול ולהחזיר את השארית פנימה."
+    }
+  },
+  "find-099-mini-keyboard": {
+    "en": {
+      "name": "Mini Wireless Keyboard with Touchpad",
+      "headline": [
+        "A remote",
+        "with keys."
+      ],
+      "description": "Pocket-size wireless keyboard with a touchpad and backlight for TV boxes, computers and projectors."
+    },
+    "pt": {
+      "name": "Mini Teclado Sem Fio com Touchpad",
+      "headline": [
+        "Controle",
+        "com teclas."
+      ],
+      "description": "Teclado sem fio de bolso com touchpad e iluminação para TV box, computadores e projetores."
+    },
+    "es": {
+      "name": "Mini Teclado Inalámbrico con Touchpad",
+      "headline": [
+        "Control",
+        "con teclas."
+      ],
+      "description": "Teclado inalámbrico de bolsillo con panel táctil y retroiluminación para TV box, computadoras y proyectores."
+    },
+    "fr": {
+      "name": "Mini clavier sans fil avec pavé tactile",
+      "headline": [
+        "Télécommande",
+        "à touches."
+      ],
+      "description": "Clavier sans fil de poche avec pavé tactile et rétroéclairage pour box TV, ordinateurs et vidéoprojecteurs."
+    },
+    "he": {
+      "name": "מקלדת מיני אלחוטית עם משטח מגע",
+      "headline": [
+        "שלט",
+        "עם מקשים."
+      ],
+      "description": "מקלדת כיס אלחוטית עם משטח מגע ותאורה אחורית לסטרימרים, למחשבים ולמקרנים."
+    }
+  },
+  "find-100-kinetic-doorbell": {
+    "en": {
+      "name": "Self-Powered Wireless Doorbell",
+      "headline": [
+        "Guests",
+        "at the door."
+      ],
+      "description": "Outdoor push button that generates its own power when pressed and signals a plug-in receiver with selectable chimes."
+    },
+    "pt": {
+      "name": "Campainha Sem Fio Autoalimentada Sem Pilhas",
+      "headline": [
+        "Visita",
+        "na porta."
+      ],
+      "description": "Botão externo que gera a própria energia ao ser pressionado e aciona um receptor de tomada com várias melodias."
+    },
+    "es": {
+      "name": "Timbre Inalámbrico Autoalimentado Sin Pilas",
+      "headline": [
+        "Visita",
+        "en la puerta."
+      ],
+      "description": "Botón exterior que genera su propia energía al presionarlo y activa un receptor de enchufe con varias melodías."
+    },
+    "fr": {
+      "name": "Sonnette sans fil autoalimentée sans pile",
+      "headline": [
+        "Visite",
+        "à la porte."
+      ],
+      "description": "Bouton extérieur qui produit sa propre énergie à chaque pression et déclenche un carillon sur prise aux mélodies variées."
+    },
+    "he": {
+      "name": "פעמון דלת אלחוטי ללא סוללות",
+      "headline": [
+        "אורחים",
+        "בדלת."
+      ],
+      "description": "לחצן חיצוני שמייצר אנרגיה מעצם הלחיצה ומפעיל מקלט שמתחבר לשקע עם מבחר מנגינות."
+    }
+  },
+  "find-101-cold-brew-maker": {
+    "en": {
+      "name": "Glass Cold Brew Coffee Maker Pitcher",
+      "headline": [
+        "Cold",
+        "and slow."
+      ],
+      "description": "Glass pitcher with a fine mesh filter for steeping cold brew coffee and iced tea in the fridge."
+    },
+    "pt": {
+      "name": "Jarra de Vidro para Café Cold Brew",
+      "headline": [
+        "Extração",
+        "a frio."
+      ],
+      "description": "Jarra de vidro com filtro de malha fina para preparar café cold brew e chá gelado na geladeira."
+    },
+    "es": {
+      "name": "Jarra de Vidrio para Café Cold Brew",
+      "headline": [
+        "Infusión",
+        "en frío."
+      ],
+      "description": "Jarra de vidrio con filtro de malla fina para preparar café cold brew y té helado en el refrigerador."
+    },
+    "fr": {
+      "name": "Carafe en verre pour café infusé à froid",
+      "headline": [
+        "Infusion",
+        "à froid."
+      ],
+      "description": "Carafe en verre à filtre en maille fine pour préparer café infusé à froid et thé glacé au réfrigérateur."
+    },
+    "he": {
+      "name": "קנקן זכוכית לקפה קולד ברו",
+      "headline": [
+        "חליטה",
+        "קרה."
+      ],
+      "description": "קנקן זכוכית עם מסנן רשת עדין להכנת קפה בחליטה קרה ותה קר במקרר."
+    }
   }
 };
 
