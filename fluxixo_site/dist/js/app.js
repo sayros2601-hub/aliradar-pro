@@ -95,8 +95,8 @@
     if (isAffiliate) $('product-cta').setAttribute('href', product.affiliateUrl);
     else $('product-cta').removeAttribute('href');
     $('affiliate-note').textContent = isAffiliate
-      ? (i18n.t('affiliateNote') || 'Партнёрская ссылка. Мы можем получить комиссию за покупку.')
-      : product.pendingLink ? (i18n.t('ctaPending') || 'Ссылка на продавца уточняется.') : 'Демонстрационный предмет.';
+      ? (i18n.t('affiliateNote') || 'We may earn a commission through affiliate links.')
+      : product.pendingLink ? (i18n.t('ctaPending') || 'Link coming soon') : (i18n.t('demoNote') || 'Demonstration item.');
     $('large-index').textContent = count(index + 1);
     $('large-total').textContent = count(products.length);
     $('collection-count').textContent = count(products.length);
@@ -132,7 +132,7 @@
       });
     } catch (_) {
       stage.setInitial(forStage(products[index])); updateCopy(index, true);
-      toast('Предмет открыт без анимации.');
+      toast(i18n.t('noAnimToast') || 'Item opened without animation.');
     } finally {
       if (copyAnimation) { copyAnimation.cancel(); copyAnimation = null; }
       $('showroom').removeAttribute('aria-busy');
@@ -202,9 +202,9 @@
     const product = current();
     $('details-title').textContent = product.name;
     $('details-category').textContent = product.category;
-    $('details-status').textContent = product.pendingLink ? (i18n.t('ctaPending') || 'Ссылка уточняется') : 'FLUXIXO · AliExpress';
+    $('details-status').textContent = product.pendingLink ? (i18n.t('ctaPending') || 'Link coming soon') : 'FLUXIXO · AliExpress';
     $('details-image').src = product.image; $('details-image').alt = product.name;
-    $('details-image-label').textContent = i18n.t('sceneCaption') || product.imageNote;
+    $('details-image-label').textContent = product.imageNote || i18n.t('imageNote') || '';
     $('details-description').textContent = product.description || product.details;
     $('details-facts').replaceChildren();
     product.facts.forEach(f => {
@@ -215,7 +215,7 @@
     $('details-cta').hidden = product.demo || !product.affiliateUrl;
     if (!product.demo && product.affiliateUrl) $('details-cta').setAttribute('href', product.affiliateUrl);
     else $('details-cta').removeAttribute('href');
-    $('details-disclosure').textContent = i18n.t('affiliateNote') || 'Партнёрская ссылка AliExpress.';
+    $('details-disclosure').textContent = i18n.t('affiliateNote') || 'We may earn a commission through affiliate links.';
     $('source-details').hidden = !product.original;
     $('source-details').open = false;
     if (product.original) $('source-image').src = product.original;
@@ -271,9 +271,17 @@
   if (langSelect) {
     langSelect.value = i18n.getLang();
     langSelect.addEventListener('change', event => {
-      i18n.setLang(event.target.value);
+      const newLang = i18n.setLang(event.target.value);
+      try {
+        const address = new URL(location.href);
+        address.searchParams.set('lang', newLang);
+        history.replaceState(null, '', address);
+      } catch (_) {}
       createNav();
       updateCopy(active, false);
+      if (window.MiraWatch && window.MiraWatch.active && typeof window.MiraWatch.applyLang === 'function') {
+        window.MiraWatch.applyLang();
+      }
       applyMotion();
       if ($('details-dialog').open) openDetails();
     });

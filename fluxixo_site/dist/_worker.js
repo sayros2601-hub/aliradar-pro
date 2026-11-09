@@ -1,8 +1,14 @@
-// Only the retired editor routes in _routes.json invoke this function.
+// Redirect *.pages.dev to official domain & retire editor
 const retired = new Set(['/editor', '/editor/', '/editor.html', '/js/editor.js', '/css/editor.css']);
 export default {
   async fetch(request, env) {
-    if (!retired.has(new URL(request.url).pathname)) return env.ASSETS.fetch(request);
+    const url = new URL(request.url);
+    if (url.hostname.includes('pages.dev')) {
+      url.hostname = 'www.fluxixo.shop';
+      url.protocol = 'https:';
+      return Response.redirect(url.toString(), 301);
+    }
+    if (!retired.has(url.pathname)) return env.ASSETS.fetch(request);
     return new Response(request.method === 'HEAD' ? null : 'This editor is no longer publicly available.\n', {
       status: 410,
       headers: {

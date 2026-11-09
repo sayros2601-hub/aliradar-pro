@@ -1,0 +1,4893 @@
+(function () {
+  const UI = {
+  "ru": {
+    "brandLine": "Предметная витрина",
+    "catalogLink": "Каталог",
+    "collectionBtn": "Каталог",
+    "sceneCaption": "Предмет в фокусе",
+    "depthLabel": "Глубина сцены",
+    "ctaBtn": "Открыть товар на AliExpress",
+    "ctaPending": "Ссылка скоро появится",
+    "detailsBtn": "Исходное фото",
+    "watchExplodeBtn": "Разобрать часы",
+    "watchAssembleBtn": "Собрать часы",
+    "affiliateNote": "По партнёрским ссылкам FLUXIXO может получить комиссию. Цену, комплектацию и доставку уточняйте у продавца.",
+    "exploreStrong": "Дальше в подборке",
+    "exploreSpan": "Листайте колесом мыши, смахивайте влево или вправо либо откройте каталог.",
+    "motionLess": "Спокойнее",
+    "motionMore": "Живее",
+    "stageHintMouse": "Двигай курсор по карточке — свет и глубина мягко откликаются.",
+    "stageHintTouch": "Смахните влево или вправо, чтобы сменить товар.",
+    "stageHintQuiet": "Спокойный режим включён: сцена остаётся ровной и тихой.",
+    "collectionEyebrow": "Спокойный выбор",
+    "collectionTitle": "Все предметы в одном каталоге",
+    "collectionFootnote": "Партнёрские ссылки ведут на страницы товаров в AliExpress. Наличие, варианты и стоимость уточняйте у продавца перед покупкой.",
+    "sourceSummary": "Фото продавца из карточки товара",
+    "sourceNote": "На главной сцене показана студийная подача предмета. Здесь можно спокойно сверить внешний вид и комплектацию по исходному изображению продавца.",
+    "aboutEyebrow": "О проекте",
+    "aboutTitle": "Как устроена эта витрина",
+    "aboutIntro": "FLUXIXO собирает приметные находки с AliExpress и показывает их в спокойной предметной подаче — по одному товару на экран, без баннерного шума и спешки.",
+    "aboutLinksTitle": "Партнёрские ссылки",
+    "aboutLinksBody": "Кнопка «Открыть товар на AliExpress» ведёт по партнёрской ссылке. Площадка может начислить небольшую комиссию без доплаты для покупателя. Цену, доставку, характеристики и комплектацию всегда проверяйте на странице продавца перед заказом.",
+    "aboutDemoTitle": "Интерактивные сцены",
+    "aboutDemoBody": "Для отдельных предметов есть демонстрационный разбор корпуса. Он нужен для наглядной подачи формы и узлов на экране и не является инструкцией по разборке реального устройства.",
+    "aboutFootnote": "Чтобы проверить оригинальный вид товара и комплектацию, откройте «Исходное фото» в карточке предмета или перейдите к продавцу на AliExpress.",
+    "skipLink": "К выбранному товару",
+    "homeAria": "FLUXIXO — к первому товару",
+    "aboutAria": "О проекте FLUXIXO",
+    "showroomAria": "Интерактивная витрина товаров",
+    "stageAria": "Изображение выбранного товара",
+    "railAria": "Выбор товара",
+    "prevAria": "Предыдущий товар",
+    "nextAria": "Следующий товар",
+    "closeCollectionAria": "Закрыть каталог",
+    "closeDetailsAria": "Закрыть описание",
+    "closeAboutAria": "Закрыть окно о проекте",
+    "demoBadge": "Демо",
+    "demoNote": "Демонстрационный предмет.",
+    "noAnimToast": "Предмет открыт без анимации.",
+    "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Сравните с исходным фото ниже; комплектацию уточняйте на AliExpress.",
+    "watchLoading": "Подготовка деталей…",
+    "watchRetry": "Повторить загрузку деталей",
+    "watchRangeLabel": "Разбор",
+    "watchRangeAria": "Степень разборки часов",
+    "watchPartsAria": "Узлы часов",
+    "watchStageAria": "Разбор часов на главной сцене",
+    "watchNote": "Внутренние узлы показаны для наглядного знакомства с конструкцией.",
+    "watchParts": [
+      {
+        "name": "Экран и безель",
+        "copy": "Передний модуль с циферблатом выходит из корпуса целиком и соединяется с основной платой.",
+        "where": "Устанавливается в передний проём корпуса."
+      },
+      {
+        "name": "Основная плата",
+        "copy": "Под экраном расположена электроника: микросхемы, датчики и контакты для остальных узлов.",
+        "where": "Внутри корпуса, непосредственно за экраном."
+      },
+      {
+        "name": "Аккумулятор",
+        "copy": "Тонкий аккумулятор питает часы и располагается отдельным слоем между платой и корпусом.",
+        "where": "Во внутренней полости корпуса, подключается к плате."
+      },
+      {
+        "name": "Корпус и браслет",
+        "copy": "Металлический корпус, боковые кнопки и стальные звенья образуют прочную основу сборки.",
+        "where": "Основа конструкции: все слои входят в передний проём."
+      }
+    ]
+  },
+  "en": {
+    "brandLine": "Curated Product Showroom",
+    "catalogLink": "Catalog",
+    "collectionBtn": "Catalog",
+    "sceneCaption": "Object in focus",
+    "depthLabel": "Scene depth",
+    "ctaBtn": "Open item on AliExpress",
+    "ctaPending": "Link coming soon",
+    "detailsBtn": "Original photo",
+    "watchExplodeBtn": "Explode view",
+    "watchAssembleBtn": "Assemble watch",
+    "affiliateNote": "We may earn a commission through affiliate links. Check price, options and shipping on AliExpress.",
+    "exploreStrong": "Next in collection",
+    "exploreSpan": "Use the mouse wheel, swipe left or right, or open the catalog.",
+    "motionLess": "Calmer",
+    "motionMore": "Livelier",
+    "stageHintMouse": "Move your cursor across the card — light and depth gently respond.",
+    "stageHintTouch": "Swipe left or right to browse products.",
+    "stageHintQuiet": "Calm mode enabled: the stage remains steady and quiet.",
+    "collectionEyebrow": "Calm selection",
+    "collectionTitle": "All objects in one catalog",
+    "collectionFootnote": "Affiliate links lead to AliExpress product pages. Check availability, options, and pricing with the seller before purchasing.",
+    "sourceSummary": "Seller photo from the product listing",
+    "sourceNote": "The main stage features a clean studio cutout. Here you can compare the actual appearance and package options from the seller's original image.",
+    "aboutEyebrow": "About the project",
+    "aboutTitle": "How this showroom works",
+    "aboutIntro": "FLUXIXO curates standout AliExpress finds and presents them in a calm, object-first studio view — one product per screen, free of banner clutter.",
+    "aboutLinksTitle": "Affiliate links",
+    "aboutLinksBody": "The 'Open item on AliExpress' button uses an affiliate link. We may earn a small commission at no extra cost to you. Always check price, shipping, and specs on the seller page.",
+    "aboutDemoTitle": "Interactive scenes",
+    "aboutDemoBody": "Selected items feature an interactive exploded view designed to showcase form and structure on screen.",
+    "aboutFootnote": "To inspect the original product appearance, open 'Original photo' on the item card or visit the seller on AliExpress.",
+    "skipLink": "Skip to current product",
+    "homeAria": "FLUXIXO — go to first product",
+    "aboutAria": "About FLUXIXO",
+    "showroomAria": "Interactive product showroom",
+    "stageAria": "Selected product image",
+    "railAria": "Product selector",
+    "prevAria": "Previous product",
+    "nextAria": "Next product",
+    "closeCollectionAria": "Close catalog",
+    "closeDetailsAria": "Close product details",
+    "closeAboutAria": "Close about dialog",
+    "demoBadge": "Demo",
+    "demoNote": "Demonstration item.",
+    "noAnimToast": "Item opened without animation.",
+    "imageNote": "Studio AI cutout based on the seller's photo. Compare with the original photo below and check package options on AliExpress.",
+    "watchLoading": "Loading parts…",
+    "watchRetry": "Retry loading parts",
+    "watchRangeLabel": "Explode",
+    "watchRangeAria": "Watch exploded view amount",
+    "watchPartsAria": "Watch components",
+    "watchStageAria": "Interactive watch exploded view",
+    "watchNote": "Internal components are shown for visual exploration.",
+    "watchParts": [
+      {
+        "name": "Display & Bezel",
+        "copy": "The front dial module lifts cleanly from the frame and connects directly to the main logic board.",
+        "where": "Mounted into the front opening of the case."
+      },
+      {
+        "name": "Main Circuit Board",
+        "copy": "Beneath the display sits the core electronics: chips, sensors, and connectors for the watch modules.",
+        "where": "Inside the housing, directly behind the screen."
+      },
+      {
+        "name": "Battery Cell",
+        "copy": "A slim rechargeable cell powers the watch, positioned between the electronics and the rear shell.",
+        "where": "Nested inside the inner cavity and wired to the board."
+      },
+      {
+        "name": "Case & Link Band",
+        "copy": "The brushed metal housing, dual side buttons, and steel links form the structural foundation.",
+        "where": "Structural base: all inner layers fit into the front frame."
+      }
+    ]
+  },
+  "pt": {
+    "brandLine": "Vitrine de Produtos",
+    "catalogLink": "Catálogo",
+    "collectionBtn": "Catálogo",
+    "sceneCaption": "Produto em foco",
+    "depthLabel": "Profundidade 3D",
+    "ctaBtn": "Abrir produto no AliExpress",
+    "ctaPending": "Link em breve",
+    "detailsBtn": "Foto original",
+    "watchExplodeBtn": "Desmontar relógio",
+    "watchAssembleBtn": "Montar relógio",
+    "affiliateNote": "Podemos receber uma comissão por links de afiliados. Confira preço, opções e frete no AliExpress.",
+    "exploreStrong": "Próximo na coleção",
+    "exploreSpan": "Use a roda do mouse, deslize para os lados ou abra o catálogo.",
+    "motionLess": "Mais calmo",
+    "motionMore": "Mais vivo",
+    "stageHintMouse": "Mova o cursor sobre o cartão — a luz e a profundidade respondem suavemente.",
+    "stageHintTouch": "Deslize para a esquerda ou direita para ver outros produtos.",
+    "stageHintQuiet": "Modo calmo ativado: a cena permanece estável e silenciosa.",
+    "collectionEyebrow": "Escolha tranquila",
+    "collectionTitle": "Todos os produtos em um só catálogo",
+    "collectionFootnote": "Links de afiliados levam às páginas do AliExpress. Verifique disponibilidade, opções e frete para o Brasil ou sua região antes da compra.",
+    "sourceSummary": "Foto real do anúncio do vendedor",
+    "sourceNote": "No palco principal mostramos o recorte de estúdio. Aqui você pode conferir a aparência original e os itens inclusos na imagem do vendedor.",
+    "aboutEyebrow": "Sobre o projeto",
+    "aboutTitle": "Como funciona esta vitrine",
+    "aboutIntro": "A FLUXIXO reúne achados marcantes do AliExpress em uma apresentação limpa de estúdio — um produto por tela, sem poluição visual.",
+    "aboutLinksTitle": "Links de afiliados",
+    "aboutLinksBody": "O botão 'Abrir produto no AliExpress' utiliza um link de afiliado sem custo extra para o comprador. Sempre confirme preço e frete na loja oficial.",
+    "aboutDemoTitle": "Cenas interativas",
+    "aboutDemoBody": "Alguns produtos possuem visualização 3D das peças para demonstrar o formato e o acabamento na tela.",
+    "aboutFootnote": "Para conferir o visual original do produto, abra 'Foto original' no cartão ou acesse o anúncio no AliExpress.",
+    "skipLink": "Ir para o produto em foco",
+    "homeAria": "FLUXIXO — ir para o primeiro produto",
+    "aboutAria": "Sobre a FLUXIXO",
+    "showroomAria": "Vitrine interativa de produtos",
+    "stageAria": "Imagem do produto selecionado",
+    "railAria": "Seleção de produtos",
+    "prevAria": "Produto anterior",
+    "nextAria": "Próximo produto",
+    "closeCollectionAria": "Fechar catálogo",
+    "closeDetailsAria": "Fechar detalhes",
+    "closeAboutAria": "Fechar janela sobre o projeto",
+    "demoBadge": "Demo",
+    "demoNote": "Item de demonstração.",
+    "noAnimToast": "Produto aberto sem animação.",
+    "imageNote": "Recorte de estúdio baseado na foto do vendedor. Compare com a foto original abaixo e confirme as opções no AliExpress.",
+    "watchLoading": "Carregando peças…",
+    "watchRetry": "Tentar carregar novamente",
+    "watchRangeLabel": "Desmontar",
+    "watchRangeAria": "Nível de visão explodida do relógio",
+    "watchPartsAria": "Componentes do relógio",
+    "watchStageAria": "Visão explodida interativa do relógio",
+    "watchNote": "Os componentes internos são exibidos de forma ilustrativa.",
+    "watchParts": [
+      {
+        "name": "Tela e Moldura",
+        "copy": "O módulo frontal com o mostrador destaca-se da caixa e conecta-se à placa principal.",
+        "where": "Encaixado na abertura frontal da caixa."
+      },
+      {
+        "name": "Placa Principal",
+        "copy": "Sob o visor ficam os circuitos integrados, sensores e conectores dos demais módulos.",
+        "where": "No interior da caixa, logo atrás da tela."
+      },
+      {
+        "name": "Bateria",
+        "copy": "Uma bateria fina alimenta o relógio, posicionada entre a eletrônica e a carcaça.",
+        "where": "Na cavidade interna, conectada à placa."
+      },
+      {
+        "name": "Caixa e Pulseira",
+        "copy": "A caixa metálica, os dois botões laterais e os elos formam a base estrutural do relógio.",
+        "where": "Base da montagem onde todos os módulos se encaixam."
+      }
+    ]
+  },
+  "es": {
+    "brandLine": "Vitrina de productos",
+    "catalogLink": "Catálogo",
+    "collectionBtn": "Catálogo",
+    "sceneCaption": "Objeto en foco",
+    "depthLabel": "Profundidad 3D",
+    "ctaBtn": "Abrir producto en AliExpress",
+    "ctaPending": "Enlace pronto",
+    "detailsBtn": "Foto original",
+    "watchExplodeBtn": "Desmontar reloj",
+    "watchAssembleBtn": "Montar reloj",
+    "affiliateNote": "Podemos recibir una comisión por los enlaces de afiliados. Consulta precio, variantes y envío en AliExpress.",
+    "exploreStrong": "Siguiente en la colección",
+    "exploreSpan": "Usa la rueda del mouse, desliza hacia los lados o abre el catálogo.",
+    "motionLess": "Más calmo",
+    "motionMore": "Más vivo",
+    "stageHintMouse": "Mueve el cursor sobre la tarjeta: la luz y la profundidad responden suavemente.",
+    "stageHintTouch": "Desliza a la izquierda o a la derecha para ver otros productos.",
+    "stageHintQuiet": "Modo tranquilo activado: la escena permanece estable.",
+    "collectionEyebrow": "Selección cuidada",
+    "collectionTitle": "Todos los artículos en un solo catálogo",
+    "collectionFootnote": "Consulta disponibilidad, variantes y envío a México directamente en AliExpress.",
+    "sourceSummary": "Foto del vendedor en la página del producto",
+    "sourceNote": "En el escenario principal se muestra una presentación de estudio. Aquí puedes comparar el aspecto original y el paquete según la foto del vendedor.",
+    "aboutEyebrow": "Sobre el proyecto",
+    "aboutTitle": "Cómo funciona esta vitrina",
+    "aboutIntro": "FLUXIXO selecciona hallazgos destacados de AliExpress y los presenta en un formato limpio de estudio: un artículo por pantalla, sin ruido visual.",
+    "aboutLinksTitle": "Enlaces de afiliado",
+    "aboutLinksBody": "El botón 'Abrir producto en AliExpress' utiliza un enlace de afiliado sin costo adicional para el comprador. Revisa siempre precio y envío con el vendedor.",
+    "aboutDemoTitle": "Escenas interactivas",
+    "aboutDemoBody": "Algunos artículos incluyen un despiece interactivo para mostrar su diseño y estructura en pantalla.",
+    "aboutFootnote": "Para revisar la foto original del vendedor, pulsa 'Foto original' o visita la página en AliExpress.",
+    "skipLink": "Ir al producto seleccionado",
+    "homeAria": "FLUXIXO — ir al primer producto",
+    "aboutAria": "Acerca de FLUXIXO",
+    "showroomAria": "Vitrina interactiva de productos",
+    "stageAria": "Imagen del producto seleccionado",
+    "railAria": "Selector de productos",
+    "prevAria": "Producto anterior",
+    "nextAria": "Siguiente producto",
+    "closeCollectionAria": "Cerrar catálogo",
+    "closeDetailsAria": "Cerrar detalles",
+    "closeAboutAria": "Cerrar información",
+    "demoBadge": "Demo",
+    "demoNote": "Artículo de demostración.",
+    "noAnimToast": "Artículo abierto sin animación.",
+    "imageNote": "Presentación de estudio basada en la foto del vendedor. Compara con la foto original abajo y revisa las variantes en AliExpress.",
+    "watchLoading": "Cargando piezas…",
+    "watchRetry": "Reintentar carga de piezas",
+    "watchRangeLabel": "Despiece",
+    "watchRangeAria": "Nivel de despiece del reloj",
+    "watchPartsAria": "Componentes del reloj",
+    "watchStageAria": "Vista desglosada interactiva del reloj",
+    "watchNote": "Los componentes internos se muestran con fines ilustrativos.",
+    "watchParts": [
+      {
+        "name": "Pantalla y Bisel",
+        "copy": "El módulo frontal con la carátula se separa de la caja y se conecta con la placa principal.",
+        "where": "Se instala en la abertura frontal de la caja."
+      },
+      {
+        "name": "Placa Principal",
+        "copy": "Debajo de la pantalla se encuentra la electrónica: chips, sensores y conectores internos.",
+        "where": "Dentro de la caja, justo detrás de la pantalla."
+      },
+      {
+        "name": "Batería",
+        "copy": "Una batería delgada alimenta el reloj, situada entre la placa electrónica y la carcasa.",
+        "where": "En la cavidad interna, conectada a la placa."
+      },
+      {
+        "name": "Caja y Correa",
+        "copy": "La caja metálica, los botones laterales y los eslabones forman la estructura principal.",
+        "where": "Base del ensamble donde encajan todas las capas."
+      }
+    ]
+  },
+  "fr": {
+    "brandLine": "Vitrine d'Objets",
+    "catalogLink": "Catalogue",
+    "collectionBtn": "Catalogue",
+    "sceneCaption": "Objet en focus",
+    "depthLabel": "Profondeur 3D",
+    "ctaBtn": "Voir le produit sur AliExpress",
+    "ctaPending": "Lien bientôt disponible",
+    "detailsBtn": "Photo d'origine",
+    "watchExplodeBtn": "Vue éclatée",
+    "watchAssembleBtn": "Assembler la montre",
+    "affiliateNote": "Nous pouvons toucher une commission via les liens affiliés. Vérifiez le prix, les options et la livraison sur AliExpress.",
+    "exploreStrong": "Suivant dans la sélection",
+    "exploreSpan": "Utilisez la molette, balayez à gauche ou à droite, ou ouvrez le catalogue.",
+    "motionLess": "Plus calme",
+    "motionMore": "Plus vivant",
+    "stageHintMouse": "Déplacez le curseur sur la carte — la lumière et la profondeur réagissent en douceur.",
+    "stageHintTouch": "Balayez à gauche ou à droite pour changer de produit.",
+    "stageHintQuiet": "Mode calme activé : la scène reste stable et silencieuse.",
+    "collectionEyebrow": "Sélection épurée",
+    "collectionTitle": "Tous les objets dans un seul catalogue",
+    "collectionFootnote": "Les liens affiliés redirigent vers AliExpress. Vérifiez la disponibilité, la livraison et le tarif auprès du vendeur avant l'achat.",
+    "sourceSummary": "Photo du vendeur issue de la fiche produit",
+    "sourceNote": "La scène principale présente un détourage studio. Ici, vous pouvez vérifier l'aspect d'origine et les accessoires sur la photo du vendeur.",
+    "aboutEyebrow": "À propos",
+    "aboutTitle": "Comment fonctionne cette vitrine",
+    "aboutIntro": "FLUXIXO rassemble des trouvailles remarquables d'AliExpress dans une mise en scène studio apaisée — un seul objet par écran, sans bannières intrusives.",
+    "aboutLinksTitle": "Liens affiliés",
+    "aboutLinksBody": "Le bouton « Voir le produit sur AliExpress » utilise un lien affilié sans surcoût pour l'acheteur. Vérifiez toujours les détails chez le vendeur.",
+    "aboutDemoTitle": "Scènes interactives",
+    "aboutDemoBody": "Certains objets proposent une vue éclatée interactive pour illustrer leur forme et leur conception.",
+    "aboutFootnote": "Pour comparer avec l'image d'origine du vendeur, ouvrez « Photo d'origine » ou consultez la fiche AliExpress.",
+    "skipLink": "Aller au produit sélectionné",
+    "homeAria": "FLUXIXO — revenir au premier produit",
+    "aboutAria": "À propos de FLUXIXO",
+    "showroomAria": "Vitrine interactive de produits",
+    "stageAria": "Image du produit sélectionné",
+    "railAria": "Sélection de produits",
+    "prevAria": "Produit précédent",
+    "nextAria": "Produit suivant",
+    "closeCollectionAria": "Fermer le catalogue",
+    "closeDetailsAria": "Fermer la fiche",
+    "closeAboutAria": "Fermer les informations",
+    "demoBadge": "Démo",
+    "demoNote": "Objet de démonstration.",
+    "noAnimToast": "Objet ouvert sans animation.",
+    "imageNote": "Visuel studio réalisé d'après la photo du vendeur. Comparez avec la photo d'origine ci-dessous et vérifiez les options sur AliExpress.",
+    "watchLoading": "Chargement des pièces…",
+    "watchRetry": "Réessayer le chargement",
+    "watchRangeLabel": "Éclatement",
+    "watchRangeAria": "Niveau de vue éclatée de la montre",
+    "watchPartsAria": "Composants de la montre",
+    "watchStageAria": "Vue éclatée interactive de la montre",
+    "watchNote": "Les composants internes sont présentés à titre illustratif.",
+    "watchParts": [
+      {
+        "name": "Écran et Lunette",
+        "copy": "Le module avant avec le cadran se détache du boîtier et se relie à la carte mère.",
+        "where": "S'insère dans l'ouverture frontale du boîtier."
+      },
+      {
+        "name": "Carte Principale",
+        "copy": "Sous l'écran se trouvent les puces, capteurs et connecteurs des différents modules.",
+        "where": "À l'intérieur du boîtier, juste derrière l'écran."
+      },
+      {
+        "name": "Batterie",
+        "copy": "Une fine batterie alimente la montre, placée entre l'électronique et le fond du boîtier.",
+        "where": "Logée dans la cavité interne et reliée à la carte."
+      },
+      {
+        "name": "Boîtier et Bracelet",
+        "copy": "Le boîtier métallique, les deux boutons latéraux et les maillons forment la structure.",
+        "where": "Base de l'assemblage recevant les couches internes."
+      }
+    ]
+  },
+  "he": {
+    "brandLine": "מוצרים נבחרים",
+    "catalogLink": "קטלוג",
+    "collectionBtn": "קטלוג",
+    "sceneCaption": "מוצר במוקד",
+    "depthLabel": "עומק תלת-ממד",
+    "ctaBtn": "לפתיחת המוצר ב-AliExpress",
+    "ctaPending": "הקישור יעלה בקרוב",
+    "detailsBtn": "תמונת המוכר",
+    "watchExplodeBtn": "פירוק השעון",
+    "watchAssembleBtn": "הרכבת השעון",
+    "affiliateNote": "אנחנו עשויים לקבל עמלה מרכישות דרך קישורי שותפים. את המחיר, הדגם והמשלוח יש לבדוק ב־AliExpress.",
+    "exploreStrong": "הבא בקולקציה",
+    "exploreSpan": "גללו עם העכבר, החליקו ימינה או שמאלה, או פתחו את הקטלוג.",
+    "motionLess": "רגוע יותר",
+    "motionMore": "חי יותר",
+    "stageHintMouse": "הזז את הסמן על הכרטיס — התאורה והעומק מגיבים בעדינות.",
+    "stageHintTouch": "החליקו ימינה או שמאלה כדי לעבור בין המוצרים.",
+    "stageHintQuiet": "מצב תנועה מופחתת",
+    "collectionEyebrow": "מבחר מוצרים",
+    "collectionTitle": "כל המוצרים",
+    "collectionFootnote": "קישורי השותפים מובילים לעמודי המוצר ב-AliExpress. בדקו זמינות, אפשרויות ומשלוח לישראל מול המוכר לפני הרכישה.",
+    "sourceSummary": "תמונת המוכר מתוך עמוד המוצר",
+    "sourceNote": "אפשר להשוות בין ההדמיה בתצוגה לבין תמונת המוכר. את פרטי הדגם והערכה יש לבדוק בעמוד המוצר.",
+    "aboutEyebrow": "אודות הפרויקט",
+    "aboutTitle": "איך התצוגה עובדת",
+    "aboutIntro": "FLUXIXO מרכזת מציאות בולטות מ-AliExpress ומציגה אותן בתצוגת סטודיו נקייה — מוצר אחד בכל מסך, ללא רעש פרסומי.",
+    "aboutLinksTitle": "קישורי שותפים",
+    "aboutLinksBody": "אנחנו עשויים לקבל עמלה מרכישות דרך קישורי שותפים. את המחיר, הדגם והמשלוח יש לבדוק ב־AliExpress.",
+    "aboutDemoTitle": "סצנות אינטראקטיביות",
+    "aboutDemoBody": "עבור פריטים נבחרים קיימת הדמיית פירוק אינטראקטיבית המציגה את מבנה המוצר על המסך.",
+    "aboutFootnote": "כדי לבדוק את המראה המקורי של המוצר, לחצו על 'תמונה מקורית' או עברו לעמוד המוכר ב-AliExpress.",
+    "skipLink": "דילוג למוצר הנבחר",
+    "homeAria": "FLUXIXO — חזרה למוצר הראשון",
+    "aboutAria": "אודות FLUXIXO",
+    "showroomAria": "תצוגת מוצרים אינטראקטיבית",
+    "stageAria": "תמונת המוצר הנבחר",
+    "railAria": "בחירת מוצר",
+    "prevAria": "המוצר הקודם",
+    "nextAria": "המוצר הבא",
+    "closeCollectionAria": "סגירת הקטלוג",
+    "closeDetailsAria": "סגירת פרטי המוצר",
+    "closeAboutAria": "סגירת חלון המידע",
+    "demoBadge": "הדגמה",
+    "demoNote": "מוצר להדגמה.",
+    "noAnimToast": "המוצר נפתח ללא אנימציה.",
+    "imageNote": "הדמיית סטודיו המבוססת על תמונת המוכר. השוו לתמונה המקורית למטה ובדקו את פרטי הדגם ב-AliExpress.",
+    "watchLoading": "טוען חלקים…",
+    "watchRetry": "ניסיון חוזר לטעינת החלקים",
+    "watchRangeLabel": "פירוק",
+    "watchRangeAria": "רמת פירוק השעון",
+    "watchPartsAria": "חלקי השעון",
+    "watchStageAria": "תצוגת פירוק אינטראקטיבית של השעון",
+    "watchNote": "הרכיבים הפנימיים מוצגים להמחשה חזותית.",
+    "watchParts": [
+      {
+        "name": "מסך ומסגרת",
+        "copy": "המודול הקדמי עם לוח השעון נשלף מהגוף ומתחבר ישירות ללוח הראשי.",
+        "where": "מותקן בפתח הקדמי של גוף השעון."
+      },
+      {
+        "name": "לוח אם ראשי",
+        "copy": "מתחת למסך נמצאת האלקטרוניקה: שבבים, חיישנים ומחברים לשאר המכלולים.",
+        "where": "בתוך גוף השעון, ממש מאחורי המסך."
+      },
+      {
+        "name": "סוללה",
+        "copy": "סוללה דקה מזינה את השעון וממוקמת כשכבה נפרדת בין הלוח האלקטרוני לגוף.",
+        "where": "בחלל הפנימי של הגוף, מחוברת ללוח הראשי."
+      },
+      {
+        "name": "גוף ורצועה",
+        "copy": "גוף המתכת, כפתורי הצד וחוליות הפלדה מהווים את שלד ההרכבה.",
+        "where": "בסיס השעון שלתוכו משתלבות כל השכבות."
+      }
+    ]
+  }
+};
+  const CATS = {
+  "Техника": {
+    "en": "Tech & Gadgets",
+    "pt": "Tecnologia",
+    "es": "Tecnología",
+    "fr": "High-Tech",
+    "he": "טכנולוגיה וגאדג'טים"
+  },
+  "Дом": {
+    "en": "Home & Living",
+    "pt": "Casa",
+    "es": "Hogar",
+    "fr": "Maison",
+    "he": "לבית"
+  },
+  "Кухня": {
+    "en": "Kitchen",
+    "pt": "Cozinha",
+    "es": "Cocina",
+    "fr": "Cuisine",
+    "he": "למטבח"
+  },
+  "В дороге": {
+    "en": "Auto & On the Go",
+    "pt": "Automotivo e Viagem",
+    "es": "Auto y Viaje",
+    "fr": "Auto & Mobilité",
+    "he": "לרכב ולדרך"
+  },
+  "Инструменты": {
+    "en": "Tools",
+    "pt": "Ferramentas",
+    "es": "Herramientas",
+    "fr": "Outils",
+    "he": "כלי עבודה"
+  },
+  "Уход": {
+    "en": "Beauty & Care",
+    "pt": "Cuidados Pessoais",
+    "es": "Cuidado Personal",
+    "fr": "Beauté & Soin",
+    "he": "טיפוח ויופי"
+  },
+  "Спорт": {
+    "en": "Sports & Fitness",
+    "pt": "Esporte",
+    "es": "Deporte",
+    "fr": "Sport",
+    "he": "ספורט וכושר"
+  },
+  "На природе": {
+    "en": "Outdoors",
+    "pt": "Ar Livre",
+    "es": "Aire Libre",
+    "fr": "Plein Air",
+    "he": "טיולים ושטח"
+  },
+  "Питомцы": {
+    "en": "Pets",
+    "pt": "Pets",
+    "es": "Mascotas",
+    "fr": "Animaux",
+    "he": "חיות מחמד"
+  },
+  "Для питомцев": {
+    "en": "Pets",
+    "pt": "Pets",
+    "es": "Mascotas",
+    "fr": "Animaux",
+    "he": "חיות מחמד"
+  },
+  "Сумка для самоката": {
+    "en": "Auto & On the Go",
+    "pt": "Automotivo e Viagem",
+    "es": "Auto y Viaje",
+    "fr": "Auto & Mobilité",
+    "he": "לרכב ולדרך"
+  },
+  "Замок для самоката": {
+    "en": "Auto & On the Go",
+    "pt": "Automotivo e Viagem",
+    "es": "Auto y Viaje",
+    "fr": "Auto & Mobilité",
+    "he": "לרכב ולדרך"
+  }
+};
+  const FACTS = {
+  "Категория": {
+    "en": "Category",
+    "pt": "Categoria",
+    "es": "Categoría",
+    "fr": "Catégorie",
+    "he": "קטגוריה"
+  },
+  "Подача": {
+    "en": "Presentation",
+    "pt": "Apresentação",
+    "es": "Presentación",
+    "fr": "Présentation",
+    "he": "תצוגה"
+  },
+  "Студийная сцена": {
+    "en": "Studio Stage",
+    "pt": "Cena de Estúdio",
+    "es": "Escena de Estudio",
+    "fr": "Scène Studio",
+    "he": "במת סטודיו"
+  },
+  "Переход": {
+    "en": "Action",
+    "pt": "Acesso",
+    "es": "Acceso",
+    "fr": "Accès",
+    "he": "מעבר"
+  },
+  "По клику": {
+    "en": "Direct Click",
+    "pt": "Em 1 Clique",
+    "es": "En 1 Clic",
+    "fr": "En 1 Clic",
+    "he": "בלחיצה"
+  },
+  "Формат": {
+    "en": "Format",
+    "pt": "Formato",
+    "es": "Formato",
+    "fr": "Format",
+    "he": "פורמט"
+  },
+  "Визуальный обзор": {
+    "en": "Visual Review",
+    "pt": "Visão Visual",
+    "es": "Vista Visual",
+    "fr": "Aperçu Visuel",
+    "he": "סקירה חזותית"
+  },
+  "Подборка": {
+    "en": "Top Region",
+    "pt": "Região Top",
+    "es": "Región Top",
+    "fr": "Région Phare",
+    "he": "אזור מוביל"
+  },
+  "Бразилия": {
+    "en": "Brazil",
+    "pt": "Brasil",
+    "es": "Brasil",
+    "fr": "Brésil",
+    "he": "ברזיל"
+  },
+  "Испания": {
+    "en": "Spain",
+    "pt": "Espanha",
+    "es": "España",
+    "fr": "Espagne",
+    "he": "ספרד"
+  },
+  "Франция": {
+    "en": "France",
+    "pt": "França",
+    "es": "Francia",
+    "fr": "France",
+    "he": "צרפת"
+  },
+  "Великобритания": {
+    "en": "UK & Global",
+    "pt": "Reino Unido / Global",
+    "es": "Reino Unido / Global",
+    "fr": "Royaume-Uni / Global",
+    "he": "בריטניה וגלובלי"
+  },
+  "Демо": {
+    "en": "Demo",
+    "pt": "Demo",
+    "es": "Demo",
+    "fr": "Démo",
+    "he": "הדגמה"
+  },
+  "Разбор корпуса": {
+    "en": "Exploded View",
+    "pt": "Visão Explodida",
+    "es": "Vista Desglosada",
+    "fr": "Vue Éclatée",
+    "he": "פירוק תלת-ממד"
+  },
+  "Вид": {
+    "en": "View",
+    "pt": "Vista",
+    "es": "Vista",
+    "fr": "Vue",
+    "he": "מראה"
+  },
+  "Чистый предмет": {
+    "en": "Clean Cutout",
+    "pt": "Recorte Limpo",
+    "es": "Recorte Limpio",
+    "fr": "Détourage Pur",
+    "he": "חיתוך נקי"
+  },
+  "Ссылка": {
+    "en": "Link",
+    "pt": "Link",
+    "es": "Enlace",
+    "fr": "Lien",
+    "he": "קישור"
+  },
+  "Прямая карточка": {
+    "en": "Direct Listing",
+    "pt": "Página Direta",
+    "es": "Ficha Directa",
+    "fr": "Fiche Directe",
+    "he": "עמוד מוצר ישיר"
+  }
+};
+  const PRODUCTS = {
+  "find-051-ultrasonic-cleaner": {
+    "en": {
+      "name": "Ultrasonic Cleaner",
+      "headline": [
+        "Ultrasonic",
+        "cleaning."
+      ],
+      "description": "Stainless steel tank with timer for gentle ultrasonic cleaning of glasses, jewelry, and small accessories."
+    },
+    "pt": {
+      "name": "Lavadora Ultrassônica",
+      "headline": [
+        "Limpeza",
+        "ultrassônica."
+      ],
+      "description": "Cuba de aço inox com temporizador para limpeza ultrassônica de óculos, joias e pequenos objetos compatíveis."
+    },
+    "es": {
+      "name": "Limpiador Ultrasónico",
+      "headline": [
+        "Limpieza",
+        "ultrasónica."
+      ],
+      "description": "Tina de acero inoxidable con temporizador para la limpieza ultrasónica de lentes, joyería y objetos pequeños compatibles."
+    },
+    "fr": {
+      "name": "Nettoyeur à Ultrasons",
+      "headline": [
+        "Nettoyage",
+        "ultrasonique."
+      ],
+      "description": "Cuve en acier inoxydable avec minuterie pour le nettoyage doux des lunettes, bijoux et petits accessoires."
+    },
+    "he": {
+      "name": "מכשיר ניקוי אולטרסוני",
+      "headline": [
+        "ניקוי",
+        "אולטרסוני."
+      ],
+      "description": "מכל נירוסטה עם טיימר לניקוי אולטרסוני של משקפיים, תכשיטים ופריטים קטנים. בדקו בהוראות היצרן לאילו חומרים המכשיר מתאים."
+    }
+  },
+  "find-052-laser-meter": {
+    "en": {
+      "name": "Laser Distance Meter",
+      "headline": [
+        "Exact",
+        "distance."
+      ],
+      "description": "Pocket laser rangefinder with backlit display, area/volume calculation, and dual bubble levels."
+    },
+    "pt": {
+      "name": "Trena a Laser Digital",
+      "headline": [
+        "Distância",
+        "exata."
+      ],
+      "description": "Medidor de distância a laser de bolso com tela iluminada, cálculo de área e dois níveis de bolha."
+    },
+    "es": {
+      "name": "Medidor Láser de Distancia",
+      "headline": [
+        "Distancia",
+        "exacta."
+      ],
+      "description": "Telémetro láser de bolsillo con pantalla retroiluminada, cálculo de área y dos niveles de burbuja."
+    },
+    "fr": {
+      "name": "Télémètre Laser",
+      "headline": [
+        "Distance",
+        "précise."
+      ],
+      "description": "Télémètre laser de poche avec écran rétroéclairé, calcul de surface et double niveau à bulle."
+    },
+    "he": {
+      "name": "מד טווח לייזר דיגיטלי",
+      "headline": [
+        "מרחק",
+        "מדויק."
+      ],
+      "description": "מד מרחק לייזר קומפקטי עם מסך מואר, חישוב שטח ונפח ושתי פלסות מובנות."
+    }
+  },
+  "find-053-vacuum-sealer": {
+    "en": {
+      "name": "Portable Vacuum Sealer",
+      "headline": [
+        "Lasting",
+        "freshness."
+      ],
+      "description": "Compact cordless vacuum pump for extracting air from compatible food storage bags and containers."
+    },
+    "pt": {
+      "name": "Seladora a Vácuo Portátil",
+      "headline": [
+        "Frescor",
+        "prolongado."
+      ],
+      "description": "Bomba de vácuo sem fio compacta para extrair o ar de sacos e recipientes compatíveis de alimentos."
+    },
+    "es": {
+      "name": "Envasadora al Vacío Portátil",
+      "headline": [
+        "Frescura",
+        "duradera."
+      ],
+      "description": "Bomba de vacío inalámbrica compacta para extraer aire de bolsas y recipientes compatibles."
+    },
+    "fr": {
+      "name": "Pompe Sous Vide Portable",
+      "headline": [
+        "Fraîcheur",
+        "durable."
+      ],
+      "description": "Pompe à vide sans fil compacte pour extraire l'air des sacs et boîtes de conservation compatibles."
+    },
+    "he": {
+      "name": "משאבת ואקום ניידת למזון",
+      "headline": [
+        "טריות",
+        "לאורך זמן."
+      ],
+      "description": "משאבת ואקום אלחוטית קומפקטית לשאיבת אוויר משקיות ומכלי אחסון תואמים למזון."
+    }
+  },
+  "import-0024": {
+    "en": {
+      "name": "Smart Watch",
+      "headline": [
+        "Time",
+        "in motion."
+      ],
+      "description": "Sleek metal case with a vivid dial, dual side buttons, and a linked strap for everyday wear."
+    },
+    "pt": {
+      "name": "Relógio Inteligente Smartwatch",
+      "headline": [
+        "Tempo",
+        "no pulso."
+      ],
+      "description": "Caixa metálica elegante com visor nítido, dois botões laterais e pulseira em elos para o dia a dia."
+    },
+    "es": {
+      "name": "Reloj Inteligente Smartwatch",
+      "headline": [
+        "Tiempo",
+        "en tu muñeca."
+      ],
+      "description": "Caja metálica con pantalla nítida, dos botones laterales y correa de eslabones para uso diario."
+    },
+    "fr": {
+      "name": "Montre Connectée",
+      "headline": [
+        "L'heure",
+        "au poignet."
+      ],
+      "description": "Boîtier métallique avec cadran lumineux, deux boutons latéraux et bracelet à maillons pour le quotidien."
+    },
+    "he": {
+      "name": "שעון חכם",
+      "headline": [
+        "הזמן",
+        "על פרק היד."
+      ],
+      "description": "גוף מתכת אלגנטי עם צג ברור, שני כפתורי צד ורצועת חוליות נוחה לשימוש יומיומי."
+    }
+  },
+  "find-001-neck-cooler": {
+    "en": {
+      "name": "Wearable Neck Fan",
+      "headline": [
+        "Neck",
+        "cooler."
+      ],
+      "description": "Hands-free breeze on hot days. Collar-style wearable fan with upward-directed air vents."
+    },
+    "pt": {
+      "name": "Ventilador de Pescoço Portátil",
+      "headline": [
+        "Brisa",
+        "no pescoço."
+      ],
+      "description": "Mãos livres nos dias quentes. Ventilador vestível em formato de colar com saídas de ar superiores."
+    },
+    "es": {
+      "name": "Ventilador de Cuello Portátil",
+      "headline": [
+        "Brisa",
+        "en el cuello."
+      ],
+      "description": "Manos libres en días calurosos. Ventilador portátil tipo collar con salidas de aire hacia arriba."
+    },
+    "fr": {
+      "name": "Ventilateur de Cou Portable",
+      "headline": [
+        "Fraîcheur",
+        "autour du cou."
+      ],
+      "description": "Mains libres par temps chaud. Ventilateur tour de cou avec grilles d'aération orientées vers le haut."
+    },
+    "he": {
+      "name": "מאוורר צוואר נייד",
+      "headline": [
+        "מאוורר",
+        "צוואר."
+      ],
+      "description": "ידיים חופשיות ביום חם. מאוורר לביש בצורת קולר עם פתחי אוורור המכוונים כלפי מעלה."
+    }
+  },
+  "find-002-meat-thermo": {
+    "en": {
+      "name": "Wireless Meat Thermometer",
+      "headline": [
+        "Meat",
+        "thermometer."
+      ],
+      "description": "Dual metal probes and a compact display case for monitoring temperature while grilling or baking."
+    },
+    "pt": {
+      "name": "Termômetro Culinário para Carne",
+      "headline": [
+        "Termômetro",
+        "para carnes."
+      ],
+      "description": "Duas sondas metálicas e estojo compacto com visor para controlar a temperatura no churrasco ou forno."
+    },
+    "es": {
+      "name": "Termómetro de Cocina para Carne",
+      "headline": [
+        "Termómetro",
+        "para carne."
+      ],
+      "description": "Dos sondas metálicas y estuche con pantalla para controlar la temperatura en parrilla o horno."
+    },
+    "fr": {
+      "name": "Thermomètre à Viande Sans Fil",
+      "headline": [
+        "Thermomètre",
+        "de cuisson."
+      ],
+      "description": "Deux sondes métalliques et boîtier avec écran pour surveiller la cuisson au gril ou au four."
+    },
+    "he": {
+      "name": "מדחום דיגיטלי לבשר",
+      "headline": [
+        "מדחום",
+        "לבשר."
+      ],
+      "description": "שני חיישני מתכת ונרתיק קומפקטי עם צג לבקרת טמפרטורה מדויקת בצלייה על הגריל או בתנור."
+    }
+  },
+  "find-003-mosquito-racket": {
+    "en": {
+      "name": "Insect Trap Lamp",
+      "headline": [
+        "Insect",
+        "trap lamp."
+      ],
+      "description": "Lantern with protective grid and hanging loop for indoor or patio insect control."
+    },
+    "pt": {
+      "name": "Lâmpada Armadilha para Insetos",
+      "headline": [
+        "Lâmpada",
+        "anti-insetos."
+      ],
+      "description": "Lanterna com grade protetora e alça para pendurar. Ideal para ambientes internos ou varanda."
+    },
+    "es": {
+      "name": "Lámpara Trampa para Insectos",
+      "headline": [
+        "Lámpara",
+        "antimosquitos."
+      ],
+      "description": "Farol con rejilla protectora y asa para colgar. Disponible en variantes de color claro y oscuro."
+    },
+    "fr": {
+      "name": "Lampe Anti-Moustiques",
+      "headline": [
+        "Lampe",
+        "piège."
+      ],
+      "description": "Lanterne avec grille de protection et boucle de suspension pour l'intérieur ou la terrasse."
+    },
+    "he": {
+      "name": "מנורת מלכודת לחרקים",
+      "headline": [
+        "מנורת",
+        "מלכודת."
+      ],
+      "description": "פנס עם רשת הגנה ולולאת תלייה ללכידת יתושים וחרקים בבית או במרפסת."
+    }
+  },
+  "find-004-moto-intercom": {
+    "en": {
+      "name": "Helmet Intercom Mount Kit",
+      "headline": [
+        "Helmet",
+        "mount kit."
+      ],
+      "description": "Mounting clips with padded pads for attaching a compatible intercom headset to a motorcycle helmet."
+    },
+    "pt": {
+      "name": "Suporte para Intercomunicador de Capacete",
+      "headline": [
+        "Suporte",
+        "para capacete."
+      ],
+      "description": "Bases de fixação acolchoadas para instalar intercomunicador compatível no capacete de moto."
+    },
+    "es": {
+      "name": "Soporte de Intercomunicador para Casco",
+      "headline": [
+        "Soporte",
+        "para casco."
+      ],
+      "description": "Bases de montaje acolchadas para fijar un intercomunicador compatible al casco de moto."
+    },
+    "fr": {
+      "name": "Support d'Intercom pour Casque Moto",
+      "headline": [
+        "Support",
+        "pour casque."
+      ],
+      "description": "Fixations rembourrées pour installer un intercom compatible sur un casque de moto."
+    },
+    "he": {
+      "name": "תושבת לדיבורית קסדה",
+      "headline": [
+        "תושבת",
+        "לדיבורית."
+      ],
+      "description": "תושבות הרכבה מרופדות לחיבור דיבורית תואמת לקסדת אופנוע."
+    }
+  },
+  "find-005-moto-tpms": {
+    "en": {
+      "name": "Motorcycle TPMS Tire Monitor",
+      "headline": [
+        "Tire",
+        "pressure."
+      ],
+      "description": "Compact handlebar display showing real-time tire pressure and temperature for two wheels."
+    },
+    "pt": {
+      "name": "Monitor TPMS de Pressão para Moto",
+      "headline": [
+        "Pressão",
+        "dos pneus."
+      ],
+      "description": "Visor compacto para monitorar a pressão e temperatura dos dois pneus da motocicleta."
+    },
+    "es": {
+      "name": "Monitor TPMS de Presión para Moto",
+      "headline": [
+        "Control",
+        "de presión."
+      ],
+      "description": "Pantalla compacta para mostrar la presión y temperatura de las dos ruedas de la moto."
+    },
+    "fr": {
+      "name": "Capteur de Pression TPMS Moto",
+      "headline": [
+        "Contrôle",
+        "de pression."
+      ],
+      "description": "Écran compact affichant la pression et la température des deux pneus de moto."
+    },
+    "he": {
+      "name": "צג לחץ אוויר לצמיגי אופנוע",
+      "headline": [
+        "בקרת",
+        "לחץ אוויר."
+      ],
+      "description": "צג קומפקטי להצגת לחץ אוויר וטמפרטורה בשני גלגלי האופנוע בזמן אמת."
+    }
+  },
+  "find-006-phone-cooler": {
+    "en": {
+      "name": "Magnetic Phone Cooler",
+      "headline": [
+        "Cool",
+        "your phone."
+      ],
+      "description": "Round semiconductor radiator with RGB fan grille to prevent smartphone overheating during gaming."
+    },
+    "pt": {
+      "name": "Cooler Refrigerador para Celular",
+      "headline": [
+        "Celular",
+        "sempre frio."
+      ],
+      "description": "Resfriador circular com grade iluminada para evitar aquecimento do smartphone em jogos."
+    },
+    "es": {
+      "name": "Enfriador Magnético para Celular",
+      "headline": [
+        "Frescura",
+        "para tu celular."
+      ],
+      "description": "Enfriador circular con rejilla iluminada para mantener el smartphone frío mientras juegas."
+    },
+    "fr": {
+      "name": "Refroidisseur pour Smartphone",
+      "headline": [
+        "Fraîcheur",
+        "pour mobile."
+      ],
+      "description": "Ventilateur circulaire avec grille rétroéclairée pour refroidir le téléphone pendant le jeu."
+    },
+    "he": {
+      "name": "מאוורר קירור לסמארטפון",
+      "headline": [
+        "קירור",
+        "לסמארטפון."
+      ],
+      "description": "יחידת קירור עגולה עם תאורה אחורית למניעת התחממות הטלפון בזמן משחק או צילום."
+    }
+  },
+  "find-007-phone-gamepad": {
+    "en": {
+      "name": "Telescopic Mobile Gamepad",
+      "headline": [
+        "Gaming",
+        "in hand."
+      ],
+      "description": "Stretchable controller with dual analog sticks and ergonomic triggers for smartphone gaming."
+    },
+    "pt": {
+      "name": "Controle Gamepad para Celular",
+      "headline": [
+        "Jogos",
+        "na mão."
+      ],
+      "description": "Controle telescópico com dois analógicos e botões ergonômicos para jogar no smartphone."
+    },
+    "es": {
+      "name": "Control Gamepad para Celular",
+      "headline": [
+        "Juegos",
+        "en tus manos."
+      ],
+      "description": "Control telescópico con dos joysticks y gatillos ergonómicos para jugar en el celular."
+    },
+    "fr": {
+      "name": "Manette Télescopique pour Smartphone",
+      "headline": [
+        "Le jeu",
+        "en main."
+      ],
+      "description": "Manette extensible avec deux sticks analogiques pour transformer votre téléphone en console."
+    },
+    "he": {
+      "name": "בקר משחקים טלסקופי לסמארטפון",
+      "headline": [
+        "משחקים",
+        "בכף היד."
+      ],
+      "description": "בקר נמתח עם שני ג'ויסטיקים וסידור כפתורים נוח למשחק בטלפון הנייד."
+    }
+  },
+  "find-008-jump-starter": {
+    "en": {
+      "name": "Car Jump Starter Power Bank",
+      "headline": [
+        "Power",
+        "to start."
+      ],
+      "description": "Portable car battery booster in a rugged case with digital display and jumper clamps."
+    },
+    "pt": {
+      "name": "Auxiliar de Partida Portátil Automotivo",
+      "headline": [
+        "Reserva",
+        "de partida."
+      ],
+      "description": "Booster automotivo portátil em gabinete reforçado com visor digital para bateria de carro."
+    },
+    "es": {
+      "name": "Arrancador Portátil de Batería para Auto",
+      "headline": [
+        "Reserva",
+        "de arranque."
+      ],
+      "description": "Arrancador portátil para auto en estuche resistente con pantalla digital y pinzas de corriente."
+    },
+    "fr": {
+      "name": "Booster de Batterie Auto Portable",
+      "headline": [
+        "Réserve",
+        "de démarrage."
+      ],
+      "description": "Démarreur de voiture portable dans un boîtier robuste avec écran numérique."
+    },
+    "he": {
+      "name": "בוסטר התנעה לרכב",
+      "headline": [
+        "גיבוי",
+        "להתנעה."
+      ],
+      "description": "בוסטר התנעה נייד לרכב במארז מוקשח עם צג דיגיטלי וכבלי התנעה."
+    }
+  },
+  "find-009-bulb-camera": {
+    "en": {
+      "name": "E27 Bulb Security Camera",
+      "headline": [
+        "Camera",
+        "in a socket."
+      ],
+      "description": "Pan-and-tilt Wi-Fi camera built into a standard E27 screw-in light socket housing."
+    },
+    "pt": {
+      "name": "Câmera de Segurança Lâmpada E27",
+      "headline": [
+        "Câmera",
+        "no bocal."
+      ],
+      "description": "Câmera giratória Wi-Fi com rosca padrão E27 para instalação simples como uma lâmpada."
+    },
+    "es": {
+      "name": "Cámara de Seguridad Bombilla E27",
+      "headline": [
+        "Cámara",
+        "en casquillo."
+      ],
+      "description": "Cámara motorizada con rosca E27 fácil de instalar en cualquier portalámparas estándar."
+    },
+    "fr": {
+      "name": "Caméra Ampoule E27 Motorisée",
+      "headline": [
+        "Caméra",
+        "sur douille."
+      ],
+      "description": "Caméra rotative intégrée dans un culot d'ampoule E27 standard."
+    },
+    "he": {
+      "name": "מצלמת אבטחה בהברגת נורה E27",
+      "headline": [
+        "מצלמה",
+        "בבית מנורה."
+      ],
+      "description": "מצלמה מתכווננת בגוף נורה עם הברגת E27 סטנדרטית להתקנה פשוטה ומהירה."
+    }
+  },
+  "find-010-gallon-pump": {
+    "en": {
+      "name": "Electric Water Gallon Pump",
+      "headline": [
+        "Water",
+        "at one touch."
+      ],
+      "description": "Compact rechargeable dispenser with curved metal spout for large water bottles."
+    },
+    "pt": {
+      "name": "Bomba Elétrica para Galão de Água",
+      "headline": [
+        "Água",
+        "em um toque."
+      ],
+      "description": "Bomba recarregável compacta com bico metálico curvo para galões de água."
+    },
+    "es": {
+      "name": "Dispensador Eléctrico para Garrafón",
+      "headline": [
+        "Agua",
+        "con un toque."
+      ],
+      "description": "Bomba recargable compacta con tubo metálico curvo para garrafones de agua."
+    },
+    "fr": {
+      "name": "Pompe à Eau Électrique pour Bonbonne",
+      "headline": [
+        "De l'eau",
+        "en un geste."
+      ],
+      "description": "Pompe compacte avec bec verseur métallique incurvé pour bonbonnes d'eau."
+    },
+    "he": {
+      "name": "משאבת מים חשמלית לכד מים",
+      "headline": [
+        "מים",
+        "בלחיצה אחת."
+      ],
+      "description": "משאבה קומפקטית נטענת עם פיית מתכת מעוקלת להתקנה על בקבוקי וכדי מים."
+    }
+  },
+  "find-011-nail-drill": {
+    "en": {
+      "name": "Portable Electric Nail Drill",
+      "headline": [
+        "Manicure",
+        "made easy."
+      ],
+      "description": "Control station with digital screen, handpiece stand, and rotary manicure pen."
+    },
+    "pt": {
+      "name": "Lixadeira Elétrica Portátil para Unhas",
+      "headline": [
+        "Manicure",
+        "sem pressa."
+      ],
+      "description": "Unidade de controle com visor, suporte e caneta lixadeira para manicure e pedicure."
+    },
+    "es": {
+      "name": "Pulidor de Uñas Eléctrico Portátil",
+      "headline": [
+        "Manicura",
+        "sin prisa."
+      ],
+      "description": "Estación de control con pantalla digital, soporte y pluma pulidora para manicura y pedicura."
+    },
+    "fr": {
+      "name": "Ponceuse à Ongles Électrique Portable",
+      "headline": [
+        "Manucure",
+        "sans effort."
+      ],
+      "description": "Boîtier de commande avec écran, support et stylo ponceuse pour manucure."
+    },
+    "he": {
+      "name": "מכונת שיוף ניידת למניקור",
+      "headline": [
+        "מניקור",
+        "בקלות."
+      ],
+      "description": "יחידת בקרה עם מסך, מעמד וידית שיוף לעבודת מניקור ופדיקור נוחה."
+    }
+  },
+  "find-012-hair-curler": {
+    "en": {
+      "name": "Cordless Heated Styling Brush",
+      "headline": [
+        "Styling",
+        "on hand."
+      ],
+      "description": "Rounded thermal brush with built-in temperature display for quick hair styling on the go."
+    },
+    "pt": {
+      "name": "Escova Modeladora Térmica Sem Fio",
+      "headline": [
+        "Penteado",
+        "à mão."
+      ],
+      "description": "Escova arredondada com aquecimento e visor integrado em um corpo compacto."
+    },
+    "es": {
+      "name": "Cepillo Moldeador Térmico Inalámbrico",
+      "headline": [
+        "Peinado",
+        "a mano."
+      ],
+      "description": "Cepillo redondeado con calentamiento y pantalla integrada para peinar en cualquier lugar."
+    },
+    "fr": {
+      "name": "Brosse Chauffante Coiffante Sans Fil",
+      "headline": [
+        "Coiffure",
+        "à portée."
+      ],
+      "description": "Brosse ronde chauffante avec écran intégré dans un format compact sans fil."
+    },
+    "he": {
+      "name": "מברשת עיצוב שיער אלחוטית",
+      "headline": [
+        "עיצוב",
+        "בהישג יד."
+      ],
+      "description": "מברשת חימום עגולה עם צג מובנה לעיצוב שיער מהיר ונוח ללא כבלים."
+    }
+  },
+  "find-013-kick-trainer": {
+    "en": {
+      "name": "Soccer Solo Kick Trainer Belt",
+      "headline": [
+        "Practice",
+        "your kick."
+      ],
+      "description": "Waist belt with elastic tether and ball holder for solo football control training."
+    },
+    "pt": {
+      "name": "Cinto Treinador de Futebol Solo",
+      "headline": [
+        "Treine",
+        "o chute."
+      ],
+      "description": "Cinto com corda elástica e suporte de bola para treinar controle e passe sozinho."
+    },
+    "es": {
+      "name": "Cinturón de Entrenamiento de Fútbol",
+      "headline": [
+        "Entrena",
+        "tu golpeo."
+      ],
+      "description": "Cinturón con cuerda elástica y sujeción para balón ideal para entrenar en solitario."
+    },
+    "fr": {
+      "name": "Ceinture d'Entraînement Football Solo",
+      "headline": [
+        "Travaillez",
+        "votre tir."
+      ],
+      "description": "Ceinture avec cordon élastique et support de ballon pour s'entraîner seul."
+    },
+    "he": {
+      "name": "חגורת אימון כדורגל אישית",
+      "headline": [
+        "תרגול",
+        "בעיטות."
+      ],
+      "description": "חגורת מותן עם רצועה אלסטית ותופסן לכדור לאימון שליטה ובעיטות עצמאי."
+    }
+  },
+  "find-014-lunch-box": {
+    "en": {
+      "name": "Electric Heated Lunch Box",
+      "headline": [
+        "Warm",
+        "lunch."
+      ],
+      "description": "Portable food container with carry handle and electric heating for warm meals at work or in the car."
+    },
+    "pt": {
+      "name": "Marmita Elétrica Térmica com Aquecimento",
+      "headline": [
+        "Almoço",
+        "quentinho."
+      ],
+      "description": "Recipiente portátil com alça e aquecimento elétrico para esquentar a refeição no trabalho ou carro."
+    },
+    "es": {
+      "name": "Lonchera Eléctrica Calentador de Comida",
+      "headline": [
+        "Comida",
+        "siempre caliente."
+      ],
+      "description": "Lonchera portátil con asa y calentamiento eléctrico para disfrutar comida caliente en la oficina o el auto."
+    },
+    "fr": {
+      "name": "Boîte à Lunch Chauffante Électrique",
+      "headline": [
+        "Repas",
+        "chaud."
+      ],
+      "description": "Contenant portable avec poignée et chauffage électrique pour réchauffer vos repas."
+    },
+    "he": {
+      "name": "קופסת אוכל חשמלית מתחממת",
+      "headline": [
+        "ארוחה",
+        "חמה."
+      ],
+      "description": "מכל נשיאה עם ידית וגוף חימום חשמלי לחימום הארוחה במשרד או ברכב."
+    }
+  },
+  "find-015-fishing-float": {
+    "en": {
+      "name": "Rod Tip Fishing Bite Alarm",
+      "headline": [
+        "Never miss",
+        "a bite."
+      ],
+      "description": "Compact rod-mounted indicator with bright antenna and bell for angling."
+    },
+    "pt": {
+      "name": "Alarme Indicador de Pesca para Vara",
+      "headline": [
+        "Não perca",
+        "a fisgada."
+      ],
+      "description": "Indicador compacto com fixação na vara, antena brilhante e sino para pesca."
+    },
+    "es": {
+      "name": "Indicador de Picada para Caña de Pescar",
+      "headline": [
+        "No pierdas",
+        "la picada."
+      ],
+      "description": "Indicador compacto con sujeción a la caña, antena brillante y cascabel."
+    },
+    "fr": {
+      "name": "Détecteur de Touche pour Canne à Pêche",
+      "headline": [
+        "Ne manquez",
+        "aucune touche."
+      ],
+      "description": "Indicateur compact fixé sur la canne avec antenne lumineuse et clochette."
+    },
+    "he": {
+      "name": "גלאי נשיכות לחכת דיג",
+      "headline": [
+        "אל תפספס",
+        "אכילה."
+      ],
+      "description": "סמן קומפקטי הנצמד לחכה עם אנטנה בולטת ופעמון לזיהוי מיידי בדיג."
+    }
+  },
+  "find-016-mini-chainsaw": {
+    "en": {
+      "name": "Cordless Mini Chainsaw",
+      "headline": [
+        "Garden",
+        "in order."
+      ],
+      "description": "Handheld battery chainsaw with compact guide bar and safety guard for pruning branches."
+    },
+    "pt": {
+      "name": "Mini Motosserra Elétrica a Bateria",
+      "headline": [
+        "Jardim",
+        "em ordem."
+      ],
+      "description": "Serra de corrente manual compacta com protetor para poda de galhos e jardinagem."
+    },
+    "es": {
+      "name": "Mini Motosierra Eléctrica a Batería",
+      "headline": [
+        "Jardín",
+        "en orden."
+      ],
+      "description": "Sierra de cadena manual con espada compacta y protector para podar ramas."
+    },
+    "fr": {
+      "name": "Mini Tronçonneuse Sans Fil à Batterie",
+      "headline": [
+        "Jardin",
+        "soigné."
+      ],
+      "description": "Tronçonneuse à main compacte avec carter de protection pour l'élagage."
+    },
+    "he": {
+      "name": "מסור שרשרת מיני נטען",
+      "headline": [
+        "סדר",
+        "בגינה."
+      ],
+      "description": "מסור שרשרת ידני קומפקטי עם מגן בטיחות לגיזום ענפים ועבודות גינה."
+    }
+  },
+  "find-017-star-projector": {
+    "en": {
+      "name": "USB Star Night Projector",
+      "headline": [
+        "Stars",
+        "nearby."
+      ],
+      "description": "Mini projector on a flexible USB neck with interchangeable projection discs."
+    },
+    "pt": {
+      "name": "Projetor USB de Estrelas e Galáxia",
+      "headline": [
+        "Estrelas",
+        "por perto."
+      ],
+      "description": "Pequeno projetor em haste USB flexível com discos de projeção intercambiáveis."
+    },
+    "es": {
+      "name": "Proyector USB de Estrellas",
+      "headline": [
+        "Estrellas",
+        "cerca."
+      ],
+      "description": "Pequeño proyector con brazo USB flexible y discos de proyección intercambiables."
+    },
+    "fr": {
+      "name": "Projecteur d'Étoiles USB Flexible",
+      "headline": [
+        "Les étoiles",
+        "tout près."
+      ],
+      "description": "Mini projecteur sur tige USB flexible avec disques de projection interchangeables."
+    },
+    "he": {
+      "name": "מקרן כוכבים בחיבור USB",
+      "headline": [
+        "כוכבים",
+        "מקרוב."
+      ],
+      "description": "מקרן קומפקטי על זרוע USB גמישה עם דיסקיות הקרנה מתחלפות לאווירה בחדר."
+    }
+  },
+  "find-018-padel-pressurizer": {
+    "en": {
+      "name": "Tennis & Padel Ball Pressurizer",
+      "headline": [
+        "Balls",
+        "under pressure."
+      ],
+      "description": "Pressurized storage canister with gauge lid to maintain tennis and padel ball bounce."
+    },
+    "pt": {
+      "name": "Pressurizador de Bolas de Tênis e Padel",
+      "headline": [
+        "Bolas",
+        "sob pressão."
+      ],
+      "description": "Tubo com tampa e manômetro para manter a pressão das bolas de tênis e padel."
+    },
+    "es": {
+      "name": "Presurizador de Pelotas de Pádel y Tenis",
+      "headline": [
+        "Pelotas",
+        "a presión."
+      ],
+      "description": "Bote con tapa y manómetro para conservar las pelotas bajo presión."
+    },
+    "fr": {
+      "name": "Pressuriseur de Balles de Tennis et Padel",
+      "headline": [
+        "Balles",
+        "sous pression."
+      ],
+      "description": "Tube avec couvercle et manomètre pour conserver les balles sous pression."
+    },
+    "he": {
+      "name": "מכל לחץ לכדורי טניס ופאדל",
+      "headline": [
+        "כדורים",
+        "בלחץ מלא."
+      ],
+      "description": "מכל אחסון עם מכסה ומד לחץ לשמירה על קפיציות כדורי הטניס והפאדל."
+    }
+  },
+  "find-019-wine-aerator": {
+    "en": {
+      "name": "Electric Wine Aerator Dispenser",
+      "headline": [
+        "Pour",
+        "at one touch."
+      ],
+      "description": "Bottle-top dispenser with curved spout and top control panel for aerating and pouring wine."
+    },
+    "pt": {
+      "name": "Aerador e Dispenser Elétrico de Vinho",
+      "headline": [
+        "Sirva",
+        "em um toque."
+      ],
+      "description": "Bico dosador com painel superior para servir e aerar vinho direto da garrafa."
+    },
+    "es": {
+      "name": "Aireador y Dispensador Eléctrico de Vino",
+      "headline": [
+        "Servir",
+        "con un toque."
+      ],
+      "description": "Boquilla con caño curvado y panel superior para servir vino desde la botella."
+    },
+    "fr": {
+      "name": "Aérateur et Distributeur de Vin Électrique",
+      "headline": [
+        "Service",
+        "en une touche."
+      ],
+      "description": "Verseur électrique avec bec incurvé pour servir et aérer le vin."
+    },
+    "he": {
+      "name": "מוזג ומאוורר יין חשמלי",
+      "headline": [
+        "מזיגה",
+        "בלחיצה."
+      ],
+      "description": "פיית מזיגה מעוקלת עם לוח הפעלה עליון למזיגה ואוורור יין ישירות מהבקבוק."
+    }
+  },
+  "find-020-espresso-portable": {
+    "en": {
+      "name": "Portable Travel Espresso Maker",
+      "headline": [
+        "Coffee",
+        "to go."
+      ],
+      "description": "Cylindrical travel coffee maker compatible with capsules or ground coffee."
+    },
+    "pt": {
+      "name": "Cafeteira Expresso Portátil de Viagem",
+      "headline": [
+        "Café",
+        "para viagem."
+      ],
+      "description": "Cafeteira cilíndrica portátil compatível com cápsulas ou café moído."
+    },
+    "es": {
+      "name": "Cafetera Espresso Portátil de Viaje",
+      "headline": [
+        "Café",
+        "para llevar."
+      ],
+      "description": "Cafetera cilíndrica de viaje compatible con cápsulas o café molido."
+    },
+    "fr": {
+      "name": "Machine à Expresso Portable de Voyage",
+      "headline": [
+        "Le café",
+        "à emporter."
+      ],
+      "description": "Cafetière cylindrique nomade compatible capsules ou café moulu."
+    },
+    "he": {
+      "name": "מכונת אספרסו ניידת לדרך",
+      "headline": [
+        "קפה",
+        "לדרך."
+      ],
+      "description": "מכונת קפה גלילית קומפקטית לנסיעות, מותאמת לקפסולות או לקפה טחון."
+    }
+  },
+  "find-021-drip-irrigation": {
+    "en": {
+      "name": "Solar Drip Irrigation Kit",
+      "headline": [
+        "Watering",
+        "on schedule."
+      ],
+      "description": "Solar-powered controller with slim drip tubing for automatic indoor or balcony plant watering."
+    },
+    "pt": {
+      "name": "Kit de Irrigação Gotejamento Solar",
+      "headline": [
+        "Rega",
+        "programada."
+      ],
+      "description": "Controlador com painel solar e mangueira fina para regar plantas automaticamente."
+    },
+    "es": {
+      "name": "Sistema Solar de Riego por Goteo",
+      "headline": [
+        "Riego",
+        "programado."
+      ],
+      "description": "Controlador con panel solar y tubo de goteo para regar plantas automáticamente."
+    },
+    "fr": {
+      "name": "Kit d'Arrosage Goutte-à-Goutte Solaire",
+      "headline": [
+        "Arrosage",
+        "programmé."
+      ],
+      "description": "Contrôleur avec panneau solaire et tuyau fin pour arroser vos plantes."
+    },
+    "he": {
+      "name": "מערכת השקיה בטפטוף סולארית",
+      "headline": [
+        "השקיה",
+        "מתוזמנת."
+      ],
+      "description": "בקר עם פאנל סולארי וצינוריות טפטוף להשקיה אוטומטית של עציצים בבית ובמרפסת."
+    }
+  },
+  "find-022-litter-deodorizer": {
+    "en": {
+      "name": "PETKIT N50 Deodorizer Refills",
+      "headline": [
+        "Freshness",
+        "for litter box."
+      ],
+      "description": "Replacement N50 odor-control packs for compatible automatic cat litter boxes."
+    },
+    "pt": {
+      "name": "Refil Desodorizador PETKIT N50",
+      "headline": [
+        "Frescor",
+        "para caixa."
+      ],
+      "description": "Pacotes desodorizadores N50 de reposição para caixas de areia compatíveis."
+    },
+    "es": {
+      "name": "Repuestos Desodorizantes PETKIT N50",
+      "headline": [
+        "Frescura",
+        "para el arenero."
+      ],
+      "description": "Paquetes desodorizantes N50 de repuesto para areneros automáticos de gato compatibles."
+    },
+    "fr": {
+      "name": "Recharges Désodorisantes PETKIT N50",
+      "headline": [
+        "Fraîcheur",
+        "pour litière."
+      ],
+      "description": "Sachets désodorisants N50 de rechange pour bacs à litière compatibles."
+    },
+    "he": {
+      "name": "מארז מילוי מנטרל ריחות PETKIT N50",
+      "headline": [
+        "רעננות",
+        "לארגז החול."
+      ],
+      "description": "שקיות מילוי N50 לנטרול ריחות עבור ארגזי חול אוטומטיים תואמים לחתולים."
+    }
+  },
+  "find-023-cat-laser": {
+    "en": {
+      "name": "Automatic Rotating Cat Laser Toy",
+      "headline": [
+        "Playtime",
+        "for cats."
+      ],
+      "description": "Tabletop pet toy with a rotating laser head for active indoor cat play."
+    },
+    "pt": {
+      "name": "Brinquedo Laser Automático para Gatos",
+      "headline": [
+        "Diversão",
+        "para o gato."
+      ],
+      "description": "Brinquedo de mesa com cabeça giratória a laser para entreter o seu pet."
+    },
+    "es": {
+      "name": "Juguete Láser Automático para Gatos",
+      "headline": [
+        "Juego",
+        "para tu gato."
+      ],
+      "description": "Juguete de mesa con cabezal giratorio para mantener activo a tu gato."
+    },
+    "fr": {
+      "name": "Jouet Laser Automatique pour Chat",
+      "headline": [
+        "Du jeu",
+        "pour le chat."
+      ],
+      "description": "Jouet de table à tête rotative pour stimuler l'activité de votre chat."
+    },
+    "he": {
+      "name": "צעצוע לייזר אוטומטי לחתולים",
+      "headline": [
+        "משחק",
+        "לחתול."
+      ],
+      "description": "צעצוע שולחני עם ראש מסתובב למשחק פעיל ומשעשע עם החתול בבית."
+    }
+  },
+  "find-024-trekking-poles": {
+    "en": {
+      "name": "Folding Trekking Pole",
+      "headline": [
+        "Lighter",
+        "on the trail."
+      ],
+      "description": "Segmented collapsible hiking pole with wrist strap for compact packing."
+    },
+    "pt": {
+      "name": "Bastão de Caminhada Trekking Dobrável",
+      "headline": [
+        "Mais leve",
+        "na trilha."
+      ],
+      "description": "Bastão segmentado dobrável com alça de pulso para trilhas e caminhadas."
+    },
+    "es": {
+      "name": "Bastón de Senderismo Plegable",
+      "headline": [
+        "Más ligero",
+        "en ruta."
+      ],
+      "description": "Bastón de trekking segmentado con correa de muñeca plegable para transporte."
+    },
+    "fr": {
+      "name": "Bâton de Randonnée Pliable",
+      "headline": [
+        "Plus léger",
+        "en chemin."
+      ],
+      "description": "Bâton de marche pliable à segments avec dragonne pour la randonnée."
+    },
+    "he": {
+      "name": "מקל הליכה מתקפל לטיולים",
+      "headline": [
+        "קל יותר",
+        "בשביל."
+      ],
+      "description": "מקל טרקים מתקפל לחוליות עם רצועת יד לאחיזה נוחה ונשיאה קומפקטית."
+    }
+  },
+  "find-025-period-belt": {
+    "en": {
+      "name": "Heated Massage Waist Belt",
+      "headline": [
+        "Cozy",
+        "warmth."
+      ],
+      "description": "Soft plush waist belt with compact control panel for soothing heat and vibration."
+    },
+    "pt": {
+      "name": "Cinta Térmica Massageadora Abdominal",
+      "headline": [
+        "Calor",
+        "acolhedor."
+      ],
+      "description": "Cinta macia com painel compacto de aquecimento e vibração relaxante."
+    },
+    "es": {
+      "name": "Cinturón Térmico con Vibración",
+      "headline": [
+        "Calor",
+        "acogedor."
+      ],
+      "description": "Cinturón suave con panel de control compacto de calor y vibración."
+    },
+    "fr": {
+      "name": "Ceinture Chauffante et Massante",
+      "headline": [
+        "Douce",
+        "chaleur."
+      ],
+      "description": "Ceinture douce avec panneau de commande pour chaleur apaisante et vibration."
+    },
+    "he": {
+      "name": "חגורת חימום ועיסוי למותן",
+      "headline": [
+        "חום",
+        "נעים."
+      ],
+      "description": "חגורה רכה עם לוח בקרה קומפקטי לחימום מרגיע ורטט עדין."
+    }
+  },
+  "find-026-veg-purifier": {
+    "en": {
+      "name": "Capsule Fruit & Veggie Washer",
+      "headline": [
+        "Fresh",
+        "approach."
+      ],
+      "description": "Perforated capsule device designed for rinsing fruits and vegetables in a bowl of water."
+    },
+    "pt": {
+      "name": "Higienizador Cápsula para Frutas e Verduras",
+      "headline": [
+        "Abordagem",
+        "fresca."
+      ],
+      "description": "Cápsula perfurada portátil para auxiliar na lavagem de alimentos na água."
+    },
+    "es": {
+      "name": "Purificador Cápsula para Frutas y Verduras",
+      "headline": [
+        "Enfoque",
+        "fresco."
+      ],
+      "description": "Dispositivo en cápsula perforada para el lavado de frutas y verduras en agua."
+    },
+    "fr": {
+      "name": "Purificateur Capsule pour Fruits et Légumes",
+      "headline": [
+        "Approche",
+        "fraîche."
+      ],
+      "description": "Appareil capsule perforé à plonger dans l'eau pour le lavage des aliments."
+    },
+    "he": {
+      "name": "מכשיר קפסולה לשטיפת פירות וירקות",
+      "headline": [
+        "גישה",
+        "רעננה."
+      ],
+      "description": "מכשיר קפסולה מחורר לשימוש בתוך קערת מים בעת שטיפת פירות וירקות."
+    }
+  },
+  "find-027-heated-insoles": {
+    "en": {
+      "name": "Electric Heated Shoe Insoles",
+      "headline": [
+        "Warmth",
+        "every step."
+      ],
+      "description": "Pair of heated insoles with built-in heel controls for cold-weather comfort."
+    },
+    "pt": {
+      "name": "Palmilhas Aquecidas Elétricas",
+      "headline": [
+        "Calor",
+        "a cada passo."
+      ],
+      "description": "Par de palmilhas com aquecimento para manter os pés quentes nos dias frios."
+    },
+    "es": {
+      "name": "Plantillas Calefactables Eléctricas",
+      "headline": [
+        "Calor",
+        "en cada paso."
+      ],
+      "description": "Par de plantillas con calefacción integrada para caminar cómodo en invierno."
+    },
+    "fr": {
+      "name": "Semelles Chauffantes Électriques",
+      "headline": [
+        "Chaleur",
+        "à chaque pas."
+      ],
+      "description": "Paire de semelles chauffantes pour garder les pieds au chaud par temps froid."
+    },
+    "he": {
+      "name": "מדרסים חשמליים מחממים",
+      "headline": [
+        "חום",
+        "בכל צעד."
+      ],
+      "description": "זוג מדרסים עם חימום מובנה לשמירה על כפות רגליים חמות בימים קרים."
+    }
+  },
+  "find-028-bike-taillight": {
+    "en": {
+      "name": "LED Bicycle Tail Light",
+      "headline": [
+        "More visible",
+        "on the road."
+      ],
+      "description": "Compact red lens bike light with seatpost mount for night cycling visibility."
+    },
+    "pt": {
+      "name": "Lanterna Traseira LED para Bicicleta",
+      "headline": [
+        "Mais visível",
+        "na pista."
+      ],
+      "description": "Luz traseira compacta com lente vermelha e suporte para ciclismo noturno."
+    },
+    "es": {
+      "name": "Luz Trasera LED para Bicicleta",
+      "headline": [
+        "Más visible",
+        "en ruta."
+      ],
+      "description": "Luz compacta con lente roja y soporte para tija de bicicleta."
+    },
+    "fr": {
+      "name": "Feu Arrière LED pour Vélo",
+      "headline": [
+        "Plus visible",
+        "sur la route."
+      ],
+      "description": "Éclairage arrière compact à lentille rouge avec fixation pour vélo."
+    },
+    "he": {
+      "name": "פנס אחורי LED לאופניים",
+      "headline": [
+        "בולט יותר",
+        "בכביש."
+      ],
+      "description": "פנס קומפקטי עם עדשה אדומה ותושבת לאופניים לנראות גבוהה ברכיבת לילה."
+    }
+  },
+  "find-029-window-cleaner": {
+    "en": {
+      "name": "Magnetic Double-Sided Window Cleaner",
+      "headline": [
+        "Clean",
+        "windows."
+      ],
+      "description": "Triangular magnetic wiper pair for cleaning both sides of window glass simultaneously."
+    },
+    "pt": {
+      "name": "Limpador Magnético Duplo para Janelas",
+      "headline": [
+        "Janelas",
+        "limpas."
+      ],
+      "description": "Escova triangular com par magnético para limpar os dois lados do vidro."
+    },
+    "es": {
+      "name": "Limpiacristales Magnético de Doble Cara",
+      "headline": [
+        "Ventanas",
+        "limpias."
+      ],
+      "description": "Cepillo triangular magnético para limpiar ambos lados del cristal a la vez."
+    },
+    "fr": {
+      "name": "Nettoyeur de Vitres Magnétique Double Face",
+      "headline": [
+        "Des vitres",
+        "nettes."
+      ],
+      "description": "Brosse triangulaire magnétique pour nettoyer les deux faces d'une vitre."
+    },
+    "he": {
+      "name": "מנקה חלונות מגנטי דו-צדדי",
+      "headline": [
+        "חלונות",
+        "נקיים."
+      ],
+      "description": "זוג מגבים משולשים מגנטיים לניקוי שני צידי השמשה בו-זמנית."
+    }
+  },
+  "find-030-ai-recorder": {
+    "en": {
+      "name": "Slim Bluetooth Voice Recorder",
+      "headline": [
+        "Thoughts",
+        "on record."
+      ],
+      "description": "Flat pocket voice recorder with mini screen and physical controls for notes and meetings."
+    },
+    "pt": {
+      "name": "Gravador de Voz Portátil Bluetooth",
+      "headline": [
+        "Ideias",
+        "gravadas."
+      ],
+      "description": "Gravador de bolso ultrafino com tela compacta e botões físicos."
+    },
+    "es": {
+      "name": "Grabadora de Voz Compacta Bluetooth",
+      "headline": [
+        "Ideas",
+        "grabadas."
+      ],
+      "description": "Grabadora de bolsillo plana con pequeña pantalla y botones físicos."
+    },
+    "fr": {
+      "name": "Dictaphone Compact Bluetooth",
+      "headline": [
+        "Vos idées",
+        "enregistrées."
+      ],
+      "description": "Enregistreur vocal plat de poche avec petit écran et boutons physiques."
+    },
+    "he": {
+      "name": "מכשיר הקלטה קומפקטי עם Bluetooth",
+      "headline": [
+        "מחשבות",
+        "מוקלטות."
+      ],
+      "description": "מקליט קול שטוח לכיס עם מסך קטן וכפתורים פיזיים להקלטת פגישות ותזכורות."
+    }
+  },
+  "find-031-kids-print-camera": {
+    "en": {
+      "name": "Kids Instant Print Camera",
+      "headline": [
+        "Little",
+        "stories."
+      ],
+      "description": "Playful dinosaur-themed digital camera with built-in thermal black-and-white printing."
+    },
+    "pt": {
+      "name": "Câmera Infantil com Impressão Instantânea",
+      "headline": [
+        "Pequenas",
+        "histórias."
+      ],
+      "description": "Câmera divertida com capa de dinossauro e impressão térmica instantânea."
+    },
+    "es": {
+      "name": "Cámara Infantil con Impresión Instantánea",
+      "headline": [
+        "Pequeñas",
+        "historias."
+      ],
+      "description": "Cámara con funda de dinosaurio e impresión térmica instantánea integrada."
+    },
+    "fr": {
+      "name": "Appareil Photo Instantané pour Enfants",
+      "headline": [
+        "Petites",
+        "histoires."
+      ],
+      "description": "Appareil photo ludique motif dinosaure avec impression thermique directe."
+    },
+    "he": {
+      "name": "מצלמת ילדים עם הדפסה מיידית",
+      "headline": [
+        "סיפורים",
+        "קטנים."
+      ],
+      "description": "מצלמה צבעונית בעיצוב דינוזאור עם מדפסת תרמית מובנית להדפסת תמונות מיידית."
+    }
+  },
+  "find-032-sous-vide": {
+    "en": {
+      "name": "Immersion Sous Vide Cooker",
+      "headline": [
+        "Precision",
+        "cooking."
+      ],
+      "description": "Thermal circulator with round display and side clamp for water-bath cooking."
+    },
+    "pt": {
+      "name": "Termocirculador Sous Vide Portátil",
+      "headline": [
+        "Cozimento",
+        "preciso."
+      ],
+      "description": "Circulador térmico com visor redondo e presilha lateral para cozimento sous-vide."
+    },
+    "es": {
+      "name": "Circulador Sous Vide de Inmersión",
+      "headline": [
+        "Cocción",
+        "precisa."
+      ],
+      "description": "Circulador térmico con pantalla redonda y pinza lateral para cocinar al vacío en baño de agua."
+    },
+    "fr": {
+      "name": "Thermoplongeur Cuisson Sous Vide",
+      "headline": [
+        "Cuisson",
+        "de précision."
+      ],
+      "description": "Circulateur thermique avec écran rond et pince de fixation pour bain-marie."
+    },
+    "he": {
+      "name": "מכשיר סו־ויד לבישול במים",
+      "headline": [
+        "בישול",
+        "מדויק."
+      ],
+      "description": "סירקולטור תרמי עם מסך עגול ותפס צד לבישול מדויק באמבט מים."
+    }
+  },
+  "find-033-callus-remover": {
+    "en": {
+      "name": "Electric Foot Callus Remover",
+      "headline": [
+        "Smooth",
+        "foot care."
+      ],
+      "description": "Rechargeable roller buffer with digital display and replaceable abrasive heads."
+    },
+    "pt": {
+      "name": "Lixadeira Elétrica Esfoliadora para Pés",
+      "headline": [
+        "Cuidado",
+        "para os pés."
+      ],
+      "description": "Lixa giratória com visor digital e rolo abrasivo substituível para os pés."
+    },
+    "es": {
+      "name": "Lima Eléctrica para Callos de Pies",
+      "headline": [
+        "Cuidado",
+        "de los pies."
+      ],
+      "description": "Lima de rodillo con pantalla y cabezal abrasivo intercambiable."
+    },
+    "fr": {
+      "name": "Râpe Électrique Anti-Callosités Pieds",
+      "headline": [
+        "Soin",
+        "des pieds."
+      ],
+      "description": "Râpe à rouleau avec écran et tête abrasive remplaçable."
+    },
+    "he": {
+      "name": "פצירה חשמלית לכפות הרגליים",
+      "headline": [
+        "טיפוח",
+        "כפות הרגליים."
+      ],
+      "description": "משייף גלילי נטען עם צג דיגיטלי וראש שיוף מתחלף להחלקת העור."
+    }
+  },
+  "find-034-smart-rope": {
+    "en": {
+      "name": "Digital Counting Jump Rope",
+      "headline": [
+        "Keep",
+        "the rhythm."
+      ],
+      "description": "Handles with built-in counter and adjustable rope/cordless balls for home cardio workouts."
+    },
+    "pt": {
+      "name": "Corda de Pular Digital com Contador",
+      "headline": [
+        "Mantenha",
+        "o ritmo."
+      ],
+      "description": "Alças com contador digital e corda ajustável para treinos em casa."
+    },
+    "es": {
+      "name": "Cuerda para Saltar Digital con Contador",
+      "headline": [
+        "Mantén",
+        "el ritmo."
+      ],
+      "description": "Mangos con contador digital y cuerda ajustable para entrenamientos de cardio en casa."
+    },
+    "fr": {
+      "name": "Corde à Sauter Numérique avec Compteur",
+      "headline": [
+        "Gardez",
+        "le rythme."
+      ],
+      "description": "Poignées avec compteur intégré et corde réglable pour le fitness à domicile."
+    },
+    "he": {
+      "name": "חבל קפיצה דיגיטלי עם מונה",
+      "headline": [
+        "שמור על",
+        "הקצב."
+      ],
+      "description": "זוג ידיות עם מונה קפיצות מובנה וחבל מתכוונן לאימוני כושר בבית."
+    }
+  },
+  "find-035-cordless-scissors": {
+    "en": {
+      "name": "Cordless Electric Rotary Scissors",
+      "headline": [
+        "Cut",
+        "with precision."
+      ],
+      "description": "Handheld power cutter with rotary blade and safety shield for cardboard, fabric, and leather."
+    },
+    "pt": {
+      "name": "Tesoura Elétrica Cortadora a Bateria",
+      "headline": [
+        "Corte",
+        "mais preciso."
+      ],
+      "description": "Ferramenta manual com disco de corte giratório para papelão, tecido e couro."
+    },
+    "es": {
+      "name": "Tijeras Eléctricas Inalámbricas",
+      "headline": [
+        "Corta",
+        "con precisión."
+      ],
+      "description": "Herramienta manual con disco de corte giratorio para cartón, tela y cuero."
+    },
+    "fr": {
+      "name": "Ciseaux Électriques Sans Fil Rotatifs",
+      "headline": [
+        "Coupez",
+        "avec précision."
+      ],
+      "description": "Outil à main avec lame circulaire protégée pour carton, tissu et cuir."
+    },
+    "he": {
+      "name": "מספריים חשמליים נטענים",
+      "headline": [
+        "חיתוך",
+        "מדויק."
+      ],
+      "description": "כלי חיתוך ידני עם להב עגול ומגן בטיחות לחיתוך קרטון, בד וחומרים נוספים."
+    }
+  },
+  "find-036-stud-finder": {
+    "en": {
+      "name": "Digital Wall Scanner & Stud Finder",
+      "headline": [
+        "Look",
+        "behind walls."
+      ],
+      "description": "Handheld wall detector with circular screen for locating metal, wood studs, and live AC wires."
+    },
+    "pt": {
+      "name": "Detector Digital de Fios e Metais na Parede",
+      "headline": [
+        "Olhe",
+        "atrás da parede."
+      ],
+      "description": "Detector manual com visor redondo para localizar metais, madeira e cabos na parede."
+    },
+    "es": {
+      "name": "Detector de Cables y Metales en Pared",
+      "headline": [
+        "Mira",
+        "tras la pared."
+      ],
+      "description": "Escáner manual con pantalla circular para detectar objetos ocultos en la pared."
+    },
+    "fr": {
+      "name": "Détecteur de Matériaux et Câbles Muraux",
+      "headline": [
+        "Voyez",
+        "derrière le mur."
+      ],
+      "description": "Détecteur manuel avec écran circulaire pour repérer métaux et câbles dans les murs."
+    },
+    "he": {
+      "name": "גלאי מתכות וחיווט סמוי בקיר",
+      "headline": [
+        "הצצה",
+        "מאחורי הקיר."
+      ],
+      "description": "גלאי ידני עם מסך עגול לאיתור מתכת, עץ וחוטי חשמל נסתרים בתוך הקיר."
+    }
+  },
+  "find-037-banneton": {
+    "en": {
+      "name": "Sourdough Bread Proofing Basket Set",
+      "headline": [
+        "Homemade",
+        "artisan bread."
+      ],
+      "description": "Rattan banneton proofing basket and dough scoring tools for home baking."
+    },
+    "pt": {
+      "name": "Kit Cesto Banneton para Pão Artesanal",
+      "headline": [
+        "Pão",
+        "feito em casa."
+      ],
+      "description": "Cesto de fermentação e acessórios para modelar e assar pães artesanais."
+    },
+    "es": {
+      "name": "Kit Cesta Banneton para Pan Casero",
+      "headline": [
+        "Pan",
+        "hecho en casa."
+      ],
+      "description": "Cesta de fermentación y herramientas para trabajar la masa de pan en casa."
+    },
+    "fr": {
+      "name": "Kit Banneton pour Pain Maison au Levain",
+      "headline": [
+        "Du pain",
+        "fait maison."
+      ],
+      "description": "Panier de fermentation et accessoires de boulangerie pour travailler la pâte."
+    },
+    "he": {
+      "name": "ערכת התפחה ואפייה ללחם מחמצת",
+      "headline": [
+        "לחם",
+        "בעבודת יד."
+      ],
+      "description": "סלסלת התפחה (בנטון) וכלי עבודה לבצק להכנת לחם ביתי פריך."
+    }
+  },
+  "find-038-bike-gps": {
+    "en": {
+      "name": "XOSS GPS Bike Computer",
+      "headline": [
+        "Your route",
+        "in numbers."
+      ],
+      "description": "Compact cycling speedometer with high-contrast screen and GPS tracking support."
+    },
+    "pt": {
+      "name": "Ciclocomputador GPS XOSS para Bike",
+      "headline": [
+        "Sua rota",
+        "em números."
+      ],
+      "description": "Computador de bicicleta compacto com indicadores amplos na tela e GPS."
+    },
+    "es": {
+      "name": "Ciclocomputadora GPS XOSS para Bicicleta",
+      "headline": [
+        "Tu ruta",
+        "en cifras."
+      ],
+      "description": "Computadora de ciclismo compacta con pantalla de alto contraste y registro de ruta por GPS."
+    },
+    "fr": {
+      "name": "Compteur Vélo GPS XOSS",
+      "headline": [
+        "Le parcours",
+        "en chiffres."
+      ],
+      "description": "Compteur cycliste compact avec grands chiffres à l'écran et suivi GPS."
+    },
+    "he": {
+      "name": "מחשב רכיבה לאופניים של XOSS",
+      "headline": [
+        "המסלול",
+        "במספרים."
+      ],
+      "description": "מחשבון אופניים קומפקטי עם תצוגה ברורה ותמיכה בנתוני GPS ורכיבה."
+    }
+  },
+  "find-039-pixel-display": {
+    "en": {
+      "name": "Flexible LED Matrix Pixel Panel",
+      "headline": [
+        "Light",
+        "with character."
+      ],
+      "description": "Bendable RGB pixel sign for custom scrolling text and animations in cars or rooms."
+    },
+    "pt": {
+      "name": "Painel LED Flexível Pixel RGB",
+      "headline": [
+        "Luz",
+        "com estilo."
+      ],
+      "description": "Painel de pixels flexível para exibir textos e animações personalizadas."
+    },
+    "es": {
+      "name": "Panel LED Flexible de Píxeles RGB",
+      "headline": [
+        "Luz",
+        "con carácter."
+      ],
+      "description": "Pantalla flexible de píxeles para mostrar textos y dibujos personalizados."
+    },
+    "fr": {
+      "name": "Panneau LED Flexible à Pixels RGB",
+      "headline": [
+        "Lumière",
+        "de caractère."
+      ],
+      "description": "Matrice LED souple programmable pour afficher textes et animations."
+    },
+    "he": {
+      "name": "פאנל LED גמיש לתצוגת פיקסלים",
+      "headline": [
+        "תאורה",
+        "עם אופי."
+      ],
+      "description": "משטח פיקסלים גמיש להצגת כיתובים וציורים מותאמים אישית בחדר או ברכב."
+    }
+  },
+  "find-040-microscope": {
+    "en": {
+      "name": "Digital Wi-Fi Microscope on Stand",
+      "headline": [
+        "Closer",
+        "to details."
+      ],
+      "description": "Compact digital magnifier on an adjustable metal stand for inspecting electronics and coins."
+    },
+    "pt": {
+      "name": "Microscópio Digital Wi-Fi com Suporte",
+      "headline": [
+        "Mais perto",
+        "dos detalhes."
+      ],
+      "description": "Microscópio compacto em base metálica ajustável com conexão ao celular ou PC."
+    },
+    "es": {
+      "name": "Microscopio Digital Wi-Fi con Soporte",
+      "headline": [
+        "Más cerca",
+        "del detalle."
+      ],
+      "description": "Microscopio compacto sobre soporte metálico ajustable para ver detalles finos."
+    },
+    "fr": {
+      "name": "Microscope Numérique Wi-Fi sur Pied",
+      "headline": [
+        "Au plus près",
+        "des détails."
+      ],
+      "description": "Microscope compact sur support métallique réglable connectable au téléphone."
+    },
+    "he": {
+      "name": "מיקרוסקופ דיגיטלי אלחוטי Wi-Fi",
+      "headline": [
+        "קרוב יותר",
+        "לפרטים."
+      ],
+      "description": "מיקרוסקופ קומפקטי על מעמד מתכת מתכוונן לבחינת פרטים זעירים דרך הטלפון."
+    }
+  },
+  "find-041-heated-gloves": {
+    "en": {
+      "name": "Electric Heated Winter Gloves",
+      "headline": [
+        "Warm",
+        "palms."
+      ],
+      "description": "Long-cuff insulated gloves with push-button heating control for winter rides."
+    },
+    "pt": {
+      "name": "Luvas Térmicas com Aquecimento Elétrico",
+      "headline": [
+        "Mãos",
+        "aquecidas."
+      ],
+      "description": "Luvas de punho longo com botão de controle de temperatura para o frio."
+    },
+    "es": {
+      "name": "Guantes Calefactables de Invierno",
+      "headline": [
+        "Manos",
+        "calientes."
+      ],
+      "description": "Guantes con puño largo y botón de control térmico para días fríos."
+    },
+    "fr": {
+      "name": "Gants Chauffants d'Hiver",
+      "headline": [
+        "Mains",
+        "au chaud."
+      ],
+      "description": "Gants à manchette longue avec bouton de réglage du chauffage."
+    },
+    "he": {
+      "name": "כפפות חורף עם חימום חשמלי",
+      "headline": [
+        "כפות ידיים",
+        "חמות."
+      ],
+      "description": "כפפות עם שרוול ארוך וכפתור שליטה בחימום לרכיבה ושהייה בקור."
+    }
+  },
+  "find-042-car-hud": {
+    "en": {
+      "name": "Car GPS HUD Speedometer Display",
+      "headline": [
+        "Speed",
+        "in sight."
+      ],
+      "description": "Compact head-up display projecting vehicle speed and driving data in front of the driver."
+    },
+    "pt": {
+      "name": "Velocímetro Projetor HUD GPS Automotivo",
+      "headline": [
+        "Velocidade",
+        "à vista."
+      ],
+      "description": "Visor compacto para exibir a velocidade e dados de condução no painel do carro."
+    },
+    "es": {
+      "name": "Velocímetro Proyector HUD GPS para Auto",
+      "headline": [
+        "Velocidad",
+        "a la vista."
+      ],
+      "description": "Pantalla compacta para el tablero que proyecta la velocidad y datos de viaje frente al conductor."
+    },
+    "fr": {
+      "name": "Afficheur Tête Haute HUD GPS Auto",
+      "headline": [
+        "La vitesse",
+        "sous les yeux."
+      ],
+      "description": "Boîtier compact affichant la vitesse directement devant le conducteur."
+    },
+    "he": {
+      "name": "תצוגת מהירות עילית HUD GPS לרכב",
+      "headline": [
+        "המהירות",
+        "מול העיניים."
+      ],
+      "description": "מכשיר קומפקטי להצגת מהירות הנסיעה ונתוני דרך מול עיני הנהג."
+    }
+  },
+  "find-043-weather-station": {
+    "en": {
+      "name": "Color Digital Weather Station",
+      "headline": [
+        "Weather",
+        "indoors & out."
+      ],
+      "description": "Desktop color screen with clock, indoor/outdoor temperature, humidity, and wireless sensor."
+    },
+    "pt": {
+      "name": "Estação Meteorológica Digital Colorida",
+      "headline": [
+        "Clima",
+        "dentro e fora."
+      ],
+      "description": "Tela colorida de mesa com relógio, temperatura, umidade e sensor externo."
+    },
+    "es": {
+      "name": "Estación Meteorológica Digital a Color",
+      "headline": [
+        "El tiempo",
+        "dentro y fuera."
+      ],
+      "description": "Pantalla a color de sobremesa con reloj, temperatura, humedad y sensor exterior."
+    },
+    "fr": {
+      "name": "Station Météo Numérique Couleur",
+      "headline": [
+        "La météo",
+        "dedans et dehors."
+      ],
+      "description": "Écran couleur de table avec horloge, température, humidité et sonde extérieure."
+    },
+    "he": {
+      "name": "תחנת מזג אוויר דיגיטלית צבעונית",
+      "headline": [
+        "מזג האוויר",
+        "בבית ובחוץ."
+      ],
+      "description": "מסך שולחני צבעוני עם שעון, מד טמפרטורה ולחות וחיישן חיצוני אלחוטי."
+    }
+  },
+  "find-044-crepe-maker": {
+    "en": {
+      "name": "Electric Crepe & Pancake Maker",
+      "headline": [
+        "Mornings",
+        "with taste."
+      ],
+      "description": "Round non-stick electric griddle with side handles for thin crepes and pancakes."
+    },
+    "pt": {
+      "name": "Crepeira e Panquequeira Elétrica",
+      "headline": [
+        "Manhã",
+        "com sabor."
+      ],
+      "description": "Chapa elétrica redonda com alças laterais para preparar crepes e panquecas."
+    },
+    "es": {
+      "name": "Crepera Eléctrica Redonda",
+      "headline": [
+        "Mañanas",
+        "con sabor."
+      ],
+      "description": "Superficie eléctrica redonda con asas para preparar crepes y tortitas."
+    },
+    "fr": {
+      "name": "Crêpière Électrique de Table",
+      "headline": [
+        "Des matins",
+        "gourmands."
+      ],
+      "description": "Plaque électrique ronde avec poignées pour préparer des crêpes fines."
+    },
+    "he": {
+      "name": "מכשיר חשמלי להכנת קרפ ובלינצ'ס",
+      "headline": [
+        "בוקר",
+        "עם טעם."
+      ],
+      "description": "משטח חשמלי עגול עם ידיות להכנה מהירה ואחידה של קרפים וחביתיות."
+    }
+  },
+  "find-045-white-noise": {
+    "en": {
+      "name": "Portable White Noise Sound Machine",
+      "headline": [
+        "Calm",
+        "background."
+      ],
+      "description": "Pocket-sized round soothing sound player with timer buttons and carry strap."
+    },
+    "pt": {
+      "name": "Máquina Portátil de Ruído Branco",
+      "headline": [
+        "Fundo",
+        "tranquilo."
+      ],
+      "description": "Aparelho sonoro compacto com botões, timer e alça para relaxar e dormir."
+    },
+    "es": {
+      "name": "Máquina Portátil de Ruido Blanco",
+      "headline": [
+        "Fondo",
+        "tranquilo."
+      ],
+      "description": "Pequeño reproductor redondo de sonidos relajantes con temporizador y correa."
+    },
+    "fr": {
+      "name": "Générateur de Bruit Blanc Portable",
+      "headline": [
+        "Ambiance",
+        "apaisante."
+      ],
+      "description": "Petit appareil sonore rond avec boutons et dragonne pour faciliter le sommeil."
+    },
+    "he": {
+      "name": "מכשיר רעש לבן נייד לשינה רגועה",
+      "headline": [
+        "רקע",
+        "רגוע."
+      ],
+      "description": "מכשיר קול עגול וקומפקטי עם כפתורי שליטה, טיימר ורצועת נשיאה."
+    }
+  },
+  "find-046-eye-massager": {
+    "en": {
+      "name": "Cooling Gel Eye Mask",
+      "headline": [
+        "Cool",
+        "pause."
+      ],
+      "description": "Soft gel mask with eye cutouts and adjustable strap for soothing cold or warm compresses."
+    },
+    "pt": {
+      "name": "Máscara de Gel Refrescante para Olhos",
+      "headline": [
+        "Pausa",
+        "refrescante."
+      ],
+      "description": "Máscara de gel macia com aberturas para os olhos e alça ajustável."
+    },
+    "es": {
+      "name": "Antifaz de Gel Refrescante para Ojos",
+      "headline": [
+        "Pausa",
+        "fresca."
+      ],
+      "description": "Máscara de gel suave con aberturas para los ojos y correa ajustable."
+    },
+    "fr": {
+      "name": "Masque Rafraîchissant en Gel pour les Yeux",
+      "headline": [
+        "Pause",
+        "fraîcheur."
+      ],
+      "description": "Masque en gel souple avec ouvertures pour les yeux et sangle réglable."
+    },
+    "he": {
+      "name": "מסכת ג'ל מקררת לעיניים",
+      "headline": [
+        "הפסקה",
+        "מרעננת."
+      ],
+      "description": "מסכת ג'ל רכה עם פתחים לעיניים ורצועה מתכווננת להרגעה וקירור."
+    }
+  },
+  "find-047-scanner-pen": {
+    "en": {
+      "name": "Smart OCR Scanner Translator Pen",
+      "headline": [
+        "Words",
+        "come closer."
+      ],
+      "description": "Pocket text-scanning pen with touchscreen for instant reading and translation of printed lines."
+    },
+    "pt": {
+      "name": "Caneta Scanner Tradutora Inteligente",
+      "headline": [
+        "As palavras",
+        "mais perto."
+      ],
+      "description": "Scanner de bolso com tela colorida para leitura e tradução de textos impressos."
+    },
+    "es": {
+      "name": "Lápiz Escáner Traductor Inteligente",
+      "headline": [
+        "Las palabras",
+        "más cerca."
+      ],
+      "description": "Escáner de bolsillo con pantalla a color para trabajar con texto impreso."
+    },
+    "fr": {
+      "name": "Stylo Scanner Traducteur Intelligent",
+      "headline": [
+        "Les mots",
+        "plus proches."
+      ],
+      "description": "Scanner de poche avec écran couleur pour lire et traduire du texte imprimé."
+    },
+    "he": {
+      "name": "עט לסריקה ולתרגום טקסט",
+      "headline": [
+        "מילים",
+        "מתקרבות."
+      ],
+      "description": "סורק כיס עם מסך צבעוני לסריקה ותרגום מהיר של טקסט מודפס."
+    }
+  },
+  "find-048-hydroponic": {
+    "en": {
+      "name": "Stainless Steel Seed Sprouting Trays",
+      "headline": [
+        "Fresh greens",
+        "on windowsill."
+      ],
+      "description": "Stackable mesh stainless steel trays with lid for growing microgreens and sprouts at home."
+    },
+    "pt": {
+      "name": "Bandejas de Inox para Germinação de Sementes",
+      "headline": [
+        "Verde",
+        "na janela."
+      ],
+      "description": "Bandejas metálicas empilháveis com tampa para germinar brotos e microverdes."
+    },
+    "es": {
+      "name": "Bandejas de Acero para Germinar Semillas",
+      "headline": [
+        "Brotes",
+        "en tu ventana."
+      ],
+      "description": "Bandejas metálicas apilables con tapa para germinar semillas y microgreens."
+    },
+    "fr": {
+      "name": "Plateaux à Germer en Acier Inoxydable",
+      "headline": [
+        "De la verdure",
+        "sur le rebord."
+      ],
+      "description": "Plateaux métalliques empilables avec couvercle pour faire germer vos graines."
+    },
+    "he": {
+      "name": "מגשי נירוסטה להנבטת זרעים",
+      "headline": [
+        "ירוק טרי",
+        "על אדן החלון."
+      ],
+      "description": "מגשי רשת קומתיים ממתכת עם מכסה להנבטת נבטים וזרעים בבית."
+    }
+  },
+  "find-049-electric-scrubber": {
+    "en": {
+      "name": "Electric Bottle & Cup Cleaning Brush",
+      "headline": [
+        "Clean",
+        "on the inside."
+      ],
+      "description": "Motorized handle with interchangeable silicone and bristle heads for deep bottles and tumblers."
+    },
+    "pt": {
+      "name": "Escova Elétrica para Lavar Garrafas e Copos",
+      "headline": [
+        "Limpeza",
+        "por dentro."
+      ],
+      "description": "Cabo elétrico com escovas intercambiáveis para garrafas e copos fundos."
+    },
+    "es": {
+      "name": "Cepillo Eléctrico Limpiador de Botellas",
+      "headline": [
+        "Limpieza",
+        "por dentro."
+      ],
+      "description": "Mango eléctrico con cabezales intercambiables para botellas y vasos estrechos."
+    },
+    "fr": {
+      "name": "Goupillon Électrique pour Bouteilles",
+      "headline": [
+        "La propreté",
+        "à l'intérieur."
+      ],
+      "description": "Poignée motorisée avec brosses interchangeables pour bouteilles et gourdes."
+    },
+    "he": {
+      "name": "מברשת חשמלית לניקוי בקבוקים",
+      "headline": [
+        "ניקיון",
+        "מבפנים."
+      ],
+      "description": "ידית חשמלית עם ראשי מברשת מתחלפים לניקוי יסודי של בקבוקים וכוסות עמוקות."
+    }
+  },
+  "find-050-wine-opener": {
+    "en": {
+      "name": "Electric Automatic Wine Corkscrew",
+      "headline": [
+        "Uncork",
+        "with ease."
+      ],
+      "description": "Cylindrical push-button wine opener with transparent lower shell for effortless uncorking."
+    },
+    "pt": {
+      "name": "Saca-Rolhas Abridor Elétrico de Vinho",
+      "headline": [
+        "Abra",
+        "com facilidade."
+      ],
+      "description": "Saca-rolhas cilíndrico com botões e base transparente para abrir garrafas sem esforço."
+    },
+    "es": {
+      "name": "Sacacorchos Eléctrico Automático",
+      "headline": [
+        "Descorcha",
+        "fácilmente."
+      ],
+      "description": "Sacacorchos cilíndrico con botones y base transparente para abrir botellas sin esfuerzo."
+    },
+    "fr": {
+      "name": "Tire-Bouchon Électrique Automatique",
+      "headline": [
+        "Débouchez",
+        "sans effort."
+      ],
+      "description": "Tire-bouchon cylindrique à commande par bouton avec base transparente."
+    },
+    "he": {
+      "name": "פותחן יין חשמלי אוטומטי",
+      "headline": [
+        "פתיחה",
+        "בקלות."
+      ],
+      "description": "חולץ פקקים גלילי בהפעלת כפתור עם חלק תחתון שקוף לפתיחה מהירה ונוחה."
+    }
+  },
+  "import-0032": {
+    "en": {
+      "name": "ATTACK SHARK Wireless Gaming Mouse",
+      "headline": [
+        "Featherlight",
+        "precision."
+      ],
+      "description": "Ultra-lightweight wireless mouse with an optical sensor, smooth PTFE glides, and an ergonomic grip."
+    },
+    "pt": {
+      "name": "Mouse Gamer Sem Fio ATTACK SHARK",
+      "headline": [
+        "Precisão",
+        "ultraleve."
+      ],
+      "description": "Mouse sem fio ultraleve com sensor óptico preciso, pés deslizantes suaves e pegada confortável."
+    },
+    "es": {
+      "name": "Mouse Gamer Inalámbrico ATTACK SHARK",
+      "headline": [
+        "Precisión",
+        "ultraligera."
+      ],
+      "description": "Mouse inalámbrico ultraligero con sensor óptico preciso, deslizamiento suave y agarre ergonómico."
+    },
+    "fr": {
+      "name": "Souris Gaming Sans Fil ATTACK SHARK",
+      "headline": [
+        "Précision",
+        "ultralégère."
+      ],
+      "description": "Souris sans fil ultralégère avec capteur optique réactif, patins fluides et prise en main naturelle."
+    },
+    "he": {
+      "name": "עכבר גיימינג אלחוטי ATTACK SHARK",
+      "headline": [
+        "דיוק",
+        "בקלות משקל."
+      ],
+      "description": "עכבר אלחוטי קל במיוחד עם חיישן אופטי מדויק, החלקה חלקה ואחיזה ארגונומית נוחה."
+    }
+  },
+  "import-0042": {
+    "en": {
+      "name": "True Wireless Bluetooth Earbuds",
+      "headline": [
+        "Pure sound",
+        "on the go."
+      ],
+      "description": "Compact in-ear Bluetooth earbuds with a pocket charging case for music, calls, and daily commutes."
+    },
+    "pt": {
+      "name": "Fones de Ouvido Bluetooth Sem Fio",
+      "headline": [
+        "Som livre",
+        "no bolso."
+      ],
+      "description": "Fones intra-auriculares compactos com estojo de recarga para músicas, chamadas e rotina diária."
+    },
+    "es": {
+      "name": "Audífonos Inalámbricos Bluetooth",
+      "headline": [
+        "Sonido libre",
+        "en tu bolsillo."
+      ],
+      "description": "Audífonos in-ear compactos con estuche de carga para escuchar música y atender llamadas en cualquier lugar."
+    },
+    "fr": {
+      "name": "Écouteurs Sans Fil Bluetooth",
+      "headline": [
+        "Le son",
+        "en liberté."
+      ],
+      "description": "Écouteurs intra-auriculaires compacts avec boîtier de charge pour la musique, les appels et les trajets."
+    },
+    "he": {
+      "name": "אוזניות Bluetooth אלחוטיות",
+      "headline": [
+        "סאונד נקי",
+        "ללא כבלים."
+      ],
+      "description": "אוזניות תוך-אוזן קומפקטיות עם נרתיק טעינה לכיס להאזנה למוזיקה ולשיחות בדרכים."
+    }
+  },
+  "import-0001": {
+    "en": {
+      "name": "AGM Portable Bluetooth Speaker",
+      "headline": [
+        "Rich sound",
+        "anywhere."
+      ],
+      "description": "Rugged pocket-sized wireless speaker with carry loop for outdoor trips, patios, and home listening."
+    },
+    "pt": {
+      "name": "Caixa de Som Portátil Bluetooth AGM",
+      "headline": [
+        "Som potente",
+        "em qualquer lugar."
+      ],
+      "description": "Caixa de som sem fio compacta com corpo resistente para levar em passeios, viagens ou usar em casa."
+    },
+    "es": {
+      "name": "Bocina Portátil Bluetooth AGM",
+      "headline": [
+        "Tu música",
+        "a donde vayas."
+      ],
+      "description": "Bocina inalámbrica compacta de cuerpo resistente para llevar de viaje, al aire libre o escuchar en casa."
+    },
+    "fr": {
+      "name": "Enceinte Bluetooth Portable AGM",
+      "headline": [
+        "Le rythme",
+        "partout."
+      ],
+      "description": "Enceinte sans fil compacte au boîtier robuste pour la maison, la terrasse et les sorties en plein air."
+    },
+    "he": {
+      "name": "רמקול Bluetooth נייד AGM",
+      "headline": [
+        "מוזיקה",
+        "בכל מקום."
+      ],
+      "description": "רמקול אלחוטי קומפקטי במבנה עמיד לנשיאה נוחה בבית, בגינה ובטיולים."
+    }
+  },
+  "import-0010": {
+    "en": {
+      "name": "CABLETIME Desktop Charging Station",
+      "headline": [
+        "One hub",
+        "all charged."
+      ],
+      "description": "Multi-port USB-C and USB-A desktop power station for charging laptops, phones, and accessories together."
+    },
+    "pt": {
+      "name": "Estação de Carregamento CABLETIME",
+      "headline": [
+        "Energia",
+        "na bancada."
+      ],
+      "description": "Hub de mesa com múltiplas portas USB-C e USB-A para carregar notebook, celular e acessórios ao mesmo tempo."
+    },
+    "es": {
+      "name": "Estación de Carga CABLETIME",
+      "headline": [
+        "Energía",
+        "en tu escritorio."
+      ],
+      "description": "Centro de carga multipuerto USB-C y USB-A para alimentar laptop, celular y accesorios al mismo tiempo."
+    },
+    "fr": {
+      "name": "Station de Charge Bureau CABLETIME",
+      "headline": [
+        "Tout charger",
+        "au même endroit."
+      ],
+      "description": "Station d'alimentation multiport USB-C et USB-A pour recharger ordinateur, téléphone et accessoires."
+    },
+    "he": {
+      "name": "תחנת טעינה שולחנית CABLETIME",
+      "headline": [
+        "טעינה מרוכזת",
+        "על השולחן."
+      ],
+      "description": "עמדת טעינה שולחנית מרובת יציאות USB-C ו-USB-A לטעינת מחשב נייד, טלפון ואביזרים במקביל."
+    }
+  },
+  "import-0070": {
+    "en": {
+      "name": "Car Phone Mount Holder",
+      "headline": [
+        "Clear view",
+        "every drive."
+      ],
+      "description": "Adjustable dashboard and vent smartphone cradle with secure grip for hands-free navigation."
+    },
+    "pt": {
+      "name": "Suporte Veicular para Celular",
+      "headline": [
+        "Navegação",
+        "sempre visível."
+      ],
+      "description": "Suporte ajustável com trava firme para manter o smartphone seguro no painel ou saída de ar do carro."
+    },
+    "es": {
+      "name": "Soporte de Celular para Auto",
+      "headline": [
+        "Tu ruta",
+        "siempre visible."
+      ],
+      "description": "Soporte ajustable con sujeción firme para colocar el celular en el tablero o ventilación del auto."
+    },
+    "fr": {
+      "name": "Support Téléphone Voiture",
+      "headline": [
+        "La route",
+        "sous les yeux."
+      ],
+      "description": "Support orientable à maintien sûr pour garder votre smartphone bien lisible pendant la conduite."
+    },
+    "he": {
+      "name": "מעמד לטלפון לרכב",
+      "headline": [
+        "ניווט ברור",
+        "בכל נסיעה."
+      ],
+      "description": "תושבת מתכווננת עם אחיזה יציבה להצבת הסמארטפון בנוחות מול עיני הנהג."
+    }
+  },
+  "import-0451": {
+    "en": {
+      "name": "LED Monitor Light Bar",
+      "headline": [
+        "Desk light",
+        "zero glare."
+      ],
+      "description": "Screen-mounted LED task bar that illuminates your keyboard and desk without reflecting on the display."
+    },
+    "pt": {
+      "name": "Luminária Barra LED para Monitor",
+      "headline": [
+        "Luz focada",
+        "sem reflexo."
+      ],
+      "description": "Barra de LED acoplada ao topo do monitor para iluminar o teclado e a mesa sem ofuscar a tela."
+    },
+    "es": {
+      "name": "Barra de Luz LED para Monitor",
+      "headline": [
+        "Luz en tu mesa",
+        "sin reflejos."
+      ],
+      "description": "Lámpara LED que se coloca sobre el monitor para iluminar el teclado y el escritorio sin deslumbrar."
+    },
+    "fr": {
+      "name": "Barre LED pour Écran PC",
+      "headline": [
+        "Lumière douce",
+        "sans reflet."
+      ],
+      "description": "Lampe de bureau fixée sur le haut du moniteur pour éclairer le clavier sans reflets sur l'écran."
+    },
+    "he": {
+      "name": "תאורת LED למסך מחשב",
+      "headline": [
+        "אור ממוקד",
+        "ללא השתקפות."
+      ],
+      "description": "פס תאורה המותקן על ראש המסך ומאיר את המקלדת ושולחן העבודה בלי לסנוור."
+    }
+  },
+  "import-0041": {
+    "en": {
+      "name": "UGREEN Over-Ear Wireless Headphones",
+      "headline": [
+        "Comfort",
+        "and clarity."
+      ],
+      "description": "Cushioned over-ear Bluetooth headphones with a foldable headband for work, study, and travel."
+    },
+    "pt": {
+      "name": "Fone Bluetooth Over-Ear UGREEN",
+      "headline": [
+        "Conforto",
+        "para ouvir."
+      ],
+      "description": "Fone sem fio circum-auricular com almofadas macias e arco dobrável para trabalho e viagens."
+    },
+    "es": {
+      "name": "Audífonos de Diadema Bluetooth UGREEN",
+      "headline": [
+        "Comodidad",
+        "en cada nota."
+      ],
+      "description": "Audífonos inalámbricos con almohadillas suaves y diadema plegable para trabajar, estudiar o viajar."
+    },
+    "fr": {
+      "name": "Casque Bluetooth Sans Fil UGREEN",
+      "headline": [
+        "Confort",
+        "et écoute."
+      ],
+      "description": "Casque circum-auriculaire sans fil à coussinets doux et arceau pliable pour le travail et les voyages."
+    },
+    "he": {
+      "name": "אוזניות קשת אלחוטיות UGREEN",
+      "headline": [
+        "נוחות מלאה",
+        "בכל האזנה."
+      ],
+      "description": "אוזניות קשת Bluetooth עם כריות רכות וקשת מתקפלת לעבודה, לימודים ונסיעות."
+    }
+  },
+  "import-0026": {
+    "en": {
+      "name": "Logitech Ergonomic Gaming Mouse",
+      "headline": [
+        "Crisp click",
+        "steady aim."
+      ],
+      "description": "Sculpted gaming mouse with responsive switches, thumb buttons, and comfortable palm support."
+    },
+    "pt": {
+      "name": "Mouse Gamer Logitech",
+      "headline": [
+        "Clique rápido",
+        "controle total."
+      ],
+      "description": "Mouse ergonômico com botões laterais de fácil alcance e formato confortável para longas sessões."
+    },
+    "es": {
+      "name": "Mouse Gamer Ergonómico Logitech",
+      "headline": [
+        "Control total",
+        "en cada clic."
+      ],
+      "description": "Mouse de diseño ergonómico con botones laterales y respuesta precisa para juego y trabajo."
+    },
+    "fr": {
+      "name": "Souris Gaming Ergonomique Logitech",
+      "headline": [
+        "Contrôle",
+        "et réactivité."
+      ],
+      "description": "Souris profilée avec boutons latéraux accessibles et maintien confortable pour jouer ou travailler."
+    },
+    "he": {
+      "name": "עכבר גיימינג ארגונומי Logitech",
+      "headline": [
+        "שליטה מדויקת",
+        "בכל תנועה."
+      ],
+      "description": "עכבר בעיצוב ארגונומי עם כפתורי צד נוחים ולחיצה מדויקת לעבודה ממושכת ולמשחק."
+    }
+  },
+  "import-0051": {
+    "en": {
+      "name": "UGREEN Aluminum USB-C Hub",
+      "headline": [
+        "All ports",
+        "one cable."
+      ],
+      "description": "Slim aluminum multiport adapter expanding a single USB-C port for drives, displays, and peripherals."
+    },
+    "pt": {
+      "name": "Hub USB-C Multiportas UGREEN",
+      "headline": [
+        "Mais portas",
+        "em um cabo."
+      ],
+      "description": "Adaptador fino em alumínio que amplia a porta USB-C do notebook para conectar telas e periféricos."
+    },
+    "es": {
+      "name": "Hub Multipuerto USB-C UGREEN",
+      "headline": [
+        "Más puertos",
+        "en un cable."
+      ],
+      "description": "Adaptador delgado de aluminio que convierte un puerto USB-C en múltiples conexiones para tu laptop."
+    },
+    "fr": {
+      "name": "Hub Multiport USB-C UGREEN",
+      "headline": [
+        "Tous vos ports",
+        "en un geste."
+      ],
+      "description": "Adaptateur fin en aluminium permettant de brancher écrans, clés USB et accessoires sur un port USB-C."
+    },
+    "he": {
+      "name": "מפצל USB-C מאלומיניום UGREEN",
+      "headline": [
+        "כל החיבורים",
+        "בכבל אחד."
+      ],
+      "description": "מתאם אלומיניום דק המרחיב שקע USB-C יחיד לחיבור כוננים, מסכים וציוד היקפי."
+    }
+  },
+  "import-0057": {
+    "en": {
+      "name": "Wireless Lavalier Clip-On Microphone",
+      "headline": [
+        "Clear voice",
+        "hands-free."
+      ],
+      "description": "Clip-on wireless lapel microphone and plug-in receiver for recording crisp audio on phones and cameras."
+    },
+    "pt": {
+      "name": "Microfone de Lapela Sem Fio",
+      "headline": [
+        "Voz limpa",
+        "sem cabos."
+      ],
+      "description": "Microfone compacto com clipe e receptor plug-and-play para gravar vídeos e entrevistas no celular."
+    },
+    "es": {
+      "name": "Micrófono Lavalier Inalámbrico",
+      "headline": [
+        "Voz clara",
+        "sin cables."
+      ],
+      "description": "Micrófono de solapa con clip y receptor compacto para grabar videos y entrevistas directo en el celular."
+    },
+    "fr": {
+      "name": "Micro-Cravate Sans Fil",
+      "headline": [
+        "Voix claire",
+        "mains libres."
+      ],
+      "description": "Microphone à pince avec récepteur compact pour enregistrer des vidéos et interviews sur smartphone."
+    },
+    "he": {
+      "name": "מיקרופון דש אלחוטי",
+      "headline": [
+        "הקלטה נקייה",
+        "ללא חוטים."
+      ],
+      "description": "מיקרופון קליפס קומפקטי עם מקלט זעיר להקלטת קול ברורה בצילומי וידאו בטלפון."
+    }
+  },
+  "import-0074": {
+    "en": {
+      "name": "Baseus Portable Tire Inflator",
+      "headline": [
+        "Air power",
+        "in your trunk."
+      ],
+      "description": "Compact digital air compressor for topping up car, motorcycle, and bicycle tires on the road."
+    },
+    "pt": {
+      "name": "Compressor de Pneus Portátil Baseus",
+      "headline": [
+        "Pressão certa",
+        "na estrada."
+      ],
+      "description": "Calibrador elétrico compacto com visor digital para pneus de carro, moto, bicicleta e bolas."
+    },
+    "es": {
+      "name": "Inflador de Llantas Portátil Baseus",
+      "headline": [
+        "Presión exacta",
+        "en el camino."
+      ],
+      "description": "Compresor de aire digital compacto para inflar llantas de auto, moto y bicicleta en cualquier momento."
+    },
+    "fr": {
+      "name": "Gonfleur de Pneus Portable Baseus",
+      "headline": [
+        "Pression juste",
+        "sur la route."
+      ],
+      "description": "Compresseur numérique compact pour gonfler les pneus de voiture, moto et vélo en déplacement."
+    },
+    "he": {
+      "name": "קומפרסור נייד לניפוח צמיגים Baseus",
+      "headline": [
+        "לחץ אוויר",
+        "מדויק בדרך."
+      ],
+      "description": "מדחס אוויר דיגיטלי קומפקטי לניפוח צמיגי רכב, אופנוע ואופניים בכל עת."
+    }
+  },
+  "import-0093": {
+    "en": {
+      "name": "Vgate OBD2 Car Diagnostic Scanner",
+      "headline": [
+        "Engine check",
+        "on your phone."
+      ],
+      "description": "Plug-in OBD2 adapter that reads fault codes and live vehicle sensor data via smartphone app."
+    },
+    "pt": {
+      "name": "Scanner Automotivo OBD2 Vgate",
+      "headline": [
+        "Diagnóstico",
+        "no celular."
+      ],
+      "description": "Adaptador OBD2 compacto para leitura de códigos do motor e sensores do veículo pelo aplicativo."
+    },
+    "es": {
+      "name": "Escáner Automotriz OBD2 Vgate",
+      "headline": [
+        "Diagnóstico",
+        "en tu celular."
+      ],
+      "description": "Adaptador OBD2 compacto para leer códigos del motor y datos del auto desde la app del celular."
+    },
+    "fr": {
+      "name": "Scanner Diagnostic Auto OBD2 Vgate",
+      "headline": [
+        "Diagnostic",
+        "sur mobile."
+      ],
+      "description": "Adaptateur OBD2 compact permettant de lire les codes moteur et capteurs du véhicule sur smartphone."
+    },
+    "he": {
+      "name": "סורק תקלות לרכב Vgate OBD2",
+      "headline": [
+        "אבחון רכב",
+        "דרך הטלפון."
+      ],
+      "description": "מתאם OBD2 קומפקטי לקריאת קודי מנוע ונתוני חיישנים בזמן אמת באמצעות אפליקציה."
+    }
+  },
+  "import-0117": {
+    "en": {
+      "name": "Cordless Handheld Car Vacuum",
+      "headline": [
+        "Spotless",
+        "cabin."
+      ],
+      "description": "Lightweight cordless hand vacuum with crevice nozzle for cleaning seats, mats, and console pockets."
+    },
+    "pt": {
+      "name": "Aspirador Portátil Sem Fio Automotivo",
+      "headline": [
+        "Interior",
+        "sempre limpo."
+      ],
+      "description": "Aspirador de mão sem fio com bico estreito para limpar bancos, tapetes e cantos do carro."
+    },
+    "es": {
+      "name": "Aspiradora Portátil Inalámbrica para Auto",
+      "headline": [
+        "Cabina limpia",
+        "al instante."
+      ],
+      "description": "Aspiradora de mano sin cables con boquilla estrecha para limpiar asientos, tapetes y rincones del auto."
+    },
+    "fr": {
+      "name": "Aspirateur à Main Sans Fil Voiture",
+      "headline": [
+        "Habitacle",
+        "toujours propre."
+      ],
+      "description": "Aspirateur portable sans fil avec embout fin pour nettoyer sièges, tapis et recoins de la voiture."
+    },
+    "he": {
+      "name": "שואב אבק אלחוטי לרכב",
+      "headline": [
+        "תא נוסעים",
+        "נקי ברגע."
+      ],
+      "description": "שואב אבק ידני נטען עם פייה צרה לניקוי מהיר של מושבים, שטיחונים ומסילות ברכב."
+    }
+  },
+  "import-0119": {
+    "en": {
+      "name": "Cordless Electric Air Duster Blower",
+      "headline": [
+        "Dust gone",
+        "with a blast."
+      ],
+      "description": "High-speed handheld jet blower for clearing dust from keyboards, PC cases, and car air vents."
+    },
+    "pt": {
+      "name": "Soprador de Ar Elétrico Portátil",
+      "headline": [
+        "Limpeza",
+        "com jato de ar."
+      ],
+      "description": "Soprador portátil de alta rotação para remover poeira de teclados, gabinetes de PC e saídas de ar."
+    },
+    "es": {
+      "name": "Soplador de Aire Eléctrico Portátil",
+      "headline": [
+        "Limpieza",
+        "con aire a presión."
+      ],
+      "description": "Soplador inalámbrico compacto para expulsar polvo de teclados, computadoras y rejillas del auto."
+    },
+    "fr": {
+      "name": "Souffleur d'Air Électrique Sans Fil",
+      "headline": [
+        "Dépoussiérage",
+        "haute vitesse."
+      ],
+      "description": "Souffleur à main compact pour chasser la poussière des claviers, boîtiers PC et grilles d'aération."
+    },
+    "he": {
+      "name": "מפוח אוויר חשמלי נטען",
+      "headline": [
+        "ניקוי אבק",
+        "בזרם אוויר."
+      ],
+      "description": "מפוח ידני קומפקטי ועוצמתי לניקוי מקלדות, מארזי מחשב ופתחי מיזוג ברכב."
+    }
+  },
+  "import-0104": {
+    "en": {
+      "name": "Car Interior Ambient LED Lighting",
+      "headline": [
+        "Cabin glow",
+        "after dark."
+      ],
+      "description": "Flexible LED accent lighting kit designed to add warm atmosphere inside your car cabin at night."
+    },
+    "pt": {
+      "name": "Iluminação LED Ambiente Automotiva",
+      "headline": [
+        "Luz suave",
+        "no painel."
+      ],
+      "description": "Kit de iluminação LED interna para destacar o acabamento e criar um clima agradável ao dirigir à noite."
+    },
+    "es": {
+      "name": "Luz LED Ambiental para Interior de Auto",
+      "headline": [
+        "Luz suave",
+        "en tu cabina."
+      ],
+      "description": "Kit de iluminación LED ambiental para personalizar el tablero y el interior del auto por la noche."
+    },
+    "fr": {
+      "name": "Éclairage LED d'Ambiance Auto",
+      "headline": [
+        "Ambiance",
+        "à bord."
+      ],
+      "description": "Kit lumineux LED discret pour souligner les lignes de l'habitacle lors des trajets de nuit."
+    },
+    "he": {
+      "name": "תאורת אווירה LED לרכב",
+      "headline": [
+        "אור רך",
+        "בנסיעת לילה."
+      ],
+      "description": "ערכת תאורת LED עדינה המעניקה אווירה נעימה ומעוצבת בתוך תא הנוסעים."
+    }
+  },
+  "import-0488": {
+    "en": {
+      "name": "Wireless HDMI Transmitter & Receiver",
+      "headline": [
+        "Big screen",
+        "no cables."
+      ],
+      "description": "Plug-and-play wireless HDMI kit for streaming video and audio from a laptop to a TV or projector."
+    },
+    "pt": {
+      "name": "Transmissor e Receptor HDMI Sem Fio",
+      "headline": [
+        "Tela grande",
+        "sem cabos."
+      ],
+      "description": "Kit HDMI sem fio plug-and-play para transmitir vídeo e áudio do notebook para a TV ou projetor."
+    },
+    "es": {
+      "name": "Transmisor y Receptor HDMI Inalámbrico",
+      "headline": [
+        "Pantalla grande",
+        "sin cables."
+      ],
+      "description": "Kit HDMI inalámbrico plug-and-play para enviar video y audio de tu laptop a la TV o proyector."
+    },
+    "fr": {
+      "name": "Émetteur et Récepteur HDMI Sans Fil",
+      "headline": [
+        "Grand écran",
+        "sans câble."
+      ],
+      "description": "Kit HDMI sans fil prêt à l'emploi pour diffuser l'image d'un ordinateur vers un téléviseur ou projecteur."
+    },
+    "he": {
+      "name": "משדר ומקלט HDMI אלחוטי",
+      "headline": [
+        "מסך גדול",
+        "בלי כבלים."
+      ],
+      "description": "ערכת חיבור HDMI אלחוטית להעברת תמונה ושמע ממחשב נייד לטלוויזיה או למקרן."
+    }
+  },
+  "import-0499": {
+    "en": {
+      "name": "Ergonomic Under-Desk Footrest",
+      "headline": [
+        "Better posture",
+        "at your desk."
+      ],
+      "description": "Textured tilting platform that supports your feet and legs during long hours at a desk."
+    },
+    "pt": {
+      "name": "Apoio Ergonômico de Pés para Escritório",
+      "headline": [
+        "Postura",
+        "mais leve."
+      ],
+      "description": "Plataforma inclinável com superfície texturizada para apoiar os pés e aliviar o cansaço no trabalho."
+    },
+    "es": {
+      "name": "Reposapiés Ergonómico para Escritorio",
+      "headline": [
+        "Descanso",
+        "bajo tu mesa."
+      ],
+      "description": "Plataforma inclinable con textura de masaje para apoyar los pies y mejorar la postura frente al escritorio."
+    },
+    "fr": {
+      "name": "Repose-Pieds Ergonomique de Bureau",
+      "headline": [
+        "Posture",
+        "plus détendue."
+      ],
+      "description": "Plateforme inclinable à surface texturée pour reposer les jambes et améliorer le confort au bureau."
+    },
+    "he": {
+      "name": "הדום ארגונומי לרגליים מתחת לשולחן",
+      "headline": [
+        "יציבה נוחה",
+        "מול המחשב."
+      ],
+      "description": "משטח תמיכה משופע עם מרקם מונע החלקה להקלה על הרגליים והגב בישיבה ממושכת."
+    }
+  },
+  "import-0129": {
+    "en": {
+      "name": "Car Headrest Tablet Mount",
+      "headline": [
+        "Backseat",
+        "cinema."
+      ],
+      "description": "Adjustable clamp mount that attaches to front headrest posts for comfortable rear-seat viewing."
+    },
+    "pt": {
+      "name": "Suporte de Tablet para Encosto de Banco",
+      "headline": [
+        "Cinema",
+        "no banco de trás."
+      ],
+      "description": "Suporte ajustável fixado nas hastes do encosto de cabeça para assistir vídeos durante a viagem."
+    },
+    "es": {
+      "name": "Soporte de Tablet para Cabecera de Auto",
+      "headline": [
+        "Cine",
+        "en el asiento trasero."
+      ],
+      "description": "Soporte ajustable que se fija en la cabecera del asiento para ver películas cómodamente en viajes."
+    },
+    "fr": {
+      "name": "Support Tablette pour Appui-Tête Auto",
+      "headline": [
+        "Cinéma",
+        "à l'arrière."
+      ],
+      "description": "Fixation réglable sur les tiges d'appui-tête pour regarder des vidéos confortablement à l'arrière."
+    },
+    "he": {
+      "name": "מעמד לטאבלט למשענת ראש ברכב",
+      "headline": [
+        "קולנוע",
+        "במושב האחורי."
+      ],
+      "description": "תושבת מתכווננת המתחברת למוטות משענת הראש לצפייה נוחה במהלך נסיעות."
+    }
+  },
+  "import-0211": {
+    "en": {
+      "name": "Hard-Shell Scooter Handlebar Bag",
+      "headline": [
+        "Gear packed",
+        "on the bar."
+      ],
+      "description": "Water-resistant EVA front pouch with strap mounts for carrying chargers, keys, and tools on scooters or bikes."
+    },
+    "pt": {
+      "name": "Bolsa Frontal Rígida para Patinete e Bike",
+      "headline": [
+        "Tudo à mão",
+        "no guidão."
+      ],
+      "description": "Bolsa rígida resistente à água com fixação no guidão para levar carregador, chaves e celular."
+    },
+    "es": {
+      "name": "Bolsa Frontal Rígida para Scooter y Bici",
+      "headline": [
+        "Todo listo",
+        "en el manubrio."
+      ],
+      "description": "Estuche rígido resistente al agua para llevar cargador, llaves y herramienta en tu scooter o bicicleta."
+    },
+    "fr": {
+      "name": "Sacoche de Guidon Rigide Trottinette",
+      "headline": [
+        "Vos affaires",
+        "sur le guidon."
+      ],
+      "description": "Coque rigide déperlante à sangles pour transporter chargeur, clés et téléphone à trottinette ou à vélo."
+    },
+    "he": {
+      "name": "תיק כידון קשיח לקורקינט ולאופניים",
+      "headline": [
+        "הציוד שלך",
+        "על הכידון."
+      ],
+      "description": "נרתיק קשיח ועמיד למים המתחבר לכידון לנשיאת מטען, מפתחות וטלפון ברכיבה."
+    }
+  },
+  "import-0216": {
+    "en": {
+      "name": "Heavy-Duty Scooter & Bike Lock",
+      "headline": [
+        "Park with",
+        "confidence."
+      ],
+      "description": "Reinforced steel lock with protective sleeve for securing electric scooters and bicycles outdoors."
+    },
+    "pt": {
+      "name": "Trava Antifurto para Patinete e Bicicleta",
+      "headline": [
+        "Estacione",
+        "com segurança."
+      ],
+      "description": "Cadeado reforçado com revestimento protetor para prender patinetes elétricos e bicicletas."
+    },
+    "es": {
+      "name": "Candado Antirrobo para Scooter y Bicicleta",
+      "headline": [
+        "Estaciona",
+        "con tranquilidad."
+      ],
+      "description": "Candado metálico reforzado con cubierta protectora para asegurar tu scooter eléctrico o bicicleta."
+    },
+    "fr": {
+      "name": "Antivol Renforcé Trottinette et Vélo",
+      "headline": [
+        "Stationnez",
+        "l'esprit libre."
+      ],
+      "description": "Cadenas métallique gainé haute résistance pour sécuriser trottinette électrique ou vélo."
+    },
+    "he": {
+      "name": "מנעול מיגון לקורקינט ולאופניים",
+      "headline": [
+        "חניה",
+        "בראש שקט."
+      ],
+      "description": "מנעול מתכת מחוזק בציפוי מגן לנעילה בטוחה של קורקינט חשמלי או אופניים."
+    }
+  },
+  "import-0231": {
+    "en": {
+      "name": "Smart Pet Collar Location Tracker",
+      "headline": [
+        "Always know",
+        "where they roam."
+      ],
+      "description": "Lightweight collar tag tracker that helps you locate your dog or cat via smartphone app."
+    },
+    "pt": {
+      "name": "Rastreador Inteligente para Coleira Pet",
+      "headline": [
+        "Seu pet",
+        "sempre seguro."
+      ],
+      "description": "Localizador leve para prender na coleira de cães e gatos e acompanhar a localização pelo celular."
+    },
+    "es": {
+      "name": "Localizador Inteligente para Collar de Mascota",
+      "headline": [
+        "Tu mascota",
+        "siempre ubicada."
+      ],
+      "description": "Rastreador ligero para collar de perro o gato que muestra su ubicación desde la app del celular."
+    },
+    "fr": {
+      "name": "Traceur Intelligent pour Collier Animal",
+      "headline": [
+        "Votre compagnon",
+        "toujours suivi."
+      ],
+      "description": "Balise légère à fixer au collier du chien ou du chat pour suivre sa position sur smartphone."
+    },
+    "he": {
+      "name": "תג איתור חכם לקולר חיית מחמד",
+      "headline": [
+        "חיית המחמד",
+        "תמיד במעקב."
+      ],
+      "description": "משדר קל משקל המתחבר לקולר של כלב או חתול לאיתור מיקום מהיר דרך הטלפון."
+    }
+  },
+  "import-0530": {
+    "en": {
+      "name": "Warm Waterproof Winter Dog Coat",
+      "headline": [
+        "Cozy walks",
+        "in cold weather."
+      ],
+      "description": "Padded weather-resistant dog jacket with built-in leash rings for comfortable autumn and winter walks."
+    },
+    "pt": {
+      "name": "Casaco Impermeável de Inverno para Cães",
+      "headline": [
+        "Passeio quente",
+        "nos dias frios."
+      ],
+      "description": "Jaqueta acolchoada resistente à água com argola para guia, ideal para passeios no frio."
+    },
+    "es": {
+      "name": "Chaleco Impermeable de Invierno para Perro",
+      "headline": [
+        "Paseos cálidos",
+        "en días fríos."
+      ],
+      "description": "Abrigo acolchado resistente al agua con argolla para correa para pasear a tu perro en invierno."
+    },
+    "fr": {
+      "name": "Manteau d'Hiver Imperméable pour Chien",
+      "headline": [
+        "Promenade",
+        " bien au chaud."
+      ],
+      "description": "Veste matelassée déperlante avec anneau d'attache pour protéger votre chien du froid et de la pluie."
+    },
+    "he": {
+      "name": "מעיל חורף מרופד ועמיד למים לכלבים",
+      "headline": [
+        "טיול חמים",
+        "בימים קרים."
+      ],
+      "description": "מעיל מרופד ונוח עם טבעת חיבור לרצועה השומר על חום גופו של הכלב בחורף."
+    }
+  },
+  "import-0545": {
+    "en": {
+      "name": "Clip-On Dog Leash Waste Bag Dispenser",
+      "headline": [
+        "Walk ready",
+        "every day."
+      ],
+      "description": "Compact capsule dispenser with carabiner clip that attaches to any leash for quick bag access."
+    },
+    "pt": {
+      "name": "Porta-Saquinhos com Mosquetão para Guia",
+      "headline": [
+        "Passeio prático",
+        "e limpo."
+      ],
+      "description": "Dispenser compacto com clipe para prender na guia e puxar os saquinhos com facilidade."
+    },
+    "es": {
+      "name": "Dispensador de Bolsas con Clip para Correa",
+      "headline": [
+        "Paseo limpio",
+        "y práctico."
+      ],
+      "description": "Porta-bolsas compacto con mosquetón que se sujeta a la correa para sacar bolsas fácilmente."
+    },
+    "fr": {
+      "name": "Distributeur de Sacs avec Mousqueton",
+      "headline": [
+        "Balade propre",
+        "en un geste."
+      ],
+      "description": "Boîtier compact à mousqueton se fixant sur la laisse pour distribuer les sacs facilement."
+    },
+    "he": {
+      "name": "מתקן נשיאה לשקיות איסוף לכלב",
+      "headline": [
+        "טיול נקי",
+        "ונוח."
+      ],
+      "description": "מתקן קומפקטי עם שאקל הנצמד לרצועת ההולכה לשליפה מהירה של שקיות בטיול."
+    }
+  },
+  "import-0064": {
+    "en": {
+      "name": "Universal Ball-Joint Mount Adapter",
+      "headline": [
+        "Lock in",
+        "the right angle."
+      ],
+      "description": "Swivel ball-head connector bracket for adjusting car phone mounts and action camera holders."
+    },
+    "pt": {
+      "name": "Adaptador Esférico para Suporte Veicular",
+      "headline": [
+        "Ajuste livre",
+        "de ângulo."
+      ],
+      "description": "Conector universal com junta esférica para posicionar suportes de celular e câmeras no carro."
+    },
+    "es": {
+      "name": "Adaptador de Rótula para Soporte de Auto",
+      "headline": [
+        "El ángulo",
+        "exacto."
+      ],
+      "description": "Conector universal de rótula giratoria para ajustar soportes de celular y cámaras en el auto."
+    },
+    "fr": {
+      "name": "Adaptateur Rotule pour Support Auto",
+      "headline": [
+        "L'angle",
+        "sur mesure."
+      ],
+      "description": "Raccord universel à rotule permettant d'orienter précisément un support téléphone ou caméra."
+    },
+    "he": {
+      "name": "מתאם כדורי מתכוונן למעמד לרכב",
+      "headline": [
+        "זווית צפייה",
+        "מדויקת."
+      ],
+      "description": "מחבר כדורי אוניברסלי לכיוון וקיבוע נוח של מעמדי טלפון ומצלמות ברכב."
+    }
+  },
+  "find-059-label-printer": {
+    "en": {
+      "name": "Bluetooth Thermal Label Printer",
+      "headline": [
+        "Order",
+        "in details."
+      ],
+      "description": "Inkless pocket label maker controlled via smartphone app for kitchen jars and office files."
+    },
+    "pt": {
+      "name": "Mini Impressora Térmica de Etiquetas Bluetooth",
+      "headline": [
+        "Ordem",
+        "nos detalhes."
+      ],
+      "description": "Rotuladora portátil sem tinta controlada pelo celular para organizar a casa."
+    },
+    "es": {
+      "name": "Impresora Térmica de Etiquetas Bluetooth",
+      "headline": [
+        "Orden",
+        "en cada detalle."
+      ],
+      "description": "Etiquetadora de bolsillo sin tinta controlada desde la app del celular para organizar cocina y oficina."
+    },
+    "fr": {
+      "name": "Imprimante d'Étiquettes Thermique Bluetooth",
+      "headline": [
+        "L'ordre",
+        "en détail."
+      ],
+      "description": "Étiqueteuse de poche sans encre pilotée par smartphone pour tout ranger."
+    },
+    "he": {
+      "name": "מדפסת תוויות תרמית אלחוטית",
+      "headline": [
+        "סדר",
+        "בפרטים."
+      ],
+      "description": "מדפסת מדבקות קומפקטית ללא דיו הנשלטת מהטלפון לארגון המטבח והבית."
+    }
+  },
+  "find-054-soldering-iron": {
+    "en": {
+      "name": "Digital USB Soldering Iron",
+      "headline": [
+        "Precision",
+        "soldering."
+      ],
+      "description": "Pen-style cordless soldering iron with OLED screen and adjustable tip temperature control."
+    },
+    "pt": {
+      "name": "Ferro de Solda USB Digital",
+      "headline": [
+        "Solda",
+        "de precisão."
+      ],
+      "description": "Ferro de solda portátil em formato de caneta com tela OLED e ajuste preciso de temperatura."
+    },
+    "es": {
+      "name": "Cautín Soldador USB Digital",
+      "headline": [
+        "Soldadura",
+        "de precisión."
+      ],
+      "description": "Cautín tipo pluma con pantalla OLED y control exacto de temperatura para electrónica."
+    },
+    "fr": {
+      "name": "Fer à Souder USB Numérique",
+      "headline": [
+        "Soudure",
+        "de précision."
+      ],
+      "description": "Fer à souder format stylo avec écran OLED et réglage précis de la température de la panne."
+    },
+    "he": {
+      "name": "מלחם USB דיגיטלי",
+      "headline": [
+        "הלחמה",
+        "מדויקת."
+      ],
+      "description": "מלחם קומפקטי בצורת עט עם מסך OLED ובקרת טמפרטורה מדויקת לעבודות אלקטרוניקה."
+    }
+  },
+  "find-055-lint-remover": {
+    "en": {
+      "name": "Rechargeable Fabric Lint Shaver",
+      "headline": [
+        "Smooth",
+        "fabrics."
+      ],
+      "description": "Cordless sweater defuzzer with stainless mesh guard and round digital battery display."
+    },
+    "pt": {
+      "name": "Papa-Bolinhas Elétrico Recarregável",
+      "headline": [
+        "Tecido",
+        "sempre liso."
+      ],
+      "description": "Aparelho sem fio para renovar malhas e casacos com tela digital de bateria e grade protetora."
+    },
+    "es": {
+      "name": "Quitapelusas Eléctrico Recargable",
+      "headline": [
+        "Ropa",
+        "como nueva."
+      ],
+      "description": "Rasuradora de tela inalámbrica con indicador digital de batería para suéteres y prendas de punto."
+    },
+    "fr": {
+      "name": "Rasoir Anti-Bouloches Rechargeable",
+      "headline": [
+        "Tissus",
+        "comme neufs."
+      ],
+      "description": "Appareil sans fil avec grille inox et écran numérique pour raviver pulls et lainages."
+    },
+    "he": {
+      "name": "מכשיר נטען להסרת כדוריות בד",
+      "headline": [
+        "בדים חלקים",
+        "כמו חדשים."
+      ],
+      "description": "מכשיר אלחוטי לטיפוח סריגים ובגדים עם רשת הגנה מנירוסטה וצג סוללה דיגיטלי."
+    }
+  },
+  "find-056-milk-frother": {
+    "en": {
+      "name": "Handheld Milk Frother with Stand",
+      "headline": [
+        "Creamy foam",
+        "in seconds."
+      ],
+      "description": "Electric stainless steel whisk on a metal countertop stand for frothing coffee milk and matcha."
+    },
+    "pt": {
+      "name": "Misturador Espumador de Leite com Suporte",
+      "headline": [
+        "Espuma",
+        "cremosa."
+      ],
+      "description": "Batedor elétrico manual em suporte metálico de bancada para preparar espuma de leite e bebidas."
+    },
+    "es": {
+      "name": "Espumador de Leche Eléctrico con Base",
+      "headline": [
+        "Espuma",
+        "cremosa."
+      ],
+      "description": "Batidor eléctrico de mano sobre soporte metálico para espumar leche de café, capuchino y matcha."
+    },
+    "fr": {
+      "name": "Mousseur à Lait Électrique sur Support",
+      "headline": [
+        "Mousse",
+        "onctueuse."
+      ],
+      "description": "Fouet électrique à main avec support métallique pour préparer une mousse de lait rapide."
+    },
+    "he": {
+      "name": "מקציף חלב ידני על מעמד",
+      "headline": [
+        "קצף עשיר",
+        "בשניות."
+      ],
+      "description": "מקציף חשמלי ידני על מעמד מתכת שולחני להקצפה מהירה של חלב לקפה ולמשקאות."
+    }
+  },
+  "find-057-uv-toothbrush": {
+    "en": {
+      "name": "UV Toothbrush Holder & Sanitizer",
+      "headline": [
+        "Clean",
+        "bathroom."
+      ],
+      "description": "Wall-mounted toothbrush holder with UV sanitization, warm air drying, and digital status screen."
+    },
+    "pt": {
+      "name": "Suporte Esterilizador UV para Escovas",
+      "headline": [
+        "Banheiro",
+        "organizado."
+      ],
+      "description": "Suporte de parede com luz UV, secagem e visor digital para armazenar escovas de dentes."
+    },
+    "es": {
+      "name": "Porta Cepillos con Esterilizador UV",
+      "headline": [
+        "Baño limpio",
+        "y ordenado."
+      ],
+      "description": "Soporte de pared con desinfección UV, secado y pantalla digital para cepillos de dientes."
+    },
+    "fr": {
+      "name": "Support Brosses à Dents Stérilisateur UV",
+      "headline": [
+        "Salle de bain",
+        "impeccable."
+      ],
+      "description": "Support mural avec traitement UV, séchage et écran numérique pour brosses à dents."
+    },
+    "he": {
+      "name": "מתקן חיטוי UV למברשות שיניים",
+      "headline": [
+        "ניקיון",
+        "בחדר הרחצה."
+      ],
+      "description": "מתקן קיר עם חיטוי אולטרה-סגול, ייבוש וצג דיגיטלי לשמירה על מברשות השיניים."
+    }
+  },
+  "find-058-key-finder": {
+    "en": {
+      "name": "Bluetooth Smart Key Finder Tag",
+      "headline": [
+        "Keys",
+        "under control."
+      ],
+      "description": "Compact locator keychain tag with audible chime for finding keys, bags, and backpacks."
+    },
+    "pt": {
+      "name": "Localizador Bluetooth para Chaves",
+      "headline": [
+        "Chaves",
+        "sob controle."
+      ],
+      "description": "Chaveiro rastreador compacto com alerta sonoro para encontrar chaves, bolsas e mochilas."
+    },
+    "es": {
+      "name": "Localizador Bluetooth para Llaves",
+      "headline": [
+        "Tus llaves",
+        "bajo control."
+      ],
+      "description": "Llavero buscador compacto con alerta sonora para localizar llaves, bolsos o mochilas."
+    },
+    "fr": {
+      "name": "Traceur Bluetooth Porte-Clés",
+      "headline": [
+        "Vos clés",
+        "sous contrôle."
+      ],
+      "description": "Porte-clés localisateur compact avec signal sonore pour retrouver clés, sac ou bagage."
+    },
+    "he": {
+      "name": "מחזיק מפתחות חכם לאיתור Bluetooth",
+      "headline": [
+        "המפתחות",
+        "בשליטה."
+      ],
+      "description": "תג איתור קומפקטי עם התראה קולית למציאת מפתחות, תיק או תרמיל."
+    }
+  },
+  "find-060-tire-inflator": {
+    "en": {
+      "name": "Cordless Digital Tire Inflator",
+      "headline": [
+        "Air power",
+        "on the road."
+      ],
+      "description": "Portable air compressor with digital pressure gauge and auto shut-off for car, moto, and bike tires."
+    },
+    "pt": {
+      "name": "Calibrador de Pneus Sem Fio Digital",
+      "headline": [
+        "Ar pronto",
+        "na estrada."
+      ],
+      "description": "Compressor portátil com manômetro digital e parada automática para pneus de carro, moto e bike."
+    },
+    "es": {
+      "name": "Inflador de Llantas Inalámbrico Digital",
+      "headline": [
+        "Aire listo",
+        "en el camino."
+      ],
+      "description": "Compresor portátil con manómetro digital y apagado automático para llantas de auto, moto y bici."
+    },
+    "fr": {
+      "name": "Gonfleur de Pneus Sans Fil Numérique",
+      "headline": [
+        "L'air",
+        "sur la route."
+      ],
+      "description": "Compresseur portable avec manomètre numérique et arrêt automatique pour voiture, moto et vélo."
+    },
+    "he": {
+      "name": "קומפרסור אלחוטי דיגיטלי לצמיגים",
+      "headline": [
+        "אוויר זמין",
+        "בכל דרך."
+      ],
+      "description": "מדחס נייד עם מד לחץ דיגיטלי ועצירה אוטומטית לניפוח צמיגי רכב, אופנוע ואופניים."
+    }
+  },
+  "find-061-neck-massager": {
+    "en": {
+      "name": "Smart Heated Pulse Neck Massager",
+      "headline": [
+        "Neck",
+        "relief."
+      ],
+      "description": "Lightweight U-shaped neck massager with soothing warmth and pulse pads for muscle relaxation."
+    },
+    "pt": {
+      "name": "Massageador Cervical Elétrico com Aquecimento",
+      "headline": [
+        "Alívio",
+        "para o pescoço."
+      ],
+      "description": "Massageador leve em formato de arco com aquecimento suave e pulsos elétricos para relaxamento."
+    },
+    "es": {
+      "name": "Masajeador de Cuello con Calor e Impulsos",
+      "headline": [
+        "Descanso",
+        "para tu cuello."
+      ],
+      "description": "Masajeador ligero en forma de arco con calor suave e impulsos para relajar los músculos cervicales."
+    },
+    "fr": {
+      "name": "Masseur Cervical Chauffant à Impulsions",
+      "headline": [
+        "Détente",
+        "de la nuque."
+      ],
+      "description": "Arceau de massage léger avec chaleur douce et électrodes à impulsions pour délasser la nuque."
+    },
+    "he": {
+      "name": "מעסה צוואר חכם עם חימום ופולסים",
+      "headline": [
+        "הקלה",
+        "לצוואר."
+      ],
+      "description": "מכשיר עיסוי קל בצורת קשת עם חימום נעים ופולסים עדינים להרפיית שרירי הצוואר."
+    }
+  },
+  "find-062-coffee-scale": {
+    "en": {
+      "name": "Digital Espresso & Pour-Over Coffee Scale",
+      "headline": [
+        "Precision",
+        "pour."
+      ],
+      "description": "Kitchen coffee scale with built-in timer and hidden LED display for pour-over and espresso brewing."
+    },
+    "pt": {
+      "name": "Balança Digital com Timer para Café",
+      "headline": [
+        "Extração",
+        "precisa."
+      ],
+      "description": "Balança de precisão com cronômetro e visor LED oculto para café coado e espresso."
+    },
+    "es": {
+      "name": "Báscula Digital con Temporizador para Café",
+      "headline": [
+        "Extracción",
+        "exacta."
+      ],
+      "description": "Báscula de cocina con cronómetro y pantalla LED oculta para preparar café filtrado y espresso."
+    },
+    "fr": {
+      "name": "Balance à Café Numérique avec Minuteur",
+      "headline": [
+        "Infusion",
+        "précise."
+      ],
+      "description": "Balance de précision avec chronomètre et écran LED discret pour café filtre et expresso."
+    },
+    "he": {
+      "name": "משקל קפה דיגיטלי עם טיימר",
+      "headline": [
+        "חליטה",
+        "מדויקת."
+      ],
+      "description": "משקל מטבח עם שעון עצר ותצוגת LED נסתרת להכנת קפה פילטר ואספרסו בדיוק מרבי."
+    }
+  },
+  "find-063-cable-tester": {
+    "en": {
+      "name": "RJ45 & RJ11 Network Cable Tester",
+      "headline": [
+        "Line",
+        "verified."
+      ],
+      "description": "Dual-unit LED wire tracker for quickly testing Ethernet patch cords and telephone lines."
+    },
+    "pt": {
+      "name": "Testador de Cabo de Rede RJ45 e RJ11",
+      "headline": [
+        "Linha",
+        "testada."
+      ],
+      "description": "Aparelho de dois módulos com indicadores LED para testar cabos de rede e patch cords rapidamente."
+    },
+    "es": {
+      "name": "Probador de Cables de Red RJ45 y RJ11",
+      "headline": [
+        "Línea",
+        "verificada."
+      ],
+      "description": "Probador de dos módulos con indicadores LED para revisar cables de red Ethernet y telefónicos."
+    },
+    "fr": {
+      "name": "Testeur de Câble Réseau RJ45 et RJ11",
+      "headline": [
+        "Ligne",
+        "vérifiée."
+      ],
+      "description": "Testeur à deux boîtiers avec voyants LED pour contrôler rapidement les câbles Ethernet."
+    },
+    "he": {
+      "name": "בודק כבלי תקשורת ורשת RJ45",
+      "headline": [
+        "בדיקת",
+        "קו מהירה."
+      ],
+      "description": "מכשיר דו-יחידתי עם חיווי LED לבדיקה מהירה של כבלי רשת וחוטי תקשורת."
+    }
+  },
+  "find-064-book-light": {
+    "en": {
+      "name": "Rechargeable Amber Clip-On Book Light",
+      "headline": [
+        "Warm light",
+        "on the page."
+      ],
+      "description": "Mini flexible clip-on reading lamp with eye-friendly amber glow for nighttime paper books."
+    },
+    "pt": {
+      "name": "Luminária de Leitura LED com Clipe",
+      "headline": [
+        "Luz quente",
+        "na página."
+      ],
+      "description": "Mini lâmpada flexível com presilha e luz suave para ler livros à noite sem cansar a vista."
+    },
+    "es": {
+      "name": "Lámpara de Lectura Recargable con Clip",
+      "headline": [
+        "Luz cálida",
+        "en tu libro."
+      ],
+      "description": "Mini lámpara flexible con pinza y luz ámbar suave para leer de noche sin cansar la vista."
+    },
+    "fr": {
+      "name": "Lampe de Lecture Rechargeable à Pince",
+      "headline": [
+        "Lumière douce",
+        "sur la page."
+      ],
+      "description": "Mini lampe flexible à pince diffusant une lumière ambrée reposante pour lire le soir."
+    },
+    "he": {
+      "name": "מנורת קריאה נטענת עם קליפס לספר",
+      "headline": [
+        "אור חמים",
+        "על הדף."
+      ],
+      "description": "מנורה גמישה זעירה עם תפס ותאורה רכה לקריאת ספרים בלילה ללא מאמץ לעיניים."
+    }
+  },
+  "find-065-spice-grinder": {
+    "en": {
+      "name": "Electric Gravity Salt & Pepper Grinder",
+      "headline": [
+        "Fresh",
+        "grind."
+      ],
+      "description": "Tilt-activated electric spice mill with adjustable ceramic burr for freshly ground salt and pepper."
+    },
+    "pt": {
+      "name": "Moedor Elétrico de Sal e Pimenta por Gravidade",
+      "headline": [
+        "Moagem",
+        "na hora."
+      ],
+      "description": "Moedor elétrico com mecanismo de cerâmica que ativa automaticamente ao inclinar."
+    },
+    "es": {
+      "name": "Moledor Eléctrico de Sal y Pimienta por Gravedad",
+      "headline": [
+        "Molienda",
+        "al instante."
+      ],
+      "description": "Molino eléctrico con fresas de cerámica que se activa automáticamente al inclinarlo."
+    },
+    "fr": {
+      "name": "Moulin Électrique Sel et Poivre à Gravité",
+      "headline": [
+        "Mouture",
+        "minute."
+      ],
+      "description": "Moulin à épices électrique à meule céramique s'activant automatiquement par simple inclinaison."
+    },
+    "he": {
+      "name": "מטחנת תבלינים חשמלית בהטיה",
+      "headline": [
+        "טחינה",
+        "טרייה."
+      ],
+      "description": "מטחנת מלח ופלפל חשמלית עם מנגנון קרמי הפועלת אוטומטית בהטיית היד."
+    }
+  },
+  "find-066-shoe-dryer": {
+    "en": {
+      "name": "Folding Electric Shoe Dryer & Warmer",
+      "headline": [
+        "Dry pair",
+        "by morning."
+      ],
+      "description": "Foldable warm-air boot and sneaker dryer with built-in timer for gentle overnight shoe care."
+    },
+    "pt": {
+      "name": "Secador Elétrico Dobrável para Calçados",
+      "headline": [
+        "Par seco",
+        "pela manhã."
+      ],
+      "description": "Secador dobrável com fluxo de ar morno e timer para secar tênis e botas com cuidado."
+    },
+    "es": {
+      "name": "Secador Eléctrico Plegable para Calzado",
+      "headline": [
+        "Calzado seco",
+        "cada mañana."
+      ],
+      "description": "Secador plegable con aire tibio y temporizador para secar tenis y zapatos sin dañarlos."
+    },
+    "fr": {
+      "name": "Sèche-Chaussures Électrique Pliable",
+      "headline": [
+        "Chaussures",
+        "toujours sèches."
+      ],
+      "description": "Séchoir pliable à air tiède avec minuterie pour sécher baskets et bottes en douceur."
+    },
+    "he": {
+      "name": "מייבש נעליים חשמלי מתקפל",
+      "headline": [
+        "זוג יבש",
+        "עד הבוקר."
+      ],
+      "description": "מייבש נעליים מתקפל עם טיימר והזרמת אוויר חמים לייבוש עדין של נעליים ומגפיים."
+    }
+  },
+  "find-067-pill-organizer": {
+    "en": {
+      "name": "Waterproof Metal Travel Pill Organizer",
+      "headline": [
+        "Order",
+        "in your bag."
+      ],
+      "description": "Sealed anodized alloy weekly capsule case for keeping vitamins dry and organized on trips."
+    },
+    "pt": {
+      "name": "Porta-Comprimidos Metálico Impermeável",
+      "headline": [
+        "Ordem",
+        "na viagem."
+      ],
+      "description": "Estojo semanal vedado em liga metálica para transportar vitaminas e cápsulas com segurança."
+    },
+    "es": {
+      "name": "Pastillero Metálico Impermeable de Viaje",
+      "headline": [
+        "Orden",
+        "en tu equipaje."
+      ],
+      "description": "Estuche semanal hermético de aleación metálica para llevar vitaminas y cápsulas de viaje."
+    },
+    "fr": {
+      "name": "Pilulier de Voyage Métallique Étanche",
+      "headline": [
+        "L'ordre",
+        "en voyage."
+      ],
+      "description": "Étui semainier hermétique en alliage anodisé pour garder vitamines et gélules au sec."
+    },
+    "he": {
+      "name": "ארגונית כדורים מתכתית אטומה לנסיעות",
+      "headline": [
+        "סדר",
+        "בתיק הנסיעות."
+      ],
+      "description": "קופסת תאים אטומה מסגסוגת מתכת לשמירה מסודרת על ויטמינים וכמוסות בדרכים."
+    }
+  },
+  "find-068-screen-cleaner": {
+    "en": {
+      "name": "2-in-1 Microfiber Screen Cleaner Spray",
+      "headline": [
+        "Crystal",
+        "display."
+      ],
+      "description": "Refillable mist spray bottle wrapped in a washable microfiber block for phones, tablets, and laptops."
+    },
+    "pt": {
+      "name": "Limpador de Tela 2 em 1 com Spray e Microfibra",
+      "headline": [
+        "Tela",
+        "cristalina."
+      ],
+      "description": "Frasco borrifador revestido em microfibra para limpar telas de celular, tablet e notebook."
+    },
+    "es": {
+      "name": "Limpiador de Pantallas 2 en 1 Spray y Microfibra",
+      "headline": [
+        "Pantalla",
+        "impecable."
+      ],
+      "description": "Atomizador compacto cubierto de microfibra para limpiar pantallas de celular, tablet y laptop."
+    },
+    "fr": {
+      "name": "Nettoyant Écran 2-en-1 Spray et Microfibre",
+      "headline": [
+        "Écran",
+        "impeccable."
+      ],
+      "description": "Vaporisateur compact habillé de microfibre pour nettoyer smartphone, tablette et ordinateur."
+    },
+    "he": {
+      "name": "ספריי ומטלית מיקרופייבר 2 ב-1 למסכים",
+      "headline": [
+        "מסך",
+        "מבריק."
+      ],
+      "description": "בקבוקון ריסוס קומפקטי במעטפת מיקרופייבר לניקוי מהיר של מסכי טלפון ומחשב נייד."
+    }
+  },
+  "find-069-luggage-scale": {
+    "en": {
+      "name": "Digital Hanging Travel Luggage Scale",
+      "headline": [
+        "Exact",
+        "baggage weight."
+      ],
+      "description": "Pocket strap scale with backlit LCD screen for weighing suitcases before heading to the airport."
+    },
+    "pt": {
+      "name": "Balança Digital Portátil para Mala de Viagem",
+      "headline": [
+        "Peso exato",
+        "da bagagem."
+      ],
+      "description": "Balança de mão com alça resistente e visor LCD para pesar malas antes do voo."
+    },
+    "es": {
+      "name": "Báscula Digital Portátil para Maletas",
+      "headline": [
+        "Peso exacto",
+        "en tu maleta."
+      ],
+      "description": "Báscula colgante de bolsillo con correa resistente y pantalla LCD para pesar equipaje."
+    },
+    "fr": {
+      "name": "Pèse-Bagage Numérique Portable",
+      "headline": [
+        "Poids exact",
+        "avant le vol."
+      ],
+      "description": "Balance à sangle de poche avec écran LCD pour peser vos valises avant le départ."
+    },
+    "he": {
+      "name": "משקל מזוודות דיגיטלי נייד",
+      "headline": [
+        "משקל מדויק",
+        "לפני הטיסה."
+      ],
+      "description": "משקל תלייה קומפקטי עם רצועה חזקה וצג LCD לשקילת מזוודות לפני היציאה לשדה."
+    }
+  },
+  "find-070-milk-thermometer": {
+    "en": {
+      "name": "Digital Kitchen Probe Thermometer",
+      "headline": [
+        "Exact",
+        "temperature."
+      ],
+      "description": "Long stainless steel probe thermometer with instant digital readout for drinks, syrups, and baking."
+    },
+    "pt": {
+      "name": "Termômetro Culinário Digital de Espeto",
+      "headline": [
+        "Ponto",
+        "no grau."
+      ],
+      "description": "Termômetro com haste longa de inox e visor digital rápido para líquidos, caldas e assados."
+    },
+    "es": {
+      "name": "Termómetro Digital de Cocina con Sonda",
+      "headline": [
+        "Temperatura",
+        "al grado."
+      ],
+      "description": "Termómetro de sonda de acero inoxidable con lectura instantánea para bebidas, jarabes y horneado."
+    },
+    "fr": {
+      "name": "Thermomètre Sonde Numérique de Cuisine",
+      "headline": [
+        "Température",
+        "au degré près."
+      ],
+      "description": "Sonde en inox à lecture instantanée pour contrôler boissons, sirops, viandes et pâtisseries."
+    },
+    "he": {
+      "name": "מדחום מטבח דיגיטלי עם דוקרן נירוסטה",
+      "headline": [
+        "טמפרטורה",
+        "מדויקת."
+      ],
+      "description": "מדחום דוקרן מנירוסטה עם קריאה מהירה על צג דיגיטלי למשקאות, סירופים ואפייה."
+    }
+  },
+  "find-071-key-safe": {
+    "en": {
+      "name": "Wall-Mounted Combination Key Lock Box",
+      "headline": [
+        "Code",
+        "access."
+      ],
+      "description": "Weatherproof metal lockbox with 4-digit dial and protective shutter for storing spare keys outdoors."
+    },
+    "pt": {
+      "name": "Cofre de Parede com Senha para Chaves",
+      "headline": [
+        "Acesso",
+        "por código."
+      ],
+      "description": "Caixa metálica resistente com segredo numérico e tampa protetora para guardar chaves reservas."
+    },
+    "es": {
+      "name": "Caja Fuerte de Pared con Combinación para Llaves",
+      "headline": [
+        "Acceso",
+        "con código."
+      ],
+      "description": "Caja metálica de pared con combinación numérica y cubierta protectora para guardar llaves extra."
+    },
+    "fr": {
+      "name": "Boîte à Clés Murale à Code",
+      "headline": [
+        "Accès",
+        "par code."
+      ],
+      "description": "Boîtier métallique mural à combinaison avec clapet de protection pour clés de secours."
+    },
+    "he": {
+      "name": "כספת קיר עם קוד למפתחות",
+      "headline": [
+        "גישה",
+        "בקוד אישי."
+      ],
+      "description": "תיבת מתכת מוגנת לקיר עם מנעול קומבינציה ומכסה מגן לאחסון בטוח של מפתחות רזרביים."
+    }
+  }
+};
+
+  const SUPPORTED = ['en', 'ru', 'pt', 'es', 'fr', 'he'];
+
+  function detectLang() {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const q = (params.get('lang') || '').toLowerCase().trim();
+      if (SUPPORTED.includes(q)) return q;
+      const saved = (localStorage.getItem('fluxixo.lang.v2') || '').toLowerCase().trim();
+      if (SUPPORTED.includes(saved)) return saved;
+      const navLangs = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || ''];
+      for (let i = 0; i < navLangs.length; i++) {
+        const code = String(navLangs[i] || '').toLowerCase().split('-')[0];
+        if (code === 'iw') return 'he';
+        if (SUPPORTED.includes(code)) return code;
+      }
+    } catch (e) {}
+    return 'en';
+  }
+
+  let currentLang = detectLang();
+
+  function getLang() {
+    return currentLang;
+  }
+
+  function setLang(lang) {
+    if (!SUPPORTED.includes(lang)) lang = 'en';
+    currentLang = lang;
+    try {
+      localStorage.setItem('fluxixo.lang.v2', lang);
+    } catch (e) {}
+    applyDocumentDirection(lang);
+    applyStaticUI(lang);
+    return currentLang;
+  }
+
+  function applyDocumentDirection(lang) {
+    document.documentElement.lang = lang;
+    document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
+    if (document.body) {
+      document.body.classList.toggle('is-rtl-text', lang === 'he');
+    }
+    const select = document.getElementById('lang-select');
+    if (select && select.value !== lang) {
+      select.value = lang;
+    }
+  }
+
+  function t(key, lang) {
+    const l = lang || currentLang;
+    return (UI[l] && UI[l][key]) || UI.en[key] || UI.ru[key] || '';
+  }
+
+  function translateCategory(cat, lang) {
+    const l = lang || currentLang;
+    if (l === 'ru' || !cat) return cat;
+    return (CATS[cat] && CATS[cat][l]) || cat;
+  }
+
+  function translateFact(text, lang) {
+    const l = lang || currentLang;
+    if (l === 'ru' || !text) return text;
+    return (FACTS[text] && FACTS[text][l]) || (CATS[text] && CATS[text][l]) || text;
+  }
+
+  function localizeProduct(product, lang) {
+    const l = lang || currentLang;
+    if (!product || l === 'ru') return product;
+    const tr = PRODUCTS[product.id] && PRODUCTS[product.id][l];
+    const localized = Object.assign({}, product);
+    localized.category = translateCategory(product.category, l);
+    if (tr) {
+      localized.name = tr.name || product.name;
+      localized.headline = tr.headline || product.headline;
+      localized.description = tr.description || product.description;
+      localized.details = tr.description || product.details;
+    }
+    if (Array.isArray(product.facts)) {
+      localized.facts = product.facts.map(function (f) {
+        return {
+          label: translateFact(f.label, l),
+          value: translateFact(f.value, l)
+        };
+      });
+    }
+    return localized;
+  }
+
+  function setText(selector, text) {
+    const el = document.querySelector(selector);
+    if (el && text) el.textContent = text;
+  }
+
+  function setAttr(selector, attr, val) {
+    const el = document.querySelector(selector);
+    if (el && val) el.setAttribute(attr, val);
+  }
+
+  function applyStaticUI(lang) {
+    const l = lang || currentLang;
+    setText('.skip-link', t('skipLink', l));
+    setAttr('#home-button', 'aria-label', t('homeAria', l));
+    setAttr('#about-button', 'aria-label', t('aboutAria', l));
+    setAttr('.arcade-mobile-about', 'aria-label', t('aboutAria', l));
+    setAttr('#showroom', 'aria-label', t('showroomAria', l));
+    setAttr('#product-stage', 'aria-label', t('stageAria', l));
+    setAttr('#product-rail', 'aria-label', t('railAria', l));
+    setAttr('#previous-button', 'aria-label', t('prevAria', l));
+    setAttr('#next-button', 'aria-label', t('nextAria', l));
+    setAttr('#collection-dialog .close-button', 'aria-label', t('closeCollectionAria', l));
+    setAttr('#details-dialog .close-button', 'aria-label', t('closeDetailsAria', l));
+    setAttr('#about-dialog .close-button', 'aria-label', t('closeAboutAria', l));
+    setAttr('#source-image', 'alt', t('sourceImgAlt', l));
+    setText('.brand-line', t('brandLine', l));
+    setText('.header-actions .catalog-page-link', t('catalogLink', l));
+    const catalogLink = document.querySelector('.catalog-page-link');
+    if (catalogLink) catalogLink.href = l === 'ru' ? 'catalog/' : l + '/';
+    setText('#collection-button > span:first-child', t('collectionBtn', l));
+    setText('.scene-caption > span:first-child', t('sceneCaption', l));
+    setText('.depth-label > span', t('depthLabel', l));
+    setText('#demo-label', t('demoLabel', l));
+    setText('#product-cta > span', t('ctaBtn', l));
+    setText('#demo-cta > span', t('demoCta', l));
+    setText('#details-cta > span:first-child', t('ctaBtn', l));
+    const detailsBtn = document.getElementById('details-button');
+    if (detailsBtn) {
+      detailsBtn.innerHTML = t('detailsBtn', l) + ' <span aria-hidden="true">+</span>';
+    }
+    setText('#watch-explode-button', t('watchExplodeBtn', l));
+    setText('#affiliate-note', t('affiliateNote', l));
+    const stageHint = document.getElementById('stage-hint');
+    if (stageHint) {
+      const mobile = window.matchMedia && window.matchMedia('(max-width: 900px)').matches;
+      stageHint.innerHTML = '<span class="hint-dot"></span>' + t(mobile ? 'stageHintMobile' : 'stageHintDesktop', l);
+    }
+    setText('.explore-instruction strong', t('exploreStrong', l));
+    setText('.explore-instruction span', t('exploreSpan', l));
+    setText('#next-button .spin-label', t('spinLabel', l));
+    setText('.footer-signature', t('footerSignature', l));
+    setText('#collection-dialog .sheet-eyebrow', t('collectionEyebrow', l));
+    setText('#collection-title', t('collectionTitle', l));
+    setText('#collection-dialog .sheet-footnote', t('collectionFootnote', l));
+    setText('#source-details summary', t('sourceSummary', l));
+    setText('#source-details p', t('sourceNote', l));
+    setText('#about-dialog .sheet-eyebrow', t('aboutEyebrow', l));
+    setText('#about-title', t('aboutTitle', l));
+    const aboutIntro = document.querySelector('#about-dialog > p:not(.sheet-footnote)');
+    if (aboutIntro) aboutIntro.textContent = t('aboutIntro', l);
+    const aboutNotes = document.querySelectorAll('#about-dialog .about-note');
+    if (aboutNotes[0]) {
+      const h3 = aboutNotes[0].querySelector('h3');
+      const p = aboutNotes[0].querySelector('p');
+      if (h3) h3.textContent = t('aboutLinksTitle', l);
+      if (p) p.textContent = t('aboutLinksBody', l);
+    }
+    if (aboutNotes[1]) {
+      const h3 = aboutNotes[1].querySelector('h3');
+      const p = aboutNotes[1].querySelector('p');
+      if (h3) h3.textContent = t('aboutDemoTitle', l);
+      if (p) p.textContent = t('aboutDemoBody', l);
+    }
+    setText('#about-dialog .sheet-footnote', t('aboutFootnote', l));
+    if (window.MiraWatch && typeof window.MiraWatch.applyLang === 'function') {
+      window.MiraWatch.applyLang(l);
+    }
+  }
+
+  window.FluxixoI18n = {
+    SUPPORTED: SUPPORTED,
+    getLang: getLang,
+    setLang: setLang,
+    t: t,
+    translateCategory: translateCategory,
+    translateFact: translateFact,
+    localizeProduct: localizeProduct,
+    applyStaticUI: applyStaticUI,
+    applyDocumentDirection: applyDocumentDirection
+  };
+})();

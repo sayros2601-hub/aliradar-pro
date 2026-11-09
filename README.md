@@ -1,8 +1,10 @@
-# DealVault
+# FLUXIXO
 
-Production: https://dealvault.pages.dev
+Production: https://www.fluxixo.shop/
 
-Legacy address: https://dealvault.surge.sh (same catalog, canonical URLs point to Cloudflare).
+Production: https://www.fluxixo.shop
+
+Legacy address: https://www.fluxixo.shop (same catalog, canonical URLs point to Cloudflare).
 
 The source lives here. Only `dist/` is published. `index.html` in the source root redirects to production; it is not the build artifact. Historical generators, old mock data builders, screenshots and old broadcasts are preserved in `legacy/` and are not used by the pipeline.
 
@@ -73,7 +75,7 @@ Tests use a hidden browser and localhost. They cover network failure classificat
 
 The imported dataset does not contain reliable timestamps or evidence for live seller prices, ratings or offers. Those fields cannot honestly be presented as verified. A real editorial contact address has not been supplied, so the site does not fabricate an email address. Order support points users to their AliExpress account. Affiliate income must be checked in the user's Portals dashboard; outbound clicks are not sales.
 
-The old free `dealvault.surge.sh/robots.txt` endpoint was observed returning a platform-generated `Disallow: /` even though the uploaded file allows crawling; the correct uploaded file is served with a query string. This was resolved by migrating production to Cloudflare Pages; the public `https://dealvault.pages.dev/robots.txt` endpoint was verified as `Allow: /`. This permits crawling but does not guarantee ranking or indexing. Public routes, canonical links and sitemap use Cloudflare's extension-less URLs. GitHub Pages is not used for this commercial catalog.
+The old free `dealvault.surge.sh/robots.txt` endpoint was observed returning a platform-generated `Disallow: /` even though the uploaded file allows crawling; the correct uploaded file is served with a query string. This was resolved by migrating production to Cloudflare Pages; the public `https://www.fluxixo.shop/robots.txt` endpoint was verified as `Allow: /`. This permits crawling but does not guarantee ranking or indexing. Public routes, canonical links and sitemap use Cloudflare's extension-less URLs. GitHub Pages is not used for this commercial catalog.
 
 
 ## Orbit interface and product selection (October 2026)
