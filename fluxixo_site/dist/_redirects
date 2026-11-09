@@ -2,6 +2,10 @@
 /sitemap/ /sitemap.xml 301
 /feed.xml /rss.xml 301
 /google_feed.xml /rss.xml 301
+
+# Legacy deals and catalog routes
+/deals /en/ 301
+/deals/ /en/ 301
 /deals/* /en/ 301
 /ru/deals/* /catalog/ 301
 /he/deals/* /he/ 301
@@ -9,15 +13,133 @@
 /pt/deals/* /pt/ 301
 /fr/deals/* /fr/ 301
 /en/deals/* /en/ 301
+
+/ru/catalog/* /catalog/ 301
 /ru/cat/* /catalog/ 301
 /he/cat/* /he/ 301
 /es/cat/* /es/ 301
 /pt/cat/* /pt/ 301
 /fr/cat/* /fr/ 301
 /cat/* /en/ 301
+
+# Legacy guide routes (all languages)
+/guide /en/ 301
+/guide/ /en/ 301
 /guide/* /en/ 301
+/en/guide /en/ 301
+/en/guide/ /en/ 301
+/en/guide/* /en/ 301
+/ru/guide /catalog/ 301
+/ru/guide/ /catalog/ 301
+/ru/guide/* /catalog/ 301
+/he/guide /he/ 301
+/he/guide/ /he/ 301
+/he/guide/* /he/ 301
+/es/guide /es/ 301
+/es/guide/ /es/ 301
+/es/guide/* /es/ 301
+/pt/guide /pt/ 301
+/pt/guide/ /pt/ 301
+/pt/guide/* /pt/ 301
+/fr/guide /fr/ 301
+/fr/guide/ /fr/ 301
+/fr/guide/* /fr/ 301
+
+# Legacy journal routes (all languages)
+/journal /en/ 301
+/journal/ /en/ 301
 /journal/* /en/ 301
-/returns / 301
-/contact / 301
+/en/journal /en/ 301
+/en/journal/ /en/ 301
+/en/journal/* /en/ 301
+/ru/journal /catalog/ 301
+/ru/journal/ /catalog/ 301
+/ru/journal/* /catalog/ 301
+/he/journal /he/ 301
+/he/journal/ /he/ 301
+/he/journal/* /he/ 301
+/es/journal /es/ 301
+/es/journal/ /es/ 301
+/es/journal/* /es/ 301
+/pt/journal /pt/ 301
+/pt/journal/ /pt/ 301
+/pt/journal/* /pt/ 301
+/fr/journal /fr/ 301
+/fr/journal/ /fr/ 301
+/fr/journal/* /fr/ 301
+
+# Info and Legal routes (all languages)
+/about / 301
+/about/ / 301
+/en/about / 301
+/en/about/ / 301
+/ru/about / 301
+/ru/about/ / 301
+/he/about / 301
+/he/about/ / 301
+/es/about / 301
+/es/about/ / 301
+/pt/about / 301
+/pt/about/ / 301
+/fr/about / 301
+/fr/about/ / 301
+
 /privacy / 301
+/privacy/ / 301
+/en/privacy / 301
+/en/privacy/ / 301
+/ru/privacy / 301
+/ru/privacy/ / 301
+/he/privacy / 301
+/he/privacy/ / 301
+/es/privacy / 301
+/es/privacy/ / 301
+/pt/privacy / 301
+/pt/privacy/ / 301
+/fr/privacy / 301
+/fr/privacy/ / 301
+
 /terms / 301
+/terms/ / 301
+/en/terms / 301
+/en/terms/ / 301
+/ru/terms / 301
+/ru/terms/ / 301
+/he/terms / 301
+/he/terms/ / 301
+/es/terms / 301
+/es/terms/ / 301
+/pt/terms / 301
+/pt/terms/ / 301
+/fr/terms / 301
+/fr/terms/ / 301
+
+/contact / 301
+/contact/ / 301
+/en/contact / 301
+/en/contact/ / 301
+/ru/contact / 301
+/ru/contact/ / 301
+/he/contact / 301
+/he/contact/ / 301
+/es/contact / 301
+/es/contact/ / 301
+/pt/contact / 301
+/pt/contact/ / 301
+/fr/contact / 301
+/fr/contact/ / 301
+
+/returns / 301
+/returns/ / 301
+/en/returns / 301
+/en/returns/ / 301
+/ru/returns / 301
+/ru/returns/ / 301
+/he/returns / 301
+/he/returns/ / 301
+/es/returns / 301
+/es/returns/ / 301
+/pt/returns / 301
+/pt/returns/ / 301
+/fr/returns / 301
+/fr/returns/ / 301
