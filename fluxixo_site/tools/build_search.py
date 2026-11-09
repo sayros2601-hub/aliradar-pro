@@ -269,7 +269,17 @@ index = re.sub(r'<span id="large-total">.*?</span>', lambda _: f'<span id="large
 write('index.html', index)
 
 write('404.html', page('Page Not Found | FLUXIXO', 'The requested page was not found on FLUXIXO.', '/404.html', '<p class="eyebrow">404</p><h1>Page not found</h1><p>This link may have changed. Explore the full interactive showroom or browse the catalog below.</p><div class="cta-row"><a class="button" href="/">Open 3D Showroom</a><a class="button secondary" href="/en/">Browse Catalog</a></div>', noindex=True, language='en', alternate_paths=catalog_paths))
-write('robots.txt', f'User-agent: *\nAllow: /\n\nSitemap: {ORIGIN}/sitemap.xml\n')
+robots_txt = f"""User-agent: *
+Allow: /
+
+User-agent: Yandex
+Allow: /
+Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term
+Clean-param: lang /
+
+Sitemap: {ORIGIN}/sitemap.xml
+"""
+write('robots.txt', robots_txt)
 write('BingSiteAuth.xml', f'<?xml version="1.0" encoding="UTF-8"?>\n<users><user>{BING}</user></users>\n')
 keyfile = ROOT/'tools/indexnow-key.txt'
 if not keyfile.exists():
