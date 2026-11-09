@@ -489,3 +489,9 @@ footer p{margin:0;font-size:12px;max-width:68ch}
   .card img{height:200px}
   .cta-row .button{width:100%}
 }
+
+body[data-theme="coral"]{--base:#180f1d;--accent:#ff9d79;--card-border:rgba(255,157,121,0.32);--card-bg:linear-gradient(155deg,#2e172a 0%,#190f1d 100%)}
+body[data-theme="sand"]{--base:#191410;--accent:#ffd273;--card-border:rgba(255,210,115,0.32);--card-bg:linear-gradient(155deg,#2a2118 0%,#191410 100%)}
+body[data-theme="lavender"]{--base:#12132b;--accent:#b4bcfc;--card-border:rgba(180,188,252,0.32);--card-bg:linear-gradient(155deg,#1f2249 0%,#12132b 100%)}
+body[data-theme="rose"]{--base:#1f101e;--accent:#ff85aa;--card-border:rgba(255,133,170,0.32);--card-bg:linear-gradient(155deg,#32152f 0%,#1f101e 100%)}
+body[data-theme="blue"]{--base:#0c1829;--accent:#5eead4;--card-border:rgba(94,234,212,0.32);--card-bg:linear-gradient(155deg,#142842 0%,#0c1829 100%)}

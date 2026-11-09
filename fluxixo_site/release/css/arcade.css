@@ -1,7 +1,7 @@
 /* FLUXIXO Arcade: cohesive, robust discovery stage for all viewport sizes */
 @font-face{font-family:Fluxixo Display;src:url('../assets/fonts/space-grotesk-display.ttf') format('truetype');font-weight:700;font-style:normal;font-display:swap;unicode-range:U+0000-024F,U+2000-206F,U+20AC,U+2122}
 
-:root,body[data-theme]{
+:root{
   --base:#100f26;
   --ink:#fff9f0;
   --muted:#bab6d0;
@@ -9,7 +9,88 @@
   --button-bg:#ffd273;
   --button-ink:#2d1850;
   --line:rgba(255,255,255,0.15);
+  --podium-glow:rgba(255,203,103,0.3);
+  --scene-base:#100f26;
+  --scene-glow:rgba(108,44,174,0.55);
+  --scene-warm:rgba(0,142,155,0.35);
   color-scheme:dark;
+}
+
+body[data-theme="coral"]{
+  --base:#1c1022;
+  --accent:#ff9d79;
+  --button-bg:#ffaa88;
+  --button-ink:#2b0f1a;
+  --podium-glow:rgba(255,157,121,0.4);
+  --scene-base:#1c1022;
+  --scene-glow:rgba(235,110,80,0.55);
+  --scene-warm:rgba(255,175,130,0.35);
+}
+body[data-theme="sand"]{
+  --base:#191410;
+  --accent:#ffd273;
+  --button-bg:#ffd680;
+  --button-ink:#2b1d07;
+  --podium-glow:rgba(255,210,115,0.4);
+  --scene-base:#191410;
+  --scene-glow:rgba(230,170,70,0.55);
+  --scene-warm:rgba(255,215,130,0.35);
+}
+body[data-theme="lavender"]{
+  --base:#12132b;
+  --accent:#b4bcfc;
+  --button-bg:#c4ccff;
+  --button-ink:#18193d;
+  --podium-glow:rgba(180,188,252,0.4);
+  --scene-base:#12132b;
+  --scene-glow:rgba(135,120,245,0.55);
+  --scene-warm:rgba(196,181,253,0.35);
+}
+body[data-theme="rose"]{
+  --base:#1f101e;
+  --accent:#ff85aa;
+  --button-bg:#ffa0be;
+  --button-ink:#310d28;
+  --podium-glow:rgba(255,133,170,0.4);
+  --scene-base:#1f101e;
+  --scene-glow:rgba(235,80,135,0.55);
+  --scene-warm:rgba(255,150,185,0.35);
+}
+body[data-theme="blue"]{
+  --base:#0c1829;
+  --accent:#5eead4;
+  --button-bg:#74f0dc;
+  --button-ink:#052628;
+  --podium-glow:rgba(94,234,212,0.4);
+  --scene-base:#0c1829;
+  --scene-glow:rgba(45,145,230,0.55);
+  --scene-warm:rgba(94,234,212,0.35);
+}
+
+.ambient-scene[data-palette="coral"]{
+  --scene-base:#1c1022;
+  --scene-glow:rgba(235,110,80,0.55);
+  --scene-warm:rgba(255,175,130,0.35);
+}
+.ambient-scene[data-palette="sand"]{
+  --scene-base:#191410;
+  --scene-glow:rgba(230,170,70,0.55);
+  --scene-warm:rgba(255,215,130,0.35);
+}
+.ambient-scene[data-palette="lavender"]{
+  --scene-base:#12132b;
+  --scene-glow:rgba(135,120,245,0.55);
+  --scene-warm:rgba(196,181,253,0.35);
+}
+.ambient-scene[data-palette="rose"]{
+  --scene-base:#1f101e;
+  --scene-glow:rgba(235,80,135,0.55);
+  --scene-warm:rgba(255,150,185,0.35);
+}
+.ambient-scene[data-palette="blue"]{
+  --scene-base:#0c1829;
+  --scene-glow:rgba(45,145,230,0.55);
+  --scene-warm:rgba(94,234,212,0.35);
 }
 html,body{
   height:auto;
@@ -20,6 +101,7 @@ html,body{
 body{
   min-height:100svh;
   background:#100f26;
+  transition:background-color .5s ease;
   position:relative;
   isolation:isolate;
   padding:0 0 46px;
@@ -36,8 +118,25 @@ body::before{
     radial-gradient(ellipse at 8% 12%,#0e737c36,transparent 40%),
     #100f26;
 }
-.ambient{position:fixed;opacity:.28;z-index:-1}
-.ambient-scene{background:radial-gradient(ellipse at 80% 40%,#6c2cae80,transparent 62%),radial-gradient(ellipse at 0% 100%,#008e9b44,transparent 50%)}
+.ambient{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:0;
+  contain:paint;
+}
+.ambient-scene{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:
+    radial-gradient(ellipse at 78% 38%, var(--scene-glow) 0%, transparent 64%),
+    radial-gradient(ellipse at 15% 85%, var(--scene-warm) 0%, transparent 58%),
+    radial-gradient(ellipse at 45% 12%, var(--scene-glow) 0%, transparent 48%),
+    var(--scene-base);
+  transition: opacity 0.5s ease-out;
+}
 #depth-dust{position:fixed;opacity:.3;z-index:0}
 
 /* Header */
@@ -366,7 +465,7 @@ h1[data-long='true']{font-size:clamp(32px,3.8vw,60px)}
   border-radius:50%;
   background:radial-gradient(ellipse at 50% 35%,#6a536f,#30283e 72%);
   border:2px solid #f4cd8b;
-  box-shadow:0 0 16px rgba(255,204,109,0.26),inset 0 0 0 7px #30233e,inset 0 0 0 8px rgba(211,163,108,0.4);
+  box-shadow:0 0 20px var(--podium-glow, rgba(255,204,109,0.3)),inset 0 0 0 7px #30233e,inset 0 0 0 8px rgba(211,163,108,0.4);transition:box-shadow .5s ease;
   z-index:2;
 }
 .podium-top::after{

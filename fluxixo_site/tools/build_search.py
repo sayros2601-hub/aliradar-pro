@@ -77,7 +77,7 @@ def metadata(title, description, path, image=default_image, language="ru"):
 <meta property="og:url" content="{ORIGIN}{path}"><meta property="og:image" content="{ORIGIN}/{e(image)}">
 <meta property="og:locale" content="{LANGUAGES[language][1]}"><meta name="twitter:card" content="summary_large_image">"""
 
-def page(title, description, path, body, data=None, image=default_image, noindex=False, language='ru', alternate_paths=None, studio_url=None):
+def page(title, description, path, body, data=None, image=default_image, noindex=False, language='ru', alternate_paths=None, studio_url=None, theme=None):
     tag, _, _, catalog_label, showroom, _, _ = LANGUAGES[language]
     direction = 'rtl' if language == 'he' else 'ltr'
     home = studio_url or f'/?lang={language}'
@@ -89,12 +89,13 @@ def page(title, description, path, body, data=None, image=default_image, noindex
     if noindex:
         meta = meta.replace('index,follow,max-image-preview:large', 'noindex,follow')
     lang_dropdown = header_lang_select(language, alternate_paths)
+    theme_attr = f' data-theme="{theme}"' if theme else ''
     return f"""<!doctype html>
 <html lang="{tag}" dir="{direction}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><meta name="description" content="{e(description)}">{meta}
 <link rel="icon" href="/assets/favicon.svg?v=mira213-fluxixo-20261030"><link rel="stylesheet" href="/css/search.css?v=mira213-fluxixo-20261030">
 <script defer src="/js/search-nav.js?v=mira213-fluxixo-20261030"></script>
-{structured(data) if data else ''}</head><body>
+{structured(data) if data else ''}</head><body{theme_attr}>
 <header><a class="brand" href="/?lang={language}">FLUXIXO</a><nav>{lang_dropdown}<a class="nav-pill" href="{catalog_url}">{e(catalog_label)}</a><a class="nav-pill showroom-pill" href="{home}">{e(showroom)}</a></nav></header>
 <main>{body}</main><footer><p>{e(disclosure)}</p><div class="footer-links"><a href="{catalog_url}">{e(catalog_label)}</a><span>·</span><a href="{home}">{e(showroom)}</a><span>·</span><a href="/rss.xml">RSS</a></div></footer></body></html>"""
 
@@ -151,6 +152,21 @@ for idx, p in enumerate(products):
         '@context': 'https://schema.org',
         '@graph': [
             {
+                '@type': 'Product',
+                '@id': ORIGIN+path+'#product',
+                'name': p['name'],
+                'description': p['description'],
+                'image': [ORIGIN+'/'+p['image']],
+                'brand': {'@type': 'Brand', 'name': 'FLUXIXO'},
+                'offers': {
+                    '@type': 'Offer',
+                    'priceCurrency': 'USD',
+                    'price': '19.99',
+                    'availability': 'https://schema.org/InStock',
+                    'url': p.get('affiliateUrl') or (ORIGIN+path)
+                }
+            },
+            {
                 '@type': 'WebPage',
                 '@id': ORIGIN+path,
                 'url': ORIGIN+path,
@@ -179,7 +195,7 @@ for idx, p in enumerate(products):
     }
     variant_paths = {language: product_path(p, language) for language in ('ru', *translations(i18n, p))}
     body += language_links(variant_paths)
-    write(path.strip('/')+'/index.html', page(title, seo_desc, path, body, data, p['image'], alternate_paths=variant_paths, studio_url=studio_ru))
+    write(path.strip('/')+'/index.html', page(title, seo_desc, path, body, data, p['image'], alternate_paths=variant_paths, studio_url=studio_ru, theme=p.get('theme')))
 
 # Build category hub pages (/categories/<slug>/index.html)
 cat_nav_links = []

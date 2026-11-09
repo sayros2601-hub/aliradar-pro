@@ -178,10 +178,23 @@ def generate(origin, data, products, page, write, image):
                 f'<p class="affiliate-disclosure">{e(ui["affiliateNote"])}</p>'
                 f'{dl_block}</section></div>{original}{related_block}</article>{language_links(paths)}'
             )
-            schema = {'@context': 'https://schema.org', '@type': 'WebPage', 'url': origin+path,
-                      'name': name, 'description': desc, 'inLanguage': LANGUAGES[language][0]}
+            schema = {
+                '@context': 'https://schema.org',
+                '@type': 'Product',
+                'name': name,
+                'description': desc,
+                'image': [origin+'/'+product['image']],
+                'brand': {'@type': 'Brand', 'name': 'FLUXIXO'},
+                'offers': {
+                    '@type': 'Offer',
+                    'priceCurrency': 'USD',
+                    'price': '19.99',
+                    'availability': 'https://schema.org/InStock',
+                    'url': product.get('affiliateUrl') or (origin+path)
+                }
+            }
             write(path.strip('/')+'/index.html', page(f'{name} | FLUXIXO', desc, path, body, schema,
-                  product['image'], language=language, alternate_paths=paths, studio_url=studio))
+                  product['image'], language=language, alternate_paths=paths, studio_url=studio, theme=product.get('theme')))
         if not entries:
             continue
         title = f'{catalog_label} FLUXIXO ({len(entries)}) | AliExpress'
