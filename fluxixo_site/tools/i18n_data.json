@@ -16,8 +16,8 @@
       "exploreSpan": "Листайте колесом мыши, смахивайте влево или вправо либо откройте каталог.",
       "motionLess": "Спокойнее",
       "motionMore": "Живее",
-      "stageHintMouse": "Двигай курсор по карточке — свет и глубина мягко откликаются.",
-      "stageHintTouch": "Смахните влево или вправо, чтобы сменить товар.",
+      "stageHintMouse": "Наведи для наклона ракурса",
+      "stageHintTouch": "Свайпай влево или вправо",
       "stageHintQuiet": "Спокойный режим включён: сцена остаётся ровной и тихой.",
       "collectionEyebrow": "Спокойный выбор",
       "collectionTitle": "Все предметы в одном каталоге",
@@ -75,7 +75,9 @@
           "copy": "Металлический корпус, боковые кнопки и стальные звенья образуют прочную основу сборки.",
           "where": "Основа конструкции: все слои входят в передний проём."
         }
-      ]
+      ],
+      "stageHintDesktop": "Наведи для наклона ракурса",
+      "stageHintMobile": "Свайпай влево или вправо"
     },
     "en": {
       "brandLine": "Curated Product Showroom",
@@ -93,8 +95,8 @@
       "exploreSpan": "Use the mouse wheel, swipe left or right, or open the catalog.",
       "motionLess": "Calmer",
       "motionMore": "Livelier",
-      "stageHintMouse": "Move your cursor across the card — light and depth gently respond.",
-      "stageHintTouch": "Swipe left or right to browse products.",
+      "stageHintMouse": "Hover to tilt the angle",
+      "stageHintTouch": "Swipe left or right",
       "stageHintQuiet": "Calm mode enabled: the stage remains steady and quiet.",
       "collectionEyebrow": "Calm selection",
       "collectionTitle": "All objects in one catalog",
@@ -152,7 +154,9 @@
           "copy": "The brushed metal housing, dual side buttons, and steel links form the structural foundation.",
           "where": "Structural base: all inner layers fit into the front frame."
         }
-      ]
+      ],
+      "stageHintDesktop": "Hover to tilt the angle",
+      "stageHintMobile": "Swipe left or right"
     },
     "pt": {
       "brandLine": "Vitrine de Produtos",
@@ -170,8 +174,8 @@
       "exploreSpan": "Use a roda do mouse, deslize para os lados ou abra o catálogo.",
       "motionLess": "Mais calmo",
       "motionMore": "Mais vivo",
-      "stageHintMouse": "Mova o cursor sobre o cartão — a luz e a profundidade respondem suavemente.",
-      "stageHintTouch": "Deslize para a esquerda ou direita para ver outros produtos.",
+      "stageHintMouse": "Passe o cursor para inclinar",
+      "stageHintTouch": "Deslize para os lados",
       "stageHintQuiet": "Modo calmo ativado: a cena permanece estável e silenciosa.",
       "collectionEyebrow": "Escolha tranquila",
       "collectionTitle": "Todos os produtos em um só catálogo",
@@ -229,7 +233,9 @@
           "copy": "A caixa metálica, os dois botões laterais e os elos formam a base estrutural do relógio.",
           "where": "Base da montagem onde todos os módulos se encaixam."
         }
-      ]
+      ],
+      "stageHintDesktop": "Passe o cursor para inclinar",
+      "stageHintMobile": "Deslize para os lados"
     },
     "es": {
       "brandLine": "Vitrina de productos",
@@ -247,8 +253,8 @@
       "exploreSpan": "Usa la rueda del mouse, desliza hacia los lados o abre el catálogo.",
       "motionLess": "Más calmo",
       "motionMore": "Más vivo",
-      "stageHintMouse": "Mueve el cursor sobre la tarjeta: la luz y la profundidad responden suavemente.",
-      "stageHintTouch": "Desliza a la izquierda o a la derecha para ver otros productos.",
+      "stageHintMouse": "Pasa el cursor para inclinar",
+      "stageHintTouch": "Desliza a los lados",
       "stageHintQuiet": "Modo tranquilo activado: la escena permanece estable.",
       "collectionEyebrow": "Selección cuidada",
       "collectionTitle": "Todos los artículos en un solo catálogo",
@@ -306,7 +312,9 @@
           "copy": "La caja metálica, los botones laterales y los eslabones forman la estructura principal.",
           "where": "Base del ensamble donde encajan todas las capas."
         }
-      ]
+      ],
+      "stageHintDesktop": "Pasa el cursor para inclinar",
+      "stageHintMobile": "Desliza a los lados"
     },
     "fr": {
       "brandLine": "Vitrine d'Objets",
@@ -324,8 +332,8 @@
       "exploreSpan": "Utilisez la molette, balayez à gauche ou à droite, ou ouvrez le catalogue.",
       "motionLess": "Plus calme",
       "motionMore": "Plus vivant",
-      "stageHintMouse": "Déplacez le curseur sur la carte — la lumière et la profondeur réagissent en douceur.",
-      "stageHintTouch": "Balayez à gauche ou à droite pour changer de produit.",
+      "stageHintMouse": "Survolez pour incliner l'angle",
+      "stageHintTouch": "Balayez vers la gauche ou la droite",
       "stageHintQuiet": "Mode calme activé : la scène reste stable et silencieuse.",
       "collectionEyebrow": "Sélection épurée",
       "collectionTitle": "Tous les objets dans un seul catalogue",
@@ -383,7 +391,9 @@
           "copy": "Le boîtier métallique, les deux boutons latéraux et les maillons forment la structure.",
           "where": "Base de l'assemblage recevant les couches internes."
         }
-      ]
+      ],
+      "stageHintDesktop": "Survolez pour incliner l'angle",
+      "stageHintMobile": "Balayez vers la gauche ou la droite"
     },
     "he": {
       "brandLine": "מוצרים נבחרים",
@@ -401,8 +411,8 @@
       "exploreSpan": "גללו עם העכבר, החליקו ימינה או שמאלה, או פתחו את הקטלוג.",
       "motionLess": "רגוע יותר",
       "motionMore": "חי יותר",
-      "stageHintMouse": "הזז את הסמן על הכרטיס — התאורה והעומק מגיבים בעדינות.",
-      "stageHintTouch": "החליקו ימינה או שמאלה כדי לעבור בין המוצרים.",
+      "stageHintMouse": "העבירו סמן לשינוי הזווית",
+      "stageHintTouch": "החליקו ימינה או שמאלה",
       "stageHintQuiet": "מצב תנועה מופחתת",
       "collectionEyebrow": "מבחר מוצרים",
       "collectionTitle": "כל המוצרים",
@@ -460,7 +470,9 @@
           "copy": "גוף המתכת, כפתורי הצד וחוליות הפלדה מהווים את שלד ההרכבה.",
           "where": "בסיס השעון שלתוכו משתלבות כל השכבות."
         }
-      ]
+      ],
+      "stageHintDesktop": "העבירו סמן לשינוי הזווית",
+      "stageHintMobile": "החליקו ימינה או שמאלה"
     }
   },
   "cats": {
