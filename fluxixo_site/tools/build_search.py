@@ -93,6 +93,7 @@ def page(title, description, path, body, data=None, image=default_image, noindex
 <html lang="{tag}" dir="{direction}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{e(title)}</title><meta name="description" content="{e(description)}">{meta}
 <link rel="icon" href="/assets/favicon.svg?v=mira213-fluxixo-20261030"><link rel="stylesheet" href="/css/search.css?v=mira213-fluxixo-20261030">
+<script defer src="/js/search-nav.js?v=mira213-fluxixo-20261030"></script>
 {structured(data) if data else ''}</head><body>
 <header><a class="brand" href="/?lang={language}">FLUXIXO</a><nav>{lang_dropdown}<a class="nav-pill" href="{catalog_url}">{e(catalog_label)}</a><a class="nav-pill showroom-pill" href="{home}">{e(showroom)}</a></nav></header>
 <main>{body}</main><footer><p>{e(disclosure)}</p><div class="footer-links"><a href="{catalog_url}">{e(catalog_label)}</a><span>·</span><a href="{home}">{e(showroom)}</a><span>·</span><a href="/rss.xml">RSS</a></div></footer></body></html>"""

@@ -85,8 +85,7 @@ def header_lang_select(current_lang, alternate_paths=None):
         target = paths.get(lang, catalog_path(lang))
         sel = ' selected' if lang == current_lang else ''
         options.append(f'<option value="{e(target)}" data-lang="{lang}"{sel}>{e(SHORT_LABELS[lang])}</option>')
-    onchange = "try{localStorage.setItem('fluxixo.lang.v2',this.options[this.selectedIndex].dataset.lang)}catch(e){};if(this.value)location.href=this.value;"
-    return f'<select class="lang-select" aria-label="Language" onchange="{onchange}">{"".join(options)}</select>'
+    return f'<select class="lang-select" aria-label="Language">{"".join(options)}</select>'
 
 def translations(data, product):
     return {language: value for language, value in data['products'].get(product['id'], {}).items()
