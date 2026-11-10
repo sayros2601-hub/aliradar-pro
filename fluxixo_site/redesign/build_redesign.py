@@ -49,6 +49,22 @@ VERIFY = ('<meta name="google-site-verification" content="BUSamFSGELSfaWQEaVVj2Q
           '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2"><meta name="yandex-verification" content="deee62492f76cf5b">')
 ROOT_TITLE = 'FLUXIXO | Curated AliExpress Finds'
 ROOT_DESC = 'Three new AliExpress finds every day: gadgets, home and kitchen tools, and travel accessories. Compare studio images with original seller photos.'
+
+
+def product_metadata(name, description, lang, source_id):
+    """Keep legacy metadata intact; distinguish new listings by actual item ID."""
+    if source_id is None:
+        return L.fit_title(name, lang), L.fit_description(description, lang)
+    if not isinstance(source_id, str) or not re.fullmatch(r'[1-9][0-9]{0,31}', source_id):
+        raise ValueError('Invalid source product ID')
+    suffix = f' · {source_id} · {lang.upper()} | FLUXIXO'
+    compact_name = ' '.join(name.split())
+    title = compact_name[:max(1, 70 - len(suffix))].rstrip() + suffix
+    prefix = compact_name[:36].rstrip()
+    desc = L.fit_description(f'{prefix} · {source_id} · {lang.upper()}. {description}', lang)
+    return title, desc
+
+
 WATCH_SEO_RU = {
     'title': 'Купить наручные часы — умные часы на AliExpress | FLUXIXO',
     'description': 'Купить наручные часы: умные часы с экраном. Сравните изображения и уточните характеристики, стоимость и доставку у продавца AliExpress.',
@@ -279,8 +295,7 @@ class Site:
         for i, p in enumerate(self.items):
             prev, nxt = self.items[i - 1], self.items[(i + 1) % n]
             key, path, name = p['world'], self.ppath(p), p['name']
-            title = L.fit_title(name, self.lang)
-            desc = L.fit_description(p['description'], self.lang)
+            title, desc = product_metadata(name, p['description'], self.lang, p.get('sourceProductId'))
             page_description = p['description']
             if self.lang == 'ru' and p['id'] == 'import-0024':
                 name, title = WATCH_SEO_RU['heading'], WATCH_SEO_RU['title']

@@ -30,6 +30,7 @@ RELEASE = SITE_ROOT / "release"
 RESERVE_DIR = SITE_ROOT / "reserve"
 RESERVE_IMAGES = RESERVE_DIR / "images"
 RESERVE_ORIGINALS = RESERVE_DIR / "originals"
+LEDGER_PATH = REPO_ROOT / "data" / "fluxixo_daily_ledger.json"
 
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "a4be28e05f73ad2b3939d364ea8b2817")
 PROJECT_NAME = "dealvault"
@@ -105,186 +106,15 @@ def call_ae_api(method: str, extra_params: dict, app_key: str, app_secret: str) 
     return {}
 
 
-def replenish_reserve_via_api(existing_ids: set, existing_names: set, reserve: list, needed: int = 3) -> list:
-    app_key = os.environ.get("ALI_APP_KEY", "557652")
-    app_secret = os.environ.get("ALI_APP_SECRET", "")
-    if not app_secret:
-        print("ALI_APP_SECRET not set; skipping cloud API replenishment.")
-        return reserve
-
-    from PIL import Image
-    from rembg import remove, new_session
-
-    session = new_session("u2net")
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        "Referer": "https://www.aliexpress.com/",
-    }
-    RESERVE_IMAGES.mkdir(parents=True, exist_ok=True)
-    RESERVE_ORIGINALS.mkdir(parents=True, exist_ok=True)
-
-    added = 0
-    for pid, kw, country, country_ru, name, headline, category, desc, theme in CLOUD_DISCOVERY_POOL:
-        if pid in existing_ids or name in existing_names or any(r["id"] == pid for r in reserve):
-            continue
-        res = call_ae_api(
-            "aliexpress.affiliate.product.query",
-            {
-                "keywords": kw,
-                "target_currency": "USD",
-                "target_language": "EN",
-                "ship_to_country": country,
-                "page_size": "5",
-                "tracking_id": "default",
-            },
-            app_key,
-            app_secret,
-        )
-        prods = (
-            res.get("aliexpress_affiliate_product_query_response", {})
-            .get("resp_result", {})
-            .get("result", {})
-            .get("products", {})
-            .get("product", [])
-        )
-        if not prods:
-            continue
-        p = prods[0]
-        img_url = p.get("product_main_image_url")
-        detail_url = p.get("product_detail_url", "").split("?")[0]
-        promo_link = p.get("promotion_link")
-        if detail_url:
-            lres = call_ae_api(
-                "aliexpress.affiliate.link.generate",
-                {"promotion_link_type": "0", "source_values": detail_url, "tracking_id": "default"},
-                app_key,
-                app_secret,
-            )
-            links = (
-                lres.get("aliexpress_affiliate_link_generate_response", {})
-                .get("resp_result", {})
-                .get("result", {})
-                .get("promotion_links", {})
-                .get("promotion_link", [])
-            )
-            if links and links[0].get("promotion_link"):
-                promo_link = links[0]["promotion_link"]
-
-        tmp_ref = RESERVE_DIR / f"{pid}_tmp.jpg"
-        r = requests.get(img_url, headers=headers, timeout=20)
-        r.raise_for_status()
-        tmp_ref.write_bytes(r.content)
-
-        img = Image.open(tmp_ref).convert("RGBA")
-        cut = remove(img, session=session)
-        r_ch, g_ch, b_ch, a_ch = cut.split()
-        a_ch = a_ch.point(lambda px: 0 if px < 28 else px)
-        cut.putalpha(a_ch)
-        bbox = cut.getbbox()
-        cropped = cut.crop(bbox) if bbox else cut
-        w, h = cropped.size
-        max_inner = int(1254 * 0.72)
-        scale = min(max_inner / max(w, 1), max_inner / max(h, 1))
-        nw, nh = max(1, int(round(w * scale))), max(1, int(round(h * scale)))
-        resized = cropped.resize((nw, nh), Image.Resampling.LANCZOS)
-        canvas = Image.new("RGBA", (1254, 1254), (0, 0, 0, 0))
-        canvas.paste(resized, ((1254 - nw) // 2, (1254 - nh) // 2), resized)
-        tmp_png = RESERVE_DIR / f"{pid}_tmp.png"
-        canvas.save(tmp_png, "PNG")
-
-        subprocess.run(
-            ["ffmpeg", "-v", "error", "-y", "-i", str(tmp_png), "-c:v", "libwebp", "-quality", "92", str(RESERVE_IMAGES / f"{pid}.webp")],
-            check=True,
-        )
-        subprocess.run(
-            ["ffmpeg", "-v", "error", "-y", "-i", str(tmp_ref), "-c:v", "libwebp", "-quality", "88", str(RESERVE_ORIGINALS / f"{pid}.webp")],
-            check=True,
-        )
-        tmp_ref.unlink(missing_ok=True)
-        tmp_png.unlink(missing_ok=True)
-
-        entry = {
-            "id": pid,
-            "name": name,
-            "headline": headline,
-            "category": category,
-            "description": desc,
-            "image": f"assets/images/{pid}.webp",
-            "original": f"assets/originals/{pid}.webp",
-            "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
-            "affiliateUrl": promo_link or detail_url,
-            "sourceUrl": promo_link or detail_url,
-            "demo": False,
-            "theme": theme,
-            "scale": 0.85,
-            "rotation": 0,
-            "details": (
-                f"{desc}\n\n"
-                f"Студийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. "
-                f"Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress."
-            ),
-            "facts": [{"label": "Подборка", "value": country_ru}],
-        }
-        reserve.append(entry)
-        added += 1
-        print(f"Cloud API harvested & cut out new reserve item: {pid}")
-        if added >= needed:
-            break
-    return reserve
+from fluxixo_ai.autonomous import DailyError
 
 
-def accumulate_catalog(count: int) -> None:
-    """
-    Purely additive catalog update:
-    Adds `count` new unique products before the previous collection.
-    NEVER deletes any existing products, images, or HTML pages from the catalog.
-    """
-    cat_path = DIST / "js" / "catalog.js"
-    reserve_path = RESERVE_DIR / "reserve_pool.json"
-    catalog = json.loads(cat_path.read_text(encoding="utf-8").split("=", 1)[1].strip().rstrip(";"))
-    products = catalog["products"]
-    reserve = json.loads(reserve_path.read_text(encoding="utf-8")) if reserve_path.exists() else []
-
-    existing_ids = {p["id"] for p in products}
-    existing_names = {p["name"] for p in products}
-    reserve = [r for r in reserve if r["id"] not in existing_ids and r["name"] not in existing_names]
-
-    if len(reserve) < count:
-        reserve = replenish_reserve_via_api(existing_ids, existing_names, reserve, needed=count - len(reserve))
-
-    if not reserve:
-        print(f"No new reserve items to add today; keeping all {len(products)} existing products intact.")
-        return
-
-    incoming = reserve[:count]
-    remaining_reserve = reserve[count:]
-
-    (DIST / "assets" / "images").mkdir(parents=True, exist_ok=True)
-    (DIST / "assets" / "originals").mkdir(parents=True, exist_ok=True)
-
-    for p in incoming:
-        pid = p["id"]
-        src_img = RESERVE_IMAGES / f"{pid}.webp"
-        src_orig = RESERVE_ORIGINALS / f"{pid}.webp"
-        if src_img.exists():
-            shutil.copy2(src_img, DIST / "assets" / "images" / f"{pid}.webp")
-            src_img.unlink()
-        if src_orig.exists():
-            shutil.copy2(src_orig, DIST / "assets" / "originals" / f"{pid}.webp")
-            src_orig.unlink()
-
-    # Always place the 3 newest products at positions #1, #2, #3 (index 0, 1, 2) and preserve ALL existing items!
-    catalog["products"] = incoming + products
-    cat_path.write_text(
-        "/* FLUXIXO catalog: existing collection + daily accumulated finds. */\nwindow.MIRA_CATALOG = "
-        + json.dumps(catalog, ensure_ascii=False, indent=2)
-        + ";\n",
-        encoding="utf-8",
-    )
-    reserve_path.write_text(json.dumps(remaining_reserve, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"Added +{len(incoming)} new products (0 deleted): {[p['id'] for p in incoming]}")
-    print(f"Total products in catalog now: {len(catalog['products'])}")
-    print(f"Remaining pre-rendered reserve items: {len(remaining_reserve)}")
+def accumulate_catalog(count: int, *, now=None, discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None) -> dict:
+    """Add only source-grounded, quality-checked items under the UTC ledger."""
+    from fluxixo_ai.autonomous import accumulate
+    return accumulate(count=count, site_root=SITE_ROOT, dist=DIST, reserve_dir=RESERVE_DIR,
+                      ledger_path=LEDGER_PATH, now=now, discover_fn=discover_fn,
+                      media_fn=media_fn, validation_run_id=validation_run_id, queue_store=queue_store, refresh_fn=refresh_fn)
 
 
 def deploy_release() -> None:
@@ -365,22 +195,42 @@ def submit_indexnow() -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--rotate", "--add", dest="add_count", type=int, default=3, help="Number of new products to add (0 to rebuild only)")
-    parser.add_argument("--deploy", action="store_true", help="Deploy to Cloudflare Pages")
+    parser.add_argument("--deploy", action="store_true", help="Deploy an already committed release; requires --add 0")
+    parser.add_argument("--validation-run-id", help="One specifically authorized one-item validation run")
+    parser.add_argument("--deploy-existing", action="store_true", help="Deploy the previously built and verified release")
+    parser.add_argument("--skip-indexnow", action="store_true", help="Do not submit URLs to search engines")
     args = parser.parse_args()
 
+    if not 0 <= args.add_count <= 3:
+        parser.error("--add must be between 0 and 3")
+    if args.deploy and args.add_count != 0:
+        parser.error("commit and push additions first; deploy separately with --add 0")
+    if args.validation_run_id and (args.add_count != 1 or args.deploy):
+        parser.error("validation requires --add 1 and no --deploy")
+    if args.deploy_existing and (args.add_count != 0 or not args.deploy):
+        parser.error("--deploy-existing requires --add 0 --deploy")
     if args.add_count > 0:
-        accumulate_catalog(args.add_count)
+        outcome = accumulate_catalog(args.add_count, validation_run_id=args.validation_run_id)
+        if os.environ.get("GITHUB_OUTPUT"):
+            with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as stream:
+                stream.write(f"added={outcome['added']}\n")
+                stream.write(f"ids={','.join(outcome.get('ids', []))}\n")
+                stream.write(f"deploy={'1' if outcome['added'] or outcome.get('validation_existing') else '0'}\n")
+        if args.validation_run_id and outcome["added"] == 0:
+            print("Validation already recorded; rebuild for deployment retry without another product.")
 
-    subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_search.py")], check=True)
-    # The storefront design: rewrites every visitor-facing page over the plain ones build_search.py just made.
-    subprocess.run([sys.executable, str(SITE_ROOT / "redesign" / "build_redesign.py"), "--production"], check=True)
-    subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
+    if not args.deploy_existing:
+        subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_search.py")], check=True)
+        # Keep the existing hanging transparent-object design and current routes.
+        subprocess.run([sys.executable, str(SITE_ROOT / "redesign" / "build_redesign.py"), "--production"], check=True)
+        subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
     # A release with broken pages stops here instead of reaching the live site.
     subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "verify_release.py"), str(RELEASE)], check=True)
 
     if args.deploy:
         deploy_release()
-        submit_indexnow()
+        if not args.skip_indexnow:
+            submit_indexnow()
 
 
 if __name__ == "__main__":

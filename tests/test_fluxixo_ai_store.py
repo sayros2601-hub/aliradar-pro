@@ -138,6 +138,18 @@ class SharedStoreTests(unittest.TestCase):
             self.store.fail(claim['claim_id'], 'other-runner', 'safe-error-code', now=NOW)
         self.assertEqual('reserved', self.store.status('request-0')['state'])
 
+    def test_prepublication_release_requires_unchanged_catalog_and_owner(self):
+        self.add(0)
+        claim = self.store.claim(DAY, 'runner', 1, now=NOW)[0]
+        with self.assertRaises(StoreError):
+            self.store.release_claim(claim['claim_id'], 'runner', catalog_unchanged=False, now=NOW)
+        with self.assertRaises(StoreError):
+            self.store.release_claim(claim['claim_id'], 'wrong', catalog_unchanged=True, now=NOW)
+        result = self.store.release_claim(claim['claim_id'], 'runner', catalog_unchanged=True, now=NOW)
+        self.assertEqual('queued', result['state'])
+        self.assertIsNone(result['claim_id'])
+        self.assertEqual(1, len(self.store.claim(DAY, 'next', 1, now=NOW)))
+
     def test_stale_lease_is_not_blindly_requeued(self):
         self.add(0)
         claim = self.store.claim(DAY, 'runner', 1, lease_seconds=10, now=NOW)[0]

@@ -1,0 +1,75 @@
+name: FLUXIXO one-time authorized validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'data/validation_requests/fluxixo-validation-20261110-01.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fluxixo-daily-accumulation
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify the fixed one-time request
+        run: |
+          python -c 'import json; p=json.load(open("data/validation_requests/fluxixo-validation-20261110-01.json")); assert p == {"run_id":"fluxixo-validation-20261110-01","operation":"validation","count":1}'
+      - name: Install existing site and image-quality dependencies
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y ffmpeg tesseract-ocr
+          python -m pip install requests pillow rembg onnxruntime
+          npm install --no-save wrangler
+      - name: Prepare one source-grounded quality-checked product
+        id: prepare
+        env:
+          ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
+          ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
+        run: python -B fluxixo_daily_rotate.py --add 1 --validation-run-id fluxixo-validation-20261110-01
+      - name: Commit and push the catalog and one-time ledger before deployment
+        if: steps.prepare.outputs.deploy == '1'
+        run: |
+          git config user.name "FLUXIXO Cloud Autopilot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools data/fluxixo_daily_ledger.json fluxixo_site/release-manifest.json fluxixo_site/asset-map.json
+          if [ -f data/fluxixo_ai.sqlite3 ]; then git add -f data/fluxixo_ai.sqlite3; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(fluxixo): one authorized validation product [skip ci]"
+            git push origin HEAD:main
+          fi
+      - name: Record any queued product only after verified push
+        if: steps.prepare.outputs.added == '1'
+        env:
+          NEW_IDS: ${{ steps.prepare.outputs.ids }}
+        run: |
+          python -B -m fluxixo_ai.autonomous --mark-committed "$(git rev-parse HEAD)" --ids "$NEW_IDS"
+          if [ -f data/fluxixo_ai.sqlite3 ]; then git add -f data/fluxixo_ai.sqlite3; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(fluxixo): record validated AI queue item [skip ci]"
+            git push origin HEAD:main
+          fi
+      - name: Deploy the already-built release after push
+        if: steps.prepare.outputs.deploy == '1'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
+        run: python -B fluxixo_daily_rotate.py --add 0 --deploy --deploy-existing --skip-indexnow

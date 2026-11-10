@@ -327,6 +327,25 @@ class Store:
             db.execute("UPDATE intake SET state='failed',reason=?,updated_at=? WHERE claim_id=?", (reason, timestamp, claim_id))
             return _public(db.execute('SELECT * FROM intake WHERE claim_id=?', (claim_id,)).fetchone())
 
+    def release_claim(self, claim_id: str, owner: str, *, catalog_unchanged: bool = False,
+                      now: datetime | None = None) -> dict:
+        """Defer a claim only before the caller writes the catalog or Git."""
+        _key(claim_id, 'claim_id_invalid')
+        _key(owner, 'owner_invalid')
+        if catalog_unchanged is not True:
+            raise StoreError('catalog_evidence_required')
+        timestamp = _instant(now).timestamp()
+        with self._connect() as db:
+            db.execute('BEGIN IMMEDIATE')
+            row = db.execute('SELECT * FROM intake WHERE claim_id=?', (claim_id,)).fetchone()
+            if row is None:
+                raise StoreError('claim_not_found')
+            if row['state'] != 'reserved' or row['owner'] != owner or row['commit_sha'] is not None:
+                raise StoreError('claim_owner_or_state_invalid')
+            db.execute("""UPDATE intake SET state='queued',claim_id=NULL,owner=NULL,lease_until=NULL,
+                          budget_day=NULL,updated_at=? WHERE request_id=?""", (timestamp, row['request_id']))
+            return _public(db.execute('SELECT * FROM intake WHERE request_id=?', (row['request_id'],)).fetchone())
+
     def recover_claim(self, claim_id: str, owner: str, observed_head_sha: str, catalog_contains_product: bool,
                       *, lease_seconds: int = 300, now: datetime | None = None) -> dict:
         """Reconcile an expired lease after an externally verified HEAD/catalog check.
