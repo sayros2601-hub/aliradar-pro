@@ -1,0 +1,51 @@
+name: FLUXIXO shared AI inbox
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.fluxixo-ai/requests/*.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fluxixo-daily-accumulation
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  inbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      # This happens after the shared lock: process all pending files from
+      # latest main, not only files from the original triggering commit.
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Process public bounded requests in existing secret runtime
+        env:
+          ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
+          ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
+        run: python -B -m fluxixo_ai.inbox
+
+      # Result and queue DB are one commit. A non-fast-forward fails instead
+      # of overwriting concurrent work. Result writes do not match push.paths.
+      - name: Persist results and intake ledger together
+        shell: bash
+        run: |
+          git config user.name "FLUXIXO AI broker"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -d .fluxixo-ai/results ]; then git add --force -- .fluxixo-ai/results; fi
+          if [ -f data/fluxixo_ai.sqlite3 ]; then git add --force -- data/fluxixo_ai.sqlite3; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(fluxixo): persist AI inbox results [skip ci]"
+            git push origin HEAD:main
+          fi
