@@ -21,6 +21,7 @@ import tempfile
 from urllib.parse import urlsplit
 from .policy import QUERY, DETAIL, normalize_product, image_host_allowed
 from .search import _rows, generate_affiliate, ApiError
+from .task_copy import task_description
 
 LANGS = ('ru', 'en', 'pt', 'es', 'fr', 'he')
 CHECK = {
@@ -213,7 +214,8 @@ def build_record(candidate):
         localized = {}
         for lang in LANGS:
             name = task['names'][lang]
-            localized[lang] = {'name': name, 'headline': _headline(name), 'description': f'{name}. {CHECK[lang]}'}
+            localized[lang] = {'name': name, 'headline': _headline(name),
+                               'description': task_description(task['key'], lang)}
     internal = 'auto-' + product_id
     record = {'id': internal, **localized['ru'], 'category': task['category'],
               'image': f'assets/images/{internal}.webp', 'original': f'assets/originals/{internal}.webp',

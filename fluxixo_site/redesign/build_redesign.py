@@ -51,18 +51,73 @@ ROOT_TITLE = 'FLUXIXO | Curated AliExpress Finds'
 ROOT_DESC = 'Three new AliExpress finds every day: gadgets, home and kitchen tools, and travel accessories. Compare studio images with original seller photos.'
 
 
-def product_metadata(name, description, lang, source_id):
-    """Keep legacy metadata intact; distinguish new listings by actual item ID."""
+def product_metadata(name, description, lang, source_id, marker=None):
+    """Preserve legacy metadata; keep new listings readable and bounded."""
     if source_id is None:
         return L.fit_title(name, lang), L.fit_description(description, lang)
     if not isinstance(source_id, str) or not re.fullmatch(r'[1-9][0-9]{0,31}', source_id):
         raise ValueError('Invalid source product ID')
-    suffix = f' · {source_id} · {lang.upper()} | FLUXIXO'
-    compact_name = ' '.join(name.split())
-    title = compact_name[:max(1, 70 - len(suffix))].rstrip() + suffix
-    prefix = compact_name[:36].rstrip()
-    desc = L.fit_description(f'{prefix} · {source_id} · {lang.upper()}. {description}', lang)
+    label = f'{marker} · {name}' if marker else name
+    title = L.fit_title(label, lang)
+    if len(title) > 70:
+        suffix = ' | FLUXIXO'
+        title = ' '.join(label.split())[:70 - len(suffix)].rstrip() + suffix
+    desc = L.fit_description(f'{marker}. {description}' if marker else description, lang)
     return title, desc
+
+
+_METADATA_MARKERS = {
+    'ru': 'Предложение', 'en': 'Listing', 'pt': 'Oferta',
+    'es': 'Opción', 'fr': 'Offre', 'he': 'אפשרות',
+}
+
+
+def assign_product_metadata(items_by_lang):
+    """Resolve collisions across locales while preserving all legacy metadata."""
+    from collections import Counter
+
+    rows = []
+    for lang in LANGS:
+        for product in items_by_lang.get(lang, []):
+            source_id = product.get('sourceProductId')
+            base = product_metadata(product['name'], product['description'], lang, source_id)
+            if lang == 'ru' and product['id'] == 'import-0024':
+                base = WATCH_SEO_RU['title'], WATCH_SEO_RU['description']
+            rows.append((lang, product, source_id, base))
+    title_counts = Counter(row[3][0] for row in rows)
+    desc_counts = Counter(row[3][1] for row in rows)
+    result, used_titles, used_desc = {}, set(), set()
+    pending = []
+    for lang, product, source_id, base in rows:
+        if source_id is None or (title_counts[base[0]] == 1 and desc_counts[base[1]] == 1):
+            result[(lang, product['id'])] = base
+            used_titles.add(base[0])
+            used_desc.add(base[1])
+        else:
+            pending.append((lang, product, source_id, base))
+
+    # Rank the complete same-name family, including unchanged legacy entries.
+    families = {}
+    for lang, product, source_id, _ in rows:
+        key = (lang, ' '.join(product['name'].split()).casefold())
+        sort_key = (0, product['id']) if source_id is None else (1, int(source_id), product['id'])
+        families.setdefault(key, []).append((sort_key, product['id']))
+    ranks = {}
+    for key, members in families.items():
+        for rank, (_, product_id) in enumerate(sorted(members), 1):
+            ranks[(key[0], product_id)] = rank
+    for lang, product, source_id, _ in sorted(pending, key=lambda row: (row[0], int(row[2]), row[1]['id'])):
+        rank = ranks[(lang, product['id'])]
+        while True:
+            marker = f'{_METADATA_MARKERS[lang]} {rank}'
+            title, desc = product_metadata(product['name'], product['description'], lang, source_id, marker)
+            if title not in used_titles and desc not in used_desc:
+                break
+            rank += 1
+        result[(lang, product['id'])] = title, desc
+        used_titles.add(title)
+        used_desc.add(desc)
+    return result
 
 
 WATCH_SEO_RU = {
@@ -290,12 +345,13 @@ class Site:
         (OUT / '404.html').write_text(self.page('Page Not Found | FLUXIXO', 'The requested page was not found on FLUXIXO.', '/404.html', body, {},
                                                 hreflang=False, noindex=True), encoding='utf-8', newline='\n')
 
-    def build_products(self, siblings):
+    def build_products(self, siblings, metadata_by_product=None):
         u, n = self.ui, len(self.items)
         for i, p in enumerate(self.items):
             prev, nxt = self.items[i - 1], self.items[(i + 1) % n]
             key, path, name = p['world'], self.ppath(p), p['name']
-            title, desc = product_metadata(name, p['description'], self.lang, p.get('sourceProductId'))
+            title, desc = (metadata_by_product[(self.lang, p['id'])] if metadata_by_product is not None
+                           else product_metadata(name, p['description'], self.lang, p.get('sourceProductId')))
             page_description = p['description']
             if self.lang == 'ru' and p['id'] == 'import-0024':
                 name, title = WATCH_SEO_RU['heading'], WATCH_SEO_RU['title']
@@ -388,9 +444,10 @@ def main():
     shutil.copyfile(HERE / 'static/app.js', OUT / 'js/fx.js')
     sites = {lang: Site(products, data, lang) for lang in LANGS}
     siblings = {lang: {p['id'] for p in s.items} for lang, s in sites.items()}
+    metadata_by_product = assign_product_metadata({lang: site.items for lang, site in sites.items()})
     for lang, site in sites.items():
         site.build_home()
-        site.build_products(siblings)
+        site.build_products(siblings, metadata_by_product)
         site.build_categories()
         site.build_about()
         print(f'{lang}: {len(site.items)} products, {len(site.worlds)} worlds')

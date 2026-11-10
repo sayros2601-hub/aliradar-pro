@@ -98,6 +98,9 @@ class AutonomousSelectionTests(unittest.TestCase):
         self.assertEqual('Зеркало для осмотра', item['name'])
         self.assertEqual({'en', 'pt', 'es', 'fr', 'he'}, set(translations))
         self.assertTrue(all(value['name'] and value['description'] for value in translations.values()))
+        self.assertIn('труднодоступных мест', item['description'])
+        self.assertIn('размер зеркала', item['description'])
+        self.assertIn('mirror size', translations['en']['description'])
         self.assertNotIn('Telescopic', item['description'])
         self.assertFalse(item['demo'])
 
