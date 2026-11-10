@@ -89,7 +89,7 @@ jobs:
 
       - name: Remember which page versions search engines were told about
         run: |
-          git add -f fluxixo_site/tools/indexnow-submitted.json 2>/dev/null || true
+          git add -f fluxixo_site/tools/indexnow-submitted.json fluxixo_site/tools/yandex-indexnow-state.json 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m "chore(fluxixo): record IndexNow submissions [skip ci]"
             # The deploy step leaves rebuilt, uncommitted release files behind; set them aside while syncing.

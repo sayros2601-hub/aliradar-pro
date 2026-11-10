@@ -81,11 +81,37 @@ def local_file(url_or_path):
     return RELEASE / (path + '/index.html' if path else 'index.html')
 
 
+def validate_ru_sitemap(release, all_urls):
+    """Keep every current root/Russian route in Yandex's map, without foreign locales."""
+    try:
+        root = ET.parse(Path(release) / 'sitemap-ru.xml').getroot()
+        urls = [(node.findtext(NS + 'loc') or '').strip() for node in root.findall(NS + 'url')]
+    except (OSError, ET.ParseError) as exc:
+        return [f'unreadable sitemap-ru.xml: {exc}']
+    expected = {
+        url for url in all_urls
+        if url.startswith(ORIGIN + '/')
+        and not re.match(r'^/(en|pt|es|fr|he)(/|$)', urlsplit(url).path)
+    }
+    errors = []
+    duplicates = [url for url, count in collections.Counter(urls).items() if count > 1]
+    if duplicates:
+        errors.append(f'duplicate RU URLs: {duplicates[:3]}')
+    missing, unexpected = sorted(expected - set(urls)), sorted(set(urls) - expected)
+    if missing:
+        errors.append(f'missing current RU URLs: {missing[:3]}')
+    if unexpected:
+        errors.append(f'unexpected or noncanonical RU URLs: {unexpected[:3]}')
+    return errors
+
+
 def main():
     problems = collections.defaultdict(list)
     urls = [node.find(NS + 'loc').text for node in ET.parse(RELEASE / 'sitemap.xml').getroot().findall(NS + 'url')]
     if len(urls) < 100 or len(urls) != len(set(urls)):
         problems['sitemap'].append(f'{len(urls)} urls, {len(set(urls))} unique')
+    for error in validate_ru_sitemap(RELEASE, urls):
+        problems['Yandex RU sitemap'].append(error)
     pages = {}
     for url in urls:
         file = local_file(url)

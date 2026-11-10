@@ -107,6 +107,7 @@ def call_ae_api(method: str, extra_params: dict, app_key: str, app_secret: str) 
 
 
 from fluxixo_ai.autonomous import DailyError
+from fluxixo_site.tools import yandex_indexnow
 
 
 def accumulate_catalog(count: int, *, now=None, discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None) -> dict:
@@ -146,8 +147,8 @@ def deploy_release() -> None:
 
 
 
-def submit_indexnow() -> None:
-    """Push all canonical URLs from sitemap.xml to IndexNow (Bing, Yandex, Naver, Seznam)."""
+def _submit_global_indexnow() -> None:
+    """Keep the existing multilingual global-hub payload and version state."""
     key_file = SITE_ROOT / "tools" / "indexnow-key.txt"
     sitemap_file = DIST / "sitemap.xml"
     if not key_file.exists() or not sitemap_file.exists():
@@ -177,7 +178,7 @@ def submit_indexnow() -> None:
     }
     data = json.dumps(payload).encode("utf-8")
     accepted = False
-    for endpoint in ["https://api.indexnow.org/indexnow", "https://yandex.com/indexnow"]:
+    for endpoint in ["https://api.indexnow.org/indexnow"]:
         try:
             req = urllib.request.Request(
                 endpoint,
@@ -195,6 +196,14 @@ def submit_indexnow() -> None:
     if accepted:
         sent.update({url: fingerprints[url] for url in urls if url in fingerprints})
         sent_file.write_text(json.dumps(dict(sorted(sent.items())), indent=1) + "\n", encoding="utf-8", newline="\n")
+
+
+def submit_indexnow() -> None:
+    # Capture the migration baseline before global success can change its state.
+    yandex_indexnow.prepare(SITE_ROOT, DIST)
+    _submit_global_indexnow()
+    # A global no-op or success must never suppress an independent Yandex retry.
+    yandex_indexnow.submit_pending(SITE_ROOT, DIST)
 
 
 def main() -> None:
@@ -232,6 +241,7 @@ def main() -> None:
         subprocess.run([sys.executable, str(SITE_ROOT / "redesign" / "build_redesign.py"), "--production"], check=True)
         # Sitemap dates and page fingerprints come from the finished pages, after the design is applied.
         subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "write_sitemaps.py")], check=True)
+        yandex_indexnow.prepare(SITE_ROOT, DIST)
         subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
     # A release with broken pages stops here instead of reaching the live site.
     subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "verify_release.py"), str(RELEASE)], check=True)
