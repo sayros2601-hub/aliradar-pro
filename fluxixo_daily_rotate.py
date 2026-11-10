@@ -372,6 +372,8 @@ def main() -> None:
         accumulate_catalog(args.add_count)
 
     subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_search.py")], check=True)
+    # The storefront design: rewrites every visitor-facing page over the plain ones build_search.py just made.
+    subprocess.run([sys.executable, str(SITE_ROOT / "redesign" / "build_redesign.py"), "--production"], check=True)
     subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
     # A release with broken pages stops here instead of reaching the live site.
     subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "verify_release.py"), str(RELEASE)], check=True)

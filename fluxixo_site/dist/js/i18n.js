@@ -739,7 +739,7 @@
         "Exact",
         "distance."
       ],
-      "description": "Pocket laser rangefinder with backlit display, area/volume calculation, and dual bubble levels."
+      "description": "Pocket laser rangefinder with backlit display, area calculation, and dual bubble levels."
     },
     "pt": {
       "name": "Trena a Laser Digital",
@@ -771,7 +771,7 @@
         "מרחק",
         "מדויק."
       ],
-      "description": "מד מרחק לייזר קומפקטי עם מסך מואר, חישוב שטח ונפח ושתי פלסות מובנות."
+      "description": "מד מרחק לייזר קומפקטי עם מסך מואר, חישוב שטח ושתי פלסות מובנות."
     }
   },
   "find-053-vacuum-sealer": {
@@ -862,8 +862,8 @@
     "en": {
       "name": "Wearable Neck Fan",
       "headline": [
-        "Neck",
-        "cooler."
+        "A breeze",
+        "on your neck."
       ],
       "description": "Hands-free breeze on hot days. Collar-style wearable fan with upward-directed air vents."
     },
@@ -894,50 +894,50 @@
     "he": {
       "name": "מאוורר צוואר נייד",
       "headline": [
-        "מאוורר",
-        "צוואר."
+        "רוח קרירה",
+        "על הצוואר."
       ],
       "description": "ידיים חופשיות ביום חם. מאוורר לביש בצורת קולר עם פתחי אוורור המכוונים כלפי מעלה."
     }
   },
   "find-002-meat-thermo": {
     "en": {
-      "name": "Wireless Meat Thermometer",
+      "name": "Dual-Probe Meat Thermometer",
       "headline": [
-        "Meat",
-        "thermometer."
+        "Cooked",
+        "just right."
       ],
       "description": "Dual metal probes and a compact display case for monitoring temperature while grilling or baking."
     },
     "pt": {
       "name": "Termômetro Culinário para Carne",
       "headline": [
-        "Termômetro",
-        "para carnes."
+        "Carne",
+        "no ponto."
       ],
       "description": "Duas sondas metálicas e estojo compacto com visor para controlar a temperatura no churrasco ou forno."
     },
     "es": {
       "name": "Termómetro de Cocina para Carne",
       "headline": [
-        "Termómetro",
-        "para carne."
+        "Carne",
+        "en su punto."
       ],
       "description": "Dos sondas metálicas y estuche con pantalla para controlar la temperatura en parrilla o horno."
     },
     "fr": {
-      "name": "Thermomètre à Viande Sans Fil",
+      "name": "Thermomètre à Viande à Double Sonde",
       "headline": [
-        "Thermomètre",
-        "de cuisson."
+        "Cuisson",
+        "à point."
       ],
       "description": "Deux sondes métalliques et boîtier avec écran pour surveiller la cuisson au gril ou au four."
     },
     "he": {
       "name": "מדחום דיגיטלי לבשר",
       "headline": [
-        "מדחום",
-        "לבשר."
+        "בשר במידה",
+        "המדויקת."
       ],
       "description": "שני חיישני מתכת ונרתיק קומפקטי עם צג לבקרת טמפרטורה מדויקת בצלייה על הגריל או בתנור."
     }
@@ -946,40 +946,40 @@
     "en": {
       "name": "Insect Trap Lamp",
       "headline": [
-        "Insect",
-        "trap lamp."
+        "Bug-free",
+        "evenings."
       ],
       "description": "Lantern with protective grid and hanging loop for indoor or patio insect control."
     },
     "pt": {
       "name": "Lâmpada Armadilha para Insetos",
       "headline": [
-        "Lâmpada",
-        "anti-insetos."
+        "Noite",
+        "sem mosquito."
       ],
       "description": "Lanterna com grade protetora e alça para pendurar. Ideal para ambientes internos ou varanda."
     },
     "es": {
       "name": "Lámpara Trampa para Insectos",
       "headline": [
-        "Lámpara",
-        "antimosquitos."
+        "Noches",
+        "sin moscos."
       ],
       "description": "Farol con rejilla protectora y asa para colgar. Disponible en variantes de color claro y oscuro."
     },
     "fr": {
       "name": "Lampe Anti-Moustiques",
       "headline": [
-        "Lampe",
-        "piège."
+        "Soirées",
+        "sans moustiques."
       ],
       "description": "Lanterne avec grille de protection et boucle de suspension pour l'intérieur ou la terrasse."
     },
     "he": {
       "name": "מנורת מלכודת לחרקים",
       "headline": [
-        "מנורת",
-        "מלכודת."
+        "ערב",
+        "בלי יתושים."
       ],
       "description": "פנס עם רשת הגנה ולולאת תלייה ללכידת יתושים וחרקים בבית או במרפסת."
     }
@@ -988,40 +988,40 @@
     "en": {
       "name": "Helmet Intercom Mount Kit",
       "headline": [
-        "Helmet",
-        "mount kit."
+        "Locked onto",
+        "your helmet."
       ],
       "description": "Mounting clips with padded pads for attaching a compatible intercom headset to a motorcycle helmet."
     },
     "pt": {
       "name": "Suporte para Intercomunicador de Capacete",
       "headline": [
-        "Suporte",
-        "para capacete."
+        "Firme",
+        "no capacete."
       ],
       "description": "Bases de fixação acolchoadas para instalar intercomunicador compatível no capacete de moto."
     },
     "es": {
       "name": "Soporte de Intercomunicador para Casco",
       "headline": [
-        "Soporte",
-        "para casco."
+        "Firme",
+        "en tu casco."
       ],
       "description": "Bases de montaje acolchadas para fijar un intercomunicador compatible al casco de moto."
     },
     "fr": {
       "name": "Support d'Intercom pour Casque Moto",
       "headline": [
-        "Support",
-        "pour casque."
+        "Bien fixé",
+        "au casque."
       ],
       "description": "Fixations rembourrées pour installer un intercom compatible sur un casque de moto."
     },
     "he": {
       "name": "תושבת לדיבורית קסדה",
       "headline": [
-        "תושבת",
-        "לדיבורית."
+        "יציב",
+        "על הקסדה."
       ],
       "description": "תושבות הרכבה מרופדות לחיבור דיבורית תואמת לקסדת אופנוע."
     }
@@ -1104,8 +1104,8 @@
     "he": {
       "name": "מאוורר קירור לסמארטפון",
       "headline": [
-        "קירור",
-        "לסמארטפון."
+        "טלפון קריר",
+        "גם במשחק."
       ],
       "description": "יחידת קירור עגולה עם תאורה אחורית למניעת התחממות הטלפון בזמן משחק או צילום."
     }
@@ -1212,12 +1212,12 @@
       "description": "Câmera giratória Wi-Fi com rosca padrão E27 para instalação simples como uma lâmpada."
     },
     "es": {
-      "name": "Cámara de Seguridad Bombilla E27",
+      "name": "Cámara de Seguridad Tipo Foco E27",
       "headline": [
-        "Cámara",
-        "en casquillo."
+        "Vigila",
+        "desde el foco."
       ],
-      "description": "Cámara motorizada con rosca E27 fácil de instalar en cualquier portalámparas estándar."
+      "description": "Cámara motorizada con rosca E27, fácil de instalar en cualquier socket estándar."
     },
     "fr": {
       "name": "Caméra Ampoule E27 Motorisée",
@@ -1333,7 +1333,7 @@
       "name": "Escova Modeladora Térmica Sem Fio",
       "headline": [
         "Penteado",
-        "à mão."
+        "em qualquer lugar."
       ],
       "description": "Escova arredondada com aquecimento e visor integrado em um corpo compacto."
     },
@@ -1341,7 +1341,7 @@
       "name": "Cepillo Moldeador Térmico Inalámbrico",
       "headline": [
         "Peinado",
-        "a mano."
+        "donde sea."
       ],
       "description": "Cepillo redondeado con calentamiento y pantalla integrada para peinar en cualquier lugar."
     },
@@ -1349,7 +1349,7 @@
       "name": "Brosse Chauffante Coiffante Sans Fil",
       "headline": [
         "Coiffure",
-        "à portée."
+        "partout."
       ],
       "description": "Brosse ronde chauffante avec écran intégré dans un format compact sans fil."
     },
@@ -1369,7 +1369,7 @@
         "Practice",
         "your kick."
       ],
-      "description": "Waist belt with elastic tether and ball holder for solo football control training."
+      "description": "Waist belt with elastic tether and ball holder for solo soccer control training."
     },
     "pt": {
       "name": "Cinto Treinador de Futebol Solo",
@@ -1382,8 +1382,8 @@
     "es": {
       "name": "Cinturón de Entrenamiento de Fútbol",
       "headline": [
-        "Entrena",
-        "tu golpeo."
+        "Domina",
+        "el balón."
       ],
       "description": "Cinturón con cuerda elástica y sujeción para balón ideal para entrenar en solitario."
     },
@@ -1430,7 +1430,7 @@
       "description": "Lonchera portátil con asa y calentamiento eléctrico para disfrutar comida caliente en la oficina o el auto."
     },
     "fr": {
-      "name": "Boîte à Lunch Chauffante Électrique",
+      "name": "Lunch Box Chauffante Électrique",
       "headline": [
         "Repas",
         "chaud."
@@ -1482,8 +1482,8 @@
     "he": {
       "name": "גלאי נשיכות לחכת דיג",
       "headline": [
-        "אל תפספס",
-        "אכילה."
+        "אל תפספסו",
+        "נשיכה."
       ],
       "description": "סמן קומפקטי הנצמד לחכה עם אנטנה בולטת ופעמון לזיהוי מיידי בדיג."
     }
@@ -1593,7 +1593,7 @@
       "name": "Presurizador de Pelotas de Pádel y Tenis",
       "headline": [
         "Pelotas",
-        "a presión."
+        "como nuevas."
       ],
       "description": "Bote con tapa y manómetro para conservar las pelotas bajo presión."
     },
@@ -1637,7 +1637,7 @@
         "Servir",
         "con un toque."
       ],
-      "description": "Boquilla con caño curvado y panel superior para servir vino desde la botella."
+      "description": "Boquilla con pico curvo y panel superior para servir vino desde la botella."
     },
     "fr": {
       "name": "Aérateur et Distributeur de Vin Électrique",
@@ -1710,7 +1710,7 @@
     "pt": {
       "name": "Kit de Irrigação Gotejamento Solar",
       "headline": [
-        "Rega",
+        "Irrigação",
         "programada."
       ],
       "description": "Controlador com painel solar e mangueira fina para regar plantas automaticamente."
@@ -1744,16 +1744,16 @@
     "en": {
       "name": "PETKIT N50 Deodorizer Refills",
       "headline": [
-        "Freshness",
-        "for litter box."
+        "A fresher",
+        "litter box."
       ],
       "description": "Replacement N50 odor-control packs for compatible automatic cat litter boxes."
     },
     "pt": {
       "name": "Refil Desodorizador PETKIT N50",
       "headline": [
-        "Frescor",
-        "para caixa."
+        "Frescor na",
+        "caixa de areia."
       ],
       "description": "Pacotes desodorizadores N50 de reposição para caixas de areia compatíveis."
     },
@@ -1768,8 +1768,8 @@
     "fr": {
       "name": "Recharges Désodorisantes PETKIT N50",
       "headline": [
-        "Fraîcheur",
-        "pour litière."
+        "Une litière",
+        "plus fraîche."
       ],
       "description": "Sachets désodorisants N50 de rechange pour bacs à litière compatibles."
     },
@@ -1847,7 +1847,7 @@
         "Más ligero",
         "en ruta."
       ],
-      "description": "Bastón de trekking segmentado con correa de muñeca plegable para transporte."
+      "description": "Bastón de trekking por secciones, plegable y con correa para la muñeca."
     },
     "fr": {
       "name": "Bâton de Randonnée Pliable",
@@ -1912,40 +1912,40 @@
     "en": {
       "name": "Capsule Fruit & Veggie Washer",
       "headline": [
-        "Fresh",
-        "approach."
+        "Rinsed",
+        "and ready."
       ],
       "description": "Perforated capsule device designed for rinsing fruits and vegetables in a bowl of water."
     },
     "pt": {
       "name": "Higienizador Cápsula para Frutas e Verduras",
       "headline": [
-        "Abordagem",
-        "fresca."
+        "Frutas",
+        "bem lavadas."
       ],
       "description": "Cápsula perfurada portátil para auxiliar na lavagem de alimentos na água."
     },
     "es": {
       "name": "Purificador Cápsula para Frutas y Verduras",
       "headline": [
-        "Enfoque",
-        "fresco."
+        "Frutas",
+        "bien lavadas."
       ],
       "description": "Dispositivo en cápsula perforada para el lavado de frutas y verduras en agua."
     },
     "fr": {
       "name": "Purificateur Capsule pour Fruits et Légumes",
       "headline": [
-        "Approche",
-        "fraîche."
+        "Fruits",
+        "bien lavés."
       ],
       "description": "Appareil capsule perforé à plonger dans l'eau pour le lavage des aliments."
     },
     "he": {
       "name": "מכשיר קפסולה לשטיפת פירות וירקות",
       "headline": [
-        "גישה",
-        "רעננה."
+        "פירות",
+        "שטופים היטב."
       ],
       "description": "מכשיר קפסולה מחורר לשימוש בתוך קערת מים בעת שטיפת פירות וירקות."
     }
@@ -1968,7 +1968,7 @@
       "description": "Par de palmilhas com aquecimento para manter os pés quentes nos dias frios."
     },
     "es": {
-      "name": "Plantillas Calefactables Eléctricas",
+      "name": "Plantillas Térmicas Eléctricas",
       "headline": [
         "Calor",
         "en cada paso."
@@ -2015,7 +2015,7 @@
         "Más visible",
         "en ruta."
       ],
-      "description": "Luz compacta con lente roja y soporte para tija de bicicleta."
+      "description": "Luz compacta con lente roja y soporte para el poste del asiento de la bicicleta."
     },
     "fr": {
       "name": "Feu Arrière LED pour Vélo",
@@ -2038,8 +2038,8 @@
     "en": {
       "name": "Magnetic Double-Sided Window Cleaner",
       "headline": [
-        "Clean",
-        "windows."
+        "Both sides",
+        "at once."
       ],
       "description": "Triangular magnetic wiper pair for cleaning both sides of window glass simultaneously."
     },
@@ -2052,12 +2052,12 @@
       "description": "Escova triangular com par magnético para limpar os dois lados do vidro."
     },
     "es": {
-      "name": "Limpiacristales Magnético de Doble Cara",
+      "name": "Limpiavidrios Magnético de Doble Cara",
       "headline": [
         "Ventanas",
         "limpias."
       ],
-      "description": "Cepillo triangular magnético para limpiar ambos lados del cristal a la vez."
+      "description": "Cepillo triangular magnético para limpiar ambos lados del vidrio a la vez."
     },
     "fr": {
       "name": "Nettoyeur de Vitres Magnétique Double Face",
@@ -2251,7 +2251,7 @@
         "Keep",
         "the rhythm."
       ],
-      "description": "Handles with built-in counter and adjustable rope/cordless balls for home cardio workouts."
+      "description": "Handles with built-in counter and adjustable rope for home cardio workouts."
     },
     "pt": {
       "name": "Corda de Pular Digital com Contador",
@@ -2280,8 +2280,8 @@
     "he": {
       "name": "חבל קפיצה דיגיטלי עם מונה",
       "headline": [
-        "שמור על",
-        "הקצב."
+        "שומרים",
+        "על הקצב."
       ],
       "description": "זוג ידיות עם מונה קפיצות מובנה וחבל מתכוונן לאימוני כושר בבית."
     }
@@ -2335,7 +2335,7 @@
         "Look",
         "behind walls."
       ],
-      "description": "Handheld wall detector with circular screen for locating metal, wood studs, and live AC wires."
+      "description": "Handheld wall detector with circular screen for locating hidden metal, wood studs, and wiring."
     },
     "pt": {
       "name": "Detector Digital de Fios e Metais na Parede",
@@ -2543,7 +2543,7 @@
       "name": "Electric Heated Winter Gloves",
       "headline": [
         "Warm",
-        "palms."
+        "hands."
       ],
       "description": "Long-cuff insulated gloves with push-button heating control for winter rides."
     },
@@ -2556,7 +2556,7 @@
       "description": "Luvas de punho longo com botão de controle de temperatura para o frio."
     },
     "es": {
-      "name": "Guantes Calefactables de Invierno",
+      "name": "Guantes Térmicos de Invierno",
       "headline": [
         "Manos",
         "calientes."
@@ -2645,7 +2645,7 @@
         "El tiempo",
         "dentro y fuera."
       ],
-      "description": "Pantalla a color de sobremesa con reloj, temperatura, humedad y sensor exterior."
+      "description": "Pantalla a color de escritorio con reloj, temperatura, humedad y sensor exterior."
     },
     "fr": {
       "name": "Station Météo Numérique Couleur",
@@ -2668,8 +2668,8 @@
     "en": {
       "name": "Electric Crepe & Pancake Maker",
       "headline": [
-        "Mornings",
-        "with taste."
+        "Tastier",
+        "mornings."
       ],
       "description": "Round non-stick electric griddle with side handles for thin crepes and pancakes."
     },
@@ -2687,7 +2687,7 @@
         "Mañanas",
         "con sabor."
       ],
-      "description": "Superficie eléctrica redonda con asas para preparar crepes y tortitas."
+      "description": "Superficie eléctrica redonda con asas para preparar crepas y hot cakes."
     },
     "fr": {
       "name": "Crêpière Électrique de Table",
@@ -2836,8 +2836,8 @@
     "en": {
       "name": "Stainless Steel Seed Sprouting Trays",
       "headline": [
-        "Fresh greens",
-        "on windowsill."
+        "Fresh greens on",
+        "your windowsill."
       ],
       "description": "Stackable mesh stainless steel trays with lid for growing microgreens and sprouts at home."
     },
@@ -2855,7 +2855,7 @@
         "Brotes",
         "en tu ventana."
       ],
-      "description": "Bandejas metálicas apilables con tapa para germinar semillas y microgreens."
+      "description": "Bandejas metálicas apilables con tapa para germinar semillas y brotes."
     },
     "fr": {
       "name": "Plateaux à Germer en Acier Inoxydable",
@@ -3088,7 +3088,7 @@
     "en": {
       "name": "CABLETIME Desktop Charging Station",
       "headline": [
-        "One hub",
+        "One hub,",
         "all charged."
       ],
       "description": "Multi-port USB-C and USB-A desktop power station for charging laptops, phones, and accessories together."
@@ -3149,7 +3149,7 @@
         "Tu ruta",
         "siempre visible."
       ],
-      "description": "Soporte ajustable con sujeción firme para colocar el celular en el tablero o ventilación del auto."
+      "description": "Soporte ajustable con sujeción firme para colocar el celular en el tablero o en la ventilación del auto."
     },
     "fr": {
       "name": "Support Téléphone Voiture",
@@ -3172,7 +3172,7 @@
     "en": {
       "name": "LED Monitor Light Bar",
       "headline": [
-        "Desk light",
+        "Desk light,",
         "zero glare."
       ],
       "description": "Screen-mounted LED task bar that illuminates your keyboard and desk without reflecting on the display."
@@ -3256,7 +3256,7 @@
     "en": {
       "name": "Logitech Ergonomic Gaming Mouse",
       "headline": [
-        "Crisp click",
+        "Crisp click,",
         "steady aim."
       ],
       "description": "Sculpted gaming mouse with responsive switches, thumb buttons, and comfortable palm support."
@@ -3264,7 +3264,7 @@
     "pt": {
       "name": "Mouse Gamer Logitech",
       "headline": [
-        "Clique rápido",
+        "Clique rápido,",
         "controle total."
       ],
       "description": "Mouse ergonômico com botões laterais de fácil alcance e formato confortável para longas sessões."
@@ -3298,7 +3298,7 @@
     "en": {
       "name": "UGREEN Aluminum USB-C Hub",
       "headline": [
-        "All ports",
+        "All ports,",
         "one cable."
       ],
       "description": "Slim aluminum multiport adapter expanding a single USB-C port for drives, displays, and peripherals."
@@ -3340,7 +3340,7 @@
     "en": {
       "name": "Wireless Lavalier Clip-On Microphone",
       "headline": [
-        "Clear voice",
+        "Clear voice,",
         "hands-free."
       ],
       "description": "Clip-on wireless lapel microphone and plug-in receiver for recording crisp audio on phones and cameras."
@@ -3364,7 +3364,7 @@
     "fr": {
       "name": "Micro-Cravate Sans Fil",
       "headline": [
-        "Voix claire",
+        "Voix claire,",
         "mains libres."
       ],
       "description": "Microphone à pince avec récepteur compact pour enregistrer des vidéos et interviews sur smartphone."
@@ -3592,7 +3592,7 @@
     "en": {
       "name": "Wireless HDMI Transmitter & Receiver",
       "headline": [
-        "Big screen",
+        "Big screen,",
         "no cables."
       ],
       "description": "Plug-and-play wireless HDMI kit for streaming video and audio from a laptop to a TV or projector."
@@ -3858,18 +3858,18 @@
       "description": "Jaqueta acolchoada resistente à água com argola para guia, ideal para passeios no frio."
     },
     "es": {
-      "name": "Chaleco Impermeable de Invierno para Perro",
+      "name": "Chamarra Impermeable de Invierno para Perro",
       "headline": [
         "Paseos cálidos",
         "en días fríos."
       ],
-      "description": "Abrigo acolchado resistente al agua con argolla para correa para pasear a tu perro en invierno."
+      "description": "Chamarra acolchada resistente al agua con argolla para correa para pasear a tu perro en invierno."
     },
     "fr": {
       "name": "Manteau d'Hiver Imperméable pour Chien",
       "headline": [
         "Promenade",
-        " bien au chaud."
+        "bien au chaud."
       ],
       "description": "Veste matelassée déperlante avec anneau d'attache pour protéger votre chien du froid et de la pluie."
     },
@@ -3886,7 +3886,7 @@
     "en": {
       "name": "Clip-On Dog Leash Waste Bag Dispenser",
       "headline": [
-        "Walk ready",
+        "Walk-ready",
         "every day."
       ],
       "description": "Compact capsule dispenser with carabiner clip that attaches to any leash for quick bag access."
@@ -3970,8 +3970,8 @@
     "en": {
       "name": "Bluetooth Thermal Label Printer",
       "headline": [
-        "Order",
-        "in details."
+        "Order in",
+        "every detail."
       ],
       "description": "Inkless pocket label maker controlled via smartphone app for kitchen jars and office files."
     },
@@ -3994,8 +3994,8 @@
     "fr": {
       "name": "Imprimante d'Étiquettes Thermique Bluetooth",
       "headline": [
-        "L'ordre",
-        "en détail."
+        "De l'ordre",
+        "dans les détails."
       ],
       "description": "Étiqueteuse de poche sans encre pilotée par smartphone pour tout ranger."
     },
@@ -4073,7 +4073,7 @@
         "Ropa",
         "como nueva."
       ],
-      "description": "Rasuradora de tela inalámbrica con indicador digital de batería para suéteres y prendas de punto."
+      "description": "Rasuradora de tela inalámbrica con indicador digital de batería para suéteres y prendas tejidas."
     },
     "fr": {
       "name": "Rasoir Anti-Bouloches Rechargeable",
@@ -4115,7 +4115,7 @@
         "Espuma",
         "cremosa."
       ],
-      "description": "Batidor eléctrico de mano sobre soporte metálico para espumar leche de café, capuchino y matcha."
+      "description": "Batidor eléctrico de mano sobre soporte metálico para espumar leche para café, capuchino y matcha."
     },
     "fr": {
       "name": "Mousseur à Lait Électrique sur Support",
@@ -4138,7 +4138,7 @@
     "en": {
       "name": "UV Toothbrush Holder & Sanitizer",
       "headline": [
-        "Clean",
+        "A tidier",
         "bathroom."
       ],
       "description": "Wall-mounted toothbrush holder with UV sanitization, warm air drying, and digital status screen."
@@ -4225,7 +4225,7 @@
         "Air power",
         "on the road."
       ],
-      "description": "Portable air compressor with digital pressure gauge and auto shut-off for car, moto, and bike tires."
+      "description": "Portable air compressor with digital pressure gauge and auto shut-off for car, motorcycle, and bike tires."
     },
     "pt": {
       "name": "Calibrador de Pneus Sem Fio Digital",
@@ -4446,7 +4446,7 @@
       "description": "Moedor elétrico com mecanismo de cerâmica que ativa automaticamente ao inclinar."
     },
     "es": {
-      "name": "Moledor Eléctrico de Sal y Pimienta por Gravedad",
+      "name": "Molino Eléctrico de Sal y Pimienta por Gravedad",
       "headline": [
         "Molienda",
         "al instante."
@@ -4635,7 +4635,7 @@
         "משקל מדויק",
         "לפני הטיסה."
       ],
-      "description": "משקל תלייה קומפקטי עם רצועה חזקה וצג LCD לשקילת מזוודות לפני היציאה לשדה."
+      "description": "משקל תלייה קומפקטי עם רצועה חזקה וצג LCD לשקילת מזוודות לפני היציאה לשדה התעופה."
     }
   },
   "find-070-milk-thermometer": {
@@ -4650,8 +4650,8 @@
     "pt": {
       "name": "Termômetro Culinário Digital de Espeto",
       "headline": [
-        "Ponto",
-        "no grau."
+        "Temperatura",
+        "exata."
       ],
       "description": "Termômetro com haste longa de inox e visor digital rápido para líquidos, caldas e assados."
     },
@@ -4687,7 +4687,7 @@
         "Code",
         "access."
       ],
-      "description": "Weatherproof metal lockbox with 4-digit dial and protective shutter for storing spare keys outdoors."
+      "description": "Weatherproof metal lockbox with combination dial and protective shutter for storing spare keys outdoors."
     },
     "pt": {
       "name": "Cofre de Parede com Senha para Chaves",
@@ -4748,7 +4748,7 @@
       "description": "Medidor compacto con pantalla a color que muestra voltaje, corriente y potencia mientras carga un dispositivo USB-C."
     },
     "fr": {
-      "name": "Testeur USB-C de tension et de courant",
+      "name": "Testeur USB-C de Tension et de Courant",
       "headline": [
         "Charge",
         "mesurée."
@@ -4790,7 +4790,7 @@
       "description": "Barra LED delgada y recargable con montaje magnético que se enciende al detectar movimiento en clósets, cocinas y pasillos."
     },
     "fr": {
-      "name": "Réglette LED rechargeable à détecteur de mouvement",
+      "name": "Réglette LED Rechargeable à Détecteur de Mouvement",
       "headline": [
         "Lumière",
         "au passage."
@@ -4798,12 +4798,12 @@
       "description": "Fine réglette LED rechargeable à fixation magnétique qui s'allume au moindre mouvement dans un placard, une cuisine ou un couloir."
     },
     "he": {
-      "name": "תאורת לד נטענת עם חיישן תנועה",
+      "name": "תאורת LED נטענת עם חיישן תנועה",
       "headline": [
         "אור",
         "בכל צעד."
       ],
-      "description": "פס לד דק ונטען עם חיבור מגנטי שנדלק כשמזוהה תנועה בארון, במטבח או במסדרון."
+      "description": "פס LED דק ונטען עם חיבור מגנטי שנדלק כשמזוהה תנועה בארון, במטבח או במסדרון."
     }
   },
   "find-074-oil-sprayer": {
@@ -4832,7 +4832,7 @@
       "description": "Botella de vidrio recargable con boquilla que rocía el aceite en una bruma fina para sartenes, ensaladas y freidoras de aire."
     },
     "fr": {
-      "name": "Vaporisateur d'huile en verre pour la cuisine",
+      "name": "Vaporisateur d'Huile en Verre pour la Cuisine",
       "headline": [
         "Un voile",
         "d'huile."
@@ -4874,7 +4874,7 @@
       "description": "Bolsillo angosto que se coloca entre el asiento y la consola del auto para guardar celular, llaves, tarjetas y objetos pequeños."
     },
     "fr": {
-      "name": "Rangement d'interstice pour siège de voiture",
+      "name": "Rangement d'Interstice pour Siège de Voiture",
       "headline": [
         "Tout",
         "à portée."
@@ -4916,7 +4916,7 @@
       "description": "Herramienta de acero inoxidable con pantalla LCD para medir dimensiones exteriores, interiores y de profundidad en piezas pequeñas."
     },
     "fr": {
-      "name": "Pied à coulisse numérique en inox",
+      "name": "Pied à Coulisse Numérique en Inox",
       "headline": [
         "Mesure",
         "au centième."
@@ -4958,7 +4958,7 @@
       "description": "Masajeador inalámbrico con cabezales giratorios de silicón que masajean suavemente el cuero cabelludo en casa o en la regadera."
     },
     "fr": {
-      "name": "Masseur électrique pour cuir chevelu",
+      "name": "Masseur Électrique pour Cuir Chevelu",
       "headline": [
         "Détente",
         "de la tête."
@@ -5000,7 +5000,7 @@
       "description": "Ejercitador de resorte para mano y antebrazo con resistencia ajustable y contador mecánico de repeticiones."
     },
     "fr": {
-      "name": "Pince de musculation réglable avec compteur",
+      "name": "Pince de Musculation Réglable avec Compteur",
       "headline": [
         "Poigne",
         "solide."
@@ -5042,7 +5042,7 @@
       "description": "Lámpara LED colgante con gancho, base magnética y varios niveles de brillo para tiendas de campaña y campamentos."
     },
     "fr": {
-      "name": "Lanterne de camping LED rechargeable",
+      "name": "Lanterne de Camping LED Rechargeable",
       "headline": [
         "Lumière",
         "sous la tente."
@@ -5050,12 +5050,12 @@
       "description": "Lanterne LED à suspendre avec crochet, base aimantée et plusieurs niveaux d'intensité pour la tente et le bivouac."
     },
     "he": {
-      "name": "פנס קמפינג לד נטען",
+      "name": "פנס קמפינג LED נטען",
       "headline": [
         "אור",
         "באוהל."
       ],
-      "description": "פנס לד לתלייה עם וו, בסיס מגנטי וכמה מצבי תאורה לאוהל ולמחנה."
+      "description": "פנס LED לתלייה עם וו, בסיס מגנטי וכמה מצבי תאורה לאוהל ולמחנה."
     }
   },
   "find-080-paw-cleaner": {
@@ -5084,7 +5084,7 @@
       "description": "Vaso portátil con cerdas suaves de silicón que ayuda a quitar la suciedad de las patas del perro después del paseo."
     },
     "fr": {
-      "name": "Nettoyeur de pattes en silicone pour chien",
+      "name": "Nettoyeur de Pattes en Silicone pour Chien",
       "headline": [
         "Pattes",
         "propres."
@@ -5126,7 +5126,7 @@
       "description": "Control compacto con receptor USB que cambia las diapositivas y maneja la presentación a distancia."
     },
     "fr": {
-      "name": "Télécommande de présentation sans fil",
+      "name": "Télécommande de Présentation Sans Fil",
       "headline": [
         "Diapos",
         "en un clic."
@@ -5168,7 +5168,7 @@
       "description": "Dispensador recargable con sensor infrarrojo que libera una dosis de espuma de jabón al acercar la mano."
     },
     "fr": {
-      "name": "Distributeur automatique de savon mousse",
+      "name": "Distributeur Automatique de Savon Mousse",
       "headline": [
         "Mousse",
         "sans contact."
@@ -5210,7 +5210,7 @@
       "description": "Cuchara electrónica con pantalla LCD en el mango que pesa especias, harina, té y otros ingredientes secos."
     },
     "fr": {
-      "name": "Cuillère doseuse à balance numérique",
+      "name": "Cuillère Doseuse à Balance Numérique",
       "headline": [
         "Le gramme",
         "à la cuillère."
@@ -5252,7 +5252,7 @@
       "description": "Parasol plegable que se abre como sombrilla y cubre el parabrisas del auto mientras está estacionado."
     },
     "fr": {
-      "name": "Pare-soleil parapluie pour pare-brise",
+      "name": "Pare-Soleil Parapluie pour Pare-Brise",
       "headline": [
         "Ombre",
         "à bord."
@@ -5294,7 +5294,7 @@
       "description": "Muñequera de tela con imanes integrados que sujeta tornillos, clavos, puntas y brocas mientras trabajas."
     },
     "fr": {
-      "name": "Bracelet magnétique pour vis et forets",
+      "name": "Bracelet Magnétique pour Vis et Forets",
       "headline": [
         "Vis",
         "au poignet."
@@ -5336,7 +5336,7 @@
       "description": "Espejo compacto y plegable con marco LED y brillo ajustable para maquillarte donde sea."
     },
     "fr": {
-      "name": "Miroir de maquillage pliant à LED rechargeable",
+      "name": "Miroir de Maquillage Pliant à LED Rechargeable",
       "headline": [
         "Lumière",
         "homogène."
@@ -5344,12 +5344,12 @@
       "description": "Miroir compact et pliant à cadre lumineux LED et intensité réglable pour se maquiller en déplacement."
     },
     "he": {
-      "name": "מראת איפור מתקפלת עם תאורת לד נטענת",
+      "name": "מראת איפור מתקפלת עם תאורת LED נטענת",
       "headline": [
         "אור",
         "אחיד."
       ],
-      "description": "מראה קומפקטית ומתקפלת עם מסגרת לד ועוצמת תאורה מתכווננת לאיפור בדרכים."
+      "description": "מראה קומפקטית ומתקפלת עם מסגרת LED ועוצמת תאורה מתכווננת לאיפור בדרכים."
     }
   },
   "find-087-ab-roller": {
@@ -5378,7 +5378,7 @@
       "description": "Rueda ancha con retorno por resorte y apoyo para codos para entrenar abdomen y espalda en casa."
     },
     "fr": {
-      "name": "Roue abdominale à retour automatique avec appui-coudes",
+      "name": "Roue Abdominale à Retour Automatique avec Appui-Coudes",
       "headline": [
         "Gainage",
         "solide."
@@ -5420,7 +5420,7 @@
       "description": "Hamaca ligera de nailon con mosquitero integrado y correas para colgarla entre dos árboles."
     },
     "fr": {
-      "name": "Hamac de camping avec moustiquaire",
+      "name": "Hamac de Camping avec Moustiquaire",
       "headline": [
         "Sieste",
         "sous les arbres."
@@ -5462,7 +5462,7 @@
       "description": "Tapete texturizado de silicón con ventosas que entretiene a tu mascota con un premio durante el baño o el corte de uñas."
     },
     "fr": {
-      "name": "Tapis de léchage en silicone à ventouses",
+      "name": "Tapis de Léchage en Silicone à Ventouses",
       "headline": [
         "Pause",
         "gourmande."
@@ -5470,7 +5470,7 @@
       "description": "Tapis en silicone texturé à ventouses qui occupe l'animal avec une friandise pendant le bain ou la coupe des griffes."
     },
     "he": {
-      "name": "משטח ליקוק מסיליקון עם ואקום לחיות מחמד",
+      "name": "משטח ליקוק מסיליקון עם כוסות יניקה לחיות מחמד",
       "headline": [
         "הפסקה",
         "טעימה."
@@ -5504,7 +5504,7 @@
       "description": "Cámara delgada a prueba de agua en cable flexible con luces LED para revisar tuberías, motores y huecos estrechos."
     },
     "fr": {
-      "name": "Caméra endoscope d'inspection USB-C",
+      "name": "Caméra Endoscope d'Inspection USB-C",
       "headline": [
         "Regard",
         "à l'intérieur."
@@ -5517,7 +5517,7 @@
         "מבט",
         "פנימה."
       ],
-      "description": "מצלמה דקה ועמידה במים על כבל גמיש עם תאורת לד לבדיקת צנרת, מנועים וחללים צרים."
+      "description": "מצלמה דקה ועמידה במים על כבל גמיש עם תאורת LED לבדיקת צנרת, מנועים וחללים צרים."
     }
   },
   "find-091-sunrise-alarm": {
@@ -5546,7 +5546,7 @@
       "description": "Lámpara despertador de buró que aumenta su brillo poco a poco antes de la alarma y reproduce sonidos de la naturaleza."
     },
     "fr": {
-      "name": "Réveil simulateur d'aube",
+      "name": "Réveil Simulateur d'Aube",
       "headline": [
         "Matin",
         "en douceur."
@@ -5588,7 +5588,7 @@
       "description": "Picador compacto y recargable con vaso y cuchillas de acero para ajo, hierbas, nueces y chiles."
     },
     "fr": {
-      "name": "Mini hachoir électrique à ail",
+      "name": "Mini Hachoir Électrique à Ail",
       "headline": [
         "Hachage",
         "express."
@@ -5630,7 +5630,7 @@
       "description": "Adaptador con clavijas retráctiles de distintos estándares y puertos USB para cargar tus dispositivos en el extranjero."
     },
     "fr": {
-      "name": "Adaptateur de voyage universel avec USB-C",
+      "name": "Adaptateur de Voyage Universel avec USB-C",
       "headline": [
         "Une prise",
         "pour chaque pays."
@@ -5672,7 +5672,7 @@
       "description": "Destornillador recargable tipo pluma con puntas magnéticas para reparar celulares, laptops y electrónicos pequeños."
     },
     "fr": {
-      "name": "Tournevis électrique de précision avec embouts",
+      "name": "Tournevis Électrique de Précision avec Embouts",
       "headline": [
         "Travail",
         "minutieux."
@@ -5714,7 +5714,7 @@
       "description": "Aparato eléctrico con recipiente y soporte giratorio que lava y seca las brochas de maquillaje."
     },
     "fr": {
-      "name": "Nettoyeur électrique de pinceaux de maquillage",
+      "name": "Nettoyeur Électrique de Pinceaux de Maquillage",
       "headline": [
         "Pinceaux",
         "nets."
@@ -5756,7 +5756,7 @@
       "description": "Aro de eslabones desmontables con peso sujeto a un cordón y contador de vueltas para hacer cardio en casa."
     },
     "fr": {
-      "name": "Cerceau de fitness lesté avec compteur",
+      "name": "Cerceau de Fitness Lesté avec Compteur",
       "headline": [
         "Taille",
         "en mouvement."
@@ -5798,7 +5798,7 @@
       "description": "Bomba de batería con manguera y regadera que toma agua de una cubeta o garrafón en el campamento o la playa."
     },
     "fr": {
-      "name": "Douche de camping portable rechargeable",
+      "name": "Douche de Camping Portable Rechargeable",
       "headline": [
         "La douche",
         "sans robinet."
@@ -5840,7 +5840,7 @@
       "description": "Botella con bebedero integrado y botón de válvula para dar de beber a tu mascota en el paseo y regresar el agua sobrante."
     },
     "fr": {
-      "name": "Gourde portable avec abreuvoir pour chien",
+      "name": "Gourde Portable avec Abreuvoir pour Chien",
       "headline": [
         "De l'eau",
         "en balade."
@@ -5882,7 +5882,7 @@
       "description": "Teclado inalámbrico de bolsillo con panel táctil y retroiluminación para TV box, computadoras y proyectores."
     },
     "fr": {
-      "name": "Mini clavier sans fil avec pavé tactile",
+      "name": "Mini Clavier Sans Fil avec Pavé Tactile",
       "headline": [
         "Télécommande",
         "à touches."
@@ -5924,7 +5924,7 @@
       "description": "Botón exterior que genera su propia energía al presionarlo y activa un receptor de enchufe con varias melodías."
     },
     "fr": {
-      "name": "Sonnette sans fil autoalimentée sans pile",
+      "name": "Sonnette Sans Fil Autoalimentée Sans Pile",
       "headline": [
         "Visite",
         "à la porte."
@@ -5966,7 +5966,7 @@
       "description": "Jarra de vidrio con filtro de malla fina para preparar café cold brew y té helado en el refrigerador."
     },
     "fr": {
-      "name": "Carafe en verre pour café infusé à froid",
+      "name": "Carafe en Verre pour Café Infusé à Froid",
       "headline": [
         "Infusion",
         "à froid."
