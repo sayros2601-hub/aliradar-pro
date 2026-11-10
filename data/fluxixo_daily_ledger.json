@@ -22,5 +22,12 @@
       }
     ]
   },
-  "validation_runs": {}
+  "validation_runs": {
+    "fluxixo-validation-20261110-01": {
+      "day": "2026-11-10",
+      "catalog_id": "auto-1005004679234788",
+      "product_id": "1005004679234788",
+      "source": "api"
+    }
+  }
 }

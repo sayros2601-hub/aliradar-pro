@@ -5,6 +5,36 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005004679234788",
+      "name": "Экстрактор винтов",
+      "headline": [
+        "Экстрактор",
+        "винтов"
+      ],
+      "description": "Экстрактор винтов. Перед покупкой сверьте выбранный вариант и условия у продавца.",
+      "category": "Инструменты",
+      "image": "assets/images/auto-1005004679234788.webp",
+      "original": "assets/originals/auto-1005004679234788.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4draMZZ",
+      "sourceUrl": "https://www.aliexpress.com/item/1005004679234788.html",
+      "sourceProductId": "1005004679234788",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005004679234788.html",
+      "sourceTitle": "5pc HSS Left Hand Drill Bit Straight Shank Broken Bolt Damaged Screw Extractor Set 3.2/4.8/6.4/8/8.7mm Drilling Woodworking Tool",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sca53c78987884ce081bde4d446bad38eu.jpeg",
+      "sourceModelKey": null,
+      "sourceMarket": "MX",
+      "sourceTask": "screw_extractor",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Экстрактор винтов. Перед покупкой сверьте выбранный вариант и условия у продавца.",
+      "facts": [],
+      "sourceImageSha256": "d1d8ff4810cfd614a4a82662d80063b05aa48e012fd09036b42c36a3fba38d3d",
+      "sourcePixelSha256": "d2a396599fcef724146b772af4fc2c915f0eb87ba3372479715f444e4144a9ab"
+    },
+    {
       "id": "find-064-book-light",
       "name": "Клипса-фонарик для чтения",
       "headline": [

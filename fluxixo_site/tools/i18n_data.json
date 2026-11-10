@@ -5853,6 +5853,48 @@
         ],
         "description": "קנקן זכוכית עם מסנן רשת עדין להכנת קפה בחליטה קרה ותה קר במקרר."
       }
+    },
+    "auto-1005004679234788": {
+      "en": {
+        "name": "Screw extractor",
+        "headline": [
+          "Screw",
+          "extractor"
+        ],
+        "description": "Screw extractor. Before buying, check the selected option and terms in the seller listing."
+      },
+      "pt": {
+        "name": "Extrator de parafusos",
+        "headline": [
+          "Extrator",
+          "de parafusos"
+        ],
+        "description": "Extrator de parafusos. Antes de comprar, confira a opção escolhida e as condições do vendedor."
+      },
+      "es": {
+        "name": "Extractor de tornillos",
+        "headline": [
+          "Extractor",
+          "de tornillos"
+        ],
+        "description": "Extractor de tornillos. Antes de comprar, revisa la opción elegida y las condiciones del vendedor."
+      },
+      "fr": {
+        "name": "Extracteur de vis",
+        "headline": [
+          "Extracteur",
+          "de vis"
+        ],
+        "description": "Extracteur de vis. Avant l’achat, vérifiez la variante choisie et les conditions du vendeur."
+      },
+      "he": {
+        "name": "חולץ ברגים",
+        "headline": [
+          "חולץ",
+          "ברגים"
+        ],
+        "description": "חולץ ברגים. לפני הקנייה יש לבדוק את האפשרות שנבחרה ואת תנאי המוכר."
+      }
     }
   }
 }
