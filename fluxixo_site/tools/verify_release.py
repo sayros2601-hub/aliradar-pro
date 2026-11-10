@@ -15,8 +15,9 @@ ORIGIN = 'https://www.fluxixo.shop'
 RELEASE = Path(sys.argv[1]) if len(sys.argv) > 1 else Path(__file__).resolve().parents[1] / 'release'
 NS = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
 # Invented offers and internal editorial notes must never reach visitors.
-FORBIDDEN = ('InStock', '"19.99"', 'Подборка')
+FORBIDDEN = ('"Product"', '"Offer"', 'priceCurrency', 'InStock', 'Подборка')
 MAX_HTML_BYTES = 1_000_000
+MAX_REDIRECT_RULES = 90
 
 
 class Page(HTMLParser):
@@ -109,9 +110,6 @@ def main():
             problems['description'].append(url)
         if 'noindex' in page.robots:
             problems['noindex in sitemap'].append(url)
-        # A price in structured data is allowed only when the same page shows it to the visitor.
-        if '"Offer"' in text and 'class="price-line"' not in text:
-            problems['offer markup without visible price'].append(url)
         for word in FORBIDDEN:
             if word in text:
                 problems['forbidden text ' + word].append(url)
@@ -149,6 +147,13 @@ def main():
     for required in ('robots.txt', 'sitemap-ru.xml', '404.html', '_headers', '_redirects', 'js/catalog.js'):
         if not (RELEASE / required).exists():
             problems['missing file'].append(required)
+    # Production silently ignored redirect rules beyond roughly the 106th, so keep a safe margin.
+    redirect_file = RELEASE / '_redirects'
+    if redirect_file.exists():
+        rules = [line for line in redirect_file.read_text(encoding='utf-8').splitlines()
+                 if line.strip() and not line.lstrip().startswith('#')]
+        if len(rules) > MAX_REDIRECT_RULES:
+            problems['too many redirect rules'].append(f'{len(rules)} > {MAX_REDIRECT_RULES}')
     if problems:
         for kind, items in problems.items():
             print(f'FAIL {kind}: {len(items)} e.g. {items[:3]}')

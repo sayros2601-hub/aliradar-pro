@@ -506,12 +506,6 @@ footer p{margin:0;font-size:12px;max-width:68ch}
 @view-transition{navigation:auto}
 @media(prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
 
-.offer{margin:4px 0 6px;padding:14px 16px;border:1px solid var(--card-border);border-radius:14px;background:rgba(255,255,255,0.04)}
-.offer p{margin:0;max-width:none}
-.offer .price-line{font-size:18px;font-weight:700;color:var(--ink)}
-.offer .offer-extra{margin-top:4px;font-size:14px;color:var(--accent)}
-.offer .offer-note{margin-top:6px;font-size:12px}
-
 .about-page section{margin-top:28px}
 .about-page section:target h2{color:var(--accent)}
 

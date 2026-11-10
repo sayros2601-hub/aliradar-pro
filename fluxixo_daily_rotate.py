@@ -371,8 +371,6 @@ def main() -> None:
     if args.add_count > 0:
         accumulate_catalog(args.add_count)
 
-    # Price and rating come from the official API; a failure here never blocks the release.
-    subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "refresh_offers.py")], check=False)
     subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_search.py")], check=True)
     subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
     # A release with broken pages stops here instead of reaching the live site.

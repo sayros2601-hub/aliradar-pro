@@ -1,5 +1,4 @@
 """Localized catalog and product pages share the showroom's translation data."""
-from datetime import datetime, timedelta, timezone
 from html import escape as e
 from pathlib import PurePosixPath
 import json
@@ -286,66 +285,6 @@ ABOUT = {
 # Editorial source notes kept in the catalog data; never shown to visitors.
 INTERNAL_FACT_LABELS = {'Подборка'}
 
-# Filled by the build from tools/offers.json: price and rating read from the official AliExpress API.
-OFFERS = {}
-OFFER_MAX_AGE_HOURS = 96
-
-PRICE_LINE = {
-    'ru': 'Цена на AliExpress: около {price} $ · проверено {date}',
-    'en': 'Price on AliExpress: about US${price} · checked {date}',
-    'pt': 'Preço no AliExpress: cerca de US$ {price} · consultado em {date}',
-    'es': 'Precio en AliExpress: aprox. US${price} · consultado el {date}',
-    'fr': 'Prix sur AliExpress : env. {price} $US · vérifié le {date}',
-    'he': 'מחיר ב־AliExpress: כ־{price}$ · נבדק ב־{date}',
-}
-PRICE_NOTE = {
-    'ru': 'Цена и доставка зависят от страны и варианта; точные условия — у продавца.',
-    'en': 'Price and shipping vary by country and option; see the seller listing for exact terms.',
-    'pt': 'Preço e frete variam conforme o país e a opção; confira no anúncio do vendedor.',
-    'es': 'El precio y el envío varían según el país y la opción; consulta el anuncio del vendedor.',
-    'fr': 'Le prix et la livraison varient selon le pays et l’option ; voir la fiche du vendeur.',
-    'he': 'המחיר והמשלוח משתנים לפי מדינה ודגם; התנאים המדויקים בעמוד המוכר.',
-}
-RATING_LINE = {
-    'ru': '{rating} положительных оценок', 'en': '{rating} positive ratings', 'pt': '{rating} de avaliações positivas',
-    'es': '{rating} de calificaciones positivas', 'fr': '{rating} d’avis positifs', 'he': '{rating} דירוגים חיוביים',
-}
-ORDERS_LINE = {
-    'ru': 'заказов: {orders}', 'en': '{orders} orders', 'pt': '{orders} pedidos',
-    'es': '{orders} pedidos', 'fr': '{orders} commandes', 'he': '{orders} הזמנות',
-}
-
-
-def fresh_offer(product_id):
-    """Only recently checked offers are shown; stale numbers are worse than none."""
-    offer = OFFERS.get(product_id)
-    if not offer or not re.fullmatch(r'\d+(\.\d{1,2})?', str(offer.get('price', ''))):
-        return None
-    try:
-        checked = datetime.fromisoformat(offer['checked'])
-    except (KeyError, ValueError):
-        return None
-    if datetime.now(timezone.utc) - checked > timedelta(hours=OFFER_MAX_AGE_HOURS) or offer.get('currency') != 'USD':
-        return None
-    return dict(offer, checked_at=checked)
-
-
-def offer_block(product_id, language):
-    offer = fresh_offer(product_id)
-    if not offer:
-        return ''
-    date = offer['checked_at'].strftime('%Y-%m-%d' if language == 'en' else '%d.%m.%Y' if language == 'ru' else '%d/%m/%Y')
-    price = offer['price'].replace('.', ',') if language in ('pt', 'fr', 'ru') else offer['price']
-    extras = []
-    if re.fullmatch(r'\d{2,3}(\.\d)?%', offer.get('rating', '')):
-        extras.append(RATING_LINE[language].format(rating=offer['rating']))
-    if offer.get('orders', 0) >= 10:
-        extras.append(ORDERS_LINE[language].format(orders=offer['orders']))
-    extra_html = f'<p class="offer-extra">{e(" · ".join(extras))}</p>' if extras else ''
-    return (f'<div class="offer"><p class="price-line">{e(PRICE_LINE[language].format(price=price, date=date))}</p>'
-            f'{extra_html}<p class="offer-note">{e(PRICE_NOTE[language])}</p></div>')
-
-
 # Filled by the build from the real files, so srcset and structured data state true dimensions.
 IMAGE_SIZES = {}
 DEFAULT_IMAGE_SIZE = (1254, 1254)
@@ -403,28 +342,7 @@ def fit_description(text, language, limit=158):
     return text[:limit - 1].rsplit(' ', 1)[0].rstrip(' ,;:—-') + '…'
 
 
-def item_page_schema(origin, path, title, description, image, language, caption, crumbs, product=None):
-    """`product` is (id, name, text, buy_url); a Product node is added only when a verified, visible price exists."""
-    schema = _page_schema(origin, path, title, description, image, language, caption, crumbs)
-    offer = fresh_offer(product[0]) if product else None
-    if offer:
-        schema['@graph'].append({
-            '@type': 'Product',
-            '@id': origin + path + '#product',
-            'name': product[1],
-            'description': product[2],
-            'image': [origin + '/' + image],
-            'offers': {
-                '@type': 'Offer',
-                'price': offer['price'],
-                'priceCurrency': 'USD',
-                'url': product[3] or (origin + path),
-            },
-        })
-    return schema
-
-
-def _page_schema(origin, path, title, description, image, language, caption, crumbs):
+def item_page_schema(origin, path, title, description, image, language, caption, crumbs):
     width, height = IMAGE_SIZES.get(image, DEFAULT_IMAGE_SIZE)
     return {
         '@context': 'https://schema.org',
@@ -616,7 +534,7 @@ def generate(origin, data, products, page, write, image):
                 f'<figure class="arcade-stage-card">{hero_image(product["image"], name)}<div class="stage-podium-bar" aria-hidden="true"></div>'
                 f'<figcaption>{e(STAGE_CAPTION[language])}</figcaption></figure>'
                 f'<section><p class="eyebrow">{cat_label}</p><h1>{e(name)}</h1>'
-                f'<p class="product-headline-sub">{e(headline)}</p><p>{e(desc)}</p>{offer_block(product["id"], language)}'
+                f'<p class="product-headline-sub">{e(headline)}</p><p>{e(desc)}</p>'
                 f'<div class="cta-row">{buy}<a class="button secondary" href="{studio}">{e(showroom)}</a></div>'
                 f'<p class="affiliate-disclosure">{e(ui["affiliateNote"])}</p>'
                 f'{dl_block}</section></div>{original}{related_block}</article>{language_links(paths)}{sticky_cta(buy)}'
@@ -627,8 +545,7 @@ def generate(origin, data, products, page, write, image):
             if cat_href:
                 crumbs.append((cat, cat_href))
             crumbs.append((name, path))
-            schema = item_page_schema(origin, path, title, description, product['image'], language, f'{name} — {desc}', crumbs,
-                                      product=(product['id'], name, desc, product.get('affiliateUrl')))
+            schema = item_page_schema(origin, path, title, description, product['image'], language, f'{name} — {desc}', crumbs)
             write(path.strip('/')+'/index.html', page(title, description, path, body, schema,
                   product['image'], language=language, alternate_paths=paths, studio_url=studio, theme=product.get('theme')))
         if not listed:

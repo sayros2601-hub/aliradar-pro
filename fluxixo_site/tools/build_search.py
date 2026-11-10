@@ -2,7 +2,7 @@
 from pathlib import Path
 from html import escape
 from locales import (
-    ABOUT, BREADCRUMB_ARIA, CATALOG_TITLE, CATEGORY_TITLE, IMAGE_SIZES, LANGUAGES, OFFERS, DISCLOSURE, STAGE_CAPTION, about_path, alternates, offer_block,
+    ABOUT, BREADCRUMB_ARIA, CATALOG_TITLE, CATEGORY_TITLE, IMAGE_SIZES, LANGUAGES, DISCLOSURE, STAGE_CAPTION, about_path, alternates,
     card_image, catalog_path, category_key, category_paths, fit_description, fit_title, generate, generate_about,
     header_lang_select, hero_image, item_page_schema, language_links, product_path, public_facts, sticky_cta, sync_showroom, thumb,
     translations
@@ -85,13 +85,6 @@ def make_thumbnails():
                 IMAGE_SIZES[relative] = picture.size
 
 make_thumbnails()
-
-offers_file = ROOT/'tools/offers.json'
-if offers_file.exists():
-    try:
-        OFFERS.update(json.loads(offers_file.read_text(encoding='utf-8')))
-    except ValueError:
-        pass  # a damaged file means pages are built without prices
 
 def route(p):
     return '/products/' + p['id'] + '/'
@@ -184,11 +177,11 @@ for idx, p in enumerate(products):
         else '<p class="muted">Ссылка на продавца уточняется.</p>'
     )
     body = f"""<nav class="breadcrumb" aria-label="Навигационная цепочка"><a href="/?lang=ru">FLUXIXO</a><span class="breadcrumb-sep">/</span><a href="/catalog/">Каталог</a><span class="breadcrumb-sep">/</span><a href="{c_path}">{e(cat_titles[slug])}</a></nav>
-<article><div class="product"><figure class="arcade-stage-card">{hero_image(p['image'], p['name'])}<div class="stage-podium-bar" aria-hidden="true"></div><figcaption>{e(STAGE_CAPTION['ru'])}</figcaption></figure><section><p class="eyebrow"><a href="{c_path}">{e(p['category'])}</a></p><h1>{e(p['name'])}</h1><p class="product-headline-sub">{e(headline_ru)}</p><p>{e(p['description'])}</p>{offer_block(p['id'], 'ru')}<div class="cta-row">{cta_ru}<a class="button secondary" href="{studio_ru}">Открыть в 3D-витрине</a></div><p class="affiliate-disclosure">Партнёрская ссылка. FLUXIXO может получить комиссию за покупку. Покупка оформляется на AliExpress.</p>{facts_block}</section></div>{source}{related_section}</article>"""
-    # Product/Offer markup appears only with a price read from the official API and shown on the page; never invented.
+<article><div class="product"><figure class="arcade-stage-card">{hero_image(p['image'], p['name'])}<div class="stage-podium-bar" aria-hidden="true"></div><figcaption>{e(STAGE_CAPTION['ru'])}</figcaption></figure><section><p class="eyebrow"><a href="{c_path}">{e(p['category'])}</a></p><h1>{e(p['name'])}</h1><p class="product-headline-sub">{e(headline_ru)}</p><p>{e(p['description'])}</p><div class="cta-row">{cta_ru}<a class="button secondary" href="{studio_ru}">Открыть в 3D-витрине</a></div><p class="affiliate-disclosure">Партнёрская ссылка. FLUXIXO может получить комиссию за покупку. Покупка оформляется на AliExpress.</p>{facts_block}</section></div>{source}{related_section}</article>"""
+    # No Product/Offer markup: the catalog holds no verified price or stock, and invented values break search policy.
     data = item_page_schema(ORIGIN, path, title, seo_desc, p['image'], 'ru', f"{p['name']} — {p['description']}", [
         ('FLUXIXO', '/'), ('Каталог', '/catalog/'), (cat_titles[slug], c_path), (p['name'], path)
-    ], product=(p['id'], p['name'], p['description'], p.get('affiliateUrl')))
+    ])
     variant_paths = {language: product_path(p, language) for language in ('ru', *translations(i18n, p))}
     body += language_links(variant_paths) + sticky_cta(cta_ru)
     write(path.strip('/')+'/index.html', page(title, seo_desc, path, body, data, p['image'], alternate_paths=variant_paths, studio_url=studio_ru, theme=p.get('theme')))

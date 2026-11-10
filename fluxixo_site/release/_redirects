@@ -3,127 +3,58 @@
 /feed.xml /rss.xml 301
 /google_feed.xml /rss.xml 301
 
-# Legacy deals and catalog routes
-/deals /en/ 301
-/deals/ /en/ 301
-/deals/* /en/ 301
-/ru/deals/* /catalog/ 301
-/he/deals/* /he/ 301
-/es/deals/* /es/ 301
-/pt/deals/* /pt/ 301
-/fr/deals/* /fr/ 301
-/en/deals/* /en/ 301
-
-/ru/catalog/* /catalog/ 301
-/ru/cat/* /catalog/ 301
-/he/cat/* /he/ 301
-/es/cat/* /es/ 301
-/pt/cat/* /pt/ 301
-/fr/cat/* /fr/ 301
-/cat/* /en/ 301
-
-# Legacy guide routes (all languages)
-/guide /en/ 301
-/guide/ /en/ 301
-/guide/* /en/ 301
-/en/guide /en/ 301
-/en/guide/ /en/ 301
-/en/guide/* /en/ 301
-/ru/guide /catalog/ 301
-/ru/guide/ /catalog/ 301
-/ru/guide/* /catalog/ 301
-/he/guide /he/ 301
-/he/guide/ /he/ 301
-/he/guide/* /he/ 301
-/es/guide /es/ 301
-/es/guide/ /es/ 301
-/es/guide/* /es/ 301
-/pt/guide /pt/ 301
-/pt/guide/ /pt/ 301
-/pt/guide/* /pt/ 301
-/fr/guide /fr/ 301
-/fr/guide/ /fr/ 301
-/fr/guide/* /fr/ 301
-
-# Legacy journal routes (all languages)
-/journal /en/ 301
-/journal/ /en/ 301
-/journal/* /en/ 301
-/en/journal /en/ 301
-/en/journal/ /en/ 301
-/en/journal/* /en/ 301
-/ru/journal /catalog/ 301
-/ru/journal/ /catalog/ 301
-/ru/journal/* /catalog/ 301
-/he/journal /he/ 301
-/he/journal/ /he/ 301
-/he/journal/* /he/ 301
-/es/journal /es/ 301
-/es/journal/ /es/ 301
-/es/journal/* /es/ 301
-/pt/journal /pt/ 301
-/pt/journal/ /pt/ 301
-/pt/journal/* /pt/ 301
-/fr/journal /fr/ 301
-/fr/journal/ /fr/ 301
-/fr/journal/* /fr/ 301
-
-# Info and legal routes resolve to the localized About page
-/privacy /about/#privacy 301
-/privacy/ /about/#privacy 301
-/ru/privacy /about/#privacy 301
-/ru/privacy/ /about/#privacy 301
-/en/privacy /en/about/#privacy 301
-/en/privacy/ /en/about/#privacy 301
-/he/privacy /he/about/#privacy 301
-/he/privacy/ /he/about/#privacy 301
-/es/privacy /es/about/#privacy 301
-/es/privacy/ /es/about/#privacy 301
-/pt/privacy /pt/about/#privacy 301
-/pt/privacy/ /pt/about/#privacy 301
-/fr/privacy /fr/about/#privacy 301
-/fr/privacy/ /fr/about/#privacy 301
-/terms /about/ 301
-/terms/ /about/ 301
-/ru/terms /about/ 301
-/ru/terms/ /about/ 301
-/en/terms /en/about/ 301
-/en/terms/ /en/about/ 301
-/he/terms /he/about/ 301
-/he/terms/ /he/about/ 301
-/es/terms /es/about/ 301
-/es/terms/ /es/about/ 301
-/pt/terms /pt/about/ 301
-/pt/terms/ /pt/about/ 301
-/fr/terms /fr/about/ 301
-/fr/terms/ /fr/about/ 301
-/contact /about/ 301
-/contact/ /about/ 301
-/ru/contact /about/ 301
-/ru/contact/ /about/ 301
-/en/contact /en/about/ 301
-/en/contact/ /en/about/ 301
-/he/contact /he/about/ 301
-/he/contact/ /he/about/ 301
-/es/contact /es/about/ 301
-/es/contact/ /es/about/ 301
-/pt/contact /pt/about/ 301
-/pt/contact/ /pt/about/ 301
-/fr/contact /fr/about/ 301
-/fr/contact/ /fr/about/ 301
-/returns /about/ 301
-/returns/ /about/ 301
-/ru/returns /about/ 301
-/ru/returns/ /about/ 301
-/en/returns /en/about/ 301
-/en/returns/ /en/about/ 301
-/he/returns /he/about/ 301
-/he/returns/ /he/about/ 301
-/es/returns /es/about/ 301
-/es/returns/ /es/about/ 301
-/pt/returns /pt/about/ 301
-/pt/returns/ /pt/about/ 301
-/fr/returns /fr/about/ 301
-/fr/returns/ /fr/about/ 301
+# The old Russian section now lives at the root catalog and About page.
+/ru /catalog/ 301
+/ru/ /catalog/ 301
 /ru/about /about/ 301
 /ru/about/ /about/ 301
+/ru/privacy /about/#privacy 301
+/ru/privacy/ /about/#privacy 301
+/ru/terms /about/ 301
+/ru/terms/ /about/ 301
+/ru/contact /about/ 301
+/ru/contact/ /about/ 301
+/ru/returns /about/ 301
+/ru/returns/ /about/ 301
+
+# Root-level info and legal pages.
+/privacy /about/#privacy 301
+/privacy/ /about/#privacy 301
+/terms /about/ 301
+/terms/ /about/ 301
+/contact /about/ 301
+/contact/ /about/ 301
+/returns /about/ 301
+/returns/ /about/ 301
+
+# Old English-default sections.
+/deals /en/ 301
+/deals/ /en/ 301
+/guide /en/ 301
+/guide/ /en/ 301
+/journal /en/ 301
+/journal/ /en/ 301
+
+# Dynamic rules come last; the first matching rule wins. Keep the whole file well under
+# the ~100-rule mark: rules after roughly the 106th were silently ignored in production.
+/ru/* /catalog/ 301
+/deals/* /en/ 301
+/cat/* /en/ 301
+/guide/* /en/ 301
+/journal/* /en/ 301
+/:lang/privacy /:lang/about/#privacy 301
+/:lang/privacy/ /:lang/about/#privacy 301
+/:lang/terms /:lang/about/ 301
+/:lang/terms/ /:lang/about/ 301
+/:lang/contact /:lang/about/ 301
+/:lang/contact/ /:lang/about/ 301
+/:lang/returns /:lang/about/ 301
+/:lang/returns/ /:lang/about/ 301
+/:lang/deals/* /:lang/ 301
+/:lang/cat/* /:lang/ 301
+/:lang/guide /:lang/ 301
+/:lang/guide/ /:lang/ 301
+/:lang/guide/* /:lang/ 301
+/:lang/journal /:lang/ 301
+/:lang/journal/ /:lang/ 301
+/:lang/journal/* /:lang/ 301
