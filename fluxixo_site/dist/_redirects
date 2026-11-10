@@ -42,6 +42,10 @@
 /cat/* /en/ 301
 /guide/* /en/ 301
 /journal/* /en/ 301
+# Old numbered catalog pages (/catalog/7) that Google still lists.
+/catalog/:page /catalog/ 301
+/catalog/:page/ /catalog/ 301
+/:lang/catalog/* /:lang/ 301
 /:lang/privacy /:lang/about/#privacy 301
 /:lang/privacy/ /:lang/about/#privacy 301
 /:lang/terms /:lang/about/ 301
