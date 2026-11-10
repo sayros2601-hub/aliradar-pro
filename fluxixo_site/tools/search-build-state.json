@@ -8,8 +8,8 @@
     "lastmod": "2026-11-10T17:48:48+00:00"
   },
   "/en/products/auto-1005004679234788/": {
-    "sha256": "46ef673e5ce21baa795ac046519770b936e1f744bdd64c6e6134fcd2a4480340",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "446d21e6c37aea570d6fe85549899ed383a955bcf84d2ea421defddf0cece726",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/en/products/find-064-book-light/": {
     "sha256": "45748939dc886f01ee35780f5230e5cbea8c4f2b2d50a122390dfe7296e5c574",
@@ -412,8 +412,8 @@
     "lastmod": "2026-11-10T17:48:48+00:00"
   },
   "/pt/products/auto-1005004679234788/": {
-    "sha256": "29762fb3aad70cc7989d0897bf5be46c8db8da6080c20ae0faae8acfda726545",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "6f854aa4d7fe480949605d183216209a874b7662d6ac10130532dadd10ae979e",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/pt/products/find-064-book-light/": {
     "sha256": "72d134e8fd4eb8332fffd7eaf74b371c7e6d0ed75e91d7a857e0e56ca8608d17",
@@ -816,8 +816,8 @@
     "lastmod": "2026-11-10T17:48:48+00:00"
   },
   "/es/products/auto-1005004679234788/": {
-    "sha256": "b516638de3cda17bd0cdc3dc1c3b478edb49e911ae238419de5a6c3052fd1bb8",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "0decd27984b169a93873be90a4b634887e3a1c11490426a2cab6eec096860439",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/es/products/find-064-book-light/": {
     "sha256": "54aaa8102c6e2be5fe5977d2dc803f8c0e389ab305f32e0d51d394191c74d205",
@@ -1220,8 +1220,8 @@
     "lastmod": "2026-11-10T17:48:48+00:00"
   },
   "/fr/products/auto-1005004679234788/": {
-    "sha256": "76f4725e6e551ecffb62be6929055e57d7d4a5bfac3e168fc7dcdc39c6bb2b16",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "f1b61bc80174532fa4419f9048045ac12bff1e324fc691264247ff62351e6b25",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-064-book-light/": {
     "sha256": "5eb80c0cf24da1b36593004934eda4ca4e4cb9545dcaa8d464f993059098b649",
@@ -1244,8 +1244,8 @@
     "lastmod": "2026-11-10T16:22:36+00:00"
   },
   "/fr/products/find-063-cable-tester/": {
-    "sha256": "0d3afe3c04dae19da09e0d43e9dc1e9839ab6809ccc168328ccb01a9c33c7d2c",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "769a25d1abff4ccca6906a4a07b91eb9d115d0df875a2386000a1ca1de400134",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-057-uv-toothbrush/": {
     "sha256": "4bc6f1c8f17a612798237d93230fa72d4df13789a9e0a06b49ab477ae2f1ab77",
@@ -1260,8 +1260,8 @@
     "lastmod": "2026-11-10T15:56:57+00:00"
   },
   "/fr/products/find-054-soldering-iron/": {
-    "sha256": "3944aafd9f9564a03181a3d45edf0a11f0472ce1f74458003e2c74f00fe5ed1e",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "508ea93adad7a0429b6638277b75ee1e8f1043df337f00995d3ac01588f835ad",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-055-lint-remover/": {
     "sha256": "49a8943d7cce1fa85333f21d8e126d7e5f4f5929267569610976520774f24b81",
@@ -1276,8 +1276,8 @@
     "lastmod": "2026-11-10T16:22:36+00:00"
   },
   "/fr/products/find-052-laser-meter/": {
-    "sha256": "126966bc25b09d842206f05948b59966637b76ad089758ed8de9bd0d6adbacbb",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "f47cd0db7052b5d7f49f998a2f3eaae9b37a8e400411768316763e304821528c",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-053-vacuum-sealer/": {
     "sha256": "bdb22f9face81eb6444a453eaf65048acb1413eb5e18e457d376867ac9f2af70",
@@ -1344,12 +1344,12 @@
     "lastmod": "2026-11-10T16:22:36+00:00"
   },
   "/fr/products/find-015-fishing-float/": {
-    "sha256": "7e401237423fdb68b9f99319517c61a06e9d221bff5bd030e61e025e4ebfbf48",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "5793aafbc1838abea3c638ecf580e01d094ab826446f4507ec4ac7e3de136628",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-016-mini-chainsaw/": {
-    "sha256": "3c1ff46cca13610648683bc1bda3b20831cd8353c2c1a4b9e167464437cecf4c",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "e9bd390c433786a6a93fca7c0e455b42dbb000584028bb76c3df98d63208fd3c",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-017-star-projector/": {
     "sha256": "a1ac37552ca4727fd13d0d7034aeb0ed513042399d6bc7bc2aaa8f8487b7e7d5",
@@ -1380,8 +1380,8 @@
     "lastmod": "2026-11-10T08:52:58+00:00"
   },
   "/fr/products/find-024-trekking-poles/": {
-    "sha256": "70f8596563bbe7ba0bddae7d30a27432812d8bf429de821cc92acae451f13890",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "debc2f3c677252f514aa6f013e4390210dbf0c9d5d83e51741010368ad5e5dea",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-025-period-belt/": {
     "sha256": "711d233704e326b3c45184c203d9a50976b214e1d7f5b399b40cb7237824950f",
@@ -1424,12 +1424,12 @@
     "lastmod": "2026-11-10T08:52:58+00:00"
   },
   "/fr/products/find-035-cordless-scissors/": {
-    "sha256": "3674c4ebfd37be5e711c38db59bb86c6362b13e63f882595c596bd0efb7e4920",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "16360bbb067e658d16989480588011ed81d6698feaa9ea8a914f3d8f30c14a48",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-036-stud-finder/": {
-    "sha256": "ccbcbafa819df7a4b0c3fd26b84f4389fbf8a5f3696b7f710b3472d961e62664",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "626399ca44ed806526db45e96cc619006ee2f3a5a29510b3f8c98b64ef0889fb",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/products/find-037-banneton/": {
     "sha256": "56cca72cc0fcadad47463facb51a11bff6e2d292c15382e8f6d16800bc3bb4df",
@@ -1584,8 +1584,8 @@
     "lastmod": "2026-11-10T16:22:36+00:00"
   },
   "/fr/categories/outils/": {
-    "sha256": "a27482d9d8666d8be6f73f7a24dc43ade81e33c48617f3c2cd2c1ebd2479ebec",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "7177ed29ed9089f0aaf2477aac0f1a77f809cf7a027e212638347c9e4ebc246b",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/fr/categories/maison/": {
     "sha256": "75625f232a10f0a5195698dba51c2a677652374c69af563597ecc337af1012d0",
@@ -1620,12 +1620,12 @@
     "lastmod": "2026-11-10T17:36:16+00:00"
   },
   "/fr/": {
-    "sha256": "5ef07a209f2712f9c97a36633e033b38e5986cffb32dfbc48ecf372b6a9ec0ee",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "4e523cdd3c7992ab462ff406a2a0a23d498320a474bfca01af9030367101f5e0",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/he/products/auto-1005004679234788/": {
-    "sha256": "0ce54ea5a7abc464cab96034dfeb8ed9ee8ffb204504687b1f85a9cc64aa7c7f",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "f3e46e22bc5bca27a128a5ac398633b90fa21b96fb6b721d488b9367e175bf67",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/he/products/find-064-book-light/": {
     "sha256": "8eaa85dcd99a12235727edab43248ca8b217fdb73a2fea1d07e18493f923f9fa",
@@ -1676,8 +1676,8 @@
     "lastmod": "2026-11-10T16:22:36+00:00"
   },
   "/he/products/find-051-ultrasonic-cleaner/": {
-    "sha256": "9304181dbae37a947a68b9eab7e8dee06c7b6c7112de4b30c2e4bc1785af210e",
-    "lastmod": "2026-11-10T16:22:36+00:00"
+    "sha256": "ce2d0a0f702a1e49d9746574b2d3cedc2889036f6e71abfbc2dd70be0f5b6c92",
+    "lastmod": "2026-11-10T20:39:27+00:00"
   },
   "/he/products/find-052-laser-meter/": {
     "sha256": "acee32cb55967c94f06fe108b3ec452593be762cf46b68677c98dc6b066e04c5",
@@ -2088,8 +2088,8 @@
     "lastmod": "2026-11-10T17:36:16+00:00"
   },
   "/products/auto-1005004679234788/": {
-    "sha256": "90f78c762cc05e6eae238d87f2ef87c6216551072184fe9c6394bad1a024d8fb",
-    "lastmod": "2026-11-10T17:48:48+00:00"
+    "sha256": "254faa2b661100b1004cd1d352e8874a70aa06d0a0fc81e56adb8afcc3be74bd",
+    "lastmod": "2026-11-10T20:39:28+00:00"
   },
   "/products/find-064-book-light/": {
     "sha256": "acfa6a24a4afcae5e8a9ac981c023629fea1dfdbac131c9bd07ca6f95e0c5cda",

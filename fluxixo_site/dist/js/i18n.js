@@ -726,8 +726,8 @@
     "he": {
       "name": "מכשיר ניקוי אולטרסוני",
       "headline": [
-        "ניקוי",
-        "אולטרסוני."
+        "תכשיטים",
+        "נוצצים מחדש."
       ],
       "description": "מכל נירוסטה עם טיימר לניקוי אולטרסוני של משקפיים, תכשיטים ופריטים קטנים. בדקו בהוראות היצרן לאילו חומרים המכשיר מתאים."
     }
@@ -5986,40 +5986,40 @@
     "en": {
       "name": "Screw extractor",
       "headline": [
-        "Screw",
-        "extractor"
+        "Stripped screw?",
+        "Not a dead end."
       ],
       "description": "A screw extractor for removing damaged screws. Check the diameters, tool compatibility and included pieces with the seller."
     },
     "pt": {
       "name": "Extrator de parafusos",
       "headline": [
-        "Extrator",
-        "de parafusos"
+        "Parafuso espanado?",
+        "Tem saída."
       ],
       "description": "Extrator para remover parafusos danificados. Confira os diâmetros, a compatibilidade com a ferramenta e os itens incluídos."
     },
     "es": {
       "name": "Extractor de tornillos",
       "headline": [
-        "Extractor",
-        "de tornillos"
+        "¿Tornillo barrido?",
+        "Tiene salida."
       ],
       "description": "Extractor para retirar tornillos dañados. Comprueba los diámetros, la compatibilidad con la herramienta y el contenido."
     },
     "fr": {
-      "name": "Extracteur de vis",
+      "name": "Extracteur de Vis",
       "headline": [
-        "Extracteur",
-        "de vis"
+        "Vis abîmée ?",
+        "Pas de panique."
       ],
       "description": "Extracteur pour retirer des vis abîmées. Vérifiez les diamètres, la compatibilité avec votre outil et le contenu auprès du vendeur."
     },
     "he": {
       "name": "חולץ ברגים",
       "headline": [
-        "חולץ",
-        "ברגים"
+        "בורג שנהרס?",
+        "יש פתרון."
       ],
       "description": "חולץ להוצאת ברגים פגומים. יש לבדוק עם המוכר קטרים, התאמה לכלי ואת תכולת המוצר."
     }
