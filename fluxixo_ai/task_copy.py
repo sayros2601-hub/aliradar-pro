@@ -123,9 +123,80 @@ TASK_COPY = {
 }
 
 
+def _lines(*pairs):
+    return {lang: pair.split('|') for lang, pair in zip(LANGS, pairs, strict=True)}
+
+
+# Two-line slogans in each market's own wording. They name the job the tool does,
+# never a quality, speed or result the seller has not stated.
+TASK_HEADLINE = {
+    'inspection_mirror': _lines('Видно|даже за углом.', 'See around|the corner.', 'Veja o que|fica escondido.',
+                                'Mira lo que|queda escondido.', 'Voir ce qui|reste caché.', 'רואים גם|מה שמוסתר.'),
+    'magnetic_pickup': _lines('Упало?|Достанем.', 'Dropped it?|Pick it up.', 'Caiu no vão?|Pega fácil.',
+                              '¿Se te cayó?|Recógelo.', 'Tombé au fond ?|Récupérez-le.', 'נפל?|מרימים.'),
+    'screw_extractor': _lines('Сорванный винт —|не приговор.', 'Stripped screw?|Not a dead end.',
+                              'Parafuso espanado?|Tem saída.', '¿Tornillo barrido?|Tiene salida.',
+                              'Vis abîmée ?|Pas de panique.', 'בורג שנהרס?|יש פתרון.'),
+    'sewing_seam_guide': _lines('Шов|ровно по линии.', 'Seams that|stay straight.', 'Costura|sempre reta.',
+                                'Costuras|siempre derechas.', 'Des coutures|bien droites.', 'תפר|בקו ישר.'),
+    'watch_hand_tool': _lines('Стрелки|на своё место.', 'Hands back|in place.', 'Ponteiros|no lugar certo.',
+                              'Las agujas|en su lugar.', 'Les aiguilles|à leur place.', 'המחוגים|חוזרים למקום.'),
+    'irrigation_punch': _lines('Отверстие|в одно движение.', 'A clean hole|in one press.', 'Furo limpo|num aperto só.',
+                               'Un hoyo limpio|de un apretón.', 'Un trou net|d’un seul geste.', 'חור נקי|בלחיצה אחת.'),
+    'reed_trimmer': _lines('Трость|под ваш звук.', 'Reeds cut|to your sound.', 'Palheta|do seu jeito.',
+                           'Cañas|a tu medida.', 'L’anche|à votre mesure.', 'עלה|לפי הצליל שלכם.'),
+    'aquarium_tweezers': _lines('Аквариум|без рук в воде.', 'Aquascaping|with dry hands.', 'Aquário|sem mão na água.',
+                                'Tu acuario|sin meter la mano.', 'L’aquarium|sans se mouiller.', 'אקווריום|בלי להרטיב ידיים.'),
+    'keyboard_switch_opener': _lines('Свитчи|без мучений.', 'Open switches|without the fuss.', 'Switches abertos|sem sufoco.',
+                                     'Abre switches|sin batallar.', 'Ouvrir les switches|sans galère.', 'פותחים מתגים|בלי מאמץ.'),
+    'bearing_puller': _lines('Подшипник|без кувалды.', 'Bearings out,|no hammer.', 'Rolamento fora,|sem martelo.',
+                             'Rodamientos fuera,|sin martillo.', 'Roulement retiré,|sans marteau.', 'מסב בחוץ,|בלי פטיש.'),
+    'cable_fish_tape': _lines('Кабель|сквозь гофру.', 'Cable through|the conduit.', 'Cabo passado|pelo conduíte.',
+                              'El cable|pasa por el tubo.', 'Le câble|passe la gaine.', 'כבל|דרך התעלה.'),
+    'button_hook': _lines('Пуговицы|без мучений.', 'Buttons|made easier.', 'Botões|sem sufoco.',
+                          'Botones|sin batallar.', 'Boutonner|sans peine.', 'מכפתרים|בלי מאמץ.'),
+    'bead_spinner': _lines('Бисер|прямо на нитку.', 'Beads straight|onto the thread.', 'Miçangas|direto no fio.',
+                           'Cuentas|directo al hilo.', 'Les perles|filent sur le fil.', 'חרוזים|ישר על החוט.'),
+    'fly_tying_vise': _lines('Мушка|своими руками.', 'Tie your own|flies.', 'Sua mosca,|suas mãos.',
+                             'Tu mosca,|tus manos.', 'Vos mouches,|vos mains.', 'זבוב|בעבודת יד.'),
+}
+
+# For items picked by their seller title alone: the slogan names the world, never the product.
+CATEGORY_HEADLINE = {
+    'Техника': _lines('Находка|для гаджетов.', 'A find|for your tech.', 'Achadinho|tech.', 'Hallazgo|tech.',
+                      'Trouvaille|high-tech.', 'מציאה|לגאדג׳טים.'),
+    'Дом': _lines('Находка|для дома.', 'A find|for home.', 'Achadinho|para casa.', 'Hallazgo|para el hogar.',
+                  'Trouvaille|pour la maison.', 'מציאה|לבית.'),
+    'Кухня': _lines('Находка|для кухни.', 'A find|for the kitchen.', 'Achadinho|para a cozinha.', 'Hallazgo|para la cocina.',
+                    'Trouvaille|pour la cuisine.', 'מציאה|למטבח.'),
+    'В дороге': _lines('Находка|в дорогу.', 'A find|for the road.', 'Achadinho|para a estrada.', 'Hallazgo|para el camino.',
+                       'Trouvaille|pour la route.', 'מציאה|לדרך.'),
+    'Инструменты': _lines('Находка|для мастерской.', 'A find|for the workshop.', 'Achadinho|para a oficina.',
+                          'Hallazgo|para el taller.', 'Trouvaille|pour l’atelier.', 'מציאה|לסדנה.'),
+    'Уход': _lines('Находка|для ухода.', 'A find|for self-care.', 'Achadinho|de cuidados.', 'Hallazgo|para tu cuidado.',
+                   'Trouvaille|bien-être.', 'מציאה|לטיפוח.'),
+    'Спорт': _lines('Находка|для спорта.', 'A find|for workouts.', 'Achadinho|para treinar.', 'Hallazgo|para entrenar.',
+                    'Trouvaille|pour le sport.', 'מציאה|לספורט.'),
+    'На природе': _lines('Находка|на природу.', 'A find|for the outdoors.', 'Achadinho|ao ar livre.',
+                         'Hallazgo|al aire libre.', 'Trouvaille|pour le plein air.', 'מציאה|לטבע.'),
+    'Питомцы': _lines('Находка|для питомца.', 'A find|for your pet.', 'Achadinho|para o pet.', 'Hallazgo|para tu mascota.',
+                      'Trouvaille|pour votre animal.', 'מציאה|לחיית המחמד.'),
+}
+
+
 def task_description(task_key, lang):
     """Return the checked task's copy; never invent a fallback translation."""
     try:
         return TASK_COPY[task_key][lang]
     except (KeyError, TypeError) as exc:
         raise ValueError('task_copy_missing') from exc
+
+
+def task_headline(task_key, lang, category=None):
+    """Two-line slogan for a task; a seller-title item falls back to its category's slogan."""
+    try:
+        if task_key in TASK_HEADLINE:
+            return list(TASK_HEADLINE[task_key][lang])
+        return list(CATEGORY_HEADLINE[category][lang])
+    except (KeyError, TypeError) as exc:
+        raise ValueError('task_headline_missing') from exc

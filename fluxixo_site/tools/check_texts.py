@@ -81,6 +81,26 @@ def check_string(text, lang, where, problems):
         bad('French needs a (non-breaking) space before ! ? ; :')
 
 
+def words(text):
+    return re.findall(r'[\w֐-׿]+', text.casefold())
+
+
+# Filler a generator puts in when it has nothing to say.
+FILLER = {'aliexpress', 'fluxixo', 'seller', 'title', 'vendedor', 'vendeur', 'título', 'titre', 'продавца', 'название'}
+
+
+def check_slogan(name, headline, where, problems):
+    """A slogan must add something: not the name cut in two, not a shorter copy of it, not filler."""
+    slogan = words(flat(headline))
+    if not slogan:
+        problems.append(f'{where}/headline: empty')
+        return
+    if set(slogan) <= set(words(name)):
+        problems.append(f'{where}/headline: only repeats the product name -> {flat(headline)!r}')
+    elif set(slogan) & FILLER:
+        problems.append(f'{where}/headline: filler instead of a slogan -> {flat(headline)!r}')
+
+
 def run(dump=None):
     data, products = texts()
     problems = []
@@ -95,6 +115,7 @@ def run(dump=None):
                 continue
             if not isinstance(t['headline'], list) or len(t['headline']) != 2:
                 problems.append(f'{pid}/{lang}: headline must be two lines')
+            check_slogan(t['name'], t['headline'], f'{pid}/{lang}', problems)
             for field in FIELDS:
                 check_string(flat(t[field]), lang, f'{pid}/{lang}/{field}', problems)
             if not t['description'].rstrip().endswith(('.', '!', '?', '…')):
@@ -114,6 +135,7 @@ def run(dump=None):
     for p in products:
         for field in FIELDS:
             check_string(flat(p[field]), 'ru', f'{p["id"]}/ru/{field}', problems)
+        check_slogan(p['name'], p['headline'], f'{p["id"]}/ru', problems)
         for fact in p.get('facts', []):
             for part in (fact.get('label'), fact.get('value')):
                 if part and part not in ('Подборка',) and fact.get('label') != 'Подборка':

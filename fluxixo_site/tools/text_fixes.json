@@ -1,6 +1,7 @@
 {
   "_about": "Proofreading corrections, applied by tools/apply_text_fixes.py. Keys are product id prefixes. A headline is written as 'first line|second line'. Safe to re-apply any time.",
   "es": {
+    "auto-1005004679234788": {"headline": "¿Tornillo barrido?|Tiene salida."},
     "find-002": {"headline": "Carne|en su punto."},
     "find-003": {"headline": "Noches|sin moscos."},
     "find-004": {"headline": "Firme|en tu casco."},
@@ -25,6 +26,7 @@
     "import-0530": {"name": "Chamarra Impermeable de Invierno para Perro", "description": "Chamarra acolchada resistente al agua con argolla para correa para pasear a tu perro en invierno."}
   },
   "pt": {
+    "auto-1005004679234788": {"headline": "Parafuso espanado?|Tem saída."},
     "find-002": {"headline": "Carne|no ponto."},
     "find-003": {"headline": "Noite|sem mosquito."},
     "find-004": {"headline": "Firme|no capacete."},
@@ -36,6 +38,7 @@
     "import-0026": {"headline": "Clique rápido,|controle total."}
   },
   "en": {
+    "auto-1005004679234788": {"headline": "Stripped screw?|Not a dead end."},
     "find-001": {"headline": "A breeze|on your neck."},
     "find-002": {"name": "Dual-Probe Meat Thermometer", "headline": "Cooked|just right."},
     "find-003": {"headline": "Bug-free|evenings."},
@@ -63,6 +66,7 @@
     "import-0545": {"headline": "Walk-ready|every day."}
   },
   "fr": {
+    "auto-1005004679234788": {"headline": "Vis abîmée ?|Pas de panique."},
     "find-002": {"name": "Thermomètre à Viande à Double Sonde", "headline": "Cuisson|à point."},
     "find-003": {"headline": "Soirées|sans moustiques."},
     "find-004": {"headline": "Bien fixé|au casque."},
@@ -75,6 +79,7 @@
     "import-0530": {"headline": "Promenade|bien au chaud."}
   },
   "he": {
+    "auto-1005004679234788": {"headline": "בורג שנהרס?|יש פתרון."},
     "find-001": {"headline": "רוח קרירה|על הצוואר."},
     "find-002": {"headline": "בשר במידה|המדויקת."},
     "find-003": {"headline": "ערב|בלי יתושים."},
@@ -83,11 +88,13 @@
     "find-015": {"headline": "אל תפספסו|נשיכה."},
     "find-026": {"headline": "פירות|שטופים היטב."},
     "find-034": {"headline": "שומרים|על הקצב."},
+    "find-051": {"headline": "תכשיטים|נוצצים מחדש."},
     "find-052": {"description": "מד מרחק לייזר קומפקטי עם מסך מואר, חישוב שטח ושתי פלסות מובנות."},
     "find-069": {"description": "משקל תלייה קומפקטי עם רצועה חזקה וצג LCD לשקילת מזוודות לפני היציאה לשדה התעופה."},
     "find-089": {"name": "משטח ליקוק מסיליקון עם כוסות יניקה לחיות מחמד"}
   },
   "ru": {
+    "auto-1005004679234788": {"headline": "Сорванный винт —|не приговор."},
     "find-001": {"headline": "Ветерок|на шее."},
     "find-002": {"headline": "Мясо нужной|прожарки."},
     "find-003": {"headline": "Вечер|без комаров."},

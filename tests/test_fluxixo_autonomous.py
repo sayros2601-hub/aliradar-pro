@@ -103,6 +103,21 @@ class AutonomousSelectionTests(unittest.TestCase):
         self.assertIn('mirror size', translations['en']['description'])
         self.assertNotIn('Telescopic', item['description'])
         self.assertFalse(item['demo'])
+        # The slogan says something of its own instead of repeating the product name.
+        for value in [item, *translations.values()]:
+            self.assertEqual(2, len(value['headline']))
+            self.assertNotEqual(value['name'].casefold(), ' '.join(value['headline']).rstrip('.').casefold())
+        self.assertEqual(['Видно', 'даже за углом.'], item['headline'])
+
+    def test_every_task_has_a_slogan_in_every_language(self):
+        from fluxixo_ai.task_copy import TASK_HEADLINE, CATEGORY_HEADLINE, LANGS
+        from fluxixo_ai.publisher import CATEGORIES
+        self.assertEqual({s['key'] for s in SEEDS}, set(TASK_HEADLINE))
+        self.assertEqual(set(CATEGORIES), set(CATEGORY_HEADLINE))
+        for table in (TASK_HEADLINE, CATEGORY_HEADLINE):
+            for lines in table.values():
+                self.assertEqual(set(LANGS), set(lines))
+                self.assertTrue(all(len(pair) == 2 and all(part.strip() for part in pair) for pair in lines.values()))
 
     def test_mismatched_task_cannot_manufacture_name_or_description(self):
         candidate = discover(self.api, [], 1, NOW, seeds=[seed()])[0]

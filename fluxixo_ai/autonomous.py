@@ -21,7 +21,7 @@ import tempfile
 from urllib.parse import urlsplit
 from .policy import QUERY, DETAIL, normalize_product, image_host_allowed
 from .search import _rows, generate_affiliate, ApiError
-from .task_copy import task_description
+from .task_copy import task_description, task_headline
 
 LANGS = ('ru', 'en', 'pt', 'es', 'fr', 'he')
 CHECK = {
@@ -201,8 +201,8 @@ def build_record(candidate):
         if candidate.get('category') not in CATEGORIES:
             raise AutonomousError('candidate_category_invalid')
         localized = source_content(candidate)
-        for content in localized.values():
-            content['headline'] = _headline(content['name'])
+        for lang, content in localized.items():
+            content['headline'] = task_headline('seller_title', lang, candidate['category'])
         task = {'names': {lang: localized[lang]['name'] for lang in LANGS}, 'category': candidate['category'],
                 'market': candidate['market'], 'theme': 'lavender', 'key': 'seller_title'}
     product_id = candidate.get('product_id')
@@ -214,7 +214,7 @@ def build_record(candidate):
         localized = {}
         for lang in LANGS:
             name = task['names'][lang]
-            localized[lang] = {'name': name, 'headline': _headline(name),
+            localized[lang] = {'name': name, 'headline': task_headline(task['key'], lang),
                                'description': task_description(task['key'], lang)}
     internal = 'auto-' + product_id
     record = {'id': internal, **localized['ru'], 'category': task['category'],
