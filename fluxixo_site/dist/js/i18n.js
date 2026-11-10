@@ -5989,7 +5989,7 @@
         "Screw",
         "extractor"
       ],
-      "description": "Screw extractor. Before buying, check the selected option and terms in the seller listing."
+      "description": "A screw extractor for removing damaged screws. Check the diameters, tool compatibility and included pieces with the seller."
     },
     "pt": {
       "name": "Extrator de parafusos",
@@ -5997,7 +5997,7 @@
         "Extrator",
         "de parafusos"
       ],
-      "description": "Extrator de parafusos. Antes de comprar, confira a opção escolhida e as condições do vendedor."
+      "description": "Extrator para remover parafusos danificados. Confira os diâmetros, a compatibilidade com a ferramenta e os itens incluídos."
     },
     "es": {
       "name": "Extractor de tornillos",
@@ -6005,7 +6005,7 @@
         "Extractor",
         "de tornillos"
       ],
-      "description": "Extractor de tornillos. Antes de comprar, revisa la opción elegida y las condiciones del vendedor."
+      "description": "Extractor para retirar tornillos dañados. Comprueba los diámetros, la compatibilidad con la herramienta y el contenido."
     },
     "fr": {
       "name": "Extracteur de vis",
@@ -6013,7 +6013,7 @@
         "Extracteur",
         "de vis"
       ],
-      "description": "Extracteur de vis. Avant l’achat, vérifiez la variante choisie et les conditions du vendeur."
+      "description": "Extracteur pour retirer des vis abîmées. Vérifiez les diamètres, la compatibilité avec votre outil et le contenu auprès du vendeur."
     },
     "he": {
       "name": "חולץ ברגים",
@@ -6021,7 +6021,7 @@
         "חולץ",
         "ברגים"
       ],
-      "description": "חולץ ברגים. לפני הקנייה יש לבדוק את האפשרות שנבחרה ואת תנאי המוכר."
+      "description": "חולץ להוצאת ברגים פגומים. יש לבדוק עם המוכר קטרים, התאמה לכלי ואת תכולת המוצר."
     }
   }
 };
