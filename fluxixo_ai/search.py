@@ -18,6 +18,17 @@ LIMITS = ('A country-filtered detail result is not SKU stock or address-level sh
           'Popular API results are a comparison background, not advertising saturation.',
           'No API observation proves global uniqueness or absence from social advertising.')
 
+def _source_diagnostic(row,error):
+    """Public URL shape only, never signed request data or response bodies."""
+    shape={}
+    for field in ('product_detail_url','product_main_image_url','promotion_link'):
+        try:
+            value=urlsplit(str(row.get(field,'')))
+            shape[field]={'scheme':value.scheme[:12],'host':(value.hostname or '')[:253]}
+        except ValueError:shape[field]={'status':'malformed'}
+    message=str(error)
+    return {'validation':message if re.fullmatch(r'[A-Za-z_ .]{1,80}',message) else 'invalid_source', 'url_shape':shape}
+
 class ApiError(RuntimeError):
     pass
 
@@ -85,8 +96,8 @@ def search_products(call,query,markets,limit=20,observed_at=None):
                     try:
                         item=normalize_product(row,market,QUERY,stamp)
                         observations.setdefault(item['product_id'],[]).append(item)
-                    except ValueError:
-                        rejected.append({'market':market,'reason':'invalid_or_mismatching_identity_or_source'})
+                    except ValueError as error:
+                        rejected.append({'market':market,'reason':'invalid_or_mismatching_identity_or_source',**_source_diagnostic(row,error)})
             except (ApiError,ValueError):warnings.append({'market':market,'operation':'query','status':'unavailable'})
         try:
             rows=_rows(call(HOT,{'keywords':query.strip(),'ship_to_country':market,'target_currency':'USD','target_language':'EN','page_size':'20','tracking_id':'default'}),HOT)
