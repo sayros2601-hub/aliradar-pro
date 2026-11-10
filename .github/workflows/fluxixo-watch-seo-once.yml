@@ -1,0 +1,64 @@
+name: FLUXIXO watch page SEO deploy
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'fluxixo_site/redesign/build_redesign.py'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: fluxixo-daily-accumulation
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  watch-seo-only:
+    if: "${{ github.event.head_commit.message == 'seo: improve existing watch page' }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout latest main under the existing writer group
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install build dependency
+        run: python -m pip install 'Pillow==12.3.0'
+      - name: Test the targeted watch page and prepare a release
+        env:
+          PYTHONDONTWRITEBYTECODE: '1'
+        run: |
+          python fluxixo_site/tools/build_search.py
+          python fluxixo_site/redesign/build_redesign.py --production
+          python fluxixo_site/build_release.py
+          python fluxixo_site/tools/verify_release.py fluxixo_site/release
+          python - <<'PY'
+          from pathlib import Path
+          page = Path('fluxixo_site/release/products/import-0024/index.html').read_text(encoding='utf-8')
+          assert 'Купить наручные часы — умные часы на AliExpress | FLUXIXO' in page
+          assert '<h1 class="d">Умные наручные часы</h1>' in page
+          assert 'https://s.click.aliexpress.com/e/_c2vkUuwb' in page
+          assert 'https://www.fluxixo.shop/products/import-0024/' in page
+          print('Watch page release checks passed')
+          PY
+      - name: Ensure main did not advance during the build
+        run: |
+          git fetch --depth=1 origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)" || { echo 'Main advanced; refusing to deploy a stale release.'; exit 1; }
+      - name: Deploy the verified release to Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
+        run: |
+          npx --yes wrangler@4.151.3 pages deploy fluxixo_site/release --project-name=dealvault --branch=main --commit-hash="$(git rev-parse HEAD)"

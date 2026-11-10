@@ -49,6 +49,14 @@ VERIFY = ('<meta name="google-site-verification" content="BUSamFSGELSfaWQEaVVj2Q
           '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2"><meta name="yandex-verification" content="deee62492f76cf5b">')
 ROOT_TITLE = 'FLUXIXO | Curated AliExpress Finds'
 ROOT_DESC = 'Three new AliExpress finds every day: gadgets, home and kitchen tools, and travel accessories. Compare studio images with original seller photos.'
+WATCH_SEO_RU = {
+    'title': 'Купить наручные часы — умные часы на AliExpress | FLUXIXO',
+    'description': 'Купить наручные часы: умные часы с экраном. Сравните изображения и уточните характеристики, стоимость и доставку у продавца AliExpress.',
+    'heading': 'Умные наручные часы',
+    'copy': ('Умные наручные часы с экраном. Купить часы можно у продавца на AliExpress; '
+             'модель и характеристики по сохранённому каталогу не подтверждены. До заказа '
+             'проверьте совместимость со смартфоном, размер, цену, доставку и возврат.'),
+}
 
 
 def load():
@@ -273,6 +281,10 @@ class Site:
             key, path, name = p['world'], self.ppath(p), p['name']
             title = L.fit_title(name, self.lang)
             desc = L.fit_description(p['description'], self.lang)
+            page_description = p['description']
+            if self.lang == 'ru' and p['id'] == 'import-0024':
+                name, title = WATCH_SEO_RU['heading'], WATCH_SEO_RU['title']
+                desc, page_description = WATCH_SEO_RU['description'], WATCH_SEO_RU['copy']
             crumbs = [(u['home'], self.home()), (self.cat(key), self.cpath(key)), (name, path)]
             schema = L.item_page_schema(ORIGIN, path, title, desc, p['image'], self.lang, L.STAGE_CAPTION[self.lang], crumbs)
             facts = ''.join(f'<li>{e(L.translate_fact(self.data, f["label"], self.lang))}: {e(L.translate_fact(self.data, f["value"], self.lang))}</li>'
@@ -281,7 +293,7 @@ class Site:
             related = [q for q in self.in_world(key) if q['id'] != p['id']][:4]
             body = (f'<section class="p-hero{" dark" if p["dark"] else ""}" data-swipe data-prev="{self.ppath(prev)}" data-next="{self.ppath(nxt)}">'
                     f'<ol class="crumbs" aria-label="{e(L.BREADCRUMB_ARIA[self.lang])}">{crumb_html}</ol><h1 class="d">{e(name)}</h1>'
-                    f'<div class="p-body"><div class="p-text"><p class="s">{e(" ".join(p["headline"]))}</p><p class="t">{e(p["description"])}</p>'
+                    f'<div class="p-body"><div class="p-text"><p class="s">{e(" ".join(p["headline"]))}</p><p class="t">{e(page_description)}</p>'
                     f'{"<ul class=facts>" + facts + "</ul>" if facts else ""}'
                     f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(u["note"])} {e(L.DISCLOSURE[self.lang])}</p></div>'
                     f'<div class="p-stage"><img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" fetchpriority="high" decoding="async">'
