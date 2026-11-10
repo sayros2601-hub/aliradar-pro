@@ -103,6 +103,41 @@ def _metric(value: object, field: str) -> dict:
     return {'raw_value': value, 'scope': 'unknown', 'period': 'unknown', 'interpreted': False}
 
 
+def _shape(value, missing=False):
+    if missing:return 'missing'
+    if value is None:return 'null'
+    if isinstance(value,str):return 'string'
+    if isinstance(value,list):return 'list'
+    if isinstance(value,dict):
+        if 'string' not in value:return 'object.string:missing'
+        child=value['string']
+        return 'object.string:'+('object' if isinstance(child,dict) else _shape(child))
+    return 'other'
+
+
+def image_field_shapes(raw):
+    if not isinstance(raw,dict):return {}
+    fields=('product_main_image_url','product_small_image_urls')
+    return {field:[_shape(raw.get(field),field not in raw)] for field in fields}
+
+
+def _image_observation(raw, image):
+    """Capture field names/types and only provider-hosted image URLs, never raw blobs."""
+    shapes=image_field_shapes(raw)
+    value=raw.get('product_small_image_urls')
+    if isinstance(value,dict):value=value.get('string')
+    if isinstance(value,str):value=[value]
+    if not isinstance(value,list):value=[]
+    images=[image] if image else []
+    for candidate in value[:40]:
+        if not isinstance(candidate,str):continue
+        try: url=_url(candidate,'product_small_image_urls',image_host_allowed)
+        except ValueError:continue
+        if url and url not in images:images.append(url)
+        if len(images)>=10:break
+    return images, shapes
+
+
 def normalize_product(raw: dict, market: str, method: str, timestamp: str) -> dict:
     """Normalize one *returned* product, without interpreting missing fields as facts.
 
@@ -124,6 +159,7 @@ def normalize_product(raw: dict, market: str, method: str, timestamp: str) -> di
     canonical_detail = f'https://www.aliexpress.com/item/{product_id}.html'
     image = _url(raw.get('product_main_image_url'), 'product_main_image_url',
                  image_host_allowed)
+    image_urls, image_shapes = _image_observation(raw, image)
     raw_promotion = _text(raw.get('promotion_link'), 'promotion_link', limit=4096)
     promotion_status = 'not_provided'
     promotion = None
@@ -153,7 +189,8 @@ def normalize_product(raw: dict, market: str, method: str, timestamp: str) -> di
                                                     'product_id': product_id, 'observed_at': observed_at}
     return {
         'product_id': product_id, 'title': title, 'detail_url': canonical_detail,
-        'source_detail_url': detail, 'image_url': image, 'promotion_link': promotion, 'promotion_link_status': promotion_status,
+        'source_detail_url': detail, 'image_url': image, 'image_urls':image_urls,
+        'source_image_field_shapes':image_shapes, 'promotion_link': promotion, 'promotion_link_status': promotion_status,
         'brand': brand, 'model': model, 'model_key': _model_key(brand, model),
         'source': {'method': method, 'queried_market': market, 'observed_at': observed_at},
         'markets': markets, 'seller_metrics': metrics, 'seller_metric_observations': [metric_observation],
@@ -172,6 +209,14 @@ def merge_observations(observations: list[dict]) -> dict:
             raise ValueError('Cannot merge different products')
         if current.get('detail_url') != merged.get('detail_url'):
             raise ValueError('Inconsistent product identity')
+        images=merged.setdefault('image_urls',[merged['image_url']] if merged.get('image_url') else [])
+        for url in current.get('image_urls', [current['image_url']] if current.get('image_url') else []):
+            if url not in images and len(images)<10:images.append(url)
+        shapes=merged.setdefault('source_image_field_shapes',{})
+        for field, observed in current.get('source_image_field_shapes',{}).items():
+            bucket=shapes.setdefault(field,[])
+            for shape in observed:
+                if shape not in bucket and len(bucket)<10:bucket.append(shape)
         for observation in current.get('seller_metric_observations', []):
             if observation not in merged['seller_metric_observations']:
                 merged['seller_metric_observations'].append(copy.deepcopy(observation))
@@ -208,6 +253,19 @@ def _valid_candidate(candidate: dict) -> bool:
                for key in ('product_id', 'title', 'detail_url', 'source_detail_url', 'image_url',
                            'promotion_link', 'brand', 'model', 'model_key', 'seller_metrics')):
             return False
+        if 'image_urls' in candidate or 'source_image_field_shapes' in candidate:
+            images=candidate.get('image_urls');shapes=candidate.get('source_image_field_shapes')
+            if (not isinstance(images,list) or len(images)>10 or len(set(images))!=len(images)
+                    or (candidate.get('image_url') and (not images or images[0]!=candidate['image_url']))):
+                return False
+            for image in images:
+                if _url(image,'image_urls',image_host_allowed)!=image:return False
+            allowed_shapes={'missing','null','string','list','other','object.string:missing',
+                            'object.string:null','object.string:string','object.string:list','object.string:other','object.string:object'}
+            if (not isinstance(shapes,dict) or set(shapes)!={'product_main_image_url','product_small_image_urls'}
+                    or any(not isinstance(v,list) or not v or len(v)>10 or len(set(v))!=len(v)
+                           or any(shape not in allowed_shapes for shape in v) for v in shapes.values())):
+                return False
         observations = candidate['seller_metric_observations']
         if not isinstance(observations, list) or not observations or reconstructed['seller_metric_observations'][0] not in observations:
             return False

@@ -27,6 +27,40 @@ def selection():
 
 
 class AliPolicyTests(unittest.TestCase):
+    def test_alternate_images_only_use_bounded_allowed_provider_urls(self):
+        source={'string':['https://ae01.alicdn.com/kf/second.jpg',
+                          'https://ae-pic.aliexpress-media.com/kf/third.jpg',
+                          'https://alicdn.com.evil.test/fake.jpg',
+                          'http://ae01.alicdn.com/insecure.jpg']}
+        p=product(product_small_image_urls=source)
+        self.assertEqual(p['image_urls'],['https://ae01.alicdn.com/kf/example.jpg',
+                                         'https://ae01.alicdn.com/kf/second.jpg',
+                                         'https://ae-pic.aliexpress-media.com/kf/third.jpg'])
+        self.assertEqual(p['source_image_field_shapes']['product_small_image_urls'],['object.string:list'])
+        self.assertTrue(evaluate_candidate(p,selection())['eligible'])
+        p['image_urls'].append('https://alicdn.com.evil.test/fake.jpg')
+        self.assertIn('INVALID_SOURCE_EVIDENCE',evaluate_candidate(p,selection())['reasons'])
+
+    def test_image_shapes_and_same_product_merge_are_observation_bound(self):
+        first=product(market='US',product_small_image_urls={'string':'https://ae01.alicdn.com/kf/second.jpg'})
+        second=product(market='BR',product_small_image_urls=['https://ae01.alicdn.com/kf/third.jpg'])
+        combined=merge_observations([first,second])
+        self.assertEqual(combined['image_urls'],['https://ae01.alicdn.com/kf/example.jpg',
+                                                'https://ae01.alicdn.com/kf/second.jpg',
+                                                'https://ae01.alicdn.com/kf/third.jpg'])
+        self.assertEqual(combined['source_image_field_shapes']['product_small_image_urls'],['object.string:string','list'])
+        self.assertTrue(evaluate_candidate(combined,selection())['eligible'])
+
+    def test_unexpected_nested_image_shape_does_not_invalidate_good_main_photo(self):
+        p=product(product_small_image_urls={'string':{'unexpected':'value'}})
+        self.assertEqual(p['source_image_field_shapes']['product_small_image_urls'],['object.string:object'])
+        self.assertEqual(p['image_urls'],[p['image_url']])
+        self.assertTrue(evaluate_candidate(p,selection())['eligible'])
+    def test_provider_cdn_observed_in_live_api_and_deceptive_suffix(self):
+        p=product(product_main_image_url='https://ae-pic-a1.aliexpress-media.com/kf/fixture.jpg')
+        self.assertIn('aliexpress-media.com',p['image_url'])
+        with self.assertRaises(ValueError):
+            product(product_main_image_url='https://ae-pic-a1.aliexpress-media.com.evil.test/kf/fixture.jpg')
     def test_query_destination_is_not_availability_or_shipping_evidence(self):
         p = product(market='BR', method='aliexpress.affiliate.product.query')
         self.assertEqual(set(p['markets']), set(MARKETS))

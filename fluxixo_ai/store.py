@@ -25,7 +25,7 @@ SHA = re.compile(r'^[0-9a-f]{40}$')
 DEPLOYMENT = re.compile(r'^[A-Za-z0-9_-]{1,128}$')
 METHODS = frozenset(('aliexpress.affiliate.product.query', 'aliexpress.affiliate.productdetail.get'))
 FIELDS = frozenset(('product_id', 'model_key', 'detail_url', 'title', 'evidence', 'content', 'markets',
-                    'category', 'image_url', 'affiliate_url', 'theme', 'selection'))
+                    'category', 'image_url', 'image_urls', 'affiliate_url', 'theme', 'selection'))
 EVIDENCE_FIELDS = frozenset(('method', 'product_id', 'request_id', 'observed_at', 'target_language',
                              'ship_to_country', 'response_sha256'))
 FORBIDDEN_KEYS = frozenset(('secret', 'password', 'token', 'authorization', 'cookie', 'api_key', 'app_key', 'app_secret'))

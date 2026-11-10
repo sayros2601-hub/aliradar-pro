@@ -88,4 +88,37 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(result['candidates'],[])
         self.assertFalse(any(w['operation']=='query' for w in result['warnings']))
 
+    def test_limited_results_cover_later_market_and_summary_counts_all_candidates(self):
+        search,_=self.api()
+        def row(pid):
+            value={'product_id':pid,'product_title':'Synthetic inspect fixture '+pid,
+                   'product_detail_url':f'https://www.aliexpress.com/item/{pid}.html',
+                   'product_main_image_url':'https://ae01.alicdn.com/kf/test.jpg'}
+            if pid=='100000000002':value['product_small_image_urls']={'string':['https://ae01.alicdn.com/kf/small.jpg']}
+            return value
+        ids=[str(100000000001+n) for n in range(4)]
+        def call(method,params):
+            if method=='aliexpress.affiliate.product.query':
+                rows=[row(pid) for pid in (ids[:3] if params['ship_to_country']=='US' else ids[3:])]
+            elif method.endswith('productdetail.get'):
+                requested=set(params['product_ids'].split(','))
+                rows=[row(pid) for pid in (ids[:3] if params['country']=='US' else ids[3:]) if pid in requested]
+            else:rows=[]
+            return {method.replace('.','_')+'_response':{'resp_result':{'resp_code':200,'result':{'products':{'product':rows}}}}}
+        result=search(call,'synthetic fixture',['US','MX'],limit=2,observed_at='2026-11-10T12:00:00Z')
+        self.assertEqual(result['considered_count'],4)
+        self.assertEqual([p['product_id'] for p in result['candidates']],[ids[0],ids[3]])
+        self.assertEqual(result['market_summary']['US'],{'confirmed':3,'unknown':1})
+        self.assertEqual(result['market_summary']['MX'],{'confirmed':1,'unknown':3})
+        self.assertIn('object.string:list',result['source_image_field_shapes']['product_small_image_urls'])
+        self.assertTrue(result['truncated'])
+
+    def test_malformed_non_object_rows_do_not_crash_the_whole_search(self):
+        search,_=self.api()
+        def call(method,params):
+            return {method.replace('.','_')+'_response':{'resp_result':{'resp_code':200,'result':{'products':{'product':[None,'not-a-product',123]}}}}}
+        result=search(call,'inspection fixture',['US'],observed_at='2026-11-10T12:00:00Z')
+        self.assertEqual(result['candidates'],[])
+        self.assertGreater(len(result['rejected']),0)
+
 if __name__=='__main__':unittest.main()

@@ -8,7 +8,7 @@ import os
 import re
 from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
-from .policy import MARKETS, QUERY, DETAIL, normalize_product, merge_observations
+from .policy import MARKETS, QUERY, DETAIL, normalize_product, merge_observations, image_field_shapes
 
 LINK = 'aliexpress.affiliate.link.generate'
 HOT = 'aliexpress.affiliate.hotproduct.query'
@@ -20,6 +20,7 @@ LIMITS = ('A country-filtered detail result is not SKU stock or address-level sh
 
 def _source_diagnostic(row,error):
     """Public URL shape only, never signed request data or response bodies."""
+    if not isinstance(row,dict):return {'validation':'invalid_source','url_shape':{}}
     shape={}
     for field in ('product_detail_url','product_main_image_url','promotion_link'):
         try:
@@ -79,6 +80,19 @@ def _rows(response,method):
     if not isinstance(rows,list):raise ApiError('api_shape_invalid')
     return rows
 
+
+def _representative(candidates, markets, limit):
+    """Cover observed confirmed markets first; this is not a quality or rarity score."""
+    remaining=list(candidates);selected=[];covered=set();requested=set(markets)
+    while remaining and len(selected)<limit:
+        def key(candidate):
+            confirmed={market for market in requested if candidate['markets'][market]['sellable']=='confirmed'}
+            return (-len(confirmed-covered),-len(confirmed),int(candidate['product_id']))
+        choice=min(remaining,key=key)
+        remaining.remove(choice);selected.append(choice)
+        covered.update(market for market in requested if choice['markets'][market]['sellable']=='confirmed')
+    return selected
+
 def search_products(call,query,markets,limit=20,observed_at=None):
     if not isinstance(query,str) or not 3<=len(query.strip())<=240 or any(ord(c)<32 for c in query):
         raise ValueError('query_invalid')
@@ -87,12 +101,18 @@ def search_products(call,query,markets,limit=20,observed_at=None):
     if isinstance(limit,bool) or not isinstance(limit,int) or not 1<=limit<=50:raise ValueError('limit_invalid')
     stamp=observed_at or datetime.now(timezone.utc).isoformat()
     observations={};warnings=[];rejected=[];baseline=[]
+    image_shapes={'product_main_image_url':[],'product_small_image_urls':[]}
+    def record_image_shapes(row):
+        for field, shapes in image_field_shapes(row).items():
+            for shape in shapes:
+                if shape not in image_shapes[field]:image_shapes[field].append(shape)
     for market in markets:
         for page in (1,2):
             try:
                 rows=_rows(call(QUERY,{'keywords':query.strip(),'ship_to_country':market,'target_currency':'USD','target_language':'EN','page_size':'20','page_no':str(page),'tracking_id':'default'}),QUERY)
                 if len(rows)>20:warnings.append({'market':market,'operation':'query','status':'response_truncated_to_page_size'})
                 for row in rows[:20]:
+                    record_image_shapes(row)
                     try:
                         item=normalize_product(row,market,QUERY,stamp)
                         observations.setdefault(item['product_id'],[]).append(item)
@@ -119,6 +139,7 @@ def search_products(call,query,markets,limit=20,observed_at=None):
                 rows=_rows(call(DETAIL,{'product_ids':','.join(sorted(requested)),'country':market,'target_currency':'USD','target_language':'EN','tracking_id':'default'}),DETAIL)
                 if len(rows)>20:warnings.append({'market':market,'operation':'productdetail.get','status':'response_truncated_to_page_size'})
                 for row in rows[:20]:
+                    record_image_shapes(row)
                     if not isinstance(row,dict):
                         rejected.append({'market':market,'reason':'invalid_detail_identity'});continue
                     if str(row.get('product_id')) not in requested:continue
@@ -128,10 +149,14 @@ def search_products(call,query,markets,limit=20,observed_at=None):
                     except ValueError:rejected.append({'market':market,'reason':'invalid_detail_identity'})
             except (ApiError,ValueError):warnings.append({'market':market,'operation':'productdetail.get','status':'unavailable_no_sellability_confirmation'})
     candidates=[merge_observations(v) for v in observations.values()]
+    summary={market:{'confirmed':sum(p['markets'][market]['sellable']=='confirmed' for p in candidates),
+                     'unknown':sum(p['markets'][market]['sellable']=='unknown' for p in candidates)} for market in markets}
     return {'query':query.strip(),'markets':markets,'observed_at':stamp,'considered_count':len(candidates),
-            'candidates':candidates[:limit],'candidate_limit':limit,'truncated':len(candidates)>limit,
+            'candidates':_representative(candidates,markets,limit),'candidate_limit':limit,'truncated':len(candidates)>limit,
+            'market_summary':summary,
+            'source_image_field_shapes':image_shapes,
             'rejected':rejected,'warnings':warnings,'popular_background':baseline,'limitations':list(LIMITS),
-            'selection':'No first-result auto-selection; the calling AI compares this pool and records reasons.'}
+            'selection':'Limited results prioritize coverage of confirmed markets, then confirmed market count and product ID; this is not a quality, popularity, ad or rarity score. The calling AI compares the pool and records reasons.'}
 
 def generate_affiliate(call,candidate):
     pid=candidate.get('product_id');detail=candidate.get('detail_url')

@@ -60,7 +60,7 @@ def handle_request(operation,payload,identifier,call,store,load_search,*,now=Non
             # AI prose is reasoning, never silently promoted to seller facts.
             from .publisher import source_content
             entry={'product_id':pid,'model_key':candidate.get('model_key'),'detail_url':candidate['detail_url'],'title':candidate['title'],
-                   'image_url':candidate['image_url'],'affiliate_url':generate_affiliate(call,candidate),
+                   'image_url':candidate['image_url'],'image_urls':candidate.get('image_urls',[candidate['image_url']]),'affiliate_url':generate_affiliate(call,candidate),
                    'category':selection['category'],'content':source_content(candidate),
                    'markets':{m:candidate['markets'][m] for m in markets},
                    'evidence':{'method':candidate['source']['method'],'product_id':pid,'request_id':ref,
