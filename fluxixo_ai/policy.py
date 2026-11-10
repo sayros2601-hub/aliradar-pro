@@ -17,6 +17,11 @@ MARKETS = ('US', 'BR', 'MX', 'IL', 'FR')
 QUERY = 'aliexpress.affiliate.product.query'
 DETAIL = 'aliexpress.affiliate.productdetail.get'
 _DETAIL_HOSTS = {'aliexpress.com', 'www.aliexpress.com', 'm.aliexpress.com'}
+
+def image_host_allowed(host: str) -> bool:
+    # aliexpress-media.com was observed in authenticated product-query results;
+    # retain an exact domain boundary rather than accepting arbitrary URLs.
+    return any(host==base or host.endswith('.'+base) for base in ('alicdn.com','aliexpress-media.com'))
 _GENERIC = {
     'general', 'generic', 'everyday', 'everyday use', 'daily use', 'for daily use',
     'for everyday use', 'home', 'kitchen', 'travel', 'accessories', 'convenience',
@@ -118,7 +123,7 @@ def normalize_product(raw: dict, market: str, method: str, timestamp: str) -> di
         raise ValueError('Product ID does not match detail URL')
     canonical_detail = f'https://www.aliexpress.com/item/{product_id}.html'
     image = _url(raw.get('product_main_image_url'), 'product_main_image_url',
-                 lambda host: host == 'alicdn.com' or host.endswith('.alicdn.com'))
+                 image_host_allowed)
     raw_promotion = _text(raw.get('promotion_link'), 'promotion_link', limit=4096)
     promotion_status = 'not_provided'
     promotion = None
