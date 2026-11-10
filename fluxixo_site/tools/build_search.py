@@ -356,27 +356,10 @@ for p in products:
 write('pinterest-feed.csv', csv_buf.getvalue())
 write('social-feed.json', json.dumps(social_posts, ensure_ascii=False, indent=2))
 
-statefile = ROOT/'tools/search-build-state.json'
-previous = json.loads(statefile.read_text()) if statefile.exists() else {}
-state = {}
-ns = 'http://www.sitemaps.org/schemas/sitemap/0.9'
-ET.register_namespace('', ns)
-sitemap = ET.Element('{'+ns+'}urlset')
-sitemap_ru = ET.Element('{'+ns+'}urlset')
 all_routes = ['/', '/catalog/'] + localized_paths + sorted(cat_paths) + [route(p) for p in products]
-for path in all_routes:
-    file = DIST/(path.strip('/')+'/index.html' if path != '/' else 'index.html')
-    digest = hashlib.sha256(file.read_bytes().replace(b'\r\n', b'\n')).hexdigest()
-    old = previous.get(path, {})
-    changed = old.get('lastmod') if old.get('sha256') == digest else datetime.now(timezone.utc).isoformat(timespec='seconds')
-    state[path] = {'sha256': digest, 'lastmod': changed}
-    for target in (sitemap, sitemap_ru) if not re.match(r'/(en|pt|es|fr|he)/', path) else (sitemap,):
-        url = ET.SubElement(target, '{'+ns+'}url')
-        ET.SubElement(url, '{'+ns+'}loc').text = ORIGIN+path
-        ET.SubElement(url, '{'+ns+'}lastmod').text = changed
-ET.indent(sitemap)
-ET.indent(sitemap_ru)
-write('sitemap.xml', ET.tostring(sitemap, encoding='unicode', xml_declaration=True)+'\n')
-write('sitemap-ru.xml', ET.tostring(sitemap_ru, encoding='unicode', xml_declaration=True)+'\n')
-statefile.write_text(json.dumps(state, indent=2), encoding='utf-8')
-print(f'Built {len(products)} product pages, {len(cat_paths)} category hubs, catalog, rss.xml, pinterest-feed.csv, sitemap ({len(state)} URLs), robots, verification and IndexNow files.')
+# The storefront design rewrites these pages next, so the page fingerprints and lastmod dates are only
+# recorded afterwards, by tools/write_sitemaps.py. The maps written here are an interim copy with stored dates.
+write('../tools/sitemap-routes.json', json.dumps(all_routes, indent=1) + '\n')
+from write_sitemaps import write_sitemaps
+write_sitemaps(DIST, all_routes, update_state=False)
+print(f'Built {len(products)} product pages, {len(cat_paths)} category hubs, catalog, rss.xml, pinterest-feed.csv, interim sitemap ({len(all_routes)} URLs), robots, verification and IndexNow files.')

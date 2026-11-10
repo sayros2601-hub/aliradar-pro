@@ -34,6 +34,22 @@ ACCENT = '#e4007c'
 INK = '#121014'
 PAPER = '#f3f0e9'
 
+
+def last_drop_day():
+    """UTC day of the latest real addition, from the daily job's ledger; today when there is no ledger."""
+    try:
+        ledger = json.loads((ROOT.parent / 'data/fluxixo_daily_ledger.json').read_text(encoding='utf-8'))
+        days = [day for day, rows in ledger.get('days', {}).items() if rows]
+        days += [row['day'] for row in ledger.get('validation_runs', {}).values() if row.get('day')]
+        if days:
+            return max(days)
+    except (OSError, ValueError, KeyError, TypeError, AttributeError):
+        pass
+    return datetime.now(timezone.utc).date().isoformat()
+
+
+LAST_DROP = last_drop_day()
+
 # One calm pastel per world; the page repaints to it as the world scrolls into the middle of the screen.
 WORLDS = {
     'Техника': '#dfe5fb', 'Дом': '#f1e3cf', 'Кухня': '#d9eede', 'В дороге': '#fbe7a6', 'Инструменты': '#fdd8c4',
@@ -291,8 +307,11 @@ class Site:
         drop = items[:3]
         star = drop[datetime.now(timezone.utc).toordinal() % len(drop)]
         hero = (f'<section class="drop" id="drop" data-page="{PAPER}"><div class="drop-bar">'
-                f'<p class="eye"><b>●</b> {e(u["drop"])} · <span data-today></span></p>'
-                f'<p class="clock">{e(u["next_drop"])}<b data-countdown>--:--:--</b></p></div>'
+                f'<p class="eye"><b>●</b> {e(u["drop"])} · <time data-day datetime="{LAST_DROP}">{LAST_DROP}</time></p>'
+                # GitHub starts the daily job hours late and at a different time each day, so no fake countdown:
+                # "today" until today's drop lands, then "tomorrow".
+                f'<p class="clock">{e(u["next_drop"])}<b data-next="{LAST_DROP}" data-when="{e(u["when"][0])}|{e(u["when"][1])}">'
+                f'{e(u["when"][1] if LAST_DROP >= datetime.now(timezone.utc).date().isoformat() else u["when"][0])}</b></p></div>'
                 f'<h1 class="d">{e(u["h1"][0])}<span class="s">{e(u["h1"][1])}</span></h1>'
                 f'<p class="drop-sub">{e(u["drop_text"])}</p>{self.rope(drop, eager=True)}</section>')
 

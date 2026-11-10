@@ -144,6 +144,19 @@ class AutonomousSelectionTests(unittest.TestCase):
         self.assertFalse(mask_usable(bad))
         self.assertTrue(mask_usable(good))
 
+    def test_seller_step_panel_beside_the_product_is_rejected_but_a_small_accessory_is_not(self):
+        from PIL import Image, ImageDraw
+        with_panel = Image.new('RGBA', (300, 300), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(with_panel)
+        draw.ellipse((20, 40, 180, 260), fill=(90, 90, 90, 255))
+        draw.rectangle((220, 20, 260, 280), fill=(240, 200, 40, 255))  # a tall step-by-step strip
+        with_part = Image.new('RGBA', (300, 300), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(with_part)
+        draw.ellipse((20, 40, 180, 260), fill=(90, 90, 90, 255))
+        draw.rectangle((210, 200, 260, 250), fill=(90, 90, 90, 255))  # a compact accessory in the same set
+        self.assertFalse(mask_usable(with_panel))
+        self.assertTrue(mask_usable(with_part))
+
     def test_ocr_poster_detects_multiple_confident_words(self):
         header = 'level\tpage_num\tblock_num\tpar_num\tline_num\tword_num\tleft\ttop\twidth\theight\tconf\ttext\n'
         def word(s): return '5\t1\t1\t1\t1\t1\t0\t0\t1\t1\t90\t' + s + '\n'

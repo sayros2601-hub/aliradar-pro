@@ -276,22 +276,32 @@ def mask_usable(image):
     if not foreground:
         return False
     remaining = set(foreground)
-    largest = 0
+    parts = []
     while remaining:
         first = remaining.pop()
         queue = deque([first])
-        size = 0
+        size, xs, ys = 0, [], []
         while queue:
             point = queue.popleft()
             size += 1
             x, y = point % 96, point // 96
+            xs.append(x)
+            ys.append(y)
             for neighbor in ((point-1 if x else -1), (point+1 if x<95 else -1),
                              (point-96 if y else -1), (point+96 if y<95 else -1)):
                 if neighbor in remaining:
                     remaining.remove(neighbor)
                     queue.append(neighbor)
-        largest = max(largest, size)
-    return largest / len(foreground) >= 0.5
+        parts.append((size, max(xs) - min(xs) + 1, max(ys) - min(ys) + 1))
+    parts.sort(reverse=True)
+    if parts[0][0] / len(foreground) < 0.5:
+        return False
+    # A solid, long strip beside the product is a seller's step-by-step panel, not part of it.
+    for size, width, height in parts[1:]:
+        if (size / len(foreground) > 0.06 and size / (width * height) > 0.85
+                and max(width, height) / min(width, height) >= 2.5):
+            return False
+    return True
 
 
 def ocr_poster(tsv):

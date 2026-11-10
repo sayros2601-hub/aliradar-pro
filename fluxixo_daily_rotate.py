@@ -155,17 +155,17 @@ def submit_indexnow() -> None:
     key = key_file.read_text(encoding="utf-8").strip()
     urls = [loc.text for loc in ET.parse(sitemap_file).findall(".//{*}loc") if loc.text]
     # Search engines ask for changed pages only; resubmitting the whole site every run gets the signal ignored.
+    # A page is sent once per version: its fingerprint is remembered after a successful submission,
+    # so a rebuild, a retry or a second deploy on the same day sends nothing new.
     state_file = SITE_ROOT / "tools" / "search-build-state.json"
+    sent_file = SITE_ROOT / "tools" / "indexnow-submitted.json"
+    origin = "https://www.fluxixo.shop"
+    fingerprints = {}
     if state_file.exists():
-        from datetime import datetime, timedelta, timezone
-        cutoff = datetime.now(timezone.utc) - timedelta(hours=36)
         state = json.loads(state_file.read_text(encoding="utf-8"))
-        recent = {
-            "https://www.fluxixo.shop" + path
-            for path, entry in state.items()
-            if datetime.fromisoformat(entry["lastmod"]) >= cutoff
-        }
-        urls = [url for url in urls if url in recent]
+        fingerprints = {origin + path: entry["sha256"] for path, entry in state.items()}
+    sent = json.loads(sent_file.read_text(encoding="utf-8")) if sent_file.exists() else {}
+    urls = [url for url in urls if url not in fingerprints or sent.get(url) != fingerprints[url]]
     if not urls:
         print("IndexNow: no pages changed, nothing to submit.")
         return
@@ -176,6 +176,7 @@ def submit_indexnow() -> None:
         "urlList": urls,
     }
     data = json.dumps(payload).encode("utf-8")
+    accepted = False
     for endpoint in ["https://api.indexnow.org/indexnow", "https://yandex.com/indexnow"]:
         try:
             req = urllib.request.Request(
@@ -186,10 +187,14 @@ def submit_indexnow() -> None:
             )
             with urllib.request.urlopen(req, timeout=20) as resp:
                 print(f"IndexNow ({endpoint}): HTTP {resp.status} for {len(urls)} URLs")
+                accepted = accepted or resp.status in (200, 202)
         except urllib.error.HTTPError as e:
             print(f"IndexNow ({endpoint}): HTTP {e.code} for {len(urls)} URLs")
         except Exception as e:
             print(f"IndexNow ({endpoint}) warning: {e}")
+    if accepted:
+        sent.update({url: fingerprints[url] for url in urls if url in fingerprints})
+        sent_file.write_text(json.dumps(dict(sorted(sent.items())), indent=1) + "\n", encoding="utf-8", newline="\n")
 
 
 def main() -> None:
@@ -225,6 +230,8 @@ def main() -> None:
         subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_search.py")], check=True)
         # Keep the existing hanging transparent-object design and current routes.
         subprocess.run([sys.executable, str(SITE_ROOT / "redesign" / "build_redesign.py"), "--production"], check=True)
+        # Sitemap dates and page fingerprints come from the finished pages, after the design is applied.
+        subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "write_sitemaps.py")], check=True)
         subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
     # A release with broken pages stops here instead of reaching the live site.
     subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "verify_release.py"), str(RELEASE)], check=True)

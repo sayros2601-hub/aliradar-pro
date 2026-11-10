@@ -37,8 +37,11 @@ class DailyIntegrationTests(unittest.TestCase):
         (self.dist / 'js/catalog.js').write_text('window.MIRA_CATALOG = ' + json.dumps({'products': self.old}) + ';', encoding='utf-8')
         (self.site / 'tools/i18n_data.json').write_text(json.dumps({'products': {}}), encoding='utf-8')
         (self.reserve / 'reserve_pool.json').write_text('[]', encoding='utf-8')
+        # The seed ledger (three seed-day rows, no validation yet), not the live file, which keeps growing.
         source = Path(daily.__file__).resolve().parent / 'data/fluxixo_daily_ledger.json'
-        (self.root / 'data/fluxixo_daily_ledger.json').write_bytes(source.read_bytes())
+        live = json.loads(source.read_text(encoding='utf-8'))
+        seed = {'version': live['version'], 'days': {'2026-11-10': live['days']['2026-11-10']}, 'validation_runs': {}}
+        (self.root / 'data/fluxixo_daily_ledger.json').write_text(json.dumps(seed, indent=2), encoding='utf-8')
         for name, value in [('SITE_ROOT',self.site), ('DIST',self.dist), ('RESERVE_DIR',self.reserve),
                             ('RESERVE_IMAGES',self.reserve/'images'), ('RESERVE_ORIGINALS',self.reserve/'originals'),
                             ('LEDGER_PATH',self.root/'data/fluxixo_daily_ledger.json')]:

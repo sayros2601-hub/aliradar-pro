@@ -16,23 +16,16 @@
   }), { rootMargin: '-50% 0px -50% 0px' });
   document.querySelectorAll('[data-page]').forEach(el => paint.observe(el));
 
-  // Date and countdown to the next drop (the daily job runs at 08:00 UTC).
-  document.querySelectorAll('[data-today]').forEach(el => {
-    el.textContent = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long' }).format(new Date());
+  // The date of the latest real drop (a UTC day from the daily job's ledger), in the visitor's language.
+  document.querySelectorAll('[data-day]').forEach(el => {
+    const day = new Date(el.getAttribute('datetime') + 'T12:00:00Z');
+    if (!isNaN(day)) el.textContent = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(day);
   });
-  const clocks = document.querySelectorAll('[data-countdown]');
-  if (clocks.length) {
-    const pad = n => String(n).padStart(2, '0');
-    const update = () => {
-      const now = new Date();
-      const next = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 8));
-      if (next <= now) next.setUTCDate(next.getUTCDate() + 1);
-      const s = Math.floor((next - now) / 1000);
-      const text = `${pad(Math.floor(s / 3600))}:${pad(Math.floor(s / 60) % 60)}:${pad(s % 60)}`;
-      clocks.forEach(el => { el.textContent = text; });
-    };
-    update(); setInterval(update, 1000);
-  }
+  // Next drop: "today" while today's has not landed yet, otherwise "tomorrow".
+  document.querySelectorAll('[data-next]').forEach(el => {
+    const [today, tomorrow] = el.dataset.when.split('|');
+    el.textContent = el.dataset.next >= new Date().toISOString().slice(0, 10) ? tomorrow : today;
+  });
 
   // One loop: scroll speed swings the hanging products and softens the grid; scroll position drives the pinned scene.
   const hangs = [...document.querySelectorAll('.hang')].map((el, i) => ({ el, a: 0, v: 0, phase: i * 1.7, shown: 0 }));
