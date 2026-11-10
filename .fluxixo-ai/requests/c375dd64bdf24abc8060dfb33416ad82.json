@@ -1,0 +1,12 @@
+{
+  "request_id": "c375dd64bdf24abc8060dfb33416ad82",
+  "operation": "search",
+  "payload_sha256": "f8dab333cb92093fbd0b7968cb32d31f225d407d0e2ae87ff6a8e6d4a84a5b7b",
+  "payload": {
+    "query": "telescopic inspection mirror",
+    "markets": [
+      "MX"
+    ],
+    "limit": 5
+  }
+}
