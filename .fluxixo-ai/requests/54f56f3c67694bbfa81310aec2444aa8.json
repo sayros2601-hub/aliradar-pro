@@ -1,0 +1,15 @@
+{
+  "request_id": "54f56f3c67694bbfa81310aec2444aa8",
+  "operation": "search",
+  "payload_sha256": "cbd3c6425a6df6373c1b07ca7ba836c85ab1c66bf6b39d927ef8862307eef5f7",
+  "payload": {
+    "query": "petanque magnet ball lifter",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "request_id": "91529990c6284d629b749193f026477a",
+  "operation": "search",
+  "payload_sha256": "1c3ceff6619236f7706567fc942935c9556ca2554b4db31ef3341190dac4a84c",
+  "payload": {
+    "query": "beach sand anchor umbrella holder",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

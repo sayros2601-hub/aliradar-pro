@@ -1,0 +1,15 @@
+{
+  "request_id": "3aac8e7771a047aa9ca19ad73b13e380",
+  "operation": "search",
+  "payload_sha256": "c6d9329d543ea7f7ab63a1827b76d5e71e9d76706c4e6a40544f8d55e042a53f",
+  "payload": {
+    "query": "wine bottle drip collar",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

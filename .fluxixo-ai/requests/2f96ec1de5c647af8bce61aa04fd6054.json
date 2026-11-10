@@ -1,0 +1,15 @@
+{
+  "request_id": "2f96ec1de5c647af8bce61aa04fd6054",
+  "operation": "search",
+  "payload_sha256": "347115d83532728bdf15c9bba202f28d2b02588df31374a5cce99217590217da",
+  "payload": {
+    "query": "travel shabbat candle holder",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

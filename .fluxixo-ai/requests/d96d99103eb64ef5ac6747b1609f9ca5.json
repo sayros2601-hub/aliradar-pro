@@ -1,0 +1,15 @@
+{
+  "request_id": "d96d99103eb64ef5ac6747b1609f9ca5",
+  "operation": "search",
+  "payload_sha256": "b4b6051b74afbb674bd27069d79f87b91e04b04a3a3cee8655dca8721158081a",
+  "payload": {
+    "query": "chimarrao gourd bomba straw",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "request_id": "7a5a6bb0c8b946498ad3fde676b1c878",
+  "operation": "search",
+  "payload_sha256": "da515c0ff62ca926c8ede9003f3b58fd5ea0a64ba29a3814166162aacda9400f",
+  "payload": {
+    "query": "egg yolk separator",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

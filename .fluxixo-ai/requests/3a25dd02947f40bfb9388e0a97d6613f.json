@@ -1,0 +1,15 @@
+{
+  "request_id": "3a25dd02947f40bfb9388e0a97d6613f",
+  "operation": "search",
+  "payload_sha256": "0679d6801e10397ae62ca412588560d990af18129cdb747dbe3a5184c3706528",
+  "payload": {
+    "query": "kintsugi repair kit",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

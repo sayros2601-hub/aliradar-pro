@@ -1,0 +1,15 @@
+{
+  "request_id": "bb137cb3389747cfb0f6266961893ae0",
+  "operation": "search",
+  "payload_sha256": "87ed0b0f1e8538d8d5e0a03d6ed4c9b41d4c30bea95c382918f1b47bf3a0dd8d",
+  "payload": {
+    "query": "tortilla warmer insulated cloth pouch",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

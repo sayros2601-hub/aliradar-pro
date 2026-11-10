@@ -1,0 +1,15 @@
+{
+  "request_id": "d004f3c3d4714593891398f847d7485b",
+  "operation": "search",
+  "payload_sha256": "1e3255df605c83b3eb30af481f6896d5a519f629a196baff3c19580ca6e4d6fd",
+  "payload": {
+    "query": "mezuzah case",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

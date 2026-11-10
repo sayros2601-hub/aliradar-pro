@@ -1,0 +1,15 @@
+{
+  "request_id": "9e0b88d9e9ee4ed0a1db75f8cdc34f70",
+  "operation": "search",
+  "payload_sha256": "4a10e495e4c29fe2537057ec660ea3bf23ba48f7977267270570bacd5e08c1a9",
+  "payload": {
+    "query": "avocado saver silicone keeper",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

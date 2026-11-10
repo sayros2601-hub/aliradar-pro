@@ -1,0 +1,15 @@
+{
+  "request_id": "57b9efc570a942f3a9be824d4ed1b4f1",
+  "operation": "search",
+  "payload_sha256": "472ae3c840be2b3727aeb02f96bb5f5590bfbf9a1d48c6cc9f82ec179ef4057a",
+  "payload": {
+    "query": "acai coconut shell bowl",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

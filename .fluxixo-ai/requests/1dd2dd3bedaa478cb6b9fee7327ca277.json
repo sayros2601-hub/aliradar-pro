@@ -1,0 +1,15 @@
+{
+  "request_id": "1dd2dd3bedaa478cb6b9fee7327ca277",
+  "operation": "search",
+  "payload_sha256": "be84b69d9efd7e692f64956bcd807f59c4eb7a748355ec76b9917483986bae8d",
+  "payload": {
+    "query": "cheese storage paper bag",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

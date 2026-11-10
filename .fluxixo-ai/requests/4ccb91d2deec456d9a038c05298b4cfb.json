@@ -1,0 +1,15 @@
+{
+  "request_id": "4ccb91d2deec456d9a038c05298b4cfb",
+  "operation": "search",
+  "payload_sha256": "af1eed23a35d66d91ce3f0082b25112725b2e5cd498ac28dd0eb8251f115d57a",
+  "payload": {
+    "query": "linen baguette bread bag",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

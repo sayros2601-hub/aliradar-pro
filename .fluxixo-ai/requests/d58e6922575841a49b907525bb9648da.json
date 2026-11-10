@@ -1,0 +1,15 @@
+{
+  "request_id": "d58e6922575841a49b907525bb9648da",
+  "operation": "search",
+  "payload_sha256": "ef5c83b85c5a4ccc6d1b1affa043f4c6df5a3196873df621744a1c9e9179d637",
+  "payload": {
+    "query": "hummus serving bowl ceramic",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

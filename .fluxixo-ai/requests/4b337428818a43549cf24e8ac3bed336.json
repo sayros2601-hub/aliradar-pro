@@ -1,0 +1,15 @@
+{
+  "request_id": "4b337428818a43549cf24e8ac3bed336",
+  "operation": "search",
+  "payload_sha256": "7f1e048678a562074b2df31e81c8d49ab077bf759244f70c177a66a25779433d",
+  "payload": {
+    "query": "pocket loom weaving kit",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

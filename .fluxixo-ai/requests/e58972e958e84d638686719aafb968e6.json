@@ -1,0 +1,15 @@
+{
+  "request_id": "e58972e958e84d638686719aafb968e6",
+  "operation": "search",
+  "payload_sha256": "acb1e624871a903c6602221f30e0fdd5cc6876f3f6ea9edd81df994ae2a8ef24",
+  "payload": {
+    "query": "vinyl record cleaning brush carbon",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

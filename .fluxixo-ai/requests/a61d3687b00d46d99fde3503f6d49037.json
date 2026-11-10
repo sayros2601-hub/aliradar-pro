@@ -1,0 +1,15 @@
+{
+  "request_id": "a61d3687b00d46d99fde3503f6d49037",
+  "operation": "search",
+  "payload_sha256": "fca3a90d46edf7d43ef4c7997e1c916dea4a206f81118081d6e62cd8825af903",
+  "payload": {
+    "query": "tapioca crepe pan",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

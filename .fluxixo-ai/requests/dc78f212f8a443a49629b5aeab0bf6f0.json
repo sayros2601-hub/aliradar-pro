@@ -1,0 +1,15 @@
+{
+  "request_id": "dc78f212f8a443a49629b5aeab0bf6f0",
+  "operation": "search",
+  "payload_sha256": "1d45fa6e36b5fbc0224b1a14e5dc070cc9d14bde19af9eee5d447e4308093e17",
+  "payload": {
+    "query": "rain chain garden copper",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

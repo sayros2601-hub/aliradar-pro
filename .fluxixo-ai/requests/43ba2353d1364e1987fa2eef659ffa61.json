@@ -1,0 +1,15 @@
+{
+  "request_id": "43ba2353d1364e1987fa2eef659ffa61",
+  "operation": "search",
+  "payload_sha256": "ac3ce699d038d67d547b3adb3a2622e1b1e0868e57a121870f8ff5545b823149",
+  "payload": {
+    "query": "lucha libre mask fabric",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

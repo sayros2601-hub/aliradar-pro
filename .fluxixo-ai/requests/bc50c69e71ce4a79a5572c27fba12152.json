@@ -1,0 +1,15 @@
+{
+  "request_id": "bc50c69e71ce4a79a5572c27fba12152",
+  "operation": "search",
+  "payload_sha256": "45b36de3965f7c0d548e320d859ce57f5e065c68757dd5ac6f427b0a4dbfd1db",
+  "payload": {
+    "query": "bonsai wire cutter concave",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

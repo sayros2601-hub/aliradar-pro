@@ -1,0 +1,15 @@
+{
+  "request_id": "598265fea1f143739fd594e170c3030a",
+  "operation": "search",
+  "payload_sha256": "6436573865a3947ed3d9630ebdde716154926841538eae61613be76e8be6224a",
+  "payload": {
+    "query": "manual churro maker press",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

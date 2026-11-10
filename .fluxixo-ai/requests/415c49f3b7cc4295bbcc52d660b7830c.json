@@ -1,0 +1,15 @@
+{
+  "request_id": "415c49f3b7cc4295bbcc52d660b7830c",
+  "operation": "search",
+  "payload_sha256": "ea97b906d17afc1b5ef3d7d53e2da520ed961a1786b183cfe2a154f6ef1a6202",
+  "payload": {
+    "query": "wooden puzzle box secret",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}

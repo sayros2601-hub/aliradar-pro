@@ -1,0 +1,15 @@
+{
+  "request_id": "398ee150ec4745cea8f4f46f96105d69",
+  "operation": "search",
+  "payload_sha256": "0820415f2ec6fc3055c406865edbf1ab91484ccc610b1c28c61fe45f167be739",
+  "payload": {
+    "query": "falafel scoop maker",
+    "markets": [
+      "MX",
+      "BR",
+      "IL",
+      "FR"
+    ],
+    "limit": 12
+  }
+}
