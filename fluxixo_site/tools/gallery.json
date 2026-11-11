@@ -2,12 +2,23 @@
  "auto-1005004679234788": {
   "checked": "2026-11-11",
   "source": "1005004679234788",
-  "images": []
+  "images": [],
+  "rejected": {
+   "urls": 6,
+   "mask": 3,
+   "text": 2,
+   "same": 1
+  }
  },
  "find-003-mosquito-racket": {
   "checked": "2026-11-11",
   "source": "1005011949737989",
-  "images": []
+  "images": [],
+  "rejected": {
+   "urls": 6,
+   "same": 1,
+   "text": 5
+  }
  },
  "find-020-espresso-portable": {
   "checked": "2026-11-11",
@@ -17,12 +28,22 @@
  "find-051-ultrasonic-cleaner": {
   "checked": "2026-11-11",
   "source": "1005013151609503",
-  "images": []
+  "images": [],
+  "rejected": {
+   "urls": 6,
+   "same": 1,
+   "text": 5
+  }
  },
  "find-064-book-light": {
   "checked": "2026-11-11",
   "source": "3256807016558461",
-  "images": []
+  "images": [],
+  "rejected": {
+   "urls": 6,
+   "same": 1,
+   "text": 5
+  }
  },
  "import-0024": {
   "checked": "2026-11-11",
