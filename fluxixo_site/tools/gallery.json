@@ -122,29 +122,32 @@
   "checked": "2026-11-11",
   "source": "3256812143426805",
   "images": [
-   "assets/images/find-010-gallon-pump-v2.webp",
-   "assets/images/find-010-gallon-pump-v3.webp"
+   "assets/images/find-010-gallon-pump-v2.webp"
   ],
   "rejected": {
    "urls": 5,
    "same": 1,
    "repeat": 1,
    "colours": 1
-  }
+  },
+  "removed_by_review": [
+   "assets/images/find-010-gallon-pump-v3.webp"
+  ]
  },
  "find-011-nail-drill": {
   "checked": "2026-11-11",
   "source": "1005006444449944",
-  "images": [
-   "assets/images/find-011-nail-drill-v2.webp"
-  ],
+  "images": [],
   "rejected": {
    "urls": 6,
    "same": 1,
    "colours": 2,
    "mask": 1,
    "text": 1
-  }
+  },
+  "removed_by_review": [
+   "assets/images/find-011-nail-drill-v2.webp"
+  ]
  },
  "find-012-hair-curler": {
   "checked": "2026-11-11",
@@ -724,9 +727,7 @@
  "import-0041": {
   "checked": "2026-11-11",
   "source": "1005006968873277",
-  "images": [
-   "assets/images/import-0041-v2.webp"
-  ],
+  "images": [],
   "rejected": {
    "urls": 6,
    "same": 1,
@@ -734,7 +735,10 @@
    "repeat": 1,
    "pieces": 1,
    "text": 1
-  }
+  },
+  "removed_by_review": [
+   "assets/images/import-0041-v2.webp"
+  ]
  },
  "import-0042": {
   "checked": "2026-11-11",
