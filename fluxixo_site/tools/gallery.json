@@ -2,22 +2,26 @@
  "auto-1005004679234788": {
   "checked": "2026-11-11",
   "source": "1005004679234788",
-  "images": [],
+  "images": [
+   "assets/images/auto-1005004679234788-v2.webp"
+  ],
   "rejected": {
    "urls": 6,
    "mask": 3,
-   "text": 2,
+   "text": 1,
    "same": 1
   }
  },
  "find-003-mosquito-racket": {
   "checked": "2026-11-11",
   "source": "1005011949737989",
-  "images": [],
+  "images": [
+   "assets/images/find-003-mosquito-racket-v2.webp"
+  ],
   "rejected": {
    "urls": 6,
    "same": 1,
-   "text": 5
+   "text": 4
   }
  },
  "find-020-espresso-portable": {
@@ -28,21 +32,48 @@
  "find-051-ultrasonic-cleaner": {
   "checked": "2026-11-11",
   "source": "1005013151609503",
+  "images": [
+   "assets/images/find-051-ultrasonic-cleaner-v2.webp"
+  ],
+  "rejected": {
+   "urls": 6,
+   "same": 1,
+   "text": 2,
+   "mask": 2
+  }
+ },
+ "find-059-label-printer": {
+  "checked": "2026-11-11",
+  "source": "3256809067217635",
   "images": [],
   "rejected": {
    "urls": 6,
    "same": 1,
-   "text": 5
+   "text": 3,
+   "mask": 2
   }
  },
  "find-064-book-light": {
   "checked": "2026-11-11",
   "source": "3256807016558461",
-  "images": [],
+  "images": [
+   "assets/images/find-064-book-light-v2.webp",
+   "assets/images/find-064-book-light-v3.webp",
+   "assets/images/find-064-book-light-v4.webp"
+  ],
   "rejected": {
    "urls": 6,
    "same": 1,
-   "text": 5
+   "mask": 1,
+   "text": 1
+  }
+ },
+ "find-065-spice-grinder": {
+  "checked": "2026-11-11",
+  "source": null,
+  "images": [],
+  "rejected": {
+   "urls": 0
   }
  },
  "import-0024": {
