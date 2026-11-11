@@ -1,0 +1,30 @@
+name: FLUXIXO product video sources (read-only, one-off)
+
+on:
+  push:
+    branches: [tools/fluxixo-video-sources]
+
+permissions:
+  contents: read
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          sparse-checkout: tools/fluxixo_video_sources
+
+      - name: Ask the AliExpress affiliate API for each product's video, per market
+        env:
+          ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
+          ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
+        run: python3 -B tools/fluxixo_video_sources/fetch.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: video-sources
+          path: work/video-sources.json
+          retention-days: 3
