@@ -51,7 +51,7 @@ class Page(HTMLParser):
             self.links.append(a['href'])
         for key in ('src', 'href'):
             value = a.get(key, '')
-            if tag in ('img', 'script', 'link') and re.match(r'/?(assets|css|js)/', value):
+            if tag in ('img', 'script', 'link', 'source', 'video') and re.match(r'/?(assets|css|js)/', value):
                 self.assets.append(value)
         for part in a.get('srcset', '').split(','):
             if part.strip():

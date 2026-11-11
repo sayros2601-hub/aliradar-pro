@@ -327,10 +327,18 @@ class Site:
         photo = f'<img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" decoding="async" fetchpriority="high">'
         clip = f'assets/video/{p["id"]}.mp4'
         if (DIST / clip).exists():
-            # The clip is cached for a week, so its address carries a content version: a re-edit reaches everyone at once.
-            version = hashlib.sha256((DIST / clip).read_bytes()).hexdigest()[:10]
-            photo = (f'<figure class="demo">{photo}<video src="/{clip}?v={version}" muted playsinline preload="none" disablepictureinpicture '
-                     f'aria-hidden="true" tabindex="-1"></video></figure>')
+            # Cached for a week, so each address carries a content version: a re-edit reaches everyone at once.
+            def url(path):
+                return f'/{path}?v={hashlib.sha256((DIST / path).read_bytes()).hexdigest()[:10]}'
+            # Lightest first: AV1, then HEVC (every iPhone decodes it in hardware), then H.264 for everything else.
+            # The page drops a format the device would not decode smoothly in hardware, so each visitor loads one file.
+            sources = ''.join(
+                f'<source src="{url(path)}" type=\'video/mp4; codecs="{codecs}"\' data-codec="{name}">'
+                for name, codecs in (('av1', 'av01.0.04M.08'), ('hevc', 'hvc1.1.6.L90.B0'))
+                for path in [f'assets/video/{p["id"]}.{name}.mp4'] if (DIST / path).exists())
+            sources += f'<source src="{url(clip)}" type=\'video/mp4; codecs="avc1.64001F"\'>'
+            photo = (f'<figure class="demo">{photo}<video muted playsinline preload="none" disablepictureinpicture '
+                     f'aria-hidden="true" tabindex="-1">{sources}</video></figure>')
         return f'<div class="p-gallery"><div class="p-stage">{photo}</div></div>'
 
     def card(self, p):
@@ -344,7 +352,11 @@ class Site:
         drop = items[:3]
         star = drop[datetime.now(timezone.utc).toordinal() % len(drop)]
         hero = (f'<section class="drop" id="drop" data-page="{PAPER}"><div class="drop-bar">'
-                f'<p class="eye"><b>●</b> {e(u["drop"])} · <time data-day datetime="{LAST_DROP}">{LAST_DROP}</time></p>'
+                # The cached page outlives midnight, so "today's drop" holds only while the date is really today;
+                # after that the same eyebrow reads "latest drop" (server picks at build, the browser re-picks live).
+                f'<p class="eye"><b>●</b> <span data-drop="{e(u["drop"])}|{e(u["drop_old"])}" data-on="{LAST_DROP}">'
+                f'{e(u["drop"] if LAST_DROP >= datetime.now(timezone.utc).date().isoformat() else u["drop_old"])}</span>'
+                f' · <time data-day datetime="{LAST_DROP}">{LAST_DROP}</time></p>'
                 # GitHub starts the daily job hours late and at a different time each day, so no fake countdown:
                 # "today" until today's drop lands, then "tomorrow".
                 f'<p class="clock">{e(u["next_drop"])}<b data-next="{LAST_DROP}" data-when="{e(u["when"][0])}|{e(u["when"][1])}">'
@@ -430,7 +442,7 @@ class Site:
                     f'<ol class="crumbs" aria-label="{e(L.BREADCRUMB_ARIA[self.lang])}">{crumb_html}</ol><h1 class="d">{e(name)}</h1>'
                     f'<div class="p-body"><div class="p-text"><p class="s">{e(" ".join(p["headline"]))}</p><p class="t">{e(page_description)}</p>'
                     f'{"<ul class=facts>" + facts + "</ul>" if facts else ""}'
-                    f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(u["note"])} {e(L.DISCLOSURE[self.lang])}</p></div>'
+                    f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(L.DISCLOSURE[self.lang])}</p></div>'
                     f'{self.gallery(p, name)}</div></section>')
             if related:
                 body += (f'<section class="related"><p class="eye"><b>●</b> {e(self.cat(key))}</p>'

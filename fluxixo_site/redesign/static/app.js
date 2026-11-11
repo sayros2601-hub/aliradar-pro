@@ -28,14 +28,21 @@
     const [today, tomorrow] = el.dataset.when.split('|');
     el.textContent = el.dataset.next >= new Date().toISOString().slice(0, 10) ? tomorrow : today;
   });
+  // The eyebrow says "today's drop" only while the latest drop really landed today; the cached page
+  // outlives midnight, so after that the same line honestly reads "latest drop".
+  document.querySelectorAll('[data-drop]').forEach(el => {
+    const [todays, latest] = el.dataset.drop.split('|');
+    el.textContent = el.dataset.on >= new Date().toISOString().slice(0, 10) ? todays : latest;
+  });
 
   // Wide screens, one loop: scroll speed swings the hanging products; scroll position drives the pinned scene.
   const hangs = [...document.querySelectorAll('.hang')].map((el, i) => ({ el, a: 0, v: 0, phase: i * 1.7, shown: 0 }));
   hangs.forEach(h => h.el.addEventListener('pointerenter', e => { h.v += (e.movementX || 6) > 0 ? 3 : -3; }));
   const day = document.querySelector('.day');
+  const near = new Set();
   let last = scrollY, running = false;
   const frame = time => {
-    if (phone.matches) { running = false; return; }
+    if (phone.matches || !near.size) { running = false; return; }
     const dy = scrollY - last; last = scrollY;
     if (!calm) {
       for (const h of hangs) {
@@ -54,10 +61,15 @@
     requestAnimationFrame(frame);
   };
   const loop = () => {
-    if (!phone.matches && !running && (hangs.length || day)) { running = true; last = scrollY; requestAnimationFrame(frame); }
+    if (!phone.matches && !running && near.size) { running = true; last = scrollY; requestAnimationFrame(frame); }
   };
+  // Nothing animates off screen, so the page never spends frames on what nobody sees.
+  const nearby = new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.isIntersecting ? near.add(entry.target) : near.delete(entry.target));
+    loop();
+  }, { rootMargin: '200px 0px' });
+  [...document.querySelectorAll('.rope'), day].filter(Boolean).forEach(el => nearby.observe(el));
   phone.addEventListener('change', loop);
-  loop();
 
   // Swipe rows: dots show which card is in view and jump to it; product galleries also get arrows.
   document.querySelectorAll('[data-dots]').forEach(row => {
@@ -173,28 +185,72 @@
 
   // Product clip: the photo stays a while, the real clip slowly dissolves in over it, plays, and dissolves back
   // into the photo while still moving (no frozen last frame); repeats while on screen.
+  // Smoothness: the dissolve starts on the first frame the screen really shows, the rewind happens while the clip is
+  // hidden, and a phone gets the format its chip decodes in hardware (AV1 where it can, H.264 otherwise).
   const clip = document.querySelector('.demo video');
   if (clip && !calm && !(navigator.connection && navigator.connection.saveData)) {
     const frame = clip.parentElement;
     const PHOTO = 3000;  // how long the photo is shown before each play
     const FADE = 1.5;    // seconds; matches the CSS transition
-    let visible = false, timer = 0;
+    const exact = 'requestVideoFrameCallback' in clip;
+    let visible = false, timer = 0, ready = null;
+    const playing = () => frame.classList.contains('playing');
+    const show = on => frame.classList.toggle('playing', on);
+    const pick = async () => {
+      for (const source of clip.querySelectorAll('source[data-codec]')) {
+        let keep = false;
+        try {
+          const info = await navigator.mediaCapabilities.decodingInfo({ type: 'file', video: {
+            contentType: source.type, width: 720, height: 720, bitrate: 1200000, framerate: 25 } });
+          // A format is kept only where the device decodes it in hardware: smooth and no battery or CPU drain.
+          // Otherwise the next one is tried; H.264, the last, is hardware-decoded practically everywhere.
+          keep = info.supported && info.smooth && info.powerEfficient;
+        } catch (error) { keep = false; }
+        if (!keep) source.remove();
+      }
+    };
+    const prepare = () => ready || (ready = pick().then(() => { clip.preload = 'auto'; clip.load(); }));
+    const watch = (now, meta) => {
+      if (!playing()) return;
+      if (clip.duration && meta.mediaTime > clip.duration - FADE) show(false);
+      else clip.requestVideoFrameCallback(watch);
+    };
     const start = () => {
       clearTimeout(timer);
       timer = setTimeout(() => {
         if (!visible) return;
-        clip.currentTime = 0;
-        clip.play().then(() => frame.classList.add('playing')).catch(() => {});
+        clip.play().then(() => {
+          if (!exact) { show(true); return; }
+          // The decoder wakes up on the first frames; they play while the clip is still invisible, and the dissolve
+          // begins only once frames are flowing, so the start never hitches on screen.
+          let shown = 0;
+          const warm = () => {
+            if (!visible) return;
+            if (++shown < 3) { clip.requestVideoFrameCallback(warm); return; }
+            show(true);
+            clip.requestVideoFrameCallback(watch);
+          };
+          clip.requestVideoFrameCallback(warm);
+        }).catch(() => {});
       }, PHOTO);
     };
-    clip.addEventListener('timeupdate', () => {
-      if (frame.classList.contains('playing') && clip.duration && clip.currentTime > clip.duration - FADE) frame.classList.remove('playing');
+    if (!exact) clip.addEventListener('timeupdate', () => {
+      if (playing() && clip.duration && clip.currentTime > clip.duration - FADE) show(false);
     });
-    clip.addEventListener('ended', () => { frame.classList.remove('playing'); if (visible) start(); });
+    clip.addEventListener('ended', () => {
+      show(false);
+      clip.currentTime = 0;  // hidden by now, so the rewind is never seen
+      if (visible) start();
+    });
     new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
-      if (visible) { if (clip.preload !== 'auto') { clip.preload = 'auto'; clip.load(); } if (clip.paused) start(); }
-      else { clearTimeout(timer); clip.pause(); frame.classList.remove('playing'); }
+      if (visible) prepare().then(() => { if (visible && clip.paused) start(); });
+      else {
+        clearTimeout(timer);
+        clip.pause();
+        show(false);
+        setTimeout(() => { if (!visible) clip.currentTime = 0; }, FADE * 1000);
+      }
     }, { threshold: 0.4 }).observe(frame);
   }
 
