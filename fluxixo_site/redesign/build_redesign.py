@@ -67,6 +67,16 @@ ROOT_TITLE = 'FLUXIXO | Curated AliExpress Finds'
 ROOT_DESC = 'Three new AliExpress finds every day: gadgets, home and kitchen tools, and travel accessories. Compare studio images with original seller photos.'
 
 
+_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true">{}</svg>'
+ICONS = {
+    'home': _SVG.format('<path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'),
+    'grid': _SVG.format('<rect x="3" y="3" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="3" width="7.5" height="7.5" rx="2"/>'
+                        '<rect x="3" y="13.5" width="7.5" height="7.5" rx="2"/><rect x="13.5" y="13.5" width="7.5" height="7.5" rx="2"/>'),
+    'bag': _SVG.format('<path d="M5 8h14l-1 13H6z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'),
+    'search': _SVG.format('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'),
+    'globe': _SVG.format('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
+}
+
 def product_metadata(name, description, lang, source_id, marker=None):
     """Preserve legacy metadata; keep new listings readable and bounded."""
     if source_id is None:
@@ -230,12 +240,14 @@ class Site:
         return (f'<a class="btn" href="{e(p["affiliateUrl"])}" target="_blank" rel="sponsored nofollow noopener" {attrs}>'
                 f'{e(self.ui["cta"])} <span aria-hidden="true">{self.fwd}</span></a>')
 
-    def page(self, title, desc, path, body, alt_paths, schema=None, image=None, colour=PAPER, hreflang=True, noindex=False):
+    def page(self, title, desc, path, body, alt_paths, schema=None, image=None, colour=PAPER, hreflang=True, noindex=False, tab=None, buy=None):
         u = self.ui
         tag, og_locale = L.LANGUAGES[self.lang][:2]
         lang_links = ''.join(
-            f'<a href="{alt_paths.get(l, L.catalog_path(l))}" hreflang="{L.LANGUAGES[l][0]}"{" aria-current=\"true\"" if l == self.lang and not self.root else ""}>{l.upper()}</a>'
+            f'<a href="{alt_paths.get(l, L.catalog_path(l))}" hreflang="{L.LANGUAGES[l][0]}"{" aria-current=\"true\"" if l == self.lang and not self.root else ""}>'
+            f'<b>{l.upper()}</b><span lang="{L.LANGUAGES[l][0]}">{e(L.LANGUAGES[l][2])}</span></a>'
             for l in LANGS)
+        lang_button = (f'<button type="button" class="lang-btn" aria-label="{e(u["language"])}" aria-expanded="false">{ICONS["globe"]}{self.lang.upper()}</button>')
         nav = ''.join(f'<a href="{self.home()}#{anchor}">{e(label)}</a>' for anchor, label in zip(('drop', 'mundos', 'todo'), u['nav']))
         image = image or self.items[0]['image']
         ld = ('<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c') + '</script>') if schema else ''
@@ -260,13 +272,13 @@ class Site:
 <meta property="og:url" content="{ORIGIN}{path}"><meta property="og:image" content="{ORIGIN}/{e(image)}">
 <meta property="og:locale" content="{og_locale}"><meta name="twitter:card" content="summary_large_image">{alternates}
 {VERIFY if self.root else ""}
-<link rel="icon" href="/assets/favicon.svg"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="FLUXIXO"><link rel="manifest" href="/{self.manifest_name()}"><link rel="icon" href="/assets/favicon.svg"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/{preload}.woff2" crossorigin>
 <style>{fonts}{CSS}</style>
 {ld}
 </head>
 <body style="--page:{colour}">
-<header class="top"><a class="logo" href="{self.home()}">FLU<i>X</i>I<i>X</i>O</a><nav aria-label="Menu">{nav}</nav><div class="langs">{lang_links}</div></header>
+<header class="top"><a class="logo" href="{self.home()}">FLU<i>X</i>I<i>X</i>O</a><nav aria-label="Menu">{nav}</nav>{lang_button}<div class="langs">{lang_links}</div></header>
 <main id="main">
 {body}
 </main>
@@ -275,21 +287,37 @@ class Site:
 <div class="foot-row"><p>{e(u["foot"])} {e(L.DISCLOSURE[self.lang])}</p>
 <nav><a href="{self.home()}">{e(u["home"])}</a><a href="{about}">{e(u["about"])}</a><a href="{about}#privacy">{e(u["privacy"])}</a></nav></div>
 </footer>
+{self.tabs(tab, buy)}
 <script src="/js/fx.js" defer></script>
 </body>
 </html>'''
 
     # ---------- components ----------
-    def rope(self, items, eager=False):
+    def manifest_name(self):
+        return 'app.webmanifest' if self.root else f'app-{self.lang}.webmanifest'
+
+    def tabs(self, current=None, buy=None):
+        """Phone bottom bar. On a product page it carries the buy button, so the way to the seller is always under the thumb."""
+        home, labels = self.home(), self.ui['tabs']
+        links = [('home', home, 'home', labels[0]), ('cats', f'{home}#cats', 'grid', labels[1]),
+                 ('all', f'{home}#todo', 'bag', labels[2]), ('find', f'{home}#find', 'search', labels[3])]
+        if buy:
+            links = [links[0], links[2]]
+        html = ''.join(f'<a href="{href}" data-tab="{name}"{" aria-current=\"page\"" if name == current else ""}>{ICONS[icon]}<span>{e(label)}</span></a>'
+                       for name, href, icon, label in links)
+        return f'<nav class="tabs{" buy" if buy else ""}" aria-label="{e(self.ui["app"])}">{html}{self.buy(buy) if buy else ""}</nav>'
+
+    def rope(self, items, eager=False, lead=False, width=None):
         n = len(items)
         ts = [0.5] if n == 1 else [0.17 + i * (0.66 / (n - 1)) for i in range(n)]
         hangs = ''.join(
-            f'<a class="hang" data-go href="{self.ppath(p)}" style="left:{t * 100:.1f}%;--y:{(40 + 360 * t * (1 - t)) / 300:.3f}">'
+            f'<a class="hang" data-go href="{self.ppath(p)}" style="left:{t * 100:.1f}%;--y:{(40 + 360 * t * (1 - t)) / 300:.3f};--t:{p["tint"]}">'
             f'<i class="pin"></i><i class="str"></i>'
-            f'<img class="cut" src="{img(p["image"], 800 if eager else 480)}" alt="{e(p["name"])}" width="480" height="480" loading="{"eager" if eager else "lazy"}" decoding="async">'
-            f'<small>{i + 1:02d}</small><b>{e(p["name"])}</b><em>{e(self.ui["more"])}</em></a>'
+            f'<img class="cut" src="{img(p["image"], width or (800 if eager else 480))}" alt="{e(p["name"])}" width="480" height="480" loading="{"eager" if eager else "lazy"}" decoding="async"'
+            f'{" fetchpriority=\"high\"" if lead and i == 0 else ""}>'
+            f'<small>{i + 1:02d}</small><b>{e(p["name"])}</b>{"<span class=hl>" + e(" ".join(p["headline"])) + "</span>" if lead else ""}<em>{e(self.ui["more"])}</em></a>'
             for i, (p, t) in enumerate(zip(items, ts)))
-        return (f'<div class="rope{" four" if n > 3 else ""}"><svg viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">'
+        return (f'<div class="rope{" four" if n > 3 else ""}{" lead" if lead else ""}"{" data-dots" if lead else ""}><svg viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">'
                 f'<path d="M0 40 Q 600 220 1200 40"/></svg>{hangs}</div>')
 
     def polaroid(self, p, cls=''):
@@ -313,7 +341,13 @@ class Site:
                 f'<p class="clock">{e(u["next_drop"])}<b data-next="{LAST_DROP}" data-when="{e(u["when"][0])}|{e(u["when"][1])}">'
                 f'{e(u["when"][1] if LAST_DROP >= datetime.now(timezone.utc).date().isoformat() else u["when"][0])}</b></p></div>'
                 f'<h1 class="d">{e(u["h1"][0])}<span class="s">{e(u["h1"][1])}</span></h1>'
-                f'<p class="drop-sub">{e(u["drop_text"])}</p>{self.rope(drop, eager=True)}</section>')
+                f'<p class="drop-sub">{e(u["drop_text"])}</p>{self.rope(drop, eager=True, lead=True)}</section>')
+
+        # Phone only: every world one tap away, right under today's drop.
+        tiles = ''.join(
+            f'<a href="{self.cpath(k)}" style="--t:{WORLDS[k]}"><img src="{img(self.in_world(k)[0]["image"], 480)}" alt="" width="480" height="480" loading="lazy" decoding="async">'
+            f'<b>{e(self.cat(k))}</b><small>{len(self.in_world(k))}</small></a>' for k in self.worlds)
+        cats = f'<nav class="cats" id="cats" aria-label="{e(u["nav"][1])}"><h2 class="d">{e(u["nav"][1])}</h2><div>{tiles}</div></nav>'
 
         day = (f'<section class="day" id="hoy" style="--tint:{star["tint"]};--word:{ACCENT if star["dark"] else INK}" data-page="{star["tint"]}"><div class="day-pin"><div class="day-fill"></div>'
                f'<p class="eye day-eye"><b>★</b> {e(u["find_day"])} · {e(self.cat(star["world"]))}</p>'
@@ -332,7 +366,7 @@ class Site:
                 f'<a class="mini" data-go href="{self.ppath(p)}"><img class="cut" src="{img(p["image"], 480)}" alt="{e(p["name"])}" width="480" height="480" loading="lazy" decoding="async"><b>{e(p["name"])}</b></a>'
                 for p in [q for q in group if q not in drop][:8] or group[:8])
             bands.append(
-                f'<section class="world"{" id=\"mundos\"" if i == 0 else ""} data-page="{WORLDS[key]}"><div class="rv">'
+                f'<section class="world"{" id=\"mundos\"" if i == 0 else ""} data-page="{WORLDS[key]}" style="--t:{WORLDS[key]}"><div class="rv">'
                 f'<p class="eye">{e(u["world"])} {i + 1:02d} / {total:02d}</p><h2 class="d"><a href="{self.cpath(key)}">{e(self.cat(key))}</a></h2>'
                 f'<p class="t">{e(self.copy(key))}</p>'
                 f'<a class="btn line" href="{self.cpath(key)}">{e(u["enter"])} · {len(group)} <span aria-hidden="true">{self.fwd}</span></a></div>'
@@ -341,22 +375,24 @@ class Site:
         chips = (f'<button type="button" data-filter="*" aria-pressed="true">{e(u["filter_all"])}</button>'
                  + ''.join(f'<button type="button" data-filter="{slug(k)}" aria-pressed="false">{e(self.cat(k))}</button>' for k in self.worlds))
         everything = (f'<section class="all" id="todo" data-page="{PAPER}"><h2 class="d rv">{e(u["all"][0])} <span class="s">{len(items)}</span> {e(u["all"][1])}</h2>'
-                      f'<div class="chips">{chips}</div><div class="grid">{"".join(self.card(p) for p in items)}</div></section>')
+                      f'<div class="tools"><input class="find" id="find" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" '
+                      f'placeholder="{e(u["search"])}" aria-label="{e(u["tabs"][3])}"><div class="chips">{chips}</div></div>'
+                      f'<p class="none" hidden>{e(u["nothing"])}</p><div class="grid">{"".join(self.card(p) for p in items)}</div></section>')
 
         listing = {'@type': 'ItemList', 'name': u['title'], 'numberOfItems': len(items),
                    'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(items)]}
-        body = hero + day + ''.join(bands) + everything
+        body = hero + cats + day + ''.join(bands) + everything
         paths = {l: L.catalog_path(l) for l in LANGS}
         if self.root:
             schema = {'@context': 'https://schema.org', '@graph': [
                 {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': 'en'},
                 {'@type': 'Organization', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'logo': ORIGIN + '/apple-touch-icon.png'}, listing]}
-            write('/', self.page(ROOT_TITLE, ROOT_DESC, '/', body, paths, schema, hreflang=False))
+            write('/', self.page(ROOT_TITLE, ROOT_DESC, '/', body, paths, schema, hreflang=False, tab='home'))
             return
         # Titles and descriptions stay exactly as search engines already know them.
         desc = (f'{len(items)} товаров из подборки FLUXIXO: студийные фотографии, описания, рубрики и партнёрские ссылки на AliExpress.'
                 if self.lang == 'ru' else L.CATALOG_DESCRIPTION[self.lang])
-        write(self.home(), self.page(L.CATALOG_TITLE[self.lang], desc, self.home(), body, paths, {'@context': 'https://schema.org', **listing}))
+        write(self.home(), self.page(L.CATALOG_TITLE[self.lang], desc, self.home(), body, paths, {'@context': 'https://schema.org', **listing}, tab='home'))
 
     def build_404(self):
         body = (f'<section class="c-hero"><p class="eye">404</p><h1 class="d">Page not found<span class="s">This link may have changed.</span></h1>'
@@ -381,34 +417,33 @@ class Site:
                             for f in L.public_facts(p))
             crumb_html = ''.join(f'<li><a href="{href}">{e(label)}</a></li>' for label, href in crumbs[:-1])
             related = [q for q in self.in_world(key) if q['id'] != p['id']][:4]
-            body = (f'<section class="p-hero{" dark" if p["dark"] else ""}" data-swipe data-prev="{self.ppath(prev)}" data-next="{self.ppath(nxt)}">'
+            body = (f'<section class="p-hero{" dark" if p["dark"] else ""}">'
                     f'<ol class="crumbs" aria-label="{e(L.BREADCRUMB_ARIA[self.lang])}">{crumb_html}</ol><h1 class="d">{e(name)}</h1>'
                     f'<div class="p-body"><div class="p-text"><p class="s">{e(" ".join(p["headline"]))}</p><p class="t">{e(page_description)}</p>'
                     f'{"<ul class=facts>" + facts + "</ul>" if facts else ""}'
                     f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(u["note"])} {e(L.DISCLOSURE[self.lang])}</p></div>'
-                    f'<div class="p-stage"><img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" fetchpriority="high" decoding="async">'
+                    f'<div class="p-stage" data-dots><img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" fetchpriority="high" decoding="async">'
                     f'{self.polaroid(p)}</div></div></section>')
             if related:
                 body += (f'<section class="related"><p class="eye"><b>●</b> {e(self.cat(key))}</p>'
                          f'<h2 class="d rv">{e(u["related"][0])} <span class="s">{e(u["related"][1])}</span></h2>{self.rope(related)}</section>')
             body += (f'<nav class="pn"><a data-go href="{self.ppath(prev)}"><img src="{img(prev["image"], 480)}" alt="" loading="lazy"><span><small>{self.back} {e(u["prev"])}</small><b>{e(prev["name"])}</b></span></a>'
-                     f'<a data-go href="{self.ppath(nxt)}"><span><small>{e(u["next"])} {self.fwd}</small><b>{e(nxt["name"])}</b></span><img src="{img(nxt["image"], 480)}" alt="" loading="lazy"></a></nav>'
-                     f'<div class="sticky">{self.buy(p)}</div>')
+                     f'<a data-go href="{self.ppath(nxt)}"><span><small>{e(u["next"])} {self.fwd}</small><b>{e(nxt["name"])}</b></span><img src="{img(nxt["image"], 480)}" alt="" loading="lazy"></a></nav>')
             alt = {l: L.product_path(p, l) for l in LANGS if p['id'] in siblings[l]}
-            write(path, self.page(title, desc, path, body, alt, schema, p['image'], p['tint']))
+            write(path, self.page(title, desc, path, body, alt, schema, p['image'], p['tint'], buy=p))
 
     def build_categories(self):
         u = self.ui
         for key in self.worlds:
             group, name, path = self.in_world(key), self.cat(key), self.cpath(key)
-            chips = ''.join(f'<a href="{self.cpath(k)}">{e(self.cat(k))}</a>' for k in self.worlds if k != key)
+            chips = ''.join(f'<a href="{self.cpath(k)}"{" aria-current=\"page\"" if k == key else ""}>{e(self.cat(k))}</a>' for k in self.worlds)
             body = (f'<section class="c-hero"><ol class="crumbs"><li><a href="{self.home()}">{e(u["home"])}</a></li></ol>'
                     f'<h1 class="d">{e(name)}<span class="s">{e(u["count"](n=len(group)))}</span></h1><p class="t">{e(self.copy(key))}</p></section>'
-                    f'<section class="c-body">{self.rope(group[:3], eager=True) if len(group) >= 3 else ""}'
-                    f'<div class="grid">{"".join(self.card(p) for p in group)}</div><div class="chips">{chips}</div></section>')
+                    f'<section class="c-body">{self.rope(group[:3], width=800) if len(group) >= 3 else ""}'
+                    f'<div class="chips">{chips}</div><div class="grid">{"".join(self.card(p) for p in group)}</div></section>')
             title = L.CATEGORY_TITLE[self.lang].format(cat=name)
             desc = self.copy(key) + ' ' + L.CATEGORY_COUNT[self.lang].format(n=len(group))
-            write(path, self.page(title, desc, path, body, {l: L.category_path(key, l) for l in LANGS}, colour=WORLDS[key]))
+            write(path, self.page(title, desc, path, body, {l: L.category_path(key, l) for l in LANGS}, colour=WORLDS[key], tab='cats'))
 
     def build_about(self):
         copy = L.ABOUT[self.lang]
@@ -432,6 +467,34 @@ def link_assets():
     for name in ('favicon.ico', 'favicon-96x96.png', 'apple-touch-icon.png'):
         shutil.copy2(DIST / name, OUT / name)
 
+
+def app_icons():
+    """Home-screen icons, drawn from the same shape as assets/favicon.svg (64 x 64 units)."""
+    from PIL import ImageDraw
+    letter = [(20, 15), (49, 15), (49, 23), (29, 23), (29, 31), (46, 31), (46, 39), (29, 39), (29, 53), (20, 53)]
+    for name, size, rounded in (('icon-192.png', 192, True), ('icon-512.png', 512, True), ('icon-maskable-512.png', 512, False)):
+        k = size * 4 / 64
+        big = Image.new('RGBA', (size * 4, size * 4), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(big)
+        if rounded:
+            draw.rounded_rectangle((0, 0, size * 4 - 1, size * 4 - 1), radius=14 * k, fill='#162d57')
+        else:
+            draw.rectangle((0, 0, size * 4, size * 4), fill='#162d57')
+        draw.polygon([(x * k, y * k) for x, y in letter], fill='#f6f1e8')
+        big.resize((size, size), Image.LANCZOS).save(OUT / name, optimize=True)
+
+
+def app_manifest(site):
+    """Lets a phone add the storefront to its home screen and open it without browser chrome, in the visitor's language."""
+    manifest = {
+        'name': f'FLUXIXO · {site.ui["app"]}', 'short_name': 'FLUXIXO', 'lang': L.LANGUAGES[site.lang][0],
+        'dir': 'rtl' if site.rtl else 'ltr', 'start_url': site.home(), 'scope': '/', 'display': 'standalone',
+        'background_color': PAPER, 'theme_color': PAPER,
+        'icons': [{'src': '/icon-192.png', 'sizes': '192x192', 'type': 'image/png'},
+                  {'src': '/icon-512.png', 'sizes': '512x512', 'type': 'image/png'},
+                  {'src': '/icon-maskable-512.png', 'sizes': '512x512', 'type': 'image/png', 'purpose': 'maskable'}],
+    }
+    (OUT / site.manifest_name()).write_text(json.dumps(manifest, ensure_ascii=False, indent=1), encoding='utf-8', newline='\n')
 
 def proofread():
     """Mechanical proofreading of every product and interface text. A preview build stops on a problem;
@@ -469,8 +532,12 @@ def main():
         site.build_products(siblings, metadata_by_product)
         site.build_categories()
         site.build_about()
+        app_manifest(site)
         print(f'{lang}: {len(site.items)} products, {len(site.worlds)} worlds')
-    Site(products, data, 'en', root=True).build_home()
+    root = Site(products, data, 'en', root=True)
+    root.build_home()
+    app_manifest(root)
+    app_icons()
     sites['en'].build_404()
     print(f'Storefront written to {OUT}')
 
