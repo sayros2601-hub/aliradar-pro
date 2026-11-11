@@ -209,7 +209,7 @@ ABOUT = {
         'h1': 'О проекте FLUXIXO',
         'sections': [
             ('what', 'Что такое FLUXIXO', 'FLUXIXO — независимая подборка полезных товаров с AliExpress. Мы не магазин и не представляем AliExpress: заказ, оплата, доставка и возврат оформляются на AliExpress у выбранного продавца.'),
-            ('images', 'Как готовятся карточки', 'Студийные изображения созданы с помощью ИИ на основе фотографий продавца, поэтому на странице товара можно открыть исходное фото и сравнить. Мы не тестируем каждый товар лично и не публикуем цены и рейтинги: они часто меняются, актуальные условия смотрите у продавца.'),
+            ('images', 'Как готовятся карточки', 'Студийные изображения мы вырезаем с помощью ИИ из фотографий продавца: только сам товар, без фона и надписей. Все фото и комплектацию продавца смотрите на AliExpress. Мы не тестируем каждый товар лично и не публикуем цены и рейтинги: они часто меняются, актуальные условия смотрите у продавца.'),
             ('affiliate', 'Партнёрские ссылки', 'Ссылки на AliExpress партнёрские. Если вы совершите покупку, FLUXIXO может получить комиссию; цена для вас при этом не меняется.'),
             ('privacy', 'Конфиденциальность', 'На сайте нет регистрации, форм и рекламных cookie. Посещаемость считается через Cloudflare Web Analytics в обобщённом виде, без cookie. В памяти вашего браузера сохраняются только выбранный язык и настройка анимации. После перехода на AliExpress действует политика конфиденциальности AliExpress.'),
             ('orders', 'Вопросы по заказам', 'По вопросам заказа, доставки и возврата обращайтесь к продавцу через свой аккаунт AliExpress. FLUXIXO не обрабатывает заказы и платежи.'),
@@ -222,7 +222,7 @@ ABOUT = {
         'h1': 'About FLUXIXO',
         'sections': [
             ('what', 'What FLUXIXO is', 'FLUXIXO is an independent selection of useful products listed on AliExpress. We are not a store and do not represent AliExpress: orders, payment, delivery and returns are handled on AliExpress by the seller you choose.'),
-            ('images', 'How listings are prepared', 'Studio images are created with AI from seller photos, so every product page lets you open the original photo and compare. We do not personally test each product and do not publish prices or ratings because they change often; check current terms with the seller.'),
+            ('images', 'How listings are prepared', 'Studio images are cut out with AI from seller photos: just the product, without background or text. See all seller photos and the exact set on AliExpress. We do not personally test each product and do not publish prices or ratings because they change often; check current terms with the seller.'),
             ('affiliate', 'Affiliate links', 'Links to AliExpress are affiliate links. If you make a purchase, FLUXIXO may earn a commission at no extra cost to you.'),
             ('privacy', 'Privacy', 'The site has no sign-up, no forms and no advertising cookies. Visits are counted in aggregate with Cloudflare Web Analytics, without cookies. Your browser stores only your language and motion preference. Once you open AliExpress, the AliExpress privacy policy applies.'),
             ('orders', 'Order questions', 'For orders, delivery and returns, contact the seller through your AliExpress account. FLUXIXO does not process orders or payments.'),
@@ -235,7 +235,7 @@ ABOUT = {
         'h1': 'Sobre a FLUXIXO',
         'sections': [
             ('what', 'O que é a FLUXIXO', 'A FLUXIXO é uma seleção independente de produtos úteis anunciados no AliExpress. Não somos uma loja e não representamos o AliExpress: pedido, pagamento, entrega e devolução são feitos no AliExpress com o vendedor escolhido.'),
-            ('images', 'Como preparamos os produtos', 'As imagens de estúdio são criadas com IA a partir das fotos do vendedor, por isso cada página permite abrir a foto original e comparar. Não testamos pessoalmente cada produto e não publicamos preços ou avaliações, pois mudam com frequência; confira as condições atuais com o vendedor.'),
+            ('images', 'Como preparamos os produtos', 'As imagens de estúdio são recortadas com IA das fotos do vendedor: só o produto, sem fundo nem textos. Veja todas as fotos e o que vem na caixa no AliExpress. Não testamos pessoalmente cada produto e não publicamos preços ou avaliações, pois mudam com frequência; confira as condições atuais com o vendedor.'),
             ('affiliate', 'Links de afiliados', 'Os links para o AliExpress são de afiliados. Se você fizer uma compra, a FLUXIXO pode receber uma comissão sem custo adicional para você.'),
             ('privacy', 'Privacidade', 'O site não tem cadastro, formulários nem cookies de publicidade. As visitas são contadas de forma agregada com o Cloudflare Web Analytics, sem cookies. Seu navegador guarda apenas o idioma e a preferência de animação. Ao abrir o AliExpress, vale a política de privacidade do AliExpress.'),
             ('orders', 'Dúvidas sobre pedidos', 'Para pedidos, entrega e devolução, fale com o vendedor pela sua conta do AliExpress. A FLUXIXO não processa pedidos nem pagamentos.'),
@@ -248,7 +248,7 @@ ABOUT = {
         'h1': 'Acerca de FLUXIXO',
         'sections': [
             ('what', 'Qué es FLUXIXO', 'FLUXIXO es una selección independiente de productos útiles publicados en AliExpress. No somos una tienda ni representamos a AliExpress: el pedido, el pago, la entrega y las devoluciones se realizan en AliExpress con el vendedor que elijas.'),
-            ('images', 'Cómo preparamos las fichas', 'Las imágenes de estudio se crean con IA a partir de las fotos del vendedor, por eso en cada producto puedes abrir la foto original y comparar. No probamos personalmente cada producto ni publicamos precios o calificaciones, porque cambian con frecuencia; consulta las condiciones actuales con el vendedor.'),
+            ('images', 'Cómo preparamos las fichas', 'Las imágenes de estudio se recortan con IA de las fotos del vendedor: solo el producto, sin fondo ni textos. Consulta todas las fotos y lo que incluye en AliExpress. No probamos personalmente cada producto ni publicamos precios o calificaciones, porque cambian con frecuencia; consulta las condiciones actuales con el vendedor.'),
             ('affiliate', 'Enlaces de afiliados', 'Los enlaces a AliExpress son de afiliados. Si realizas una compra, FLUXIXO puede recibir una comisión sin costo extra para ti.'),
             ('privacy', 'Privacidad', 'El sitio no tiene registro, formularios ni cookies publicitarias. Las visitas se cuentan de forma agregada con Cloudflare Web Analytics, sin cookies. Tu navegador guarda solo el idioma y la preferencia de animación. Al abrir AliExpress, se aplica la política de privacidad de AliExpress.'),
             ('orders', 'Dudas sobre pedidos', 'Para pedidos, entregas y devoluciones, contacta al vendedor desde tu cuenta de AliExpress. FLUXIXO no procesa pedidos ni pagos.'),
@@ -261,7 +261,7 @@ ABOUT = {
         'h1': 'À propos de FLUXIXO',
         'sections': [
             ('what', 'Qu’est-ce que FLUXIXO', 'FLUXIXO est une sélection indépendante de produits utiles proposés sur AliExpress. Nous ne sommes pas une boutique et ne représentons pas AliExpress : commande, paiement, livraison et retours se font sur AliExpress auprès du vendeur choisi.'),
-            ('images', 'Comment les fiches sont préparées', 'Les visuels studio sont créés par IA à partir des photos du vendeur : chaque fiche permet donc d’ouvrir la photo d’origine pour comparer. Nous ne testons pas personnellement chaque produit et ne publions ni prix ni notes, car ils changent souvent ; vérifiez les conditions actuelles auprès du vendeur.'),
+            ('images', 'Comment les fiches sont préparées', 'Les visuels studio sont détourés par IA à partir des photos du vendeur : seulement le produit, sans fond ni texte. Toutes les photos et le contenu exact sont sur AliExpress. Nous ne testons pas personnellement chaque produit et ne publions ni prix ni notes, car ils changent souvent ; vérifiez les conditions actuelles auprès du vendeur.'),
             ('affiliate', 'Liens affiliés', 'Les liens vers AliExpress sont des liens affiliés. Si vous effectuez un achat, FLUXIXO peut percevoir une commission sans frais supplémentaires pour vous.'),
             ('privacy', 'Confidentialité', 'Le site n’a ni inscription, ni formulaire, ni cookie publicitaire. Les visites sont comptées de façon agrégée avec Cloudflare Web Analytics, sans cookie. Votre navigateur enregistre uniquement la langue et la préférence d’animation. Une fois sur AliExpress, la politique de confidentialité d’AliExpress s’applique.'),
             ('orders', 'Questions sur les commandes', 'Pour les commandes, la livraison et les retours, contactez le vendeur depuis votre compte AliExpress. FLUXIXO ne traite ni commandes ni paiements.'),
@@ -274,7 +274,7 @@ ABOUT = {
         'h1': 'אודות FLUXIXO',
         'sections': [
             ('what', 'מה זה FLUXIXO', 'FLUXIXO היא מבחר עצמאי של מוצרים שימושיים המוצעים ב־AliExpress. איננו חנות ואיננו מייצגים את AliExpress: ההזמנה, התשלום, המשלוח וההחזרות מתבצעים ב־AliExpress מול המוכר שבחרתם.'),
-            ('images', 'איך מכינים את דפי המוצרים', 'תמונות הסטודיו נוצרות בעזרת בינה מלאכותית מתמונות המוכר, ולכן בכל דף מוצר אפשר לפתוח את התמונה המקורית ולהשוות. איננו בודקים כל מוצר בעצמנו ואיננו מפרסמים מחירים או דירוגים כי הם משתנים לעתים קרובות; בדקו את התנאים העדכניים אצל המוכר.'),
+            ('images', 'איך מכינים את דפי המוצרים', 'את תמונות הסטודיו אנחנו גוזרים בעזרת בינה מלאכותית מתמונות המוכר: רק המוצר, בלי רקע ובלי כיתובים. את כל התמונות ותכולת האריזה בדקו ב־AliExpress. איננו בודקים כל מוצר בעצמנו ואיננו מפרסמים מחירים או דירוגים כי הם משתנים לעתים קרובות; בדקו את התנאים העדכניים אצל המוכר.'),
             ('affiliate', 'קישורי שותפים', 'הקישורים ל־AliExpress הם קישורי שותפים. אם תבצעו רכישה, FLUXIXO עשויה לקבל עמלה ללא עלות נוספת עבורכם.'),
             ('privacy', 'פרטיות', 'באתר אין הרשמה, טפסים או עוגיות פרסום. הביקורים נספרים באופן מצטבר באמצעות Cloudflare Web Analytics, ללא עוגיות. הדפדפן שלכם שומר רק את השפה ואת העדפת האנימציה. לאחר המעבר ל־AliExpress חלה מדיניות הפרטיות של AliExpress.'),
             ('orders', 'שאלות על הזמנות', 'בנושאי הזמנות, משלוחים והחזרות פנו למוכר דרך חשבון ה־AliExpress שלכם. FLUXIXO אינה מטפלת בהזמנות או בתשלומים.'),

@@ -59,7 +59,7 @@
   phone.addEventListener('change', loop);
   loop();
 
-  // Swipe rows: dots show which card is in view.
+  // Swipe rows: dots show which card is in view and jump to it; product galleries also get arrows.
   document.querySelectorAll('[data-dots]').forEach(row => {
     const cards = [...row.children].filter(el => el.tagName !== 'svg');
     if (cards.length < 2) return;
@@ -68,6 +68,28 @@
     dots.setAttribute('aria-hidden', 'true');
     dots.innerHTML = cards.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('');
     row.after(dots);
+    let current = 0;
+    const go = i => {
+      const card = cards[Math.max(0, Math.min(cards.length - 1, i))];
+      row.scrollTo({ left: row.scrollLeft + card.getBoundingClientRect().left - row.getBoundingClientRect().left
+        - (row.clientWidth - card.offsetWidth) / 2, behavior: calm ? 'auto' : 'smooth' });
+    };
+    [...dots.children].forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+    const frame = row.parentElement.matches('.p-gallery') ? row.parentElement : null;
+    const arrows = [];
+    if (frame) {
+      ['prev', 'next'].forEach((name, k) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'arrow ' + name;
+        button.setAttribute('aria-label', frame.dataset[name === 'prev' ? 'labelPrev' : 'labelNext'] || name);
+        button.textContent = (k ? 1 : -1) * (root.dir === 'rtl' ? -1 : 1) > 0 ? '→' : '←';
+        button.addEventListener('click', () => go(current + (k ? 1 : -1)));
+        frame.append(button);
+        arrows.push(button);
+      });
+      arrows[0].disabled = true;
+    }
     let queued = false;
     row.addEventListener('scroll', () => {
       if (queued) return;
@@ -85,16 +107,12 @@
         const end = Math.abs(row.scrollLeft);
         if (end < 8) best = 0;
         else if (end > row.scrollWidth - row.clientWidth - 8) best = cards.length - 1;
+        current = best;
         [...dots.children].forEach((dot, i) => dot.classList.toggle('on', i === best));
+        if (arrows.length) { arrows[0].disabled = best === 0; arrows[1].disabled = best === cards.length - 1; }
       });
     }, { passive: true });
   });
-
-  // Seller photo: tap the polaroid to enlarge it (on a phone's product page it is already a full slide).
-  document.querySelectorAll('.pola').forEach(card => card.addEventListener('click', () => {
-    if (phone.matches && card.closest('.p-stage')) return;
-    card.classList.toggle('big');
-  }));
 
   // Phone: the language list is a sheet that slides up.
   const langButton = document.querySelector('.lang-btn');

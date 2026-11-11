@@ -1,0 +1,53 @@
+name: FLUXIXO extra product views (manual)
+
+# Cuts out more views of each product from its listing's other photos. The daily job does the same for new
+# products; this run fills in the existing catalog. It only adds image files and tools/gallery.json; the next
+# daily build (or a manual "add 0" run) puts them on the pages.
+on:
+  workflow_dispatch:
+    inputs:
+      only:
+        description: 'Comma-separated product IDs to redo (empty = every product not yet processed)'
+        required: false
+        default: ''
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fluxixo-daily-accumulation
+  cancel-in-progress: false
+
+jobs:
+  gallery:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install tools
+        run: |
+          sudo apt-get update -y && sudo apt-get install -y tesseract-ocr
+          python -m pip install --upgrade pip
+          python -m pip install requests pillow rembg onnxruntime
+      - name: Cut out extra views
+        env:
+          ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
+          ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
+          ONLY: ${{ github.event.inputs.only }}
+        run: python -B fluxixo_site/tools/build_gallery.py --only "$ONLY"
+      - name: Commit the views
+        run: |
+          git config user.name "FLUXIXO Cloud Autopilot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f fluxixo_site/tools/gallery.json fluxixo_site/dist/assets/images fluxixo_site/dist/assets/thumbs
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(fluxixo): extra cut-out product views [skip ci]"
+            git pull --rebase --quiet origin main && git push origin HEAD:main
+          fi

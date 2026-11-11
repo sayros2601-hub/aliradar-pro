@@ -64,7 +64,7 @@ CSS = re.sub(r'\s*\n\s*', ' ', re.sub(r'/\*.*?\*/', '', (HERE / 'static/style.cs
 VERIFY = ('<meta name="google-site-verification" content="BUSamFSGELSfaWQEaVVj2QzUgKQvWovtg-ZaHCfKNb0">'
           '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2"><meta name="yandex-verification" content="deee62492f76cf5b">')
 ROOT_TITLE = 'FLUXIXO | Curated AliExpress Finds'
-ROOT_DESC = 'Three new AliExpress finds every day: gadgets, home and kitchen tools, and travel accessories. Compare studio images with original seller photos.'
+ROOT_DESC = 'Three new AliExpress finds every day: gadgets, home and kitchen tools, and travel accessories, as clean studio cutouts with direct links.'
 
 
 _SVG = '<svg viewBox="0 0 24 24" aria-hidden="true">{}</svg>'
@@ -160,12 +160,16 @@ def load():
     catalog = json.loads((DIST / 'js/catalog.js').read_text(encoding='utf-8').split('=', 1)[1].strip().rstrip(';'))
     data = json.loads((ROOT / 'tools/i18n_data.json').read_text(encoding='utf-8'))
     products = [p for p in catalog['products'] if not p['demo']]
+    # Extra cut-out views from tools/build_gallery.py; seller photos themselves are never shown.
+    gallery_file = ROOT / 'tools/gallery.json'
+    gallery = json.loads(gallery_file.read_text(encoding='utf-8')) if gallery_file.exists() else {}
     # Odd category names map onto the hub whose English label they share.
     by_label = {data['cats'][k]['en']: k for k in L.CATEGORY_SLUGS if k in data['cats']}
     for p in products:
         key = L.category_key(p['category'])
         p['world'] = key or by_label.get(data['cats'].get(p['category'], {}).get('en'), 'Дом')
         colour, p['dark'] = tint(p['image'])
+        p['views'] = [p['image']] + [v for v in gallery.get(p['id'], {}).get('images', []) if (DIST / v).exists()]
         p['tint'] = colour or WORLDS[p['world']]
     return products, data
 
@@ -320,9 +324,14 @@ class Site:
         return (f'<div class="rope{" four" if n > 3 else ""}{" lead" if lead else ""}"{" data-dots" if lead else ""}><svg viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true">'
                 f'<path d="M0 40 Q 600 220 1200 40"/></svg>{hangs}</div>')
 
-    def polaroid(self, p, cls=''):
-        return (f'<button type="button" class="pola {cls}"><img src="/{e(p["original"])}" alt="{e(self.ui["seller"])}" loading="lazy" decoding="async">'
-                f'<span>{e(self.ui["seller"])}</span></button>')
+    def gallery(self, p, name):
+        """Studio views of one product that swipe (phone) or step with arrows (desktop); one view means no controls."""
+        views = ''.join(
+            f'<img class="cut" src="{img(v, 800)}" alt="{e(name)}" width="800" height="800" decoding="async"'
+            f'{" fetchpriority=\"high\"" if i == 0 else " loading=\"lazy\""}>' for i, v in enumerate(p['views']))
+        many = len(p['views']) > 1
+        arrows = (f' data-label-prev="{e(self.ui["prev"])}" data-label-next="{e(self.ui["next"])}"' if many else '')
+        return f'<div class="p-gallery"{arrows}><div class="p-stage"{" data-dots" if many else ""}>{views}</div></div>'
 
     def card(self, p):
         return (f'<a class="card" data-go data-w="{slug(p["world"])}" href="{self.ppath(p)}" style="--t:{WORLDS[p["world"]]}">'
@@ -353,7 +362,7 @@ class Site:
                f'<p class="eye day-eye"><b>★</b> {e(u["find_day"])} · {e(self.cat(star["world"]))}</p>'
                f'<div class="d day-word" aria-hidden="true">{e(star["name"])}</div>'
                f'<div class="day-prod"><img class="cut" src="{img(star["image"], 800)}" alt="{e(star["name"])}" width="800" height="800" loading="lazy" decoding="async"></div>'
-               f'{self.polaroid(star, "day-pola")}'
+
                f'<div class="day-info"><h2 class="d">{e(star["name"])}</h2><p class="s">{e(" ".join(star["headline"]))}</p>'
                f'<p class="t">{e(star["description"])}</p><div class="row">{self.buy(star)}<a class="btn line" data-go href="{self.ppath(star)}">{e(u["more"])}</a></div></div>'
                f'</div></section>')
@@ -422,8 +431,7 @@ class Site:
                     f'<div class="p-body"><div class="p-text"><p class="s">{e(" ".join(p["headline"]))}</p><p class="t">{e(page_description)}</p>'
                     f'{"<ul class=facts>" + facts + "</ul>" if facts else ""}'
                     f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(u["note"])} {e(L.DISCLOSURE[self.lang])}</p></div>'
-                    f'<div class="p-stage" data-dots><img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" fetchpriority="high" decoding="async">'
-                    f'{self.polaroid(p)}</div></div></section>')
+                    f'{self.gallery(p, name)}</div></section>')
             if related:
                 body += (f'<section class="related"><p class="eye"><b>●</b> {e(self.cat(key))}</p>'
                          f'<h2 class="d rv">{e(u["related"][0])} <span class="s">{e(u["related"][1])}</span></h2>{self.rope(related)}</section>')
