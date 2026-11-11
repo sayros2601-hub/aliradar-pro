@@ -194,24 +194,31 @@ def main():
             source, urls = find_listing(product, name_en, original_hash)
             record['source'] = source
             kept = [dhash(on_white(main_view))]
+            why = record['rejected'] = {'urls': len(urls)}
+            reject = lambda reason: why.__setitem__(reason, why.get(reason, 0) + 1)
             for index, url in enumerate(urls[:9]):
                 if len(record['images']) >= MAX_EXTRA:
                     break
                 picture = fetch(url)
                 if picture is None or picture.width * picture.height > 25_000_000 or min(picture.size) < 350:
+                    reject('fetch')
                     continue
                 if distance(dhash(picture), original_hash) <= MATCH:
+                    reject('same')
                     continue  # the photo the main view was made from
                 source_png = work / f'{pid_label}-{index}.png'
                 picture.convert('RGB').save(source_png)
                 if poster(source_png):
+                    reject('text')
                     continue
                 cutout = remove(picture.convert('RGBA'), session=session).convert('RGBA')
                 if not mask_usable(cutout):
+                    reject('mask')
                     continue
                 canvas = studio(cutout)
                 h = dhash(on_white(canvas))
                 if any(distance(h, k) <= DIFFERENT for k in kept):
+                    reject('repeat')
                     continue
                 kept.append(h)
                 relative = f'assets/images/{pid_label}-v{len(record["images"]) + 2}.webp'
@@ -221,7 +228,7 @@ def main():
             record['error'] = type(error).__name__
         state[pid_label] = record
         STATE.write_text(json.dumps(dict(sorted(state.items())), ensure_ascii=False, indent=1) + '\n', encoding='utf-8', newline='\n')
-        print(f'[{n}/{len(todo)}] {pid_label}: listing {record["source"] or "not found"}, {len(record["images"])} extra views', flush=True)
+        print(f'[{n}/{len(todo)}] {pid_label}: listing {record["source"] or "not found"}, {len(record["images"])} extra views {record.get("rejected", {})}', flush=True)
     shutil.rmtree(work, ignore_errors=True)
     total = sum(1 for r in state.values() if r['images'])
     print(f'Gallery: {total} of {len(state)} products have extra views.')
