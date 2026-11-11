@@ -42,7 +42,7 @@ import locales as L  # noqa: E402
 API_URL = 'https://api-sg.aliexpress.com/sync'
 MAX_EXTRA = 3
 MATCH = 10        # dHash distance at which two photos count as the same picture
-DIFFERENT = 12    # cut-outs closer than this to an already kept view are dropped as repeats
+DIFFERENT = 26    # cut-outs (cropped to the product) closer than this to an already kept view are dropped as repeats
 
 
 def api(method, params):
@@ -136,9 +136,31 @@ def poster(path):
     except (OSError, subprocess.SubprocessError):
         return True
     words = [c[11] for c in (line.split('\t') for line in out.splitlines()[1:])
-             if len(c) >= 12 and re.sub(r'\W', '', c[11]) and c[10].replace('.', '', 1).lstrip('-').isdigit() and float(c[10]) >= 50
-             and len(re.sub(r'\W', '', c[11])) >= 2]
-    return len(words) >= 2
+             if len(c) >= 12 and c[10].replace('.', '', 1).lstrip('-').isdigit() and float(c[10]) >= 40
+             and len(re.sub(r'\W', '', c[11])) >= 3]
+    return len(words) >= 1
+
+
+def solid_box(cutout):
+    """Bounding box of the clearly opaque pixels (a faint halo does not count)."""
+    return cutout.getchannel('A').point(lambda v: 255 if v > 128 else 0).getbbox()
+
+
+def scene(cutout):
+    """True when the cut-out failed and kept a whole picture: a filled rectangle with opaque corners."""
+    box = solid_box(cutout)
+    if not box:
+        return True
+    alpha = cutout.getchannel('A').crop(box)
+    w, h = alpha.size
+    corners = sum(alpha.getpixel((x, y)) > 200 for x, y in ((2, 2), (w - 3, 2), (2, h - 3), (w - 3, h - 3)))
+    filled = sum(alpha.resize((64, 64), Image.Resampling.BOX).histogram()[200:]) / 4096
+    return corners >= 3 or filled > 0.9
+
+
+def shape_hash(cutout):
+    """dHash of the product alone, so the same view at another size or position still counts as a repeat."""
+    return dhash(on_white(cutout.crop(solid_box(cutout) or (0, 0) + cutout.size)))
 
 
 def keep_main(cutout):
@@ -163,10 +185,15 @@ def keep_main(cutout):
         parts.append(part)
     if not parts:
         return cutout
-    biggest = max(len(part) for part in parts)
+    main = max(parts, key=len)
+    biggest = len(main)
+    xs, ys = [p % side for p in main], [p // side for p in main]
+    pad = side // 10
+    near = (min(xs) - pad, min(ys) - pad, max(xs) + pad, max(ys) + pad)
     keep = bytearray(side * side)
     for part in parts:
-        if len(part) >= biggest * 0.2:
+        inside = sum(near[0] <= p % side <= near[2] and near[1] <= p // side <= near[3] for p in part) / len(part)
+        if len(part) >= biggest * 0.5 or (len(part) >= biggest * 0.05 and inside > 0.8):
             for point in part:
                 keep[point] = 255
     mask = Image.frombytes('L', (side, side), bytes(keep)).resize(cutout.size, Image.Resampling.BILINEAR).point(lambda v: 255 if v > 40 else 0)
@@ -227,7 +254,7 @@ def main():
             name_en = names.get(product['id'], {}).get('en', {}).get('name') or product['name']
             source, urls = find_listing(product, name_en, original_hash)
             record['source'] = source
-            kept = [dhash(on_white(main_view))]
+            kept = [shape_hash(main_view)]
             why = record['rejected'] = {'urls': len(urls)}
             reject = lambda reason: why.__setitem__(reason, why.get(reason, 0) + 1)
             for index, url in enumerate(urls[:9]):
@@ -243,16 +270,17 @@ def main():
                 # Seller photos nearly always carry captions; they sit on the background, which the cut-out drops.
                 # Loose caption fragments are cleared, and only a finished view with no words left is kept.
                 cutout = keep_main(remove(picture.convert('RGBA'), session=session).convert('RGBA'))
-                if not mask_usable(cutout):
+                if not mask_usable(cutout) or scene(cutout):
                     reject('mask')
                     continue
                 canvas = studio(cutout)
                 check_png = work / f'{pid_label}-{index}.png'
-                on_white(canvas).save(check_png)
+                white = on_white(canvas)
+                white.resize((2508, 2508), Image.Resampling.LANCZOS).save(check_png)  # small captions read better enlarged
                 if poster(check_png):
                     reject('text')
                     continue
-                h = dhash(on_white(canvas))
+                h = shape_hash(canvas)
                 if any(distance(h, k) <= DIFFERENT for k in kept):
                     reject('repeat')
                     continue
