@@ -141,6 +141,40 @@ def poster(path):
     return len(words) >= 2
 
 
+def keep_main(cutout):
+    """Clear everything not attached to the product: stray captions, icons and arrows the cut-out kept."""
+    side = 160
+    alpha = cutout.getchannel('A')
+    small = alpha.resize((side, side), Image.Resampling.BOX).tobytes()
+    seen, parts = set(), []
+    for start in range(side * side):
+        if small[start] < 60 or start in seen:
+            continue
+        stack, part = [start], []
+        seen.add(start)
+        while stack:
+            point = stack.pop()
+            part.append(point)
+            x, y = point % side, point // side
+            for nb in (point - 1 if x else -1, point + 1 if x < side - 1 else -1, point - side if y else -1, point + side if y < side - 1 else -1):
+                if nb >= 0 and nb not in seen and small[nb] >= 60:
+                    seen.add(nb)
+                    stack.append(nb)
+        parts.append(part)
+    if not parts:
+        return cutout
+    biggest = max(len(part) for part in parts)
+    keep = bytearray(side * side)
+    for part in parts:
+        if len(part) >= biggest * 0.2:
+            for point in part:
+                keep[point] = 255
+    mask = Image.frombytes('L', (side, side), bytes(keep)).resize(cutout.size, Image.Resampling.BILINEAR).point(lambda v: 255 if v > 40 else 0)
+    cleaned = cutout.copy()
+    cleaned.putalpha(Image.composite(alpha, Image.new('L', cutout.size, 0), mask))
+    return cleaned
+
+
 def studio(cutout):
     """The same framing as the main image: product centred on a transparent 1254 px square."""
     cutout = cutout.crop(cutout.getbbox())
@@ -206,16 +240,18 @@ def main():
                 if distance(dhash(picture), original_hash) <= MATCH:
                     reject('same')
                     continue  # the photo the main view was made from
-                source_png = work / f'{pid_label}-{index}.png'
-                picture.convert('RGB').save(source_png)
-                if poster(source_png):
-                    reject('text')
-                    continue
-                cutout = remove(picture.convert('RGBA'), session=session).convert('RGBA')
+                # Seller photos nearly always carry captions; they sit on the background, which the cut-out drops.
+                # Loose caption fragments are cleared, and only a finished view with no words left is kept.
+                cutout = keep_main(remove(picture.convert('RGBA'), session=session).convert('RGBA'))
                 if not mask_usable(cutout):
                     reject('mask')
                     continue
                 canvas = studio(cutout)
+                check_png = work / f'{pid_label}-{index}.png'
+                on_white(canvas).save(check_png)
+                if poster(check_png):
+                    reject('text')
+                    continue
                 h = dhash(on_white(canvas))
                 if any(distance(h, k) <= DIFFERENT for k in kept):
                     reject('repeat')
