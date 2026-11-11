@@ -12,7 +12,7 @@
     "https://www.fluxixo.shop/categories/tehnika/": "acc35e4e3fb4ead4f59612182ec41543da074b9f1338474e017a5612bc9d4ab3",
     "https://www.fluxixo.shop/categories/uhod/": "ed9a0e576198d8a71ed0c4493188be034e7a1bdfc0c22da9179c06001db2488f",
     "https://www.fluxixo.shop/categories/v-doroge/": "9fba44b70f10aea7323bd22c8d8e0d7f27d27f94f5c035d594004f3e6bc4b046",
-    "https://www.fluxixo.shop/products/auto-1005004679234788/": "0c24588c7d9ea62abaf438ad2cac26c1484f061b84913ec16a1503fbe84f0e3a",
+    "https://www.fluxixo.shop/products/auto-1005004679234788/": "ff8935c8aff1b294290ea4eb96121254556512ec5587fdce48d211e796ec2a3d",
     "https://www.fluxixo.shop/products/find-001-neck-cooler/": "fb98909403433ea9095caa450135d1dd9fac34a4427d7b5121cb38ac178224b3",
     "https://www.fluxixo.shop/products/find-002-meat-thermo/": "03af269722cac468222e0c8d080d3cc565be4c95e6b02948c61f7c8652789bbc",
     "https://www.fluxixo.shop/products/find-003-mosquito-racket/": "df29efc73cad8dd366fefefd0b08b79f35c5db577367eac08b7f2909409bfcb3",
@@ -210,8 +210,6 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {
-    "https://www.fluxixo.shop/products/auto-1005004679234788/": "ff8935c8aff1b294290ea4eb96121254556512ec5587fdce48d211e796ec2a3d"
-  },
+  "pending": {},
   "schema_version": 1
 }
