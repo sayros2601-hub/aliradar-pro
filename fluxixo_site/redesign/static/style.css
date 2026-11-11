@@ -157,7 +157,7 @@ a{color:inherit}
 .p-hero.dark .p-gallery{margin-top:0}
 .p-stage{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
 .p-stage::-webkit-scrollbar{display:none}
-.p-stage>img{flex:0 0 100%;scroll-snap-align:center;width:100%;height:min(48vw,74svh);object-fit:contain}
+.p-stage>img{flex:0 0 100%;scroll-snap-align:center;width:100%;height:min(42vw,62svh);object-fit:contain}
 .p-stage>img:first-child{view-transition-name:hero-p}
 .p-gallery .arrow{position:absolute;top:calc(50% - 26px);z-index:2;width:52px;height:52px;border:0;border-radius:50%;background:#fff;color:var(--ink);font:800 22px/1 var(--body);cursor:pointer;box-shadow:0 10px 24px -10px rgba(18,16,20,.5);transition:transform .2s,opacity .2s}
 .p-gallery .arrow:hover{transform:scale(1.08)}
