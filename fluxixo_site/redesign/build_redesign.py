@@ -160,16 +160,12 @@ def load():
     catalog = json.loads((DIST / 'js/catalog.js').read_text(encoding='utf-8').split('=', 1)[1].strip().rstrip(';'))
     data = json.loads((ROOT / 'tools/i18n_data.json').read_text(encoding='utf-8'))
     products = [p for p in catalog['products'] if not p['demo']]
-    # Extra cut-out views from tools/build_gallery.py; seller photos themselves are never shown.
-    gallery_file = ROOT / 'tools/gallery.json'
-    gallery = json.loads(gallery_file.read_text(encoding='utf-8')) if gallery_file.exists() else {}
     # Odd category names map onto the hub whose English label they share.
     by_label = {data['cats'][k]['en']: k for k in L.CATEGORY_SLUGS if k in data['cats']}
     for p in products:
         key = L.category_key(p['category'])
         p['world'] = key or by_label.get(data['cats'].get(p['category'], {}).get('en'), 'Дом')
         colour, p['dark'] = tint(p['image'])
-        p['views'] = [p['image']] + [v for v in gallery.get(p['id'], {}).get('images', []) if (DIST / v).exists()]
         p['tint'] = colour or WORLDS[p['world']]
     return products, data
 
@@ -325,13 +321,13 @@ class Site:
                 f'<path d="M0 40 Q 600 220 1200 40"/></svg>{hangs}</div>')
 
     def gallery(self, p, name):
-        """Studio views of one product that swipe (phone) or step with arrows (desktop); one view means no controls."""
-        views = ''.join(
-            f'<img class="cut" src="{img(v, 800)}" alt="{e(name)}" width="800" height="800" decoding="async"'
-            f'{" fetchpriority=\"high\"" if i == 0 else " loading=\"lazy\""}>' for i, v in enumerate(p['views']))
-        many = len(p['views']) > 1
-        arrows = (f' data-label-prev="{e(self.ui["prev"])}" data-label-next="{e(self.ui["next"])}"' if many else '')
-        return f'<div class="p-gallery"{arrows}><div class="p-stage"{" data-dots" if many else ""}>{views}</div></div>'
+        """The one cut-out image. A product with a demo in redesign/demos/ plays it over the image: a 5-second loop
+        that starts and ends on this very photo and shows what the product does. Calm-motion visitors see the photo."""
+        photo = f'<img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" decoding="async" fetchpriority="high">'
+        demo = HERE / 'demos' / f'{p["id"]}.svg'
+        if demo.exists():
+            photo = f'<figure class="demo">{photo}{demo.read_text(encoding="utf-8").replace("{img}", img(p["image"], 800))}</figure>'
+        return f'<div class="p-gallery"><div class="p-stage">{photo}</div></div>'
 
     def card(self, p):
         return (f'<a class="card" data-go data-w="{slug(p["world"])}" href="{self.ppath(p)}" style="--t:{WORLDS[p["world"]]}">'

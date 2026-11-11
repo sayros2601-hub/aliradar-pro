@@ -234,8 +234,6 @@ def main() -> None:
             print("Validation already recorded; rebuild for deployment retry without another product.")
 
     if not args.deploy_existing:
-        # Extra cut-out views for products that have none yet; never blocks the daily build.
-        subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_gallery.py")], check=False)
         # Proofreading corrections and house text rules (French title case, "LED" in Hebrew) for old and new items.
         subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "apply_text_fixes.py")], check=True)
         subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "build_search.py")], check=True)

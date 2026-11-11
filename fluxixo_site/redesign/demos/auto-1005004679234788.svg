@@ -1,0 +1,90 @@
+<svg class="demo-anim" viewBox="0 0 1000 1000" aria-hidden="true" focusable="false">
+<!-- Screw extractor in 5 s: the set -> one bit spins into a stripped screw head -> backs the screw out -> done -> the set again. -->
+<defs>
+<linearGradient id="dx-steel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9aa1aa"/><stop offset=".45" stop-color="#e7eaee"/><stop offset="1" stop-color="#7d848d"/></linearGradient>
+<linearGradient id="dx-plate" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c9ced4"/><stop offset=".5" stop-color="#eef0f2"/><stop offset="1" stop-color="#aab0b7"/></linearGradient>
+<linearGradient id="dx-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a5a12"/><stop offset=".35" stop-color="#f3cf6b"/><stop offset=".6" stop-color="#d9a33a"/><stop offset="1" stop-color="#7a4e0e"/></linearGradient>
+<linearGradient id="dx-shank" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7f868e"/><stop offset=".4" stop-color="#f2f4f6"/><stop offset="1" stop-color="#6c737b"/></linearGradient>
+<pattern id="dx-flute" patternUnits="userSpaceOnUse" width="34" height="60" patternTransform="skewX(-38)">
+<rect width="13" height="60" fill="#6b430c" opacity=".55"/>
+<animate attributeName="x" dur="5s" repeatCount="indefinite" values="0;0;-680;-680" keyTimes="0;.22;.8;1"/>
+</pattern>
+<pattern id="dx-thread" patternUnits="userSpaceOnUse" width="16" height="60" patternTransform="skewX(30)">
+<rect width="6" height="60" fill="#5b6168" opacity=".6"/>
+<animate attributeName="x" dur="5s" repeatCount="indefinite" values="0;0;-224;-224" keyTimes="0;.58;.8;1"/>
+</pattern>
+<clipPath id="dx-frame"><rect width="1000" height="1000"/></clipPath>
+</defs>
+<g clip-path="url(#dx-frame)">
+<!-- the photo of the set, as on the page -->
+<g transform="translate(500 500)"><g>
+<animateTransform attributeName="transform" type="scale" dur="5s" repeatCount="indefinite" calcMode="spline"
+ values="1;1;.82;.82;1;1" keyTimes="0;.14;.24;.9;.98;1" keySplines="0 0 1 1;.5 0 .7 1;0 0 1 1;.2 0 .3 1;0 0 1 1"/>
+<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="1;1;0;0;1;1" keyTimes="0;.14;.24;.9;.98;1"/>
+<image href="{img}" x="-500" y="-500" width="1000" height="1000" preserveAspectRatio="xMidYMid meet"/>
+</g></g>
+<!-- the job -->
+<g opacity="0" transform="translate(500 500) scale(1.18) translate(-455 -500)">
+<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;.16;.25;.88;.95;1"/>
+<ellipse cx="470" cy="830" rx="380" ry="22" fill="#121014" opacity=".1"/>
+<!-- the stripped screw: it backs out of the plate together with the bit -->
+<g>
+<animateTransform attributeName="transform" type="translate" dur="5s" repeatCount="indefinite" calcMode="spline"
+ values="0 0;0 0;-210 0;-210 0" keyTimes="0;.58;.8;1" keySplines="0 0 1 1;.45 0 .35 1;0 0 1 1"/>
+<rect x="636" y="478" width="150" height="44" fill="url(#dx-steel)"/>
+<rect x="636" y="478" width="150" height="44" fill="url(#dx-thread)"/>
+<path d="M786 478 l22 22 -22 22z" fill="#8c939b"/>
+<rect x="586" y="448" width="54" height="104" rx="14" fill="url(#dx-steel)" stroke="#6c737b" stroke-width="3"/>
+<path d="M598 486 l8 5 -4 8 9 4 -5 9 8 6" fill="none" stroke="#3a3f45" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<!-- steel plate the screw sits in -->
+<rect x="640" y="200" width="190" height="600" rx="12" fill="url(#dx-plate)" stroke="#9aa1aa" stroke-width="3"/>
+<rect x="640" y="200" width="12" height="600" fill="#121014" opacity=".1"/>
+<circle cx="735" cy="250" r="10" fill="#9aa1aa"/><circle cx="735" cy="750" r="10" fill="#9aa1aa"/>
+<!-- one bit from the set: spins in, bites, comes back out with the screw -->
+<g>
+<animateTransform attributeName="transform" type="translate" dur="5s" repeatCount="indefinite" calcMode="spline"
+ values="-640 0;-640 0;0 0;12 0;-198 0;-198 0" keyTimes="0;.2;.42;.56;.8;1"
+ keySplines="0 0 1 1;.2 .7 .3 1;.5 0 .5 1;.45 0 .35 1;0 0 1 1"/>
+<rect x="110" y="483" width="230" height="34" rx="6" fill="url(#dx-shank)"/>
+<rect x="336" y="476" width="228" height="48" fill="url(#dx-gold)"/>
+<rect x="336" y="476" width="228" height="48" fill="url(#dx-flute)"/>
+<path d="M564 476 L598 500 L564 524 Z" fill="url(#dx-gold)"/>
+<path d="M564 476 L598 500 L564 524 Z" fill="url(#dx-flute)"/>
+</g>
+<!-- shavings while it bites -->
+<g fill="#c99a35">
+<g opacity="0"><animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;.42;.46;.58;1"/>
+<animateTransform attributeName="transform" type="translate" dur="5s" repeatCount="indefinite" values="0 0;0 0;-30 -50;-70 -110;-70 -110" keyTimes="0;.42;.48;.58;1"/>
+<path d="M586 470 q8 -10 16 0 q-8 6 -16 0z"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;.44;.48;.6;1"/>
+<animateTransform attributeName="transform" type="translate" dur="5s" repeatCount="indefinite" values="0 0;0 0;-40 40;-90 120;-90 120" keyTimes="0;.44;.5;.6;1"/>
+<path d="M584 530 q8 10 16 0 q-8 -6 -16 0z"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;.46;.5;.6;1"/>
+<animateTransform attributeName="transform" type="translate" dur="5s" repeatCount="indefinite" values="0 0;0 0;-20 -70;-40 -150;-40 -150" keyTimes="0;.46;.52;.6;1"/>
+<circle cx="590" cy="480" r="5"/></g>
+<g opacity="0"><animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;0;0" keyTimes="0;.45;.5;.59;1"/>
+<animateTransform attributeName="transform" type="translate" dur="5s" repeatCount="indefinite" values="0 0;0 0;-55 10;-120 40;-120 40" keyTimes="0;.45;.51;.59;1"/>
+<circle cx="588" cy="505" r="4"/></g>
+</g>
+<!-- counter-clockwise turn while the screw comes out -->
+<g opacity="0" fill="none" stroke="#e4007c" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
+<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;.57;.61;.77;.81;1"/>
+<g>
+<animateTransform attributeName="transform" type="translate" dur="5s" repeatCount="indefinite" calcMode="spline"
+ values="0 0;0 0;-210 0;-210 0" keyTimes="0;.58;.8;1" keySplines="0 0 1 1;.45 0 .35 1;0 0 1 1"/>
+<path d="M633 325 A40 40 0 1 0 653 360"/>
+<path d="M641 372 L653 358 L665 372"/>
+</g>
+</g>
+<!-- done -->
+<g transform="translate(800 260)"><g opacity="0">
+<animate attributeName="opacity" dur="5s" repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;.8;.83;.88;.94;1"/>
+<animateTransform attributeName="transform" type="scale" dur="5s" repeatCount="indefinite" calcMode="spline"
+ values=".4;.4;1.12;1;1" keyTimes="0;.8;.84;.87;1" keySplines="0 0 1 1;.3 0 .4 1;.4 0 .6 1;0 0 1 1"/>
+<circle r="58" fill="#e4007c"/>
+<path d="M-26 2 L-6 22 L28 -18" fill="none" stroke="#fff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</g></g>
+</g>
+</g>
+</svg>
