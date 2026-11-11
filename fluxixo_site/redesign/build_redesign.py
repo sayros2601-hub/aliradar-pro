@@ -6,6 +6,7 @@ Reads the catalog (dist/js/catalog.js, tools/i18n_data.json) and writes every vi
                                                   thumbnails, sitemaps, robots.txt and the feeds
 """
 import colorsys
+import hashlib
 import json
 import re
 import shutil
@@ -326,7 +327,9 @@ class Site:
         photo = f'<img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" decoding="async" fetchpriority="high">'
         clip = f'assets/video/{p["id"]}.mp4'
         if (DIST / clip).exists():
-            photo = (f'<figure class="demo">{photo}<video src="/{clip}" muted playsinline preload="none" disablepictureinpicture '
+            # The clip is cached for a week, so its address carries a content version: a re-edit reaches everyone at once.
+            version = hashlib.sha256((DIST / clip).read_bytes()).hexdigest()[:10]
+            photo = (f'<figure class="demo">{photo}<video src="/{clip}?v={version}" muted playsinline preload="none" disablepictureinpicture '
                      f'aria-hidden="true" tabindex="-1"></video></figure>')
         return f'<div class="p-gallery"><div class="p-stage">{photo}</div></div>'
 
