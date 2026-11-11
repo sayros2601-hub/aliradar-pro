@@ -11,6 +11,7 @@ in tools/gallery.json are skipped, so the daily run only handles new products. W
 with 480/800 thumbnails and records them in tools/gallery.json, which redesign/build_redesign.py reads.
 """
 import argparse
+import colorsys
 import hashlib
 import hmac
 import json
@@ -202,6 +203,57 @@ def keep_main(cutout):
     return cleaned
 
 
+def palette(image, bins=12):
+    """Share of the product's pixels per hue (and three grey levels)."""
+    small = image.convert('RGBA').resize((64, 64), Image.Resampling.BOX)
+    pixels = small.get_flattened_data() if hasattr(small, 'get_flattened_data') else small.getdata()
+    counts, n = [0.0] * (bins + 3), 0
+    for r, g, b, a in pixels:
+        if a < 160:
+            continue
+        hue, light, sat = colorsys.rgb_to_hls(r / 255, g / 255, b / 255)
+        if sat < 0.18 or light < 0.12 or light > 0.92:
+            counts[bins + (0 if light < 0.35 else 1 if light < 0.7 else 2)] += 1
+        else:
+            counts[int(hue * bins) % bins] += 1
+        n += 1
+    return [v / max(n, 1) for v in counts]
+
+
+def same_colours(a, b):
+    """Histogram overlap: a view of the same product shares its colours; a face, a room or caption boxes do not."""
+    return sum(min(x, y) for x, y in zip(palette(a), palette(b)))
+
+
+def pieces(cutout, side=120):
+    alpha = cutout.getchannel('A').resize((side, side), Image.Resampling.BOX).tobytes()
+    seen, sizes = set(), []
+    for start in range(side * side):
+        if alpha[start] < 100 or start in seen:
+            continue
+        stack, n = [start], 0
+        seen.add(start)
+        while stack:
+            point = stack.pop()
+            n += 1
+            x, y = point % side, point // side
+            for nb in (point - 1 if x else -1, point + 1 if x < side - 1 else -1, point - side if y else -1, point + side if y < side - 1 else -1):
+                if nb >= 0 and nb not in seen and alpha[nb] >= 100:
+                    seen.add(nb)
+                    stack.append(nb)
+        sizes.append(n)
+    return sorted(sizes, reverse=True)
+
+
+def one_object(cutout):
+    """One whole thing (a second, much smaller part is allowed), not a torn or littered cut-out."""
+    sizes = pieces(cutout)
+    if not sizes:
+        return False
+    extra = [s for s in sizes[1:] if s >= sizes[0] * 0.005]
+    return len(extra) <= 1 and (not extra or extra[0] <= sizes[0] * 0.3)
+
+
 def studio(cutout):
     """The same framing as the main image: product centred on a transparent 1254 px square."""
     cutout = cutout.crop(cutout.getbbox())
@@ -239,7 +291,9 @@ def main():
     names = json.loads((SITE / 'tools/i18n_data.json').read_text(encoding='utf-8'))['products']
     state = json.loads(STATE.read_text(encoding='utf-8')) if STATE.exists() else {}
     only = {x for x in args.only.split(',') if x}
-    todo = [p for p in catalog['products'] if not p.get('demo') and (p['id'] in only if only else p['id'] not in state)]
+    redo_all = only == {'ALL'}
+    todo = [p for p in catalog['products'] if not p.get('demo')
+            and (redo_all or (p['id'] in only if only else p['id'] not in state))]
     if args.limit:
         todo = todo[:args.limit]
     work = SITE / '.gallery-work'
@@ -247,6 +301,9 @@ def main():
     for n, product in enumerate(todo, 1):
         pid_label = product['id']
         record = {'checked': datetime.now(timezone.utc).date().isoformat(), 'source': None, 'images': []}
+        for old in state.get(pid_label, {}).get('images', []):  # a redo replaces the earlier views
+            for path in (DIST / old, DIST / L.thumb(old, 480), DIST / L.thumb(old, 800)):
+                path.unlink(missing_ok=True)
         try:
             original = Image.open(DIST / product['original'])
             main_view = Image.open(DIST / product['image']).convert('RGBA')
@@ -274,6 +331,12 @@ def main():
                     reject('mask')
                     continue
                 canvas = studio(cutout)
+                if not one_object(canvas):
+                    reject('pieces')
+                    continue
+                if same_colours(canvas, main_view) < 0.6:
+                    reject('colours')
+                    continue
                 check_png = work / f'{pid_label}-{index}.png'
                 white = on_white(canvas)
                 white.resize((2508, 2508), Image.Resampling.LANCZOS).save(check_png)  # small captions read better enlarged
