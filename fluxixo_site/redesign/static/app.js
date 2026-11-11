@@ -171,10 +171,13 @@
     addEventListener('scroll', () => { if (!queued && phone.matches) { queued = true; requestAnimationFrame(where); } }, { passive: true });
   }
 
-  // Product clip: the photo, then the real clip fades in over it, plays once, fades back; repeats while on screen.
+  // Product clip: the photo stays a while, the real clip slowly dissolves in over it, plays, and dissolves back
+  // into the photo while still moving (no frozen last frame); repeats while on screen.
   const clip = document.querySelector('.demo video');
   if (clip && !calm && !(navigator.connection && navigator.connection.saveData)) {
     const frame = clip.parentElement;
+    const PHOTO = 3000;  // how long the photo is shown before each play
+    const FADE = 1.5;    // seconds; matches the CSS transition
     let visible = false, timer = 0;
     const start = () => {
       clearTimeout(timer);
@@ -182,8 +185,11 @@
         if (!visible) return;
         clip.currentTime = 0;
         clip.play().then(() => frame.classList.add('playing')).catch(() => {});
-      }, 1200);
+      }, PHOTO);
     };
+    clip.addEventListener('timeupdate', () => {
+      if (frame.classList.contains('playing') && clip.duration && clip.currentTime > clip.duration - FADE) frame.classList.remove('playing');
+    });
     clip.addEventListener('ended', () => { frame.classList.remove('playing'); if (visible) start(); });
     new IntersectionObserver(([entry]) => {
       visible = entry.isIntersecting;
