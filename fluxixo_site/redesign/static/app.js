@@ -171,6 +171,27 @@
     addEventListener('scroll', () => { if (!queued && phone.matches) { queued = true; requestAnimationFrame(where); } }, { passive: true });
   }
 
+  // Product clip: the photo, then the real clip fades in over it, plays once, fades back; repeats while on screen.
+  const clip = document.querySelector('.demo video');
+  if (clip && !calm && !(navigator.connection && navigator.connection.saveData)) {
+    const frame = clip.parentElement;
+    let visible = false, timer = 0;
+    const start = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (!visible) return;
+        clip.currentTime = 0;
+        clip.play().then(() => frame.classList.add('playing')).catch(() => {});
+      }, 1200);
+    };
+    clip.addEventListener('ended', () => { frame.classList.remove('playing'); if (visible) start(); });
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) { if (clip.preload !== 'auto') { clip.preload = 'auto'; clip.load(); } if (clip.paused) start(); }
+      else { clearTimeout(timer); clip.pause(); frame.classList.remove('playing'); }
+    }, { threshold: 0.4 }).observe(frame);
+  }
+
   // The clicked product image morphs into the hero of its page.
   document.addEventListener('click', event => {
     const link = event.target.closest('a[data-go]');

@@ -321,12 +321,13 @@ class Site:
                 f'<path d="M0 40 Q 600 220 1200 40"/></svg>{hangs}</div>')
 
     def gallery(self, p, name):
-        """The one cut-out image. A product with a demo in redesign/demos/ plays it over the image: a 5-second loop
-        that starts and ends on this very photo and shows what the product does. Calm-motion visitors see the photo."""
+        """The one cut-out image. A product with a short clip in assets/video/<id>.mp4 (a real seller video, cut to the
+        moment the product works, no sound or captions) fades it in over the photo and back, in a loop, while on screen."""
         photo = f'<img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" decoding="async" fetchpriority="high">'
-        demo = HERE / 'demos' / f'{p["id"]}.svg'
-        if demo.exists():
-            photo = f'<figure class="demo">{photo}{demo.read_text(encoding="utf-8").replace("{img}", img(p["image"], 800))}</figure>'
+        clip = f'assets/video/{p["id"]}.mp4'
+        if (DIST / clip).exists():
+            photo = (f'<figure class="demo">{photo}<video src="/{clip}" muted playsinline preload="none" disablepictureinpicture '
+                     f'aria-hidden="true" tabindex="-1"></video></figure>')
         return f'<div class="p-gallery"><div class="p-stage">{photo}</div></div>'
 
     def card(self, p):
