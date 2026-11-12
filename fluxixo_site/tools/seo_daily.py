@@ -306,6 +306,19 @@ def yandex(token, urls, state, today, dry_run):
         offset += 100
         if len(samples) < 100:
             break
+    # Sitemaps: Yandex only learns the page list once the sitemaps are added in Webmaster; add any that are missing.
+    known = {s.get('sitemap_url') for s in read('sitemaps', {}).get('sitemaps', [])}
+    known |= {s.get('sitemap_url') for s in read('user-added-sitemaps', {}).get('sitemaps', [])}
+    sitemaps_added, recrawl_error = [], None
+    for name in SITEMAPS:
+        feed = f'{ORIGIN}/{name}'
+        if feed in known or dry_run:
+            continue
+        try:
+            http('POST', f'{base}/user-added-sitemaps', headers=auth, body={'url': feed})
+            sitemaps_added.append(name)
+        except ApiError as error:
+            recrawl_error = f'sitemap {name}: {error}'[:200]
     # Recrawl: Russian pages that are not in Yandex search yet, not asked within two weeks, a few per day.
     quota = read('recrawl/quota', {})
     allowed = min(YANDEX_RECRAWL_PER_DAY, int(quota.get('quota_remainder') or 0))
@@ -318,7 +331,8 @@ def yandex(token, urls, state, today, dry_run):
             continue
         try:
             http('POST', f'{base}/recrawl/queue', headers=auth, body={'url': url})
-        except ApiError:
+        except ApiError as error:
+            recrawl_error = f'переобход: {error}'[:200]  # tried again tomorrow
             break
         state['recrawled'][url] = today.isoformat()
         sent.append(url)
@@ -327,7 +341,8 @@ def yandex(token, urls, state, today, dry_run):
                         'excluded': summary.get('excluded_pages_count'), 'problems': summary.get('site_problems')},
             'problems': {k: v.get('state') for k, v in problems.items() if isinstance(v, dict) and v.get('state') == 'PRESENT'},
             'in_search': len(in_search), 'ru_missing': len(missing), 'recrawl_sent': sent,
-            'recrawl_quota_left': quota.get('quota_remainder'), 'not_loaded': sorted(set(pending))}
+            'recrawl_quota_left': quota.get('quota_remainder'), 'not_loaded': sorted(set(pending)),
+            'sitemaps_added': sitemaps_added, 'recrawl_error': recrawl_error}
 
 
 # ---------- analysis ----------
@@ -385,6 +400,10 @@ def report_text(today, results, errors, keywords=()):
                 lines.append('Проблемы сайта: ' + ', '.join(data['problems']))
             if data['not_loaded']:
                 lines.append('Яндекс ещё не загрузил данные по сайту (новый сайт): ' + ', '.join(data['not_loaded']))
+            if data['sitemaps_added']:
+                lines.append('Добавлены sitemap в Вебмастер: ' + ', '.join(data['sitemaps_added']))
+            if data['recrawl_error']:
+                lines.append('Яндекс не принял запрос: ' + data['recrawl_error'])
         if engine == 'bing' and data['crawl_issues']:
             lines.append(f'Ошибки обхода: {len(data["crawl_issues"])}')
         if engine == 'bing' and keywords:
@@ -419,6 +438,8 @@ def summary_text(today, results, errors):
             extra = f'в поиске {results[engine]["in_search"]}, на переобход {len(results[engine]["recrawl_sent"])}'
             if results[engine]['not_loaded']:
                 extra += '; Яндекс ещё не загрузил данные по сайту'
+            if results[engine]['sitemaps_added']:
+                extra += f'; добавлено sitemap: {len(results[engine]["sitemaps_added"])}'
         elif engine == 'bing':
             extra = f'ключевых слов изучено {results[engine]["keyword_lookups_today"]}'
         lines.append(f'| {title} | {t["clicks"]} | {t["impressions"]} | {t["ctr"]}% | {t["position"] or "—"} | {extra} |')
