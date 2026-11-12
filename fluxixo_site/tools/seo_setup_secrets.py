@@ -21,6 +21,34 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from dpapi_store import load_credential, save_credential  # noqa: E402
 
 REPO = 'sayros2601-hub/aliradar-pro'
+LOG = Path(__file__).resolve().parents[2] / '.local/seo-setup-log.txt'
+
+
+def say(text):
+    """Print and keep a copy (never a key) so a closed window can still be diagnosed."""
+    print(text, flush=True)
+    LOG.parent.mkdir(parents=True, exist_ok=True)
+    with LOG.open('a', encoding='utf-8') as stream:
+        stream.write(text + '\n')
+
+
+def gh_ready():
+    return subprocess.run(['gh', 'auth', 'status', '--hostname', 'github.com'],
+                          stdout=subprocess.PIPE, stderr=subprocess.PIPE).returncode == 0
+
+
+def login():
+    if gh_ready():
+        say('  GitHub: вход уже выполнен.')
+        return
+    say('  Нужно один раз войти в GitHub:')
+    say('   - спросит "Authenticate Git" - нажмите Enter;')
+    say('   - появится код (он уже скопирован) - нажмите Enter, откроется браузер;')
+    say('   - в браузере: Ctrl+V, Continue, Authorize github, потом вернитесь в это окно.')
+    subprocess.run(['gh', 'auth', 'login', '--hostname', 'github.com', '--git-protocol', 'https', '--web'])
+    if not gh_ready():
+        raise SystemExit('  Вход в GitHub не выполнен. Запустите файл ещё раз.')
+    say('  GitHub: вход выполнен.')
 
 
 def put(name, value):
@@ -28,7 +56,7 @@ def put(name, value):
                             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     if result.returncode != 0:
         raise SystemExit(f'gh secret set {name} failed: {result.stderr.decode("utf-8", "replace").strip()}')
-    print(f'  {name}: сохранён в GitHub')
+    say(f'  {name}: сохранён в GitHub')
 
 
 def yandex_ok(token):
@@ -54,7 +82,8 @@ def main():
     parser.add_argument('--yandex', action='store_true', help='ask for a new Yandex OAuth token')
     parser.add_argument('--google-json', help='path to the downloaded Google service-account JSON key')
     args = parser.parse_args()
-    print('FLUXIXO: ключи для ежедневного SEO-задания')
+    say(f'FLUXIXO: ключи для ежедневного SEO-задания ({__import__("datetime").datetime.now():%Y-%m-%d %H:%M})')
+    login()
 
     key = load_credential('seo-data-key.dpapi')
     if not key:
@@ -67,7 +96,7 @@ def main():
     if bing:
         put('BING_WEBMASTER_API_KEY', bing)
     else:
-        print('  Bing: ключа на этом компьютере нет (Bing Webmaster → Настройки → API access → API key).')
+        say('  Bing: ключа на этом компьютере нет (Bing Webmaster → Настройки → API access → API key).')
 
     if args.yandex:
         token = getpass.getpass('  Вставьте новый токен Яндекса (символы не видны) и нажмите Enter: ').strip()
@@ -78,7 +107,7 @@ def main():
     if token and yandex_ok(token):
         put('YANDEX_WEBMASTER_TOKEN', token)
     else:
-        print('  Яндекс: у текущего токена нет права webmaster:hostinfo. Получите новый и запустите с --yandex.')
+        say('  Яндекс: у текущего токена нет права webmaster:hostinfo. Получите новый и запустите с --yandex.')
 
     if args.google_json:
         text = Path(args.google_json).read_text(encoding='utf-8')
@@ -87,9 +116,21 @@ def main():
             raise SystemExit('  Это не ключ служебного аккаунта Google (JSON).')
         save_credential('gsc-service-account.dpapi', text)
         put('GSC_SERVICE_ACCOUNT_JSON', text)
-        print(f'  Google: добавьте {info["client_email"]} в Search Console → Настройки → Пользователи (полный доступ).')
-    print('Готово. Задание на GitHub подхватит ключи при следующем запуске.')
+        say(f'  Google: добавьте {info["client_email"]} в Search Console → Настройки → Пользователи (полный доступ).')
+    say('Готово. Задание на GitHub подхватит ключи при следующем запуске.')
 
 
 if __name__ == '__main__':
-    main()
+    pause = '--pause' in sys.argv
+    if pause:
+        sys.argv.remove('--pause')
+    try:
+        main()
+    except SystemExit as stop:
+        if stop.code not in (None, 0):
+            say(str(stop.code))
+    except Exception as error:  # shown and logged, so the window never just vanishes
+        say(f'Ошибка: {type(error).__name__}: {error}')
+    finally:
+        if pause:
+            input('\nНажмите Enter, чтобы закрыть окно.')
