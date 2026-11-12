@@ -1,16 +1,16 @@
 {
-  "js/app.js": "js/app.afe7b552f016.js",
-  "js/arcade.js": "js/arcade.6e41dafce0b9.js",
-  "js/catalog-core.js": "js/catalog-core.41cc5f57f316.js",
-  "js/catalog.js": "js/catalog.032cdfb606c6.js",
   "js/fx.js": "js/fx.a7a96926f964.js",
-  "js/i18n.js": "js/i18n.ca7082bb1384.js",
+  "js/arcade.js": "js/arcade.6e41dafce0b9.js",
+  "js/app.js": "js/app.afe7b552f016.js",
+  "js/catalog.js": "js/catalog.e0b4e45080ef.js",
   "js/motion.js": "js/motion.ad697a9c4f0b.js",
-  "js/search-nav.js": "js/search-nav.1ab40042baca.js",
+  "js/catalog-core.js": "js/catalog-core.41cc5f57f316.js",
   "js/watch-inline.js": "js/watch-inline.eb896b27224e.js",
-  "css/arcade.css": "css/arcade.b7dda72e1ec6.css",
-  "css/search.css": "css/search.40a7c3c8a2aa.css",
-  "css/site.css": "css/site.f2c56026ca4b.css",
+  "js/search-nav.js": "js/search-nav.1ab40042baca.js",
+  "js/i18n.js": "js/i18n.ca7082bb1384.js",
   "css/watch-inline.css": "css/watch-inline.80e48bfb584a.css",
-  "assets/favicon.svg": "assets/favicon.31b10536e8b3.svg"
+  "css/arcade.css": "css/arcade.7304c7f5127c.css",
+  "css/search.css": "css/search.40a7c3c8a2aa.css",
+  "css/site.css": "css/site.0a06000ad432.css",
+  "assets/favicon.svg": "assets/favicon.0f1dbcda9604.svg"
 }
