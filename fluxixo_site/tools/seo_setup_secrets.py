@@ -11,8 +11,10 @@ this script takes them from the encrypted store in .local/ (or asks for them wit
 import argparse
 import getpass
 import json
+import re
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -59,22 +61,46 @@ def put(name, value):
     say(f'  {name}: сохранён в GitHub')
 
 
-def yandex_ok(token):
-    request = urllib.request.Request('https://api.webmaster.yandex.net/v4/user', headers={'Authorization': f'OAuth {token}'})
+def clean_token(text):
+    """Pasting into a terminal can wrap the text in bracketed-paste codes or add spaces; keep only token characters."""
+    text = re.sub(r'\x1b\[20[01]~', '', text or '')
+    return ''.join(ch for ch in text if ch.isalnum() or ch in '_-.')
+
+
+def yandex_check(token):
+    """None when the token can read fluxixo.shop statistics, else the reason (never the token itself)."""
+    if len(token) < 30:
+        return f'токен пустой или обрезан ({len(token)} символов)'
+    step = 'user'
     try:
+        request = urllib.request.Request('https://api.webmaster.yandex.net/v4/user', headers={'Authorization': f'OAuth {token}'})
         with urllib.request.urlopen(request, timeout=20) as response:
             user = json.loads(response.read())['user_id']
+        step = 'hosts'
         hosts = urllib.request.Request(f'https://api.webmaster.yandex.net/v4/user/{user}/hosts',
                                        headers={'Authorization': f'OAuth {token}'})
         with urllib.request.urlopen(hosts, timeout=20) as response:
             host = next(h['host_id'] for h in json.loads(response.read())['hosts'] if 'www.fluxixo.shop' in h['host_id'])
+        step = 'summary'
         summary = urllib.request.Request(
             f'https://api.webmaster.yandex.net/v4/user/{user}/hosts/{urllib.request.quote(host, safe="")}/summary',
             headers={'Authorization': f'OAuth {token}'})
         with urllib.request.urlopen(summary, timeout=20):
-            return True
-    except (urllib.error.URLError, KeyError, StopIteration, ValueError):
-        return False
+            return None
+    except urllib.error.HTTPError as error:
+        body = error.read().decode('utf-8', 'replace')
+        code = (re.search(r'"error_code"\s*:\s*"([A-Z_]+)"', body) or [None, ''])[1]
+        if step == 'summary' and code == 'HOST_NOT_LOADED':
+            return None  # access is granted; Yandex just has no statistics for the site yet
+        return f'Яндекс ответил {error.code} {code} на шаге {step}'
+    except StopIteration:
+        return 'в этом аккаунте Яндекс Вебмастера нет www.fluxixo.shop'
+    except (urllib.error.URLError, KeyError, ValueError) as error:
+        return f'{type(error).__name__} на шаге {step}'
+
+
+def yandex_ok(token):
+    return yandex_check(token) is None
 
 
 def main():
@@ -99,9 +125,26 @@ def main():
         say('  Bing: ключа на этом компьютере нет (Bing Webmaster → Настройки → API access → API key).')
 
     if args.yandex:
-        token = getpass.getpass('  Вставьте новый токен Яндекса (символы не видны) и нажмите Enter: ').strip()
-        if not yandex_ok(token):
-            raise SystemExit('  Токен не даёт доступа к статистике сайта (нужно право webmaster:hostinfo). Ничего не сохранено.')
+        # The token is taken from the clipboard (the owner pressed "copy" on the Yandex page); typing is the fallback.
+        # Copying the command from the chat replaces the clipboard, so the program waits for the token to be copied.
+        def clipboard_token():
+            clip = subprocess.run(['powershell', '-NoProfile', '-Command', 'Get-Clipboard'], stdout=subprocess.PIPE,
+                                  stderr=subprocess.DEVNULL).stdout.decode('utf-8', 'replace').strip()
+            return clean_token(clip) if len(clip) >= 30 and ' ' not in clip and '\n' not in clip else ''
+        token = clipboard_token()
+        if not token:
+            say('  Яндекс: теперь в браузере нажмите кнопку копирования рядом с токеном. Жду до 5 минут...')
+            deadline = time.time() + 300
+            while not token and time.time() < deadline:
+                time.sleep(1.5)
+                token = clipboard_token()
+        if token:
+            say('  Яндекс: токен взят из буфера обмена.')
+        else:
+            token = clean_token(getpass.getpass('  Вставьте новый токен Яндекса (символы не видны) и нажмите Enter: '))
+        problem = yandex_check(token)
+        if problem:
+            raise SystemExit(f'  Токен не подошёл: {problem}. Ничего не сохранено.')
         save_credential('yandex-oauth-token.dpapi', token)
     token = load_credential('yandex-oauth-token.dpapi')
     if token and yandex_ok(token):

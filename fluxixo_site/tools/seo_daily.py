@@ -276,31 +276,38 @@ def yandex(token, urls, state, today, dry_run):
     if not host:
         raise ApiError('www.fluxixo.shop нет в этом кабинете Яндекс Вебмастера')
     base = f'{api}/user/{user}/hosts/{urllib.parse.quote(host, safe="")}'
-    try:
-        summary = http('GET', f'{base}/summary', headers=auth)
-    except ApiError as error:
-        if 'ACCESS_FORBIDDEN' in str(error):
-            raise ApiError('у токена Яндекса нет права webmaster:hostinfo, нужен новый токен') from None
-        raise
+    pending = []
+    def read(path, default):
+        """A new site answers HOST_NOT_LOADED until Yandex has processed it: that is 'no data yet', not a failure."""
+        try:
+            return http('GET', f'{base}/{path}', headers=auth)
+        except ApiError as error:
+            if 'ACCESS_FORBIDDEN' in str(error):
+                raise ApiError('у токена Яндекса нет нужных прав, нужен новый токен') from None
+            if 'HOST_NOT_LOADED' in str(error) or 'HTTP 404' in str(error):
+                pending.append(path.split('?')[0])
+                return default
+            raise
+    summary = read('summary', {})
     indicators = '&'.join(f'query_indicator={i}' for i in ('TOTAL_SHOWS', 'TOTAL_CLICKS', 'AVG_SHOW_POSITION', 'AVG_CLICK_POSITION'))
-    popular = http('GET', f'{base}/search-queries/popular?order_by=TOTAL_SHOWS&{indicators}&limit=500', headers=auth)
+    popular = read(f'search-queries/popular?order_by=TOTAL_SHOWS&{indicators}&limit=500', {})
     rows = []
     for item in popular.get('queries', []):
         values = item.get('indicators', {})
         rows.append({'query': item.get('query_text'), 'clicks': values.get('TOTAL_CLICKS') or 0,
                      'impressions': values.get('TOTAL_SHOWS') or 0,
                      'position': round(values.get('AVG_SHOW_POSITION') or 0, 1)})
-    problems = http('GET', f'{base}/diagnostics', headers=auth).get('problems', {})
+    problems = read('diagnostics', {}).get('problems', {})
     in_search, offset = set(), 0
     while offset < 3000:
-        page = http('GET', f'{base}/search-urls/in-search/samples?offset={offset}&limit=100', headers=auth)
+        page = read(f'search-urls/in-search/samples?offset={offset}&limit=100', {})
         samples = page.get('samples', [])
         in_search.update(s.get('url') for s in samples if s.get('url'))
         offset += 100
         if len(samples) < 100:
             break
     # Recrawl: Russian pages that are not in Yandex search yet, not asked within two weeks, a few per day.
-    quota = http('GET', f'{base}/recrawl/quota', headers=auth)
+    quota = read('recrawl/quota', {})
     allowed = min(YANDEX_RECRAWL_PER_DAY, int(quota.get('quota_remainder') or 0))
     again = (today - timedelta(days=RECRAWL_AGAIN_DAYS)).isoformat()
     missing = [u for u in urls if ru_url(u) and u not in in_search]
@@ -320,7 +327,7 @@ def yandex(token, urls, state, today, dry_run):
                         'excluded': summary.get('excluded_pages_count'), 'problems': summary.get('site_problems')},
             'problems': {k: v.get('state') for k, v in problems.items() if isinstance(v, dict) and v.get('state') == 'PRESENT'},
             'in_search': len(in_search), 'ru_missing': len(missing), 'recrawl_sent': sent,
-            'recrawl_quota_left': quota.get('quota_remainder')}
+            'recrawl_quota_left': quota.get('quota_remainder'), 'not_loaded': sorted(set(pending))}
 
 
 # ---------- analysis ----------
@@ -376,6 +383,8 @@ def report_text(today, results, errors, keywords=()):
             lines.append(f'ИКС {s["sqi"]}, страниц в поиске {s["searchable"]}, исключено {s["excluded"]}; русских страниц вне поиска {data["ru_missing"]}, отправлено на переобход {len(data["recrawl_sent"])}.')
             if data['problems']:
                 lines.append('Проблемы сайта: ' + ', '.join(data['problems']))
+            if data['not_loaded']:
+                lines.append('Яндекс ещё не загрузил данные по сайту (новый сайт): ' + ', '.join(data['not_loaded']))
         if engine == 'bing' and data['crawl_issues']:
             lines.append(f'Ошибки обхода: {len(data["crawl_issues"])}')
         if engine == 'bing' and keywords:
@@ -408,6 +417,8 @@ def summary_text(today, results, errors):
             extra = f'в индексе {i["indexed"]} из {i["known"]} проверенных'
         elif engine == 'yandex':
             extra = f'в поиске {results[engine]["in_search"]}, на переобход {len(results[engine]["recrawl_sent"])}'
+            if results[engine]['not_loaded']:
+                extra += '; Яндекс ещё не загрузил данные по сайту'
         elif engine == 'bing':
             extra = f'ключевых слов изучено {results[engine]["keyword_lookups_today"]}'
         lines.append(f'| {title} | {t["clicks"]} | {t["impressions"]} | {t["ctr"]}% | {t["position"] or "—"} | {extra} |')
