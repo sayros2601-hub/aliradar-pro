@@ -7,6 +7,7 @@ from locales import (
     header_lang_select, hero_image, item_page_schema, language_links, product_path, public_facts, sticky_cta, sync_showroom, thumb,
     translations
 )
+import journal_pages
 from PIL import Image
 import csv
 import hashlib
@@ -107,7 +108,10 @@ def metadata(title, description, path, image=default_image, language="ru"):
 <meta property="og:url" content="{ORIGIN}{path}"><meta property="og:image" content="{ORIGIN}/{e(image)}">
 <meta property="og:locale" content="{LANGUAGES[language][1]}"><meta name="twitter:card" content="summary_large_image">"""
 
-def page(title, description, path, body, data=None, image=default_image, noindex=False, language='ru', alternate_paths=None, studio_url=None, theme=None):
+def page(title, description, path, body, data=None, image=default_image, noindex=False, language='ru', alternate_paths=None, studio_url=None, theme=None, schema=None):
+    if schema is not None:
+        data = schema
+    image = image or default_image
     tag, _, _, catalog_label, showroom, _, _ = LANGUAGES[language]
     direction = 'rtl' if language == 'he' else 'ltr'
     home = studio_url or f'/?lang={language}'
@@ -230,7 +234,11 @@ lang_bar = language_links(catalog_paths)
 listing = {'@context': 'https://schema.org', '@type': 'ItemList', 'name': 'Каталог FLUXIXO', 'numberOfItems': len(products), 'itemListElement': [{'@type': 'ListItem', 'position': i+1, 'url': ORIGIN+route(p), 'name': p['name']} for i, p in enumerate(products)]}
 write('catalog/index.html', page(CATALOG_TITLE['ru'], f'{len(products)} товаров из подборки FLUXIXO: студийные фотографии, описания, рубрики и партнёрские ссылки на AliExpress.', '/catalog/', '<p class="eyebrow">Находки с другой стороны</p><h1>Коллекция FLUXIXO ('+str(len(products))+')</h1><p>Техника, инструменты, товары для дома, кухни, поездок и питомцев. Выберите язык, рубрику или рассмотрите все находки ниже.</p>'+cat_bar+'<ul class="grid">'+''.join(items)+'</ul>'+lang_bar, listing, alternate_paths=catalog_paths))
 
-localized_paths = generate(ORIGIN, i18n, products, page, write, default_image) + generate_about(page, write)
+localized_paths = (
+    generate(ORIGIN, i18n, products, page, write, default_image)
+    + generate_about(page, write)
+    + journal_pages.generate_journal_pages(ORIGIN, products, i18n, page, write, alternates)
+)
 
 index = (DIST/'index.html').read_text(encoding='utf-8')
 title = 'FLUXIXO | Curated AliExpress Finds'
@@ -288,7 +296,13 @@ Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term
 Clean-param: lang /
 
 Sitemap: {ORIGIN}/sitemap.xml
+Sitemap: {ORIGIN}/sitemap-index.xml
 Sitemap: {ORIGIN}/sitemap-ru.xml
+Sitemap: {ORIGIN}/sitemap-en.xml
+Sitemap: {ORIGIN}/sitemap-pt.xml
+Sitemap: {ORIGIN}/sitemap-es.xml
+Sitemap: {ORIGIN}/sitemap-fr.xml
+Sitemap: {ORIGIN}/sitemap-he.xml
 """
 write('robots.txt', robots_txt)
 write('BingSiteAuth.xml', f'<?xml version="1.0" encoding="UTF-8"?>\n<users><user>{BING}</user></users>\n')

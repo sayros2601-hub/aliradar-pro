@@ -79,6 +79,33 @@ def _headline(value):
     return [' '.join(words[:split]), ' '.join(words[split:])]
 
 
+def _maybe_ai_enrich(record_item, translated, candidate, site_root):
+    """Optionally enhance 6-language copy with free AI when keys are set, strictly gated by check_texts."""
+    try:
+        import sys as _sys
+        tools_dir = str(Path(site_root) / 'tools')
+        if tools_dir not in _sys.path:
+            _sys.path.insert(0, tools_dir)
+        import ai_seo
+        if not ai_seo.has_ai_provider():
+            return record_item, translated
+        base = {
+            'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
+            **translated,
+        }
+        enriched, provider = ai_seo.enrich_product_copy({
+            'category': record_item.get('category', ''),
+            'market': record_item.get('sourceMarket', 'US'),
+            'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
+        }, base)
+        if enriched and provider != 'deterministic' and not provider.startswith('fallback:'):
+            record_item = {**record_item, **enriched['ru'], 'details': enriched['ru']['description']}
+            translated = {lang: enriched[lang] for lang in LANGS if lang != 'ru' and lang in enriched}
+    except Exception:
+        pass
+    return record_item, translated
+
+
 def _matches(seed, title):
     words = _words(title)
     # A replacement/part with the target words is not the complete tool.
@@ -727,6 +754,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         record_item['sourceQueueClaimId'] = queue_claim['claim_id']
                         record_item['sourceQueueOwner'] = owner
                     used_hashes.update((media['source_sha256'], media['pixel_sha256']))
+                    record_item, translated = _maybe_ai_enrich(record_item, translated, candidate, site_root)
                     prepared.append((record_item, translated, media))
                     progress = True
                 except DailyError as error:

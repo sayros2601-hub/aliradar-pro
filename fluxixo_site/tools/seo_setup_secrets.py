@@ -107,6 +107,9 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--yandex', action='store_true', help='ask for a new Yandex OAuth token')
     parser.add_argument('--google-json', help='path to the downloaded Google service-account JSON key')
+    parser.add_argument('--gemini-key', nargs='?', const='PROMPT', help='save free Google Gemini API key')
+    parser.add_argument('--groq-key', nargs='?', const='PROMPT', help='save free Groq API key')
+    parser.add_argument('--openrouter-key', nargs='?', const='PROMPT', help='save free OpenRouter API key')
     args = parser.parse_args()
     say(f'FLUXIXO: ключи для ежедневного SEO-задания ({__import__("datetime").datetime.now():%Y-%m-%d %H:%M})')
     login()
@@ -160,6 +163,25 @@ def main():
         save_credential('gsc-service-account.dpapi', text)
         put('GSC_SERVICE_ACCOUNT_JSON', text)
         say(f'  Google: добавьте {info["client_email"]} в Search Console → Настройки → Пользователи (полный доступ).')
+
+    ai_specs = (
+        ('gemini', args.gemini_key, 'gemini-api-key.dpapi', 'GEMINI_API_KEY', 'Google Gemini API (aistudio.google.com/apikey)'),
+        ('groq', args.groq_key, 'groq-api-key.dpapi', 'GROQ_API_KEY', 'Groq API (console.groq.com/keys)'),
+        ('openrouter', args.openrouter_key, 'openrouter-api-key.dpapi', 'OPENROUTER_API_KEY', 'OpenRouter API (openrouter.ai/keys)'),
+    )
+    for _, provided, dpapi_name, gh_secret, label in ai_specs:
+        if provided == 'PROMPT':
+            val = clean_token(getpass.getpass(f'  Вставьте ключ {label} (символы не видны): '))
+            if not val:
+                raise SystemExit(f'  {gh_secret}: пустой ключ, ничего не сохранено.')
+            save_credential(dpapi_name, val)
+        elif provided:
+            p = Path(provided)
+            val = clean_token(p.read_text(encoding='utf-8')) if p.is_file() else clean_token(provided)
+            save_credential(dpapi_name, val)
+        existing = load_credential(dpapi_name)
+        if existing:
+            put(gh_secret, existing)
     say('Готово. Задание на GitHub подхватит ключи при следующем запуске.')
 
 

@@ -83,6 +83,9 @@ jobs:
           CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
           ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
           ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           ADD_COUNT: ${{ github.event_name == 'schedule' && '3' || github.event.inputs.add_count || '3' }}
         run: |
           python -B fluxixo_daily_rotate.py --add "$ADD_COUNT"

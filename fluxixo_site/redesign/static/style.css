@@ -357,3 +357,21 @@ a{color:inherit}
   .foot-row{margin-top:22px;font-size:12.5px}
 }
 @media (prefers-reduced-motion:reduce){.demo video{display:none}*,*::before,*::after{animation:none!important;transition:none!important}.js .rv{opacity:1;transform:none}}
+.seo-notes{max-width:1180px;margin:0 auto;padding:12px var(--g) 36px;display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.market-guide,.product-faq{background:rgba(255,255,255,.55);border:1px solid rgba(18,16,20,.1);border-radius:18px;padding:20px 22px}
+.market-guide h2,.product-faq h2{font-size:18px;line-height:1.25;margin:0 0 12px}
+.market-guide ul{margin:0;padding-inline-start:20px;display:grid;gap:8px;font-size:14.5px;line-height:1.48}
+.faq-item{border-top:1px solid rgba(18,16,20,.1);padding:10px 0}
+.faq-item:first-of-type{border-top:0;padding-top:2px}
+.faq-item summary{cursor:pointer;font-weight:600;font-size:14.5px;line-height:1.4}
+.faq-item p{margin:8px 0 2px;font-size:14px;line-height:1.5;opacity:.88}
+.journal-article,.about-page{max-width:860px;margin:0 auto;padding:34px var(--g) 64px}
+.journal-article h1,.about-page h1{font-size:clamp(28px,4vw,44px);line-height:1.12;margin:8px 0 16px}
+.journal-article section,.about-page section{margin-top:24px;padding-top:18px;border-top:1px solid rgba(18,16,20,.1)}
+.journal-article h2,.about-page h2{font-size:20px;margin:0 0 8px}
+.journal-article p,.about-page p{font-size:15.5px;line-height:1.6}
+.breadcrumb{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px;padding:18px var(--g) 0;max-width:860px;margin:0 auto}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin:18px 0}
+.button{display:inline-flex;align-items:center;gap:6px;padding:11px 18px;border-radius:999px;background:var(--ink);color:var(--paper);text-decoration:none;font-weight:600;font-size:14px}
+.button.secondary{background:transparent;color:var(--ink);border:1px solid rgba(18,16,20,.25)}
+.lang-bar{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}

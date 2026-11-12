@@ -2475,6 +2475,28 @@ window.MIRA_CATALOG = {
           "value": "Бразилия"
         }
       ]
+    },
+    {
+      "id": "katord-wifi-repeater",
+      "name": "Усилитель Wi-Fi сигнала KATORD 1200 Мбит/с",
+      "category": "Техника",
+      "headline": [
+        "Стабильный",
+        "Wi-Fi дома."
+      ],
+      "description": "Двухдиапазонный повторитель Wi-Fi 2.4G и 5G с внешними антеннами для расширения зоны покрытия дома и в офисе. Перед заказом сверьте тип вилки и комплектацию у продавца.",
+      "image": "assets/images/katord-wifi-repeater.webp",
+      "original": "assets/originals/katord-wifi-repeater.webp",
+      "imageNote": "Студийная визуализация по фото продавца, очищенная от фона. Оригинальная фотография доступна для сравнения ниже.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4a66xtz",
+      "sourceUrl": "https://www.aliexpress.com/item/1005011800659333.html",
+      "sourceProductId": "1005011800659333",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.92,
+      "rotation": 0,
+      "details": "Двухдиапазонный повторитель Wi-Fi 2.4G и 5G с шестью внешними антеннами помогает расширить беспроводную сеть в квартире, доме или небольшом офисе.\n\nПеред оформлением заказа на AliExpress выберите нужный тип вилки и проверьте характеристики у продавца.",
+      "facts": []
     }
   ]
 };

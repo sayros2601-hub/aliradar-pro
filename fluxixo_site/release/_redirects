@@ -3,6 +3,35 @@
 /feed.xml /rss.xml 301
 /google_feed.xml /rss.xml 301
 
+# Targeted GSC & legacy 301 recoveries (must sit above broad catchalls)
+/ru/deals/katord-1200mbps-wireless-wifi-repeater-2-4g-5 /products/katord-wifi-repeater/ 301
+/ru/deals/katord-1200mbps-wireless-wifi-repeater-2-4g-5/ /products/katord-wifi-repeater/ 301
+/deals/katord-1200mbps-wireless-wifi-repeater-2-4g-5 /en/products/katord-wifi-repeater/ 301
+/deals/katord-1200mbps-wireless-wifi-repeater-2-4g-5/ /en/products/katord-wifi-repeater/ 301
+/ru/blog/aliexpress-real-discounts-guide /journal/compare-the-final-price/ 301
+/ru/blog/kak-nahodit-skidki-na-aliexpress /journal/compare-the-final-price/ 301
+/ru/blog/sekrety-ekonomii-na-aliexpress /journal/compare-the-final-price/ 301
+/ru/blog/top-tovary-aliexpress-bystraya-dostavka /catalog/ 301
+/es/deals/smart-rgb-led-gaming-light-strip-usb-christma /es/products/find-039-pixel-display/ 301
+/he/deals/3d-led-wall-clock-rgb-digital-modern /he/products/find-043-weather-station/ 301
+/es/deals/bosecxting-tour-pro6-tws-wireless-bluetooth-e /es/products/import-0042/ 301
+/es/deals/65w-usb-c-gan-charger-with-foldable-us-plug-d /es/products/import-0010/ 301
+/he/deals/smart-cat-laser-collar-rechargeable-toy /he/products/find-023-cat-laser/ 301
+/he/deals/rgb-wireless-wall-lamp-led-night-light-rechar /he/categories/home/ 301
+/he/deals/steam-pet-brush-3in1-electric-spray-grooming /he/categories/pets/ 301
+/ru/deals/smart-touch-coffee-mug-warmer /categories/kuhnya/ 301
+/ru/deals/for-baw-212-t01-armrest-heig /categories/v-doroge/ 301
+/es/deals/for-baw-212-t01-armrest-heig /es/categories/auto-viaje/ 301
+/es/deals/12v-winter-electric-heater-car-ice-s /es/categories/auto-viaje/ 301
+/he/deals/1pcs-car-tissue-box-towel-se /he/categories/auto-travel/ 301
+/es/deals/sr08-smart-ring-with-charging-box-for-men-wom /es/categories/tech/ 301
+
+# Restored journal legacy .html links -> canonical trailing-slash guides
+/journal/compare-the-final-price.html /journal/compare-the-final-price/ 301
+/journal/usb-c-buying-checklist.html /journal/usb-c-buying-checklist/ 301
+/journal/desk-cable-management.html /journal/desk-cable-management/ 301
+/:lang/journal/:slug.html /:lang/journal/:slug/ 301
+
 # The old Russian section now lives at the root catalog and About page.
 /ru /catalog/ 301
 /ru/ /catalog/ 301
@@ -30,18 +59,15 @@
 # Old English-default sections.
 /deals /en/ 301
 /deals/ /en/ 301
-/guide /en/ 301
-/guide/ /en/ 301
-/journal /en/ 301
-/journal/ /en/ 301
+/guide /en/journal/ 301
+/guide/ /en/journal/ 301
 
 # Dynamic rules come last; the first matching rule wins. Keep the whole file well under
 # the ~100-rule mark: rules after roughly the 106th were silently ignored in production.
 /ru/* /catalog/ 301
 /deals/* /en/ 301
 /cat/* /en/ 301
-/guide/* /en/ 301
-/journal/* /en/ 301
+/guide/* /en/journal/ 301
 # Old numbered catalog pages (/catalog/7) that Google still lists.
 /catalog/:page /catalog/ 301
 /catalog/:page/ /catalog/ 301
@@ -56,9 +82,6 @@
 /:lang/returns/ /:lang/about/ 301
 /:lang/deals/* /:lang/ 301
 /:lang/cat/* /:lang/ 301
-/:lang/guide /:lang/ 301
-/:lang/guide/ /:lang/ 301
-/:lang/guide/* /:lang/ 301
-/:lang/journal /:lang/ 301
-/:lang/journal/ /:lang/ 301
-/:lang/journal/* /:lang/ 301
+/:lang/guide /:lang/journal/ 301
+/:lang/guide/ /:lang/journal/ 301
+/:lang/guide/* /:lang/journal/ 301

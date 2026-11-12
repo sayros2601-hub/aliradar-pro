@@ -12,4 +12,10 @@ Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term
 Clean-param: lang /
 
 Sitemap: https://www.fluxixo.shop/sitemap.xml
+Sitemap: https://www.fluxixo.shop/sitemap-index.xml
 Sitemap: https://www.fluxixo.shop/sitemap-ru.xml
+Sitemap: https://www.fluxixo.shop/sitemap-en.xml
+Sitemap: https://www.fluxixo.shop/sitemap-pt.xml
+Sitemap: https://www.fluxixo.shop/sitemap-es.xml
+Sitemap: https://www.fluxixo.shop/sitemap-fr.xml
+Sitemap: https://www.fluxixo.shop/sitemap-he.xml

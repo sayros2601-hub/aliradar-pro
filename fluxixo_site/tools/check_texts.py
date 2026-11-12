@@ -18,8 +18,8 @@ CYRILLIC = re.compile(r'[Ѐ-ӿ]')
 HEBREW = re.compile(r'[֐-׿]')
 LATIN_WORD = re.compile(r'[A-Za-zÀ-ÿ]{2,}')
 # Brand names, units and tech terms that legitimately stay in Latin letters inside Hebrew or Russian text.
-LATIN_OK = re.compile(r'^(AliExpress|FLUXIXO|PETKIT|ATTACK|SHARK|CABLETIME|UGREEN|Logitech|Baseus|Vgate|XOSS|AGM|USB|LED|LCD|UV|GPS|TPMS|HUD|RGB|AI|NFC|RJ\d*|E\d+|Type|C|Bluetooth|Wi|Fi|WiFi|App|iOS|Android|'
-                      r'mm|cm|ml|kg|mAh|W|V|Hz|IP\d*|IPX\d*|HD|FHD|K|D|in|pH|TDS|PD|AC|DC|OLED|IPS|SOS|PSI|BMS|MagSafe|CarPlay|OBD|DIY|Sous|Vide|'
+LATIN_OK = re.compile(r'^(AliExpress|FLUXIXO|KATORD|PETKIT|ATTACK|SHARK|CABLETIME|UGREEN|Logitech|Baseus|Vgate|XOSS|AGM|USB|LED|LCD|UV|GPS|TPMS|HUD|RGB|AI|NFC|RJ\d*|E\d+|Type|C|Bluetooth|Wi|Fi|WiFi|App|iOS|Android|'
+                      r'mm|cm|ml|kg|mAh|W|V|Hz|Mbps|GHz|GaN|USPS|NBR|CE|IP\d*|IPX\d*|HD|FHD|K|D|in|pH|TDS|PD|AC|DC|OLED|IPS|SOS|PSI|BMS|MagSafe|CarPlay|OBD|DIY|Sous|Vide|'
                       r'[A-Z]{1,5}\d*|\d+[A-Za-z]+)$')
 
 # Words that mark the wrong regional variety.

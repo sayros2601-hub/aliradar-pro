@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 ORIGIN = 'https://www.fluxixo.shop'
 ENDPOINT = 'https://yandex.com/indexnow'
 STATE_FILENAME = 'yandex-indexnow-state.json'
-RU_ROUTE = re.compile(r'/(?:|catalog/|about/|(?:products|categories)/[a-z0-9]+(?:-[a-z0-9]+)*/)')
+RU_ROUTE = re.compile(r'/(?:|catalog/|about/|journal/(?:[a-z0-9]+(?:-[a-z0-9]+)*/)?|(?:products|categories)/[a-z0-9]+(?:-[a-z0-9]+)*/)')
 DIGEST = re.compile(r'[0-9a-f]{64}')
 
 

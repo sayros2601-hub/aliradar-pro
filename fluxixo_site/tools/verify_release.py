@@ -170,7 +170,26 @@ def main():
         duplicates = [value for value, count in counts.items() if count > 1]
         if duplicates:
             problems['duplicate ' + field].append(str(duplicates[:3]))
-    for required in ('robots.txt', 'sitemap-ru.xml', '404.html', '_headers', '_redirects', 'js/catalog.js'):
+    for lang in ('en', 'pt', 'es', 'fr', 'he'):
+        map_path = RELEASE / f'sitemap-{lang}.xml'
+        if not map_path.exists():
+            problems[f'sitemap-{lang}.xml'].append(f'missing sitemap-{lang}.xml')
+            continue
+        try:
+            mroot = ET.parse(map_path).getroot()
+            murls = [(node.findtext(NS + 'loc') or '').strip() for node in mroot.findall(NS + 'url')]
+            dups = [u for u, c in collections.Counter(murls).items() if c > 1]
+            if dups:
+                problems[f'sitemap-{lang}.xml'].append(f'duplicate URLs: {dups[:3]}')
+            bad = [u for u in murls if not urlsplit(u).path.startswith(f'/{lang}/')]
+            if bad:
+                problems[f'sitemap-{lang}.xml'].append(f'wrong locale URLs: {bad[:3]}')
+            missing_from_all = [u for u in murls if u not in set(urls)]
+            if missing_from_all:
+                problems[f'sitemap-{lang}.xml'].append(f'unknown URLs: {missing_from_all[:3]}')
+        except (OSError, ET.ParseError) as exc:
+            problems[f'sitemap-{lang}.xml'].append(str(exc))
+    for required in ('robots.txt', 'sitemap-ru.xml', 'sitemap-index.xml', '404.html', '_headers', '_redirects', 'js/catalog.js'):
         if not (RELEASE / required).exists():
             problems['missing file'].append(required)
     # Production silently ignored redirect rules beyond roughly the 106th, so keep a safe margin.

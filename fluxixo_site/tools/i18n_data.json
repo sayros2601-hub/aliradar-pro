@@ -6021,6 +6021,48 @@
         ],
         "description": "מחורר ליצירת חורים בצינור השקיה. יש לבדוק עם המוכר את קוטר הצינור המתאים ואת גודל החור."
       }
+    },
+    "katord-wifi-repeater": {
+      "en": {
+        "name": "KATORD 1200Mbps Dual-Band WiFi Repeater",
+        "headline": [
+          "Wider",
+          "Wi-Fi reach."
+        ],
+        "description": "Compact 2.4G and 5G wireless signal repeater with six external antennas for home or office rooms. Select the right plug type and verify details with the seller."
+      },
+      "pt": {
+        "name": "Repetidor Wi-Fi KATORD 1200 Mbps Dual Band",
+        "headline": [
+          "Sinal",
+          "mais forte."
+        ],
+        "description": "Amplificador de sinal Wi-Fi 2.4G e 5G com seis antenas externas ajustáveis para casa ou escritório. Confira o padrão da tomada e as especificações com o vendedor."
+      },
+      "es": {
+        "name": "Repetidor Wi-Fi KATORD 1200 Mbps Doble Banda",
+        "headline": [
+          "Mayor",
+          "cobertura."
+        ],
+        "description": "Amplificador inalámbrico 2.4G y 5G con seis antenas externas orientables para hogar u oficina. Verifica el tipo de clavija y opciones en el anuncio del vendedor."
+      },
+      "fr": {
+        "name": "Répéteur Wi-Fi KATORD 1200 Mbps Double Bande",
+        "headline": [
+          "Signal",
+          "étendu."
+        ],
+        "description": "Répéteur sans fil 2.4G et 5G avec six antennes externes orientables pour la maison ou le bureau. Vérifiez le format de prise et les détails chez le vendeur."
+      },
+      "he": {
+        "name": "מגדיל טווח Wi-Fi KATORD 1200 Mbps דו-תדרי",
+        "headline": [
+          "קליטה",
+          "חזקה יותר."
+        ],
+        "description": "מגבר אות אלחוטי 2.4G ו-5G עם שש אנטנות חיצוניות מתכווננות לבית ולמשרד. בדקו את סוג התקע והמפרט המלא בעמוד המוכר ב־AliExpress."
+      }
     }
   }
 }

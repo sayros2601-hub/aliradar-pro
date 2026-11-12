@@ -5,6 +5,216 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005013145693095",
+      "name": "Инструмент для установки стрелок часов",
+      "headline": [
+        "Стрелки",
+        "на своё место."
+      ],
+      "description": "Инструмент для установки стрелок часов. Сверьте размеры насадок, совместимость с часами и комплектацию у продавца.",
+      "category": "Инструменты",
+      "image": "assets/images/auto-1005013145693095.webp",
+      "original": "assets/originals/auto-1005013145693095.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3ZaDiCF",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013145693095.html",
+      "sourceProductId": "1005013145693095",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013145693095.html",
+      "sourceTitle": "Watch Hands Press Tool Kit 20 Piece Metal Nylon Interchangeable Tips for Timepiece Repair Hand Setting Tool",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sb6fe355b61794f0c81dd2083bf70cb36l.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "IL",
+      "sourceTask": "watch_hand_tool",
+      "demo": false,
+      "theme": "sand",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Инструмент для установки стрелок часов. Сверьте размеры насадок, совместимость с часами и комплектацию у продавца.",
+      "facts": [],
+      "views": [
+        "assets/images/auto-1005013145693095-v2.webp",
+        "assets/images/auto-1005013145693095-v3.webp"
+      ],
+      "sourceImageSha256": "edf267764e495e04b182a490569015f3955b18d1260196dca4dd0d278c315eca",
+      "sourcePixelSha256": "b266d2dde2969b455d6b9edc397113d0d626012eea590288c52edcb6715109fe"
+    },
+    {
+      "id": "auto-3256804678707896",
+      "name": "Триммер для трости саксофона",
+      "headline": [
+        "Трость",
+        "под ваш звук."
+      ],
+      "description": "Триммер для подрезки трости саксофона. Сверьте совместимость с размером и типом ваших тростей у продавца.",
+      "category": "Инструменты",
+      "image": "assets/images/auto-3256804678707896.webp",
+      "original": "assets/originals/auto-3256804678707896.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2zTjVCR",
+      "sourceUrl": "https://www.aliexpress.com/item/3256804678707896.html",
+      "sourceProductId": "3256804678707896",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/3256804678707896.html",
+      "sourceTitle": "M MBAT Saxophone Reed Cutter Soprano Alto Tenor Sax Reed Trimmer Clarinet Reed Cutter Woodwind Instruments Repair Tool",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/H12e63c1d093d4b35b21b7eb6092efee2K.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "US",
+      "sourceTask": "reed_trimmer",
+      "demo": false,
+      "theme": "rose",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Триммер для подрезки трости саксофона. Сверьте совместимость с размером и типом ваших тростей у продавца.",
+      "facts": [],
+      "views": [
+        "assets/images/auto-3256804678707896-v2.webp",
+        "assets/images/auto-3256804678707896-v3.webp"
+      ],
+      "sourceImageSha256": "bcef37747ddbe59410e84d8c7bce839c30dbb1ac0310aba4c90acb9470959e7b",
+      "sourcePixelSha256": "662f800d06c74f1577c7e1c26de00721505f400c6fb8411bf4ba0022271575ee"
+    },
+    {
+      "id": "auto-1005012599444039",
+      "name": "Пробойник для полива",
+      "headline": [
+        "Отверстие",
+        "в одно движение."
+      ],
+      "description": "Пробойник для отверстий в трубке полива. Уточните совместимый диаметр трубки и размер отверстия у продавца.",
+      "category": "На природе",
+      "image": "assets/images/auto-1005012599444039.webp",
+      "original": "assets/originals/auto-1005012599444039.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4DJ6jpp",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012599444039.html",
+      "sourceProductId": "1005012599444039",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012599444039.html",
+      "sourceTitle": "2PCS 4mm Hole Drip Irrigation Hole Punch Tool Push Needl Blue Irrigation Hole Puncher 4mm Hole Size Lightweight",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sbe23b9d3656c4be4928e09bd5b73de65c.png",
+      "sourceModelKey": null,
+      "sourceMarket": "BR",
+      "sourceTask": "irrigation_punch",
+      "demo": false,
+      "theme": "sand",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Пробойник для отверстий в трубке полива. Уточните совместимый диаметр трубки и размер отверстия у продавца.",
+      "facts": [],
+      "views": [
+        "assets/images/auto-1005012599444039-v2.webp",
+        "assets/images/auto-1005012599444039-v3.webp"
+      ],
+      "sourceImageSha256": "99b00d2a116cf6d5e9a8f62fc664e59a2898b5dffd3cf62de7e051723f2d6e90",
+      "sourcePixelSha256": "f2c1c6980a4c4f999549c225ecb3a6758c089177d1fade79d3053993caa6ac8b"
+    },
+    {
+      "id": "auto-1005004679234788",
+      "name": "Экстрактор винтов",
+      "headline": [
+        "Сорванный винт —",
+        "не приговор."
+      ],
+      "description": "Экстрактор для извлечения повреждённых винтов. Проверьте диаметры, совместимость с инструментом и комплектацию у продавца.",
+      "category": "Инструменты",
+      "image": "assets/images/auto-1005004679234788.webp",
+      "original": "assets/originals/auto-1005004679234788.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4draMZZ",
+      "sourceUrl": "https://www.aliexpress.com/item/1005004679234788.html",
+      "sourceProductId": "1005004679234788",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005004679234788.html",
+      "sourceTitle": "5pc HSS Left Hand Drill Bit Straight Shank Broken Bolt Damaged Screw Extractor Set 3.2/4.8/6.4/8/8.7mm Drilling Woodworking Tool",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sca53c78987884ce081bde4d446bad38eu.jpeg",
+      "sourceModelKey": null,
+      "sourceMarket": "MX",
+      "sourceTask": "screw_extractor",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Экстрактор для извлечения повреждённых винтов. Проверьте диаметры, совместимость с инструментом и комплектацию у продавца.",
+      "facts": [],
+      "sourceImageSha256": "d1d8ff4810cfd614a4a82662d80063b05aa48e012fd09036b42c36a3fba38d3d",
+      "sourcePixelSha256": "d2a396599fcef724146b772af4fc2c915f0eb87ba3372479715f444e4144a9ab"
+    },
+    {
+      "id": "find-064-book-light",
+      "name": "Клипса-фонарик для чтения",
+      "headline": [
+        "Тёплый",
+        "свет страницы."
+      ],
+      "category": "Дом",
+      "description": "Миниатюрная лампа на гибкой ножке с прищепкой для чтения бумажных книг без нагрузки на глаза.",
+      "image": "assets/images/find-064-book-light.webp",
+      "original": "assets/originals/find-064-book-light.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4m3xNQJ",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c4m3xNQJ",
+      "demo": false,
+      "theme": "rose",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Миниатюрная лампа на гибкой ножке с прищепкой для чтения бумажных книг без нагрузки на глаза.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Испания"
+        }
+      ]
+    },
+    {
+      "id": "find-065-spice-grinder",
+      "name": "Гравитационная мельница",
+      "headline": [
+        "Свежий",
+        "помол."
+      ],
+      "category": "Кухня",
+      "description": "Электрическая мельница для соли и перца с керамическими жерновами и автоматическим включением при наклоне.",
+      "image": "assets/images/find-065-spice-grinder.webp",
+      "original": "assets/originals/find-065-spice-grinder.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4spKHll",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c4spKHll",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Электрическая мельница для соли и перца с керамическими жерновами и автоматическим включением при наклоне.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Франция"
+        }
+      ]
+    },
+    {
+      "id": "find-067-pill-organizer",
+      "name": "Дорожный органайзер капсул",
+      "headline": [
+        "Порядок",
+        "в мелочах."
+      ],
+      "category": "В дороге",
+      "description": "Герметичный секционный пенал из анодированного сплава для удобного хранения витаминов в поездке.",
+      "image": "assets/images/find-067-pill-organizer.webp",
+      "original": "assets/originals/find-067-pill-organizer.webp",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2R05EJ5",
+      "sourceUrl": "https://s.click.aliexpress.com/e/_c2R05EJ5",
+      "demo": false,
+      "theme": "sand",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Герметичный секционный пенал из анодированного сплава для удобного хранения витаминов в поездке.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "facts": [
+        {
+          "label": "Подборка",
+          "value": "Испания"
+        }
+      ]
+    },
+    {
       "id": "find-060-tire-inflator",
       "name": "Аккумуляторный компрессор",
       "headline": [
@@ -110,7 +320,7 @@ window.MIRA_CATALOG = {
     },
     {
       "id": "find-058-key-finder",
-      "name": "Bluetooth-брелок искатель",
+      "name": "Bluetooth-брелок для поиска ключей",
       "headline": [
         "Ключи",
         "под контролем."
@@ -346,8 +556,8 @@ window.MIRA_CATALOG = {
       "id": "find-001-neck-cooler",
       "name": "Шейный вентилятор",
       "headline": [
-        "Шейный",
-        "вентилятор."
+        "Ветерок",
+        "на шее."
       ],
       "category": "Техника",
       "description": "Свободные руки в жаркий день. Носимый вентилятор в форме воротника с направленными вверх решётками обдува.",
@@ -372,8 +582,8 @@ window.MIRA_CATALOG = {
       "id": "find-002-meat-thermo",
       "name": "Термометр для мяса",
       "headline": [
-        "Термометр",
-        "для мяса."
+        "Мясо нужной",
+        "прожарки."
       ],
       "category": "Кухня",
       "description": "Два металлических щупа и компактный кейс с экраном — для контроля температуры во время готовки на гриле или в духовке.",
@@ -398,8 +608,8 @@ window.MIRA_CATALOG = {
       "id": "find-003-mosquito-racket",
       "name": "Лампа-ловушка для насекомых",
       "headline": [
-        "Лампа",
-        "ловушка."
+        "Вечер",
+        "без комаров."
       ],
       "category": "Дом",
       "description": "Фонарь с защитной решёткой и петлёй для подвешивания. На исходных фото показаны светлый и тёмный варианты корпуса.",
@@ -424,8 +634,8 @@ window.MIRA_CATALOG = {
       "id": "find-004-moto-intercom",
       "name": "Крепления для мотогарнитуры",
       "headline": [
-        "Крепления",
-        "для гарнитуры."
+        "Держится",
+        "на шлеме."
       ],
       "category": "В дороге",
       "description": "Монтажные площадки с мягкими накладками для крепления совместимой гарнитуры к шлему. Совместимость проверьте у продавца.",
@@ -996,8 +1206,8 @@ window.MIRA_CATALOG = {
       "id": "find-026-veg-purifier",
       "name": "Прибор для мойки овощей",
       "headline": [
-        "Свежий",
-        "подход."
+        "Вымыто",
+        "начисто."
       ],
       "category": "Кухня",
       "description": "Перфорированный капсульный прибор для использования при мойке продуктов. Назначение, режимы и ограничения уточняйте у продавца.",
@@ -1540,7 +1750,7 @@ window.MIRA_CATALOG = {
     },
     {
       "id": "find-047-scanner-pen",
-      "name": "Ручка-сканер переводчик",
+      "name": "Ручка-сканер с переводчиком",
       "headline": [
         "Слова",
         "становятся ближе."
@@ -2196,7 +2406,7 @@ window.MIRA_CATALOG = {
         "Тёплая",
         "прогулка."
       ],
-      "description": "Непромокаемый жилет с мягким подкладом и кольцом под поводок для прогулок с собакой в холодную погоду.",
+      "description": "Непромокаемая куртка с мягкой подкладкой и кольцом под поводок для прогулок с собакой в холодную погоду.",
       "image": "assets/images/import-0530.webp",
       "original": "assets/originals/import-0530.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
@@ -2206,7 +2416,7 @@ window.MIRA_CATALOG = {
       "theme": "coral",
       "scale": 1,
       "rotation": 0,
-      "details": "Непромокаемый жилет с мягким подкладом и кольцом под поводок для прогулок с собакой в холодную погоду.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
+      "details": "Непромокаемая куртка с мягкой подкладкой и кольцом под поводок для прогулок с собакой в холодную погоду.\n\nСтудийное изображение — визуализация выбранного варианта. Исходная фотография продавца доступна ниже. Комплектация, цвет, совместимость, характеристики, наличие и доставка определяются вариантом, выбранным на AliExpress.",
       "facts": [
         {
           "label": "Подборка",
@@ -2265,6 +2475,28 @@ window.MIRA_CATALOG = {
           "value": "Бразилия"
         }
       ]
+    },
+    {
+      "id": "katord-wifi-repeater",
+      "name": "Усилитель Wi-Fi сигнала KATORD 1200 Мбит/с",
+      "category": "Техника",
+      "headline": [
+        "Стабильный",
+        "Wi-Fi дома."
+      ],
+      "description": "Двухдиапазонный повторитель Wi-Fi 2.4G и 5G с внешними антеннами для расширения зоны покрытия дома и в офисе. Перед заказом сверьте тип вилки и комплектацию у продавца.",
+      "image": "assets/images/katord-wifi-repeater.webp",
+      "original": "assets/originals/katord-wifi-repeater.webp",
+      "imageNote": "Студийная визуализация по фото продавца, очищенная от фона. Оригинальная фотография доступна для сравнения ниже.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4a66xtz",
+      "sourceUrl": "https://www.aliexpress.com/item/1005011800659333.html",
+      "sourceProductId": "1005011800659333",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.92,
+      "rotation": 0,
+      "details": "Двухдиапазонный повторитель Wi-Fi 2.4G и 5G с шестью внешними антеннами помогает расширить беспроводную сеть в квартире, доме или небольшом офисе.\n\nПеред оформлением заказа на AliExpress выберите нужный тип вилки и проверьте характеристики у продавца.",
+      "facts": []
     }
   ]
 };

@@ -1,8 +1,9 @@
 """Localized catalog and product pages share the showroom's translation data."""
 from html import escape as e
-from pathlib import PurePosixPath
+from pathlib import Path, PurePosixPath
 import json
 import re
+import market_seo
 
 LANGUAGES = {
     'ru': ('ru', 'ru_RU', 'Русский', 'Каталог', '3D-витрина', 'Посмотреть на AliExpress', 'Исходное фото продавца'),
@@ -305,7 +306,9 @@ def transition_name(image):
 
 def card_image(image, alt, index=99, width=400, height=300):
     priority = 'fetchpriority="high"' if index == 0 else ('loading="eager"' if index < 3 else 'loading="lazy"')
-    return (f'<img src="/{e(thumb(image))}" alt="{e(alt)}" {priority} decoding="async" width="{width}" height="{height}" '
+    cands = [f'/{e(path)} {IMAGE_SIZES[path][0]}w' for path in (thumb(image), thumb(image, 800)) if path in IMAGE_SIZES]
+    srcset = f' srcset="{", ".join(cands)}" sizes="(max-width:640px) 92vw, 300px"' if cands else ''
+    return (f'<img src="/{e(thumb(image))}"{srcset} alt="{e(alt)}" {priority} decoding="async" width="{width}" height="{height}" '
             f'style="view-transition-name:{transition_name(image)}">')
 
 
@@ -403,16 +406,7 @@ def product_path(product, language):
 
 
 def alternates(origin, paths):
-    tags = [
-        f'<link rel="alternate" hreflang="{LANGUAGES[language][0]}" href="{origin}{path}">'
-        for language, path in paths.items()
-    ]
-    # Spanish and Portuguese speakers outside Mexico and Brazil get these pages instead of the English fallback.
-    tags += [f'<link rel="alternate" hreflang="{language}" href="{origin}{paths[language]}">'
-             for language in ('es', 'pt') if language in paths]
-    if 'en' in paths:
-        tags.append(f'<link rel="alternate" hreflang="x-default" href="{origin}{paths["en"]}">')
-    return '\n'.join(tags)
+    return market_seo.full_alternates(origin, paths)
 
 
 def language_links(paths):
@@ -472,6 +466,8 @@ def generate_about(page, write):
 
 def generate(origin, data, products, page, write, image):
     catalogs = {language: catalog_path(language) for language in LANGUAGES}
+    overrides = market_seo.load_overrides()
+    dist_dir = Path(__file__).resolve().parents[1] / 'dist'
     routes = []
     for language, (_, _, _, catalog_label, showroom, ali, seller_photo) in LANGUAGES.items():
         if language == 'ru':
@@ -506,13 +502,16 @@ def generate(origin, data, products, page, write, image):
                 f'<p>{e(ui["sourceNote"])}</p></details>'
                 if product.get('original') else ''
             )
-            # Related products in the same category (localized)
+            ov = market_seo.route_override(overrides, path)
+            title = ov.get('title') or fit_title(name, language)
+            description = ov.get('description') or fit_description(desc, language)
+            chk_html = market_seo.market_checklist_html(key, language)
+            faq_html, faq_schema = market_seo.faq_section_and_schema(name, key, language, ov)
+            vid_html, vid_schema = market_seo.video_block_and_schema(origin, dist_dir, product, name, description, language, product['image'])
+            # Rotating peer selection across the category ensures every product gets contextual internal links
             same_cat = [other for other in products if other['id'] != product['id'] and other['category'] == product['category']]
-            if len(same_cat) < 4:
-                others = [other for other in products if other['id'] != product['id'] and other not in same_cat]
-                same_cat.extend(others[:4 - len(same_cat)])
             rel_cards = []
-            for r in same_cat[:4]:
+            for r in market_seo.rotating_related(products, product, same_cat, limit=4):
                 r_tr = translations(data, r).get(language, {})
                 r_name = r_tr.get('name', r['name'])
                 r_desc = r_tr.get('description', r['description'])
@@ -537,15 +536,16 @@ def generate(origin, data, products, page, write, image):
                 f'<p class="product-headline-sub">{e(headline)}</p><p>{e(desc)}</p>'
                 f'<div class="cta-row">{buy}<a class="button secondary" href="{studio}">{e(showroom)}</a></div>'
                 f'<p class="affiliate-disclosure">{e(ui["affiliateNote"])}</p>'
-                f'{dl_block}</section></div>{original}{related_block}</article>{language_links(paths)}{sticky_cta(buy)}'
+                f'{dl_block}</section></div>{vid_html}{chk_html}{faq_html}{original}{related_block}</article>{language_links(paths)}{sticky_cta(buy)}'
             )
-            title = fit_title(name, language)
-            description = fit_description(desc, language)
             crumbs = [('FLUXIXO', '/'), (catalog_label, catalog)]
             if cat_href:
                 crumbs.append((cat, cat_href))
             crumbs.append((name, path))
             schema = item_page_schema(origin, path, title, description, product['image'], language, f'{name} — {desc}', crumbs)
+            schema['@graph'].append(faq_schema)
+            if vid_schema:
+                schema['@graph'].append(vid_schema)
             write(path.strip('/')+'/index.html', page(title, description, path, body, schema,
                   product['image'], language=language, alternate_paths=paths, studio_url=studio, theme=product.get('theme')))
         if not listed:
@@ -573,23 +573,29 @@ def generate(origin, data, products, page, write, image):
             path = category_path(key, language)
             count = CATEGORY_COUNT[language].format(n=len(rows))
             intro = f'{CATEGORY_COPY[key][language]} {count}'
-            listing = {
-                '@context': 'https://schema.org',
-                '@type': 'ItemList',
-                'name': f'{cat} — FLUXIXO',
-                'numberOfItems': len(rows),
-                'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': origin + row[4], 'name': row[1]} for i, row in enumerate(rows)],
-            }
+            ov = market_seo.route_override(overrides, path)
+            cat_title = ov.get('title') or CATEGORY_TITLE[language].format(cat=cat)
+            cat_desc = ov.get('description') or intro
+            cat_crumbs = [('FLUXIXO', '/'), (catalog_label, catalog), (cat, path)]
+            listing = market_seo.collection_schema(origin, path, cat_title, cat_desc, LANGUAGES[language][0], [(row[4], row[1]) for row in rows], cat_crumbs)
             hub = (
                 f'<nav class="breadcrumb" aria-label="{e(BREADCRUMB_ARIA[language])}"><a href="/?lang={language}">FLUXIXO</a><span class="breadcrumb-sep">/</span><a href="{catalog}">{e(catalog_label)}</a><span class="breadcrumb-sep">/</span><span>{e(cat)}</span></nav>'
                 f'<p class="eyebrow">{e(ui["brandLine"])}</p><h1>{e(cat)} ({len(rows)})</h1><p>{e(intro)}</p>{cat_bar}<ul class="grid">{cards(rows)}</ul>{language_links(category_paths(key))}'
             )
-            write(path.strip('/')+'/index.html', page(CATEGORY_TITLE[language].format(cat=cat), intro, path, hub, listing, rows[0][0]['image'],
+            write(path.strip('/')+'/index.html', page(cat_title, cat_desc, path, hub, listing, rows[0][0]['image'],
                   language=language, alternate_paths=category_paths(key)))
             routes.append(path)
 
-        body = f'<p class="eyebrow">{e(ui["brandLine"])}</p><h1>{e(catalog_label)} FLUXIXO ({len(listed)})</h1><p>{e(INTRO[language])}</p>{cat_bar}<ul class="grid">{cards(listed)}</ul>{links}'
-        write(catalog.strip('/')+'/index.html', page(CATALOG_TITLE[language], CATALOG_DESCRIPTION[language], catalog, body, image=image,
+        ov_cat = market_seo.route_override(overrides, catalog)
+        cat_hub_title = ov_cat.get('title') or CATALOG_TITLE[language]
+        cat_hub_desc = ov_cat.get('description') or CATALOG_DESCRIPTION[language]
+        hub_crumbs = [('FLUXIXO', '/'), (catalog_label, catalog)]
+        hub_schema = market_seo.collection_schema(origin, catalog, cat_hub_title, cat_hub_desc, LANGUAGES[language][0], [(row[4], row[1]) for row in listed], hub_crumbs)
+        journal_href = f'/{language}/journal/'
+        journal_label = {'en': 'Buying Guides', 'pt': 'Guias de Compra', 'es': 'Guías de Compra', 'fr': 'Guides d’Achat', 'he': 'מדריכי קנייה'}[language]
+        cat_nav_bar = cat_bar.replace('</div>', f'<a class="button" href="{journal_href}">{e(journal_label)}</a></div>', 1)
+        body = f'<p class="eyebrow">{e(ui["brandLine"])}</p><h1>{e(catalog_label)} FLUXIXO ({len(listed)})</h1><p>{e(INTRO[language])}</p>{cat_nav_bar}<ul class="grid">{cards(listed)}</ul>{links}'
+        write(catalog.strip('/')+'/index.html', page(cat_hub_title, cat_hub_desc, catalog, body, schema=hub_schema, image=image,
               language=language, alternate_paths=catalogs))
         routes.append(catalog)
     return routes

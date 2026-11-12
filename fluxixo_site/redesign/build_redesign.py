@@ -26,6 +26,8 @@ OUT = DIST if PROD else HERE / 'site'
 sys.path.insert(0, str(ROOT / 'tools'))
 sys.path.insert(0, str(HERE))
 import locales as L  # noqa: E402
+import journal_pages  # noqa: E402
+import market_seo  # noqa: E402
 from ui_text import CATEGORY_COPY_RU, UI  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
@@ -255,6 +257,8 @@ class Site:
         image = image or self.items[0]['image']
         ld = ('<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c') + '</script>') if schema else ''
         about = L.about_path(self.lang)
+        j_path = journal_pages.index_path(self.lang)
+        j_label = {'ru': 'Памятки', 'en': 'Guides', 'pt': 'Guias', 'es': 'Guías', 'fr': 'Guides', 'he': 'מדריכים'}.get(self.lang, 'Guides')
         robots = 'index,follow,max-image-preview:large' if PROD and not noindex else 'noindex,follow'
         rss = f'<link rel="alternate" type="application/rss+xml" title="FLUXIXO — Новые находки с AliExpress" href="{ORIGIN}/rss.xml">\n' if self.lang == 'ru' else ''
         alternates = '\n' + L.alternates(ORIGIN, alt_paths) if hreflang and alt_paths else ''
@@ -288,7 +292,7 @@ class Site:
 <footer class="foot">
 <p class="wordmark" aria-hidden="true">FLU<i>X</i>I<i>X</i>O</p>
 <div class="foot-row"><p>{e(u["foot"])} {e(L.DISCLOSURE[self.lang])}</p>
-<nav><a href="{self.home()}">{e(u["home"])}</a><a href="{about}">{e(u["about"])}</a><a href="{about}#privacy">{e(u["privacy"])}</a></nav></div>
+<nav><a href="{self.home()}">{e(u["home"])}</a><a href="{j_path}">{e(j_label)}</a><a href="{about}">{e(u["about"])}</a><a href="{about}#privacy">{e(u["privacy"])}</a></nav></div>
 </footer>
 {self.tabs(tab, buy)}
 <script src="/js/fx.js" defer></script>
@@ -339,8 +343,10 @@ class Site:
                 for name, codecs in (('av1', 'av01.0.04M.08'), ('hevc', 'hvc1.1.6.L90.B0'))
                 for path in [f'assets/video/{p["id"]}.{name}.mp4'] if (DIST / path).exists())
             sources += f'<source src="{url(clip)}" type=\'video/mp4; codecs="avc1.64001F"\'>'
-            photo = (f'<figure class="demo">{photo}<video muted playsinline preload="none" disablepictureinpicture '
-                     f'aria-hidden="true" tabindex="-1">{sources}</video></figure>')
+            poster = f'assets/video/{p["id"]}.poster.jpg'
+            poster_attr = f' poster="/{poster}"' if (DIST / poster).exists() else ''
+            photo = (f'<figure class="demo">{photo}<video muted playsinline loop preload="metadata"{poster_attr} '
+                     f'disablepictureinpicture>{sources}</video></figure>')
         # More cut-out views swipe on a phone and step with arrows and dots on a desktop (app.js).
         extra = ''.join(f'<img class="cut" src="{img(v, 800)}" alt="{e(name)}" width="800" height="800" decoding="async" loading="lazy">'
                         for v in p.get('views', [])[1:])
@@ -350,8 +356,11 @@ class Site:
                 f'<div class="p-stage" data-dots>{photo}{extra}</div></div>')
 
     def card(self, p):
+        s480 = img(p['image'], 480)
+        s800 = img(p['image'], 800)
+        srcset = f' srcset="{s480} 480w, {s800} 800w" sizes="(max-width:640px) 46vw, 240px"' if s800 != s480 else ''
         return (f'<a class="card" data-go data-w="{slug(p["world"])}" href="{self.ppath(p)}" style="--t:{WORLDS[p["world"]]}">'
-                f'<span class="ph"><img src="{img(p["image"], 480)}" alt="" width="480" height="480" loading="lazy" decoding="async"></span>'
+                f'<span class="ph"><img src="{s480}"{srcset} alt="" width="480" height="480" loading="lazy" decoding="async"></span>'
                 f'<span class="nm">{e(p["name"])}</span><span class="ct">{e(self.cat(p["world"]))}</span></a>')
 
     # ---------- pages ----------
@@ -412,16 +421,32 @@ class Site:
                    'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(items)]}
         body = hero + cats + day + ''.join(bands) + everything
         paths = {l: L.catalog_path(l) for l in LANGS}
+        overrides = market_seo.load_overrides()
         if self.root:
+            locale_links_html = '<div class="lang-bar">' + ''.join(
+                f'<a class="btn line" href="{L.catalog_path(l)}">{e(L.LANGUAGES[l][2])}</a>' for l in LANGS
+            ) + f'<a class="btn line" href="{journal_pages.index_path("en")}">Buying Guides</a></div>'
+            root_body = hero + cats + day + ''.join(bands) + everything.replace('</section>', f'{locale_links_html}</section>', 1)
             schema = {'@context': 'https://schema.org', '@graph': [
-                {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': 'en'},
+                {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': ['en', 'ru', 'pt-BR', 'es-MX', 'fr', 'he-IL']},
                 {'@type': 'Organization', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'logo': ORIGIN + '/apple-touch-icon.png'}, listing]}
-            write('/', self.page(ROOT_TITLE, ROOT_DESC, '/', body, paths, schema, hreflang=False, tab='home'))
+            ov_root = market_seo.route_override(overrides, '/')
+            write('/', self.page(ov_root.get('title') or ROOT_TITLE, ov_root.get('description') or ROOT_DESC, '/', root_body, paths, schema, hreflang=False, tab='home'))
             return
-        # Titles and descriptions stay exactly as search engines already know them.
-        desc = (f'{len(items)} товаров из подборки FLUXIXO: студийные фотографии, описания, рубрики и партнёрские ссылки на AliExpress.'
-                if self.lang == 'ru' else L.CATALOG_DESCRIPTION[self.lang])
-        write(self.home(), self.page(L.CATALOG_TITLE[self.lang], desc, self.home(), body, paths, {'@context': 'https://schema.org', **listing}, tab='home'))
+        # Titles and descriptions stay as search engines know them unless explicitly tuned in seo_overrides.json.
+        ov_home = market_seo.route_override(overrides, self.home())
+        desc = ov_home.get('description') or (
+            f'{len(items)} товаров из коллекции FLUXIXO: студийные фотографии, описания, рубрики и партнёрские ссылки на AliExpress.'
+            if self.lang == 'ru' else L.CATALOG_DESCRIPTION[self.lang]
+        )
+        home_title = ov_home.get('title') or L.CATALOG_TITLE[self.lang]
+        j_link_label = {'ru': 'Памятки перед покупкой', 'en': 'Buying Guides', 'pt': 'Guias de Compra', 'es': 'Guías de Compra', 'fr': 'Guides d’Achat', 'he': 'מדריכי קנייה'}[self.lang]
+        body = body.replace('</section>', f'<div class="lang-bar"><a class="btn line" href="{journal_pages.index_path(self.lang)}">{e(j_link_label)}</a></div></section>', 1)
+        hub_schema = market_seo.collection_schema(origin=ORIGIN, path=self.home(), title=home_title, description=desc,
+                                                  lang=L.LANGUAGES[self.lang][0],
+                                                  items=[(self.ppath(p), p['name']) for p in items],
+                                                  crumbs=[(u['home'], self.home())])
+        write(self.home(), self.page(home_title, desc, self.home(), body, paths, hub_schema, tab='home'))
 
     def build_404(self):
         body = (f'<section class="c-hero"><p class="eye">404</p><h1 class="d">Page not found<span class="s">This link may have changed.</span></h1>'
@@ -431,6 +456,7 @@ class Site:
 
     def build_products(self, siblings, metadata_by_product=None):
         u, n = self.ui, len(self.items)
+        overrides = market_seo.load_overrides()
         for i, p in enumerate(self.items):
             prev, nxt = self.items[i - 1], self.items[(i + 1) % n]
             key, path, name = p['world'], self.ppath(p), p['name']
@@ -440,18 +466,29 @@ class Site:
             if self.lang == 'ru' and p['id'] == 'import-0024':
                 name, title = WATCH_SEO_RU['heading'], WATCH_SEO_RU['title']
                 desc, page_description = WATCH_SEO_RU['description'], WATCH_SEO_RU['copy']
+            ov = market_seo.route_override(overrides, path)
+            if not (self.lang == 'ru' and p['id'] == 'import-0024'):
+                title = ov.get('title') or title
+                desc = ov.get('description') or desc
             crumbs = [(u['home'], self.home()), (self.cat(key), self.cpath(key)), (name, path)]
             schema = L.item_page_schema(ORIGIN, path, title, desc, p['image'], self.lang, L.STAGE_CAPTION[self.lang], crumbs)
+            faq_html, faq_schema = market_seo.faq_section_and_schema(name, key, self.lang, ov)
+            schema['@graph'].append(faq_schema)
+            _, vid_schema = market_seo.video_block_and_schema(ORIGIN, DIST, p, name, desc, self.lang, p['image'])
+            if vid_schema:
+                schema['@graph'].append(vid_schema)
+            chk_html = market_seo.market_checklist_html(key, self.lang)
             facts = ''.join(f'<li>{e(L.translate_fact(self.data, f["label"], self.lang))}: {e(L.translate_fact(self.data, f["value"], self.lang))}</li>'
                             for f in L.public_facts(p))
             crumb_html = ''.join(f'<li><a href="{href}">{e(label)}</a></li>' for label, href in crumbs[:-1])
-            related = [q for q in self.in_world(key) if q['id'] != p['id']][:4]
+            related = market_seo.rotating_related(self.items, p, self.in_world(key), limit=4)
             body = (f'<section class="p-hero{" dark" if p["dark"] else ""}">'
                     f'<ol class="crumbs" aria-label="{e(L.BREADCRUMB_ARIA[self.lang])}">{crumb_html}</ol><h1 class="d">{e(name)}</h1>'
                     f'<div class="p-body"><div class="p-text"><p class="s">{e(" ".join(p["headline"]))}</p><p class="t">{e(page_description)}</p>'
                     f'{"<ul class=facts>" + facts + "</ul>" if facts else ""}'
                     f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(L.DISCLOSURE[self.lang])}</p></div>'
-                    f'{self.gallery(p, name)}</div></section>')
+                    f'{self.gallery(p, name)}</div></section>'
+                    f'<div class="seo-notes">{chk_html}{faq_html}</div>')
             if related:
                 body += (f'<section class="related"><p class="eye"><b>●</b> {e(self.cat(key))}</p>'
                          f'<h2 class="d rv">{e(u["related"][0])} <span class="s">{e(u["related"][1])}</span></h2>{self.rope(related)}</section>')
@@ -462,16 +499,21 @@ class Site:
 
     def build_categories(self):
         u = self.ui
+        overrides = market_seo.load_overrides()
         for key in self.worlds:
             group, name, path = self.in_world(key), self.cat(key), self.cpath(key)
             chips = ''.join(f'<a href="{self.cpath(k)}"{" aria-current=\"page\"" if k == key else ""}>{e(self.cat(k))}</a>' for k in self.worlds)
             body = (f'<section class="c-hero"><ol class="crumbs"><li><a href="{self.home()}">{e(u["home"])}</a></li></ol>'
-                    f'<h1 class="d">{e(name)}<span class="s">{e(u["count"](n=len(group)))}</span></h1><p class="t">{e(self.copy(key))}</p></section>'
+                    f'<h1 class="d">{e(name)} <span class="s">{e(u["count"](n=len(group)))}</span></h1><p class="t">{e(self.copy(key))}</p></section>'
                     f'<section class="c-body">{self.rope(group[:3], width=800) if len(group) >= 3 else ""}'
                     f'<div class="chips">{chips}</div><div class="grid">{"".join(self.card(p) for p in group)}</div></section>')
-            title = L.CATEGORY_TITLE[self.lang].format(cat=name)
-            desc = self.copy(key) + ' ' + L.CATEGORY_COUNT[self.lang].format(n=len(group))
-            write(path, self.page(title, desc, path, body, {l: L.category_path(key, l) for l in LANGS}, colour=WORLDS[key], tab='cats'))
+            ov = market_seo.route_override(overrides, path)
+            title = ov.get('title') or L.CATEGORY_TITLE[self.lang].format(cat=name)
+            desc = ov.get('description') or (self.copy(key) + ' ' + L.CATEGORY_COUNT[self.lang].format(n=len(group)))
+            cat_schema = market_seo.collection_schema(ORIGIN, path, title, desc, L.LANGUAGES[self.lang][0],
+                                                      [(self.ppath(p), p['name']) for p in group],
+                                                      [(u['home'], self.home()), (name, path)])
+            write(path, self.page(title, desc, path, body, {l: L.category_path(key, l) for l in LANGS}, schema=cat_schema, colour=WORLDS[key], tab='cats'))
 
     def build_about(self):
         copy = L.ABOUT[self.lang]
@@ -562,6 +604,14 @@ def main():
         site.build_about()
         app_manifest(site)
         print(f'{lang}: {len(site.items)} products, {len(site.worlds)} worlds')
+    journal_pages.generate_journal_pages(
+        ORIGIN, products, data,
+        lambda title, desc, path, body, schema=None, image=None, language='ru', alternate_paths=None: sites[language].page(
+            title, desc, path, body, alternate_paths, schema=schema, image=image
+        ),
+        lambda rel_html_path, html: write('/' + rel_html_path.removesuffix('/index.html').removesuffix('index.html'), html),
+        L.alternates,
+    )
     root = Site(products, data, 'en', root=True)
     root.build_home()
     app_manifest(root)

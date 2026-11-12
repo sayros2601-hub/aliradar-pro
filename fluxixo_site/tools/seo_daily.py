@@ -37,7 +37,8 @@ DATA = REPO / 'data/seo'
 STATE_FILE = DATA / 'state.enc'
 REPORT_FILE = DATA / 'report.enc'
 ORIGIN = 'https://www.fluxixo.shop'
-SITEMAPS = ('sitemap.xml', 'sitemap-ru.xml')
+SITEMAPS = ('sitemap.xml', 'sitemap-index.xml', 'sitemap-ru.xml', 'sitemap-en.xml', 'sitemap-pt.xml', 'sitemap-es.xml', 'sitemap-fr.xml', 'sitemap-he.xml')
+YANDEX_SITEMAPS = ('sitemap-ru.xml',)
 
 KEEP_DAYS = 400              # daily totals per engine
 KEEP_WEEKS = 26              # weekly page/query snapshots for stage 2
@@ -85,7 +86,9 @@ def http(method, url, *, headers=None, body=None, timeout=40):
 
 def secrets(local):
     names = {'GSC_SERVICE_ACCOUNT_JSON': 'gsc-service-account.dpapi', 'BING_WEBMASTER_API_KEY': 'bing-api-key.dpapi',
-             'YANDEX_WEBMASTER_TOKEN': 'yandex-oauth-token.dpapi', 'SEO_DATA_KEY': 'seo-data-key.dpapi'}
+             'YANDEX_WEBMASTER_TOKEN': 'yandex-oauth-token.dpapi', 'SEO_DATA_KEY': 'seo-data-key.dpapi',
+             'GEMINI_API_KEY': 'gemini-api-key.dpapi', 'GROQ_API_KEY': 'groq-api-key.dpapi',
+             'OPENROUTER_API_KEY': 'openrouter-api-key.dpapi'}
     found = {name: (os.environ.get(name) or '').strip() for name in names}
     if local:
         sys.path.insert(0, str(SITE / 'tools'))
@@ -116,7 +119,7 @@ def ru_url(url):
 # ---------- encrypted state ----------
 
 def load_state(key):
-    empty = {'version': 1, 'days': {}, 'weeks': {}, 'inspected': {}, 'recrawled': {}, 'keywords': {}}
+    empty = {'version': 1, 'days': {}, 'weeks': {}, 'inspected': {}, 'recrawled': {}, 'keywords': {}, 'experiments': {}, 'cooldowns': {}}
     if not key or not STATE_FILE.exists():
         return empty
     from cryptography.fernet import Fernet, InvalidToken
@@ -169,6 +172,17 @@ def google(secret, urls, state, today, dry_run):
                     headers=auth, body=body).get('rows', [])
     rows = [{'query': r['keys'][0], 'page': r['keys'][1], 'clicks': r['clicks'], 'impressions': r['impressions'],
              'position': round(r['position'], 1)} for r in query(['query', 'page'])]
+    country_rows = [{'country': r['keys'][0], 'page': r['keys'][1], 'query': r['keys'][2],
+                     'clicks': r['clicks'], 'impressions': r['impressions'],
+                     'position': round(r['position'], 1)} for r in query(['country', 'page', 'query'])]
+    countries = {}
+    for cr in country_rows:
+        c = countries.setdefault(cr['country'], {'clicks': 0, 'impressions': 0, '_w': 0.0})
+        c['clicks'] += cr['clicks']
+        c['impressions'] += cr['impressions']
+        c['_w'] += cr['position'] * cr['impressions']
+    for c in countries.values():
+        c['position'] = round(c.pop('_w') / c['impressions'], 1) if c['impressions'] else None
     daily = {r['keys'][0]: {'clicks': r['clicks'], 'impressions': r['impressions'], 'position': round(r['position'], 1)}
              for r in query(['date'], 100)}
     # Index coverage: a slow rotation through the sitemap, pages never checked or checked longest ago first.
@@ -188,7 +202,7 @@ def google(secret, urls, state, today, dry_run):
     sitemaps = http('GET', f'https://www.googleapis.com/webmasters/v3/sites/{enc}/sitemaps', headers=auth).get('sitemap', [])
     known = {s.get('path'): s for s in sitemaps}
     submitted = []
-    for name in SITEMAPS:
+    for name in YANDEX_SITEMAPS:
         feed = f'{ORIGIN}/{name}'
         last = (known.get(feed) or {}).get('lastSubmitted', '')[:10]
         if not dry_run and (not last or last <= (today - timedelta(days=7)).isoformat()):
@@ -196,7 +210,8 @@ def google(secret, urls, state, today, dry_run):
             submitted.append(name)
     states = [inspected[u] for u in urls if u in inspected]
     return {
-        'property': site, 'period': [start.isoformat(), end.isoformat()], 'rows': rows, 'daily': daily,
+        'property': site, 'period': [start.isoformat(), end.isoformat()], 'rows': rows,
+        'country_rows': country_rows, 'countries': countries, 'daily': daily,
         'totals': totals(rows),
         'index': {'checked_today': checked, 'known': len(states),
                   'indexed': sum(1 for s in states if s.get('verdict') == 'PASS'),
@@ -310,7 +325,7 @@ def yandex(token, urls, state, today, dry_run):
     known = {s.get('sitemap_url') for s in read('sitemaps', {}).get('sitemaps', [])}
     known |= {s.get('sitemap_url') for s in read('user-added-sitemaps', {}).get('sitemaps', [])}
     sitemaps_added, recrawl_error = [], None
-    for name in SITEMAPS:
+    for name in YANDEX_SITEMAPS:
         feed = f'{ORIGIN}/{name}'
         if feed in known or dry_run:
             continue
@@ -378,7 +393,7 @@ def product_names():
     return names
 
 
-def report_text(today, results, errors, keywords=()):
+def report_text(today, results, errors, keywords=(), stage2=None):
     lines = [f'# FLUXIXO — SEO за {today.isoformat()}', '']
     titles = {'google': 'Google', 'bing': 'Bing', 'yandex': 'Яндекс'}
     for engine, title in titles.items():
@@ -390,6 +405,9 @@ def report_text(today, results, errors, keywords=()):
         t = data['totals']
         lines.append(f'Клики {t["clicks"]}, показы {t["impressions"]}, CTR {t["ctr"]}%, средняя позиция {t["position"] or "—"}, запросов {t["queries"]}.')
         if engine == 'google':
+            if data.get('countries'):
+                top_c = sorted(data['countries'].items(), key=lambda kv: -kv[1]['impressions'])[:8]
+                lines.append('По странам: ' + ', '.join(f'{c.upper()}: {v["clicks"]}/{v["impressions"]} (поз. {v["position"] or "—"})' for c, v in top_c))
             i = data['index']
             lines.append(f'Индекс: проверено страниц {i["known"]}, в индексе {i["indexed"]}, не в индексе {len(i["not_indexed"])}.')
             lines += [f'- не в индексе: {u}' for u in i['not_indexed'][:20]]
@@ -418,6 +436,21 @@ def report_text(today, results, errors, keywords=()):
         if chances['near_top']:
             lines.append('Почти на первой странице (позиция 8–20):')
             lines += [f'- «{r["query"]}» — позиция {r["position"]}, показы {r["impressions"]}' for r in chances['near_top'][:10]]
+        lines.append('')
+    if stage2:
+        lines.append('## Автономный SEO-агент (Stage 2)')
+        audit = stage2.get('audit', {})
+        lines.append(f'Техническая проверка: {"OK" if audit.get("ok") else ", ".join(audit.get("issues", []))} (редиректов {audit.get("redirect_rules", 0)}/90).')
+        if stage2.get('applied'):
+            lines.append(f'Применено улучшений (проверено check_texts + verify_release): {len(stage2["applied"])}')
+            for item in stage2['applied']:
+                lines.append(f'- {item["path"]} [{item["lang"]}] ({item["reason"]}, {item["provider"]})')
+        elif stage2.get('proposed'):
+            lines.append(f'Предложено улучшений (режим отчёта): {len(stage2["proposed"])}')
+        if stage2.get('rolled_back'):
+            lines.append('Откат по просадке метрик: ' + ', '.join(r['path'] for r in stage2['rolled_back']))
+        if stage2.get('verify_error'):
+            lines.append('Сборка отклонена и откатана: ' + stage2['verify_error'])
         lines.append('')
     return '\n'.join(lines)
 
@@ -452,6 +485,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--local', action='store_true', help='read keys from the DPAPI store on this PC')
     parser.add_argument('--dry-run', action='store_true', help='no recrawl or sitemap requests, no files written')
+    parser.add_argument('--apply', action='store_true', help='apply validated stage-2 SEO improvements and rebuild release')
     parser.add_argument('--summary', help='append the totals table here (GITHUB_STEP_SUMMARY)')
     parser.add_argument('--report', help='also write the full Russian report here (local use only)')
     parser.add_argument('--show-report', action='store_true', help='print the latest stored report (needs the key)')
@@ -498,9 +532,21 @@ def main():
             day[engine] |= {'in_search': data['in_search'], 'recrawl_sent': len(data['recrawl_sent']),
                             'sqi': data['summary']['sqi']}
     trim(state, today)
+    stage2_res = None
+    if DIST.exists():
+        try:
+            sys.path.insert(0, str(SITE / 'tools'))
+            import stage2_seo
+            ai_keys = {k: keys[k] for k in ('GEMINI_API_KEY', 'GROQ_API_KEY', 'OPENROUTER_API_KEY') if k in keys}
+            stage2_res = stage2_seo.run_stage2(today, DIST, results, state, ai_keys, apply_changes=bool(args.apply and not args.dry_run))
+            print(f'stage2: applied={len(stage2_res["applied"])}, rolled_back={len(stage2_res["rolled_back"])}, proposed={len(stage2_res["proposed"])}', flush=True)
+        except Exception as exc:
+            print(f'stage2: skipped ({type(exc).__name__}: {exc})', flush=True)
     fresh = [(name, k['related']) for name, k in state['keywords'].items() if k.get('date') == today.isoformat() and k['related']]
-    report = report_text(today, results, errors, fresh)
+    report = report_text(today, results, errors, fresh, stage2=stage2_res)
     summary = summary_text(today, results, errors)
+    if stage2_res:
+        summary += f'\n- Stage 2 SEO: применено правок {len(stage2_res["applied"])}, откатов {len(stage2_res["rolled_back"])}, тех. аудит {"OK" if stage2_res["audit"]["ok"] else "warnings"}.\n'
     print(summary)
     if args.summary:
         with open(args.summary, 'a', encoding='utf-8') as stream:
