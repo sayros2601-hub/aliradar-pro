@@ -12,7 +12,7 @@
     "https://www.fluxixo.shop/categories/tehnika/": "201f73469bd2946a8b223e531ffb6d1f3e8a9f8db0d0709e79d9655c354e1796",
     "https://www.fluxixo.shop/categories/uhod/": "76082cdc9f02d81ff9d651118a10550d084ffd89fda8aa1ae6b3fab454687c2f",
     "https://www.fluxixo.shop/categories/v-doroge/": "7e429b2df0b2699d72a7121d4457866f7a0ba38035671aadf70389f178d53167",
-    "https://www.fluxixo.shop/products/auto-1005004679234788/": "780588ff0225bbf1a105bb3cf9e9eaafe216af7eff321af3e5ad595361d4c8bb",
+    "https://www.fluxixo.shop/products/auto-1005004679234788/": "471ba1def7af45ab34a0178abf42a9092f3b34a8d11b8c424f9351ad7ace26b4",
     "https://www.fluxixo.shop/products/auto-1005012599444039/": "8a668615c924fdcdfdd2e298d6579a6f7a7f52e016d83742bb669186d5561010",
     "https://www.fluxixo.shop/products/auto-1005013145693095/": "69054aad2297aef635f6c9f82131defc511afb202193e8b3c04bd266807d184a",
     "https://www.fluxixo.shop/products/auto-3256804678707896/": "7c1419114e04889f1e4313b76f374757913c5fa12f8aca4691ee70979fe927e0",
@@ -213,8 +213,6 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {
-    "https://www.fluxixo.shop/products/auto-1005004679234788/": "471ba1def7af45ab34a0178abf42a9092f3b34a8d11b8c424f9351ad7ace26b4"
-  },
+  "pending": {},
   "schema_version": 1
 }
