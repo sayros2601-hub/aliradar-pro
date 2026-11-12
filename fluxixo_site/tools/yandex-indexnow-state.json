@@ -218,6 +218,8 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {},
+  "pending": {
+    "https://www.fluxixo.shop/": "4e6c834ae201e2500e00dbedcb6fb243b95f72a3e58ed5da37c7f80a486e678b"
+  },
   "schema_version": 1
 }
