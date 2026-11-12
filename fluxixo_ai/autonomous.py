@@ -225,6 +225,10 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
 
 
 def _matches(seed, title):
+    from . import discovery_curator
+    banned, _ = discovery_curator.is_ordinary_or_banned_listing(str(title or ''))
+    if banned:
+        return False
     words = _words(title)
     # A replacement/part with the target words is not the complete tool.
     # This is deliberately conservative; unknown semantic fit remains unknown.
@@ -261,27 +265,55 @@ def _source_images(raw, primary):
     return result
 
 
-def discover(call, existing, count, now, *, seeds=None):
-    """Compare API results, confirm exact IDs in a market, and request exact links."""
+def discover(
+    call,
+    existing,
+    count,
+    now,
+    *,
+    seeds=None,
+    use_curated_pool=False,
+    check_all_markets=False,
+    check_hot_background=False,
+    presearch_fn=None,
+):
+    """Compare API results, screen rarity/presearch, verify target markets, and request exact links."""
+    from . import discovery_curator
     if (isinstance(count, bool) or not isinstance(count, int) or not 0 <= count <= 3
             or not isinstance(existing, list) or not callable(call)
             or not isinstance(now, datetime) or now.tzinfo is None or now.utcoffset() is None):
         raise AutonomousError('discovery_input_invalid')
     if count == 0:
         return []
-    task_seeds = list(SEEDS if seeds is None else seeds)
+    utc_now = now.astimezone(timezone.utc)
+    if seeds is not None:
+        task_seeds = list(seeds)
+    elif use_curated_pool:
+        rotated = discovery_curator.select_rotating_queries(utc_now.date().toordinal(), discovery_curator.ALL_MARKETS)
+        ai_queries = discovery_curator.generate_ai_discovery_queries(
+            existing, target_markets=discovery_curator.ALL_MARKETS, limit=4,
+        )
+        task_seeds = ai_queries + rotated
+    else:
+        task_seeds = list(SEEDS)
     if not task_seeds:
         return []
-    utc_now = now.astimezone(timezone.utc)
-    offset = utc_now.date().toordinal() % len(task_seeds)
-    task_seeds = task_seeds[offset:] + task_seeds[:offset]
+    if seeds is not None or not use_curated_pool:
+        offset = utc_now.date().toordinal() % len(task_seeds)
+        task_seeds = task_seeds[offset:] + task_seeds[:offset]
     known_ids = {str(item['sourceProductId']) for item in existing if isinstance(item, dict) and item.get('sourceProductId')}
     known_titles = {str(item[key]).strip().casefold() for item in existing if isinstance(item, dict)
-                    for key in ('name','sourceTitle') if item.get(key)}
+                    for key in ('name', 'sourceTitle') if item.get(key)}
     known_models = {item.get('sourceModelKey') for item in existing if isinstance(item, dict) and item.get('sourceModelKey')}
     chosen = []
     for task in task_seeds:
+        is_curated = str(task.get('key') or '').startswith(('rare_', 'ai_rare_'))
+        matcher = discovery_curator.matches_rare_query if is_curated else _matches
         try:
+            hot_ids, hot_titles = (
+                discovery_curator.fetch_hot_background_ids(call, task['query'], task['market'])
+                if check_hot_background else (set(), [])
+            )
             rows = _rows(call(QUERY, {'keywords': task['query'], 'target_currency': 'USD', 'target_language': 'EN',
                                       'ship_to_country': task['market'], 'page_size': '20', 'page_no': '1',
                                       'tracking_id': 'default'}), QUERY)
@@ -290,6 +322,9 @@ def discover(call, existing, count, now, *, seeds=None):
                 try:
                     item = normalize_product(raw, task['market'], QUERY, utc_now.isoformat())
                     item['image_urls'] = _source_images(raw, item.get('image_url'))
+                    for metric_key in ('evaluate_rate', 'lastest_volume'):
+                        if metric_key in raw:
+                            item[metric_key] = raw[metric_key]
                     if item['product_id'] not in known_ids and item['title'].strip().casefold() not in known_titles:
                         query[item['product_id']] = item
                 except (ValueError, TypeError):
@@ -299,11 +334,15 @@ def discover(call, existing, count, now, *, seeds=None):
             details = _rows(call(DETAIL, {'product_ids': ','.join(sorted(query)), 'country': task['market'],
                                         'target_currency': 'USD', 'target_language': 'EN', 'tracking_id': 'default'}), DETAIL)
             eligible = []
+            catalog_plus_chosen = existing + [
+                {'id': c['product_id'], 'sourceTitle': c['title'], 'name': c['title']}
+                for c in chosen
+            ]
             for raw in details[:20]:
                 try:
                     item = normalize_product(raw, task['market'], DETAIL, utc_now.isoformat())
                     previous = query.get(item['product_id'])
-                    if not previous or not _matches(task, item['title']):
+                    if not previous or not matcher(task, item['title']):
                         continue
                     if item['title'].strip().casefold() in known_titles or (item.get('model_key') and item['model_key'] in known_models):
                         continue
@@ -311,11 +350,33 @@ def discover(call, existing, count, now, *, seeds=None):
                     item['image_urls'] = list(dict.fromkeys(_source_images(raw, item['image_url']) + previous.get('image_urls', [])))[:8]
                     if not item['image_urls']:
                         continue
-                    score = len(_words(task['query']) & _words(item['title']))
-                    eligible.append((-score, item['product_id'], item))
+                    for metric_key in ('evaluate_rate', 'lastest_volume'):
+                        if metric_key in raw:
+                            item[metric_key] = raw[metric_key]
+                        elif metric_key in previous:
+                            item[metric_key] = previous[metric_key]
+                    screen_ok, _, screen_meta = discovery_curator.presearch_exclusivity_check(
+                        item,
+                        catalog_plus_chosen,
+                        hot_ids=hot_ids,
+                        hot_titles=hot_titles,
+                        presearch_fn=presearch_fn,
+                    )
+                    if not screen_ok:
+                        continue
+                    item['presearchStatus'] = screen_meta.get('presearch', {'checked': False, 'status': 'local_only'})
+                    word_score = len(_words(task['query']) & _words(item['title']))
+                    total_score = word_score + float(screen_meta.get('score') or 0.0)
+                    eligible.append((-total_score, item['product_id'], item))
                 except (ValueError, TypeError):
                     continue
             for _, _, item in sorted(eligible, key=lambda value: (value[0], value[1])):
+                if check_all_markets:
+                    discovery_curator.verify_markets_for_candidate(
+                        call, item, discovery_curator.ALL_MARKETS, utc_now.isoformat(),
+                    )
+                    if not item.get('availableMarkets'):
+                        continue
                 try:
                     affiliate = generate_affiliate(call, item)
                 except (ApiError, ValueError, TypeError, KeyError):
@@ -337,26 +398,41 @@ def discover(call, existing, count, now, *, seeds=None):
 
 def build_record(candidate):
     """Build six honest labels only after the actual seller title matches task."""
+    from . import discovery_curator
+    from .publisher import CATEGORIES, source_content
+    from .task_copy import TASK_COPY
     if not isinstance(candidate, dict):
         raise AutonomousError('candidate_invalid')
     task = candidate.get('task')
-    if task is not None and (task not in SEEDS or not _matches(task, str(candidate.get('title', '')))):
-        raise AutonomousError('task_title_mismatch')
-    if task is None:
-        from .publisher import CATEGORIES, source_content
-        if candidate.get('category') not in CATEGORIES:
+    title_str = str(candidate.get('title', ''))
+    if task is not None:
+        is_seed_task = task in SEEDS and _matches(task, title_str)
+        is_curated_task = (
+            isinstance(task, dict)
+            and str(task.get('key') or '').startswith(('rare_', 'ai_rare_'))
+            and task.get('category') in CATEGORIES
+            and discovery_curator.matches_rare_query(task, title_str)
+        )
+        if not (is_seed_task or is_curated_task):
+            raise AutonomousError('task_title_mismatch')
+    if task is None or not task.get('names'):
+        category = candidate.get('category') if task is None else task.get('category')
+        if category not in CATEGORIES:
             raise AutonomousError('candidate_category_invalid')
-        localized = source_content(candidate)
+        localized = source_content({**candidate, 'category': category})
         for lang, content in localized.items():
-            content['headline'] = task_headline('seller_title', lang, candidate['category'])
-        task = {'names': {lang: localized[lang]['name'] for lang in LANGS}, 'category': candidate['category'],
-                'market': candidate['market'], 'theme': 'lavender', 'key': 'seller_title'}
+            content['headline'] = task_headline('seller_title', lang, category)
+        market = candidate.get('market', 'US') if task is None else task.get('market', 'US')
+        theme = 'lavender' if task is None else task.get('theme', 'lavender')
+        key = 'seller_title' if task is None else task['key']
+        task = {'names': {lang: localized[lang]['name'] for lang in LANGS}, 'category': category,
+                'market': market, 'theme': theme, 'key': key}
     product_id = candidate.get('product_id')
     if (not isinstance(product_id, str) or not re.fullmatch(r'[1-9][0-9]{0,31}', product_id)
             or candidate.get('detail_url') != f'https://www.aliexpress.com/item/{product_id}.html'
             or not candidate.get('affiliate_url') or not candidate.get('image_url')):
         raise AutonomousError('candidate_identity_invalid')
-    if task['key'] != 'seller_title':
+    if task['key'] in TASK_COPY:
         localized = {}
         for lang in LANGS:
             name = task['names'][lang]
@@ -372,6 +448,10 @@ def build_record(candidate):
               'sourceModelKey': candidate.get('model_key'), 'sourceMarket': task['market'],
               'sourceTask': task['key'], 'demo': False, 'theme': task['theme'],
               'scale': 0.85, 'rotation': 0, 'details': localized['ru']['description'], 'facts': []}
+    if isinstance(candidate.get('availableMarkets'), list) and candidate['availableMarkets']:
+        record['availableMarkets'] = list(candidate['availableMarkets'])
+    if isinstance(candidate.get('presearchStatus'), dict):
+        record['presearchStatus'] = candidate['presearchStatus']
     return record, {lang: localized[lang] for lang in LANGS if lang != 'ru'}
 
 
@@ -510,7 +590,7 @@ def _pixel_hash(image):
 
 PHOTOS_PER_PRODUCT = 3   # every new product gets three cut-out photos (main + two more views)
 VIEW_REPEAT = 12         # dHash distance at or below which two cut-outs count as the same view
-VIEW_MIN_SIDE = 400      # smaller seller photos give blurry cut-outs
+VIEW_MIN_SIDE = 600      # smaller seller photos give blurry cut-outs
 MAX_ATTEMPTS = 30        # candidates tried per run; three clean views are rarer than one
 SEARCH_BUDGET_SECONDS = 40 * 60   # stop looking in time for the build, push and deploy
 LEASE_SECONDS = 75 * 60
@@ -666,7 +746,19 @@ def _default_media_preparer():
                 if main is not None or poster:
                     # Extra views keep only sizeable parts: no seller logo, no stray dimension lines.
                     cutout = _drop_specks(cutout, keep=0.06)
+                raw_bbox = cutout.getbbox()
+                raw_fg_size = (
+                    max(1, round((raw_bbox[2] - raw_bbox[0]) * (original.width / work.width))),
+                    max(1, round((raw_bbox[3] - raw_bbox[1]) * (original.height / work.height))),
+                ) if raw_bbox else original.size
                 canvas = _studio(cutout)
+                q_ok, q_metrics = image_studio.verify_studio_image(
+                    cutout,
+                    raw_fg_size=raw_fg_size,
+                    composed=canvas,
+                )
+                if not q_ok:
+                    continue
                 if main is not None or poster:
                     # Extra views: no leftover backdrop and no words anywhere on the cut-out (boxes, logos,
                     # captions). A photo with text may still give a clean view once its background is cut away.
@@ -686,8 +778,8 @@ def _default_media_preparer():
                 if main is None and not poster:
                     image_path = stage / f'{internal_id}-prepared.webp'
                     original_path = stage / f'{internal_id}-original.webp'
-                    canvas.save(image_path, 'WEBP', quality=92)
-                    original.save(original_path, 'WEBP', quality=88)
+                    canvas.save(image_path, 'WEBP', quality=95, method=6)
+                    original.save(original_path, 'WEBP', quality=90, method=6)
                     main_light, main_parts = _light_share(canvas), _major_parts(canvas)
                     main = {
                         'image': image_path,
@@ -701,10 +793,12 @@ def _default_media_preparer():
                         'source_dhash': source_hashes['dhash'],
                         'source_ahash': source_hashes['ahash'],
                         'source_aspect': source_hashes['aspect'],
+                        'image_quality': q_metrics,
+                        'image_quality_verified': True,
                     }
                 elif len(views) < PHOTOS_PER_PRODUCT - 1:
                     view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
-                    canvas.save(view_path, 'WEBP', quality=90)
+                    canvas.save(view_path, 'WEBP', quality=92, method=6)
                     views.append(view_path)
                 else:
                     kept.pop()
@@ -847,8 +941,19 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             from .search import AliClient
             api_holder.append(AliClient())
         return api_holder[0]
+    using_default_discover = discover_fn is None
     if discover_fn is None:
-        discover_fn = lambda existing, amount, when: discover(get_api(), existing, amount, when)
+        from . import discovery_curator
+        discover_fn = lambda existing, amount, when: discover(
+            get_api(),
+            existing,
+            amount,
+            when,
+            use_curated_pool=True,
+            check_all_markets=True,
+            check_hot_background=True,
+            presearch_fn=discovery_curator.default_web_presearch,
+        )
     if refresh_fn is None:
         refresh_fn = lambda entry, when: refresh_queued(get_api(), entry, when)
     if queue_store is None:
@@ -957,6 +1062,10 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     if 'original' in cand_perceptual:
                         record_item['sourceImageDhash'] = cand_perceptual['original']['dhash']
                         record_item['sourceImageAhash'] = cand_perceptual['original']['ahash']
+                    if media.get('image_quality_verified') is not None:
+                        record_item['imageQualityVerified'] = bool(media['image_quality_verified'])
+                    if isinstance(media.get('image_quality'), dict):
+                        record_item['imageQualityMetrics'] = media['image_quality']
                     if queue_claim:
                         record_item['sourceQueueRequestId'] = queue_claim['request_id']
                         record_item['sourceQueueClaimId'] = queue_claim['claim_id']
@@ -1004,6 +1113,14 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 break
         if len(prepared) < needed:
             raise DailyError('underfilled_no_publication')
+        from . import discovery_curator
+        gate_ok, gate_errors = discovery_curator.pre_deploy_catalog_gate(
+            [p[0] for p in prepared],
+            old,
+            require_markets=using_default_discover,
+        )
+        if not gate_ok:
+            raise DailyError('pre_deploy_gate_failed:' + ','.join(gate_errors[:4]))
         fresh_catalog = dict(catalog)
         fresh_catalog['products'] = [p[0] for p in prepared] + old
         fresh_i18n = dict(translations)

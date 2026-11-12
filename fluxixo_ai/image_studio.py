@@ -510,6 +510,151 @@ def _alpha_center_x(rgba: Image.Image) -> float:
     return ((wx / total) + 0.5) * (rgba.width / sw)
 
 
+def apply_foreground_clarity(cutout: Image.Image, *, upscale_ratio: float = 1.0) -> Image.Image:
+    """Apply bounded UnsharpMask clarity strictly inside solid opaque foreground pixels."""
+    rgba = cutout.convert('RGBA')
+    alpha = rgba.getchannel('A')
+    solid_mask = alpha.point(lambda a: 255 if a >= 210 else 0)
+    if solid_mask.getbbox() is None:
+        return rgba
+
+    # Mild clarity at native/downscale; stronger micro-detail recovery on mild upscale, never magnifying noise.
+    clamped_ratio = max(1.0, min(2.6, float(upscale_ratio)))
+    percent = round(36 + (clamped_ratio - 1.0) * 26)
+    sharpened_rgb = rgba.convert('RGB').filter(ImageFilter.UnsharpMask(radius=1.05, percent=percent, threshold=4))
+    merged_rgb = Image.composite(sharpened_rgb, rgba.convert('RGB'), solid_mask)
+    out = merged_rgb.convert('RGBA')
+    out.putalpha(alpha)
+    return out
+
+
+def measure_image_quality(
+    cutout: Image.Image,
+    *,
+    raw_fg_size: tuple[int, int] | None = None,
+    composed: Image.Image | None = None,
+    target_box: int = 890,
+) -> dict[str, Any]:
+    """Compute foreground resolution, upscale ratio, sharpness, exposure, border clipping, and halo metrics."""
+    raw_rgba = cutout.convert('RGBA')
+    bbox = tight_alpha_bbox(raw_rgba, alpha_floor=TIGHT_BBOX_ALPHA)
+    if raw_fg_size is not None:
+        fg_w, fg_h = int(raw_fg_size[0]), int(raw_fg_size[1])
+    elif bbox:
+        fg_w, fg_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+    else:
+        fg_w, fg_h = 0, 0
+    fg_max_side = max(fg_w, fg_h)
+    fg_min_side = min(fg_w, fg_h)
+    upscale_ratio = round(target_box / max(1, fg_max_side), 3) if fg_max_side > 0 else 999.0
+
+    # Measure border contact on raw seller cutout (detects cropped-off edges before studio padding).
+    rw, rh = raw_rgba.size
+    raw_alpha = raw_rgba.getchannel('A')
+    border_hits: list[float] = []
+    if rw >= 8 and rh >= 8:
+        edges = [
+            raw_alpha.crop((0, 0, rw, 2)),
+            raw_alpha.crop((0, rh - 2, rw, rh)),
+            raw_alpha.crop((0, 0, 2, rh)),
+            raw_alpha.crop((rw - 2, 0, rw, rh)),
+        ]
+        for strip in edges:
+            vals = strip.tobytes()
+            border_hits.append(sum(1 for v in vals if v >= 180) / max(1, len(vals)))
+    max_border_clip = round(max(border_hits) if border_hits else 0.0, 3)
+    clipped_edges = sum(1 for r in border_hits if r > 0.35)
+
+    # Measure interior sharpness, luma dynamic range, and semi-transparent white fringe on composed/cutout.
+    target = (composed or raw_rgba).convert('RGBA')
+    tb = tight_alpha_bbox(target, alpha_floor=TIGHT_BBOX_ALPHA)
+    roi = target.crop(tb) if tb else target
+    roi.thumbnail((256, 256), Image.Resampling.LANCZOS)
+    rw2, rh2 = roi.size
+    r_px = roi.convert('RGB').tobytes()
+    a_px = roi.getchannel('A').tobytes()
+    l_px = roi.convert('L').tobytes()
+
+    grad_sum = 0.0
+    grad_cnt = 0
+    luma_vals: list[int] = []
+    rim_total = 0
+    rim_white = 0
+
+    for y in range(rh2):
+        row_off = y * rw2
+        for x in range(rw2):
+            idx = row_off + x
+            a = a_px[idx]
+            if a >= 180:
+                luma_vals.append(l_px[idx])
+                if x + 1 < rw2 and y + 1 < rh2 and a_px[idx + 1] >= 180 and a_px[idx + rw2] >= 180:
+                    gx = abs(l_px[idx + 1] - l_px[idx])
+                    gy = abs(l_px[idx + rw2] - l_px[idx])
+                    grad_sum += gx + gy
+                    grad_cnt += 1
+            elif 24 <= a < 160:
+                rim_total += 1
+                rgb_i = idx * 3
+                r_c, g_c, b_c = r_px[rgb_i], r_px[rgb_i + 1], r_px[rgb_i + 2]
+                if min(r_c, g_c, b_c) >= 235 and max(r_c, g_c, b_c) - min(r_c, g_c, b_c) <= 14:
+                    rim_white += 1
+
+    sharpness = round(grad_sum / grad_cnt, 3) if grad_cnt else 0.0
+    if luma_vals:
+        mean_luma = sum(luma_vals) / len(luma_vals)
+        var = sum((v - mean_luma) ** 2 for v in luma_vals) / len(luma_vals)
+        luma_std = math.sqrt(var)
+    else:
+        mean_luma, luma_std = 0.0, 0.0
+    halo_fringe = round(rim_white / rim_total, 3) if rim_total >= 12 and mean_luma < 215 else 0.0
+
+    return {
+        'fg_width': fg_w,
+        'fg_height': fg_h,
+        'fg_max_side': fg_max_side,
+        'fg_min_side': fg_min_side,
+        'upscale_ratio': upscale_ratio,
+        'sharpness': sharpness,
+        'fg_mean_luma': round(mean_luma, 2),
+        'fg_luma_std': round(luma_std, 2),
+        'max_border_clip': max_border_clip,
+        'clipped_edges': clipped_edges,
+        'halo_fringe_ratio': halo_fringe,
+    }
+
+
+def verify_studio_image(
+    cutout: Image.Image,
+    *,
+    raw_fg_size: tuple[int, int] | None = None,
+    composed: Image.Image | None = None,
+    min_fg_side: int = 360,
+    max_upscale: float = 2.6,
+    min_sharpness: float = 4.2,
+    max_border_clip: float = 0.65,
+    max_halo_fringe: float = 0.48,
+) -> tuple[bool, dict[str, Any]]:
+    """Verify foreground sharpness, resolution, framing, exposure, and halo freedom before publication."""
+    metrics = measure_image_quality(cutout, raw_fg_size=raw_fg_size, composed=composed)
+    reasons: list[str] = []
+    if metrics['fg_max_side'] < min_fg_side:
+        reasons.append('low_foreground_resolution')
+    if metrics['upscale_ratio'] > max_upscale:
+        reasons.append('excessive_upscale')
+    if metrics['sharpness'] < min_sharpness:
+        reasons.append('blurry_foreground')
+    if metrics['fg_mean_luma'] > 246 and metrics['fg_luma_std'] < 8.0:
+        reasons.append('washed_out')
+    if metrics['fg_mean_luma'] < 14 and metrics['fg_luma_std'] < 6.0:
+        reasons.append('crushed_dark')
+    if metrics['max_border_clip'] > max_border_clip or metrics['clipped_edges'] >= 2:
+        reasons.append('cropped_subject')
+    if metrics['halo_fringe_ratio'] > max_halo_fringe:
+        reasons.append('halo_fringe')
+    return not reasons, {**metrics, 'reasons': reasons}
+
+
 def compose_studio_frame(
     cutout: Image.Image,
     *,
@@ -517,8 +662,9 @@ def compose_studio_frame(
     max_box: int = 890,
     normalize_tonality: bool = True,
     add_contact_shadow: bool = True,
+    apply_clarity: bool = True,
 ) -> Image.Image:
-    """Clean, trim, contrast-balance, frame, and ground a transparent cutout on a 1254px canvas."""
+    """Clean, trim, contrast-balance, micro-sharpen, frame, and ground a transparent cutout."""
     cleaned = clean_cutout_alpha(cutout)
     bbox = tight_alpha_bbox(cleaned, alpha_floor=TIGHT_BBOX_ALPHA)
     if bbox:
@@ -529,6 +675,8 @@ def compose_studio_frame(
     placed = cleaned.resize(fit, Image.Resampling.LANCZOS)
     if normalize_tonality:
         placed = normalize_studio_contrast(placed)
+    if apply_clarity:
+        placed = apply_foreground_clarity(placed, upscale_ratio=scale)
 
     # Blend optical mass center with geometric center (clamped to +-4% of canvas width).
     geo_x = (canvas_size - fit[0]) / 2.0

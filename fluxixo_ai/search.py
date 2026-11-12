@@ -96,7 +96,7 @@ def _representative(candidates, markets, limit):
 def search_products(call,query,markets,limit=20,observed_at=None):
     if not isinstance(query,str) or not 3<=len(query.strip())<=240 or any(ord(c)<32 for c in query):
         raise ValueError('query_invalid')
-    if not isinstance(markets,list) or not markets or len(markets)>5 or len(set(markets))!=len(markets) or any(m not in MARKETS for m in markets):
+    if not isinstance(markets,list) or not markets or len(markets)>len(MARKETS) or len(set(markets))!=len(markets) or any(m not in MARKETS for m in markets):
         raise ValueError('market_not_configured')
     if isinstance(limit,bool) or not isinstance(limit,int) or not 1<=limit<=50:raise ValueError('limit_invalid')
     stamp=observed_at or datetime.now(timezone.utc).isoformat()

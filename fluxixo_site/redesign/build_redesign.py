@@ -221,6 +221,14 @@ class Site:
             t = p if lang == 'ru' else data['products'].get(p['id'], {}).get(lang)
             if t and all(t.get(k) for k in ('name', 'headline', 'description')):
                 self.items.append({**p, **{k: t[k] for k in ('name', 'headline', 'description')}})
+        lang_market = {'ru': 'RU', 'en': 'US', 'pt': 'BR', 'es': 'MX', 'fr': 'FR', 'he': 'IL'}.get(lang)
+        if lang_market:
+            def _market_rank(item):
+                avail = item.get('availableMarkets')
+                if isinstance(avail, list) and avail:
+                    return 0 if lang_market in avail else 2
+                return 0 if item.get('sourceMarket') == lang_market else 1
+            self.items.sort(key=_market_rank)
         self.worlds = [k for k in WORLDS if any(p['world'] == k for p in self.items)]
 
     def home(self):

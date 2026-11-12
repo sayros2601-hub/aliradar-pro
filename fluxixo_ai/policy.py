@@ -13,7 +13,7 @@ import math
 import re
 from urllib.parse import urlsplit
 
-MARKETS = ('US', 'BR', 'MX', 'IL', 'FR')
+MARKETS = ('RU', 'US', 'BR', 'MX', 'IL', 'FR')
 QUERY = 'aliexpress.affiliate.product.query'
 DETAIL = 'aliexpress.affiliate.productdetail.get'
 _DETAIL_HOSTS = {'aliexpress.com', 'www.aliexpress.com', 'm.aliexpress.com'}

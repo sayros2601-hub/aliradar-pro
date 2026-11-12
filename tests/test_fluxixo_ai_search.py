@@ -34,10 +34,22 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(result['candidates'][0]['markets']['IL']['sellable'],'unknown')
         self.assertTrue(result['warnings'])
 
-    def test_unresolved_russian_audience_and_spain_not_silently_enabled(self):
+    def test_unsupported_countries_like_spain_and_unknown_remain_rejected(self):
         search,_=self.api()
-        for market in ['RU','ES']:
+        for market in ['ES','XX']:
             with self.subTest(market=market),self.assertRaises(ValueError):search(lambda *_:self.fail('must not call API'),'fixture',[market])
+
+    def test_all_six_target_markets_including_ru_are_supported(self):
+        search,_=self.api()
+        def call(method,params):
+            rows=[{'product_id':'100000000009','product_title':'Synthetic rare kinetic gadget '+params.get('ship_to_country', params.get('country','')),'product_detail_url':'https://www.aliexpress.com/item/100000000009.html','product_main_image_url':'https://ae01.alicdn.com/kf/test9.jpg'}]
+            key='aliexpress_affiliate_product_query_response' if method.endswith('query') else 'aliexpress_affiliate_productdetail_get_response'
+            return {key:{'resp_result':{'resp_code':200,'result':{'products':{'product':rows}}}}}
+        markets=['RU','US','BR','MX','IL','FR']
+        result=search(call,'rare kinetic desk gadget',markets,limit=5,observed_at='2026-11-10T12:00:00Z')
+        self.assertEqual(len(result['candidates']),1)
+        for market in markets:
+            self.assertEqual(result['candidates'][0]['markets'][market]['sellable'],'confirmed')
 
     def test_affiliate_link_generated_only_from_exact_detail_identity(self):
         _,generate=self.api();calls=[]
