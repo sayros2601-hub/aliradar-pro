@@ -60,13 +60,16 @@
 /js/catalog-core.41cc5f57f316.js
   Cache-Control: public, max-age=31536000, immutable
 
-/js/catalog.032cdfb606c6.js
+/js/catalog.e0b4e45080ef.js
+  Cache-Control: public, max-age=31536000, immutable
+
+/js/early.b45c2135ff61.js
   Cache-Control: public, max-age=31536000, immutable
 
 /js/fx.a7a96926f964.js
   Cache-Control: public, max-age=31536000, immutable
 
-/js/i18n.ca7082bb1384.js
+/js/i18n.3688c903438c.js
   Cache-Control: public, max-age=31536000, immutable
 
 /js/motion.ad697a9c4f0b.js

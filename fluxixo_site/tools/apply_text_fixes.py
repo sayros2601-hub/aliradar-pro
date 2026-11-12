@@ -29,7 +29,7 @@ def value(field, text):
 def fr_title(name):
     """French names follow the Title Case used by the rest of the catalog."""
     def cap(part, first):
-        m = re.match(r"^([dl]')(.+)$", part, flags=re.I)
+        m = re.match(r"^([dl]['’])(.+)$", part, flags=re.I)
         if m:
             return m[1].lower() + m[2][:1].upper() + m[2][1:]
         if part.lower() in FR_SMALL and not first:

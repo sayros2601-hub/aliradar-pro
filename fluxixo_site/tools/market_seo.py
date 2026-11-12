@@ -25,14 +25,14 @@ CHECKLIST_HEADING = {
 MARKET_GUIDES = {
     'ru': {
         'powered': [
-            'Выберите версию с евровилкой (220 В, тип C или F) либо уточните питание по USB в описании лота.',
-            'Сверьте комплектацию на фото выбранного варианта, а не только на обложке объявления.',
+            'Выберите версию с евровилкой (220 В, тип C или F) либо уточните питание по USB в описании товара.',
+            'Сверьте комплектацию на фото выбранного варианта, а не только на обложке карточки.',
             'Проверьте сроки доставки и условия отслеживания в ваш регион на странице оформления заказа.',
         ],
         'general': [
-            'Откройте точный вариант модели, размера или цвета перед сравнением условий у продавца.',
-            'Сверьте содержимое упаковки в таблице вариантов и на исходных фотографиях.',
-            'Уточните сроки доставки, пункт выдачи и порядок спора на AliExpress до оплаты.',
+            'Выберите нужный вариант модели, размера или цвета перед сравнением условий у продавца.',
+            'Сверьте содержимое упаковки в выбранной опции и на реальных фотографиях продавца.',
+            'Уточните сроки доставки, пункт выдачи и условия спора на AliExpress до оплаты.',
         ],
     },
     'en': {
@@ -43,7 +43,7 @@ MARKET_GUIDES = {
         ],
         'general': [
             'Compare sizes, materials, and exact SKU variant names directly on the AliExpress listing before checkout.',
-            'Check the real seller photos and package list rather than relying only on the studio cutout.',
+            'Check the seller’s actual photos and package list rather than relying only on the studio visual.',
             'Verify estimated delivery timing to the United States and return coverage inside checkout.',
         ],
     },
@@ -55,7 +55,7 @@ MARKET_GUIDES = {
         ],
         'general': [
             'Compare medidas, cores e quantidade da variação selecionada diretamente no anúncio.',
-            'Observe as fotos reais do vendedor e a descrição técnica completa da variante escolhida.',
+            'Observe as fotos reais do vendedor e a descrição técnica completa da variação escolhida.',
             'Confira o prazo de frete para o seu CEP e o resumo final exibido no checkout do AliExpress.',
         ],
     },
@@ -66,8 +66,8 @@ MARKET_GUIDES = {
             'Consulta los tiempos de envío a México y los cargos mostrados en pantalla al pagar en AliExpress.',
         ],
         'general': [
-            'Confirma medidas, color y piezas incluidas en la variante exacta que elijas dentro del anuncio.',
-            'Compara el recorte visual con las fotografías originales del vendedor antes de ordenar.',
+            'Confirma medidas, color y piezas incluidas en la variante exacta que elijas en la publicación del vendedor.',
+            'Compara la vista de estudio con las fotos originales del vendedor antes de confirmar tu compra.',
             'Revisa la fecha estimada de entrega en México y las condiciones de devolución del vendedor.',
         ],
     },
@@ -85,14 +85,14 @@ MARKET_GUIDES = {
     },
     'he': {
         'powered': [
-            'ודאו בעמוד המוצר שהדגם הנבחר מתאים למתח 220-230V ולתקע ישראלי מסוג H או כולל חיבור USB.',
-            'בדקו מה בדיוק כלול באריזה לפי הגרסה שסומנה, ולא רק לפי התמונה הראשית.',
-            'בדקו את תנאי המשלוח לישראל, פרטי המכס ומועדי ההגעה בקופת AliExpress לפני התשלום.',
+            'בדקו בעמוד המוצר שהדגם מתאים לרשת החשמל בישראל (220–230V) עם תקע ישראלי או אירופי תואם, או פועל בחיבור USB.',
+            'ודאו מה בדיוק מגיע בחבילה לפי הדגם או הערכה שבחרתם, ולא רק לפי התמונה הראשית.',
+            'עברו על עלויות המשלוח לישראל, זמן ההגעה המשוער וסיכום התשלום הסופי ב־AliExpress לפני ההזמנה.',
         ],
         'general': [
-            'השוו את המידות, הצבע והגרסה המדויקת ישירות בדף המוצר לפני ההזמנה.',
-            'עיינו בתמונות המוכר המקוריות כדי לוודא התאמה מלאה לצורך שלכם.',
-            'בדקו את עלות המשלוח לישראל ואת תנאי ההחזרה המוצגים אצל המוכר ב־AliExpress.',
+            'השוו מידות, צבע ודגם מדויק ישירות בעמוד המוצר לפני שמוסיפים לעגלה.',
+            'הציצו בתמונות המקוריות של המוכר ובמפרט הטכני כדי לוודא שהמוצר מתאים בדיוק למה שאתם מחפשים.',
+            'בדקו את עלות המשלוח לישראל ואת מדיניות ההחזרה של המוכר לפני שמשלימים את ההזמנה.',
         ],
     },
 }
@@ -146,7 +146,7 @@ def default_faq(product_name, category_key, lang):
         ],
         'en': [
             (f'How do I pick the right variant of {product_name}?',
-             'Open the AliExpress listing and select the exact option thumbnail before checking details, since kits and bundle pieces vary per option.'),
+             'Open the AliExpress listing and click the exact option thumbnail so the kit contents and specs match what you plan to order.'),
             ('What should US shoppers verify before ordering?',
              ('Verify US 110-120V voltage/plug compatibility or USB power specs, ' if powered else 'Verify item dimensions, material notes, ')
              + 'current shipping window, and return coverage on the seller listing.'),
@@ -155,7 +155,7 @@ def default_faq(product_name, category_key, lang):
             (f'Como conferir a opção certa de {product_name}?',
              'Acesse o anúncio no AliExpress e clique exatamente na variação desejada para confirmar o que acompanha o pacote e as medidas reais.'),
             ('O que checar para entrega no Brasil?',
-             ('Verifique se é bivolt ou 110V/220V com tomada compatível, ' if powered else 'Verifique dimensões e acabamento, ')
+             ('Confira se é bivolt (110V/220V) ou compatível com a tomada NBR 14136, ' if powered else 'Confira dimensões e acabamento, ')
              + 'além do prazo estimado e dos valores mostrados no checkout do AliExpress.'),
         ],
         'es': [
@@ -166,18 +166,18 @@ def default_faq(product_name, category_key, lang):
              + 'junto con los tiempos de envío y cargos mostrados al finalizar la compra.'),
         ],
         'fr': [
-            (f'Comment vérifier la bonne version pour {product_name} ?',
+            (f'Comment choisir la bonne version de {product_name} ?',
              'Ouvrez la fiche vendeur sur AliExpress et sélectionnez la déclinaison précise afin de voir le contenu exact et les caractéristiques associées.'),
             ('Que contrôler pour une livraison en France ?',
              ('Vérifiez la prise européenne 230V ou l’alimentation USB, ' if powered else 'Vérifiez les dimensions et matériaux indiqués, ')
-             + 'ainsi que la TVA et le délai de livraison indiqués par le vendeur.'),
+             + 'ainsi que la TVA et le délai de livraison affichés par le vendeur.'),
         ],
         'he': [
             (f'איך לבחור את הגרסה הנכונה של {product_name}?',
-             'פתחו את עמוד המוכר ב־AliExpress ובחרו באפשרות המדויקת כדי לראות את תכולת האריזה והמפרט של אותו דגם.'),
+             'היכנסו לעמוד המוצר ב־AliExpress ובחרו בדגם או באפשרות הרצויה — רק כך רואים את תכולת הערכה והמפרט המדויק של אותה גרסה.'),
             ('מה חשוב לבדוק בהזמנה לישראל?',
-             ('ודאו התאמה למתח 220-230V ותקע מתאים או חיבור USB, ' if powered else 'בדקו מידות מדויקות וחומרי ייצור, ')
-             + 'וכן את תנאי המשלוח והמכס בקופה לפני התשלום.'),
+             ('ודאו שהדגם מתאים לחשמל בישראל (220–230V) ולתקע מתאים או לחיבור USB, ' if powered else 'בדקו מידות מדויקות וחומרים, ')
+             + 'ובדקו מראש את זמני המשלוח, המסים או המע״מ ותנאי ההחזרה במסך התשלום.'),
         ],
     }
     return [{'q': q, 'a': a} for q, a in templates.get(lang, templates['en'])]
@@ -237,12 +237,12 @@ def video_block_and_schema(origin, dist_dir, product, name, description, lang, f
         sources.append(f'<source src="/{e(vid["hevc"])}" type="video/mp4; codecs=hvc1">')
     sources.append(f'<source src="/{e(vid["mp4"])}" type="video/mp4">')
     caption = {
-        'ru': 'Короткий 4K-обзор детализации и внешнего вида',
+        'ru': 'Короткий видеообзор деталей и внешнего вида',
         'en': 'Quick product showcase clip',
         'pt': 'Prévia em vídeo do produto',
         'es': 'Clip de vista rápida del producto',
         'fr': 'Aperçu vidéo du produit',
-        'he': 'תצוגת וידאו קצרה של המוצר',
+        'he': 'סרטון הדגמה קצר של המוצר',
     }.get(lang, 'Quick product showcase clip')
     html = (
         f'<figure class="product-video">'

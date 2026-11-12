@@ -98,7 +98,7 @@
     "stageHintMouse": "Hover to tilt the angle",
     "stageHintTouch": "Swipe left or right",
     "stageHintQuiet": "Calm mode enabled: the stage remains steady and quiet.",
-    "collectionEyebrow": "Calm selection",
+    "collectionEyebrow": "Curated showcase",
     "collectionTitle": "All objects in one catalog",
     "collectionFootnote": "Affiliate links lead to AliExpress product pages. Check availability, options, and pricing with the seller before purchasing.",
     "sourceSummary": "Seller photo from the product listing",
@@ -177,11 +177,11 @@
     "stageHintMouse": "Passe o cursor para inclinar",
     "stageHintTouch": "Deslize para os lados",
     "stageHintQuiet": "Modo calmo ativado: a cena permanece estável e silenciosa.",
-    "collectionEyebrow": "Escolha tranquila",
+    "collectionEyebrow": "Seleção curada",
     "collectionTitle": "Todos os produtos em um só catálogo",
     "collectionFootnote": "Links de afiliados levam às páginas do AliExpress. Verifique disponibilidade, opções e frete para o Brasil ou sua região antes da compra.",
     "sourceSummary": "Foto real do anúncio do vendedor",
-    "sourceNote": "No palco principal mostramos o recorte de estúdio. Aqui você pode conferir a aparência original e os itens inclusos na imagem do vendedor.",
+    "sourceNote": "No palco principal mostramos o visual de estúdio. Aqui você pode conferir a aparência original e os itens inclusos na imagem do vendedor.",
     "aboutEyebrow": "Sobre o projeto",
     "aboutTitle": "Como funciona esta vitrine",
     "aboutIntro": "A FLUXIXO reúne achados marcantes do AliExpress em uma apresentação limpa de estúdio — um produto por tela, sem poluição visual.",
@@ -244,7 +244,7 @@
     "sceneCaption": "Objeto en foco",
     "depthLabel": "Profundidad 3D",
     "ctaBtn": "Abrir producto en AliExpress",
-    "ctaPending": "Enlace pronto",
+    "ctaPending": "Enlace próximamente",
     "detailsBtn": "Foto original",
     "watchExplodeBtn": "Desmontar reloj",
     "watchAssembleBtn": "Montar reloj",
@@ -399,34 +399,34 @@
     "brandLine": "מוצרים נבחרים",
     "catalogLink": "קטלוג",
     "collectionBtn": "קטלוג",
-    "sceneCaption": "מוצר במוקד",
+    "sceneCaption": "תצוגת סטודיו",
     "depthLabel": "עומק תלת-ממד",
-    "ctaBtn": "לפתיחת המוצר ב-AliExpress",
+    "ctaBtn": "למעבר למוצר ב־AliExpress",
     "ctaPending": "הקישור יעלה בקרוב",
     "detailsBtn": "תמונת המוכר",
     "watchExplodeBtn": "פירוק השעון",
     "watchAssembleBtn": "הרכבת השעון",
     "affiliateNote": "אנחנו עשויים לקבל עמלה מרכישות דרך קישורי שותפים. את המחיר, הדגם והמשלוח יש לבדוק ב־AliExpress.",
-    "exploreStrong": "הבא בקולקציה",
+    "exploreStrong": "המשך הקולקציה",
     "exploreSpan": "גללו עם העכבר, החליקו ימינה או שמאלה, או פתחו את הקטלוג.",
-    "motionLess": "רגוע יותר",
-    "motionMore": "חי יותר",
-    "stageHintMouse": "העבירו סמן לשינוי הזווית",
+    "motionLess": "תנועה עדינה",
+    "motionMore": "תנועה מלאה",
+    "stageHintMouse": "הזיזו את העכבר להטיית הזווית",
     "stageHintTouch": "החליקו ימינה או שמאלה",
-    "stageHintQuiet": "מצב תנועה מופחתת",
+    "stageHintQuiet": "מצב שקט פעיל: התצוגה נשארת יציבה וללא תנועה.",
     "collectionEyebrow": "מבחר מוצרים",
     "collectionTitle": "כל המוצרים",
-    "collectionFootnote": "קישורי השותפים מובילים לעמודי המוצר ב-AliExpress. בדקו זמינות, אפשרויות ומשלוח לישראל מול המוכר לפני הרכישה.",
+    "collectionFootnote": "קישורי השותפים מובילים לעמודי המוצר ב־AliExpress. בדקו זמינות, דגמים ותנאי משלוח לישראל בעמוד המוצר לפני הקנייה.",
     "sourceSummary": "תמונת המוכר מתוך עמוד המוצר",
-    "sourceNote": "אפשר להשוות בין ההדמיה בתצוגה לבין תמונת המוכר. את פרטי הדגם והערכה יש לבדוק בעמוד המוצר.",
+    "sourceNote": "אפשר להשוות בין תצוגת הסטודיו לבין תמונת המוכר. את פרטי הדגם והערכה יש לבדוק בעמוד המוצר.",
     "aboutEyebrow": "אודות הפרויקט",
     "aboutTitle": "איך התצוגה עובדת",
-    "aboutIntro": "FLUXIXO מרכזת מציאות בולטות מ-AliExpress ומציגה אותן בתצוגת סטודיו נקייה — מוצר אחד בכל מסך, ללא רעש פרסומי.",
+    "aboutIntro": "FLUXIXO אוספת מוצרים שימושיים ומקוריים מ־AliExpress ומציגה אותם בתצוגת סטודיו נקייה — פריט אחד בכל מסך, בלי פרסומות ובלי רעש.",
     "aboutLinksTitle": "קישורי שותפים",
-    "aboutLinksBody": "אנחנו עשויים לקבל עמלה מרכישות דרך קישורי שותפים. את המחיר, הדגם והמשלוח יש לבדוק ב־AliExpress.",
+    "aboutLinksBody": "הכפתור 'למעבר למוצר ב־AliExpress' הוא קישור שותפים. האתר עשוי לקבל עמלה קטנה ללא תוספת מחיר מבחינתכם. את המחיר, הדגם, המפרט ותנאי המשלוח יש לבדוק תמיד בעמוד המוצר.",
     "aboutDemoTitle": "סצנות אינטראקטיביות",
     "aboutDemoBody": "עבור פריטים נבחרים קיימת הדמיית פירוק אינטראקטיבית המציגה את מבנה המוצר על המסך.",
-    "aboutFootnote": "כדי לבדוק את המראה המקורי של המוצר, לחצו על 'תמונה מקורית' או עברו לעמוד המוכר ב-AliExpress.",
+    "aboutFootnote": "כדי לבדוק את המראה המקורי של המוצר, לחצו על 'תמונת המוכר' או עברו לעמוד המוצר ב־AliExpress.",
     "skipLink": "דילוג למוצר הנבחר",
     "homeAria": "FLUXIXO — חזרה למוצר הראשון",
     "aboutAria": "אודות FLUXIXO",
@@ -441,7 +441,7 @@
     "demoBadge": "הדגמה",
     "demoNote": "מוצר להדגמה.",
     "noAnimToast": "המוצר נפתח ללא אנימציה.",
-    "imageNote": "הדמיית סטודיו המבוססת על תמונת המוכר. השוו לתמונה המקורית למטה ובדקו את פרטי הדגם ב-AliExpress.",
+    "imageNote": "הדמיית סטודיו על בסיס תמונת המוכר. השוו לתמונה המקורית למטה ובדקו את הדגם והתכולה ב־AliExpress.",
     "watchLoading": "טוען חלקים…",
     "watchRetry": "ניסיון חוזר לטעינת החלקים",
     "watchRangeLabel": "פירוק",
@@ -456,22 +456,22 @@
         "where": "מותקן בפתח הקדמי של גוף השעון."
       },
       {
-        "name": "לוח אם ראשי",
+        "name": "לוח אלקטרוני ראשי",
         "copy": "מתחת למסך נמצאת האלקטרוניקה: שבבים, חיישנים ומחברים לשאר המכלולים.",
         "where": "בתוך גוף השעון, ממש מאחורי המסך."
       },
       {
         "name": "סוללה",
-        "copy": "סוללה דקה מזינה את השעון וממוקמת כשכבה נפרדת בין הלוח האלקטרוני לגוף.",
+        "copy": "סוללה דקה מפעילה את השעון וממוקמת כשכבה נפרדת בין הלוח האלקטרוני לגוף.",
         "where": "בחלל הפנימי של הגוף, מחוברת ללוח הראשי."
       },
       {
         "name": "גוף ורצועה",
-        "copy": "גוף המתכת, כפתורי הצד וחוליות הפלדה מהווים את שלד ההרכבה.",
+        "copy": "גוף המתכת, כפתורי הצד וחוליות הפלדה מהווים את הבסיס החיצוני של השעון.",
         "where": "בסיס השעון שלתוכו משתלבות כל השכבות."
       }
     ],
-    "stageHintDesktop": "העבירו סמן לשינוי הזווית",
+    "stageHintDesktop": "הזיזו את העכבר להטיית הזווית",
     "stageHintMobile": "החליקו ימינה או שמאלה"
   }
 };
@@ -481,28 +481,28 @@
     "pt": "Tecnologia",
     "es": "Tecnología",
     "fr": "High-Tech",
-    "he": "טכנולוגיה וגאדג'טים"
+    "he": "טכנולוגיה וגאדג׳טים"
   },
   "Дом": {
     "en": "Home & Living",
     "pt": "Casa",
     "es": "Hogar",
     "fr": "Maison",
-    "he": "לבית"
+    "he": "בית ומגורים"
   },
   "Кухня": {
     "en": "Kitchen",
     "pt": "Cozinha",
     "es": "Cocina",
     "fr": "Cuisine",
-    "he": "למטבח"
+    "he": "מטבח"
   },
   "В дороге": {
     "en": "Auto & On the Go",
     "pt": "Automotivo e Viagem",
     "es": "Auto y Viaje",
     "fr": "Auto & Mobilité",
-    "he": "לרכב ולדרך"
+    "he": "רכב ונסיעות"
   },
   "Инструменты": {
     "en": "Tools",
@@ -551,14 +551,14 @@
     "pt": "Automotivo e Viagem",
     "es": "Auto y Viaje",
     "fr": "Auto & Mobilité",
-    "he": "לרכב ולדרך"
+    "he": "רכב ונסיעות"
   },
   "Замок для самоката": {
     "en": "Auto & On the Go",
     "pt": "Automotivo e Viagem",
     "es": "Auto y Viaje",
     "fr": "Auto & Mobilité",
-    "he": "לרכב ולדרך"
+    "he": "רכב ונסיעות"
   }
 };
   const FACTS = {
@@ -813,7 +813,7 @@
         "טריות",
         "לאורך זמן."
       ],
-      "description": "משאבת ואקום אלחוטית קומפקטית לשאיבת אוויר משקיות ומכלי אחסון תואמים למזון."
+      "description": "משאבת ואקום אלחוטית קומפקטית לשאיבת אוויר משקיות ומכלי מזון מתאימים."
     }
   },
   "import-0024": {
@@ -855,7 +855,7 @@
         "הזמן",
         "על פרק היד."
       ],
-      "description": "גוף מתכת אלגנטי עם צג ברור, שני כפתורי צד ורצועת חוליות נוחה לשימוש יומיומי."
+      "description": "גוף מתכת אלגנטי עם צג ברור, שני כפתורי צד ורצועת חוליות לשימוש יומיומי."
     }
   },
   "find-001-neck-cooler": {
@@ -873,7 +873,7 @@
         "Brisa",
         "no pescoço."
       ],
-      "description": "Mãos livres nos dias quentes. Ventilador vestível em formato de colar com saídas de ar superiores."
+      "description": "Mãos livres nos dias quentes. Ventilador vestível para usar no pescoço com saídas de ar superiores."
     },
     "es": {
       "name": "Ventilador de Cuello Portátil",
@@ -881,7 +881,7 @@
         "Brisa",
         "en el cuello."
       ],
-      "description": "Manos libres en días calurosos. Ventilador portátil tipo collar con salidas de aire hacia arriba."
+      "description": "Manos libres en días calurosos. Ventilador portátil para el cuello con salidas de aire hacia arriba."
     },
     "fr": {
       "name": "Ventilateur de Cou Portable",
@@ -897,7 +897,7 @@
         "רוח קרירה",
         "על הצוואר."
       ],
-      "description": "ידיים חופשיות ביום חם. מאוורר לביש בצורת קולר עם פתחי אוורור המכוונים כלפי מעלה."
+      "description": "ידיים פנויות ביום חם. מאוורר צוואר נתלה עם פתחי אוורור המכוונים כלפי מעלה."
     }
   },
   "find-002-meat-thermo": {
@@ -1270,12 +1270,12 @@
       "description": "Pompe compacte avec bec verseur métallique incurvé pour bonbonnes d'eau."
     },
     "he": {
-      "name": "משאבת מים חשמלית לכד מים",
+      "name": "משאבת מים חשמלית לכדים",
       "headline": [
         "מים",
         "בלחיצה אחת."
       ],
-      "description": "משאבה קומפקטית נטענת עם פיית מתכת מעוקלת להתקנה על בקבוקי וכדי מים."
+      "description": "משאבה נטענת וקומפקטית עם פיית מתכת מעוקלת שמתלבשת בקלות על כדי מים ובקבוקים גדולים."
     }
   },
   "find-011-nail-drill": {
@@ -1480,12 +1480,12 @@
       "description": "Indicateur compact fixé sur la canne avec antenne lumineuse et clochette."
     },
     "he": {
-      "name": "גלאי נשיכות לחכת דיג",
+      "name": "גלאי אכילות לחכת דיג",
       "headline": [
-        "אל תפספסו",
-        "נשיכה."
+        "לא מפספסים",
+        "אף אכילה."
       ],
-      "description": "סמן קומפקטי הנצמד לחכה עם אנטנה בולטת ופעמון לזיהוי מיידי בדיג."
+      "description": "חיישן קומפקטי שמתחבר לקצה החכה עם אנטנה בולטת ופעמון להתראה ברורה על אכילה בדיג."
     }
   },
   "find-016-mini-chainsaw": {
@@ -1648,12 +1648,12 @@
       "description": "Verseur électrique avec bec incurvé pour servir et aérer le vin."
     },
     "he": {
-      "name": "מוזג ומאוורר יין חשמלי",
+      "name": "מוזג ומחמצן יין חשמלי",
       "headline": [
         "מזיגה",
         "בלחיצה."
       ],
-      "description": "פיית מזיגה מעוקלת עם לוח הפעלה עליון למזיגה ואוורור יין ישירות מהבקבוק."
+      "description": "פיית מזיגה מעוקלת עם לחצן הפעלה עליון למזיגה ולחמצון יין ישירות מהבקבוק."
     }
   },
   "find-020-espresso-portable": {
@@ -1732,7 +1732,7 @@
       "description": "Contrôleur avec panneau solaire et tuyau fin pour arroser vos plantes."
     },
     "he": {
-      "name": "מערכת השקיה בטפטוף סולארית",
+      "name": "מערכת השקיה סולארית בטפטוף",
       "headline": [
         "השקיה",
         "מתוזמנת."
@@ -2296,7 +2296,7 @@
       "description": "Handheld power cutter with rotary blade and safety shield for cardboard, fabric, and leather."
     },
     "pt": {
-      "name": "Tesoura Elétrica Cortadora a Bateria",
+      "name": "Tesoura Elétrica Rotativa a Bateria",
       "headline": [
         "Corte",
         "mais preciso."
@@ -2325,7 +2325,7 @@
         "חיתוך",
         "מדויק."
       ],
-      "description": "כלי חיתוך ידני עם להב עגול ומגן בטיחות לחיתוך קרטון, בד וחומרים נוספים."
+      "description": "מספריים חשמליים קומפקטיים עם להב מסתובב ומגן בטיחות לחיתוך קרטון, בד וחומרים נוספים."
     }
   },
   "find-036-stud-finder": {
@@ -2409,7 +2409,7 @@
         "לחם",
         "בעבודת יד."
       ],
-      "description": "סלסלת התפחה (בנטון) וכלי עבודה לבצק להכנת לחם ביתי פריך."
+      "description": "סלסלת התפחה (בנטון) ואביזרים לעיבוד וחריצת בצק לאפיית לחם ביתי."
     }
   },
   "find-038-bike-gps": {
@@ -2642,7 +2642,7 @@
     "es": {
       "name": "Estación Meteorológica Digital a Color",
       "headline": [
-        "El tiempo",
+        "El clima",
         "dentro y fuera."
       ],
       "description": "Pantalla a color de escritorio con reloj, temperatura, humedad y sensor exterior."
@@ -2698,12 +2698,12 @@
       "description": "Plaque électrique ronde avec poignées pour préparer des crêpes fines."
     },
     "he": {
-      "name": "מכשיר חשמלי להכנת קרפ ובלינצ'ס",
+      "name": "מכשיר חשמלי לקרפים ובלינצ׳ס",
       "headline": [
         "בוקר",
         "עם טעם."
       ],
-      "description": "משטח חשמלי עגול עם ידיות להכנה מהירה ואחידה של קרפים וחביתיות."
+      "description": "מחבת חשמלית עגולה עם ידיות להכנה נוחה של קרפים, בלינצ׳ס ופנקייקים."
     }
   },
   "find-045-white-noise": {
@@ -2826,10 +2826,10 @@
     "he": {
       "name": "עט לסריקה ולתרגום טקסט",
       "headline": [
-        "מילים",
-        "מתקרבות."
+        "סורקים שורה,",
+        "ומבינים הכול."
       ],
-      "description": "סורק כיס עם מסך צבעוני לסריקה ותרגום מהיר של טקסט מודפס."
+      "description": "סורק טקסט נייד בצורת עט עם מסך מגע צבעוני לקריאה ולתרגום של שורות מודפסות."
     }
   },
   "find-048-hydroponic": {
@@ -4073,7 +4073,7 @@
         "Ropa",
         "como nueva."
       ],
-      "description": "Rasuradora de tela inalámbrica con indicador digital de batería para suéteres y prendas tejidas."
+      "description": "Quitapelusas inalámbrico con indicador digital de batería para suéteres y prendas tejidas."
     },
     "fr": {
       "name": "Rasoir Anti-Bouloches Rechargeable",
@@ -4084,12 +4084,12 @@
       "description": "Appareil sans fil avec grille inox et écran numérique pour raviver pulls et lainages."
     },
     "he": {
-      "name": "מכשיר נטען להסרת כדוריות בד",
+      "name": "מסיר מוך נטען לבגדים וסריגים",
       "headline": [
         "בדים חלקים",
         "כמו חדשים."
       ],
-      "description": "מכשיר אלחוטי לטיפוח סריגים ובגדים עם רשת הגנה מנירוסטה וצג סוללה דיגיטלי."
+      "description": "מסיר מוך אלחוטי לטיפוח סריגים ובגדים, עם רשת מגן מנירוסטה וצג סוללה דיגיטלי."
     }
   },
   "find-056-milk-frother": {
@@ -4210,12 +4210,12 @@
       "description": "Porte-clés localisateur compact avec signal sonore pour retrouver clés, sac ou bagage."
     },
     "he": {
-      "name": "מחזיק מפתחות חכם לאיתור Bluetooth",
+      "name": "תג Bluetooth חכם לאיתור מפתחות",
       "headline": [
         "המפתחות",
         "בשליטה."
       ],
-      "description": "תג איתור קומפקטי עם התראה קולית למציאת מפתחות, תיק או תרמיל."
+      "description": "מחזיק מפתחות קומפקטי עם צפצוף התראה למציאת מפתחות, תיק או תרמיל."
     }
   },
   "find-060-tire-inflator": {
@@ -4341,7 +4341,7 @@
         "חליטה",
         "מדויקת."
       ],
-      "description": "משקל מטבח עם שעון עצר ותצוגת LED נסתרת להכנת קפה פילטר ואספרסו בדיוק מרבי."
+      "description": "משקל קפה דיגיטלי עם טיימר ותצוגת LED נסתרת לחליטת פילטר ואספרסו."
     }
   },
   "find-063-cable-tester": {
@@ -4383,7 +4383,7 @@
         "בדיקת",
         "קו מהירה."
       ],
-      "description": "מכשיר דו-יחידתי עם חיווי LED לבדיקה מהירה של כבלי רשת וחוטי תקשורת."
+      "description": "בודק כבלים מפוצל לשתי יחידות עם חיווי LED לבדיקת כבלי רשת RJ45 וכבלי טלפון RJ11."
     }
   },
   "find-064-book-light": {
@@ -4672,12 +4672,12 @@
       "description": "Sonde en inox à lecture instantanée pour contrôler boissons, sirops, viandes et pâtisseries."
     },
     "he": {
-      "name": "מדחום מטבח דיגיטלי עם דוקרן נירוסטה",
+      "name": "מדחום מטבח דיגיטלי עם מחט נירוסטה",
       "headline": [
         "טמפרטורה",
         "מדויקת."
       ],
-      "description": "מדחום דוקרן מנירוסטה עם קריאה מהירה על צג דיגיטלי למשקאות, סירופים ואפייה."
+      "description": "מדחום עם מחט נירוסטה וצג דיגיטלי למדידת טמפרטורה של משקאות, סירופים ומאפים."
     }
   },
   "find-071-key-safe": {
@@ -4842,10 +4842,10 @@
     "he": {
       "name": "בקבוק זכוכית לריסוס שמן",
       "headline": [
-        "שכבה דקה",
-        "של שמן."
+        "ריסוס עדין",
+        "בכל בישול."
       ],
-      "description": "בקבוק זכוכית למילוי חוזר עם משאבה שמרססת שמן בערפל עדין למחבת, לסלט, לגריל ולסיר הטיגון באוויר."
+      "description": "בקבוק זכוכית למילוי חוזר עם משאבה המפזרת שמן בריסוס עדין למחבת, לסלט, לגריל ולסיר טיגון ללא שמן."
     }
   },
   "find-075-seat-gap-organizer": {
@@ -4882,7 +4882,7 @@
       "description": "Vide-poche étroit qui se glisse entre le siège et la console centrale pour ranger téléphone, clés, cartes et petits objets."
     },
     "he": {
-      "name": "אורגנייזר לרווח שבין מושבי הרכב",
+      "name": "ארגונית לרווח שבין המושב לקונסולה",
       "headline": [
         "הכול",
         "בהישג יד."
@@ -4929,7 +4929,7 @@
         "מדידה",
         "מדויקת."
       ],
-      "description": "כלי מדידה מנירוסטה עם צג LCD למדידת קוטר חיצוני, פנימי ועומק של חלקים קטנים."
+      "description": "כלי מדידה מנירוסטה עם צג LCD למדידת מידות חיצוניות, פנימיות ועומק של חלקים קטנים."
     }
   },
   "find-077-scalp-massager": {
@@ -5388,8 +5388,8 @@
     "he": {
       "name": "גלגל בטן עם החזרה אוטומטית ותמיכה למרפקים",
       "headline": [
-        "ליבה",
-        "חזקה."
+        "חיזוק שרירי",
+        "הליבה בבית."
       ],
       "description": "גלגל רחב עם קפיץ החזרה ומשענות למרפקים לאימון שרירי הבטן והגב בבית."
     }
@@ -5470,12 +5470,12 @@
       "description": "Tapis en silicone texturé à ventouses qui occupe l'animal avec une friandise pendant le bain ou la coupe des griffes."
     },
     "he": {
-      "name": "משטח ליקוק מסיליקון עם כוסות יניקה לחיות מחמד",
+      "name": "משטח ליקוק מסיליקון עם הצמדת ואקום לחיות מחמד",
       "headline": [
         "הפסקה",
         "טעימה."
       ],
-      "description": "משטח סיליקון מחוספס עם כוסות יניקה שמעסיק את חיית המחמד בחטיף בזמן רחצה או גזיזת ציפורניים."
+      "description": "משטח סיליקון עם טקסטורה וכריות ואקום להצמדה לקיר או לרצפה — מעסיק את הכלב או החתול בזמן מקלחת או גזיזת ציפורניים."
     }
   },
   "find-090-endoscope-camera": {
@@ -5559,7 +5559,7 @@
         "בוקר",
         "רך."
       ],
-      "description": "מנורת לילה מעוררת שמגבירה את האור בהדרגה לפני הצלצול ומשמיעה צלילי טבע."
+      "description": "שעון מעורר ומנורת לילה המגבירה את האור בהדרגה לפני הצלצול ומשמיעה צלילי טבע."
     }
   },
   "find-092-garlic-chopper": {
@@ -5848,7 +5848,7 @@
       "description": "Gourde à abreuvoir intégré et bouton à valve pour faire boire l'animal en promenade et récupérer l'eau restante."
     },
     "he": {
-      "name": "בקבוק מים נייד עם שוקת לכלבים",
+      "name": "בקבוק מים נייד לכלבים עם קערית שתייה",
       "headline": [
         "מים",
         "בטיול."
@@ -6005,7 +6005,7 @@
         "¿Tornillo barrido?",
         "Tiene salida."
       ],
-      "description": "Extractor para retirar tornillos dañados. Comprueba los diámetros, la compatibilidad con la herramienta y el contenido."
+      "description": "Extractor para retirar tornillos dañados. Revisa los diámetros, compatibilidad con tu herramienta y el contenido del paquete."
     },
     "fr": {
       "name": "Extracteur de Vis",
@@ -6021,7 +6021,7 @@
         "בורג שנהרס?",
         "יש פתרון."
       ],
-      "description": "חולץ להוצאת ברגים פגומים. יש לבדוק עם המוכר קטרים, התאמה לכלי ואת תכולת המוצר."
+      "description": "סט חולצים להוצאת ברגים פגומים ושבורים. בדקו בעמוד המוצר את הקטרים, ההתאמה למקדחה או למברגה ואת תכולת הסט."
     }
   },
   "auto-1005013145693095": {
@@ -6058,12 +6058,12 @@
       "description": "Outil pour poser les aiguilles d’une montre. Vérifiez la taille des embouts, la compatibilité et le contenu auprès du vendeur."
     },
     "he": {
-      "name": "כלי להתקנת מחוגי שעון",
+      "name": "כלי לחיצה להרכבת מחוגי שעון",
       "headline": [
-        "המחוגים",
-        "חוזרים למקום."
+        "החזרת מחוגים",
+        "בדיוק למקום."
       ],
-      "description": "כלי להתקנת מחוגי שעון. יש לבדוק עם המוכר את מידות הקצוות, ההתאמה לשעון ותכולת המוצר."
+      "description": "מכשיר ידני להרכבה ולהחלפה של מחוגי שעון בעזרת ראשי לחיצה מתחלפים. בדקו בעמוד המוצר את מידות הראשים, ההתאמה לשעון ותכולת הערכה."
     }
   },
   "auto-3256804678707896": {
@@ -6102,10 +6102,10 @@
     "he": {
       "name": "קוצץ עלים לסקסופון",
       "headline": [
-        "עלה",
-        "לפי הצליל שלכם."
+        "התאמת העלה",
+        "לצליל שלכם."
       ],
-      "description": "קוצץ לחיתוך עלים לסקסופון. יש לבדוק עם המוכר התאמה לגודל ולסוג העלים שברשותכם."
+      "description": "מכשיר מדויק לחיתוך ויישור עלה לסקסופון. בדקו בעמוד המוצר את ההתאמה לגודל ולסוג העלים שלכם."
     }
   },
   "auto-1005012599444039": {
@@ -6118,23 +6118,23 @@
       "description": "A punch for making holes in irrigation tubing. Check the compatible tubing diameter and hole size with the seller."
     },
     "pt": {
-      "name": "Perfurador para irrigação",
+      "name": "Perfurador para Irrigação",
       "headline": [
         "Furo limpo",
-        "num aperto só."
+        "em um clique."
       ],
       "description": "Perfurador para fazer furos em tubos de irrigação. Confira o diâmetro de tubo compatível e o tamanho do furo."
     },
     "es": {
-      "name": "Perforador de riego",
+      "name": "Perforador de Riego",
       "headline": [
-        "Un hoyo limpio",
-        "de un apretón."
+        "Perforación limpia",
+        "en un solo paso."
       ],
-      "description": "Perforador para hacer agujeros en tubos de riego. Consulta el diámetro de tubo compatible y el tamaño del agujero."
+      "description": "Perforador para hacer orificios en manguera de riego. Consulta el diámetro compatible y la medida del orificio."
     },
     "fr": {
-      "name": "Perforateur D’irrigation",
+      "name": "Perforateur d’Irrigation",
       "headline": [
         "Un trou net",
         "d’un seul geste."
@@ -6147,7 +6147,7 @@
         "חור נקי",
         "בלחיצה אחת."
       ],
-      "description": "מחורר ליצירת חורים בצינור השקיה. יש לבדוק עם המוכר את קוטר הצינור המתאים ואת גודל החור."
+      "description": "מנקב ידני ליצירת פתחים נקיים בצינורות השקיה בטפטוף. בדקו בעמוד המוצר את קוטר הצינור המתאים ואת קוטר הניקוב."
     }
   },
   "katord-wifi-repeater": {

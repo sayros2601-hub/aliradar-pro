@@ -19,7 +19,7 @@
     "find-043": {"description": "Pantalla a color de escritorio con reloj, temperatura, humedad y sensor exterior."},
     "find-044": {"description": "Superficie eléctrica redonda con asas para preparar crepas y hot cakes."},
     "find-048": {"description": "Bandejas metálicas apilables con tapa para germinar semillas y brotes."},
-    "find-055": {"description": "Rasuradora de tela inalámbrica con indicador digital de batería para suéteres y prendas tejidas."},
+    "find-055": {"description": "Quitapelusas inalámbrico con indicador digital de batería para suéteres y prendas tejidas."},
     "find-056": {"description": "Batidor eléctrico de mano sobre soporte metálico para espumar leche para café, capuchino y matcha."},
     "find-065": {"name": "Molino Eléctrico de Sal y Pimienta por Gravedad"},
     "import-0070": {"description": "Soporte ajustable con sujeción firme para colocar el celular en el tablero o en la ventilación del auto."},
@@ -85,13 +85,13 @@
     "find-003": {"headline": "ערב|בלי יתושים."},
     "find-004": {"headline": "יציב|על הקסדה."},
     "find-006": {"headline": "טלפון קריר|גם במשחק."},
-    "find-015": {"headline": "אל תפספסו|נשיכה."},
+    "find-015": {"headline": "לא מפספסים|אף אכילה."},
     "find-026": {"headline": "פירות|שטופים היטב."},
     "find-034": {"headline": "שומרים|על הקצב."},
     "find-051": {"headline": "תכשיטים|נוצצים מחדש."},
     "find-052": {"description": "מד מרחק לייזר קומפקטי עם מסך מואר, חישוב שטח ושתי פלסות מובנות."},
     "find-069": {"description": "משקל תלייה קומפקטי עם רצועה חזקה וצג LCD לשקילת מזוודות לפני היציאה לשדה התעופה."},
-    "find-089": {"name": "משטח ליקוק מסיליקון עם כוסות יניקה לחיות מחמד"}
+    "find-089": {"name": "משטח ליקוק מסיליקון עם הצמדת ואקום לחיות מחמד"}
   },
   "ru": {
     "auto-1005004679234788": {"headline": "Сорванный винт —|не приговор."},

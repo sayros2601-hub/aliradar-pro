@@ -281,6 +281,7 @@ class Site:
 {VERIFY if self.root else ""}
 <meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="FLUXIXO"><link rel="manifest" href="/{self.manifest_name()}"><link rel="icon" href="/assets/favicon.svg"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/{preload}.woff2" crossorigin>
+<script src="/js/early.js"></script>
 <style>{fonts}{CSS}</style>
 {ld}
 </head>
@@ -320,7 +321,7 @@ class Site:
         hangs = ''.join(
             f'<a class="hang" data-go href="{self.ppath(p)}" style="left:{t * 100:.1f}%;--y:{(40 + 360 * t * (1 - t)) / 300:.3f};--t:{p["tint"]}">'
             f'<i class="pin"></i><i class="str"></i>'
-            f'<img class="cut" src="{img(p["image"], width or (800 if eager else 480))}" alt="{e(p["name"])}" width="480" height="480" loading="{"eager" if eager else "lazy"}" decoding="async"'
+            f'<img class="cut" src="{img(p["image"], width or (800 if eager else 480))}" alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="rope"))}" width="480" height="480" loading="{"eager" if eager else "lazy"}" decoding="async"'
             f'{" fetchpriority=\"high\"" if lead and i == 0 else ""}>'
             f'<small>{i + 1:02d}</small><b>{e(p["name"])}</b>{"<span class=hl>" + e(" ".join(p["headline"])) + "</span>" if lead else ""}<em>{e(self.ui["more"])}</em></a>'
             for i, (p, t) in enumerate(zip(items, ts)))
@@ -330,7 +331,7 @@ class Site:
     def gallery(self, p, name):
         """The one cut-out image. A product with a short clip in assets/video/<id>.mp4 (a real seller video, cut to the
         moment the product works, no sound or captions) fades it in over the photo and back, in a loop, while on screen."""
-        photo = f'<img class="cut" src="{img(p["image"], 800)}" alt="{e(name)}" width="800" height="800" decoding="async" fetchpriority="high">'
+        photo = f'<img class="cut" src="{img(p["image"], 800)}" alt="{e(L.editorial_image_alt(name, self.cat(p["world"]), self.lang, role="hero"))}" width="800" height="800" decoding="async" fetchpriority="high">'
         clip = f'assets/video/{p["id"]}.mp4'
         if (DIST / clip).exists():
             # Cached for a week, so each address carries a content version: a re-edit reaches everyone at once.
@@ -348,8 +349,12 @@ class Site:
             photo = (f'<figure class="demo">{photo}<video muted playsinline loop preload="metadata"{poster_attr} '
                      f'disablepictureinpicture>{sources}</video></figure>')
         # More cut-out views swipe on a phone and step with arrows and dots on a desktop (app.js).
-        extra = ''.join(f'<img class="cut" src="{img(v, 800)}" alt="{e(name)}" width="800" height="800" decoding="async" loading="lazy">'
-                        for v in p.get('views', [])[1:])
+        views_list = p.get('views', [])
+        total_views = max(1, len(views_list))
+        extra = ''.join(
+            f'<img class="cut" src="{img(v, 800)}" alt="{e(L.editorial_image_alt(name, self.cat(p["world"]), self.lang, role="view", view_index=idx, total_views=total_views))}" width="800" height="800" decoding="async" loading="lazy">'
+            for idx, v in enumerate(views_list[1:], start=2)
+        )
         if not extra:
             return f'<div class="p-gallery"><div class="p-stage">{photo}</div></div>'
         return (f'<div class="p-gallery" data-label-prev="{e(self.ui["prev"])}" data-label-next="{e(self.ui["next"])}">'
@@ -360,7 +365,7 @@ class Site:
         s800 = img(p['image'], 800)
         srcset = f' srcset="{s480} 480w, {s800} 800w" sizes="(max-width:640px) 46vw, 240px"' if s800 != s480 else ''
         return (f'<a class="card" data-go data-w="{slug(p["world"])}" href="{self.ppath(p)}" style="--t:{WORLDS[p["world"]]}">'
-                f'<span class="ph"><img src="{s480}"{srcset} alt="" width="480" height="480" loading="lazy" decoding="async"></span>'
+                f'<span class="ph"><img src="{s480}"{srcset} alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="card"))}" width="480" height="480" loading="lazy" decoding="async"></span>'
                 f'<span class="nm">{e(p["name"])}</span><span class="ct">{e(self.cat(p["world"]))}</span></a>')
 
     # ---------- pages ----------
@@ -390,7 +395,7 @@ class Site:
         day = (f'<section class="day" id="hoy" style="--tint:{star["tint"]};--word:{ACCENT if star["dark"] else INK}" data-page="{star["tint"]}"><div class="day-pin"><div class="day-fill"></div>'
                f'<p class="eye day-eye"><b>★</b> {e(u["find_day"])} · {e(self.cat(star["world"]))}</p>'
                f'<div class="d day-word" aria-hidden="true">{e(star["name"])}</div>'
-               f'<div class="day-prod"><img class="cut" src="{img(star["image"], 800)}" alt="{e(star["name"])}" width="800" height="800" loading="lazy" decoding="async"></div>'
+               f'<div class="day-prod"><img class="cut" src="{img(star["image"], 800)}" alt="{e(L.editorial_image_alt(star["name"], self.cat(star["world"]), self.lang, role="spotlight"))}" width="800" height="800" loading="lazy" decoding="async"></div>'
 
                f'<div class="day-info"><h2 class="d">{e(star["name"])}</h2><p class="s">{e(" ".join(star["headline"]))}</p>'
                f'<p class="t">{e(star["description"])}</p><div class="row">{self.buy(star)}<a class="btn line" data-go href="{self.ppath(star)}">{e(u["more"])}</a></div></div>'
@@ -401,7 +406,7 @@ class Site:
         for i, key in enumerate(self.worlds):
             group = self.in_world(key)
             minis = ''.join(
-                f'<a class="mini" data-go href="{self.ppath(p)}"><img class="cut" src="{img(p["image"], 480)}" alt="{e(p["name"])}" width="480" height="480" loading="lazy" decoding="async"><b>{e(p["name"])}</b></a>'
+                f'<a class="mini" data-go href="{self.ppath(p)}"><img class="cut" src="{img(p["image"], 480)}" alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="mini"))}" width="480" height="480" loading="lazy" decoding="async"><b>{e(p["name"])}</b></a>'
                 for p in [q for q in group if q not in drop][:8] or group[:8])
             bands.append(
                 f'<section class="world"{" id=\"mundos\"" if i == 0 else ""} data-page="{WORLDS[key]}" style="--t:{WORLDS[key]}"><div class="rv">'
@@ -471,7 +476,11 @@ class Site:
                 title = ov.get('title') or title
                 desc = ov.get('description') or desc
             crumbs = [(u['home'], self.home()), (self.cat(key), self.cpath(key)), (name, path)]
-            schema = L.item_page_schema(ORIGIN, path, title, desc, p['image'], self.lang, L.STAGE_CAPTION[self.lang], crumbs)
+            schema = L.item_page_schema(
+                ORIGIN, path, title, desc, p['image'], self.lang,
+                L.editorial_image_caption(name, self.cat(key), self.lang), crumbs,
+                extra_images=p.get('views'), image_name=name, dist_root=DIST,
+            )
             faq_html, faq_schema = market_seo.faq_section_and_schema(name, key, self.lang, ov)
             schema['@graph'].append(faq_schema)
             _, vid_schema = market_seo.video_block_and_schema(ORIGIN, DIST, p, name, desc, self.lang, p['image'])
@@ -593,6 +602,7 @@ def main():
         OUT.mkdir(exist_ok=True)
         link_assets()
     (OUT / 'js').mkdir(exist_ok=True)
+    shutil.copyfile(HERE / 'static/early.js', OUT / 'js/early.js')
     shutil.copyfile(HERE / 'static/app.js', OUT / 'js/fx.js')
     sites = {lang: Site(products, data, lang) for lang in LANGS}
     siblings = {lang: {p['id'] for p in s.items} for lang, s in sites.items()}

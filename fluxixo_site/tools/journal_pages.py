@@ -21,7 +21,7 @@ JOURNAL_UI = {
         'slug_prefix': '/en/journal/',
         'eyebrow': 'FLUXIXO Journal',
         'h1': 'Practical AliExpress buying checklists',
-        'intro': 'Short, seller-verified checklists on comparing delivered totals, USB-C compatibility, and measuring desk organizers before you order.',
+        'intro': 'Short, practical buyer checklists on comparing delivered totals, USB-C compatibility, and measuring desk space for cable organizers before you order.',
         'title': 'AliExpress Buying Checklists: USB-C, Prices & Desk Gear | FLUXIXO',
         'desc': 'Clean FLUXIXO buying guides on checking final checkout pricing, USB-C specs, and measuring desk cable organizers.',
         'catalog_cta': 'Browse the catalog',
@@ -72,9 +72,9 @@ JOURNAL_UI = {
     'he': {
         'slug_prefix': '/he/journal/',
         'eyebrow': 'מדריך FLUXIXO',
-        'h1': 'מדריכי בדיקה מעשיים לפני הזמנה ב־AliExpress',
-        'intro': 'רשימות בדיקה קצרות להשוואת סכום סופי בקופה, התאמת מטען USB-C ומדידת סדר בכבלי השולחן לפני התשלום.',
-        'title': 'מדריכי קנייה AliExpress : מטעני USB-C ומחיר סופי | FLUXIXO',
+        'h1': 'מדריכי קנייה מעשיים לפני הזמנה ב־AliExpress',
+        'intro': 'רשימות בדיקה קצרות להשוואת סכום סופי בקופה, בדיקת מטען USB-C וארגון כבלים על שולחן העבודה לפני שמזמינים.',
+        'title': 'מדריכי קנייה ל־AliExpress: USB-C ומחיר סופי | FLUXIXO',
         'desc': 'מדריכים מעשיים של FLUXIXO להשוואת מחיר כולל משלוח, בדיקת מטעני USB-C וארגון כבלים.',
         'catalog_cta': 'לכל הקטלוג',
         'home': 'ראשי',
@@ -97,7 +97,7 @@ ARTICLES = [
                     ('Начните с одинакового варианта', 'Сравнивайте одну модель, размер, цвет, количество и комплектацию. Низкая цена в заголовке часто относится к аксессуару или меньшему варианту. Откройте оба предложения и выберите одинаковую версию.'),
                     ('Считайте стоимость доставки', 'Укажите свою страну и одну валюту. Запишите стоимость товара, доставки и итог на странице оформления заказа. Оценка в списке и сумма на шаге оплаты могут отличаться.'),
                     ('Проверьте условия скидки', 'Купон продавца, первый заказ или минимальная сумма корзины влияют на расчёт. Не закладывайте скидку, которая не применяется к вашему аккаунту.'),
-                    ('Короткая таблица сравнения', 'Фиксируйте вариант, количество, страну доставки, товар, доставку и итоговую сумму перед оплатой. FLUXIXO не публикует живые цены и остатки: уточняйте условия у продавца.'),
+                    ('Короткая таблица сравнения', 'Фиксируйте вариант, количество, страну доставки, стоимость товара, доставки и итог к оплате. FLUXIXO не публикует актуальные цены и наличие: уточняйте условия у продавца.'),
                 ],
             ),
             'en': (
@@ -119,7 +119,7 @@ ARTICLES = [
                     ('Compare a mesma variação', 'Anote modelo, tamanho, cor, quantidade e acessórios. Um valor inicial baixo pode ser apenas um cabo ou versão menor do produto.'),
                     ('Considere o total entregue no Brasil', 'Defina seu endereço no Brasil e a mesma moeda antes de comparar. Registre produto, frete e tributos mostrados diretamente no checkout do AliExpress.'),
                     ('Separe descontos condicionais', 'Verifique se um cupom exige valor mínimo ou conta nova. Só considere o desconto que aparece aplicado no seu carrinho.'),
-                    ('Anotação rápida de comparação', 'Anote variação, frete, tributos e valor final. O catálogo FLUXIXO não publica preços ao vivo: confirme os valores atualizados com o vendedor.'),
+                    ('Anotação rápida de comparação', 'Anote variação, frete, tributos e valor final. O catálogo FLUXIXO não publica preços em tempo real: confirme os valores atualizados com o vendedor.'),
                 ],
             ),
             'es': (
@@ -130,7 +130,7 @@ ARTICLES = [
                     ('Compara la misma variante', 'Anota modelo, tamaño, color, cantidad y accesorios incluidos. Un valor de entrada bajo puede corresponder a un accesorio o a una versión más pequeña.'),
                     ('Revisa el total con envío a México', 'Elige México como destino y mantén la misma moneda. Registra el artículo, el envío y los cargos mostrados en la pantalla final de pago.'),
                     ('Revisa condiciones de cupones', 'Comprueba si una rebaja exige cupón o compra mínima. Un ajuste que no aplica a tu carrito no cambia tu pago real.'),
-                    ('Resumen por oferta', 'Anota variante, destino, envío y total final. FLUXIXO no publica precios en vivo: confirma el importe exacto con el vendedor antes de pagar.'),
+                    ('Resumen por oferta', 'Anota variante, destino, envío y total final. FLUXIXO no publica precios en tiempo real: confirma el importe exacto con el vendedor antes de pagar.'),
                 ],
             ),
             'fr': (
@@ -141,18 +141,18 @@ ARTICLES = [
                     ('Comparez la même variante', 'Notez le modèle, la taille, la couleur, la quantité et les accessoires inclus. Le premier montant affiché correspond parfois à un simple accessoire.'),
                     ('Calculez le total livré en France', 'Réglez votre adresse en France et gardez une devise identique. Relevez le produit, la livraison et la TVA affichés à l’étape du paiement.'),
                     ('Vérifiez les conditions de remise', 'Regardez si la réduction demande un coupon ou un montant minimum de panier avant de comparer deux vendeurs.'),
-                    ('Mémo de comparaison simple', 'Notez variante, destination, livraison et total final. FLUXIXO ne publie pas de tarifs en direct : vérifiez le montant chez le vendeur.'),
+                    ('Mémo de comparaison simple', 'Notez variante, destination, livraison et total final. FLUXIXO ne publie pas les prix en temps réel : vérifiez le montant chez le vendeur.'),
                 ],
             ),
             'he': (
-                'למה המחיר משתנה בין עמוד המוצר לתשלום | FLUXIXO',
-                'איך להשוות גרסה זהה, משלוח לישראל והסכום הסופי בקופה של AliExpress לפני ההזמנה.',
-                'למה המחיר משתנה בין עמוד המוצר לתשלום',
+                'למה המחיר בקופה שונה מהמחיר בעמוד המוצר | FLUXIXO',
+                'איך להשוות דגם זהה, משלוח לישראל ואת הסכום הסופי במסך התשלום של AliExpress לפני שמזמינים.',
+                'למה המחיר בקופה שונה מהמחיר בעמוד המוצר',
                 [
-                    ('השוו את אותה גרסה', 'רשמו דגם, מידה, צבע, כמות ואביזרים כלולים. סכום כניסה נמוך מתייחס לעתים קרובות לאביזר נפרד או לגרסה קטנה יותר.'),
-                    ('השוו את הסכום הסופי לישראל', 'בחרו ישראל כיעד משלוח ואותו מטבע. בדקו מחיר מוצר, משלוח וחיובים בקופה עצמה ולא רק בתצוגה המקדימה.'),
+                    ('השוו את אותה גרסה', 'רשמו דגם, מידה, צבע, כמות ואביזרים כלולים. מחיר התחלתי נמוך מתייחס פעמים רבות לאביזר נפרד או לגרסה בסיסית יותר.'),
+                    ('השוו את הסכום הסופי לישראל', 'הגדירו את ישראל כיעד המשלוח והישארו באותו מטבע. השוו את מחיר הפריט, המשלוח והתוספות במסך התשלום הסופי ולא רק בתוצאות החיפוש.'),
                     ('בדקו תנאי קופונים והנחות', 'ודאו אם ההנחה דורשת קופון או סכום מינימלי. התחשבו רק בהנחה שכבר מופיעה בחשבון שלכם.'),
-                    ('רשימת בדיקה קצרה', 'שמרו גרסה, יעד, משלוח וסכום סופי. FLUXIXO אינה מפרסמת מחירים חיים: בדקו את הסכום העדכני אצל המוכר ב־AliExpress.'),
+                    ('רשימת בדיקה קצרה', 'תעדו דגם, יעד, משלוח וסכום סופי. FLUXIXO אינה מפרסמת מחירים בזמן אמת: בדקו את הסכום העדכני בעמוד המוצר ב־AliExpress.'),
                 ],
             ),
         },
@@ -162,14 +162,14 @@ ARTICLES = [
         'preferred_product': 'import-0010',
         'translations': {
             'ru': (
-                'Перед покупкой USB-C : проверка зарядки и кабеля | FLUXIXO',
+                'Перед покупкой USB-C: проверка зарядки и кабеля | FLUXIXO',
                 'Чек-лист совместимости зарядок и кабелей USB Type-C, режимов питания и мощности на AliExpress.',
-                'Перед покупкой USB-C : проверка зарядки и кабеля',
+                'Перед покупкой USB-C: проверка зарядки и кабеля',
                 [
                     ('Определите задачу', 'Зарядка телефона, питание ноутбука и передача данных требуют разных характеристик. Подходящий разъём Type-C сам по себе не гарантирует быструю зарядку или видеосигнал.'),
                     ('Прочитайте требования устройства', 'Сверьте паспортную мощность и поддерживаемый протокол USB PD с характеристиками выходов в описании зарядного устройства, а не только с цифрой в заголовке.'),
                     ('Отдельно проверьте кабель', 'Уточните допустимую мощность кабеля и длину от розетки до рабочего стола с учётом расстановки мебели.'),
-                    ('Чек-лист перед заказом', 'Запишите модель устройства, нужные профили напряжения и число портов при одновременном подключении перед оформлением заказа у продавца.'),
+                    ('Чек-лист перед заказом', 'Запишите модель устройства, нужную мощность (Вт), протоколы и распределение нагрузки при одновременном подключении перед заказом у продавца.'),
                 ],
             ),
             'en': (
@@ -186,7 +186,7 @@ ARTICLES = [
             'pt': (
                 'Antes de comprar carregador USB-C: checklist completo | FLUXIXO',
                 'Como conferir perfis USB PD, divisão entre portas, cabo e padrão de tomada no Brasil.',
-                'Antes de comprar carregador USB-C: confira toda a conexão',
+                'Antes de comprar carregador USB-C: confira carregador, cabo e tomada',
                 [
                     ('Defina o uso principal', 'Carregar celular, alimentar notebook ou transferir dados exige recursos distintos, mesmo com o mesmo conector USB Type-C.'),
                     ('Compare os requisitos do aparelho', 'Confira o manual do aparelho com as tabelas de saída USB PD informadas pelo vendedor, e não apenas o número total de watts do título.'),
@@ -197,7 +197,7 @@ ARTICLES = [
             'es': (
                 'Antes de comprar un cargador USB-C: guía práctica | FLUXIXO',
                 'Revisa perfiles USB PD, reparto de potencia entre puertos, cable y clavija para México.',
-                'Antes de comprar un cargador USB-C: revisa toda la conexión',
+                'Antes de comprar un cargador USB-C: revisa cargador, cable y clavija',
                 [
                     ('Define para qué lo necesitas', 'Cargar un teléfono, alimentar una laptop o pasar datos rápidos requiere especificaciones distintas, aunque el conector USB Type-C encaje igual.'),
                     ('Lee los requisitos del equipo', 'Compara el manual de tu equipo con la tabla de voltajes USB PD que publica el vendedor y no te fíes solo de la cifra más grande del título.'),
@@ -208,7 +208,7 @@ ARTICLES = [
             'fr': (
                 'Avant d’acheter un chargeur USB-C : liste de contrôle | FLUXIXO',
                 'Vérifiez les profils USB PD, le partage multi-ports, le câble et la prise européenne avant de commander.',
-                'Avant d’acheter un chargeur USB-C : vérifiez toute la chaîne',
+                'Avant d’acheter un chargeur USB-C : vérifiez chargeur, câble et prise',
                 [
                     ('Définissez l’usage réel', 'Charger un téléphone, alimenter un ordinateur portable ou transférer des fichiers demande des caractéristiques précises malgré un port USB Type-C identique.'),
                     ('Lisez les besoins de l’appareil', 'Comparez la documentation de votre appareil aux tableaux de sortie USB PD annoncés par le vendeur plutôt qu’au seul chiffre du titre.'),
@@ -219,12 +219,12 @@ ARTICLES = [
             'he': (
                 'לפני רכישת מטען USB-C: רשימת בדיקה | FLUXIXO',
                 'בדקו פרופילי טעינה USB PD, חלוקת הספק בין יציאות, כבל מתאים ותקע ישראלי ב־AliExpress.',
-                'לפני רכישת מטען USB-C: בדקו את כל החיבור',
+                'לפני שקונים מטען USB-C: מה חשוב לבדוק',
                 [
-                    ('הגדירו את הצורך', 'טעינת טלפון, הפעלת מחשב נייד והעברת נתונים דורשות מפרט שונה גם כשהמחבר נראה זהה בצורת USB Type-C.'),
-                    ('קראו את דרישות המכשיר', 'השוו בין נתוני היצרן של המכשיר לטבלת היציאות והתמיכה ב־USB PD בעמוד המוכר, ולא רק לפי מספר אחד בכותרת.'),
+                    ('הגדירו את הצורך', 'טעינת טלפון, הפעלת מחשב נייד והעברת נתונים דורשות מפרט שונה, למרות שמדובר באותו חיבור USB Type-C.'),
+                    ('קראו את דרישות המכשיר', 'השוו בין נתוני היצרן של המכשיר לטבלת היציאות והתמיכה ב־USB PD בעמוד המוצר, במקום להסתמך רק על נתון ההספק הראשי בכותרת.'),
                     ('בדקו את הכבל בנפרד', 'ודאו שהכבל מתאים להספק הנדרש ומדדו את המרחק האמיתי מהשקע הישראלי עד לשולחן.'),
-                    ('שימו לב ליציאות מקבילות', 'במטען מרובה יציאות בדקו איך ההספק מתחלק כשמחברים כמה מכשירים יחד, ובחרו תקע תואם לפני ההזמנה.'),
+                    ('חלוקת הספק בין יציאות', 'במטען מרובה יציאות בדקו איך ההספק מתחלק כשמחברים כמה מכשירים יחד, ובחרו תקע תואם לפני ההזמנה.'),
                 ],
             ),
         },
@@ -241,7 +241,7 @@ ARTICLES = [
                     ('Составьте схему проводов', 'Разделите устройства на постоянные и переносные. Проследите каждый провод от розетки до стола и уберите лишние кабели до заказа органайзеров.'),
                     ('Измерьте место крепления', 'Замерьте толщину столешницы, бортик, раму и глубину до стены. Для клеевых клипс проверьте совместимость с покрытием стола.'),
                     ('Оставьте запас движения', 'Предусмотрите свободный ход для перемещения ноутбука, поворота кресла и подъёма стола, держа провода подальше от тепла.'),
-                    ('Решите конкретную задачу', 'Пара точных клипс часто решает проблему лучше громоздкого лотка. Проверяйте внутренние размеры крепления в карточке продавца.'),
+                    ('Решите конкретную задачу', 'Пара клипс нужного диаметра часто решает проблему лучше громоздкого лотка. Проверяйте внутренние размеры крепления в карточке продавца.'),
                 ],
             ),
             'en': (
@@ -294,9 +294,9 @@ ARTICLES = [
                 'סדר בכבלי השולחן: מודדים לפני שקונים',
                 [
                     ('מפו את הכבלים שבשימוש', 'הפרידו בין מכשירים קבועים לציוד נייד ונתקו כבלים מיותרים עוד לפני רכישת אביזרי ארגון.'),
-                    ('מדדו את מקום ההתקנה', 'בדקו את עובי השולחן, השפה התחתונה והמרחק מהקיר. השוו פתיחת תפסנים או התאמת דבק למשטח האמיתי שלכם.'),
-                    ('השאירו מקום לתנועה', 'השאירו רפיון לתזוזת מחשב נייד, כיסא ושולחן מתכוונן והימנעו מחסימת אוורור.'),
-                    ('פתרו בעיה ממוקדת', 'לשני כבלים נופלים מספיקים לרוב כמה תפסים מתאימים. בדקו מידות פנימיות מדויקות בעמוד המוכר ב־AliExpress.'),
+                    ('מדדו את מקום ההתקנה', 'בדקו את עובי פלטת השולחן, השפה התחתונה והמרחק מהקיר. השוו את מפתח הקליפס או התאמת הדבק לסוג המשטח שלכם.'),
+                    ('השאירו חופש תנועה', 'השאירו אורך כבל מספק לתזוזת מחשב נייד, סיבוב כיסא ושולחן מתכוונן, ואל תחסמו פתחי אוורור.'),
+                    ('פתרו בעיה ממוקדת', 'בשביל שני כבלים שנופלים מאחורי השולחן מספיקים לרוב כמה קליפסים מתאימים. בדקו מידות פנימיות מדויקות בעמוד המוצר ב־AliExpress.'),
                 ],
             ),
         },
@@ -373,19 +373,17 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                     },
                 ],
             }
+            colon = ' : ' if lang == 'fr' else ': '
             art_body = (
                 f'{crumb_nav}'
                 f'<article class="about-page journal-article">'
                 f'<p class="eyebrow">{e(ui["eyebrow"])}</p>'
                 f'<h1>{e(h1)}</h1>'
-                f'<div class="cta-row"><a class="button secondary" href="{prod_href}">{e(ui["related_product_label"])} : {e(prod_name)}</a>'
+                f'<div class="cta-row"><a class="button secondary" href="{prod_href}">{e(ui["related_product_label"])}{colon}{e(prod_name)}</a>'
                 f'<a class="button" href="{catalog_href}">{e(ui["catalog_cta"])}</a></div>'
                 f'{sec_html}'
                 f'</article>'
             )
-            # Clean French colon rule if non-French
-            if lang != 'fr':
-                art_body = art_body.replace(' : ', ': ')
             write_fn(
                 art_url.strip('/') + '/index.html',
                 page_fn(meta_title, meta_desc, art_url, art_body, schema=art_schema, image=img_path, language=lang, alternate_paths=art_alternates),

@@ -24,8 +24,8 @@ SHORT_LABELS = {
 }
 
 INTRO = {
-    'en': 'Browse our curated collection of gadgets, home and kitchen tools, travel gear, and pet finds. Inspect studio cutouts, compare with seller photos, and open listings directly on AliExpress.',
-    'pt': 'Conheça nossa seleção de eletrônicos, utensílios para casa e cozinha, itens de viagem e pets. Compare os visuais de estúdio com as fotos do vendedor e veja no AliExpress.',
+    'en': 'Browse our curated collection of gadgets, home and kitchen tools, travel gear, and pet finds. Inspect studio visuals, compare with seller photos, and open listings directly on AliExpress.',
+    'pt': 'Conheça nossa seleção de eletrônicos, utensílios para casa e cozinha, itens de viagem e pets. Compare as imagens de estúdio com as fotos do vendedor e veja no AliExpress.',
     'es': 'Explora nuestra selección de tecnología, artículos para el hogar y la cocina, accesorios de viaje y mascotas. Compara las imágenes de estudio con las fotos del vendedor en AliExpress.',
     'fr': 'Découvrez notre sélection de gadgets, d’articles pour la maison et la cuisine, et d’accessoires de voyage. Comparez nos visuels studio aux photos des vendeurs sur AliExpress.',
     'he': 'גלו מבחר גאדג׳טים, כלים לבית ולמטבח, אביזרים לנסיעות ומוצרים לחיות מחמד. השוו בין תמונת הסטודיו לתמונת המוכר ופתחו את המוצר ב־AliExpress.',
@@ -37,7 +37,7 @@ DISCLOSURE = {
     'pt': 'Podemos receber uma comissão por links de afiliados sem custo adicional. Confira o preço atual, a variação e o frete com o vendedor no AliExpress.',
     'es': 'Podemos recibir una comisión por enlaces de afiliados sin costo extra para ti. Consulta el precio actual, el modelo y el envío con el vendedor en AliExpress.',
     'fr': 'Nous pouvons percevoir une commission via les liens affiliés sans frais supplémentaires. Vérifiez le prix, le modèle et la livraison auprès du vendeur sur AliExpress.',
-    'he': 'אנחנו עשויים לקבל עמלה מרכישות דרך קישורי שותפים ללא עלות נוספת עבורכם. בדקו את המחיר, הדגם וזמינות המשלוח אצל המוכר ב־AliExpress.',
+    'he': 'אנחנו עשויים לקבל עמלה מרכישות דרך קישורי שותפים, ללא תוספת תשלום מבחינתכם. בדקו את המחיר, הדגם ותנאי המשלוח אצל המוכר ב־AliExpress.',
 }
 
 RELATED_HEADING = {
@@ -55,7 +55,7 @@ STAGE_CAPTION = {
     'pt': 'Visualização de estúdio FLUXIXO · confira as opções no anúncio',
     'es': 'Visualización de estudio FLUXIXO · verifica las opciones con el vendedor',
     'fr': 'Visuel studio FLUXIXO · vérifiez les options sur la fiche vendeur',
-    'he': 'הדמיית סטודיו של FLUXIXO · בדקו את הדגם והמפרט בעמוד המוכר',
+    'he': 'הדמיית סטודיו של FLUXIXO · בדקו את הדגם והמפרט בעמוד המוצר',
 }
 
 BREADCRUMB_ARIA = {
@@ -64,7 +64,7 @@ BREADCRUMB_ARIA = {
     'pt': 'Trilha de navegação',
     'es': 'Ruta de navegación',
     'fr': 'Fil d’Ariane',
-    'he': 'ניווט',
+    'he': 'נתיב ניווט',
 }
 
 # Longest suffix that still fits the 60-character title budget wins.
@@ -84,7 +84,7 @@ DESCRIPTION_CTA = {
     'pt': 'Veja fotos do vendedor, preço e frete para o Brasil no AliExpress.',
     'es': 'Consulta fotos del vendedor, precio y envío a México en AliExpress.',
     'fr': 'Photos du vendeur, prix et livraison sur AliExpress.',
-    'he': 'תמונות המוכר, המחיר והמשלוח ב־AliExpress.',
+    'he': 'ראו תמונות מקור, מחיר ותנאי משלוח ב־AliExpress.',
 }
 
 CATALOG_TITLE = {
@@ -93,7 +93,7 @@ CATALOG_TITLE = {
     'pt': 'Achadinhos AliExpress Brasil: gadgets e casa | FLUXIXO',
     'es': 'Hallazgos AliExpress México: gadgets y hogar | FLUXIXO',
     'fr': 'Trouvailles AliExpress : high-tech et maison | FLUXIXO',
-    'he': 'מציאות מ־AliExpress: גאדג׳טים ולבית | FLUXIXO',
+    'he': 'מציאות מ־AliExpress: גאדג׳טים, בית וטיולים | FLUXIXO',
 }
 
 CATALOG_DESCRIPTION = {
@@ -101,7 +101,7 @@ CATALOG_DESCRIPTION = {
     'pt': 'Achados do AliExpress para o Brasil: tecnologia, casa, cozinha, viagem e pets, com fotos e links diretos. Confira preço e frete com o vendedor.',
     'es': 'Hallazgos de AliExpress para México: tecnología, hogar, cocina, viajes y mascotas, con fotos y enlaces directos. Consulta precio y envío con el vendedor.',
     'fr': 'Trouvailles AliExpress : high-tech, maison, cuisine, voyage et animaux, avec photos et liens directs. Vérifiez prix et livraison auprès du vendeur.',
-    'he': 'מציאות מ־AliExpress: גאדג׳טים, בית, מטבח, נסיעות וחיות מחמד, עם תמונות וקישורים ישירים. בדקו מחיר ומשלוח אצל המוכר.',
+    'he': 'מציאות מ־AliExpress: גאדג׳טים, בית, מטבח, רכב, נסיעות וחיות מחמד, עם תמונות וקישורים ישירים. בדקו מחיר ותנאי משלוח אצל המוכר.',
 }
 
 CATEGORY_TITLE = {
@@ -146,17 +146,17 @@ CATEGORY_COPY = {
     },
     'Дом': {
         'en': 'Practical devices, lighting and useful finds for a tidy, comfortable home.',
-        'pt': 'Aparelhos práticos, iluminação e achados úteis para organizar a casa.',
+        'pt': 'Itens práticos, iluminação e achados úteis para organizar a casa.',
         'es': 'Aparatos prácticos, iluminación y hallazgos útiles para el orden del hogar.',
         'fr': 'Appareils pratiques, éclairage et trouvailles utiles pour une maison bien rangée.',
-        'he': 'מכשירים שימושיים, תאורה ומציאות לבית מסודר ונעים.',
+        'he': 'גאדג׳טים שימושיים, תאורה ופתרונות סדר לבית.',
     },
     'Кухня': {
         'en': 'Cooking gadgets, vacuum sealers and drink accessories.',
         'pt': 'Utensílios de cozinha, seladoras a vácuo e acessórios para bebidas.',
         'es': 'Utensilios de cocina, selladoras al vacío y accesorios para bebidas.',
         'fr': 'Ustensiles de cuisine, machines sous vide et accessoires pour boissons.',
-        'he': 'גאדג׳טים לבישול, מכונות ואקום ואביזרים למשקאות.',
+        'he': 'גאדג׳טים למטבח, איטום בוואקום ואביזרים למשקאות ולקפה.',
     },
     'В дороге': {
         'en': 'Car accessories, travel gadgets and gear for the road.',
@@ -177,7 +177,7 @@ CATEGORY_COPY = {
         'pt': 'Aparelhos de cuidados pessoais, esterilizadores, modeladores e massageadores.',
         'es': 'Aparatos de cuidado personal, esterilizadores, moldeadores y masajeadores.',
         'fr': 'Appareils de soin, stérilisateurs, coiffants et masseurs.',
-        'he': 'מכשירי טיפוח, מחטאים, מעצבי שיער ומכשירי עיסוי.',
+        'he': 'מכשירי טיפוח, חיטוי UV, מעצבי שיער ומכשירי עיסוי.',
     },
     'Спорт': {
         'en': 'Exercise gear, bike accessories and equipment for home workouts.',
@@ -210,9 +210,9 @@ ABOUT = {
         'h1': 'О проекте FLUXIXO',
         'sections': [
             ('what', 'Что такое FLUXIXO', 'FLUXIXO — независимая подборка полезных товаров с AliExpress. Мы не магазин и не представляем AliExpress: заказ, оплата, доставка и возврат оформляются на AliExpress у выбранного продавца.'),
-            ('images', 'Как готовятся карточки', 'Студийные изображения мы вырезаем с помощью ИИ из фотографий продавца: только сам товар, без фона и надписей. Все фото и комплектацию продавца смотрите на AliExpress. Мы не тестируем каждый товар лично и не публикуем цены и рейтинги: они часто меняются, актуальные условия смотрите у продавца.'),
+            ('images', 'Как готовятся карточки', 'Студийные изображения мы выделяем с помощью ИИ из фотографий продавца: только сам товар, без фона и надписей. Все фото и комплектацию продавца смотрите на AliExpress. Мы не тестируем каждый товар лично и не публикуем цены и рейтинги: они часто меняются, актуальные условия смотрите у продавца.'),
             ('affiliate', 'Партнёрские ссылки', 'Ссылки на AliExpress партнёрские. Если вы совершите покупку, FLUXIXO может получить комиссию; цена для вас при этом не меняется.'),
-            ('privacy', 'Конфиденциальность', 'На сайте нет регистрации, форм и рекламных cookie. Посещаемость считается через Cloudflare Web Analytics в обобщённом виде, без cookie. В памяти вашего браузера сохраняются только выбранный язык и настройка анимации. После перехода на AliExpress действует политика конфиденциальности AliExpress.'),
+            ('privacy', 'Конфиденциальность', 'На сайте нет регистрации, форм и рекламных cookie. Посещаемость считается через Cloudflare Web Analytics в обезличенном агрегированном виде, без cookie. В памяти вашего браузера сохраняются только выбранный язык и настройка анимации. После перехода на AliExpress действует политика конфиденциальности AliExpress.'),
             ('orders', 'Вопросы по заказам', 'По вопросам заказа, доставки и возврата обращайтесь к продавцу через свой аккаунт AliExpress. FLUXIXO не обрабатывает заказы и платежи.'),
         ],
     },
@@ -223,7 +223,7 @@ ABOUT = {
         'h1': 'About FLUXIXO',
         'sections': [
             ('what', 'What FLUXIXO is', 'FLUXIXO is an independent selection of useful products listed on AliExpress. We are not a store and do not represent AliExpress: orders, payment, delivery and returns are handled on AliExpress by the seller you choose.'),
-            ('images', 'How listings are prepared', 'Studio images are cut out with AI from seller photos: just the product, without background or text. See all seller photos and the exact set on AliExpress. We do not personally test each product and do not publish prices or ratings because they change often; check current terms with the seller.'),
+            ('images', 'How listings are prepared', 'Studio images are isolated with AI from seller photos: just the product, without background or text. See all seller photos and the exact set on AliExpress. We do not personally test each product and do not publish prices or ratings because they change often; check current terms with the seller.'),
             ('affiliate', 'Affiliate links', 'Links to AliExpress are affiliate links. If you make a purchase, FLUXIXO may earn a commission at no extra cost to you.'),
             ('privacy', 'Privacy', 'The site has no sign-up, no forms and no advertising cookies. Visits are counted in aggregate with Cloudflare Web Analytics, without cookies. Your browser stores only your language and motion preference. Once you open AliExpress, the AliExpress privacy policy applies.'),
             ('orders', 'Order questions', 'For orders, delivery and returns, contact the seller through your AliExpress account. FLUXIXO does not process orders or payments.'),
@@ -236,7 +236,7 @@ ABOUT = {
         'h1': 'Sobre a FLUXIXO',
         'sections': [
             ('what', 'O que é a FLUXIXO', 'A FLUXIXO é uma seleção independente de produtos úteis anunciados no AliExpress. Não somos uma loja e não representamos o AliExpress: pedido, pagamento, entrega e devolução são feitos no AliExpress com o vendedor escolhido.'),
-            ('images', 'Como preparamos os produtos', 'As imagens de estúdio são recortadas com IA das fotos do vendedor: só o produto, sem fundo nem textos. Veja todas as fotos e o que vem na caixa no AliExpress. Não testamos pessoalmente cada produto e não publicamos preços ou avaliações, pois mudam com frequência; confira as condições atuais com o vendedor.'),
+            ('images', 'Como preparamos os produtos', 'As imagens de estúdio são isoladas com IA a partir das fotos do vendedor: só o produto, sem fundo nem textos. Veja todas as fotos e o que vem na caixa no AliExpress. Não testamos pessoalmente cada produto e não publicamos preços ou avaliações, pois mudam com frequência; confira as condições atuais com o vendedor.'),
             ('affiliate', 'Links de afiliados', 'Os links para o AliExpress são de afiliados. Se você fizer uma compra, a FLUXIXO pode receber uma comissão sem custo adicional para você.'),
             ('privacy', 'Privacidade', 'O site não tem cadastro, formulários nem cookies de publicidade. As visitas são contadas de forma agregada com o Cloudflare Web Analytics, sem cookies. Seu navegador guarda apenas o idioma e a preferência de animação. Ao abrir o AliExpress, vale a política de privacidade do AliExpress.'),
             ('orders', 'Dúvidas sobre pedidos', 'Para pedidos, entrega e devolução, fale com o vendedor pela sua conta do AliExpress. A FLUXIXO não processa pedidos nem pagamentos.'),
@@ -249,7 +249,7 @@ ABOUT = {
         'h1': 'Acerca de FLUXIXO',
         'sections': [
             ('what', 'Qué es FLUXIXO', 'FLUXIXO es una selección independiente de productos útiles publicados en AliExpress. No somos una tienda ni representamos a AliExpress: el pedido, el pago, la entrega y las devoluciones se realizan en AliExpress con el vendedor que elijas.'),
-            ('images', 'Cómo preparamos las fichas', 'Las imágenes de estudio se recortan con IA de las fotos del vendedor: solo el producto, sin fondo ni textos. Consulta todas las fotos y lo que incluye en AliExpress. No probamos personalmente cada producto ni publicamos precios o calificaciones, porque cambian con frecuencia; consulta las condiciones actuales con el vendedor.'),
+            ('images', 'Cómo preparamos las fichas', 'Las imágenes de estudio se aíslan con IA a partir de las fotos del vendedor: solo el producto, sin fondo ni textos. Consulta todas las fotos y lo que incluye en AliExpress. No probamos personalmente cada producto ni publicamos precios o calificaciones, porque cambian con frecuencia; consulta las condiciones actuales con el vendedor.'),
             ('affiliate', 'Enlaces de afiliados', 'Los enlaces a AliExpress son de afiliados. Si realizas una compra, FLUXIXO puede recibir una comisión sin costo extra para ti.'),
             ('privacy', 'Privacidad', 'El sitio no tiene registro, formularios ni cookies publicitarias. Las visitas se cuentan de forma agregada con Cloudflare Web Analytics, sin cookies. Tu navegador guarda solo el idioma y la preferencia de animación. Al abrir AliExpress, se aplica la política de privacidad de AliExpress.'),
             ('orders', 'Dudas sobre pedidos', 'Para pedidos, entregas y devoluciones, contacta al vendedor desde tu cuenta de AliExpress. FLUXIXO no procesa pedidos ni pagos.'),
@@ -274,10 +274,10 @@ ABOUT = {
         'desc': 'מה זה FLUXIXO, איך עובדים קישורי השותפים ל־AliExpress ובאילו נתונים האתר משתמש.',
         'h1': 'אודות FLUXIXO',
         'sections': [
-            ('what', 'מה זה FLUXIXO', 'FLUXIXO היא מבחר עצמאי של מוצרים שימושיים המוצעים ב־AliExpress. איננו חנות ואיננו מייצגים את AliExpress: ההזמנה, התשלום, המשלוח וההחזרות מתבצעים ב־AliExpress מול המוכר שבחרתם.'),
-            ('images', 'איך מכינים את דפי המוצרים', 'את תמונות הסטודיו אנחנו גוזרים בעזרת בינה מלאכותית מתמונות המוכר: רק המוצר, בלי רקע ובלי כיתובים. את כל התמונות ותכולת האריזה בדקו ב־AliExpress. איננו בודקים כל מוצר בעצמנו ואיננו מפרסמים מחירים או דירוגים כי הם משתנים לעתים קרובות; בדקו את התנאים העדכניים אצל המוכר.'),
-            ('affiliate', 'קישורי שותפים', 'הקישורים ל־AliExpress הם קישורי שותפים. אם תבצעו רכישה, FLUXIXO עשויה לקבל עמלה ללא עלות נוספת עבורכם.'),
-            ('privacy', 'פרטיות', 'באתר אין הרשמה, טפסים או עוגיות פרסום. הביקורים נספרים באופן מצטבר באמצעות Cloudflare Web Analytics, ללא עוגיות. הדפדפן שלכם שומר רק את השפה ואת העדפת האנימציה. לאחר המעבר ל־AliExpress חלה מדיניות הפרטיות של AliExpress.'),
+            ('what', 'מה זה FLUXIXO', 'FLUXIXO מציגה מבחר עצמאי של מוצרים שימושיים המוצעים ב־AliExpress. איננו חנות ואיננו מייצגים את AliExpress: ההזמנה, התשלום, המשלוח וההחזרות מתבצעים ב־AliExpress מול המוכר שבחרתם.'),
+            ('images', 'איך מכינים את דפי המוצרים', 'תמונות הסטודיו מעובדות בעזרת בינה מלאכותית מתוך תמונות המוכר — רק המוצר נטו, בלי רקע ובלי כיתובים. את כל התמונות ותכולת הערכה בדקו ב־AliExpress. איננו בודקים כל מוצר בעצמנו ואיננו מפרסמים מחירים או דירוגים כי הם משתנים לעיתים קרובות; בדקו את התנאים העדכניים אצל המוכר.'),
+            ('affiliate', 'קישורי שותפים', 'הקישורים ל־AliExpress הם קישורי שותפים. אם תבצעו רכישה, FLUXIXO עשויה לקבל עמלה ללא תוספת תשלום עבורכם.'),
+            ('privacy', 'פרטיות', 'באתר אין הרשמה, טפסים או עוגיות פרסום. נתוני הגלישה נאספים באופן אנונימי ומרוכז באמצעות Cloudflare Web Analytics, ללא עוגיות. הדפדפן שלכם שומר רק את השפה ואת העדפת האנימציה. לאחר המעבר ל־AliExpress חלה מדיניות הפרטיות של AliExpress.'),
             ('orders', 'שאלות על הזמנות', 'בנושאי הזמנות, משלוחים והחזרות פנו למוכר דרך חשבון ה־AliExpress שלכם. FLUXIXO אינה מטפלת בהזמנות או בתשלומים.'),
         ],
     },
@@ -345,28 +345,169 @@ def fit_description(text, language, limit=158):
     return text[:limit - 1].rsplit(' ', 1)[0].rstrip(' ,;:—-') + '…'
 
 
-def item_page_schema(origin, path, title, description, image, language, caption, crumbs):
-    width, height = IMAGE_SIZES.get(image, DEFAULT_IMAGE_SIZE)
+def resolve_image_size(dist, image_rel):
+    """Resolve true image dimensions from cache or disk so subprocess builds never stall on default bounds."""
+    if image_rel in IMAGE_SIZES:
+        return IMAGE_SIZES[image_rel]
+    if dist:
+        target = Path(dist) / image_rel
+        if target.exists():
+            try:
+                from PIL import Image
+                with Image.open(target) as im:
+                    IMAGE_SIZES[image_rel] = im.size
+                    return im.size
+            except (OSError, ImportError):
+                pass
+    return DEFAULT_IMAGE_SIZE
+
+
+def editorial_image_alt(product_name, category_label, lang, *, role='hero', view_index=1, total_views=1):
+    """Unique, check_texts-safe alt copy per slot without repeating bare strings across images."""
+    name = ' '.join(str(product_name or '').split())
+    cat = ' '.join(str(category_label or '').split())
+    templates = {
+        'ru': {
+            'hero': f'{name} — студийное фото FLUXIXO, {cat}' if cat else f'{name} — студийное фото FLUXIXO',
+            'view': (
+                f'{name} — ракурс {view_index} из {total_views}, FLUXIXO'
+                if total_views > 1
+                else (f'{name} — ракурс {view_index}, FLUXIXO' if view_index > 1 else f'{name} — дополнительный ракурс FLUXIXO')
+            ),
+            'card': f'{name} — {cat}, карточка FLUXIXO' if cat else f'{name} — карточка FLUXIXO',
+            'spotlight': f'{name} — находка дня FLUXIXO',
+            'rope': f'{name} — свежая находка FLUXIXO',
+            'mini': f'{name} — миниатюра, {cat}' if cat else f'{name} — миниатюра FLUXIXO',
+            'original': f'{name} — исходное фото продавца для сравнения',
+        },
+        'en': {
+            'hero': f'{name} — FLUXIXO studio visual, {cat}' if cat else f'{name} — FLUXIXO studio visual',
+            'view': f'{name} — studio angle {view_index} of {total_views}' if total_views > 1 else f'{name} — studio angle {view_index}',
+            'card': f'{name} — {cat} preview on FLUXIXO' if cat else f'{name} — studio preview',
+            'spotlight': f'{name} — featured {cat} find on FLUXIXO' if cat else f'{name} — featured FLUXIXO find',
+            'rope': f'{name} — latest FLUXIXO showcase find',
+            'mini': f'{name} — {cat} thumbnail' if cat else f'{name} — thumbnail',
+            'original': f'{name} — original seller listing photo',
+        },
+        'pt': {
+            'hero': f'{name} — imagem de estúdio FLUXIXO, {cat}' if cat else f'{name} — imagem de estúdio FLUXIXO',
+            'view': f'{name} — ângulo {view_index} de {total_views} no estúdio' if total_views > 1 else f'{name} — ângulo {view_index} no estúdio',
+            'card': f'{name} — prévia de {cat} na FLUXIXO' if cat else f'{name} — prévia de estúdio',
+            'spotlight': f'{name} — destaque de {cat} na FLUXIXO' if cat else f'{name} — destaque FLUXIXO',
+            'rope': f'{name} — achado recente FLUXIXO',
+            'mini': f'{name} — miniatura de {cat}' if cat else f'{name} — miniatura',
+            'original': f'{name} — foto original do vendedor para comparação',
+        },
+        'es': {
+            'hero': f'{name} — imagen de estudio FLUXIXO, {cat}' if cat else f'{name} — imagen de estudio FLUXIXO',
+            'view': f'{name} — vista {view_index} de {total_views} en estudio' if total_views > 1 else f'{name} — vista {view_index} en estudio',
+            'card': f'{name} — vista de {cat} en FLUXIXO' if cat else f'{name} — vista de estudio',
+            'spotlight': f'{name} — hallazgo destacado de {cat}' if cat else f'{name} — hallazgo destacado',
+            'rope': f'{name} — hallazgo reciente en FLUXIXO',
+            'mini': f'{name} — miniatura de {cat}' if cat else f'{name} — miniatura',
+            'original': f'{name} — foto original del vendedor para comparar',
+        },
+        'fr': {
+            'hero': f'{name} — visuel studio FLUXIXO, {cat}' if cat else f'{name} — visuel studio FLUXIXO',
+            'view': f'{name} — angle {view_index} sur {total_views} en studio' if total_views > 1 else f'{name} — angle {view_index} en studio',
+            'card': f'{name} — aperçu {cat} sur FLUXIXO' if cat else f'{name} — aperçu studio',
+            'spotlight': f'{name} — sélection du jour {cat}' if cat else f'{name} — sélection du jour',
+            'rope': f'{name} — nouveauté sélectionnée sur FLUXIXO',
+            'mini': f'{name} — vignette {cat}' if cat else f'{name} — vignette',
+            'original': f'{name} — photo originale du vendeur pour comparaison',
+        },
+        'he': {
+            'hero': f'{name} — תמונת סטודיו FLUXIXO, {cat}' if cat else f'{name} — תמונת סטודיו FLUXIXO',
+            'view': (
+                f'{name} — זווית {view_index} מתוך {total_views}, FLUXIXO'
+                if total_views > 1
+                else (f'{name} — זווית {view_index} בתצוגת FLUXIXO' if view_index > 1 else f'{name} — זווית נוספת בתצוגת FLUXIXO')
+            ),
+            'card': f'{name} — {cat}, תצוגה מקדימה ב־FLUXIXO' if cat else f'{name} — תצוגה מקדימה ב־FLUXIXO',
+            'spotlight': f'{name} — המוצר הבולט של היום ב־FLUXIXO',
+            'rope': f'{name} — מציאה חדשה ב־FLUXIXO',
+            'mini': f'{name} — תקריב, {cat}' if cat else f'{name} — תקריב ב־FLUXIXO',
+            'original': f'{name} — תמונת המוכר המקורית להשוואה',
+        },
+    }
+    table = templates.get(lang, templates['en'])
+    return table.get(role, table['hero'])
+
+
+def editorial_image_caption(product_name, category_label, lang, *, role='hero', view_index=1, total_views=1):
+    """Per-product caption for Schema.org ImageObject instead of static boilerplate."""
+    alt = editorial_image_alt(product_name, category_label, lang, role=role, view_index=view_index, total_views=total_views)
+    suffix = {
+        'ru': 'проверьте комплектацию у продавца',
+        'en': 'verify variant options on the seller listing',
+        'pt': 'confira a variação no anúncio do vendedor',
+        'es': 'revisa las opciones en la ficha del vendedor',
+        'fr': 'vérifiez les options sur la fiche vendeur',
+        'he': 'בדקו את הדגם והערכה בעמוד המוצר',
+    }.get(lang, 'verify variant options on the seller listing')
+    return f'{alt} · {suffix}'
+
+
+def build_image_object(origin, image_rel, *, name, caption, size, thumb_rel=None, representative=True):
+    """Compliant Schema.org ImageObject without Product/Offer tokens."""
+    obj = {
+        '@type': 'ImageObject',
+        '@id': f'{origin}/{image_rel}#image',
+        'url': f'{origin}/{image_rel}',
+        'contentUrl': f'{origin}/{image_rel}',
+        'name': name,
+        'caption': caption,
+        'encodingFormat': 'image/webp',
+        'width': size[0],
+        'height': size[1],
+        'representativeOfPage': representative,
+        'creditText': 'FLUXIXO Studio',
+    }
+    if thumb_rel:
+        obj['thumbnailUrl'] = f'{origin}/{thumb_rel}'
+    return obj
+
+
+def item_page_schema(origin, path, title, description, image, language, caption, crumbs,
+                     *, extra_images=None, image_name=None, dist_root=None):
+    width, height = resolve_image_size(dist_root, image)
+    thumb_rel = thumb(image) if dist_root and (Path(dist_root) / thumb(image)).exists() else None
+    primary = build_image_object(
+        origin, image,
+        name=image_name or caption or title,
+        caption=caption,
+        size=(width, height),
+        thumb_rel=thumb_rel,
+        representative=True,
+    )
+    item_node = {
+        '@type': 'ItemPage',
+        '@id': origin + path,
+        'url': origin + path,
+        'name': title,
+        'description': description,
+        'inLanguage': LANGUAGES[language][0],
+        'isPartOf': {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': origin + '/'},
+        'primaryImageOfPage': primary,
+    }
+    if extra_images:
+        media = []
+        for idx, rel in enumerate(extra_images, 2):
+            if rel and rel != image:
+                sz = resolve_image_size(dist_root, rel)
+                media.append(build_image_object(
+                    origin, rel,
+                    name=f'{image_name or title} ({idx})',
+                    caption=f'{caption} ({idx})',
+                    size=sz,
+                    representative=False,
+                ))
+        if media:
+            item_node['associatedMedia'] = media
     return {
         '@context': 'https://schema.org',
         '@graph': [
-            {
-                '@type': 'ItemPage',
-                '@id': origin + path,
-                'url': origin + path,
-                'name': title,
-                'description': description,
-                'inLanguage': LANGUAGES[language][0],
-                'isPartOf': {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': origin + '/'},
-                'primaryImageOfPage': {
-                    '@type': 'ImageObject',
-                    'url': origin + '/' + image,
-                    'contentUrl': origin + '/' + image,
-                    'width': width,
-                    'height': height,
-                    'caption': caption,
-                },
-            },
+            item_node,
             {
                 '@type': 'BreadcrumbList',
                 'itemListElement': [
@@ -498,7 +639,7 @@ def generate(origin, data, products, page, write, image):
             dl_block = f'<dl class="specs-grid">{facts_html}</dl>' if facts_html else ''
             original = (
                 f'<details class="source-details"><summary>{e(seller_photo)}</summary>'
-                f'<img src="/{e(product["original"])}" alt="{e(name)}" loading="lazy" width="460" height="420">'
+                f'<img src="/{e(product["original"])}" alt="{e(editorial_image_alt(name, cat, language, role="original"))}" loading="lazy" width="460" height="420">'
                 f'<p>{e(ui["sourceNote"])}</p></details>'
                 if product.get('original') else ''
             )
@@ -530,8 +671,8 @@ def generate(origin, data, products, page, write, image):
             body = (
                 f'<nav class="breadcrumb" aria-label="{e(BREADCRUMB_ARIA[language])}"><a href="/?lang={language}">FLUXIXO</a><span class="breadcrumb-sep">/</span><a href="{catalog}">{e(catalog_label)}</a>{cat_crumb}</nav>'
                 f'<article><div class="product">'
-                f'<figure class="arcade-stage-card">{hero_image(product["image"], name)}<div class="stage-podium-bar" aria-hidden="true"></div>'
-                f'<figcaption>{e(STAGE_CAPTION[language])}</figcaption></figure>'
+                f'<figure class="arcade-stage-card">{hero_image(product["image"], editorial_image_alt(name, cat, language, role="hero"))}<div class="stage-podium-bar" aria-hidden="true"></div>'
+                f'<figcaption>{e(editorial_image_caption(name, cat, language))}</figcaption></figure>'
                 f'<section><p class="eyebrow">{cat_label}</p><h1>{e(name)}</h1>'
                 f'<p class="product-headline-sub">{e(headline)}</p><p>{e(desc)}</p>'
                 f'<div class="cta-row">{buy}<a class="button secondary" href="{studio}">{e(showroom)}</a></div>'
@@ -542,7 +683,11 @@ def generate(origin, data, products, page, write, image):
             if cat_href:
                 crumbs.append((cat, cat_href))
             crumbs.append((name, path))
-            schema = item_page_schema(origin, path, title, description, product['image'], language, f'{name} — {desc}', crumbs)
+            schema = item_page_schema(
+                origin, path, title, description, product['image'], language,
+                editorial_image_caption(name, cat, language), crumbs,
+                extra_images=product.get('views'), image_name=name, dist_root=dist_dir,
+            )
             schema['@graph'].append(faq_schema)
             if vid_schema:
                 schema['@graph'].append(vid_schema)

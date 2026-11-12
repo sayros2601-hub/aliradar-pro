@@ -11,6 +11,7 @@ from collections import deque
 from io import BytesIO
 from pathlib import Path
 import hashlib
+import inspect
 import json
 import os
 import re
@@ -20,6 +21,7 @@ import tempfile
 import time
 
 from urllib.parse import urlsplit
+from . import image_studio
 from .policy import QUERY, DETAIL, normalize_product, image_host_allowed
 from .search import _rows, generate_affiliate, ApiError
 from .task_copy import task_description, task_headline
@@ -79,31 +81,147 @@ def _headline(value):
     return [' '.join(words[:split]), ' '.join(words[split:])]
 
 
-def _maybe_ai_enrich(record_item, translated, candidate, site_root):
-    """Optionally enhance 6-language copy with free AI when keys are set, strictly gated by check_texts."""
+def _import_tools_modules(site_root):
+    import sys as _sys
+    tools_dir = str(Path(site_root) / 'tools')
+    if tools_dir not in _sys.path:
+        _sys.path.insert(0, tools_dir)
+    import ai_seo
+    import copy_originality
+    return ai_seo, copy_originality
+
+
+def _load_catalog_copy_corpus(products, translations, site_root):
     try:
-        import sys as _sys
-        tools_dir = str(Path(site_root) / 'tools')
-        if tools_dir not in _sys.path:
-            _sys.path.insert(0, tools_dir)
-        import ai_seo
-        if not ai_seo.has_ai_provider():
-            return record_item, translated
-        base = {
-            'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
-            **translated,
-        }
-        enriched, provider = ai_seo.enrich_product_copy({
-            'category': record_item.get('category', ''),
-            'market': record_item.get('sourceMarket', 'US'),
-            'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
-        }, base)
-        if enriched and provider != 'deterministic' and not provider.startswith('fallback:'):
-            record_item = {**record_item, **enriched['ru'], 'details': enriched['ru']['description']}
-            translated = {lang: enriched[lang] for lang in LANGS if lang != 'ru' and lang in enriched}
+        _, copy_originality = _import_tools_modules(site_root)
     except Exception:
-        pass
-    return record_item, translated
+        return None
+    overrides = {}
+    ov_path = Path(site_root) / 'tools/seo_overrides.json'
+    if ov_path.is_file():
+        try:
+            overrides = json.loads(ov_path.read_text(encoding='utf-8')).get('routes') or {}
+        except Exception:
+            overrides = {}
+    return copy_originality.build_catalog_copy_corpus(
+        products, translations, extra_routes=overrides,
+    )
+
+
+_SELLER_NOISE_RE = re.compile(
+    r'(?:\[[^\]]*\]|\([^)]*\)|\b(?:free\s*shipping|hot\s*sale|new\s*arrival|202\d|dropshipping|wholesale|best\s*seller|high\s*quality|gift\s*for)\b)',
+    re.IGNORECASE,
+)
+
+_SEED_CHECK_ANGLES = {
+    'ru': (
+        'Точные размеры, совместимость и содержимое набора смотрите в выбранной опции у продавца.',
+        'Перед оформлением сверьте выбранный вариант, комплектацию и реальные фотографии в карточке товара.',
+        'Назначение, аксессуары и детали сборки зависят от варианта — проверьте описание на AliExpress.',
+    ),
+    'en': (
+        'Review exact sizing, included parts, and compatibility under the chosen option on AliExpress.',
+        'Compare the selected kit thumbnail and seller photos carefully before confirming checkout.',
+        'Check material finish, dimensions, and option contents in the AliExpress listing before ordering.',
+    ),
+    'pt': (
+        'Confira dimensões exatas, compatibilidade e itens incluídos na variação selecionada no AliExpress.',
+        'Compare as fotos reais do vendedor e os componentes da opção escolhida antes de fechar o pedido.',
+        'Verifique medidas, encaixe e conteúdo da embalagem diretamente na página do produto.',
+    ),
+    'es': (
+        'Revisa medidas exactas, compatibilidad y piezas incluidas dentro de la opción elegida en AliExpress.',
+        'Compara las fotografías del vendedor y el detalle de cada variante antes de confirmar tu pedido.',
+        'Verifica dimensiones, ajuste y contenido del paquete directamente en la publicación del vendedor.',
+    ),
+    'fr': (
+        'Vérifiez les dimensions exactes, la compatibilité et les accessoires inclus selon la variante sur AliExpress.',
+        'Comparez les photos du vendeur et le détail du coffret choisi avant de valider votre commande.',
+        'Contrôlez le format, les matières et le contenu de l’option sélectionnée sur la fiche produit.',
+    ),
+    'he': (
+        'בדקו מידות מדויקות, התאמה ותכולת הערכה לפי האפשרות שתבחרו בעמוד המוצר.',
+        'השוו בין תמונות המוכר המקוריות למפרט של הדגם המסומן לפני ההזמנה.',
+        'ודאו את החומרים, הגודל והאביזרים המצורפים בעמוד המוצר ב־AliExpress.',
+    ),
+}
+
+
+def _sanitize_deterministic_copy(record_item, translated, candidate, site_root, catalog_corpus, copy_originality):
+    """Avoid verbatim English seller title mirroring and duplicate template endings when AI is unavailable."""
+    source_title = str(candidate.get('title') or record_item.get('sourceTitle') or '')
+    bundle = {
+        'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
+        **{lang: dict(translated[lang]) for lang in LANGS if lang != 'ru' and lang in translated},
+    }
+    pid = str(record_item.get('id') or '')
+    variant_idx = int(hashlib.sha256(pid.encode('utf-8')).hexdigest()[:2], 16) % 3
+
+    # 1. Clean raw English seller title if queued item came without template task
+    if record_item.get('sourceTask') == 'seller_title' and source_title:
+        en_entry = bundle.get('en')
+        if en_entry and copy_originality.check_source_title_mirroring({'en': en_entry}, source_title):
+            cleaned = _SELLER_NOISE_RE.sub(' ', en_entry.get('name', ''))
+            words = [w for w in cleaned.split() if w.lower() not in {'for', 'with', 'and', 'to', 'in', 'of'}]
+            # Keep compact informative noun core distinct from raw long AliExpress title
+            compact = ' '.join(words[:4]).strip(' -,:;|/')
+            if not compact or len(compact) < 4 or copy_originality.check_source_title_mirroring(
+                {'en': {'name': compact, 'headline': en_entry.get('headline', []), 'description': ''}},
+                source_title,
+            ):
+                compact = f"{words[-2]} {words[-1]}".strip() if len(words) >= 2 else (words[0] if words else 'Compact tool')
+            en_entry['name'] = compact[:56]
+
+    # 2. If catalog_corpus shows duplicate static description, swap the closing buyer check sentence cleanly
+    if catalog_corpus and copy_originality.check_catalog_similarity(bundle, catalog_corpus):
+        for lang in LANGS:
+            loc = bundle.get(lang)
+            if not isinstance(loc, dict):
+                continue
+            desc = str(loc.get('description') or '').strip()
+            std_check = CHECK.get(lang, '')
+            if std_check and desc.endswith(std_check):
+                stem = desc[:-len(std_check)].strip()
+                angle = _SEED_CHECK_ANGLES[lang][variant_idx]
+                loc['description'] = f'{stem} {angle}'.strip() if stem else angle
+
+    new_record = {**record_item, **bundle['ru'], 'details': bundle['ru']['description']}
+    new_trans = {lang: bundle[lang] for lang in LANGS if lang != 'ru' and lang in bundle}
+    return new_record, new_trans
+
+
+def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_corpus=None, snippet_fetcher=None):
+    """Optionally enhance 6-language copy with free AI when keys are set, strictly gated by check_texts."""
+    ai_seo = copy_originality = None
+    try:
+        ai_seo, copy_originality = _import_tools_modules(site_root)
+    except Exception:
+        return record_item, translated
+
+    base = {
+        'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
+        **translated,
+    }
+    if ai_seo.has_ai_provider():
+        try:
+            enriched, provider = ai_seo.enrich_product_copy(
+                {
+                    'category': record_item.get('category', ''),
+                    'market': record_item.get('sourceMarket', 'US'),
+                    'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
+                },
+                base,
+                catalog_corpus=catalog_corpus,
+                snippet_fetcher=snippet_fetcher,
+            )
+            if enriched and provider != 'deterministic' and not provider.startswith('fallback:') and not provider.startswith('deterministic-after-lint'):
+                record_item = {**record_item, **enriched['ru'], 'details': enriched['ru']['description']}
+                translated = {lang: enriched[lang] for lang in LANGS if lang != 'ru' and lang in enriched}
+                return record_item, translated
+        except Exception:
+            pass
+
+    return _sanitize_deterministic_copy(record_item, translated, candidate, site_root, catalog_corpus, copy_originality)
 
 
 def _matches(seed, title):
@@ -400,10 +518,7 @@ CUT_MODEL = 'isnet-general-use'   # cleaner edges and less haze than u2net on se
 
 
 def _dhash(image):
-    from PIL import Image
-    grey = image.convert('L').resize((9, 8), Image.Resampling.LANCZOS)
-    px = grey.tobytes()
-    return sum(1 << i for i in range(64) if px[(i // 8) * 9 + i % 8] > px[(i // 8) * 9 + i % 8 + 1])
+    return int(image_studio.compute_dhash(image), 16)
 
 
 def _on_white(image):
@@ -494,15 +609,14 @@ def _has_text(canvas, stage, name):
 
 
 def _studio(cutout):
-    """The site's framing: product centred on a transparent 1254 px square."""
-    from PIL import Image
-    cutout = cutout.crop(cutout.getbbox())
-    scale = min(903 / cutout.width, 903 / cutout.height)
-    size = (max(1, round(cutout.width * scale)), max(1, round(cutout.height * scale)))
-    cutout = cutout.resize(size, Image.Resampling.LANCZOS)
-    canvas = Image.new('RGBA', (1254, 1254), (0, 0, 0, 0))
-    canvas.alpha_composite(cutout, ((1254 - size[0]) // 2, (1254 - size[1]) // 2))
-    return canvas
+    """FLUXIXO studio framing: clean edges, tight trim, tonal balance, and subtle grounding shadow."""
+    return image_studio.compose_studio_frame(
+        cutout,
+        canvas_size=1254,
+        max_box=890,
+        normalize_tonality=True,
+        add_contact_shadow=True,
+    )
 
 
 def _default_media_preparer():
@@ -512,7 +626,7 @@ def _default_media_preparer():
         session = new_session(CUT_MODEL)
     except Exception:
         raise DailyError('image_processor_unavailable') from None
-    def prepare(candidate, internal_id, stage):
+    def prepare(candidate, internal_id, stage, *, perceptual_index=None):
         """Main photo plus two more views of the same listing, all cut out; fewer than three means another product."""
         urls = candidate.get('image_urls') or [candidate.get('image_url')]
         main, views, kept, sources, main_light, main_parts = None, [], [], set(), 0.0, 1
@@ -532,6 +646,11 @@ def _default_media_preparer():
                     original = value.convert('RGBA')
                 if min(original.size) < VIEW_MIN_SIDE:
                     continue
+                source_hashes = image_studio.compute_perceptual_hashes(original)
+                if perceptual_index:
+                    is_dup, _ = image_studio.is_perceptually_duplicate(source_hashes, perceptual_index)
+                    if is_dup:
+                        continue
                 source = stage / f'{internal_id}-source-{index}.png'
                 original.save(source, 'PNG')
                 poster = _check_ocr(source)
@@ -555,6 +674,11 @@ def _default_media_preparer():
                     if (_light_share(canvas) > max(0.3, main_light + 0.2) or _major_parts(canvas) > main_parts
                             or _has_text(canvas, stage, f'{internal_id}-check-{index}')):
                         continue
+                cut_hashes = image_studio.compute_perceptual_hashes(canvas)
+                if perceptual_index:
+                    is_dup, _ = image_studio.is_perceptually_duplicate(cut_hashes, perceptual_index)
+                    if is_dup:
+                        continue
                 fingerprint = _dhash(_on_white(canvas))
                 if any(bin(fingerprint ^ other).count('1') <= VIEW_REPEAT for other in kept):
                     continue
@@ -565,8 +689,19 @@ def _default_media_preparer():
                     canvas.save(image_path, 'WEBP', quality=92)
                     original.save(original_path, 'WEBP', quality=88)
                     main_light, main_parts = _light_share(canvas), _major_parts(canvas)
-                    main = {'image': image_path, 'original': original_path, 'source_sha256': digest,
-                            'pixel_sha256': _pixel_hash(original), 'source_url': url}
+                    main = {
+                        'image': image_path,
+                        'original': original_path,
+                        'source_sha256': digest,
+                        'pixel_sha256': _pixel_hash(original),
+                        'source_url': url,
+                        'image_dhash': cut_hashes['dhash'],
+                        'image_ahash': cut_hashes['ahash'],
+                        'image_aspect': cut_hashes['aspect'],
+                        'source_dhash': source_hashes['dhash'],
+                        'source_ahash': source_hashes['ahash'],
+                        'source_aspect': source_hashes['aspect'],
+                    }
                 elif len(views) < PHOTOS_PER_PRODUCT - 1:
                     view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
                     canvas.save(view_path, 'WEBP', quality=90)
@@ -625,8 +760,53 @@ def _atomic_bytes(path, body):
             tmp.unlink()
 
 
+def _media_accepts_perceptual(fn):
+    try:
+        sig = inspect.signature(fn)
+    except (TypeError, ValueError):
+        return False
+    return any(
+        p.kind == inspect.Parameter.VAR_KEYWORD or p.name == 'perceptual_index'
+        for p in sig.parameters.values()
+    )
+
+
+def _extract_media_perceptual(media):
+    """Read dHash/aHash descriptors from media dict or image file; returns None on synthetic test bytes."""
+    from PIL import Image
+    out = {}
+    if isinstance(media.get('image_dhash'), str) and isinstance(media.get('image_ahash'), str):
+        out['image'] = {
+            'dhash': media['image_dhash'],
+            'ahash': media['image_ahash'],
+            **({'aspect': media['image_aspect']} if media.get('image_aspect') else {}),
+        }
+    else:
+        try:
+            with Image.open(media['image']) as img:
+                img.load()
+                out['image'] = image_studio.compute_perceptual_hashes(img)
+        except Exception:
+            pass
+    if isinstance(media.get('source_dhash'), str) and isinstance(media.get('source_ahash'), str):
+        out['original'] = {
+            'dhash': media['source_dhash'],
+            'ahash': media['source_ahash'],
+            **({'aspect': media['source_aspect']} if media.get('source_aspect') else {}),
+        }
+    elif media.get('original'):
+        try:
+            with Image.open(media['original']) as orig_img:
+                orig_img.load()
+                out['original'] = image_studio.compute_perceptual_hashes(orig_img)
+        except Exception:
+            pass
+    return out
+
+
 def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
-               discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None):
+               discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None,
+               enforce_unique_copy=None, snippet_fetcher=None):
     """Prepare full batch before mutation; catalog and ledger commit together later."""
     from .daily_ledger import read_ledger, verify_catalog, remaining, record, atomic_write, utc_day
     if isinstance(count, bool) or not isinstance(count, int) or not 0 <= count <= 3:
@@ -678,12 +858,21 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             queue_store = Store(queue_file)
     if media_fn is None:
         media_holder = []
-        def media_fn(candidate, internal_id, stage):
+        def media_fn(candidate, internal_id, stage, *, perceptual_index=None):
             if not media_holder:
                 media_holder.append(_default_media_preparer())
-            return media_holder[0](candidate, internal_id, stage)
+            return media_holder[0](candidate, internal_id, stage, perceptual_index=perceptual_index)
+    strict_copy = (
+        str(os.environ.get('FLUXIXO_STRICT_COPY', '')).strip().lower() in ('1', 'true', 'yes')
+        if enforce_unique_copy is None else bool(enforce_unique_copy)
+    )
     old = catalog['products']
     used_hashes = _old_image_hashes(old, dist)
+    perceptual_index = image_studio.load_catalog_perceptual_index(
+        old, dist, cache_path=site_root / 'tools' / '.image_hash_cache.json',
+    )
+    catalog_corpus = _load_catalog_copy_corpus(old, translations, site_root)
+    pass_perceptual = _media_accepts_perceptual(media_fn)
     exclusions = []
     prepared = []
     attempts = 0
@@ -731,7 +920,10 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     continue
                 exclusions.append({'id': record_item['id'], 'sourceProductId': record_item['sourceProductId'], 'sourceTitle': record_item['sourceTitle']})
                 try:
-                    media = media_fn(candidate, record_item['id'], stage)
+                    media = (
+                        media_fn(candidate, record_item['id'], stage, perceptual_index=perceptual_index)
+                        if pass_perceptual else media_fn(candidate, record_item['id'], stage)
+                    )
                     if (not isinstance(media, dict) or not all(isinstance(media.get(k), str) and re.fullmatch(r'[0-9a-f]{64}', media[k]) for k in ('source_sha256', 'pixel_sha256'))
                             or media['source_sha256'] in used_hashes or media['pixel_sha256'] in used_hashes):
                         if queue_claim:
@@ -744,17 +936,62 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         path = Path(path).resolve()
                         if not path.is_relative_to(stage) or not path.is_file():
                             raise DailyError('staging_invalid')
+                    cand_perceptual = _extract_media_perceptual(media)
+                    if any(
+                        image_studio.is_perceptually_duplicate(cand_hashes, perceptual_index)[0]
+                        for cand_hashes in cand_perceptual.values()
+                    ):
+                        if queue_claim:
+                            queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
+                        continue
                     if views:
                         record_item['views'] = [f'assets/images/{record_item["id"]}-v{n}.webp' for n in range(2, len(views) + 2)]
                     record_item['sourceImageSha256'] = media['source_sha256']
                     record_item['sourcePixelSha256'] = media['pixel_sha256']
                     record_item['sourceImageUrl'] = media.get('source_url', candidate['image_url'])
+                    if 'image' in cand_perceptual:
+                        record_item['imageDhash'] = cand_perceptual['image']['dhash']
+                        record_item['imageAhash'] = cand_perceptual['image']['ahash']
+                        if cand_perceptual['image'].get('aspect'):
+                            record_item['imageAspect'] = cand_perceptual['image']['aspect']
+                    if 'original' in cand_perceptual:
+                        record_item['sourceImageDhash'] = cand_perceptual['original']['dhash']
+                        record_item['sourceImageAhash'] = cand_perceptual['original']['ahash']
                     if queue_claim:
                         record_item['sourceQueueRequestId'] = queue_claim['request_id']
                         record_item['sourceQueueClaimId'] = queue_claim['claim_id']
                         record_item['sourceQueueOwner'] = owner
+                    record_item, translated = _maybe_ai_enrich(
+                        record_item, translated, candidate, site_root,
+                        catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
+                    )
+                    if strict_copy:
+                        try:
+                            _, co_mod = _import_tools_modules(site_root)
+                            full_bundle = {
+                                'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
+                                **translated,
+                            }
+                            if (co_mod.check_source_title_mirroring(full_bundle, record_item.get('sourceTitle', ''))
+                                    or co_mod.check_catalog_similarity(full_bundle, catalog_corpus)):
+                                if queue_claim:
+                                    queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
+                                continue
+                        except Exception:
+                            pass
                     used_hashes.update((media['source_sha256'], media['pixel_sha256']))
-                    record_item, translated = _maybe_ai_enrich(record_item, translated, candidate, site_root)
+                    for kind_name, cand_hashes in cand_perceptual.items():
+                        perceptual_index.append({'id': record_item['id'], 'path': kind_name, 'kind': kind_name, **cand_hashes})
+                    if catalog_corpus is not None:
+                        try:
+                            _, co_mod = _import_tools_modules(site_root)
+                            co_mod.append_bundle_to_corpus(
+                                catalog_corpus,
+                                record_item['id'],
+                                {'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']}, **translated},
+                            )
+                        except Exception:
+                            pass
                     prepared.append((record_item, translated, media))
                     progress = True
                 except DailyError as error:

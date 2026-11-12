@@ -390,7 +390,7 @@ def run_stage2(today, dist_dir, results, state, ai_keys, *, apply_changes=False,
 
     by_route, _ = _route_catalog_map(dist_dir)
     all_routes = list(by_route.keys())
-    existing_titles, existing_descs = collect_existing_meta(dist_dir, all_routes[:120])
+    existing_titles, existing_descs = collect_existing_meta(dist_dir, all_routes)
 
     candidates = select_candidates(today, dist_dir, state, overrides, results, metrics)
     proposed, applied, rejected = [], [], []

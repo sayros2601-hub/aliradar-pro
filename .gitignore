@@ -51,3 +51,5 @@ README_ADAPTER_RU.txt
 # Local browser sessions and assistant tooling must never be published
 .browser_session_portals/
 .claude/
+*.image_hash_cache.json
+
