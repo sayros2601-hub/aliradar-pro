@@ -5,6 +5,108 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005013145693095",
+      "name": "Инструмент для установки стрелок часов",
+      "headline": [
+        "Стрелки",
+        "на своё место."
+      ],
+      "description": "Инструмент для установки стрелок часов. Сверьте размеры насадок, совместимость с часами и комплектацию у продавца.",
+      "category": "Инструменты",
+      "image": "assets/images/auto-1005013145693095.webp",
+      "original": "assets/originals/auto-1005013145693095.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3ZaDiCF",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013145693095.html",
+      "sourceProductId": "1005013145693095",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013145693095.html",
+      "sourceTitle": "Watch Hands Press Tool Kit 20 Piece Metal Nylon Interchangeable Tips for Timepiece Repair Hand Setting Tool",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sb6fe355b61794f0c81dd2083bf70cb36l.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "IL",
+      "sourceTask": "watch_hand_tool",
+      "demo": false,
+      "theme": "sand",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Инструмент для установки стрелок часов. Сверьте размеры насадок, совместимость с часами и комплектацию у продавца.",
+      "facts": [],
+      "views": [
+        "assets/images/auto-1005013145693095-v2.webp",
+        "assets/images/auto-1005013145693095-v3.webp"
+      ],
+      "sourceImageSha256": "edf267764e495e04b182a490569015f3955b18d1260196dca4dd0d278c315eca",
+      "sourcePixelSha256": "b266d2dde2969b455d6b9edc397113d0d626012eea590288c52edcb6715109fe"
+    },
+    {
+      "id": "auto-3256804678707896",
+      "name": "Триммер для трости саксофона",
+      "headline": [
+        "Трость",
+        "под ваш звук."
+      ],
+      "description": "Триммер для подрезки трости саксофона. Сверьте совместимость с размером и типом ваших тростей у продавца.",
+      "category": "Инструменты",
+      "image": "assets/images/auto-3256804678707896.webp",
+      "original": "assets/originals/auto-3256804678707896.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2zTjVCR",
+      "sourceUrl": "https://www.aliexpress.com/item/3256804678707896.html",
+      "sourceProductId": "3256804678707896",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/3256804678707896.html",
+      "sourceTitle": "M MBAT Saxophone Reed Cutter Soprano Alto Tenor Sax Reed Trimmer Clarinet Reed Cutter Woodwind Instruments Repair Tool",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/H12e63c1d093d4b35b21b7eb6092efee2K.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "US",
+      "sourceTask": "reed_trimmer",
+      "demo": false,
+      "theme": "rose",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Триммер для подрезки трости саксофона. Сверьте совместимость с размером и типом ваших тростей у продавца.",
+      "facts": [],
+      "views": [
+        "assets/images/auto-3256804678707896-v2.webp",
+        "assets/images/auto-3256804678707896-v3.webp"
+      ],
+      "sourceImageSha256": "bcef37747ddbe59410e84d8c7bce839c30dbb1ac0310aba4c90acb9470959e7b",
+      "sourcePixelSha256": "662f800d06c74f1577c7e1c26de00721505f400c6fb8411bf4ba0022271575ee"
+    },
+    {
+      "id": "auto-1005012599444039",
+      "name": "Пробойник для полива",
+      "headline": [
+        "Отверстие",
+        "в одно движение."
+      ],
+      "description": "Пробойник для отверстий в трубке полива. Уточните совместимый диаметр трубки и размер отверстия у продавца.",
+      "category": "На природе",
+      "image": "assets/images/auto-1005012599444039.webp",
+      "original": "assets/originals/auto-1005012599444039.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4DJ6jpp",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012599444039.html",
+      "sourceProductId": "1005012599444039",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012599444039.html",
+      "sourceTitle": "2PCS 4mm Hole Drip Irrigation Hole Punch Tool Push Needl Blue Irrigation Hole Puncher 4mm Hole Size Lightweight",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sbe23b9d3656c4be4928e09bd5b73de65c.png",
+      "sourceModelKey": null,
+      "sourceMarket": "BR",
+      "sourceTask": "irrigation_punch",
+      "demo": false,
+      "theme": "sand",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Пробойник для отверстий в трубке полива. Уточните совместимый диаметр трубки и размер отверстия у продавца.",
+      "facts": [],
+      "views": [
+        "assets/images/auto-1005012599444039-v2.webp",
+        "assets/images/auto-1005012599444039-v3.webp"
+      ],
+      "sourceImageSha256": "99b00d2a116cf6d5e9a8f62fc664e59a2898b5dffd3cf62de7e051723f2d6e90",
+      "sourcePixelSha256": "f2c1c6980a4c4f999549c225ecb3a6758c089177d1fade79d3053993caa6ac8b"
+    },
+    {
       "id": "auto-1005004679234788",
       "name": "Экстрактор винтов",
       "headline": [

@@ -5895,6 +5895,132 @@
         ],
         "description": "חולץ להוצאת ברגים פגומים. יש לבדוק עם המוכר קטרים, התאמה לכלי ואת תכולת המוצר."
       }
+    },
+    "auto-1005013145693095": {
+      "en": {
+        "name": "Watch hand setting tool",
+        "headline": [
+          "Hands back",
+          "in place."
+        ],
+        "description": "A tool for setting watch hands. Check tip sizes, watch compatibility and included pieces with the seller."
+      },
+      "pt": {
+        "name": "Ferramenta para ponteiros de relógio",
+        "headline": [
+          "Ponteiros",
+          "no lugar certo."
+        ],
+        "description": "Ferramenta para colocar ponteiros de relógio. Confira as medidas das pontas, a compatibilidade e os itens incluídos."
+      },
+      "es": {
+        "name": "Herramienta para agujas de reloj",
+        "headline": [
+          "Las agujas",
+          "en su lugar."
+        ],
+        "description": "Herramienta para colocar las agujas del reloj. Consulta las medidas de las puntas, la compatibilidad y el contenido."
+      },
+      "fr": {
+        "name": "Outil pour Aiguilles de Montre",
+        "headline": [
+          "Les aiguilles",
+          "à leur place."
+        ],
+        "description": "Outil pour poser les aiguilles d’une montre. Vérifiez la taille des embouts, la compatibilité et le contenu auprès du vendeur."
+      },
+      "he": {
+        "name": "כלי להתקנת מחוגי שעון",
+        "headline": [
+          "המחוגים",
+          "חוזרים למקום."
+        ],
+        "description": "כלי להתקנת מחוגי שעון. יש לבדוק עם המוכר את מידות הקצוות, ההתאמה לשעון ותכולת המוצר."
+      }
+    },
+    "auto-3256804678707896": {
+      "en": {
+        "name": "Saxophone reed trimmer",
+        "headline": [
+          "Reeds cut",
+          "to your sound."
+        ],
+        "description": "A trimmer for saxophone reeds. Check compatibility with the size and type of your reeds with the seller."
+      },
+      "pt": {
+        "name": "Cortador de palheta de saxofone",
+        "headline": [
+          "Palheta",
+          "do seu jeito."
+        ],
+        "description": "Cortador para aparar palhetas de saxofone. Confira com o vendedor a compatibilidade com o tamanho e o tipo das palhetas."
+      },
+      "es": {
+        "name": "Cortador de cañas de saxofón",
+        "headline": [
+          "Cañas",
+          "a tu medida."
+        ],
+        "description": "Cortador para recortar cañas de saxofón. Consulta con el vendedor la compatibilidad con el tamaño y el tipo de tus cañas."
+      },
+      "fr": {
+        "name": "Coupe-Anche de Saxophone",
+        "headline": [
+          "L’anche",
+          "à votre mesure."
+        ],
+        "description": "Coupe-anche pour tailler les anches de saxophone. Vérifiez auprès du vendeur la compatibilité avec leur taille et leur type."
+      },
+      "he": {
+        "name": "קוצץ עלים לסקסופון",
+        "headline": [
+          "עלה",
+          "לפי הצליל שלכם."
+        ],
+        "description": "קוצץ לחיתוך עלים לסקסופון. יש לבדוק עם המוכר התאמה לגודל ולסוג העלים שברשותכם."
+      }
+    },
+    "auto-1005012599444039": {
+      "en": {
+        "name": "Irrigation punch",
+        "headline": [
+          "A clean hole",
+          "in one press."
+        ],
+        "description": "A punch for making holes in irrigation tubing. Check the compatible tubing diameter and hole size with the seller."
+      },
+      "pt": {
+        "name": "Perfurador para irrigação",
+        "headline": [
+          "Furo limpo",
+          "num aperto só."
+        ],
+        "description": "Perfurador para fazer furos em tubos de irrigação. Confira o diâmetro de tubo compatível e o tamanho do furo."
+      },
+      "es": {
+        "name": "Perforador de riego",
+        "headline": [
+          "Un hoyo limpio",
+          "de un apretón."
+        ],
+        "description": "Perforador para hacer agujeros en tubos de riego. Consulta el diámetro de tubo compatible y el tamaño del agujero."
+      },
+      "fr": {
+        "name": "Perforateur D’irrigation",
+        "headline": [
+          "Un trou net",
+          "d’un seul geste."
+        ],
+        "description": "Perforateur pour faire des trous dans un tuyau d’irrigation. Vérifiez le diamètre de tuyau compatible et la taille du trou."
+      },
+      "he": {
+        "name": "מחורר לצינור השקיה",
+        "headline": [
+          "חור נקי",
+          "בלחיצה אחת."
+        ],
+        "description": "מחורר ליצירת חורים בצינור השקיה. יש לבדוק עם המוכר את קוטר הצינור המתאים ואת גודל החור."
+      }
     }
   }
 }
