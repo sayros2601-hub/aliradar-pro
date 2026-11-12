@@ -66,14 +66,16 @@ def write(path, text):
     dest.write_text(text, encoding='utf-8', newline='\n')
 
 def make_thumbnails():
-    for p in products:
-        source = DIST/p['image']
+    # The main cut-out and the extra views the daily job adds (product pages switch between them).
+    pictures = [image for p in products for image in [p['image'], *(p.get('views') or [])] if isinstance(image, str)]
+    for image in pictures:
+        source = DIST/image
         if not source.exists():
             continue
         with Image.open(source) as picture:
-            IMAGE_SIZES[p['image']] = picture.size
+            IMAGE_SIZES[image] = picture.size
         for width in (480, 800):
-            relative = thumb(p['image'], width)
+            relative = thumb(image, width)
             target = DIST/relative
             # A zero-byte file is the leftover of an interrupted run, so it is rebuilt.
             if not (target.exists() and target.stat().st_size):

@@ -17,6 +17,7 @@ import re
 import shutil
 import subprocess
 import tempfile
+import time
 
 from urllib.parse import urlsplit
 from .policy import QUERY, DETAIL, normalize_product, image_host_allowed
@@ -362,49 +363,198 @@ def _pixel_hash(image):
     return h.hexdigest()
 
 
+PHOTOS_PER_PRODUCT = 3   # every new product gets three cut-out photos (main + two more views)
+VIEW_REPEAT = 12         # dHash distance at or below which two cut-outs count as the same view
+VIEW_MIN_SIDE = 400      # smaller seller photos give blurry cut-outs
+MAX_ATTEMPTS = 30        # candidates tried per run; three clean views are rarer than one
+SEARCH_BUDGET_SECONDS = 40 * 60   # stop looking in time for the build, push and deploy
+LEASE_SECONDS = 75 * 60
+CUT_MODEL = 'isnet-general-use'   # cleaner edges and less haze than u2net on seller photos
+
+
+def _dhash(image):
+    from PIL import Image
+    grey = image.convert('L').resize((9, 8), Image.Resampling.LANCZOS)
+    px = grey.tobytes()
+    return sum(1 << i for i in range(64) if px[(i // 8) * 9 + i % 8] > px[(i // 8) * 9 + i % 8 + 1])
+
+
+def _on_white(image):
+    from PIL import Image
+    canvas = Image.new('RGB', image.size, 'white')
+    canvas.paste(image, mask=image.getchannel('A'))
+    return canvas
+
+
+def _drop_specks(cutout, keep=0.015):
+    """Remove what the matting leaves around the product: faint haze, ghost logos, loose bits of background.
+
+    Pixels the model is unsure about (low alpha) are cleared, then only the solid parts of the product are kept
+    (any part of at least 1.5% of the product), and everything farther than a few pixels from them is cleared."""
+    from PIL import Image, ImageChops, ImageFilter
+    alpha = cutout.getchannel('A').point(lambda a: 0 if a < 24 else a)
+    parts = _parts(alpha)
+    if not parts:
+        return cutout
+    total = sum(len(part) for part in parts)
+    mask = Image.new('L', (128, 128), 0)
+    for part in parts:
+        if len(part) >= keep * total:
+            for point in part:
+                mask.putpixel((point % 128, point // 128), 255)
+    mask = mask.filter(ImageFilter.MaxFilter(5)).resize(cutout.size, Image.Resampling.BILINEAR)
+    mask = mask.point(lambda v: 255 if v >= 128 else 0)
+    cleaned = cutout.copy()
+    cleaned.putalpha(ImageChops.multiply(alpha, mask))
+    return cleaned
+
+
+def _major_parts(cutout):
+    """How many separate big objects the cut-out holds (each at least 10% of it): a collage of zoomed panels or a
+    call-out circle shows up as more objects than the product's own main photo."""
+    parts = _parts(cutout.getchannel('A'))
+    total = sum(len(part) for part in parts)
+    return sum(1 for part in parts if len(part) >= 0.1 * total)
+
+
+def _parts(alpha):
+    """Connected solid regions of an alpha mask on a 128 x 128 grid, as lists of grid indices."""
+    from PIL import Image
+    values = alpha.resize((128, 128), Image.Resampling.BOX).tobytes()
+    remaining = {i for i, value in enumerate(values) if value >= 100}
+    parts = []
+    while remaining:
+        first = remaining.pop()
+        queue, part = deque([first]), [first]
+        while queue:
+            point = queue.popleft()
+            x, y = point % 128, point // 128
+            for neighbor in ((point-1 if x else -1), (point+1 if x < 127 else -1),
+                             (point-128 if y else -1), (point+128 if y < 127 else -1)):
+                if neighbor in remaining:
+                    remaining.remove(neighbor)
+                    queue.append(neighbor)
+                    part.append(neighbor)
+        parts.append(part)
+    return parts
+
+
+
+def _light_share(cutout):
+    """Share of the solid cut-out that is near-white neutral: high when a slab of the photo's backdrop survived the cut
+    (a card, an arch, a table top), or when the product itself is white."""
+    from PIL import Image
+    small = cutout.copy()
+    small.thumbnail((256, 256), Image.Resampling.BOX)
+    solid = light = 0
+    for r, g, b, a in (small.get_flattened_data() if hasattr(small, 'get_flattened_data') else small.getdata()):
+        if a >= 200:
+            solid += 1
+            if min(r, g, b) >= 232 and max(r, g, b) - min(r, g, b) <= 12:
+                light += 1
+    return 1.0 if solid == 0 else light / solid
+
+
+def _has_text(canvas, stage, name):
+    """OCR of the cut-out on white, upright and turned (packaging text often runs sideways or upside down)."""
+    picture = _on_white(canvas)
+    for turn in (0, 90, 180, 270):
+        check = stage / f'{name}-r{turn}.png'
+        (picture.rotate(turn, expand=True) if turn else picture).save(check, 'PNG')
+        if _check_ocr(check):
+            return True
+    return False
+
+
+def _studio(cutout):
+    """The site's framing: product centred on a transparent 1254 px square."""
+    from PIL import Image
+    cutout = cutout.crop(cutout.getbbox())
+    scale = min(903 / cutout.width, 903 / cutout.height)
+    size = (max(1, round(cutout.width * scale)), max(1, round(cutout.height * scale)))
+    cutout = cutout.resize(size, Image.Resampling.LANCZOS)
+    canvas = Image.new('RGBA', (1254, 1254), (0, 0, 0, 0))
+    canvas.alpha_composite(cutout, ((1254 - size[0]) // 2, (1254 - size[1]) // 2))
+    return canvas
+
+
 def _default_media_preparer():
     try:
         from PIL import Image
         from rembg import remove, new_session
-        session = new_session('u2net')
+        session = new_session(CUT_MODEL)
     except Exception:
         raise DailyError('image_processor_unavailable') from None
     def prepare(candidate, internal_id, stage):
+        """Main photo plus two more views of the same listing, all cut out; fewer than three means another product."""
         urls = candidate.get('image_urls') or [candidate.get('image_url')]
-        for index, url in enumerate(urls[:8]):
+        main, views, kept, sources, main_light, main_parts = None, [], [], set(), 0.0, 1
+        for index, url in enumerate(urls[:9]):
+            if main is not None and len(views) >= PHOTOS_PER_PRODUCT - 1:
+                break
             try:
                 raw = _image_bytes(url)
+                digest = hashlib.sha256(raw).hexdigest()
+                if digest in sources:
+                    continue
+                sources.add(digest)
                 with Image.open(BytesIO(raw)) as value:
                     if value.width < 1 or value.height < 1 or value.width * value.height > 25_000_000:
                         continue
                     value.load()
                     original = value.convert('RGBA')
+                if min(original.size) < VIEW_MIN_SIDE:
+                    continue
                 source = stage / f'{internal_id}-source-{index}.png'
                 original.save(source, 'PNG')
-                if _check_ocr(source):
+                poster = _check_ocr(source)
+                if poster and main is None and len(views) >= PHOTOS_PER_PRODUCT - 1:
+                    continue  # the main photo itself must be a clean shot
+                work = original
+                if max(work.size) > 1600:
+                    work = work.copy()
+                    work.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
+                cutout = _drop_specks(remove(work, session=session).convert('RGBA'))
+                if not cutout.getbbox() or not mask_usable(cutout):
                     continue
-                cutout = remove(original, session=session).convert('RGBA')
-                if not mask_usable(cutout):
+                if main is not None or poster:
+                    # Extra views keep only sizeable parts: no seller logo, no stray dimension lines.
+                    cutout = _drop_specks(cutout, keep=0.06)
+                canvas = _studio(cutout)
+                if main is not None or poster:
+                    # Extra views: no leftover backdrop and no words anywhere on the cut-out (boxes, logos,
+                    # captions). A photo with text may still give a clean view once its background is cut away.
+                    # A white product is allowed to be white; a backdrop slab makes a view much lighter than the main.
+                    if (_light_share(canvas) > max(0.3, main_light + 0.2) or _major_parts(canvas) > main_parts
+                            or _has_text(canvas, stage, f'{internal_id}-check-{index}')):
+                        continue
+                fingerprint = _dhash(_on_white(canvas))
+                if any(bin(fingerprint ^ other).count('1') <= VIEW_REPEAT for other in kept):
                     continue
-                bbox = cutout.getbbox()
-                cutout = cutout.crop(bbox)
-                scale = min(903 / cutout.width, 903 / cutout.height)
-                size = (max(1, round(cutout.width * scale)), max(1, round(cutout.height * scale)))
-                cutout = cutout.resize(size, Image.Resampling.LANCZOS)
-                canvas = Image.new('RGBA', (1254, 1254), (0, 0, 0, 0))
-                canvas.alpha_composite(cutout, ((1254 - size[0]) // 2, (1254 - size[1]) // 2))
-                image_path = stage / f'{internal_id}-prepared.webp'
-                original_path = stage / f'{internal_id}-original.webp'
-                canvas.save(image_path, 'WEBP', quality=92)
-                original.save(original_path, 'WEBP', quality=88)
-                return {'image': image_path, 'original': original_path, 'source_sha256': hashlib.sha256(raw).hexdigest(),
-                        'pixel_sha256': _pixel_hash(original), 'source_url': url}
+                kept.append(fingerprint)
+                if main is None and not poster:
+                    image_path = stage / f'{internal_id}-prepared.webp'
+                    original_path = stage / f'{internal_id}-original.webp'
+                    canvas.save(image_path, 'WEBP', quality=92)
+                    original.save(original_path, 'WEBP', quality=88)
+                    main_light, main_parts = _light_share(canvas), _major_parts(canvas)
+                    main = {'image': image_path, 'original': original_path, 'source_sha256': digest,
+                            'pixel_sha256': _pixel_hash(original), 'source_url': url}
+                elif len(views) < PHOTOS_PER_PRODUCT - 1:
+                    view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
+                    canvas.save(view_path, 'WEBP', quality=90)
+                    views.append(view_path)
+                else:
+                    kept.pop()
             except DailyError as error:
                 if str(error) == 'ocr_unavailable':
                     raise
             except Exception:
                 continue
-        raise DailyError('visual_quality_failed')
+        if main is None or len(views) < PHOTOS_PER_PRODUCT - 1:
+            raise DailyError('visual_quality_failed')
+        main['views'] = views
+        return main
     return prepare
 
 
@@ -513,7 +663,11 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
     owner = 'daily-' + (os.environ.get('GITHUB_RUN_ID') or 'run')
     queue_batch = []
     if queue_store is not None:
-        claims = queue_store.claim(day, owner, needed, lease_seconds=1200, now=instant)
+        # Cutting three photos per product takes longer; the claim must outlive the build and the push,
+        # but a lease may not cross midnight (the store refuses that).
+        midnight = datetime.combine(instant.astimezone(timezone.utc).date() + timedelta(days=1), datetime.min.time(), timezone.utc)
+        lease = max(300, min(LEASE_SECONDS, int((midnight - instant).total_seconds()) - 120))
+        claims = queue_store.claim(day, owner, needed, lease_seconds=lease, now=instant)
         for claim in claims:
             try:
                 refreshed = refresh_fn(claim['candidate'], instant)
@@ -526,7 +680,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         stage = Path(folder).resolve()
         if not stage.is_relative_to(reserve_dir.resolve()):
             raise DailyError('staging_invalid')
-        while len(prepared) < needed and attempts < 12:
+        deadline = time.monotonic() + SEARCH_BUDGET_SECONDS
+        while len(prepared) < needed and attempts < MAX_ATTEMPTS and time.monotonic() < deadline:
             if queue_batch:
                 batch, queue_batch = queue_batch, []
             else:
@@ -535,7 +690,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 break
             progress = False
             for candidate in batch:
-                if len(prepared) >= needed or attempts >= 12:
+                if len(prepared) >= needed or attempts >= MAX_ATTEMPTS or time.monotonic() >= deadline:
                     break
                 attempts += 1
                 queue_claim = candidate.get('_queue_claim')
@@ -555,10 +710,15 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         if queue_claim:
                             queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                         continue
-                    for key in ('image','original'):
-                        path = Path(media[key]).resolve()
+                    views = media.get('views') or []
+                    if not isinstance(views, list) or len(views) > PHOTOS_PER_PRODUCT - 1:
+                        raise DailyError('staging_invalid')
+                    for path in [media['image'], media['original'], *views]:
+                        path = Path(path).resolve()
                         if not path.is_relative_to(stage) or not path.is_file():
                             raise DailyError('staging_invalid')
+                    if views:
+                        record_item['views'] = [f'assets/images/{record_item["id"]}-v{n}.webp' for n in range(2, len(views) + 2)]
                     record_item['sourceImageSha256'] = media['source_sha256']
                     record_item['sourcePixelSha256'] = media['pixel_sha256']
                     record_item['sourceImageUrl'] = media.get('source_url', candidate['image_url'])
@@ -575,7 +735,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     if queue_claim:
                         queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                     continue
-            if not progress and attempts >= 12:
+            if not progress and attempts >= MAX_ATTEMPTS:
                 break
         if len(prepared) < needed:
             raise DailyError('underfilled_no_publication')
@@ -597,12 +757,15 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         created = []
         try:
             for product, _, media in prepared:
-                for key, folder in (('image','images'), ('original','originals')):
-                    target = (dist / 'assets' / folder / (product['id'] + '.webp')).resolve()
+                copies = [(media['image'], dist / 'assets/images' / (product['id'] + '.webp')),
+                          (media['original'], dist / 'assets/originals' / (product['id'] + '.webp'))]
+                copies += [(view, dist / relative) for view, relative in zip(media.get('views') or [], product.get('views', []))]
+                for source_path, target in copies:
+                    target = target.resolve()
                     if not target.is_relative_to(dist.resolve()):
                         raise DailyError('asset_path_invalid')
                     target.parent.mkdir(parents=True, exist_ok=True)
-                    with Path(media[key]).open('rb') as src, target.open('xb') as dst:
+                    with Path(source_path).open('rb') as src, target.open('xb') as dst:
                         shutil.copyfileobj(src, dst)
                     created.append(target)
             text = '/* FLUXIXO catalog: existing collection + daily accumulated finds. */\nwindow.MIRA_CATALOG = ' + json.dumps(fresh_catalog, ensure_ascii=False, indent=2) + ';\n'

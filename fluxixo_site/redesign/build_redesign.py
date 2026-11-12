@@ -168,6 +168,8 @@ def load():
         p['world'] = key or by_label.get(data['cats'].get(p['category'], {}).get('en'), 'Дом')
         colour, p['dark'] = tint(p['image'])
         p['tint'] = colour or WORLDS[p['world']]
+        # Extra cut-out views the daily job makes for each new product (assets/images/<id>-v2.webp, -v3.webp).
+        p['views'] = [p['image']] + [v for v in p.get('views') or [] if isinstance(v, str) and (DIST / v).is_file()]
     return products, data
 
 
@@ -339,7 +341,13 @@ class Site:
             sources += f'<source src="{url(clip)}" type=\'video/mp4; codecs="avc1.64001F"\'>'
             photo = (f'<figure class="demo">{photo}<video muted playsinline preload="none" disablepictureinpicture '
                      f'aria-hidden="true" tabindex="-1">{sources}</video></figure>')
-        return f'<div class="p-gallery"><div class="p-stage">{photo}</div></div>'
+        # More cut-out views swipe on a phone and step with arrows and dots on a desktop (app.js).
+        extra = ''.join(f'<img class="cut" src="{img(v, 800)}" alt="{e(name)}" width="800" height="800" decoding="async" loading="lazy">'
+                        for v in p.get('views', [])[1:])
+        if not extra:
+            return f'<div class="p-gallery"><div class="p-stage">{photo}</div></div>'
+        return (f'<div class="p-gallery" data-label-prev="{e(self.ui["prev"])}" data-label-next="{e(self.ui["next"])}">'
+                f'<div class="p-stage" data-dots>{photo}{extra}</div></div>')
 
     def card(self, p):
         return (f'<a class="card" data-go data-w="{slug(p["world"])}" href="{self.ppath(p)}" style="--t:{WORLDS[p["world"]]}">'

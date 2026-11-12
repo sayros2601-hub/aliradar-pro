@@ -2,7 +2,10 @@ name: FLUXIXO Daily Cloud Product Accumulation (+3 per day, 0 deleted)
 
 on:
   schedule:
+    # GitHub starts scheduled jobs hours late; the second slot is a retry. A day that already has its
+    # three products is skipped, so the ledger never allows more than three per UTC day.
     - cron: '0 8 * * *'
+    - cron: '0 13 * * *'
   workflow_dispatch:
     inputs:
       add_count:
@@ -21,7 +24,8 @@ concurrency:
 jobs:
   accumulate-and-deploy:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    # Three cut-out photos per product (up to 9 rembg passes per candidate) need more than the old 25 minutes.
+    timeout-minutes: 80
     env:
       PYTHONDONTWRITEBYTECODE: '1'
     steps:
@@ -31,25 +35,49 @@ jobs:
           ref: main
           fetch-depth: 0
 
+      - name: Skip a retry slot when today's three products are already in
+        id: today
+        if: github.event_name == 'schedule'
+        run: |
+          python3 - <<'EOF'
+          import json, os
+          from datetime import datetime, timezone
+          day = datetime.now(timezone.utc).date().isoformat()
+          done = len(json.load(open('data/fluxixo_daily_ledger.json', encoding='utf-8'))['days'].get(day, []))
+          print(f'{day}: {done} of 3 products already added')
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
+              out.write(f"skip={'true' if done >= 3 else 'false'}\n")
+          EOF
+
       - name: Set up Python 3.12
+        if: steps.today.outputs.skip != 'true'
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
 
       - name: Set up Node.js 22 (for Cloudflare Wrangler)
+        if: steps.today.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Install system & Python dependencies
+      - name: Install OCR (apt with a time limit, conda-forge if the Ubuntu mirrors are down)
+        if: steps.today.outputs.skip != 'true'
+        timeout-minutes: 15
+        run: bash .github/scripts/install_ocr.sh
+
+      - name: Install Python dependencies and Wrangler
+        if: steps.today.outputs.skip != 'true'
+        timeout-minutes: 10
         run: |
-          sudo apt-get update -y && sudo apt-get install -y ffmpeg tesseract-ocr
           python -m pip install --upgrade pip
-          python -m pip install requests pillow rembg onnxruntime
+          python -m pip install --retries 5 --timeout 60 requests pillow rembg onnxruntime
           npm install --no-save wrangler
 
       - name: Prepare up to three source-grounded products and build release
         id: prepare
+        if: steps.today.outputs.skip != 'true'
+        timeout-minutes: 55
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
@@ -60,6 +88,7 @@ jobs:
           python -B fluxixo_daily_rotate.py --add "$ADD_COUNT"
 
       - name: Commit accumulated FLUXIXO catalog and reserve pool
+        if: steps.today.outputs.skip != 'true'
         run: |
           git config user.name "FLUXIXO Cloud Autopilot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -71,6 +100,7 @@ jobs:
           fi
 
       - name: Mark queued AI items committed only after verified push
+        if: steps.today.outputs.skip != 'true'
         env:
           NEW_IDS: ${{ steps.prepare.outputs.ids }}
         run: |
@@ -82,12 +112,14 @@ jobs:
           fi
 
       - name: Deploy the already-built release only after catalog and ledger push
+        if: steps.today.outputs.skip != 'true'
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
         run: python -B fluxixo_daily_rotate.py --add 0 --deploy --deploy-existing
 
       - name: Remember which page versions search engines were told about
+        if: steps.today.outputs.skip != 'true'
         run: |
           git add -f fluxixo_site/tools/indexnow-submitted.json fluxixo_site/tools/yandex-indexnow-state.json 2>/dev/null || true
           if ! git diff --cached --quiet; then
