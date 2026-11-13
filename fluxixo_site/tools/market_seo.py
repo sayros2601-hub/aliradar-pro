@@ -127,11 +127,8 @@ def route_override(overrides, route_path):
 
 
 def market_checklist_html(category_key, lang):
-    guides = MARKET_GUIDES.get(lang, MARKET_GUIDES['en'])
-    bullets = guides['powered'] if category_key in POWERED_KEYS else guides['general']
-    heading = CHECKLIST_HEADING.get(lang, CHECKLIST_HEADING['en'])
-    items = ''.join(f'<li>{e(text)}</li>' for text in bullets)
-    return f'<section class="market-guide"><h2>{e(heading)}</h2><ul>{items}</ul></section>'
+    """Return empty string by default to avoid cloning identical checklist walls across product pages."""
+    return ''
 
 
 def default_faq(product_name, category_key, lang):
@@ -187,7 +184,7 @@ def faq_section_and_schema(product_name, category_key, lang, overrides=None):
     custom = (overrides or {}).get('faq')
     items = [item for item in (custom or []) if isinstance(item, dict) and item.get('q') and item.get('a')]
     if not items:
-        items = default_faq(product_name, category_key, lang)
+        return '', None
     heading = FAQ_HEADING.get(lang, FAQ_HEADING['en'])
     details_html = ''.join(
         f'<details class="faq-item"><summary>{e(item["q"])}</summary><p>{e(item["a"])}</p></details>'

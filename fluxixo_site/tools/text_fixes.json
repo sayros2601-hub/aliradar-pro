@@ -1,107 +1,297 @@
 {
   "_about": "Proofreading corrections, applied by tools/apply_text_fixes.py. Keys are product id prefixes. A headline is written as 'first line|second line'. Safe to re-apply any time.",
   "es": {
-    "auto-1005004679234788": {"headline": "¿Tornillo barrido?|Tiene salida."},
-    "find-002": {"headline": "Carne|en su punto."},
-    "find-003": {"headline": "Noches|sin moscos."},
-    "find-004": {"headline": "Firme|en tu casco."},
-    "find-009": {"name": "Cámara de Seguridad Tipo Foco E27", "headline": "Vigila|desde el foco.", "description": "Cámara motorizada con rosca E27, fácil de instalar en cualquier socket estándar."},
-    "find-012": {"headline": "Peinado|donde sea."},
-    "find-013": {"headline": "Domina|el balón."},
-    "find-018": {"headline": "Pelotas|como nuevas."},
-    "find-019": {"description": "Boquilla con pico curvo y panel superior para servir vino desde la botella."},
-    "find-024": {"description": "Bastón de trekking por secciones, plegable y con correa para la muñeca."},
-    "find-026": {"headline": "Frutas|bien lavadas."},
-    "find-027": {"name": "Plantillas Térmicas Eléctricas"},
-    "find-028": {"description": "Luz compacta con lente roja y soporte para el poste del asiento de la bicicleta."},
-    "find-029": {"name": "Limpiavidrios Magnético de Doble Cara", "description": "Cepillo triangular magnético para limpiar ambos lados del vidrio a la vez."},
-    "find-041": {"name": "Guantes Térmicos de Invierno"},
-    "find-043": {"description": "Pantalla a color de escritorio con reloj, temperatura, humedad y sensor exterior."},
-    "find-044": {"description": "Superficie eléctrica redonda con asas para preparar crepas y hot cakes."},
-    "find-048": {"description": "Bandejas metálicas apilables con tapa para germinar semillas y brotes."},
-    "find-055": {"description": "Quitapelusas inalámbrico con indicador digital de batería para suéteres y prendas tejidas."},
-    "find-056": {"description": "Batidor eléctrico de mano sobre soporte metálico para espumar leche para café, capuchino y matcha."},
-    "find-065": {"name": "Molino Eléctrico de Sal y Pimienta por Gravedad"},
-    "import-0070": {"description": "Soporte ajustable con sujeción firme para colocar el celular en el tablero o en la ventilación del auto."},
-    "import-0530": {"name": "Chamarra Impermeable de Invierno para Perro", "description": "Chamarra acolchada resistente al agua con argolla para correa para pasear a tu perro en invierno."}
+    "auto-1005004679234788": {
+      "headline": "¿Tornillo barrido?|Tiene salida."
+    },
+    "find-002": {
+      "headline": "Carne|en su punto."
+    },
+    "find-003": {
+      "headline": "Noches|sin moscos."
+    },
+    "find-004": {
+      "headline": "Firme|en tu casco."
+    },
+    "find-009": {
+      "name": "Cámara de Seguridad Tipo Foco E27",
+      "headline": "Vigila|desde el foco.",
+      "description": "Cámara motorizada con rosca E27, fácil de instalar en cualquier socket estándar. Se enrosca en un portalámpara E27 bajo techo en cochera o patio para alimentarse del foco existente sin cableado adicional. Verifica que acepte red WiFi 2.4G, revisa la aplicación indicada y confirma si requiere tarjeta microSD aparte."
+    },
+    "find-012": {
+      "headline": "Peinado|donde sea."
+    },
+    "find-013": {
+      "headline": "Domina|el balón."
+    },
+    "find-018": {
+      "headline": "Pelotas|como nuevas."
+    },
+    "find-019": {
+      "description": "Boquilla con pico curvo y panel superior para servir vino desde la botella. Se ajusta sobre la botella abierta y sirve la copa con solo pulsar el botón superior evitando goteos sobre el mantel. Verifica si utiliza baterías AA o carga USB, el largo del popote interno y la compatibilidad con distintos cuellos."
+    },
+    "find-024": {
+      "description": "Bastón de trekking por secciones, plegable y con correa para la muñeca. Su diseño seccionado cabe dentro de mochilas de viaje o maleta de mano para dar estabilidad en pendientes y senderos. Atención importante: verifica siempre en la publicación si la opción elegida corresponde a un bastón individual o al par."
+    },
+    "find-026": {
+      "headline": "Frutas|bien lavadas."
+    },
+    "find-027": {
+      "name": "Plantillas Térmicas Eléctricas"
+    },
+    "find-028": {
+      "description": "Luz compacta con lente roja y soporte para el poste del asiento de la bicicleta. Su correa de silicón se retira sin herramientas al estacionar para guardarla en la bolsa y recargarla por USB sin dejarla expuesta. Revisa los modos de destello y si tu paquete elegido incluye únicamente luz trasera o el juego delantero y trasero."
+    },
+    "find-029": {
+      "name": "Limpiavidrios Magnético de Doble Cara",
+      "description": "Cepillo triangular magnético para limpiar ambos lados del vidrio a la vez. El cordón de seguridad va sujeto a la muñeca para respaldar la cara exterior al recorrer bordes de ventanales altos o fijos. Elegir el nivel exacto para el grosor en milímetros de tu cristal es clave para que deslice suave sin desprenderse."
+    },
+    "find-041": {
+      "name": "Guantes Térmicos de Invierno"
+    },
+    "find-043": {
+      "description": "Pantalla a color de escritorio con reloj, temperatura, humedad y sensor exterior. La pantalla a color queda sobre buró o escritorio mientras el transmisor inalámbrico reporta temperatura exterior desde ventana sombreada sin perforar marcos. Confirma si incluye sensor exterior, alcance de señal y cable adaptador."
+    },
+    "find-044": {
+      "description": "Superficie eléctrica redonda con asas para preparar crepas y hot cakes. Su placa antiadherente plana facilita esparcir masa líquida con esparcidor de madera para lograr crepas delgadas y parejas. Elige con mucha atención el voltaje de 110V compatible en tu hogar y confirma los utensilios incluidos."
+    },
+    "find-048": {
+      "description": "Bandejas metálicas apilables con tapa para germinar semillas y brotes. Las mallas perforadas escurren el agua sobrante al enjuagar brotes mientras mantienen ventilación constante en cada nivel para alfalfa o brócoli. Verifica el tamaño del tejido metálico si planeas germinar semillas muy finas como chía."
+    },
+    "find-055": {
+      "description": "Quitapelusas inalámbrico con indicador digital de batería para suéteres y prendas tejidas. La rejilla curva de acero rasura pelusas de suéteres tejidos, bufandas y tapicería de sala sin jalar las hebras originales. Su depósito traslúcido se vacía al instante; revisa si la caja incluye navajas de repuesto y cepillo."
+    },
+    "find-056": {
+      "description": "Batidor eléctrico de mano sobre soporte metálico para espumar leche para café, capuchino y matcha. El batidor en espiral de acero inoxidable monta espuma densa en leche tibia, crema o té matcha directo en tu taza, y su base metálica lo mantiene en vertical. Revisa si la variante elegida usa baterías AA o batería recargable."
+    },
+    "find-065": {
+      "name": "Molino Eléctrico de Sal y Pimienta por Gravedad"
+    },
+    "import-0070": {
+      "description": "Soporte ajustable con sujeción firme para colocar el celular en el tablero o en la ventilación del auto. Su rótula giratoria orienta el mapa en vertical u horizontal a la vista sin estorbar en el parabrisas durante el trayecto. Elige con cuidado entre base de ventosa para tablero o gancho de rejilla según las ventilas de tu vehículo."
+    },
+    "import-0530": {
+      "name": "Chamarra Impermeable de Invierno para Perro",
+      "description": "Chamarra acolchada resistente al agua con argolla para correa para pasear a tu perro en invierno. Las argollas metálicas en el lomo permiten enganchar la correa directo sin colocar pechera apretada encima del abrigo. Mide con cinta el contorno de pecho, cuello y largo del lomo de tu perro antes de seleccionar la talla."
+    }
   },
   "pt": {
-    "auto-1005004679234788": {"headline": "Parafuso espanado?|Tem saída."},
-    "find-002": {"headline": "Carne|no ponto."},
-    "find-003": {"headline": "Noite|sem mosquito."},
-    "find-004": {"headline": "Firme|no capacete."},
-    "find-012": {"headline": "Penteado|em qualquer lugar."},
-    "find-021": {"headline": "Irrigação|programada."},
-    "find-022": {"headline": "Frescor na|caixa de areia."},
-    "find-026": {"headline": "Frutas|bem lavadas."},
-    "find-070": {"headline": "Temperatura|exata."},
-    "import-0026": {"headline": "Clique rápido,|controle total."}
+    "auto-1005004679234788": {
+      "headline": "Parafuso espanado?|Tem saída."
+    },
+    "find-002": {
+      "headline": "Carne|no ponto."
+    },
+    "find-003": {
+      "headline": "Noite|sem mosquito."
+    },
+    "find-004": {
+      "headline": "Firme|no capacete."
+    },
+    "find-012": {
+      "headline": "Penteado|em qualquer lugar."
+    },
+    "find-021": {
+      "headline": "Irrigação|programada."
+    },
+    "find-022": {
+      "headline": "Frescor na|caixa de areia."
+    },
+    "find-026": {
+      "headline": "Frutas|bem lavadas."
+    },
+    "find-070": {
+      "headline": "Temperatura|exata."
+    },
+    "import-0026": {
+      "headline": "Clique rápido,|controle total."
+    }
   },
   "en": {
-    "auto-1005004679234788": {"headline": "Stripped screw?|Not a dead end."},
-    "find-001": {"headline": "A breeze|on your neck."},
-    "find-002": {"name": "Dual-Probe Meat Thermometer", "headline": "Cooked|just right."},
-    "find-003": {"headline": "Bug-free|evenings."},
-    "find-004": {"headline": "Locked onto|your helmet."},
-    "find-013": {"description": "Waist belt with elastic tether and ball holder for solo soccer control training."},
-    "find-022": {"headline": "A fresher|litter box."},
-    "find-026": {"headline": "Rinsed|and ready."},
-    "find-029": {"headline": "Both sides|at once."},
-    "find-034": {"description": "Handles with built-in counter and adjustable rope for home cardio workouts."},
-    "find-036": {"description": "Handheld wall detector with circular screen for locating hidden metal, wood studs, and wiring."},
-    "find-041": {"headline": "Warm|hands."},
-    "find-044": {"headline": "Tastier|mornings."},
-    "find-048": {"headline": "Fresh greens on|your windowsill."},
-    "find-052": {"description": "Pocket laser rangefinder with backlit display, area calculation, and dual bubble levels."},
-    "find-057": {"headline": "A tidier|bathroom."},
-    "find-059": {"headline": "Order in|every detail."},
-    "find-060": {"description": "Portable air compressor with digital pressure gauge and auto shut-off for car, motorcycle, and bike tires."},
-    "find-071": {"description": "Weatherproof metal lockbox with combination dial and protective shutter for storing spare keys outdoors."},
-    "import-0010": {"headline": "One hub,|all charged."},
-    "import-0026": {"headline": "Crisp click,|steady aim."},
-    "import-0051": {"headline": "All ports,|one cable."},
-    "import-0057": {"headline": "Clear voice,|hands-free."},
-    "import-0451": {"headline": "Desk light,|zero glare."},
-    "import-0488": {"headline": "Big screen,|no cables."},
-    "import-0545": {"headline": "Walk-ready|every day."}
+    "auto-1005004679234788": {
+      "headline": "Stripped screw?|Not a dead end."
+    },
+    "find-001": {
+      "headline": "A breeze|on your neck."
+    },
+    "find-002": {
+      "name": "Dual-Probe Meat Thermometer",
+      "headline": "Cooked|just right."
+    },
+    "find-003": {
+      "headline": "Bug-free|evenings."
+    },
+    "find-004": {
+      "headline": "Locked onto|your helmet."
+    },
+    "find-013": {
+      "description": "Waist belt with elastic tether and ball holder for solo soccer control training. The shock-cord tether rebounds passes and juggling touches right back to your feet so players practice ball control in small yards alone. Fits standard ball sizes via adjustable straps; verify cord length and that no ball ships included."
+    },
+    "find-022": {
+      "headline": "A fresher|litter box."
+    },
+    "find-026": {
+      "headline": "Rinsed|and ready."
+    },
+    "find-029": {
+      "headline": "Both sides|at once."
+    },
+    "find-034": {
+      "description": "Handles with built-in counter and adjustable rope for home cardio workouts. Work out outdoors with the adjustable long cable or switch indoors to cordless weighted balls where ceilings run low. Check whether ropeless spheres ship in your chosen bundle and confirm handle height adjustment steps."
+    },
+    "find-036": {
+      "description": "Handheld wall detector with circular screen for locating hidden metal, wood studs, and wiring. Sweeping walls before drilling shelves or TV brackets flags metal studs, wood joists, and live AC conductors beneath drywall. Remember scan depth varies with plaster thickness and dampness; check calibration instructions before testing."
+    },
+    "find-041": {
+      "headline": "Warm|hands."
+    },
+    "find-044": {
+      "headline": "Tastier|mornings."
+    },
+    "find-048": {
+      "headline": "Fresh greens on|your windowsill."
+    },
+    "find-052": {
+      "description": "Pocket laser rangefinder with backlit display, area calculation, and dual bubble levels. Dual spirit vials assist plumb wall or floor alignment when measuring ceiling heights, doorways, and room square footage solo without pulling a metal tape. Confirm range version rating and battery pack contents on the listing."
+    },
+    "find-057": {
+      "headline": "A tidier|bathroom."
+    },
+    "find-059": {
+      "headline": "Order in|every detail."
+    },
+    "find-060": {
+      "description": "Portable air compressor with digital pressure gauge and auto shut-off for car, motorcycle, and bike tires. A braided screw-on hose keeps a tight seal on tire stems while the integrated side light illuminates wheel valves along dark shoulders. Confirm included Presta, ball, and inflatable nozzles plus battery rating and USB input."
+    },
+    "find-071": {
+      "description": "Weatherproof metal lockbox with combination dial and protective shutter for storing spare keys outdoors."
+    },
+    "import-0010": {
+      "headline": "One hub,|all charged."
+    },
+    "import-0026": {
+      "headline": "Crisp click,|steady aim."
+    },
+    "import-0051": {
+      "headline": "All ports,|one cable."
+    },
+    "import-0057": {
+      "headline": "Clear voice,|hands-free."
+    },
+    "import-0451": {
+      "headline": "Desk light,|zero glare."
+    },
+    "import-0488": {
+      "headline": "Big screen,|no cables."
+    },
+    "import-0545": {
+      "headline": "Walk-ready|every day."
+    }
   },
   "fr": {
-    "auto-1005004679234788": {"headline": "Vis abîmée ?|Pas de panique."},
-    "find-002": {"name": "Thermomètre à Viande à Double Sonde", "headline": "Cuisson|à point."},
-    "find-003": {"headline": "Soirées|sans moustiques."},
-    "find-004": {"headline": "Bien fixé|au casque."},
-    "find-012": {"headline": "Coiffure|partout."},
-    "find-014": {"name": "Lunch Box Chauffante Électrique"},
-    "find-022": {"headline": "Une litière|plus fraîche."},
-    "find-026": {"headline": "Fruits|bien lavés."},
-    "find-059": {"headline": "De l'ordre|dans les détails."},
-    "import-0057": {"headline": "Voix claire,|mains libres."},
-    "import-0530": {"headline": "Promenade|bien au chaud."}
+    "auto-1005004679234788": {
+      "headline": "Vis abîmée ?|Pas de panique."
+    },
+    "find-002": {
+      "name": "Thermomètre à Viande à Double Sonde",
+      "headline": "Cuisson|à point."
+    },
+    "find-003": {
+      "headline": "Soirées|sans moustiques."
+    },
+    "find-004": {
+      "headline": "Bien fixé|au casque."
+    },
+    "find-012": {
+      "headline": "Coiffure|partout."
+    },
+    "find-014": {
+      "name": "Lunch Box Chauffante Électrique"
+    },
+    "find-022": {
+      "headline": "Une litière|plus fraîche."
+    },
+    "find-026": {
+      "headline": "Fruits|bien lavés."
+    },
+    "find-059": {
+      "headline": "De l'ordre|dans les détails."
+    },
+    "import-0057": {
+      "headline": "Voix claire,|mains libres."
+    },
+    "import-0530": {
+      "headline": "Promenade|bien au chaud."
+    }
   },
   "he": {
-    "auto-1005004679234788": {"headline": "בורג שנהרס?|יש פתרון."},
-    "find-001": {"headline": "רוח קרירה|על הצוואר."},
-    "find-002": {"headline": "בשר במידה|המדויקת."},
-    "find-003": {"headline": "ערב|בלי יתושים."},
-    "find-004": {"headline": "יציב|על הקסדה."},
-    "find-006": {"headline": "טלפון קריר|גם במשחק."},
-    "find-015": {"headline": "לא מפספסים|אף אכילה."},
-    "find-026": {"headline": "פירות|שטופים היטב."},
-    "find-034": {"headline": "שומרים|על הקצב."},
-    "find-051": {"headline": "תכשיטים|נוצצים מחדש."},
-    "find-052": {"description": "מד מרחק לייזר קומפקטי עם מסך מואר, חישוב שטח ושתי פלסות מובנות."},
-    "find-069": {"description": "משקל תלייה קומפקטי עם רצועה חזקה וצג LCD לשקילת מזוודות לפני היציאה לשדה התעופה."},
-    "find-089": {"name": "משטח ליקוק מסיליקון עם הצמדת ואקום לחיות מחמד"}
+    "auto-1005004679234788": {
+      "headline": "בורג שנהרס?|יש פתרון."
+    },
+    "find-001": {
+      "headline": "רוח קרירה|על הצוואר."
+    },
+    "find-002": {
+      "headline": "בשר במידה|המדויקת."
+    },
+    "find-003": {
+      "headline": "ערב|בלי יתושים."
+    },
+    "find-004": {
+      "headline": "יציב|על הקסדה."
+    },
+    "find-006": {
+      "headline": "טלפון קריר|גם במשחק."
+    },
+    "find-015": {
+      "headline": "לא מפספסים|אף אכילה."
+    },
+    "find-026": {
+      "headline": "פירות|שטופים היטב."
+    },
+    "find-034": {
+      "headline": "שומרים|על הקצב."
+    },
+    "find-051": {
+      "headline": "תכשיטים|נוצצים מחדש."
+    },
+    "find-052": {
+      "description": "מד מרחק לייזר קומפקטי עם מסך מואר, חישוב שטח ושתי פלסות מובנות. שתי פלסות בועה משולבות עוזרות להצמיד את המכשיר ישר לקיר או לרצפה למדידת מרחקים ושטחים לבד. בדקו מראש את טווח המדידה המרבי של הגרסה ואת תכולת הערכה."
+    },
+    "find-069": {
+      "description": "משקל תלייה קומפקטי עם רצועה חזקה וצג LCD לשקילת מזוודות לפני היציאה לשדה התעופה."
+    },
+    "find-089": {
+      "name": "משטח ליקוק מסיליקון עם הצמדת ואקום לחיות מחמד"
+    }
   },
   "ru": {
-    "auto-1005004679234788": {"headline": "Сорванный винт —|не приговор."},
-    "find-001": {"headline": "Ветерок|на шее."},
-    "find-002": {"headline": "Мясо нужной|прожарки."},
-    "find-003": {"headline": "Вечер|без комаров."},
-    "find-004": {"headline": "Держится|на шлеме."},
-    "find-026": {"headline": "Вымыто|начисто."},
-    "find-047": {"name": "Ручка-сканер с переводчиком"},
-    "find-058": {"name": "Bluetooth-брелок для поиска ключей"},
-    "import-0530": {"description": "Непромокаемая куртка с мягкой подкладкой и кольцом под поводок для прогулок с собакой в холодную погоду."}
+    "auto-1005004679234788": {
+      "headline": "Сорванный винт —|не приговор."
+    },
+    "find-001": {
+      "headline": "Ветерок|на шее."
+    },
+    "find-002": {
+      "headline": "Мясо нужной|прожарки."
+    },
+    "find-003": {
+      "headline": "Вечер|без комаров."
+    },
+    "find-004": {
+      "headline": "Держится|на шлеме."
+    },
+    "find-026": {
+      "headline": "Вымыто|начисто."
+    },
+    "find-047": {
+      "name": "Ручка-сканер с переводчиком"
+    },
+    "find-058": {
+      "name": "Bluetooth-брелок для поиска ключей"
+    },
+    "import-0530": {
+      "description": "Непромокаемая куртка с мягкой подкладкой и кольцом под поводок для прогулок с собакой в холодную погоду. Плечевой пошив со встроенной петлёй под карабин позволяет одеть питомца за секунды без дополнительной шлейки сверху на куртку. Обязательно снимите три мерки — обхват груди за локтями, длину спины до хвоста и шею — перед выбором размера."
+    }
   }
 }

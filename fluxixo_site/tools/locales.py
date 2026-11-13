@@ -687,7 +687,8 @@ def generate(origin, data, products, page, write, image):
                 editorial_image_caption(name, cat, language), crumbs,
                 extra_images=product.get('views'), image_name=name, dist_root=dist_dir,
             )
-            schema['@graph'].append(faq_schema)
+            if faq_schema:
+                schema['@graph'].append(faq_schema)
             if vid_schema:
                 schema['@graph'].append(vid_schema)
             write(path.strip('/')+'/index.html', page(title, description, path, body, schema,

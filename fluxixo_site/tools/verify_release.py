@@ -18,6 +18,26 @@ NS = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
 FORBIDDEN = ('"Product"', '"Offer"', 'priceCurrency', 'InStock', 'Подборка')
 MAX_HTML_BYTES = 1_000_000
 MAX_REDIRECT_RULES = 90
+MAX_PRODUCT_MAIN_MEDIAN_JACCARD = 0.45
+
+import importlib.util as _importlib_util
+import statistics as _statistics
+
+
+def _load_check_texts():
+    try:
+        import check_texts as _ct
+        return _ct
+    except ImportError:
+        spec = _importlib_util.spec_from_file_location('check_texts', Path(__file__).with_name('check_texts.py'))
+        if spec is None or spec.loader is None:
+            raise ImportError('Could not load check_texts.py next to verify_release.py')
+        mod = _importlib_util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        return mod
+
+
+_check_texts = _load_check_texts()
 
 # Adding any one of these ImageObject keys activates Google Search Console's
 # Image License Metadata ("Licensable") report and requires the entire companion set.
@@ -228,6 +248,93 @@ class Page(HTMLParser):
             self._buffer.append(data)
 
 
+_PRODUCT_ROUTE_RE = re.compile(r'^/(?:(?:en|pt|es|fr|he)/)?products/[^/]+/?$')
+_BOILERPLATE_SECTION_RE = re.compile(
+    r'<section\b[^>]*class=["\'][^"\']*\b(market-guide|product-faq)\b[^"\']*["\'][^>]*>(.*?)</section>',
+    re.S | re.I,
+)
+_MAIN_BLOCK_RE = re.compile(r'<main\b[^>]*>(.*?)</main>', re.S | re.I)
+_PRODUCT_PT_RE = re.compile(r'<p\b[^>]*class=["\'][^"\']*\bt\b[^"\']*["\'][^>]*>(.*?)</p>', re.S | re.I)
+_STRIP_NONVISIBLE_RE = re.compile(r'<(script|style)\b[^>]*>.*?</\1>', re.S | re.I)
+_HTML_TAGS_RE = re.compile(r'<[^>]+>')
+_WORD_TOK_RE = re.compile(r'[0-9A-Za-z\u00c0-\u024f\u0400-\u04ff\u05d0-\u05ea]+')
+
+
+def _strip_html_to_text(fragment):
+    """Strip scripts, styles, and tags cleanly for boilerplate and token comparisons."""
+    cleaned = _STRIP_NONVISIBLE_RE.sub(' ', fragment or '')
+    return ' '.join(_HTML_TAGS_RE.sub(' ', cleaned).split())
+
+
+def validate_product_page_uniqueness(
+    html_by_url,
+    *,
+    max_median_main_jaccard=MAX_PRODUCT_MAIN_MEDIAN_JACCARD,
+    min_pages_for_jaccard=6,
+):
+    """Detect placeholder seller-title fallbacks and cloned boilerplate across product pages."""
+    errors = []
+    by_locale = collections.defaultdict(list)
+    for url, html in sorted((html_by_url or {}).items()):
+        path = urlsplit(url).path
+        if not _PRODUCT_ROUTE_RE.match(path):
+            continue
+        if _check_texts.has_placeholder_copy(html):
+            errors.append(f'placeholder copy on product page: {url}')
+        loc_match = re.match(r'^/(en|pt|es|fr|he)/', path)
+        loc = loc_match.group(1) if loc_match else 'ru'
+        by_locale[loc].append((url, html))
+
+    for loc, items in sorted(by_locale.items()):
+        section_pages = collections.defaultdict(list)
+        pt_pages = collections.defaultdict(list)
+        word_sets = []
+
+        for url, html in items:
+            for cls_name, inner in _BOILERPLATE_SECTION_RE.findall(html):
+                norm_sec = _strip_html_to_text(inner).casefold()
+                if norm_sec:
+                    section_pages[(cls_name.lower(), norm_sec)].append(url)
+
+            pt_match = _PRODUCT_PT_RE.search(html)
+            if pt_match:
+                norm_pt = _strip_html_to_text(pt_match.group(1)).casefold()
+                if norm_pt:
+                    pt_pages[norm_pt].append(url)
+
+            main_match = _MAIN_BLOCK_RE.search(html)
+            main_txt = _strip_html_to_text(main_match.group(1) if main_match else html)
+            word_sets.append(set(_WORD_TOK_RE.findall(main_txt.casefold())))
+
+        for (cls_name, _), urls in sorted(section_pages.items(), key=lambda kv: kv[0]):
+            if len(urls) >= 3:
+                errors.append(
+                    f'repeated <section class="{cls_name}"> on {len(urls)} {loc} product pages ({urls[0]}..)'
+                )
+
+        for _, urls in sorted(pt_pages.items(), key=lambda kv: kv[1][0]):
+            if len(urls) > 1:
+                errors.append(
+                    f'duplicate product <p class="t"> in {loc}: {urls[:3]}'
+                )
+
+        if len(word_sets) >= min_pages_for_jaccard:
+            jaccards = []
+            for i in range(len(word_sets)):
+                a = word_sets[i]
+                for j in range(i + 1, len(word_sets)):
+                    b = word_sets[j]
+                    union = len(a | b)
+                    jaccards.append((len(a & b) / union) if union else 0.0)
+            median_j = _statistics.median(jaccards)
+            if median_j > max_median_main_jaccard:
+                errors.append(
+                    f'high template similarity in {loc} product pages '
+                    f'(median <main> Jaccard={median_j:.3f} > {max_median_main_jaccard:.2f})'
+                )
+    return errors
+
+
 def local_file(url_or_path):
     path = urlsplit(url_or_path).path.strip('/')
     if re.search(r'\.[a-z0-9]{2,5}$', path):
@@ -365,6 +472,8 @@ def main():
         for word in FORBIDDEN:
             if word in text:
                 problems['forbidden text ' + word].append(url)
+        if _check_texts.has_placeholder_copy(text):
+            problems['placeholder fallback copy'].append(url)
         for block in page.jsonld:
             try:
                 payload = json.loads(block)
@@ -399,6 +508,13 @@ def main():
         duplicates = [value for value, count in counts.items() if count > 1]
         if duplicates:
             problems['duplicate ' + field].append(str(duplicates[:3]))
+    product_html = {
+        url: local_file(url).read_text('utf-8', errors='replace')
+        for url in pages
+        if _PRODUCT_ROUTE_RE.match(urlsplit(url).path) and local_file(url).is_file()
+    }
+    for err in validate_product_page_uniqueness(product_html):
+        problems['product page uniqueness'].append(err)
     for lang in ('en', 'pt', 'es', 'fr', 'he'):
         map_path = RELEASE / f'sitemap-{lang}.xml'
         if not map_path.exists():

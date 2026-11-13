@@ -87,6 +87,87 @@ def words(text):
 
 # Filler a generator puts in when it has nothing to say.
 FILLER = {'aliexpress', 'fluxixo', 'seller', 'title', 'vendedor', 'vendeur', 'título', 'titre', 'продавца', 'название'}
+PLACEHOLDER_SNIPPETS = (
+    'название приведено из карточки продавца',
+    'the title comes from the seller listing',
+    'o título vem do anúncio do vendedor',
+    'el título procede del anuncio del vendedor',
+    'le titre provient de l’annonce du vendeur',
+    "le titre provient de l'annonce du vendeur",
+    'הכותרת לקוחה מדף המוכר',
+)
+
+
+def has_placeholder_copy(text):
+    low = ' '.join(str(text or '').split()).casefold()
+    return any(snippet in low for snippet in PLACEHOLDER_SNIPPETS)
+
+
+def lint_product_entry(pid, entry, *, known_in_catalog=True, reject_placeholders=True):
+    """Validate translated language entries (en, pt, es, fr, he) for one product."""
+    problems = []
+    seen = {}
+    for lang in LANGS:
+        t = (entry or {}).get(lang)
+        if not t or not all(t.get(k) for k in FIELDS):
+            if known_in_catalog:
+                problems.append(f'{pid}/{lang}: translation missing or incomplete')
+            continue
+        if not isinstance(t['headline'], list) or len(t['headline']) != 2:
+            problems.append(f'{pid}/{lang}: headline must be two lines')
+        check_slogan(t['name'], t['headline'], f'{pid}/{lang}', problems)
+        for field in FIELDS:
+            text = flat(t[field])
+            check_string(text, lang, f'{pid}/{lang}/{field}', problems)
+            if reject_placeholders and has_placeholder_copy(text):
+                problems.append(f'{pid}/{lang}/{field}: fallback seller-title placeholder copy is forbidden')
+        if not t['description'].rstrip().endswith(('.', '!', '?', '…')):
+            problems.append(f'{pid}/{lang}/description: no full stop at the end')
+        if len(t['name']) > 62:
+            problems.append(f'{pid}/{lang}/name: {len(t["name"])} characters, too long for a page title')
+        if lang != 'he':
+            seen.setdefault(t['name'], []).append(lang)
+    for name, langs in seen.items():
+        if len(langs) > 2:
+            problems.append(f'{pid}: the same name in {langs}, probably not translated -> {name!r}')
+    return problems
+
+
+def lint_ru_product(product, data=None, *, reject_placeholders=True):
+    """Validate the primary Russian product record and fact translation keys."""
+    problems = []
+    pid = product.get('id', '?')
+    if not all(product.get(k) for k in FIELDS):
+        problems.append(f'{pid}/ru: product copy missing or incomplete')
+        return problems
+    if not isinstance(product['headline'], list) or len(product['headline']) != 2:
+        problems.append(f'{pid}/ru: headline must be two lines')
+    for field in FIELDS:
+        text = flat(product[field])
+        check_string(text, 'ru', f'{pid}/ru/{field}', problems)
+        if reject_placeholders and has_placeholder_copy(text):
+            problems.append(f'{pid}/ru/{field}: fallback seller-title placeholder copy is forbidden')
+    check_slogan(product['name'], product['headline'], f'{pid}/ru', problems)
+    if not product['description'].rstrip().endswith(('.', '!', '?', '…')):
+        problems.append(f'{pid}/ru/description: no full stop at the end')
+    if len(product['name']) > 62:
+        problems.append(f'{pid}/ru/name: {len(product["name"])} characters, too long for a page title')
+    if data is not None:
+        for fact in product.get('facts', []):
+            for part in (fact.get('label'), fact.get('value')):
+                if part and part not in ('Подборка',) and fact.get('label') != 'Подборка':
+                    for lang in LANGS:
+                        if not (data.get('facts', {}).get(part, {}).get(lang) or data.get('cats', {}).get(part, {}).get(lang)):
+                            problems.append(f'{pid}: fact "{part}" has no {lang} translation')
+    return problems
+
+
+def lint_product_bundle(pid, ru_product, translated_entry, data=None, *, reject_placeholders=True):
+    """Validate all 6 locales for a single product record before publication or release."""
+    return (
+        lint_ru_product(ru_product, data, reject_placeholders=reject_placeholders)
+        + lint_product_entry(pid, translated_entry, known_in_catalog=True, reject_placeholders=reject_placeholders)
+    )
 
 
 def check_slogan(name, headline, where, problems):
@@ -107,41 +188,11 @@ def run(dump=None):
     known = {p['id'] for p in products}
     ru = {p['id']: p for p in products}
     for pid, entry in data['products'].items():
-        for lang in LANGS:
-            t = entry.get(lang)
-            if not t or not all(t.get(k) for k in FIELDS):
-                if pid in known:
-                    problems.append(f'{pid}/{lang}: translation missing or incomplete')
-                continue
-            if not isinstance(t['headline'], list) or len(t['headline']) != 2:
-                problems.append(f'{pid}/{lang}: headline must be two lines')
-            check_slogan(t['name'], t['headline'], f'{pid}/{lang}', problems)
-            for field in FIELDS:
-                check_string(flat(t[field]), lang, f'{pid}/{lang}/{field}', problems)
-            if not t['description'].rstrip().endswith(('.', '!', '?', '…')):
-                problems.append(f'{pid}/{lang}/description: no full stop at the end')
-            if len(t['name']) > 62:
-                problems.append(f'{pid}/{lang}/name: {len(t["name"])} characters, too long for a page title')
-        seen = {}
-        for lang in LANGS:
-            name = entry.get(lang, {}).get('name')
-            if name and lang != 'he':
-                seen.setdefault(name, []).append(lang)
-        for name, langs in seen.items():
-            if len(langs) > 2:
-                problems.append(f'{pid}: the same name in {langs}, probably not translated -> {name!r}')
+        problems.extend(lint_product_entry(pid, entry, known_in_catalog=(pid in known), reject_placeholders=True))
     for pid in known - set(data['products']):
         problems.append(f'{pid}: no translations at all')
     for p in products:
-        for field in FIELDS:
-            check_string(flat(p[field]), 'ru', f'{p["id"]}/ru/{field}', problems)
-        check_slogan(p['name'], p['headline'], f'{p["id"]}/ru', problems)
-        for fact in p.get('facts', []):
-            for part in (fact.get('label'), fact.get('value')):
-                if part and part not in ('Подборка',) and fact.get('label') != 'Подборка':
-                    for lang in LANGS:
-                        if not (data.get('facts', {}).get(part, {}).get(lang) or data.get('cats', {}).get(part, {}).get(lang)):
-                            problems.append(f'{p["id"]}: fact "{part}" has no {lang} translation')
+        problems.extend(lint_ru_product(p, data, reject_placeholders=True))
     for cat, labels in data['cats'].items():
         for lang in LANGS:
             if not labels.get(lang):

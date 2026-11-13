@@ -8,6 +8,7 @@ from __future__ import annotations
 
 from datetime import datetime, timedelta, timezone
 from collections import deque
+import copy
 from io import BytesIO
 from pathlib import Path
 import hashlib
@@ -21,7 +22,7 @@ import tempfile
 import time
 
 from urllib.parse import urlsplit
-from . import image_studio
+from . import curated_copy, image_studio
 from .policy import QUERY, DETAIL, normalize_product, image_host_allowed
 from .search import _rows, generate_affiliate, ApiError
 from .task_copy import task_description, task_headline
@@ -157,10 +158,10 @@ def _sanitize_deterministic_copy(record_item, translated, candidate, site_root, 
     pid = str(record_item.get('id') or '')
     variant_idx = int(hashlib.sha256(pid.encode('utf-8')).hexdigest()[:2], 16) % 3
 
-    # 1. Clean raw English seller title if queued item came without template task
-    if record_item.get('sourceTask') == 'seller_title' and source_title:
+    # 1. Clean raw English seller title whenever English name mirrors sourceTitle or exceeds 62 chars
+    if source_title and (record_item.get('sourceTask') == 'seller_title' or len(str(record_item.get('name', ''))) > 62):
         en_entry = bundle.get('en')
-        if en_entry and copy_originality.check_source_title_mirroring({'en': en_entry}, source_title):
+        if en_entry and (len(en_entry.get('name', '')) > 62 or copy_originality.check_source_title_mirroring({'en': en_entry}, source_title)):
             cleaned = _SELLER_NOISE_RE.sub(' ', en_entry.get('name', ''))
             words = [w for w in cleaned.split() if w.lower() not in {'for', 'with', 'and', 'to', 'in', 'of'}]
             # Keep compact informative noun core distinct from raw long AliExpress title
@@ -429,7 +430,10 @@ def build_record(candidate):
         )
         if not (is_seed_task or is_curated_task):
             raise AutonomousError('task_title_mismatch')
-    if task is None or not task.get('names'):
+    curated = curated_copy.get_task_copy(task.get('key') if isinstance(task, dict) else None)
+    if curated is not None:
+        localized = copy.deepcopy(curated)
+    elif task is None or not task.get('names'):
         category = candidate.get('category') if task is None else task.get('category')
         if category not in CATEGORIES:
             raise AutonomousError('candidate_category_invalid')
@@ -955,9 +959,9 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             from .search import AliClient
             api_holder.append(AliClient())
         return api_holder[0]
+    from . import discovery_curator
     using_default_discover = discover_fn is None
     if discover_fn is None:
-        from . import discovery_curator
         discover_fn = lambda existing, amount, when: discover(
             get_api(),
             existing,
@@ -1090,6 +1094,11 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
                     )
                     if strict_copy:
+                        ct_mod = discovery_curator._lazy_check_texts()
+                        if ct_mod.lint_product_bundle(record_item['id'], record_item, translated, reject_placeholders=True):
+                            if queue_claim:
+                                queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
+                            continue
                         try:
                             _, co_mod = _import_tools_modules(site_root)
                             full_bundle = {
@@ -1133,6 +1142,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             [p[0] for p in prepared],
             old,
             require_markets=using_default_discover,
+            translations={p[0]['id']: p[1] for p in prepared},
         )
         if not gate_ok:
             raise DailyError('pre_deploy_gate_failed:' + ','.join(gate_errors[:4]))

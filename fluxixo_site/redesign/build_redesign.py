@@ -490,11 +490,13 @@ class Site:
                 extra_images=p.get('views'), image_name=name, dist_root=DIST,
             )
             faq_html, faq_schema = market_seo.faq_section_and_schema(name, key, self.lang, ov)
-            schema['@graph'].append(faq_schema)
+            if faq_schema:
+                schema['@graph'].append(faq_schema)
             _, vid_schema = market_seo.video_block_and_schema(ORIGIN, DIST, p, name, desc, self.lang, p['image'])
             if vid_schema:
                 schema['@graph'].append(vid_schema)
             chk_html = market_seo.market_checklist_html(key, self.lang)
+            seo_notes_html = f'<div class="seo-notes">{chk_html}{faq_html}</div>' if (chk_html or faq_html) else ''
             facts = ''.join(f'<li>{e(L.translate_fact(self.data, f["label"], self.lang))}: {e(L.translate_fact(self.data, f["value"], self.lang))}</li>'
                             for f in L.public_facts(p))
             crumb_html = ''.join(f'<li><a href="{href}">{e(label)}</a></li>' for label, href in crumbs[:-1])
@@ -505,7 +507,7 @@ class Site:
                     f'{"<ul class=facts>" + facts + "</ul>" if facts else ""}'
                     f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(L.DISCLOSURE[self.lang])}</p></div>'
                     f'{self.gallery(p, name)}</div></section>'
-                    f'<div class="seo-notes">{chk_html}{faq_html}</div>')
+                    f'{seo_notes_html}')
             if related:
                 body += (f'<section class="related"><p class="eye"><b>●</b> {e(self.cat(key))}</p>'
                          f'<h2 class="d rv">{e(u["related"][0])} <span class="s">{e(u["related"][1])}</span></h2>{self.rope(related)}</section>')
@@ -593,10 +595,8 @@ def proofread():
             for part in (text if isinstance(text, tuple) else (text,)):
                 if isinstance(part, str) and part:
                     check_texts.check_string(part, lang, f'interface/{lang}/{key}', problems)
-    if problems and not PROD:
+    if problems:
         sys.exit('Text problems, build stopped:\n' + '\n'.join(problems))
-    for problem in problems:
-        print(f'::warning title=Text needs proofreading::{problem}')
 
 
 def main():

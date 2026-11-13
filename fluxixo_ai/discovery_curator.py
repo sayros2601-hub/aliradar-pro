@@ -544,14 +544,29 @@ def generate_ai_discovery_queries(
     return out
 
 
+def _lazy_check_texts():
+    try:
+        from fluxixo_site.tools import check_texts
+        return check_texts
+    except ImportError:
+        tools_dir = str((__import__('pathlib').Path(__file__).resolve().parents[1] / 'fluxixo_site/tools'))
+        import sys
+        if tools_dir not in sys.path:
+            sys.path.insert(0, tools_dir)
+        import check_texts  # noqa: E402
+        return check_texts
+
+
 def pre_deploy_catalog_gate(
     prepared_items: list[dict[str, Any]],
     existing_catalog: list[dict[str, Any]],
     *,
     require_markets: bool = True,
+    translations: dict[str, dict[str, Any]] | None = None,
 ) -> tuple[bool, list[str]]:
     """Final strict pre-publication audit before any newly prepared item can be committed/deployed."""
     errors: list[str] = []
+    check_texts = _lazy_check_texts()
     seen_ids = {str(p.get('id') or '') for p in existing_catalog if isinstance(p, dict)}
     seen_source_ids = {str(p.get('sourceProductId') or '') for p in existing_catalog if isinstance(p, dict) and p.get('sourceProductId')}
 
@@ -559,6 +574,9 @@ def pre_deploy_catalog_gate(
         pid = str(item.get('id') or '')
         spid = str(item.get('sourceProductId') or '')
         src_title = str(item.get('sourceTitle') or item.get('name') or '')
+        name = str(item.get('name') or '')
+        desc = str(item.get('description') or '')
+        details = str(item.get('details') or '')
         if not pid or pid in seen_ids:
             errors.append(f'{pid}:duplicate_catalog_id')
         if spid and spid in seen_source_ids:
@@ -566,6 +584,11 @@ def pre_deploy_catalog_gate(
         seen_ids.add(pid)
         if spid:
             seen_source_ids.add(spid)
+
+        if len(name) > 62:
+            errors.append(f'{pid}:title_too_long:{len(name)}')
+        if any(check_texts.has_placeholder_copy(text) for text in (name, desc, details)):
+            errors.append(f'{pid}:placeholder_copy_forbidden')
 
         banned, reason = is_ordinary_or_banned_listing(src_title)
         if banned:
@@ -582,5 +605,13 @@ def pre_deploy_catalog_gate(
 
         if item.get('imageQualityVerified') is False:
             errors.append(f'{pid}:image_quality_not_verified')
+
+        if desc and item.get('headline'):
+            if translations is not None and pid in translations:
+                lint_errs = check_texts.lint_product_bundle(pid, item, translations[pid], reject_placeholders=True)
+            else:
+                lint_errs = check_texts.lint_ru_product(item, reject_placeholders=True)
+            for err in lint_errs:
+                errors.append(f'{pid}:text_lint:{err}')
 
     return not errors, errors
