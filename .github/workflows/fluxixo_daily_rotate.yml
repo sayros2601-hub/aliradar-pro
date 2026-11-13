@@ -1,17 +1,26 @@
-name: FLUXIXO Daily Cloud Product Accumulation (+3 per day, 0 deleted)
+name: FLUXIXO Staggered Peak-Hour Cloud Product Accumulation (1 per peak wave, max 3/day)
 
 on:
   schedule:
-    # GitHub starts scheduled jobs hours late; the second slot is a retry. A day that already has its
-    # three products is skipped, so the ledger never allows more than three per UTC day.
-    - cron: '0 8 * * *'
-    - cron: '0 13 * * *'
+    # Staggered prime-time browsing windows across all 6 target countries (+1 item per wave, 3/day max):
+    # - 01:00 UTC: US (17:00-21:00) & Mexico (19:00 CST) evening prime peak
+    # - 17:00 UTC: Russia (20:00 MSK), Israel (19:00 IST) & France (18:00 CET) evening prime peak
+    # - 21:00 UTC: Brazil (18:00-19:00 BRT) evening prime & US/MX late afternoon
+    # - 22:30 UTC: Catch-up safety wave (runs +1 only if an earlier slot failed & done < 3)
+    - cron: '0 1 * * *'
+    - cron: '0 17 * * *'
+    - cron: '0 21 * * *'
+    - cron: '30 22 * * *'
   workflow_dispatch:
     inputs:
       add_count:
         description: 'Number of new products to add (default 3; 0 to rebuild & deploy only; never deletes existing items)'
         required: false
         default: '3'
+      preferred_markets:
+        description: 'Optional comma-separated market focus for manual runs (e.g. RU,IL,FR)'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -24,7 +33,7 @@ concurrency:
 jobs:
   accumulate-and-deploy:
     runs-on: ubuntu-latest
-    # Three cut-out photos per product (up to 9 rembg passes per candidate) need more than the old 25 minutes.
+    # Three cut-out photos per product (up to 9 rembg passes per candidate) need generous timeout headroom.
     timeout-minutes: 80
     env:
       PYTHONDONTWRITEBYTECODE: '1'
@@ -35,18 +44,39 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Skip a retry slot when today's three products are already in
+      - name: Resolve staggered peak-hour wave and daily quota
         id: today
-        if: github.event_name == 'schedule'
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+          INPUT_COUNT: ${{ github.event.inputs.add_count || '3' }}
+          INPUT_MARKETS: ${{ github.event.inputs.preferred_markets || '' }}
         run: |
           python3 - <<'EOF'
           import json, os
           from datetime import datetime, timezone
-          day = datetime.now(timezone.utc).date().isoformat()
+          from fluxixo_ai.discovery_curator import resolve_peak_slot
+          now_utc = datetime.now(timezone.utc)
+          day = now_utc.date().isoformat()
           done = len(json.load(open('data/fluxixo_daily_ledger.json', encoding='utf-8'))['days'].get(day, []))
-          print(f'{day}: {done} of 3 products already added')
-          with open(os.environ['GITHUB_OUTPUT'], 'a') as out:
-              out.write(f"skip={'true' if done >= 3 else 'false'}\n")
+          if os.environ.get('EVENT_NAME') == 'schedule':
+              slot = resolve_peak_slot(now_utc, cron_expr=os.environ.get('EVENT_SCHEDULE'), done_today=done)
+              skip = slot['skip']
+              add_count = slot['add_count']
+              markets = ','.join(slot['preferred_markets'])
+              slot_id = slot['id']
+              print(f"{day}: done={done}/3, slot={slot_id} ({slot['window_note']}), add_count={add_count}, skip={skip}")
+          else:
+              add_count = int(os.environ.get('INPUT_COUNT') or '3')
+              skip = False
+              markets = os.environ.get('INPUT_MARKETS', '').strip()
+              slot_id = 'manual'
+              print(f"{day}: manual dispatch done={done}/3, add_count={add_count}, markets={markets or 'all'}")
+          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
+              out.write(f"skip={'true' if skip else 'false'}\n")
+              out.write(f"add_count={add_count}\n")
+              out.write(f"markets={markets}\n")
+              out.write(f"slot_id={slot_id}\n")
           EOF
 
       - name: Set up Python 3.12
@@ -74,7 +104,7 @@ jobs:
           python -m pip install --retries 5 --timeout 60 requests pillow rembg onnxruntime
           npm install --no-save wrangler
 
-      - name: Prepare up to three source-grounded products and build release
+      - name: Prepare source-grounded products for active slot and build release
         id: prepare
         if: steps.today.outputs.skip != 'true'
         timeout-minutes: 55
@@ -86,9 +116,14 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          ADD_COUNT: ${{ github.event_name == 'schedule' && '3' || github.event.inputs.add_count || '3' }}
+          ADD_COUNT: ${{ steps.today.outputs.add_count || '3' }}
+          PEAK_MARKETS: ${{ steps.today.outputs.markets }}
         run: |
-          python -B fluxixo_daily_rotate.py --add "$ADD_COUNT"
+          if [ -n "$PEAK_MARKETS" ]; then
+            python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$PEAK_MARKETS"
+          else
+            python -B fluxixo_daily_rotate.py --add "$ADD_COUNT"
+          fi
 
       - name: Commit accumulated FLUXIXO catalog and reserve pool
         if: steps.today.outputs.skip != 'true'
@@ -98,7 +133,7 @@ jobs:
           git add -f fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools data/fluxixo_daily_ledger.json fluxixo_site/release-manifest.json fluxixo_site/asset-map.json
           if [ -f data/fluxixo_ai.sqlite3 ]; then git add -f data/fluxixo_ai.sqlite3; fi
           if ! git diff --cached --quiet; then
-            git commit -m "chore(fluxixo): daily cloud accumulation (+3 new products, 0 deleted) [skip ci]"
+            git commit -m "chore(fluxixo): peak-slot accumulation (+${{ steps.prepare.outputs.added || 0 }} new, slot ${{ steps.today.outputs.slot_id }}) [skip ci]"
             git push origin HEAD:main
           fi
 

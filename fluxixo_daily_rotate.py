@@ -110,12 +110,13 @@ from fluxixo_ai.autonomous import DailyError
 from fluxixo_site.tools import yandex_indexnow
 
 
-def accumulate_catalog(count: int, *, now=None, discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None) -> dict:
+def accumulate_catalog(count: int, *, now=None, discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None, preferred_markets=None) -> dict:
     """Add only source-grounded, quality-checked items under the UTC ledger."""
     from fluxixo_ai.autonomous import accumulate
     return accumulate(count=count, site_root=SITE_ROOT, dist=DIST, reserve_dir=RESERVE_DIR,
                       ledger_path=LEDGER_PATH, now=now, discover_fn=discover_fn,
-                      media_fn=media_fn, validation_run_id=validation_run_id, queue_store=queue_store, refresh_fn=refresh_fn)
+                      media_fn=media_fn, validation_run_id=validation_run_id, queue_store=queue_store,
+                      refresh_fn=refresh_fn, preferred_markets=preferred_markets)
 
 
 def deploy_release() -> None:
@@ -209,11 +210,18 @@ def submit_indexnow() -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--rotate", "--add", dest="add_count", type=int, default=3, help="Number of new products to add (0 to rebuild only)")
+    parser.add_argument("--markets", default="", help="Comma-separated preferred target markets for this peak slot (e.g. RU,IL,FR)")
     parser.add_argument("--deploy", action="store_true", help="Deploy an already committed release; requires --add 0")
     parser.add_argument("--validation-run-id", help="One specifically authorized one-item validation run")
     parser.add_argument("--deploy-existing", action="store_true", help="Deploy the previously built and verified release")
     parser.add_argument("--skip-indexnow", action="store_true", help="Do not submit URLs to search engines")
     args = parser.parse_args()
+
+    preferred_markets = None
+    if getattr(args, "markets", ""):
+        from fluxixo_ai.discovery_curator import ALL_MARKETS
+        parsed = [m.strip().upper() for m in args.markets.split(",") if m.strip()]
+        preferred_markets = [m for m in parsed if m in ALL_MARKETS] or None
 
     if not 0 <= args.add_count <= 3:
         parser.error("--add must be between 0 and 3")
@@ -224,7 +232,7 @@ def main() -> None:
     if args.deploy_existing and (args.add_count != 0 or not args.deploy):
         parser.error("--deploy-existing requires --add 0 --deploy")
     if args.add_count > 0:
-        outcome = accumulate_catalog(args.add_count, validation_run_id=args.validation_run_id)
+        outcome = accumulate_catalog(args.add_count, validation_run_id=args.validation_run_id, preferred_markets=preferred_markets)
         if os.environ.get("GITHUB_OUTPUT"):
             with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as stream:
                 stream.write(f"added={outcome['added']}\n")

@@ -1,6 +1,7 @@
 """Rare-gadget discovery, anti-commodity stoplists, pre-search exclusivity, and 6-market verification."""
 from __future__ import annotations
 
+from datetime import datetime, timezone
 import os
 import re
 import urllib.error
@@ -209,26 +210,109 @@ def matches_rare_query(task: dict[str, Any], title: str) -> bool:
     )
 
 
-def select_rotating_queries(now_ordinal: int, target_markets: tuple[str, ...] = ALL_MARKETS, pool: list[dict[str, Any]] | None = None) -> list[dict[str, Any]]:
-    """Order curated queries so each run balances categories and rotates across target countries."""
+PEAK_PUBLISH_SLOTS: tuple[dict[str, Any], ...] = (
+    {
+        'id': 'americas_prime',
+        'cron': '0 1 * * *',
+        'utc_hour': 1,
+        'slot_target': 1,
+        'preferred_markets': ('US', 'MX'),
+        'window_note': 'US (17:00-21:00) & Mexico (19:00 CST) evening prime',
+    },
+    {
+        'id': 'eurasia_prime',
+        'cron': '0 17 * * *',
+        'utc_hour': 17,
+        'slot_target': 2,
+        'preferred_markets': ('RU', 'IL', 'FR'),
+        'window_note': 'Russia (20:00 MSK), Israel (19:00 IST) & France (18:00 CET) evening prime',
+    },
+    {
+        'id': 'brazil_latam_prime',
+        'cron': '0 21 * * *',
+        'utc_hour': 21,
+        'slot_target': 3,
+        'preferred_markets': ('BR', 'US', 'MX'),
+        'window_note': 'Brazil (18:00-19:00 BRT) prime & US/MX late afternoon',
+    },
+    {
+        'id': 'americas_catchup',
+        'cron': '30 22 * * *',
+        'utc_hour': 22,
+        'slot_target': 3,
+        'preferred_markets': ('BR', 'MX', 'US', 'RU', 'IL', 'FR'),
+        'window_note': 'Catch-up slot (19:30 BRT / 17:30 EST / 16:30 CST) only when done < 3',
+    },
+)
+
+
+def resolve_peak_slot(
+    now_utc: datetime | None = None,
+    *,
+    cron_expr: str | None = None,
+    done_today: int = 0,
+    daily_max: int = 3,
+) -> dict[str, Any]:
+    """Map the current cron/UTC window to one target-country wave adding at most 1 product."""
+    instant = (now_utc or datetime.now(timezone.utc)).astimezone(timezone.utc)
+    clean_cron = (cron_expr or '').strip()
+    matched = next((slot for slot in PEAK_PUBLISH_SLOTS if clean_cron and slot['cron'] == clean_cron), None)
+    if matched is None:
+        hour = instant.hour
+        if hour < 14:
+            matched = PEAK_PUBLISH_SLOTS[0]
+        elif hour < 20:
+            matched = PEAK_PUBLISH_SLOTS[1]
+        elif hour < 22:
+            matched = PEAK_PUBLISH_SLOTS[2]
+        else:
+            matched = PEAK_PUBLISH_SLOTS[3]
+
+    done = max(0, int(done_today))
+    cap = max(0, int(daily_max))
+    remaining_cap = max(0, cap - done)
+    should_publish = done < matched['slot_target'] and remaining_cap > 0
+    return {
+        **matched,
+        'utc_day': instant.date().isoformat(),
+        'done_today': done,
+        'add_count': 1 if should_publish else 0,
+        'skip': not should_publish,
+    }
+
+
+def select_rotating_queries(
+    now_ordinal: int,
+    target_markets: tuple[str, ...] = ALL_MARKETS,
+    pool: list[dict[str, Any]] | None = None,
+    preferred_markets: tuple[str, ...] | list[str] | None = None,
+) -> list[dict[str, Any]]:
+    """Order curated queries so peak-window target markets come first without starving fallback markets."""
     items = list(pool if pool is not None else CURATED_RARE_QUERIES)
     if not items:
         return []
     offset = now_ordinal % len(items)
     rotated = items[offset:] + items[:offset]
-    # Interleave different categories & markets rather than clustered blocks.
     buckets: dict[str, list[dict[str, Any]]] = {}
     for entry in rotated:
         mkt = entry.get('market', 'US')
         if mkt in target_markets:
             buckets.setdefault(mkt, []).append(entry)
+
     ordered: list[dict[str, Any]] = []
-    market_cycle = list(target_markets[now_ordinal % len(target_markets):] + target_markets[:now_ordinal % len(target_markets)])
-    while any(buckets.values()):
-        for m in market_cycle:
-            lst = buckets.get(m)
-            if lst:
-                ordered.append(lst.pop(0))
+    pref = [m for m in (preferred_markets or ()) if m in target_markets]
+    pref_set = set(pref)
+    rotated_all = list(target_markets[now_ordinal % len(target_markets):] + target_markets[:now_ordinal % len(target_markets)])
+    rest = [m for m in rotated_all if m not in pref_set]
+
+    for wave in (pref, rest):
+        if not wave:
+            continue
+        while any(buckets.get(m) for m in wave):
+            for m in wave:
+                lst = buckets.get(m)
+                if lst:
+                    ordered.append(lst.pop(0))
     return ordered
 
 

@@ -276,6 +276,7 @@ def discover(
     check_all_markets=False,
     check_hot_background=False,
     presearch_fn=None,
+    preferred_markets=None,
 ):
     """Compare API results, screen rarity/presearch, verify target markets, and request exact links."""
     from . import discovery_curator
@@ -286,12 +287,17 @@ def discover(
     if count == 0:
         return []
     utc_now = now.astimezone(timezone.utc)
+    pref_tuple = tuple(m for m in (preferred_markets or ()) if m in discovery_curator.ALL_MARKETS)
     if seeds is not None:
         task_seeds = list(seeds)
     elif use_curated_pool:
-        rotated = discovery_curator.select_rotating_queries(utc_now.date().toordinal(), discovery_curator.ALL_MARKETS)
+        rotated = discovery_curator.select_rotating_queries(
+            utc_now.date().toordinal(),
+            discovery_curator.ALL_MARKETS,
+            preferred_markets=pref_tuple or None,
+        )
         ai_queries = discovery_curator.generate_ai_discovery_queries(
-            existing, target_markets=discovery_curator.ALL_MARKETS, limit=4,
+            existing, target_markets=pref_tuple or discovery_curator.ALL_MARKETS, limit=4,
         )
         task_seeds = ai_queries + rotated
     else:
@@ -370,13 +376,21 @@ def discover(
                     eligible.append((-total_score, item['product_id'], item))
                 except (ValueError, TypeError):
                     continue
-            for _, _, item in sorted(eligible, key=lambda value: (value[0], value[1])):
+            pref_set = set(pref_tuple)
+            verified_pool = []
+            for base_neg_score, pid, item in sorted(eligible, key=lambda value: (value[0], value[1])):
                 if check_all_markets:
                     discovery_curator.verify_markets_for_candidate(
                         call, item, discovery_curator.ALL_MARKETS, utc_now.isoformat(),
                     )
-                    if not item.get('availableMarkets'):
+                    avail = item.get('availableMarkets') or []
+                    if not avail:
                         continue
+                    overlap = len(set(avail) & pref_set) if pref_set else 0
+                    verified_pool.append((0 if (not pref_set or overlap > 0) else 1, -overlap, base_neg_score, pid, item))
+                else:
+                    verified_pool.append((0, 0, base_neg_score, pid, item))
+            for _, _, _, _, item in sorted(verified_pool, key=lambda v: v[:4]):
                 try:
                     affiliate = generate_affiliate(call, item)
                 except (ApiError, ValueError, TypeError, KeyError):
@@ -900,7 +914,7 @@ def _extract_media_perceptual(media):
 
 def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None,
-               enforce_unique_copy=None, snippet_fetcher=None):
+               enforce_unique_copy=None, snippet_fetcher=None, preferred_markets=None):
     """Prepare full batch before mutation; catalog and ledger commit together later."""
     from .daily_ledger import read_ledger, verify_catalog, remaining, record, atomic_write, utc_day
     if isinstance(count, bool) or not isinstance(count, int) or not 0 <= count <= 3:
@@ -953,6 +967,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             check_all_markets=True,
             check_hot_background=True,
             presearch_fn=discovery_curator.default_web_presearch,
+            preferred_markets=preferred_markets,
         )
     if refresh_fn is None:
         refresh_fn = lambda entry, when: refresh_queued(get_api(), entry, when)

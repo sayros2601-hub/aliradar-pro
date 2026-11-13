@@ -319,5 +319,38 @@ class PerCountryStorefrontOrderingTests(unittest.TestCase):
         self.assertEqual(['find-legacy', 'auto-us', 'auto-ru'], [item['id'] for item in pt_site.items])
 
 
+class PeakHourSchedulingTests(unittest.TestCase):
+    def test_peak_slots_stagger_one_product_per_wave_across_all_six_markets(self):
+        # Slot 1: 01:00 UTC -> US/MX prime, adds 1 when done=0
+        s1 = discovery_curator.resolve_peak_slot(datetime(2026, 11, 13, 1, 5, tzinfo=timezone.utc), cron_expr='0 1 * * *', done_today=0)
+        self.assertEqual(('americas_prime', ('US', 'MX'), 1, False), (s1['id'], s1['preferred_markets'], s1['add_count'], s1['skip']))
+        # Repeat/retry inside slot 1 when done=1 must skip instead of dumping a batch
+        s1_done = discovery_curator.resolve_peak_slot(cron_expr='0 1 * * *', done_today=1)
+        self.assertEqual((0, True), (s1_done['add_count'], s1_done['skip']))
+
+        # Slot 2: 17:00 UTC -> RU/IL/FR prime, adds 1 when done=1
+        s2 = discovery_curator.resolve_peak_slot(datetime(2026, 11, 13, 17, 10, tzinfo=timezone.utc), cron_expr='0 17 * * *', done_today=1)
+        self.assertEqual(('eurasia_prime', ('RU', 'IL', 'FR'), 1, False), (s2['id'], s2['preferred_markets'], s2['add_count'], s2['skip']))
+
+        # Slot 3: 21:00 UTC -> BR prime, adds 1 when done=2
+        s3 = discovery_curator.resolve_peak_slot(datetime(2026, 11, 13, 21, 5, tzinfo=timezone.utc), cron_expr='0 21 * * *', done_today=2)
+        self.assertEqual(('brazil_latam_prime', ('BR', 'US', 'MX'), 1, False), (s3['id'], s3['preferred_markets'], s3['add_count'], s3['skip']))
+
+        # Catch-up slot 22:30 UTC skips when 3/3 completed, or adds 1 if an earlier wave missed
+        s4_skip = discovery_curator.resolve_peak_slot(cron_expr='30 22 * * *', done_today=3)
+        self.assertEqual((0, True), (s4_skip['add_count'], s4_skip['skip']))
+        s4_retry = discovery_curator.resolve_peak_slot(cron_expr='30 22 * * *', done_today=2)
+        self.assertEqual((1, False), (s4_retry['add_count'], s4_retry['skip']))
+
+    def test_select_rotating_queries_prioritizes_preferred_markets_first(self):
+        ordered = discovery_curator.select_rotating_queries(
+            NOW.date().toordinal(),
+            preferred_markets=('RU', 'IL', 'FR'),
+        )
+        # First 6 queries come strictly from the preferred peak cluster before falling back
+        self.assertTrue(all(q['market'] in ('RU', 'IL', 'FR') for q in ordered[:6]))
+        self.assertEqual(set(MARKETS), {q['market'] for q in ordered})
+
+
 if __name__ == '__main__':
     unittest.main()
