@@ -446,7 +446,7 @@ class Site:
                 f'data-timezone="Asia/Jerusalem" data-hour="19" data-awaiting="{e(u["countdown_awaiting"])}" '
                 f'role="timer" aria-live="off">--:--:--</b></p></div>'
                 f'{self.rope(drop, eager=True, lead=True)}<div class="drop-copy">'
-                f'<h1>{e((ROOT_RU if self.root else u)["h1"][0])}<span class="s">{e((ROOT_RU if self.root else u)["h1"][1])}</span></h1>'
+                f'<h1><span>{e((ROOT_RU if self.root else u)["h1"][0])}</span> <span class="s">{e((ROOT_RU if self.root else u)["h1"][1])}</span></h1>'
                 f'<p class="drop-sub">{e(u["drop_text"])}</p></div></section>')
 
         # Phone only: every world one tap away, right under today's drop.
