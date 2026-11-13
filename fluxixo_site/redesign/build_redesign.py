@@ -90,7 +90,8 @@ FONT_CSS = json.loads((HERE / 'static/fonts.json').read_text(encoding='utf-8'))
 FONT_PRELOAD = {'ru': 'oswald-normal-cyrillic', 'he': 'heebo-normal-hebrew'}
 CSS = re.sub(r'\s*\n\s*', ' ', re.sub(r'/\*.*?\*/', '', (HERE / 'static/style.css').read_text(encoding='utf-8'), flags=re.S)).strip().replace('</', '<\\/')
 VERIFY = ('<meta name="google-site-verification" content="BUSamFSGELSfaWQEaVVj2QzUgKQvWovtg-ZaHCfKNb0">'
-          '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2"><meta name="yandex-verification" content="deee62492f76cf5b">')
+          '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2"><meta name="yandex-verification" content="deee62492f76cf5b">'
+          '<meta name="p:domain_verify" content="c0f81b8dc452173100fb9d91208205a1"/>')
 ROOT_TITLE, ROOT_DESC = ROOT_RU['title'], ROOT_RU['desc']
 # Yandex Metrika runs on the Russian pages of the live site only (not on previews): static/ym.js, counter 114240176.
 METRIKA = ('<script src="/js/ym.js" defer></script>\n<noscript><div><img src="https://mc.yandex.ru/watch/114240176" '
