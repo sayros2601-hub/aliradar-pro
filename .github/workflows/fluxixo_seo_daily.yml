@@ -1,0 +1,54 @@
+name: FLUXIXO daily SEO telemetry & Bing/Yandex sync
+
+on:
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Share the same lock as the daily catalog build so commits never collide.
+concurrency:
+  group: fluxixo-daily-accumulation
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  seo-sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install SEO sync dependencies
+        timeout-minutes: 5
+        run: python -m pip install --retries 5 --timeout 60 google-auth requests cryptography
+
+      - name: Run Google, Microsoft Bing, and Yandex (RU-only) daily sync & telemetry
+        env:
+          GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+          BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+          YANDEX_WEBMASTER_TOKEN: ${{ secrets.YANDEX_WEBMASTER_TOKEN }}
+          SEO_DATA_KEY: ${{ secrets.SEO_DATA_KEY }}
+        run: python -B fluxixo_site/tools/seo_daily.py --summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Persist encrypted SEO telemetry state
+        run: |
+          git config user.name "FLUXIXO SEO Telemetry"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -d data/seo ]; then git add data/seo/*.enc; fi
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(seo): daily Google/Bing/Yandex sync telemetry [skip ci]"
+            git pull --rebase --autostash --quiet origin main && git push origin HEAD:main
+          fi

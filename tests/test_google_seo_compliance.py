@@ -106,5 +106,44 @@ class GoogleSeoComplianceTests(unittest.TestCase):
         self.assertIn('invalid FAQPage structured data', verify_release.validate_google_structured_data(bad_faq))
 
 
+    def test_search_engine_parity_validates_bing_yandex_ru_only_and_indexnow(self):
+        key = 'ededa82eb5716fb9ef71632b519559cb'
+        with tempfile.TemporaryDirectory() as tmp:
+            rel = Path(tmp)
+            (rel / 'index.html').write_text(
+                '<meta name="google-site-verification" content="g">'
+                '<meta name="msvalidate.01" content="b">'
+                '<meta name="yandex-verification" content="y">',
+                encoding='utf-8',
+            )
+            (rel / 'BingSiteAuth.xml').write_text('<?xml version="1.0"?><users><user>ABC</user></users>', encoding='utf-8')
+            (rel / 'indexnow-key.txt').write_text(key, encoding='utf-8')
+            (rel / 'indexnow.txt').write_text(key, encoding='utf-8')
+            (rel / f'{key}.txt').write_text(key, encoding='utf-8')
+            (rel / 'rss.xml').write_text('<rss><channel><item><title>x</title></item></channel></rss>', encoding='utf-8')
+            locs = ''.join(
+                f'<sitemap><loc>https://www.fluxixo.shop/sitemap-{lang}.xml</loc></sitemap>'
+                for lang in ('ru', 'en', 'pt', 'es', 'fr', 'he')
+            )
+            (rel / 'sitemap-index.xml').write_text(
+                f'<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{locs}</sitemapindex>',
+                encoding='utf-8',
+            )
+            (rel / 'robots.txt').write_text(
+                'User-agent: *\nAllow: /\n\nUser-agent: Yandex\nAllow: /\n'
+                'Disallow: /en/\nDisallow: /pt/\nDisallow: /es/\nDisallow: /fr/\nDisallow: /he/\n'
+                'Clean-param: lang /\n'
+                'Sitemap: https://www.fluxixo.shop/sitemap.xml\n'
+                'Sitemap: https://www.fluxixo.shop/sitemap-index.xml\n'
+                'Sitemap: https://www.fluxixo.shop/sitemap-ru.xml\n',
+                encoding='utf-8',
+            )
+            self.assertEqual([], verify_release.validate_search_engine_parity(rel))
+
+            (rel / 'robots.txt').write_text('User-agent: *\nAllow: /\n', encoding='utf-8')
+            errs = verify_release.validate_search_engine_parity(rel)
+            self.assertTrue(any('Yandex' in e for e in errs))
+
+
 if __name__ == '__main__':
     unittest.main()

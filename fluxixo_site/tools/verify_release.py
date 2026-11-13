@@ -259,6 +259,76 @@ def validate_ru_sitemap(release, all_urls):
     return errors
 
 
+def validate_search_engine_parity(release):
+    """Verify Google, Microsoft Bing, and Yandex (Russian-only) verification/crawl artifacts."""
+    errors = []
+    rel = Path(release)
+    home = rel / 'index.html'
+    if home.exists():
+        html = home.read_text(encoding='utf-8', errors='replace')
+        for marker in ('google-site-verification', 'msvalidate.01', 'yandex-verification'):
+            if f'name="{marker}"' not in html:
+                errors.append(f'homepage missing <meta name="{marker}">')
+    bing_auth = rel / 'BingSiteAuth.xml'
+    if not bing_auth.exists():
+        errors.append('missing BingSiteAuth.xml')
+    else:
+        try:
+            users = [u.text.strip() for u in ET.parse(bing_auth).findall('.//user') if u.text]
+            if not users:
+                errors.append('BingSiteAuth.xml has empty <user>')
+        except ET.ParseError as exc:
+            errors.append(f'invalid BingSiteAuth.xml: {exc}')
+    key_path = rel / 'indexnow-key.txt'
+    idx_path = rel / 'indexnow.txt'
+    if not key_path.exists() or not idx_path.exists():
+        errors.append('missing indexnow-key.txt or indexnow.txt')
+    else:
+        key = key_path.read_text(encoding='utf-8').strip()
+        if not re.fullmatch(r'[0-9a-f]{16,128}', key):
+            errors.append('invalid IndexNow key format')
+        elif idx_path.read_text(encoding='utf-8').strip() != key:
+            errors.append('indexnow.txt mismatch with indexnow-key.txt')
+        elif not (rel / f'{key}.txt').exists() or (rel / f'{key}.txt').read_text(encoding='utf-8').strip() != key:
+            errors.append(f'missing or mismatched {key}.txt')
+    rss_path = rel / 'rss.xml'
+    if not rss_path.exists():
+        errors.append('missing rss.xml for Bing feed sync')
+    else:
+        try:
+            rroot = ET.parse(rss_path).getroot()
+            if not rroot.findall('.//item'):
+                errors.append('rss.xml contains zero <item> entries')
+        except ET.ParseError as exc:
+            errors.append(f'invalid rss.xml: {exc}')
+    idx_xml = rel / 'sitemap-index.xml'
+    if idx_xml.exists():
+        try:
+            iroot = ET.parse(idx_xml).getroot()
+            ilocs = {(n.findtext(NS + 'loc') or '').strip() for n in iroot.findall(NS + 'sitemap')}
+            for lang in ('ru', 'en', 'pt', 'es', 'fr', 'he'):
+                if f'{ORIGIN}/sitemap-{lang}.xml' not in ilocs:
+                    errors.append(f'sitemap-index.xml missing sitemap-{lang}.xml')
+        except ET.ParseError as exc:
+            errors.append(f'invalid sitemap-index.xml: {exc}')
+    robots_path = rel / 'robots.txt'
+    if robots_path.exists():
+        rtxt = robots_path.read_text(encoding='utf-8', errors='replace')
+        yandex_block = ''
+        m = re.search(r'(?ms)^User-agent:\s*Yandex\b.*?(?=^User-agent:|\Z)', rtxt)
+        if not m:
+            errors.append('robots.txt missing User-agent: Yandex block')
+        else:
+            yandex_block = m.group(0)
+            for req_line in ('Allow: /', 'Disallow: /en/', 'Disallow: /pt/', 'Disallow: /es/', 'Disallow: /fr/', 'Disallow: /he/', 'Clean-param:'):
+                if req_line not in yandex_block:
+                    errors.append(f'robots.txt Yandex block missing {req_line}')
+        for sm in ('sitemap.xml', 'sitemap-index.xml', 'sitemap-ru.xml'):
+            if f'Sitemap: {ORIGIN}/{sm}' not in rtxt:
+                errors.append(f'robots.txt missing Sitemap: {ORIGIN}/{sm}')
+    return errors
+
+
 def main():
     problems = collections.defaultdict(list)
     urls = [node.find(NS + 'loc').text for node in ET.parse(RELEASE / 'sitemap.xml').getroot().findall(NS + 'url')]
@@ -266,6 +336,8 @@ def main():
         problems['sitemap'].append(f'{len(urls)} urls, {len(set(urls))} unique')
     for error in validate_ru_sitemap(RELEASE, urls):
         problems['Yandex RU sitemap'].append(error)
+    for error in validate_search_engine_parity(RELEASE):
+        problems['Search engine parity'].append(error)
     pages = {}
     for url in urls:
         file = local_file(url)
@@ -346,7 +418,7 @@ def main():
                 problems[f'sitemap-{lang}.xml'].append(f'unknown URLs: {missing_from_all[:3]}')
         except (OSError, ET.ParseError) as exc:
             problems[f'sitemap-{lang}.xml'].append(str(exc))
-    for required in ('robots.txt', 'sitemap-ru.xml', 'sitemap-index.xml', '404.html', '_headers', '_redirects', 'js/catalog.js'):
+    for required in ('robots.txt', 'sitemap-ru.xml', 'sitemap-index.xml', 'BingSiteAuth.xml', 'rss.xml', '404.html', '_headers', '_redirects', 'js/catalog.js'):
         if not (RELEASE / required).exists():
             problems['missing file'].append(required)
     # Production silently ignored redirect rules beyond roughly the 106th, so keep a safe margin.

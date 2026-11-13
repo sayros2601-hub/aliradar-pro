@@ -39,12 +39,14 @@ REPORT_FILE = DATA / 'report.enc'
 ORIGIN = 'https://www.fluxixo.shop'
 SITEMAPS = ('sitemap.xml', 'sitemap-index.xml', 'sitemap-ru.xml', 'sitemap-en.xml', 'sitemap-pt.xml', 'sitemap-es.xml', 'sitemap-fr.xml', 'sitemap-he.xml')
 YANDEX_SITEMAPS = ('sitemap-ru.xml',)
+BING_FEEDS = SITEMAPS + ('rss.xml',)
 
 KEEP_DAYS = 400              # daily totals per engine
 KEEP_WEEKS = 26              # weekly page/query snapshots for stage 2
 SNAPSHOT_ROWS = 400          # rows kept per engine per weekly snapshot
 GOOGLE_INSPECT_PER_DAY = 60  # URL Inspection API allows 2000/day; a slow rotation covers the site every ~10 days
-YANDEX_RECRAWL_PER_DAY = 20  # stays well under the daily recrawl quota
+BING_SUBMIT_PER_DAY = 50     # stays safely within Bing's 100/day & 1800/month SubmitUrlBatch budget
+YANDEX_RECRAWL_PER_DAY = 30  # stays well under the 150/day Yandex recrawl quota (RU-only URLs)
 RECRAWL_AGAIN_DAYS = 14      # the same page is not asked for twice within two weeks
 KEYWORD_LOOKUPS_PER_DAY = 8  # Bing keyword research per day (product names, rotating)
 
@@ -119,7 +121,8 @@ def ru_url(url):
 # ---------- encrypted state ----------
 
 def load_state(key):
-    empty = {'version': 1, 'days': {}, 'weeks': {}, 'inspected': {}, 'recrawled': {}, 'keywords': {}, 'experiments': {}, 'cooldowns': {}}
+    empty = {'version': 1, 'days': {}, 'weeks': {}, 'inspected': {}, 'recrawled': {}, 'bing_submitted': {},
+             'keywords': {}, 'experiments': {}, 'cooldowns': {}}
     if not key or not STATE_FILE.exists():
         return empty
     from cryptography.fernet import Fernet, InvalidToken
@@ -145,6 +148,7 @@ def trim(state, today):
     state['weeks'] = {w: state['weeks'][w] for w in weeks[-KEEP_WEEKS:]}
     old = (today - timedelta(days=90)).isoformat()
     state['recrawled'] = {u: d for u, d in state['recrawled'].items() if d >= old}
+    state['bing_submitted'] = {u: d for u, d in state.get('bing_submitted', {}).items() if d >= old}
 
 
 # ---------- Google Search Console ----------
@@ -202,7 +206,7 @@ def google(secret, urls, state, today, dry_run):
     sitemaps = http('GET', f'https://www.googleapis.com/webmasters/v3/sites/{enc}/sitemaps', headers=auth).get('sitemap', [])
     known = {s.get('path'): s for s in sitemaps}
     submitted = []
-    for name in YANDEX_SITEMAPS:
+    for name in SITEMAPS:
         feed = f'{ORIGIN}/{name}'
         last = (known.get(feed) or {}).get('lastSubmitted', '')[:10]
         if not dry_run and (not last or last <= (today - timedelta(days=7)).isoformat()):
@@ -224,7 +228,27 @@ def google(secret, urls, state, today, dry_run):
 
 # ---------- Bing Webmaster ----------
 
-def bing(key, state, today, products):
+def _bing_ms(stamp):
+    text = str(stamp or '')
+    if '/Date(' in text:
+        text = text.split('/Date(', 1)[1].split(')', 1)[0]
+    sign = -1 if text.startswith('-') else 1
+    head = text[1:] if text.startswith(('-', '+')) else text
+    head = head.split('+', 1)[0].split('-', 1)[0]
+    digits = ''.join(ch for ch in head if ch.isdigit())
+    return sign * int(digits) if digits else None
+
+
+def _bing_priority(url):
+    path = urllib.parse.urlsplit(url).path or '/'
+    if path in ('/', '/en/', '/es/', '/pt/', '/fr/', '/he/', '/catalog/', '/journal/'):
+        return (0, path)
+    if '/categories/' in path or '/journal/' in path or path.endswith('/about/'):
+        return (1, path)
+    return (2, path)
+
+
+def bing(key, state, today, products, urls=None, dry_run=False):
     q = urllib.parse.quote
     def call(method, **params):
         query = '&'.join(f'{k}={q(str(v))}' for k, v in {'apikey': key, **params}.items())
@@ -243,11 +267,11 @@ def bing(key, state, today, products):
         since = (datetime.combine(today - timedelta(days=28), datetime.min.time(), timezone.utc).timestamp()) * 1000
         merged = {}
         for item in items:
-            stamp = str(item.get('Date', ''))
-            digits = ''.join(ch for ch in stamp.split('+')[0].split('-')[0] if ch.isdigit())
-            if digits and int(digits) < since:
+            ms = _bing_ms(item.get('Date', ''))
+            if ms is not None and ms < since:
                 continue
-            row = merged.setdefault(item.get('Query'), {key_name: item.get('Query'), 'clicks': 0, 'impressions': 0, '_w': 0.0})
+            key_val = (item.get('Url') or item.get('Query')) if key_name == 'page' else item.get('Query')
+            row = merged.setdefault(key_val, {key_name: key_val, 'clicks': 0, 'impressions': 0, '_w': 0.0})
             impressions = item.get('Impressions', 0) or 0
             row['clicks'] += item.get('Clicks', 0) or 0
             row['impressions'] += impressions
@@ -257,6 +281,52 @@ def bing(key, state, today, products):
         return list(merged.values())
     query_rows = last_28_days(queries, 'query')
     page_rows = last_28_days(pages, 'page')
+    feeds_submitted, urls_submitted = [], []
+    feed_error = url_submit_error = None
+    feeds_count = None
+    if urls is not None:
+        try:
+            feeds_raw = call('GetFeeds', siteUrl=site) or []
+            known_feeds = {f.get('Url'): f for f in feeds_raw if isinstance(f, dict) and f.get('Url')}
+            feeds_count = len(known_feeds)
+            week_ms = int(datetime.combine(today - timedelta(days=7), datetime.min.time(), timezone.utc).timestamp() * 1000)
+            for name in BING_FEEDS:
+                feed_url = f'{ORIGIN}/{name}'
+                info = known_feeds.get(feed_url) or {}
+                crawled_ms = _bing_ms(info.get('LastCrawled'))
+                stale = (feed_url not in known_feeds or crawled_ms is None or crawled_ms < week_ms
+                         or int(info.get('FileSize') or 0) == 0)
+                if not stale:
+                    continue
+                if dry_run:
+                    feeds_submitted.append(name)
+                    continue
+                try:
+                    http('POST', f'https://ssl.bing.com/webmaster/api.svc/json/SubmitFeed?apikey={q(key)}',
+                         body={'siteUrl': ORIGIN, 'feedUrl': feed_url})
+                    feeds_submitted.append(name)
+                except ApiError as error:
+                    feed_error = f'feed {name}: {error}'[:200]
+        except ApiError as error:
+            feed_error = f'GetFeeds: {error}'[:200]
+        submitted_map = state.setdefault('bing_submitted', {})
+        again = (today - timedelta(days=RECRAWL_AGAIN_DAYS)).isoformat()
+        budget = min(BING_SUBMIT_PER_DAY, int(quota.get('DailyQuota') or 0), int(quota.get('MonthlyQuota') or 0))
+        candidates = [u for u in dict.fromkeys(urls) if u.startswith(ORIGIN + '/') and submitted_map.get(u, '') < again]
+        candidates.sort(key=lambda u: (submitted_map.get(u, ''), _bing_priority(u), u))
+        batch = candidates[:budget] if budget > 0 else []
+        if batch:
+            if dry_run:
+                urls_submitted = batch
+            else:
+                try:
+                    http('POST', f'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey={q(key)}',
+                         body={'siteUrl': ORIGIN, 'urlList': batch})
+                    for u in batch:
+                        submitted_map[u] = today.isoformat()
+                    urls_submitted = batch
+                except ApiError as error:
+                    url_submit_error = f'SubmitUrlBatch: {error}'[:200]
     # Keyword research: real Bing search volume around our product names, a few names per day in rotation.
     research = state['keywords']
     names = [n for n in products if n not in research] + sorted((n for n in products if n in research),
@@ -277,6 +347,8 @@ def bing(key, state, today, products):
     return {'rows': query_rows, 'pages': page_rows, 'totals': totals(query_rows),
             'crawl_issues': [{'url': i.get('Url'), 'issue': i.get('Issues')} for i in issues][:200],
             'submission_quota': {'daily': quota.get('DailyQuota'), 'monthly': quota.get('MonthlyQuota')},
+            'feeds_count': feeds_count, 'feeds_submitted': feeds_submitted, 'feed_error': feed_error,
+            'urls_submitted': urls_submitted, 'url_submit_error': url_submit_error,
             'keyword_lookups_today': looked}
 
 
@@ -422,6 +494,17 @@ def report_text(today, results, errors, keywords=(), stage2=None):
                 lines.append('Добавлены sitemap в Вебмастер: ' + ', '.join(data['sitemaps_added']))
             if data['recrawl_error']:
                 lines.append('Яндекс не принял запрос: ' + data['recrawl_error'])
+        if engine == 'bing':
+            if data.get('feeds_submitted') or data.get('urls_submitted'):
+                lines.append(
+                    f'Фиды отправлены: {", ".join(data.get("feeds_submitted", [])) or "актуальны"}; '
+                    f'отправлено URL на обход: {len(data.get("urls_submitted", []))} '
+                    f'(дневной/месячный лимит: {data.get("submission_quota", {}).get("daily")}/{data.get("submission_quota", {}).get("monthly")}).'
+                )
+            if data.get('feed_error'):
+                lines.append('Ошибка фида Bing: ' + data['feed_error'])
+            if data.get('url_submit_error'):
+                lines.append('Ошибка отправки URL Bing: ' + data['url_submit_error'])
         if engine == 'bing' and data['crawl_issues']:
             lines.append(f'Ошибки обхода: {len(data["crawl_issues"])}')
         if engine == 'bing' and keywords:
@@ -474,7 +557,11 @@ def summary_text(today, results, errors):
             if results[engine]['sitemaps_added']:
                 extra += f'; добавлено sitemap: {len(results[engine]["sitemaps_added"])}'
         elif engine == 'bing':
-            extra = f'ключевых слов изучено {results[engine]["keyword_lookups_today"]}'
+            extra = (
+                f'фидов отпр. {len(results[engine].get("feeds_submitted", []))}, '
+                f'URL {len(results[engine].get("urls_submitted", []))}, '
+                f'ключевых слов изучено {results[engine]["keyword_lookups_today"]}'
+            )
         lines.append(f'| {title} | {t["clicks"]} | {t["impressions"]} | {t["ctr"]}% | {t["position"] or "—"} | {extra} |')
     return '\n'.join(lines) + '\n'
 
@@ -504,7 +591,7 @@ def main():
     jobs = (('google', 'GSC_SERVICE_ACCOUNT_JSON', 'нет ключа Google (GSC_SERVICE_ACCOUNT_JSON)',
              lambda k: google(k, urls, state, today, args.dry_run)),
             ('bing', 'BING_WEBMASTER_API_KEY', 'нет ключа Bing (BING_WEBMASTER_API_KEY)',
-             lambda k: bing(k, state, today, product_names())),
+             lambda k: bing(k, state, today, product_names(), urls=urls, dry_run=args.dry_run)),
             ('yandex', 'YANDEX_WEBMASTER_TOKEN', 'нет токена Яндекса (YANDEX_WEBMASTER_TOKEN)',
              lambda k: yandex(k, urls, state, today, args.dry_run)))
     for engine, secret, missing, run in jobs:

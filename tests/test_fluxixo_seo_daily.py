@@ -72,5 +72,99 @@ class SeoDailyTest(unittest.TestCase):
         self.assertFalse(seo.ru_url('https://www.fluxixo.shop/'))
 
 
+class BingAndYandexParityTests(unittest.TestCase):
+    def test_bing_submits_missing_feeds_fixes_page_key_and_submits_url_batch(self):
+        from datetime import date
+        import seo_daily as seo
+
+        calls = []
+        state = seo.load_state(None)
+        today = date(2026, 11, 13)
+        urls = [
+            'https://www.fluxixo.shop/',
+            'https://www.fluxixo.shop/en/',
+            'https://www.fluxixo.shop/products/katord-wifi-repeater/',
+        ]
+
+        def fake_http(method, url, *, headers=None, body=None, timeout=40):
+            calls.append((method, url, body))
+            if 'GetUserSites' in url:
+                return {'d': [{'Url': 'https://www.fluxixo.shop/'}]}
+            if 'GetQueryStats' in url:
+                return {'d': []}
+            if 'GetPageStats' in url:
+                return {'d': [{'Url': 'https://www.fluxixo.shop/products/katord-wifi-repeater/',
+                               'Clicks': 2, 'Impressions': 40, 'AvgImpressionPosition': 9.0,
+                               'Date': '/Date(1794430808000)/'}]}
+            if 'GetCrawlIssues' in url:
+                return {'d': []}
+            if 'GetUrlSubmissionQuota' in url:
+                return {'d': {'DailyQuota': 2, 'MonthlyQuota': 100}}
+            if 'GetFeeds' in url:
+                return {'d': [{'Url': 'https://www.fluxixo.shop/sitemap-ru.xml',
+                               'LastCrawled': '/Date(1794500000000)/', 'FileSize': 12000},
+                              {'Url': 'https://www.fluxixo.shop/sitemap.xml',
+                               'LastCrawled': '/Date(1794500000000)/', 'FileSize': 0}]}
+            if 'GetRelatedKeywords' in url:
+                return {'d': []}
+            return {'d': None}
+
+        orig_http = seo.http
+        seo.http = fake_http
+        try:
+            res = seo.bing('k', state, today, ['WiFi Repeater'], urls=urls, dry_run=False)
+            self.assertEqual('https://www.fluxixo.shop/products/katord-wifi-repeater/', res['pages'][0]['page'])
+            self.assertIn('sitemap-index.xml', res['feeds_submitted'])
+            self.assertIn('rss.xml', res['feeds_submitted'])
+            self.assertIn('sitemap.xml', res['feeds_submitted'])
+            self.assertNotIn('sitemap-ru.xml', res['feeds_submitted'])
+            self.assertEqual(2, len(res['urls_submitted']))
+            self.assertEqual({'https://www.fluxixo.shop/', 'https://www.fluxixo.shop/en/'}, set(res['urls_submitted']))
+            res_again = seo.bing('k', state, today, ['WiFi Repeater'], urls=urls, dry_run=False)
+            self.assertEqual(['https://www.fluxixo.shop/products/katord-wifi-repeater/'], res_again['urls_submitted'])
+        finally:
+            seo.http = orig_http
+
+    def test_yandex_only_submits_ru_sitemap_and_russian_urls(self):
+        from datetime import date
+        import seo_daily as seo
+
+        posted = []
+        state = seo.load_state(None)
+        today = date(2026, 11, 13)
+        urls = [
+            'https://www.fluxixo.shop/',
+            'https://www.fluxixo.shop/catalog/',
+            'https://www.fluxixo.shop/en/',
+            'https://www.fluxixo.shop/pt/products/x/',
+            'https://www.fluxixo.shop/es/',
+            'https://www.fluxixo.shop/fr/',
+            'https://www.fluxixo.shop/he/',
+            'https://www.fluxixo.shop/products/demo-ru/',
+        ]
+
+        def fake_http(method, url, *, headers=None, body=None, timeout=40):
+            if method == 'POST':
+                posted.append((url, body))
+                return {}
+            if url.endswith('/user'):
+                return {'user_id': 1}
+            if url.endswith('/hosts'):
+                return {'hosts': [{'host_id': 'https:www.fluxixo.shop:443'}]}
+            if 'recrawl/quota' in url:
+                return {'daily_quota': 150, 'quota_remainder': 150}
+            return {}
+
+        orig_http = seo.http
+        seo.http = fake_http
+        try:
+            res = seo.yandex('tok', urls, state, today, dry_run=False)
+            self.assertEqual(['sitemap-ru.xml'], res['sitemaps_added'])
+            recrawl_urls = [b['url'] for u, b in posted if 'recrawl/queue' in u]
+            self.assertEqual(['https://www.fluxixo.shop/catalog/', 'https://www.fluxixo.shop/products/demo-ru/'], recrawl_urls)
+        finally:
+            seo.http = orig_http
+
+
 if __name__ == '__main__':
     unittest.main()
