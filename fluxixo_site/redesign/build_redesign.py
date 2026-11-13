@@ -28,7 +28,7 @@ sys.path.insert(0, str(HERE))
 import locales as L  # noqa: E402
 import journal_pages  # noqa: E402
 import market_seo  # noqa: E402
-from ui_text import CATEGORY_COPY_RU, UI  # noqa: E402
+from ui_text import CATEGORY_COPY_RU, CATEGORY_LONG_RU, MORE_RU, ROOT_RU, UI  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
 LANGS = ('es', 'pt', 'en', 'fr', 'he', 'ru')
@@ -66,8 +66,13 @@ FONT_PRELOAD = {'ru': 'oswald-normal-cyrillic', 'he': 'heebo-normal-hebrew'}
 CSS = re.sub(r'\s*\n\s*', ' ', re.sub(r'/\*.*?\*/', '', (HERE / 'static/style.css').read_text(encoding='utf-8'), flags=re.S)).strip().replace('</', '<\\/')
 VERIFY = ('<meta name="google-site-verification" content="BUSamFSGELSfaWQEaVVj2QzUgKQvWovtg-ZaHCfKNb0">'
           '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2"><meta name="yandex-verification" content="deee62492f76cf5b">')
-ROOT_TITLE = 'FLUXIXO | Curated AliExpress Finds'
-ROOT_DESC = 'Three new AliExpress finds every day: gadgets, home and kitchen tools, and travel accessories, as clean studio cutouts with direct links.'
+ROOT_TITLE, ROOT_DESC = ROOT_RU['title'], ROOT_RU['desc']
+# Yandex Metrika runs on the Russian pages of the live site only (not on previews): static/ym.js, counter 114240176.
+METRIKA = ('<script src="/js/ym.js" defer></script>\n<noscript><div><img src="https://mc.yandex.ru/watch/114240176" '
+           'style="position:absolute;left:-9999px" alt=""></div></noscript>\n')
+# Extra buyer advice for Russian product pages: {product id: {"who": text, "check": [text, text, text]}}.
+# A product without an entry (a brand-new daily one) simply has no such block until its text is written.
+LONG_RU_FILE = ROOT / 'tools/ru_long_copy.json'
 
 
 _SVG = '<svg viewBox="0 0 24 24" aria-hidden="true">{}</svg>'
@@ -165,7 +170,9 @@ def load():
     products = [p for p in catalog['products'] if not p['demo']]
     # Odd category names map onto the hub whose English label they share.
     by_label = {data['cats'][k]['en']: k for k in L.CATEGORY_SLUGS if k in data['cats']}
+    long_ru = long_copy()
     for p in products:
+        p['more'] = long_ru.get(p['id'])
         key = L.category_key(p['category'])
         p['world'] = key or by_label.get(data['cats'].get(p['category'], {}).get('en'), 'Дом')
         colour, p['dark'] = tint(p['image'])
@@ -173,6 +180,16 @@ def load():
         # Extra cut-out views the daily job makes for each new product (assets/images/<id>-v2.webp, -v3.webp).
         p['views'] = [p['image']] + [v for v in p.get('views') or [] if isinstance(v, str) and (DIST / v).is_file()]
     return products, data
+
+
+def long_copy():
+    """Well-formed entries of tools/ru_long_copy.json; a malformed entry is skipped rather than half-shown."""
+    if not LONG_RU_FILE.exists():
+        return {}
+    entries = json.loads(LONG_RU_FILE.read_text(encoding='utf-8'))
+    return {pid: v for pid, v in entries.items()
+            if isinstance(v, dict) and isinstance(v.get('who'), str) and v['who'].strip()
+            and isinstance(v.get('check'), list) and v['check'] and all(isinstance(c, str) and c.strip() for c in v['check'])}
 
 
 def tint(image):
@@ -212,7 +229,8 @@ def img(path, width=None):
 
 class Site:
     def __init__(self, products, data, lang, root=False):
-        # root: the English home served at '/', outside the language clusters like the page it replaces.
+        # root: the Russian home served at '/'. It stays outside the hreflang clusters (their Russian member is
+        # /catalog/, the full catalog); '/' is the short front page: today's drop, the worlds, the newest finds.
         self.lang, self.data, self.ui, self.root = lang, data, UI[lang], root
         self.items = []
         self.rtl = lang in RTL
@@ -233,6 +251,15 @@ class Site:
 
     def home(self):
         return '/' if self.root else L.catalog_path(self.lang)
+
+    def start(self):
+        """Where the logo leads: Russian pages go to the Russian front page at '/', the others to their own home."""
+        return '/' if self.lang == 'ru' else self.home()
+
+    def anchor(self, name):
+        """In-page targets of the menu. The front page at '/' has no full grid: its catalog and search are on /catalog/."""
+        base = L.catalog_path(self.lang) if self.root and name in ('todo', 'find') else self.home()
+        return f'{base}#{name}'
 
     def copy(self, key):
         return CATEGORY_COPY_RU[key] if self.lang == 'ru' else L.CATEGORY_COPY[key][self.lang]
@@ -257,11 +284,12 @@ class Site:
         u = self.ui
         tag, og_locale = L.LANGUAGES[self.lang][:2]
         lang_links = ''.join(
-            f'<a href="{alt_paths.get(l, L.catalog_path(l))}" hreflang="{L.LANGUAGES[l][0]}"{" aria-current=\"true\"" if l == self.lang and not self.root else ""}>'
+            f'<a href="{alt_paths.get(l, L.catalog_path(l))}" hreflang="{L.LANGUAGES[l][0]}"{" aria-current=\"true\"" if l == self.lang else ""}>'
             f'<b>{l.upper()}</b><span lang="{L.LANGUAGES[l][0]}">{e(L.LANGUAGES[l][2])}</span></a>'
             for l in LANGS)
         lang_button = (f'<button type="button" class="lang-btn" aria-label="{e(u["language"])}" aria-expanded="false">{ICONS["globe"]}{self.lang.upper()}</button>')
-        nav = ''.join(f'<a href="{self.home()}#{anchor}">{e(label)}</a>' for anchor, label in zip(('drop', 'mundos', 'todo'), u['nav']))
+        nav = ''.join(f'<a href="{self.anchor(anchor)}">{e(label)}</a>' for anchor, label in zip(('drop', 'mundos', 'todo'), u['nav']))
+        metrika = METRIKA if PROD and self.lang == 'ru' else ''
         image = image or self.items[0]['image']
         ld = ('<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c') + '</script>') if schema else ''
         about = L.about_path(self.lang)
@@ -294,18 +322,18 @@ class Site:
 {ld}
 </head>
 <body style="--page:{colour}">
-<header class="top"><a class="logo" href="{self.home()}">FLU<i>X</i>I<i>X</i>O</a><nav aria-label="Menu">{nav}</nav>{lang_button}<div class="langs">{lang_links}</div></header>
+<header class="top"><a class="logo" href="{self.start()}">FLU<i>X</i>I<i>X</i>O</a><nav aria-label="Menu">{nav}</nav>{lang_button}<div class="langs">{lang_links}</div></header>
 <main id="main">
 {body}
 </main>
 <footer class="foot">
 <p class="wordmark" aria-hidden="true">FLU<i>X</i>I<i>X</i>O</p>
 <div class="foot-row"><p>{e(u["foot"])} {e(L.DISCLOSURE[self.lang])}</p>
-<nav><a href="{self.home()}">{e(u["home"])}</a><a href="{j_path}">{e(j_label)}</a><a href="{about}">{e(u["about"])}</a><a href="{about}#privacy">{e(u["privacy"])}</a></nav></div>
+<nav><a href="{self.start()}">{e(u["home"])}</a><a href="{j_path}">{e(j_label)}</a><a href="{about}">{e(u["about"])}</a><a href="{about}#privacy">{e(u["privacy"])}</a></nav></div>
 </footer>
 {self.tabs(tab, buy)}
 <script src="/js/fx.js" defer></script>
-</body>
+{metrika}</body>
 </html>'''
 
     # ---------- components ----------
@@ -316,7 +344,7 @@ class Site:
         """Phone bottom bar. On a product page it carries the buy button, so the way to the seller is always under the thumb."""
         home, labels = self.home(), self.ui['tabs']
         links = [('home', home, 'home', labels[0]), ('cats', f'{home}#cats', 'grid', labels[1]),
-                 ('all', f'{home}#todo', 'bag', labels[2]), ('find', f'{home}#find', 'search', labels[3])]
+                 ('all', self.anchor('todo'), 'bag', labels[2]), ('find', self.anchor('find'), 'search', labels[3])]
         if buy:
             links = [links[0], links[2]]
         html = ''.join(f'<a href="{href}" data-tab="{name}"{" aria-current=\"page\"" if name == current else ""}>{ICONS[icon]}<span>{e(label)}</span></a>'
@@ -391,7 +419,7 @@ class Site:
                 # "today" until today's drop lands, then "tomorrow".
                 f'<p class="clock">{e(u["next_drop"])}<b data-next="{LAST_DROP}" data-when="{e(u["when"][0])}|{e(u["when"][1])}">'
                 f'{e(u["when"][1] if LAST_DROP >= datetime.now(timezone.utc).date().isoformat() else u["when"][0])}</b></p></div>'
-                f'<h1 class="d">{e(u["h1"][0])}<span class="s">{e(u["h1"][1])}</span></h1>'
+                f'<h1 class="d">{e((ROOT_RU if self.root else u)["h1"][0])}<span class="s">{e((ROOT_RU if self.root else u)["h1"][1])}</span></h1>'
                 f'<p class="drop-sub">{e(u["drop_text"])}</p>{self.rope(drop, eager=True, lead=True)}</section>')
 
         # Phone only: every world one tap away, right under today's drop.
@@ -436,15 +464,26 @@ class Site:
         paths = {l: L.catalog_path(l) for l in LANGS}
         overrides = market_seo.load_overrides()
         if self.root:
-            locale_links_html = '<div class="lang-bar">' + ''.join(
-                f'<a class="btn line" href="{L.catalog_path(l)}">{e(L.LANGUAGES[l][2])}</a>' for l in LANGS
-            ) + f'<a class="btn line" href="{journal_pages.index_path("en")}">Buying Guides</a></div>'
-            root_body = hero + cats + day + ''.join(bands) + everything.replace('</section>', f'{locale_links_html}</section>', 1)
+            # The front page is not a second catalog: the newest finds, a few words about the site, and the way on.
+            r, catalog, newest = ROOT_RU, L.catalog_path(self.lang), items[:12]
+            fresh = (f'<section class="all" id="new" data-page="{PAPER}"><h2 class="d rv">{e(r["fresh"][0])} <span class="s">{e(r["fresh"][1])}</span></h2>'
+                     f'<div class="grid">{"".join(self.card(p) for p in newest)}</div>'
+                     f'<div class="lang-bar"><a class="btn" href="{catalog}#todo">{e(r["all_btn"].format(n=len(items)))} <span aria-hidden="true">{self.fwd}</span></a>'
+                     f'<a class="btn line" href="{journal_pages.index_path(self.lang)}">{e(r["guides"])}</a></div></section>')
+            others = ''.join(f'<a class="btn line" href="{L.catalog_path(l)}" hreflang="{L.LANGUAGES[l][0]}" lang="{L.LANGUAGES[l][0]}">{e(L.LANGUAGES[l][2])}</a>'
+                             for l in LANGS if l != self.lang)
+            intro = (f'<section class="about home-about"><h2>{e(r["about_h"])}</h2>{"".join(f"<p>{e(t)}</p>" for t in r["about"])}'
+                     f'<h2>{e(r["how_h"])}</h2><p>{e(r["how"])}</p>'
+                     f'<h2>{e(r["langs_h"])}</h2><div class="lang-bar">{others}</div></section>')
+            root_body = hero + cats + day + ''.join(bands) + fresh + intro
+            root_listing = {'@type': 'ItemList', 'name': r['title'], 'numberOfItems': len(newest),
+                            'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(newest)]}
             schema = {'@context': 'https://schema.org', '@graph': [
-                {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': ['en', 'ru', 'pt-BR', 'es-MX', 'fr', 'he-IL']},
-                {'@type': 'Organization', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'logo': ORIGIN + '/apple-touch-icon.png'}, listing]}
+                {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': ['ru', 'en', 'pt-BR', 'es-MX', 'fr', 'he-IL']},
+                {'@type': 'Organization', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'logo': ORIGIN + '/apple-touch-icon.png'}, root_listing]}
             ov_root = market_seo.route_override(overrides, '/')
-            write('/', self.page(ov_root.get('title') or ROOT_TITLE, ov_root.get('description') or ROOT_DESC, '/', root_body, paths, schema, hreflang=False, tab='home'))
+            write('/', self.page(ov_root.get('title') or ROOT_TITLE, ov_root.get('description') or ROOT_DESC, '/', root_body,
+                                 {**paths, self.lang: '/'}, schema, hreflang=False, tab='home'))
             return
         # Titles and descriptions stay as search engines know them unless explicitly tuned in seo_overrides.json.
         ov_home = market_seo.route_override(overrides, self.home())
@@ -500,6 +539,9 @@ class Site:
             facts = ''.join(f'<li>{e(L.translate_fact(self.data, f["label"], self.lang))}: {e(L.translate_fact(self.data, f["value"], self.lang))}</li>'
                             for f in L.public_facts(p))
             crumb_html = ''.join(f'<li><a href="{href}">{e(label)}</a></li>' for label, href in crumbs[:-1])
+            more = p.get('more') if self.lang == 'ru' else None
+            more_html = (f'<section class="p-more"><div><h2>{e(MORE_RU["who"])}</h2><p>{e(more["who"])}</p></div>'
+                         f'<div><h2>{e(MORE_RU["check"])}</h2><ul>{"".join(f"<li>{e(c)}</li>" for c in more["check"])}</ul></div></section>') if more else ''
             related = market_seo.rotating_related(self.items, p, self.in_world(key), limit=4)
             body = (f'<section class="p-hero{" dark" if p["dark"] else ""}">'
                     f'<ol class="crumbs" aria-label="{e(L.BREADCRUMB_ARIA[self.lang])}">{crumb_html}</ol><h1 class="d">{e(name)}</h1>'
@@ -507,7 +549,7 @@ class Site:
                     f'{"<ul class=facts>" + facts + "</ul>" if facts else ""}'
                     f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(L.DISCLOSURE[self.lang])}</p></div>'
                     f'{self.gallery(p, name)}</div></section>'
-                    f'{seo_notes_html}')
+                    f'{more_html}{seo_notes_html}')
             if related:
                 body += (f'<section class="related"><p class="eye"><b>●</b> {e(self.cat(key))}</p>'
                          f'<h2 class="d rv">{e(u["related"][0])} <span class="s">{e(u["related"][1])}</span></h2>{self.rope(related)}</section>')
@@ -526,6 +568,9 @@ class Site:
                     f'<h1 class="d">{e(name)} <span class="s">{e(u["count"](n=len(group)))}</span></h1><p class="t">{e(self.copy(key))}</p></section>'
                     f'<section class="c-body">{self.rope(group[:3], width=800) if len(group) >= 3 else ""}'
                     f'<div class="chips">{chips}</div><div class="grid">{"".join(self.card(p) for p in group)}</div></section>')
+            long_text = CATEGORY_LONG_RU.get(key) if self.lang == 'ru' else None
+            if long_text:
+                body += f'<section class="c-about"><h2>{e(name)}: что проверить перед заказом</h2><p>{e(long_text)}</p></section>'
             ov = market_seo.route_override(overrides, path)
             title = ov.get('title') or L.CATEGORY_TITLE[self.lang].format(cat=name)
             desc = ov.get('description') or (self.copy(key) + ' ' + L.CATEGORY_COUNT[self.lang].format(n=len(group)))
@@ -595,6 +640,15 @@ def proofread():
             for part in (text if isinstance(text, tuple) else (text,)):
                 if isinstance(part, str) and part:
                     check_texts.check_string(part, lang, f'interface/{lang}/{key}', problems)
+    # The Russian-only texts: front page, category notes, extra product advice.
+    for key, text in ROOT_RU.items():
+        for part in (text if isinstance(text, tuple) else (text,)):
+            check_texts.check_string(part, 'ru', f'front page/{key}', problems)
+    for key, text in CATEGORY_LONG_RU.items():
+        check_texts.check_string(text, 'ru', f'category note/{key}', problems)
+    for pid, entry in long_copy().items():
+        for part in (entry['who'], *entry['check']):
+            check_texts.check_string(part, 'ru', f'{pid}/more', problems)
     if problems:
         sys.exit('Text problems, build stopped:\n' + '\n'.join(problems))
 
@@ -612,6 +666,7 @@ def main():
     (OUT / 'js').mkdir(exist_ok=True)
     shutil.copyfile(HERE / 'static/early.js', OUT / 'js/early.js')
     shutil.copyfile(HERE / 'static/app.js', OUT / 'js/fx.js')
+    shutil.copyfile(HERE / 'static/ym.js', OUT / 'js/ym.js')
     sites = {lang: Site(products, data, lang) for lang in LANGS}
     siblings = {lang: {p['id'] for p in s.items} for lang, s in sites.items()}
     metadata_by_product = assign_product_metadata({lang: site.items for lang, site in sites.items()})
@@ -630,7 +685,7 @@ def main():
         lambda rel_html_path, html: write('/' + rel_html_path.removesuffix('/index.html').removesuffix('index.html'), html),
         L.alternates,
     )
-    root = Site(products, data, 'en', root=True)
+    root = Site(products, data, 'ru', root=True)
     root.build_home()
     app_manifest(root)
     app_icons()

@@ -1,7 +1,13 @@
 """Multilingual FLUXIXO buying guides restored and adapted for all six target markets."""
 from __future__ import annotations
 
+import json
 from html import escape as e
+from pathlib import Path
+
+# Guides that exist in Russian only (written for readers who come from Yandex). Each row:
+# {"slug", "preferred_product", "title", "description", "h1", "sections": [[heading, paragraph], ...], "date"}.
+EXTRA_RU_FILE = Path(__file__).resolve().parent / 'journal_ru_extra.json'
 
 JOURNAL_UI = {
     'ru': {
@@ -304,6 +310,18 @@ ARTICLES = [
 ]
 
 
+def all_articles():
+    """The six-language guides, then the Russian-only ones. A guide appears only in the languages it is written in."""
+    extra = []
+    if EXTRA_RU_FILE.exists():
+        for row in json.loads(EXTRA_RU_FILE.read_text(encoding='utf-8')):
+            extra.append({
+                'slug': row['slug'], 'preferred_product': row['preferred_product'], 'date': row.get('date'),
+                'translations': {'ru': (row['title'], row['description'], row['h1'], [tuple(pair) for pair in row['sections']])},
+            })
+    return ARTICLES + extra
+
+
 def article_path(lang, slug):
     prefix = JOURNAL_UI[lang]['slug_prefix']
     return f'{prefix}{slug}/'
@@ -325,14 +343,17 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
         catalog_href = '/catalog/' if lang == 'ru' else f'/{lang}/'
         home_href = '/catalog/' if lang == 'ru' else f'/{lang}/'
         cards_html = []
-        for article in ARTICLES:
+        for article in all_articles():
+            if lang not in article['translations']:
+                continue
             slug = article['slug']
+            published = article.get('date') or ui['date']
             meta_title, meta_desc, h1, sections = article['translations'][lang]
             rel_prod = by_id.get(article['preferred_product']) or fallback_prod
             img_path = rel_prod['image'] if rel_prod else 'assets/images/import-0010.webp'
             thumb_rel = 'assets/thumbs/' + img_path.rsplit('/', 1)[-1].rsplit('.', 1)[0] + '-480.webp'
             art_url = article_path(lang, slug)
-            art_alternates = {l: article_path(l, slug) for l in JOURNAL_UI}
+            art_alternates = {l: article_path(l, slug) for l in JOURNAL_UI if l in article['translations']}
             routes.append(art_url)
 
             prod_href = f'{prefix_ru}/products/{rel_prod["id"]}/' if rel_prod else catalog_href
@@ -357,8 +378,8 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                         'headline': h1,
                         'description': meta_desc,
                         'image': origin + '/' + img_path,
-                        'datePublished': ui['date'],
-                        'dateModified': ui['date'],
+                        'datePublished': published,
+                        'dateModified': published,
                         'inLanguage': lang,
                         'author': {'@type': 'Organization', 'name': 'FLUXIXO', 'url': origin + '/'},
                         'publisher': {'@type': 'Organization', 'name': 'FLUXIXO', 'url': origin + '/'},

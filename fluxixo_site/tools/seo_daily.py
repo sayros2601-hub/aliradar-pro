@@ -396,7 +396,7 @@ def yandex(token, urls, state, today, dry_run):
     # Sitemaps: Yandex only learns the page list once the sitemaps are added in Webmaster; add any that are missing.
     known = {s.get('sitemap_url') for s in read('sitemaps', {}).get('sitemaps', [])}
     known |= {s.get('sitemap_url') for s in read('user-added-sitemaps', {}).get('sitemaps', [])}
-    sitemaps_added, recrawl_error = [], None
+    sitemaps_added, recrawl_error, write_locked = [], None, False
     for name in YANDEX_SITEMAPS:
         feed = f'{ORIGIN}/{name}'
         if feed in known or dry_run:
@@ -406,13 +406,19 @@ def yandex(token, urls, state, today, dry_run):
             sitemaps_added.append(name)
         except ApiError as error:
             recrawl_error = f'sitemap {name}: {error}'[:200]
+            # Yandex answers writes with an instant empty 504 while Webmaster tools are read-only
+            # (Oct-Nov 2026 data-centre incident); recrawl would fail the same way, so skip it today.
+            write_locked = 'HTTP 504' in str(error)
+    if write_locked:
+        recrawl_error = ('Вебмастер закрыл запись (HTTP 504, режим «только для чтения» на стороне Яндекса); '
+                         'sitemap и переобход повторятся автоматически в следующий запуск, IndexNow работает')
     # Recrawl: Russian pages that are not in Yandex search yet, not asked within two weeks, a few per day.
     quota = read('recrawl/quota', {})
     allowed = min(YANDEX_RECRAWL_PER_DAY, int(quota.get('quota_remainder') or 0))
     again = (today - timedelta(days=RECRAWL_AGAIN_DAYS)).isoformat()
     missing = [u for u in urls if ru_url(u) and u not in in_search]
     sent = []
-    for url in [u for u in missing if state['recrawled'].get(u, '') < again][:allowed]:
+    for url in [] if write_locked else [u for u in missing if state['recrawled'].get(u, '') < again][:allowed]:
         if dry_run:
             sent.append(url)
             continue
@@ -429,7 +435,7 @@ def yandex(token, urls, state, today, dry_run):
             'problems': {k: v.get('state') for k, v in problems.items() if isinstance(v, dict) and v.get('state') == 'PRESENT'},
             'in_search': len(in_search), 'ru_missing': len(missing), 'recrawl_sent': sent,
             'recrawl_quota_left': quota.get('quota_remainder'), 'not_loaded': sorted(set(pending)),
-            'sitemaps_added': sitemaps_added, 'recrawl_error': recrawl_error}
+            'sitemaps_added': sitemaps_added, 'recrawl_error': recrawl_error, 'write_locked': write_locked}
 
 
 # ---------- analysis ----------

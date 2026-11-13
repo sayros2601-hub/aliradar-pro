@@ -1,10 +1,9 @@
 /*
   X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
   Strict-Transport-Security: max-age=31536000
-  Content-Security-Policy: default-src 'none'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://static.cloudflareinsights.com/beacon.min.js; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; media-src 'self'; connect-src 'self' https://cloudflareinsights.com; manifest-src 'self'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'none'; base-uri 'none'; object-src 'none'; frame-ancestors https://metrika.yandex.ru https://metrika.yandex.com https://metrica.yandex.ru https://metrica.yandex.com https://webvisor.com https://*.webvisor.com; form-action 'self'; script-src 'self' https://static.cloudflareinsights.com/beacon.min.js https://mc.yandex.ru https://yastatic.net; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://mc.yandex.ru https://mc.yandex.com https://mc.yandex.by https://mc.yandex.kz https://mc.yandex.uz https://mc.webvisor.com https://mc.webvisor.org; font-src 'self'; media-src 'self'; connect-src 'self' https://cloudflareinsights.com https://mc.yandex.ru https://mc.yandex.com https://mc.yandex.by https://mc.yandex.kz https://mc.yandex.uz https://mc.webvisor.com https://mc.webvisor.org wss://mc.yandex.ru wss://mc.yandex.com wss://mc.yandex.by wss://mc.yandex.kz wss://mc.yandex.uz wss://mc.webvisor.com wss://mc.webvisor.org; child-src blob: https://mc.yandex.ru; frame-src blob: https://mc.yandex.ru; manifest-src 'self'; upgrade-insecure-requests
 
 /editor
   X-Robots-Tag: noindex, nofollow
