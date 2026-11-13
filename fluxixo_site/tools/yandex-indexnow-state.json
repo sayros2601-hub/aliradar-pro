@@ -218,6 +218,27 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {},
+  "pending": {
+    "https://www.fluxixo.shop/": "77edfc010e9df4407809bbf7d485a119d02efd78b233b4dfb831ac4aad6b426d",
+    "https://www.fluxixo.shop/about/": "30cfc23ddf3990ae3fbba90ecdfa25a1537c9bf4085a3d480e2df88f13084b76",
+    "https://www.fluxixo.shop/catalog/": "23c7c4f8411715759a0574c325dba214b00612d442ee558245ed84924ac8eaeb",
+    "https://www.fluxixo.shop/categories/dom/": "0de7e4fd900e5ee90ab16af30e50bab09e26457c1a52ef0fdfa9db59f4bbfde3",
+    "https://www.fluxixo.shop/categories/instrumenty/": "e4fe8b22a8ea2143dc6f738a1ed2de94ead7f0062d53c9e201abd5738bc5f8c5",
+    "https://www.fluxixo.shop/categories/kuhnya/": "d77bd3465c1ea8d4b68468c302f10955371ac24e951e0d492638682fe74f3483",
+    "https://www.fluxixo.shop/categories/na-prirode/": "b3d1169104152696b79fdd43e8823e3102b5b6ec507f4c2a09c3f8a9e74f6044",
+    "https://www.fluxixo.shop/categories/pitomcy/": "5c7f63ce4e551f186ea0a29ccb53b4c0e5be76ee920e0445378e8fd08f0ff390",
+    "https://www.fluxixo.shop/categories/sport/": "797fcb40616bef6ce63d20e5e7205eb7576032c00bf6e65f36965434edbf4f8f",
+    "https://www.fluxixo.shop/categories/tehnika/": "9a9421f984ef9cc8ea4b8ed441a67e07175342256625a7d8a96d9c08dc51a72a",
+    "https://www.fluxixo.shop/categories/uhod/": "13a55d2f32948479adc05f15647b6fd41b1d72e6b6c44883f8d13bf2e1c27c79",
+    "https://www.fluxixo.shop/categories/v-doroge/": "7ee05e0da5855f4d24a1e4fc37e7534fb24df08178d05b8a172740ee15f5a242",
+    "https://www.fluxixo.shop/journal/": "e5182eba1ca63b40a213e8036e548a70ca297a4b4cbb3bbab5bd2d4fea946fcd",
+    "https://www.fluxixo.shop/products/auto-1005010357329711/": "275ee578b27a83807384ac534b0266c170e4b2ec93ad869f0300dd5bfbf62019",
+    "https://www.fluxixo.shop/products/auto-1005013145693095/": "ae00cc0e1b7712ff3fd4a0ff04e1afa15acfe595c3809013b81604cc5ad205a5",
+    "https://www.fluxixo.shop/products/find-029-window-cleaner/": "7244d2ddd920062b575a7e2751789d267f8170fb3b0ec85382fac8752b3b784f",
+    "https://www.fluxixo.shop/products/find-043-weather-station/": "718beff97f49fb1085940430fb762c9c6226bd2d6ebe7fc22922d11a3aaf6bde",
+    "https://www.fluxixo.shop/products/find-045-white-noise/": "905460762f428ab767bb244d134825c36052522c638eb75545b7b46e78175dbd",
+    "https://www.fluxixo.shop/products/find-048-hydroponic/": "96155902b1ad933fd710a3bfd8cc32e0ae46d3bd14b153c9912c57186dcc6239",
+    "https://www.fluxixo.shop/products/katord-wifi-repeater/": "5a54dd321bdd6daca9679236741693278723c14231a5a6143d4069cbed676bcc"
+  },
   "schema_version": 1
 }
