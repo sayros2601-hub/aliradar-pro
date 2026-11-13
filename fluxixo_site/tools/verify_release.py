@@ -19,6 +19,160 @@ FORBIDDEN = ('"Product"', '"Offer"', 'priceCurrency', 'InStock', 'Подборк
 MAX_HTML_BYTES = 1_000_000
 MAX_REDIRECT_RULES = 90
 
+# Adding any one of these ImageObject keys activates Google Search Console's
+# Image License Metadata ("Licensable") report and requires the entire companion set.
+IMAGE_LICENSE_TRIGGERS = ('creator', 'creditText', 'copyrightNotice', 'license', 'acquireLicensePage')
+IMAGE_LICENSE_REQUIRED_SET = ('contentUrl', 'creator', 'creditText', 'copyrightNotice', 'license', 'acquireLicensePage')
+
+
+def _is_nonempty_str(value):
+    return isinstance(value, str) and bool(value.strip())
+
+
+def _is_https_url(value):
+    return isinstance(value, str) and value.startswith('https://') and len(value) > len('https://')
+
+
+def _is_iso_date(value, *, require_tz_with_time=False):
+    from datetime import datetime as _datetime
+    import re as _re
+
+    if not _is_nonempty_str(value):
+        return False
+    text = value.strip()
+    if 'T' in text and require_tz_with_time and not (text.endswith('Z') or _re.search(r'[+-]\d{2}:\d{2}$', text)):
+        return False
+    try:
+        _datetime.fromisoformat(text.replace('Z', '+00:00'))
+    except ValueError:
+        return False
+    return True
+
+
+def _node_types(node):
+    raw = node.get('@type')
+    if isinstance(raw, str):
+        return (raw,)
+    if isinstance(raw, list):
+        return tuple(item for item in raw if isinstance(item, str))
+    return ()
+
+
+def validate_google_structured_data(payload):
+    """Validate parsed JSON-LD against Google Search Central structured data rules."""
+    errors = set()
+
+    def check_image(node):
+        if any(k in node for k in IMAGE_LICENSE_TRIGGERS):
+            has_all = all(bool(node.get(k)) for k in IMAGE_LICENSE_REQUIRED_SET)
+            has_urls = _is_https_url(node.get('license')) and _is_https_url(node.get('acquireLicensePage'))
+            if not (has_all and has_urls):
+                errors.add('incomplete image license metadata in JSON-LD')
+        if not (_is_https_url(node.get('contentUrl')) or _is_https_url(node.get('url'))):
+            errors.add('ImageObject missing HTTPS contentUrl/url')
+        for dim in ('width', 'height'):
+            if dim in node:
+                val = node[dim]
+                if isinstance(val, bool) or not isinstance(val, (int, float)) or val <= 0:
+                    errors.add('ImageObject invalid dimensions')
+
+    def check_video(node):
+        thumbs = node.get('thumbnailUrl')
+        thumb_ok = _is_https_url(thumbs) or (
+            isinstance(thumbs, list) and bool(thumbs) and all(_is_https_url(t) for t in thumbs)
+        )
+        media_ok = _is_https_url(node.get('contentUrl')) or _is_https_url(node.get('embedUrl'))
+        if not (_is_nonempty_str(node.get('name')) and _is_nonempty_str(node.get('description'))
+                and thumb_ok and _is_iso_date(node.get('uploadDate'), require_tz_with_time=True) and media_ok):
+            errors.add('invalid VideoObject structured data')
+
+    def check_article(node):
+        headline = node.get('headline')
+        author = node.get('author')
+        authors = author if isinstance(author, list) else ([author] if isinstance(author, dict) else [])
+        author_ok = bool(authors) and all(isinstance(a, dict) and _is_nonempty_str(a.get('name')) for a in authors)
+        img = node.get('image')
+        img_ok = _is_https_url(img) or (isinstance(img, dict) and _is_https_url(img.get('url') or img.get('contentUrl'))) or (
+            isinstance(img, list) and bool(img)
+        )
+        if not (_is_nonempty_str(headline) and len(headline) <= 200 and img_ok
+                and _is_iso_date(node.get('datePublished')) and author_ok):
+            errors.add('invalid Article structured data')
+
+    def check_breadcrumbs(node):
+        els = node.get('itemListElement')
+        if not isinstance(els, list) or not els:
+            errors.add('invalid BreadcrumbList structured data')
+            return
+        for idx, el in enumerate(els, 1):
+            if not isinstance(el, dict) or el.get('position') != idx:
+                errors.add('invalid BreadcrumbList structured data')
+                return
+            item = el.get('item')
+            name_ok = _is_nonempty_str(el.get('name')) or (isinstance(item, dict) and _is_nonempty_str(item.get('name')))
+            item_url = item.get('@id') if isinstance(item, dict) else item
+            url_ok = _is_https_url(item_url) if (idx < len(els) or item is not None) else True
+            if not (name_ok and url_ok):
+                errors.add('invalid BreadcrumbList structured data')
+                return
+
+    def check_faq(node):
+        entities = node.get('mainEntity')
+        if not isinstance(entities, list) or not entities:
+            errors.add('invalid FAQPage structured data')
+            return
+        for q in entities:
+            ans = q.get('acceptedAnswer') if isinstance(q, dict) else None
+            if not (isinstance(q, dict) and q.get('@type') == 'Question' and _is_nonempty_str(q.get('name'))
+                    and isinstance(ans, dict) and ans.get('@type') == 'Answer' and _is_nonempty_str(ans.get('text'))):
+                errors.add('invalid FAQPage structured data')
+                return
+
+    def check_item_list(node):
+        els = node.get('itemListElement')
+        if els is None:
+            return
+        if not isinstance(els, list):
+            errors.add('invalid ItemList structured data')
+            return
+        for idx, el in enumerate(els, 1):
+            if not isinstance(el, dict) or el.get('position') != idx or not _is_nonempty_str(el.get('name')):
+                errors.add('invalid ItemList structured data')
+                return
+            target = el.get('url') or el.get('item')
+            if not _is_https_url(target):
+                errors.add('invalid ItemList structured data')
+                return
+
+    def walk(value):
+        if isinstance(value, list):
+            for entry in value:
+                walk(entry)
+            return
+        if not isinstance(value, dict):
+            return
+        types = _node_types(value)
+        if 'ImageObject' in types:
+            check_image(value)
+        if 'VideoObject' in types:
+            check_video(value)
+        if any(t in types for t in ('Article', 'NewsArticle', 'BlogPosting')):
+            check_article(value)
+        if 'BreadcrumbList' in types:
+            check_breadcrumbs(value)
+        if 'FAQPage' in types:
+            check_faq(value)
+        if 'ItemList' in types:
+            check_item_list(value)
+        if any(t in types for t in ('WebSite', 'Organization', 'ItemPage', 'CollectionPage')):
+            if not _is_nonempty_str(value.get('name')) or ('url' in value and not _is_https_url(value.get('url'))):
+                errors.add('invalid WebSite/Organization/Page JSON-LD')
+        for child in value.values():
+            walk(child)
+
+    walk(payload)
+    return sorted(errors)
+
 
 class Page(HTMLParser):
     def __init__(self):
@@ -141,9 +295,12 @@ def main():
                 problems['forbidden text ' + word].append(url)
         for block in page.jsonld:
             try:
-                json.loads(block)
+                payload = json.loads(block)
             except ValueError:
                 problems['invalid structured data'].append(url)
+            else:
+                for schema_err in validate_google_structured_data(payload):
+                    problems[schema_err].append(url)
         for asset in page.assets:
             if not local_file(asset.split('?')[0]).exists():
                 problems['missing asset'].append(f'{url} -> {asset}')

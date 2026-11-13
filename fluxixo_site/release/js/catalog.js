@@ -5,6 +5,73 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005010357329711",
+      "name": "Automatic Foam Soap Dispenser Touchless USB Rechargeable With Infrared Sensor 320ml Capacity And Five Levels Of Foam Output",
+      "headline": [
+        "Находка",
+        "для дома."
+      ],
+      "description": "Название приведено из карточки продавца. Перед покупкой проверьте характеристики, вариант и условия по ссылке.",
+      "category": "Дом",
+      "image": "assets/images/auto-1005010357329711.webp",
+      "original": "assets/originals/auto-1005010357329711.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3pExu55",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010357329711.html",
+      "sourceProductId": "1005010357329711",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010357329711.html",
+      "sourceTitle": "Automatic Foam Soap Dispenser Touchless USB Rechargeable With Infrared Sensor 320ml Capacity And Five Levels Of Foam Output",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa5b313f58f6049f79ddd7ddf70c9f4a0e.jpeg",
+      "sourceModelKey": null,
+      "sourceMarket": "MX",
+      "sourceTask": "rare_auto_soap_foamer",
+      "demo": false,
+      "theme": "coral",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Название приведено из карточки продавца. Перед покупкой проверьте характеристики, вариант и условия по ссылке.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "presearchStatus": {
+        "checked": false,
+        "status": "unavailable:JSONDecodeError",
+        "saturated": false
+      },
+      "views": [
+        "assets/images/auto-1005010357329711-v2.webp",
+        "assets/images/auto-1005010357329711-v3.webp"
+      ],
+      "sourceImageSha256": "34882766e217faf9089064978c8ac623be908364cea8a86862eb2a3aa2ba3e52",
+      "sourcePixelSha256": "289e4b357bbb01934c1f2717bdc03010a9dc186432dbba9fab359c9129c80cf3",
+      "imageDhash": "116161c948717961",
+      "imageAhash": "f8fc3c7cff1d1d39",
+      "imageAspect": "1.20",
+      "sourceImageDhash": "137161497b336386",
+      "sourceImageAhash": "f9b939fd9d99f000",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1454,
+        "fg_height": 1212,
+        "fg_max_side": 1454,
+        "fg_min_side": 1212,
+        "upscale_ratio": 0.612,
+        "sharpness": 14.141,
+        "fg_mean_luma": 179.5,
+        "fg_luma_std": 59.75,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.01,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005013145693095",
       "name": "Инструмент для установки стрелок часов",
       "headline": [

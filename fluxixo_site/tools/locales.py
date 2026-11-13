@@ -449,7 +449,7 @@ def editorial_image_caption(product_name, category_label, lang, *, role='hero', 
 
 
 def build_image_object(origin, image_rel, *, name, caption, size, thumb_rel=None, representative=True):
-    """Compliant Schema.org ImageObject without Product/Offer tokens."""
+    """Compliant Schema.org ImageObject without Product/Offer or partial Image License triggers."""
     obj = {
         '@type': 'ImageObject',
         '@id': f'{origin}/{image_rel}#image',
@@ -461,7 +461,6 @@ def build_image_object(origin, image_rel, *, name, caption, size, thumb_rel=None
         'width': size[0],
         'height': size[1],
         'representativeOfPage': representative,
-        'creditText': 'FLUXIXO Studio',
     }
     if thumb_rel:
         obj['thumbnailUrl'] = f'{origin}/{thumb_rel}'
