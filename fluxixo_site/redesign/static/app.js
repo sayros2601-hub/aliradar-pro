@@ -1,4 +1,59 @@
+// A scheduled start is not proof of a completed publication. Keep the due day
+// anchored to the release metadata, including when a cached page spans midnight.
+const FluxixoCountdown = (() => {
+  const parts = (date, timeZone) => Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+    timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+  }).formatToParts(date).filter(part => part.type !== 'literal').map(part => [part.type, part.value]));
+  const localDay = (date, timeZone) => {
+    const p = parts(date, timeZone);
+    return `${p.year}-${p.month}-${p.day}`;
+  };
+  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 19 } = {}) {
+    now = new Date(now);
+    if (publishedDay) {
+      const next = new Date(publishedDay + 'T12:00:00Z');
+      next.setUTCDate(next.getUTCDate() + 1);
+      dueDay = next.toISOString().slice(0, 10);
+    }
+    dueDay = dueDay || localDay(now, timeZone);
+    const [year, month, day] = dueDay.split('-').map(Number);
+    const wallClock = Date.UTC(year, month - 1, day, Number(hour));
+    let target = wallClock;
+    // Resolve the local 19:00 using the offset on that date, not today's offset.
+    // This also handles the 23/25-hour interval across Israel's DST changes.
+    for (let pass = 0; pass < 2; pass++) {
+      const p = parts(new Date(target), timeZone);
+      target += wallClock - Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+    }
+    const seconds = Math.max(0, Math.ceil((target - now.getTime()) / 1000));
+    return { status: seconds > 0 ? 'countdown' : 'awaiting', seconds, dueDay };
+  }
+  function createPublicationPoller(fetchStatus, timeZone = 'Asia/Jerusalem') {
+    let checkedAt = -Infinity, inFlight = false;
+    return async (now, publishedDay = '') => {
+      const at = new Date(now).getTime();
+      if (inFlight || at - checkedAt < 60000) return publishedDay;
+      checkedAt = at;
+      inFlight = true;
+      try {
+        const status = await fetchStatus();
+        const day = status && status.published_day;
+        if (typeof day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(day)
+            && new Date(day + 'T00:00:00Z').toISOString().slice(0, 10) === day
+            && day > publishedDay && day <= localDay(new Date(now), timeZone)) return day;
+      } catch (_) {
+        // Offline/failed publication remains pending; retry at most once a minute.
+      } finally { inFlight = false; }
+      return publishedDay;
+    };
+  }
+  return { getCountdownState, localDay, createPublicationPoller };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = FluxixoCountdown;
+
 (() => {
+  if (typeof document === 'undefined') return;
   const root = document.documentElement;
   const lang = root.lang || 'en';
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -23,11 +78,43 @@
     const day = new Date(el.getAttribute('datetime') + 'T12:00:00Z');
     if (!isNaN(day)) el.textContent = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(day);
   });
-  // Next drop: "today" while today's has not landed yet, otherwise "tomorrow".
-  document.querySelectorAll('[data-next]').forEach(el => {
-    const [today, tomorrow] = el.dataset.when.split('|');
-    el.textContent = el.dataset.next >= new Date().toISOString().slice(0, 10) ? tomorrow : today;
+  // Count down to the planned start; if the release is late, say so honestly.
+  const clocks = [...document.querySelectorAll('[data-countdown]')];
+  const pollPublication = FluxixoCountdown.createPublicationPoller(async () => {
+    const response = await fetch('/drop-status.json?v=' + Math.floor(Date.now() / 60000), { cache: 'no-store' });
+    if (!response.ok) throw new Error('Publication status unavailable');
+    return response.json();
   });
+  const refreshPublication = async now => {
+    const previous = clocks.reduce((day, el) => el.dataset.publishedDay > day ? el.dataset.publishedDay : day, '');
+    const published = await pollPublication(now, previous);
+    if (published > previous) {
+      clocks.forEach(el => { el.dataset.publishedDay = published; });
+      updateClocks();
+    }
+  };
+  const updateClocks = () => {
+    const now = new Date();
+    let awaiting = false;
+    clocks.forEach(el => {
+      const value = FluxixoCountdown.getCountdownState(now, {
+        publishedDay: el.dataset.publishedDay, dueDay: el.dataset.dueDay,
+        timeZone: el.dataset.timezone, hour: el.dataset.hour
+      });
+      const pad = n => String(n).padStart(2, '0');
+      el.textContent = value.status === 'awaiting' ? el.dataset.awaiting
+        : `${pad(Math.floor(value.seconds / 3600))}:${pad(Math.floor(value.seconds / 60) % 60)}:${pad(value.seconds % 60)}`;
+      el.dataset.state = value.status;
+      awaiting = awaiting || value.status === 'awaiting';
+    });
+    if (awaiting && !document.hidden) refreshPublication(now);
+  };
+  if (clocks.length) {
+    updateClocks();
+    setInterval(updateClocks, 1000);
+    document.addEventListener('visibilitychange', updateClocks);
+    window.addEventListener('pageshow', updateClocks);
+  }
   // The eyebrow says "today's drop" only while the latest drop really landed today; the cached page
   // outlives midnight, so after that the same line honestly reads "latest drop".
   document.querySelectorAll('[data-drop]').forEach(el => {

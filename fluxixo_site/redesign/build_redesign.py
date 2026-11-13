@@ -8,13 +8,15 @@ Reads the catalog (dist/js/catalog.js, tools/i18n_data.json) and writes every vi
 import colorsys
 import hashlib
 import json
+import os
 import re
 import shutil
 import subprocess
 import sys
-from datetime import datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from html import escape as e
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from PIL import Image
 
@@ -52,6 +54,29 @@ def last_drop_day():
 
 
 LAST_DROP = last_drop_day()
+
+
+def countdown_metadata(state_path=None, now=None, prepared_day=None):
+    """Advance the public clock only for the release that is actually served.
+
+    A prepared-day override belongs to the immutable build being deployed. A
+    mere prepared/reserved state entry does not prove a public release exists.
+    """
+    now = now or datetime.now(timezone.utc)
+    today = now.astimezone(ZoneInfo('Asia/Jerusalem')).date()
+    published_days = []
+    try:
+        state = json.loads((state_path or ROOT.parent / 'data/fluxixo_publish_state.json').read_text(encoding='utf-8'))
+        published_days = [date.fromisoformat(row.get('published_day', day)) for day, row in state.get('days', {}).items()
+                          if row.get('status') == 'published']
+    except (OSError, ValueError, TypeError, AttributeError):
+        pass
+    prepared_day = os.environ.get('FLUXIXO_PREPARED_PUBLISH_DAY', '') if prepared_day is None else prepared_day
+    if prepared_day:
+        published_days.append(date.fromisoformat(prepared_day))
+    published = max(published_days) if published_days else None
+    return {'published_day': published.isoformat() if published else '',
+            'due_day': (published + timedelta(days=1) if published else today).isoformat()}
 
 # One calm pastel per world; the page repaints to it as the world scrolls into the middle of the screen.
 WORLDS = {
@@ -407,6 +432,7 @@ class Site:
     # ---------- pages ----------
     def build_home(self):
         u, items = self.ui, self.items
+        clock = countdown_metadata()
         drop = items[:3]
         star = drop[datetime.now(timezone.utc).toordinal() % len(drop)]
         hero = (f'<section class="drop" id="drop" data-page="{PAPER}"><div class="drop-bar">'
@@ -415,12 +441,13 @@ class Site:
                 f'<p class="eye"><b>●</b> <span data-drop="{e(u["drop"])}|{e(u["drop_old"])}" data-on="{LAST_DROP}">'
                 f'{e(u["drop"] if LAST_DROP >= datetime.now(timezone.utc).date().isoformat() else u["drop_old"])}</span>'
                 f' · <time data-day datetime="{LAST_DROP}">{LAST_DROP}</time></p>'
-                # GitHub starts the daily job hours late and at a different time each day, so no fake countdown:
-                # "today" until today's drop lands, then "tomorrow".
-                f'<p class="clock">{e(u["next_drop"])}<b data-next="{LAST_DROP}" data-when="{e(u["when"][0])}|{e(u["when"][1])}">'
-                f'{e(u["when"][1] if LAST_DROP >= datetime.now(timezone.utc).date().isoformat() else u["when"][0])}</b></p></div>'
-                f'<h1 class="d">{e((ROOT_RU if self.root else u)["h1"][0])}<span class="s">{e((ROOT_RU if self.root else u)["h1"][1])}</span></h1>'
-                f'<p class="drop-sub">{e(u["drop_text"])}</p>{self.rope(drop, eager=True, lead=True)}</section>')
+                f'<p class="clock row" title="{e(u["countdown_schedule"])}">{e(u["countdown_label"])}'
+                f'<b data-countdown data-published-day="{clock["published_day"]}" data-due-day="{clock["due_day"]}" '
+                f'data-timezone="Asia/Jerusalem" data-hour="19" data-awaiting="{e(u["countdown_awaiting"])}" '
+                f'role="timer" aria-live="off">--:--:--</b></p></div>'
+                f'{self.rope(drop, eager=True, lead=True)}<div class="drop-copy">'
+                f'<h1>{e((ROOT_RU if self.root else u)["h1"][0])}<span class="s">{e((ROOT_RU if self.root else u)["h1"][1])}</span></h1>'
+                f'<p class="drop-sub">{e(u["drop_text"])}</p></div></section>')
 
         # Phone only: every world one tap away, right under today's drop.
         tiles = ''.join(
@@ -667,6 +694,9 @@ def main():
     shutil.copyfile(HERE / 'static/early.js', OUT / 'js/early.js')
     shutil.copyfile(HERE / 'static/app.js', OUT / 'js/fx.js')
     shutil.copyfile(HERE / 'static/ym.js', OUT / 'js/ym.js')
+    # This status travels with the release, so open pages reset only after it is live.
+    (OUT / 'drop-status.json').write_text(
+        json.dumps({'published_day': countdown_metadata()['published_day']}) + '\n', encoding='utf-8')
     sites = {lang: Site(products, data, lang) for lang in LANGS}
     siblings = {lang: {p['id'] for p in s.items} for lang, s in sites.items()}
     metadata_by_product = assign_product_metadata({lang: site.items for lang, site in sites.items()})

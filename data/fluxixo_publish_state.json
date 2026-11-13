@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "days": {
+    "2026-11-13": {
+      "status": "published",
+      "reserved_count": 0,
+      "baseline_count": 1,
+      "utc_day": "2026-11-13"
+    }
+  }
+}

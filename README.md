@@ -1,5 +1,17 @@
 # FLUXIXO
 
+## Daily evening update (current schedule)
+
+The catalog has one shared daily allowance of at most three new products, never three per language. All six languages publish together at the planned 19:00 Asia/Jerusalem window, following Israel's daylight-saving rules. Preparation starts at 17:30. Two bounded recovery checks at 19:17 and 20:47 skip completed days before installing dependencies. GitHub schedules can be delayed or dropped, so this is a planned publication time, not a real-time guarantee.
+
+The preferred markets alternate between RU/IL/FR and US/MX/BR each day; their internal order also rotates. All six languages remain available every day. The existing UTC ledger still enforces the global three-product cap. `data/fluxixo_publish_state.json` separately records reserved, prepared and published batches. The initial November 13 record reflects the verified existing one-product publication; migration does not generate an extra batch.
+
+An image allowance is committed before preparation. Prepared catalog entries and images are committed before page building and deployment, so publication recovery uses `--add 0` and cannot regenerate them. An older unpublished batch takes priority over new generation, and its eventual publication consumes that day's update, preventing a six-product catch-up release. Each new run is also capped at its reserved number of product image-processing attempts, including failed attempts. Incomplete preparation stops rather than spending another allowance; the workflow reports an error. Existing products and quality gates are preserved. A product has multiple photo views, so this cap counts product preparation attempts, not individual image files.
+
+The homepage shows a live countdown to the next planned evening publication. Once that time passes, it waits for a real release instead of inventing a new timer. The public `drop-status.json` travels with the deployed release; open pages check it at most once per minute while waiting and reset on a newer publication. Normal daily intervals are 24 hours; daylight-saving changes and late publication can shorten or lengthen the interval to the next fixed 19:00.
+
+Manual workflow dispatch defaults to `add_count=0`, rebuilding and deploying the existing catalog without new images. No paid runner or service tier was introduced, and no artifact uploads were added.
+
 Production: https://www.fluxixo.shop/
 
 Production: https://www.fluxixo.shop

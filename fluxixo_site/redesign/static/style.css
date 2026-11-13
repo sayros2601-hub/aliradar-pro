@@ -59,18 +59,21 @@ html.anim .top{transition:background-color .9s}
 .cut{filter:drop-shadow(0 28px 22px rgba(18,16,20,.22))}
 
 /* drop hero */
-.drop{padding:clamp(20px,3vw,44px) var(--g) clamp(40px,6vw,90px);position:relative}
-.drop-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-bottom:clamp(18px,3vw,40px)}
+.drop{padding:clamp(16px,2vw,28px) var(--g) clamp(40px,5vw,70px);position:relative}
+.drop-bar{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding-bottom:clamp(12px,2vw,24px)}
 .clock{display:inline-flex;align-items:center;gap:8px;font:800 11.5px/1 var(--body);letter-spacing:.2em;text-transform:uppercase;color:var(--soft)}
 .clock b{color:var(--ink);font-variant-numeric:tabular-nums;display:inline-block;direction:ltr;padding:6px 10px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--ink)}
-.drop h1{font-size:clamp(58px,12.6vw,230px)}
-.drop h1 .s{color:var(--accent);font-size:.92em;display:block;line-height:.9;margin-top:.02em}
-.drop-sub{max-width:36ch;font-weight:600;margin:clamp(14px,2vw,26px) 0 0;color:var(--soft)}
+.drop-copy{max-width:850px;margin:clamp(20px,3vw,40px) auto 0;text-align:center}
+.drop h1{font:800 clamp(34px,4.2vw,60px)/1.1 var(--body);letter-spacing:-.035em;margin:0;text-wrap:balance}
+.drop h1 .s{color:var(--accent);font-size:.94em;display:block;line-height:1.12;margin-top:.08em}
+.drop-sub{max-width:60ch;font-weight:500;line-height:1.6;margin:16px auto 0;color:var(--soft);text-wrap:pretty}
 
 /* rope */
 .rope{--rh:clamp(70px,11vw,170px);--hw:clamp(110px,27vw,400px);position:relative;margin:clamp(10px,2vw,30px) calc(var(--g) * -1) 0;
   height:calc(var(--rh)*.45 + var(--hw)*1.12 + 130px)}
 .rope.four{--hw:clamp(84px,18vw,250px)}
+.drop>.rope.lead{--rh:clamp(70px,8vw,120px);--hw:clamp(180px,23vw,330px);margin-top:0;height:calc(var(--rh)*.45 + var(--hw)*1.12 + 150px)}
+.drop>.rope.lead .hang b{max-width:18ch;font-size:clamp(15px,1.4vw,20px);line-height:1.15}
 .rope svg{position:absolute;left:0;top:0;width:100%;height:var(--rh);overflow:visible}
 .rope path{fill:none;stroke:var(--ink);stroke-width:2;vector-effect:non-scaling-stroke}
 .hang{position:absolute;top:calc(var(--rh) * var(--y) - 7px);width:var(--hw);margin-left:calc(var(--hw) / -2);text-decoration:none;text-align:center;
@@ -246,14 +249,15 @@ html.anim .top{transition:background-color .9s}
   .tabs.buy a.btn{flex:1 1 auto;flex-direction:row;gap:10px;margin:7px 6px 7px 4px;padding:0 16px;font:800 18px/1 var(--display);letter-spacing:.02em;color:#fff}
 
   /* today's drop: swipe the cards */
-  .drop{padding:14px 0 4px}
-  .drop-bar,.drop h1,.drop-sub{margin-inline:var(--g)}
-  .drop-bar{padding-bottom:14px}
+  .drop{padding:14px 0 20px}
+  .drop-bar{margin-inline:var(--g);padding-bottom:10px}
+  .drop-copy{margin:22px auto 0;padding-inline:var(--g);max-width:560px}
   .clock{font-size:10.5px;letter-spacing:.12em}
-  .drop h1{font-size:clamp(34px,10.4vw,56px);line-height:.94}
-  .drop h1 .s{font-size:.86em;line-height:1;margin-top:.06em}
-  .drop-sub{max-width:none;font-size:14.5px;line-height:1.45;margin-top:10px;margin-bottom:0}
+  .drop h1{font-size:clamp(26px,6vw,32px);line-height:1.15}
+  .drop h1 .s{font-size:.96em;line-height:1.15;margin-top:.08em}
+  .drop-sub{max-width:46ch;font-size:14px;line-height:1.55;margin-top:12px;margin-bottom:0}
   .rope,.rope.four{display:flex;gap:10px;height:auto;margin:14px 0 0;padding:2px var(--g) 6px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--g);scrollbar-width:none;overscroll-behavior-x:contain}
+  .drop>.rope.lead{height:auto;margin:0;padding-top:2px}
   .rope::-webkit-scrollbar,.chips::-webkit-scrollbar,.p-stage::-webkit-scrollbar,.langs::-webkit-scrollbar{display:none}
   .rope svg,.hang .pin,.hang .str,.hang small,.hang em{display:none}
   .hang{position:relative;top:auto;left:auto!important;width:auto;margin:0;flex:0 0 42vw;max-width:230px;transform:none;will-change:auto;scroll-snap-align:start;text-align:start;background:rgba(255,255,255,.6);border-radius:18px;padding:8px 10px 12px}
@@ -261,7 +265,7 @@ html.anim .top{transition:background-color .9s}
   .hang b{font:700 13.5px/1.25 var(--body);text-transform:none;letter-spacing:0;max-width:none;margin:6px 0 0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
   .rope.lead .hang{flex-basis:76vw;max-width:420px;background:var(--t,#fff);border-radius:24px;padding:14px 16px 18px}
   .rope.lead .hang img{width:84%;margin:0 auto}
-  .rope.lead .hang b{font-size:18px;line-height:1.2;font-weight:800;margin-top:10px}
+  .rope.lead .hang b,.drop>.rope.lead .hang b{max-width:none;font-size:18px;line-height:1.2;font-weight:800;margin-top:10px}
   .rope.lead .hl{display:block;font:italic 400 18px/1.15 var(--serif);color:var(--soft);margin-top:4px}
   html[lang|=he] .rope.lead .hl{font-style:normal}
   .rope.lead .hang em{display:inline-flex;align-items:center;height:38px;margin-top:12px;padding:0 16px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:.1em}

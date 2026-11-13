@@ -927,6 +927,12 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         raise DailyError('validation_requires_one')
     if count == 0:
         return {'added': 0}
+    raw_media_budget = os.environ.get('FLUXIXO_MAX_MEDIA_PRODUCTS')
+    if raw_media_budget is not None and not re.fullmatch(r'[0-3]', raw_media_budget.strip()):
+        raise DailyError('media_budget_invalid')
+    # The workflow durably reserves this allowance before starting. Count every
+    # candidate sent to image processing, including candidates later rejected.
+    media_budget = MAX_ATTEMPTS if raw_media_budget is None else int(raw_media_budget.strip())
     instant = now or datetime.now(timezone.utc)
     day = utc_day(instant)
     site_root, dist, reserve_dir, ledger_path = map(Path, (site_root, dist, reserve_dir, ledger_path))
@@ -951,6 +957,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         raise DailyError(getattr(error, 'code', 'daily_input_invalid')) from None
     if needed == 0:
         return {'added': 0, 'validation_existing': validation_run_id is not None}
+    if media_budget == 0:
+        raise DailyError('media_budget_exhausted')
     if (instant.astimezone(timezone.utc) + timedelta(minutes=26)).date().isoformat() != day:
         raise DailyError('utc_day_end_window')
     api_holder = []
@@ -1000,6 +1008,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
     exclusions = []
     prepared = []
     attempts = 0
+    media_attempts = 0
     owner = 'daily-' + (os.environ.get('GITHUB_RUN_ID') or 'run')
     queue_batch = []
     if queue_store is not None:
@@ -1021,7 +1030,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         if not stage.is_relative_to(reserve_dir.resolve()):
             raise DailyError('staging_invalid')
         deadline = time.monotonic() + SEARCH_BUDGET_SECONDS
-        while len(prepared) < needed and attempts < MAX_ATTEMPTS and time.monotonic() < deadline:
+        while len(prepared) < needed and attempts < MAX_ATTEMPTS and media_attempts < media_budget and time.monotonic() < deadline:
             if queue_batch:
                 batch, queue_batch = queue_batch, []
             else:
@@ -1030,7 +1039,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 break
             progress = False
             for candidate in batch:
-                if len(prepared) >= needed or attempts >= MAX_ATTEMPTS or time.monotonic() >= deadline:
+                if len(prepared) >= needed or attempts >= MAX_ATTEMPTS or media_attempts >= media_budget or time.monotonic() >= deadline:
                     break
                 attempts += 1
                 queue_claim = candidate.get('_queue_claim')
@@ -1044,6 +1053,32 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     continue
                 exclusions.append({'id': record_item['id'], 'sourceProductId': record_item['sourceProductId'], 'sourceTitle': record_item['sourceTitle']})
                 try:
+                    if strict_copy:
+                        # Reject untranslated or duplicated copy before spending
+                        # one of the day's limited image-product attempts.
+                        record_item, translated = _maybe_ai_enrich(
+                            record_item, translated, candidate, site_root,
+                            catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
+                        )
+                        ct_mod = discovery_curator._lazy_check_texts()
+                        if ct_mod.lint_product_bundle(record_item['id'], record_item, translated, reject_placeholders=True):
+                            if queue_claim:
+                                queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
+                            continue
+                        try:
+                            _, co_mod = _import_tools_modules(site_root)
+                            full_bundle = {
+                                'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
+                                **translated,
+                            }
+                            if (co_mod.check_source_title_mirroring(full_bundle, record_item.get('sourceTitle', ''))
+                                    or co_mod.check_catalog_similarity(full_bundle, catalog_corpus)):
+                                if queue_claim:
+                                    queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
+                                continue
+                        except Exception:
+                            pass
+                    media_attempts += 1
                     media = (
                         media_fn(candidate, record_item['id'], stage, perceptual_index=perceptual_index)
                         if pass_perceptual else media_fn(candidate, record_item['id'], stage)
@@ -1089,29 +1124,11 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         record_item['sourceQueueRequestId'] = queue_claim['request_id']
                         record_item['sourceQueueClaimId'] = queue_claim['claim_id']
                         record_item['sourceQueueOwner'] = owner
-                    record_item, translated = _maybe_ai_enrich(
-                        record_item, translated, candidate, site_root,
-                        catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
-                    )
-                    if strict_copy:
-                        ct_mod = discovery_curator._lazy_check_texts()
-                        if ct_mod.lint_product_bundle(record_item['id'], record_item, translated, reject_placeholders=True):
-                            if queue_claim:
-                                queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
-                            continue
-                        try:
-                            _, co_mod = _import_tools_modules(site_root)
-                            full_bundle = {
-                                'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
-                                **translated,
-                            }
-                            if (co_mod.check_source_title_mirroring(full_bundle, record_item.get('sourceTitle', ''))
-                                    or co_mod.check_catalog_similarity(full_bundle, catalog_corpus)):
-                                if queue_claim:
-                                    queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
-                                continue
-                        except Exception:
-                            pass
+                    if not strict_copy:
+                        record_item, translated = _maybe_ai_enrich(
+                            record_item, translated, candidate, site_root,
+                            catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
+                        )
                     used_hashes.update((media['source_sha256'], media['pixel_sha256']))
                     for kind_name, cand_hashes in cand_perceptual.items():
                         perceptual_index.append({'id': record_item['id'], 'path': kind_name, 'kind': kind_name, **cand_hashes})
@@ -1136,6 +1153,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             if not progress and attempts >= MAX_ATTEMPTS:
                 break
         if len(prepared) < needed:
+            if raw_media_budget is not None and media_attempts >= media_budget:
+                raise DailyError('media_budget_exhausted')
             raise DailyError('underfilled_no_publication')
         from . import discovery_curator
         gate_ok, gate_errors = discovery_curator.pre_deploy_catalog_gate(

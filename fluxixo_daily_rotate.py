@@ -215,6 +215,7 @@ def main() -> None:
     parser.add_argument("--validation-run-id", help="One specifically authorized one-item validation run")
     parser.add_argument("--deploy-existing", action="store_true", help="Deploy the previously built and verified release")
     parser.add_argument("--skip-indexnow", action="store_true", help="Do not submit URLs to search engines")
+    parser.add_argument("--prepare-only", action="store_true", help="Prepare the catalog batch without building or deploying, so it can be committed first")
     args = parser.parse_args()
 
     preferred_markets = None
@@ -231,6 +232,8 @@ def main() -> None:
         parser.error("validation requires --add 1 and no --deploy")
     if args.deploy_existing and (args.add_count != 0 or not args.deploy):
         parser.error("--deploy-existing requires --add 0 --deploy")
+    if args.prepare_only and (args.add_count == 0 or args.deploy or args.deploy_existing):
+        parser.error("--prepare-only requires --add 1..3 and no deployment flags")
     if args.add_count > 0:
         outcome = accumulate_catalog(args.add_count, validation_run_id=args.validation_run_id, preferred_markets=preferred_markets)
         if os.environ.get("GITHUB_OUTPUT"):
@@ -240,6 +243,9 @@ def main() -> None:
                 stream.write(f"deploy={'1' if outcome['added'] or outcome.get('validation_existing') else '0'}\n")
         if args.validation_run_id and outcome["added"] == 0:
             print("Validation already recorded; rebuild for deployment retry without another product.")
+
+    if args.prepare_only:
+        return
 
     if not args.deploy_existing:
         # Proofreading corrections and house text rules (French title case, "LED" in Hebrew) for old and new items.

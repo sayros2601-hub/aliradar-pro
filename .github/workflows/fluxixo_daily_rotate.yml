@@ -1,26 +1,23 @@
-name: FLUXIXO Staggered Peak-Hour Cloud Product Accumulation (1 per peak wave, max 3/day)
+name: FLUXIXO daily evening update (19:00 Israel, max 3 products)
 
 on:
   schedule:
-    # Staggered prime-time browsing windows across all 6 target countries (+1 item per wave, 3/day max):
-    # - 01:00 UTC: US (17:00-21:00) & Mexico (19:00 CST) evening prime peak
-    # - 17:00 UTC: Russia (20:00 MSK), Israel (19:00 IST) & France (18:00 CET) evening prime peak
-    # - 21:00 UTC: Brazil (18:00-19:00 BRT) evening prime & US/MX late afternoon
-    # - 22:30 UTC: Catch-up safety wave (runs +1 only if an earlier slot failed & done < 3)
-    - cron: '0 1 * * *'
-    - cron: '0 17 * * *'
-    - cron: '0 21 * * *'
-    - cron: '30 22 * * *'
+    # Prepare ahead of time; publish the same batch at 19:00 Israel (DST-aware).
+    - cron: '30 17 * * *'
+      timezone: Asia/Jerusalem
+    - cron: '0 19 * * *'
+      timezone: Asia/Jerusalem
+    # Bounded recovery checks; a completed day skips before dependency installation.
+    - cron: '17 19 * * *'
+      timezone: Asia/Jerusalem
+    - cron: '47 20 * * *'
+      timezone: Asia/Jerusalem
   workflow_dispatch:
     inputs:
       add_count:
-        description: 'Number of new products to add (default 3; 0 to rebuild & deploy only; never deletes existing items)'
+        description: '0 rebuilds without new images; 1-3 requests remaining daily allowance'
         required: false
-        default: '3'
-      preferred_markets:
-        description: 'Optional comma-separated market focus for manual runs (e.g. RU,IL,FR)'
-        required: false
-        default: ''
+        default: '0'
 
 permissions:
   contents: write
@@ -33,10 +30,11 @@ concurrency:
 jobs:
   accumulate-and-deploy:
     runs-on: ubuntu-latest
-    # Three cut-out photos per product (up to 9 rembg passes per candidate) need generous timeout headroom.
-    timeout-minutes: 80
+    timeout-minutes: 100
     env:
       PYTHONDONTWRITEBYTECODE: '1'
+      LEDGER: data/fluxixo_daily_ledger.json
+      PUBLISH_STATE: data/fluxixo_publish_state.json
     steps:
       - name: Checkout latest main after the shared lock
         uses: actions/checkout@v4
@@ -44,40 +42,17 @@ jobs:
           ref: main
           fetch-depth: 0
 
-      - name: Resolve staggered peak-hour wave and daily quota
+      - name: Resolve evening batch, reserved allowance and publication recovery
         id: today
         env:
           EVENT_NAME: ${{ github.event_name }}
-          EVENT_SCHEDULE: ${{ github.event.schedule }}
-          INPUT_COUNT: ${{ github.event.inputs.add_count || '3' }}
-          INPUT_MARKETS: ${{ github.event.inputs.preferred_markets || '' }}
+          INPUT_COUNT: ${{ github.event.inputs.add_count || '0' }}
         run: |
-          python3 - <<'EOF'
-          import json, os
-          from datetime import datetime, timezone
-          from fluxixo_ai.discovery_curator import resolve_peak_slot
-          now_utc = datetime.now(timezone.utc)
-          day = now_utc.date().isoformat()
-          done = len(json.load(open('data/fluxixo_daily_ledger.json', encoding='utf-8'))['days'].get(day, []))
-          if os.environ.get('EVENT_NAME') == 'schedule':
-              slot = resolve_peak_slot(now_utc, cron_expr=os.environ.get('EVENT_SCHEDULE'), done_today=done)
-              skip = slot['skip']
-              add_count = slot['add_count']
-              markets = ','.join(slot['preferred_markets'])
-              slot_id = slot['id']
-              print(f"{day}: done={done}/3, slot={slot_id} ({slot['window_note']}), add_count={add_count}, skip={skip}")
-          else:
-              add_count = int(os.environ.get('INPUT_COUNT') or '3')
-              skip = False
-              markets = os.environ.get('INPUT_MARKETS', '').strip()
-              slot_id = 'manual'
-              print(f"{day}: manual dispatch done={done}/3, add_count={add_count}, markets={markets or 'all'}")
-          with open(os.environ['GITHUB_OUTPUT'], 'a', encoding='utf-8') as out:
-              out.write(f"skip={'true' if skip else 'false'}\n")
-              out.write(f"add_count={add_count}\n")
-              out.write(f"markets={markets}\n")
-              out.write(f"slot_id={slot_id}\n")
-          EOF
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            python3 -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT" --manual-count "$INPUT_COUNT"
+          else
+            python3 -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT"
+          fi
 
       - name: Set up Python 3.12
         if: steps.today.outputs.skip != 'true'
@@ -85,60 +60,80 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Set up Node.js 22 (for Cloudflare Wrangler)
+      - name: Set up Node.js 22
         if: steps.today.outputs.skip != 'true'
         uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Install OCR (apt with a time limit, conda-forge if the Ubuntu mirrors are down)
-        if: steps.today.outputs.skip != 'true'
+      - name: Install bounded OCR dependencies only for new products
+        if: steps.today.outputs.action == 'prepare'
         timeout-minutes: 15
         run: bash .github/scripts/install_ocr.sh
 
-      - name: Install Python dependencies and Wrangler
+      - name: Install build dependencies
         if: steps.today.outputs.skip != 'true'
         timeout-minutes: 10
+        env:
+          ACTION: ${{ steps.today.outputs.action }}
         run: |
-          python -m pip install --upgrade pip
-          python -m pip install --retries 5 --timeout 60 requests pillow rembg onnxruntime
-          npm install --no-save wrangler
+          python -m pip install --retries 5 --timeout 60 -r requirements.txt requests
+          if [ "$ACTION" = "prepare" ]; then
+            python -m pip install --retries 5 --timeout 60 rembg onnxruntime
+          fi
+          npm ci --ignore-scripts
 
-      - name: Prepare source-grounded products for active slot and build release
-        id: prepare
+      - name: Configure catalog writer
         if: steps.today.outputs.skip != 'true'
+        run: |
+          git config user.name "FLUXIXO Cloud Autopilot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Persist image allowance before any new generation
+        if: steps.today.outputs.action == 'prepare'
+        env:
+          DAY: ${{ steps.today.outputs.day }}
+          ADD_COUNT: ${{ steps.today.outputs.add_count }}
+        run: |
+          python -B -m fluxixo_ai.daily_schedule reserve --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY" --count "$ADD_COUNT"
+          git add "$PUBLISH_STATE"
+          git commit -m "chore(fluxixo): reserve daily image allowance [skip ci]"
+          git push origin HEAD:main
+
+      - name: Prepare one bounded batch without building or publishing
+        id: prepare
+        if: steps.today.outputs.action == 'prepare'
         timeout-minutes: 55
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
           ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
           ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
-          ADD_COUNT: ${{ steps.today.outputs.add_count || '3' }}
-          PEAK_MARKETS: ${{ steps.today.outputs.markets }}
-        run: |
-          if [ -n "$PEAK_MARKETS" ]; then
-            python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$PEAK_MARKETS"
-          else
-            python -B fluxixo_daily_rotate.py --add "$ADD_COUNT"
-          fi
+          ADD_COUNT: ${{ steps.today.outputs.add_count }}
+          MARKETS: ${{ steps.today.outputs.markets }}
+          FLUXIXO_MAX_MEDIA_PRODUCTS: ${{ steps.today.outputs.add_count }}
+          FLUXIXO_STRICT_COPY: '1'
+        run: python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$MARKETS" --prepare-only
 
-      - name: Commit accumulated FLUXIXO catalog and reserve pool
+      - name: Persist prepared products and their images before building pages
         if: steps.today.outputs.skip != 'true'
+        env:
+          DAY: ${{ steps.today.outputs.day }}
+          RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
         run: |
-          git config user.name "FLUXIXO Cloud Autopilot"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -f fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools data/fluxixo_daily_ledger.json fluxixo_site/release-manifest.json fluxixo_site/asset-map.json
+          if [ "$RECORD_PUBLICATION" = "true" ]; then
+            python -B -m fluxixo_ai.daily_schedule mark-prepared --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
+          fi
+          git add -f fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools "$LEDGER" "$PUBLISH_STATE"
           if [ -f data/fluxixo_ai.sqlite3 ]; then git add -f data/fluxixo_ai.sqlite3; fi
           if ! git diff --cached --quiet; then
-            git commit -m "chore(fluxixo): peak-slot accumulation (+${{ steps.prepare.outputs.added || 0 }} new, slot ${{ steps.today.outputs.slot_id }}) [skip ci]"
+            git commit -m "chore(fluxixo): save prepared daily catalog [skip ci]"
             git push origin HEAD:main
           fi
 
       - name: Mark queued AI items committed only after verified push
-        if: steps.today.outputs.skip != 'true'
+        if: steps.prepare.outputs.ids != ''
         env:
           NEW_IDS: ${{ steps.prepare.outputs.ids }}
         run: |
@@ -149,19 +144,66 @@ jobs:
             git push origin HEAD:main
           fi
 
-      - name: Deploy the already-built release only after catalog and ledger push
+      - name: Refresh publication date and evening window after preparation
+        id: publication
         if: steps.today.outputs.skip != 'true'
         env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            python -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT" --manual-count 0
+          else
+            python -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build and verify all six languages without new images
+        if: steps.today.outputs.skip != 'true'
+        env:
+          DAY: ${{ steps.publication.outputs.publication_day }}
+          RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
+        run: |
+          if [ "$RECORD_PUBLICATION" = "true" ]; then export FLUXIXO_PREPARED_PUBLISH_DAY="$DAY"; fi
+          python -B fluxixo_daily_rotate.py --add 0
+          git add -f fluxixo_site/dist fluxixo_site/tools fluxixo_site/release-manifest.json fluxixo_site/asset-map.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(fluxixo): build evening release and countdown [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Publish prepared release at the evening window
+        if: steps.today.outputs.skip != 'true' && steps.publication.outputs.publish == 'true'
+        timeout-minutes: 15
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DAY: ${{ steps.publication.outputs.publication_day }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
-        run: python -B fluxixo_daily_rotate.py --add 0 --deploy --deploy-existing
-
-      - name: Remember which page versions search engines were told about
-        if: steps.today.outputs.skip != 'true'
         run: |
-          git add -f fluxixo_site/tools/indexnow-submitted.json fluxixo_site/tools/yandex-indexnow-state.json 2>/dev/null || true
-          if ! git diff --cached --quiet; then
-            git commit -m "chore(fluxixo): record IndexNow submissions [skip ci]"
-            # The deploy step leaves rebuilt, uncommitted release files behind; set them aside while syncing.
-            git pull --rebase --autostash --quiet origin main && git push origin HEAD:main
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            python -B -m fluxixo_ai.daily_schedule guard-publication --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY" --manual-count 0
+          else
+            python -B -m fluxixo_ai.daily_schedule guard-publication --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
           fi
+          python -B fluxixo_daily_rotate.py --add 0 --deploy --deploy-existing
+
+      - name: Record success only after deployment completes
+        if: steps.today.outputs.skip != 'true' && steps.publication.outputs.publish == 'true'
+        env:
+          DAY: ${{ steps.today.outputs.day }}
+          RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
+        run: |
+          if [ "$RECORD_PUBLICATION" = "true" ]; then
+            python -B -m fluxixo_ai.daily_schedule mark-published --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
+          fi
+          git add "$PUBLISH_STATE"
+          git add -f fluxixo_site/tools/indexnow-submitted.json fluxixo_site/tools/yandex-indexnow-state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(fluxixo): record published daily batch [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Report a blocked preparation without spending another allowance
+        if: steps.today.outputs.reason == 'interrupted_prepare'
+        run: |
+          echo "::error::The daily image allowance was already reserved, but the batch is incomplete. No new images were generated by this retry."
+          exit 1
