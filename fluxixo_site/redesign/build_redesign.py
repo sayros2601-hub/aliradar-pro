@@ -272,7 +272,12 @@ class Site:
                 avail = item.get('availableMarkets')
                 if isinstance(avail, list) and avail:
                     return 0 if lang_market in avail else 2
-                return 0 if item.get('sourceMarket') == lang_market else 1
+                src_mkt = item.get('sourceMarket')
+                if src_mkt == lang_market:
+                    return 0
+                if src_mkt in (None, 'US'):
+                    return 1
+                return 2
             self.items.sort(key=_market_rank)
         self.worlds = [k for k in WORLDS if any(p['world'] == k for p in self.items)]
 

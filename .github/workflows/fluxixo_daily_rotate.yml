@@ -174,9 +174,11 @@ jobs:
         env:
           DAY: ${{ steps.publication.outputs.publication_day }}
           RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
+          ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
+          ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
         run: |
           if [ "$RECORD_PUBLICATION" = "true" ]; then export FLUXIXO_PREPARED_PUBLISH_DAY="$DAY"; fi
-          python -B fluxixo_daily_rotate.py --add 0
+          python -B fluxixo_daily_rotate.py --add 0 --refresh-clean-links
           git add -f fluxixo_site/dist fluxixo_site/tools fluxixo_site/release-manifest.json fluxixo_site/asset-map.json
           if ! git diff --cached --quiet; then
             git commit -m "chore(fluxixo): build evening release and countdown [skip ci]"

@@ -216,7 +216,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-064-book-light.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4m3xNQJ",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4m3xNQJ",
+      "sourceUrl": "https://www.aliexpress.com/item/1005007202873213.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -227,7 +227,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005007202873213",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007202873213.html"
     },
     {
       "id": "find-065-spice-grinder",
@@ -242,7 +244,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-065-spice-grinder.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4spKHll",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4spKHll",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013368832628.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -253,7 +255,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005013368832628",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013368832628.html"
     },
     {
       "id": "find-067-pill-organizer",
@@ -268,7 +272,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-067-pill-organizer.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2R05EJ5",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2R05EJ5",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008038578506.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -279,7 +283,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005008038578506",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008038578506.html"
     },
     {
       "id": "find-060-tire-inflator",
@@ -294,7 +300,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-060-tire-inflator.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c39aHeER",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c39aHeER",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013197548476.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -305,7 +311,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013197548476",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013197548476.html"
     },
     {
       "id": "find-062-coffee-scale",
@@ -320,7 +328,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-062-coffee-scale.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3deVF67",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3deVF67",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012780690869.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -331,7 +339,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005012780690869",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012780690869.html"
     },
     {
       "id": "find-063-cable-tester",
@@ -346,7 +356,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-063-cable-tester.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3RO8UPD",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3RO8UPD",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010192060931.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -357,7 +367,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005010192060931",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010192060931.html"
     },
     {
       "id": "find-057-uv-toothbrush",
@@ -372,7 +384,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-057-uv-toothbrush.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c44Z1h6x",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c44Z1h6x",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012725447808.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -383,7 +395,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012725447808",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012725447808.html"
     },
     {
       "id": "find-058-key-finder",
@@ -398,7 +412,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-058-key-finder.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2wLDGGT",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2wLDGGT",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008507001024.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -409,7 +423,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005008507001024",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008507001024.html"
     },
     {
       "id": "find-059-label-printer",
@@ -424,7 +440,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-059-label-printer.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3MdAJWb",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3MdAJWb",
+      "sourceUrl": "https://www.aliexpress.com/item/1005009253532387.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -435,7 +451,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005009253532387",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009253532387.html"
     },
     {
       "id": "find-054-soldering-iron",
@@ -450,7 +468,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-054-soldering-iron.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3WQPIKX",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3WQPIKX",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008380178784.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -461,7 +479,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005008380178784",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008380178784.html"
     },
     {
       "id": "find-055-lint-remover",
@@ -476,7 +496,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-055-lint-remover.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4PU2gP1",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4PU2gP1",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013166128264.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -487,7 +507,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013166128264",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013166128264.html"
     },
     {
       "id": "find-056-milk-frother",
@@ -502,7 +524,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-056-milk-frother.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3yjRGbh",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3yjRGbh",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013525988012.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -513,7 +535,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005013525988012",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013525988012.html"
     },
     {
       "id": "find-051-ultrasonic-cleaner",
@@ -528,7 +552,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-051-ultrasonic-cleaner.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3hvoHnl",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3hvoHnl",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013151609503.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -539,7 +563,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013151609503",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013151609503.html"
     },
     {
       "id": "find-052-laser-meter",
@@ -554,7 +580,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-052-laser-meter.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4DAgiIr",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4DAgiIr",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013381565639.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -565,7 +591,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013381565639",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013381565639.html"
     },
     {
       "id": "find-053-vacuum-sealer",
@@ -580,7 +608,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-053-vacuum-sealer.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3B5ujZD",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3B5ujZD",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012945423332.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -591,7 +619,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005012945423332",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012945423332.html"
     },
     {
       "id": "import-0024",
@@ -606,7 +636,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0024.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2vkUuwb",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2vkUuwb",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010122561084.html",
       "demo": false,
       "theme": "blue",
       "scale": 1,
@@ -617,7 +647,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005010122561084",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010122561084.html"
     },
     {
       "id": "find-001-neck-cooler",
@@ -632,7 +664,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-001-neck-cooler.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4c7pW6P",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4c7pW6P",
+      "sourceUrl": "https://www.aliexpress.com/item/1005011798288613.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -643,7 +675,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005011798288613",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011798288613.html"
     },
     {
       "id": "find-002-meat-thermo",
@@ -658,7 +692,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-002-meat-thermo.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4ScmY1N",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4ScmY1N",
+      "sourceUrl": "https://www.aliexpress.com/item/1005007923722752.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -669,7 +703,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005007923722752",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007923722752.html"
     },
     {
       "id": "find-003-mosquito-racket",
@@ -684,7 +720,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-003-mosquito-racket.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2ypG0s7",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2ypG0s7",
+      "sourceUrl": "https://www.aliexpress.com/item/1005011949737989.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -695,7 +731,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005011949737989",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011949737989.html"
     },
     {
       "id": "find-004-moto-intercom",
@@ -710,7 +748,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-004-moto-intercom.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2RfBnht",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2RfBnht",
+      "sourceUrl": "https://www.aliexpress.com/item/1005007345049533.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -721,7 +759,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005007345049533",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007345049533.html"
     },
     {
       "id": "find-005-moto-tpms",
@@ -736,7 +776,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-005-moto-tpms.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4ep5Ngn",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4ep5Ngn",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013138934226.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -747,7 +787,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013138934226",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013138934226.html"
     },
     {
       "id": "find-006-phone-cooler",
@@ -762,7 +804,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-006-phone-cooler.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3FRIMPv",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3FRIMPv",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013069561167.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -773,7 +815,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013069561167",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013069561167.html"
     },
     {
       "id": "find-007-phone-gamepad",
@@ -788,7 +832,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-007-phone-gamepad.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3CpkxYR",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3CpkxYR",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012306370309.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -799,7 +843,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012306370309",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012306370309.html"
     },
     {
       "id": "find-008-jump-starter",
@@ -814,7 +860,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-008-jump-starter.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4k2rogb",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4k2rogb",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013246153250.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -825,7 +871,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013246153250",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013246153250.html"
     },
     {
       "id": "find-009-bulb-camera",
@@ -840,7 +888,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-009-bulb-camera.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3C8lBgJ",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3C8lBgJ",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013147484784.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -851,7 +899,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013147484784",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013147484784.html"
     },
     {
       "id": "find-010-gallon-pump",
@@ -866,7 +916,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-010-gallon-pump.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3WuFHOF",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3WuFHOF",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012329741557.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -877,7 +927,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012329741557",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012329741557.html"
     },
     {
       "id": "find-011-nail-drill",
@@ -892,7 +944,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-011-nail-drill.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4rIpqEn",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4rIpqEn",
+      "sourceUrl": "https://www.aliexpress.com/item/1005006444449944.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -903,7 +955,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005006444449944",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006444449944.html"
     },
     {
       "id": "find-012-hair-curler",
@@ -918,7 +972,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-012-hair-curler.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c43uCI3v",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c43uCI3v",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012406439621.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -929,7 +983,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012406439621",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012406439621.html"
     },
     {
       "id": "find-013-kick-trainer",
@@ -944,7 +1000,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-013-kick-trainer.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4pQ3i6f",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4pQ3i6f",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012345163064.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -955,7 +1011,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012345163064",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012345163064.html"
     },
     {
       "id": "find-014-lunch-box",
@@ -970,7 +1028,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-014-lunch-box.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3aMXlND",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3aMXlND",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012637951929.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -981,7 +1039,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012637951929",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012637951929.html"
     },
     {
       "id": "find-015-fishing-float",
@@ -996,7 +1056,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-015-fishing-float.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4bHmyY7",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4bHmyY7",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012924903231.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -1007,7 +1067,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012924903231",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012924903231.html"
     },
     {
       "id": "find-016-mini-chainsaw",
@@ -1022,7 +1084,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-016-mini-chainsaw.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4Xrxc2X",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4Xrxc2X",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012717717456.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -1033,7 +1095,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012717717456",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012717717456.html"
     },
     {
       "id": "find-017-star-projector",
@@ -1048,7 +1112,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-017-star-projector.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4a9kXJl",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4a9kXJl",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012889773492.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -1059,7 +1123,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012889773492",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012889773492.html"
     },
     {
       "id": "find-018-padel-pressurizer",
@@ -1074,7 +1140,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-018-padel-pressurizer.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3aeEFeL",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3aeEFeL",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013375285489.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -1085,7 +1151,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013375285489",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013375285489.html"
     },
     {
       "id": "find-019-wine-aerator",
@@ -1100,7 +1168,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-019-wine-aerator.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3tJSxe7",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3tJSxe7",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010553121484.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -1111,7 +1179,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005010553121484",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010553121484.html"
     },
     {
       "id": "find-020-espresso-portable",
@@ -1126,7 +1196,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-020-espresso-portable.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3wNcAs3",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3wNcAs3",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013062287580.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -1137,7 +1207,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013062287580",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013062287580.html"
     },
     {
       "id": "find-021-drip-irrigation",
@@ -1152,7 +1224,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-021-drip-irrigation.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3M6oIIR",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3M6oIIR",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013110936784.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -1163,7 +1235,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013110936784",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013110936784.html"
     },
     {
       "id": "find-022-litter-deodorizer",
@@ -1178,7 +1252,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-022-litter-deodorizer.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c33ZcFBN",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c33ZcFBN",
+      "sourceUrl": "https://www.aliexpress.com/item/1005007295821197.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -1189,7 +1263,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005007295821197",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007295821197.html"
     },
     {
       "id": "find-023-cat-laser",
@@ -1204,7 +1280,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-023-cat-laser.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3K0wxJN",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3K0wxJN",
+      "sourceUrl": "https://www.aliexpress.com/item/1005007135304891.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -1215,7 +1291,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005007135304891",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007135304891.html"
     },
     {
       "id": "find-024-trekking-poles",
@@ -1230,7 +1308,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-024-trekking-poles.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4oI6mgT",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4oI6mgT",
+      "sourceUrl": "https://www.aliexpress.com/item/1005004690293919.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -1241,7 +1319,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005004690293919",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005004690293919.html"
     },
     {
       "id": "find-025-period-belt",
@@ -1256,7 +1336,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-025-period-belt.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2QfbWkj",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2QfbWkj",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012646322706.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -1267,7 +1347,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005012646322706",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012646322706.html"
     },
     {
       "id": "find-026-veg-purifier",
@@ -1282,7 +1364,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-026-veg-purifier.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4rUIQ8x",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4rUIQ8x",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012983612508.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -1293,7 +1375,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005012983612508",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012983612508.html"
     },
     {
       "id": "find-027-heated-insoles",
@@ -1308,7 +1392,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-027-heated-insoles.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3zP596b",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3zP596b",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013277975332.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -1319,7 +1403,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013277975332",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013277975332.html"
     },
     {
       "id": "find-028-bike-taillight",
@@ -1334,7 +1420,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-028-bike-taillight.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3KPZnBH",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3KPZnBH",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013261575699.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -1345,7 +1431,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013261575699",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013261575699.html"
     },
     {
       "id": "find-029-window-cleaner",
@@ -1360,7 +1448,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-029-window-cleaner.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4EUFukL",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4EUFukL",
+      "sourceUrl": "https://www.aliexpress.com/item/1005009806712673.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -1371,7 +1459,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005009806712673",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009806712673.html"
     },
     {
       "id": "find-030-ai-recorder",
@@ -1386,7 +1476,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-030-ai-recorder.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4Ls41SF",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4Ls41SF",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010328225887.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -1397,7 +1487,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005010328225887",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010328225887.html"
     },
     {
       "id": "find-031-kids-print-camera",
@@ -1412,7 +1504,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-031-kids-print-camera.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4WxfnvD",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4WxfnvD",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013482610686.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -1423,7 +1515,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013482610686",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013482610686.html"
     },
     {
       "id": "find-032-sous-vide",
@@ -1438,7 +1532,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-032-sous-vide.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3pdSLAL",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3pdSLAL",
+      "sourceUrl": "https://www.aliexpress.com/item/1005009849788088.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -1449,7 +1543,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005009849788088",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009849788088.html"
     },
     {
       "id": "find-033-callus-remover",
@@ -1464,7 +1560,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-033-callus-remover.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4M9gdEx",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4M9gdEx",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010650833589.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -1475,7 +1571,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005010650833589",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010650833589.html"
     },
     {
       "id": "find-034-smart-rope",
@@ -1490,7 +1588,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-034-smart-rope.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2wS7T1v",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2wS7T1v",
+      "sourceUrl": "https://www.aliexpress.com/item/1005011858997518.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -1501,7 +1599,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005011858997518",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011858997518.html"
     },
     {
       "id": "find-035-cordless-scissors",
@@ -1516,7 +1616,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-035-cordless-scissors.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c33L9UKB",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c33L9UKB",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012982717298.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -1527,7 +1627,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005012982717298",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012982717298.html"
     },
     {
       "id": "find-036-stud-finder",
@@ -1542,7 +1644,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-036-stud-finder.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4o8Znlh",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4o8Znlh",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013100283561.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -1553,7 +1655,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005013100283561",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013100283561.html"
     },
     {
       "id": "find-037-banneton",
@@ -1568,7 +1672,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-037-banneton.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c39TpW9d",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c39TpW9d",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012742966390.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -1579,7 +1683,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005012742966390",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012742966390.html"
     },
     {
       "id": "find-038-bike-gps",
@@ -1594,7 +1700,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-038-bike-gps.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3lDMopz",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3lDMopz",
+      "sourceUrl": "https://www.aliexpress.com/item/1005006327951638.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -1605,7 +1711,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005006327951638",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006327951638.html"
     },
     {
       "id": "find-039-pixel-display",
@@ -1620,7 +1728,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-039-pixel-display.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3JUNfwF",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3JUNfwF",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010242168022.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -1631,7 +1739,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005010242168022",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010242168022.html"
     },
     {
       "id": "find-040-microscope",
@@ -1646,7 +1756,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-040-microscope.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3KkYkFh",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3KkYkFh",
+      "sourceUrl": "https://www.aliexpress.com/item/1005007223760516.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -1657,7 +1767,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005007223760516",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007223760516.html"
     },
     {
       "id": "find-041-heated-gloves",
@@ -1672,7 +1784,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-041-heated-gloves.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3D0Xc3v",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3D0Xc3v",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013424643680.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -1683,7 +1795,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005013424643680",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013424643680.html"
     },
     {
       "id": "find-042-car-hud",
@@ -1698,7 +1812,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-042-car-hud.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3IQcrSj",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3IQcrSj",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013465665510.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -1709,7 +1823,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005013465665510",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013465665510.html"
     },
     {
       "id": "find-043-weather-station",
@@ -1724,7 +1840,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-043-weather-station.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3nZggiP",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3nZggiP",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013378194490.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -1735,7 +1851,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005013378194490",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013378194490.html"
     },
     {
       "id": "find-044-crepe-maker",
@@ -1750,7 +1868,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-044-crepe-maker.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4FZQkEf",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4FZQkEf",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012787495948.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -1761,7 +1879,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005012787495948",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012787495948.html"
     },
     {
       "id": "find-045-white-noise",
@@ -1776,7 +1896,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-045-white-noise.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3bxSFOL",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3bxSFOL",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010455609574.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -1787,7 +1907,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005010455609574",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010455609574.html"
     },
     {
       "id": "find-046-eye-massager",
@@ -1802,7 +1924,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-046-eye-massager.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3WkN3r5",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3WkN3r5",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013227823025.html",
       "demo": false,
       "theme": "blue",
       "scale": 0.85,
@@ -1813,7 +1935,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005013227823025",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013227823025.html"
     },
     {
       "id": "find-047-scanner-pen",
@@ -1828,7 +1952,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-047-scanner-pen.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4pnjmVV",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4pnjmVV",
+      "sourceUrl": "https://www.aliexpress.com/item/1005009393558411.html",
       "demo": false,
       "theme": "coral",
       "scale": 0.85,
@@ -1839,7 +1963,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005009393558411",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009393558411.html"
     },
     {
       "id": "find-048-hydroponic",
@@ -1854,7 +1980,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-048-hydroponic.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3WrPZCP",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3WrPZCP",
+      "sourceUrl": "https://www.aliexpress.com/item/1005009692583631.html",
       "demo": false,
       "theme": "sand",
       "scale": 0.85,
@@ -1865,7 +1991,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005009692583631",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009692583631.html"
     },
     {
       "id": "find-049-electric-scrubber",
@@ -1880,7 +2008,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-049-electric-scrubber.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c34Qgv5p",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c34Qgv5p",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012696773525.html",
       "demo": false,
       "theme": "lavender",
       "scale": 0.85,
@@ -1891,7 +2019,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005012696773525",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012696773525.html"
     },
     {
       "id": "find-050-wine-opener",
@@ -1906,7 +2036,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/find-050-wine-opener.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Evvgn1",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3Evvgn1",
+      "sourceUrl": "https://www.aliexpress.com/item/1005009885733856.html",
       "demo": false,
       "theme": "rose",
       "scale": 0.85,
@@ -1917,7 +2047,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Франция"
         }
-      ]
+      ],
+      "sourceProductId": "1005009885733856",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009885733856.html"
     },
     {
       "id": "import-0032",
@@ -1932,7 +2064,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0032.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3BX5QeL",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3BX5QeL",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012931376534.html",
       "demo": false,
       "theme": "lavender",
       "scale": 1,
@@ -1943,7 +2075,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012931376534",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012931376534.html"
     },
     {
       "id": "import-0042",
@@ -1958,7 +2092,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0042.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3AaspWr",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3AaspWr",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008032142642.html",
       "demo": false,
       "theme": "lavender",
       "scale": 1,
@@ -1969,7 +2103,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005008032142642",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008032142642.html"
     },
     {
       "id": "import-0001",
@@ -1984,7 +2120,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0001.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3wn1zPp",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3wn1zPp",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010274525972.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -1995,7 +2131,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005010274525972",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010274525972.html"
     },
     {
       "id": "import-0010",
@@ -2010,7 +2148,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0010.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c31e2OQb",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c31e2OQb",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008453098012.html",
       "demo": false,
       "theme": "blue",
       "scale": 1,
@@ -2021,7 +2159,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005008453098012",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008453098012.html"
     },
     {
       "id": "import-0070",
@@ -2036,7 +2176,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0070.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3GcTtd9",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3GcTtd9",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012809624235.html",
       "demo": false,
       "theme": "blue",
       "scale": 1,
@@ -2047,7 +2187,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012809624235",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012809624235.html"
     },
     {
       "id": "import-0451",
@@ -2062,7 +2204,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0451.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3j3NJ9d",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3j3NJ9d",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010528801315.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2073,7 +2215,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Великобритания"
         }
-      ]
+      ],
+      "sourceProductId": "1005010528801315",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010528801315.html"
     },
     {
       "id": "import-0041",
@@ -2088,7 +2232,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0041.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3SZcX4F",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3SZcX4F",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008603585460.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2099,7 +2243,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005008603585460",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008603585460.html"
     },
     {
       "id": "import-0026",
@@ -2114,7 +2260,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0026.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4E0i1En",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4E0i1En",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013049109862.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2125,7 +2271,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013049109862",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013049109862.html"
     },
     {
       "id": "import-0051",
@@ -2140,7 +2288,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0051.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2zNpc7l",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2zNpc7l",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013083552611.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2151,7 +2299,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013083552611",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013083552611.html"
     },
     {
       "id": "import-0057",
@@ -2166,7 +2316,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0057.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3Rv0Hkb",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3Rv0Hkb",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012278726601.html",
       "demo": false,
       "theme": "blue",
       "scale": 1,
@@ -2177,7 +2327,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012278726601",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012278726601.html"
     },
     {
       "id": "import-0074",
@@ -2192,7 +2344,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0074.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3JYNAgP",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3JYNAgP",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008707184695.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2203,7 +2355,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005008707184695",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008707184695.html"
     },
     {
       "id": "import-0093",
@@ -2218,7 +2372,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0093.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3mxZcbz",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3mxZcbz",
+      "sourceUrl": "https://www.aliexpress.com/item/1005006165666836.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2229,7 +2383,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005006165666836",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006165666836.html"
     },
     {
       "id": "import-0117",
@@ -2244,7 +2400,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0117.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c32RNQCR",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c32RNQCR",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012289023528.html",
       "demo": false,
       "theme": "coral",
       "scale": 1,
@@ -2255,7 +2411,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005012289023528",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012289023528.html"
     },
     {
       "id": "import-0119",
@@ -2270,7 +2428,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0119.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3U4lVqn",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3U4lVqn",
+      "sourceUrl": "https://www.aliexpress.com/item/1005011692496508.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2281,7 +2439,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005011692496508",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011692496508.html"
     },
     {
       "id": "import-0104",
@@ -2296,7 +2456,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0104.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4dsCbD5",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4dsCbD5",
+      "sourceUrl": "https://www.aliexpress.com/item/1005009637190232.html",
       "demo": false,
       "theme": "rose",
       "scale": 1,
@@ -2307,7 +2467,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005009637190232",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009637190232.html"
     },
     {
       "id": "import-0488",
@@ -2322,7 +2484,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0488.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c45AQTiJ",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c45AQTiJ",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012595701916.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2333,7 +2495,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Великобритания"
         }
-      ]
+      ],
+      "sourceProductId": "1005012595701916",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012595701916.html"
     },
     {
       "id": "import-0499",
@@ -2348,7 +2512,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0499.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3LmcQyn",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3LmcQyn",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013466553225.html",
       "demo": false,
       "theme": "rose",
       "scale": 1,
@@ -2359,7 +2523,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Великобритания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013466553225",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013466553225.html"
     },
     {
       "id": "import-0129",
@@ -2374,7 +2540,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0129.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2Qw79Ph",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c2Qw79Ph",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013363359765.html",
       "demo": false,
       "theme": "rose",
       "scale": 1,
@@ -2385,7 +2551,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005013363359765",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013363359765.html"
     },
     {
       "id": "import-0211",
@@ -2400,7 +2568,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0211.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4FlH1jZ",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c4FlH1jZ",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013169167872.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2411,7 +2579,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013169167872",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013169167872.html"
     },
     {
       "id": "import-0216",
@@ -2426,7 +2596,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0216.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3In0LUx",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3In0LUx",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013008804363.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2437,7 +2607,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013008804363",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013008804363.html"
     },
     {
       "id": "import-0231",
@@ -2452,7 +2624,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0231.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3nvOYHt",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3nvOYHt",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013323272142.html",
       "demo": false,
       "theme": "sand",
       "scale": 1,
@@ -2463,7 +2635,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Испания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013323272142",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013323272142.html"
     },
     {
       "id": "import-0530",
@@ -2478,7 +2652,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0530.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3i4qQEx",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c3i4qQEx",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013088900668.html",
       "demo": false,
       "theme": "coral",
       "scale": 1,
@@ -2489,7 +2663,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Великобритания"
         }
-      ]
+      ],
+      "sourceProductId": "1005013088900668",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013088900668.html"
     },
     {
       "id": "import-0545",
@@ -2504,7 +2680,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0545.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c36kBq7V",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c36kBq7V",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012904650795.html",
       "demo": false,
       "theme": "blue",
       "scale": 1,
@@ -2515,7 +2691,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Великобритания"
         }
-      ]
+      ],
+      "sourceProductId": "1005012904650795",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012904650795.html"
     },
     {
       "id": "import-0064",
@@ -2530,7 +2708,7 @@ window.MIRA_CATALOG = {
       "original": "assets/originals/import-0064.jpg",
       "imageNote": "Студийная визуализация по исходному фото, созданная ИИ. Оригинал доступен ниже для сравнения деталей.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c33h1dTv",
-      "sourceUrl": "https://s.click.aliexpress.com/e/_c33h1dTv",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008888378454.html",
       "demo": false,
       "theme": "coral",
       "scale": 1,
@@ -2541,7 +2719,9 @@ window.MIRA_CATALOG = {
           "label": "Подборка",
           "value": "Бразилия"
         }
-      ]
+      ],
+      "sourceProductId": "1005008888378454",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008888378454.html"
     },
     {
       "id": "katord-wifi-repeater",
@@ -2563,7 +2743,8 @@ window.MIRA_CATALOG = {
       "scale": 0.92,
       "rotation": 0,
       "details": "Двухдиапазонный повторитель Wi-Fi 2.4G и 5G с внешними антеннами для расширения зоны покрытия дома и в офисе. Поворотные антенны помогают сориентировать приём в сторону основного роутера и пробросить стабильный сигнал в дальнюю спальню или рабочий балкон через капитальные стены. Обратите внимание на сетевой порт для проводного режима точки доступа, вилку EU 220 В и габариты блока.\n\nПеред оформлением заказа на AliExpress выберите нужный тип вилки и проверьте характеристики у продавца.",
-      "facts": []
+      "facts": [],
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011800659333.html"
     }
   ]
 };

@@ -14,6 +14,7 @@ import hashlib
 import hmac
 import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -302,6 +303,94 @@ def submit_indexnow() -> None:
     yandex_indexnow.submit_pending(SITE_ROOT, DIST)
 
 
+def refresh_clean_affiliate_links(*, limit: int = 0) -> int:
+    """Regenerate legacy s.click links that baked pdp_npi currency/region params using AliExpress API."""
+    app_key = os.environ.get("ALI_APP_KEY", "").strip()
+    app_secret = os.environ.get("ALI_APP_SECRET", "").strip()
+    if not app_key or not app_secret:
+        print("Affiliate link refresh skipped: ALI_APP_KEY/ALI_APP_SECRET not set.")
+        return 0
+
+    from fluxixo_ai.search import AliClient, ApiError, generate_affiliate
+
+    cat_path = DIST / "js" / "catalog.js"
+    if not cat_path.is_file():
+        return 0
+    raw = cat_path.read_text(encoding="utf-8")
+    head, body = raw.split("=", 1)
+    catalog = json.loads(body.strip().rstrip(";"))
+    client = AliClient()
+    updated = 0
+
+    for item in catalog.get("products", []):
+        if item.get("demo") or item.get("id") == "import-0024":
+            continue
+        aff_url = item.get("affiliateUrl") or ""
+        if not aff_url:
+            continue
+        try:
+            resp = requests.get(
+                aff_url,
+                allow_redirects=False,
+                timeout=10,
+                headers={"User-Agent": "Mozilla/5.0"},
+            )
+            loc = resp.headers.get("Location", "")
+        except requests.RequestException as exc:
+            print(f"Link check warning ({item.get('id')}): {exc}")
+            continue
+
+        if "pdp_npi=" not in loc:
+            continue
+
+        pid = str(item.get("sourceProductId") or "").strip()
+        if not re.fullmatch(r"[1-9][0-9]{0,31}", pid):
+            match = re.search(r"/item/([1-9][0-9]*)\.html", loc)
+            if not match:
+                print(f"Link refresh skip ({item.get('id')}): unresolved product ID")
+                continue
+            pid = match.group(1)
+
+        canonical_detail = f"https://www.aliexpress.com/item/{pid}.html"
+        for attempt in range(3):
+            try:
+                clean_url = generate_affiliate(client, {"product_id": pid, "detail_url": canonical_detail})
+                verify_resp = requests.get(
+                    clean_url,
+                    allow_redirects=False,
+                    timeout=10,
+                    headers={"User-Agent": "Mozilla/5.0"},
+                )
+                if "pdp_npi=" in verify_resp.headers.get("Location", ""):
+                    print(f"Link refresh skip ({item.get('id')}): regenerated URL still contains pdp_npi")
+                    break
+                item["affiliateUrl"] = clean_url
+                item["sourceProductId"] = pid
+                item["sourceUrl"] = canonical_detail
+                item["sourceDetailUrl"] = canonical_detail
+                updated += 1
+                print(f"Cleaned affiliate link ({item.get('id')}): {clean_url}")
+                break
+            except (ApiError, requests.RequestException, ValueError) as exc:
+                if attempt < 2:
+                    time.sleep(1.5 * (attempt + 1))
+                else:
+                    print(f"Link refresh warning ({item.get('id')}): {exc}")
+
+        time.sleep(0.35)
+        if limit and updated >= limit:
+            break
+
+    if updated:
+        cat_path.write_text(
+            head.rstrip() + " = " + json.dumps(catalog, ensure_ascii=False, indent=2) + ";\n",
+            encoding="utf-8",
+            newline="\n",
+        )
+    print(f"Affiliate link refresh complete: {updated} link(s) updated.")
+    return updated
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--rotate", "--add", dest="add_count", type=int, default=3, help="Number of new products to add (0 to rebuild only)")
@@ -311,6 +400,7 @@ def main() -> None:
     parser.add_argument("--deploy-existing", action="store_true", help="Deploy the previously built and verified release")
     parser.add_argument("--skip-indexnow", action="store_true", help="Do not submit URLs to search engines")
     parser.add_argument("--prepare-only", action="store_true", help="Prepare the catalog batch without building or deploying, so it can be committed first")
+    parser.add_argument("--refresh-clean-links", action="store_true", help="Regenerate legacy pdp_npi-polluted affiliate links via AliExpress API")
     args = parser.parse_args()
 
     preferred_markets = None
@@ -345,6 +435,9 @@ def main() -> None:
 
     if args.prepare_only:
         return
+
+    if args.refresh_clean_links and not args.deploy_existing:
+        refresh_clean_affiliate_links()
 
     if not args.deploy_existing:
         # Proofreading corrections and house text rules (French title case, "LED" in Hebrew) for old and new items.

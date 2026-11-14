@@ -122,12 +122,154 @@ const FluxixoCarousel = (() => {
   }
   return { createCarouselController, carouselSwipeStep };
 })();
-if (typeof module !== 'undefined' && module.exports) Object.assign(module.exports, FluxixoCarousel);
+const FluxixoLocale = (() => {
+  const ALI_LANG_BY_LOCALE = {
+    ru: 'ru_RU',
+    en: 'en_US',
+    es: 'es_ES',
+    pt: 'pt_BR',
+    fr: 'fr_FR',
+    he: 'iw_IL',
+  };
+  const LOCALE_PATHS = {
+    ru: '/catalog/',
+    en: '/',
+    es: '/es/',
+    pt: '/pt/',
+    fr: '/fr/',
+    he: '/he/',
+  };
+  const STORAGE_KEY = 'fluxixo.lang.v2';
+
+  function normalizeLocaleCode(raw) {
+    if (!raw || typeof raw !== 'string') return '';
+    const base = raw.trim().toLowerCase().split(/[-_]/)[0];
+    if (base === 'iw') return 'he';
+    return Object.prototype.hasOwnProperty.call(LOCALE_PATHS, base) ? base : '';
+  }
+
+  function sameOriginReferrer(referrer, origin) {
+    if (!referrer || !origin) return false;
+    if (typeof URL === 'function') {
+      try {
+        return new URL(referrer).origin === origin;
+      } catch {
+        return false;
+      }
+    }
+    return referrer.indexOf(origin + '/') === 0 || referrer === origin;
+  }
+
+  function resolveVisitorPath(opts) {
+    const options = opts || {};
+    if (options.webdriver) return null;
+    if (options.userAgent && /bot|crawl|spider|slurp|mediapartners|lighthouse/i.test(options.userAgent)) {
+      return null;
+    }
+    const pathname = options.pathname || '/';
+    if (pathname !== '/' && pathname !== '/index.html') return null;
+    const search = options.search || '';
+    if (/[?&]lang=/i.test(search)) return null;
+    if (sameOriginReferrer(options.referrer, options.origin)) return null;
+
+    let preferred = normalizeLocaleCode(options.savedLang);
+    if (!preferred && Array.isArray(options.languages)) {
+      for (const candidate of options.languages) {
+        const normalized = normalizeLocaleCode(candidate);
+        if (normalized) {
+          preferred = normalized;
+          break;
+        }
+      }
+    }
+    if (!preferred || preferred === 'en') return null;
+    const target = LOCALE_PATHS[preferred];
+    if (!target || target === '/') return null;
+    return target + search + (options.hash || '');
+  }
+
+  function decorateAffiliateUrl(href, pageLang) {
+    if (!href || typeof href !== 'string') return href;
+    const locale = normalizeLocaleCode(pageLang) || 'en';
+    const aliLang = ALI_LANG_BY_LOCALE[locale] || 'en_US';
+    if (typeof URL === 'function') {
+      try {
+        const url = new URL(href);
+        if (url.hostname !== 's.click.aliexpress.com') return href;
+        url.searchParams.set('_lang', aliLang);
+        if (!url.searchParams.has('afSmartRedirect')) {
+          url.searchParams.set('afSmartRedirect', 'y');
+        }
+        return url.toString();
+      } catch {
+        return href;
+      }
+    }
+    if (!/^https?:\/\/s\.click\.aliexpress\.com(?:[/?#]|$)/i.test(href)) return href;
+    const hashIdx = href.indexOf('#');
+    const hash = hashIdx >= 0 ? href.slice(hashIdx) : '';
+    const beforeHash = hashIdx >= 0 ? href.slice(0, hashIdx) : href;
+    const qIdx = beforeHash.indexOf('?');
+    const base = qIdx >= 0 ? beforeHash.slice(0, qIdx) : beforeHash;
+    const rawQuery = qIdx >= 0 ? beforeHash.slice(qIdx + 1) : '';
+    const params = rawQuery ? rawQuery.split('&').filter(Boolean) : [];
+    const entries = [];
+    let hasLang = false;
+    let hasSmart = false;
+    for (const part of params) {
+      const eq = part.indexOf('=');
+      const key = eq >= 0 ? part.slice(0, eq) : part;
+      if (key === '_lang') {
+        entries.push(`_lang=${encodeURIComponent(aliLang)}`);
+        hasLang = true;
+      } else {
+        if (key === 'afSmartRedirect') hasSmart = true;
+        entries.push(part);
+      }
+    }
+    if (!hasLang) entries.push(`_lang=${encodeURIComponent(aliLang)}`);
+    if (!hasSmart) entries.push('afSmartRedirect=y');
+    return `${base}?${entries.join('&')}${hash}`;
+  }
+
+  return {
+    ALI_LANG_BY_LOCALE,
+    LOCALE_PATHS,
+    STORAGE_KEY,
+    normalizeLocaleCode,
+    resolveVisitorPath,
+    decorateAffiliateUrl,
+  };
+})();
+
+if (typeof module !== 'undefined' && module.exports) Object.assign(module.exports, FluxixoCarousel, FluxixoLocale);
 
 (() => {
   if (typeof document === 'undefined') return;
   const root = document.documentElement;
   const lang = root.lang || 'en';
+  try {
+    const savedLang = typeof localStorage !== 'undefined' ? localStorage.getItem(FluxixoLocale.STORAGE_KEY) : null;
+    const navLangs = typeof navigator !== 'undefined'
+      ? ((Array.isArray(navigator.languages) && navigator.languages.length && navigator.languages)
+        || (navigator.language ? [navigator.language] : []))
+      : [];
+    const redirectTarget = FluxixoLocale.resolveVisitorPath({
+      pathname: location.pathname,
+      search: location.search,
+      hash: location.hash,
+      referrer: document.referrer,
+      origin: location.origin,
+      savedLang,
+      languages: navLangs,
+      webdriver: typeof navigator !== 'undefined' && Boolean(navigator.webdriver),
+      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
+    });
+    if (redirectTarget) {
+      location.replace(redirectTarget);
+      return;
+    }
+  } catch { /* ignore restricted storage/location contexts */ }
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Phones and small tablets get the app layout: no pinned scene, no swinging, no repainting.
   const phone = matchMedia('(max-width: 860px)');
@@ -535,6 +677,28 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
       }
     }, { threshold: 0.4 }).observe(frame);
   }
+
+  // Remember explicit language choice and adapt outbound AliExpress links to storefront language.
+  document.addEventListener('click', event => {
+    const langLink = event.target && event.target.closest ? event.target.closest('.langs a[hreflang]') : null;
+    if (!langLink) return;
+    const picked = FluxixoLocale.normalizeLocaleCode(langLink.getAttribute('hreflang'));
+    if (!picked) return;
+    try {
+      if (typeof localStorage !== 'undefined') localStorage.setItem(FluxixoLocale.STORAGE_KEY, picked);
+    } catch { /* ignore */ }
+  }, true);
+
+  const adaptAffiliateHref = event => {
+    const link = event.target && event.target.closest ? event.target.closest('a[href*="s.click.aliexpress.com"]') : null;
+    if (!link) return;
+    const decorated = FluxixoLocale.decorateAffiliateUrl(link.href, lang);
+    if (decorated && decorated !== link.href) link.href = decorated;
+  };
+  document.addEventListener('pointerdown', adaptAffiliateHref, true);
+  document.addEventListener('contextmenu', adaptAffiliateHref, true);
+  document.addEventListener('auxclick', adaptAffiliateHref, true);
+  document.addEventListener('click', adaptAffiliateHref, true);
 
   // The clicked product image morphs into the hero of its page.
   document.addEventListener('click', event => {
