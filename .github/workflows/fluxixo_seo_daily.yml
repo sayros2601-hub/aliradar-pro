@@ -52,3 +52,30 @@ jobs:
             git commit -m "chore(seo): daily Google/Bing/Yandex sync telemetry [skip ci]"
             git pull --rebase --autostash --quiet origin main && git push origin HEAD:main
           fi
+
+      - name: Sync SEO telemetry with Cloudflare Autopilot Worker (non-blocking)
+        continue-on-error: true
+        env:
+          CLOUDFLARE_AUTOPILOT_URL: ${{ vars.CLOUDFLARE_AUTOPILOT_URL || 'https://fluxixo-autopilot.sayros2601.workers.dev' }}
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+        run: |
+          BASE_URL="${CLOUDFLARE_AUTOPILOT_URL%/}"
+          if [ -z "$BASE_URL" ]; then
+            echo "CLOUDFLARE_AUTOPILOT_URL is empty; skipping SEO sync ping."
+            exit 0
+          fi
+          case "$BASE_URL" in
+            */api/seo-sync) TARGET_URL="$BASE_URL" ;;
+            *) TARGET_URL="$BASE_URL/api/seo-sync" ;;
+          esac
+          if [ -n "${AUTOPILOT_SYNC_TOKEN:-}" ]; then
+            AUTH_HEADER="Authorization: Bearer $AUTOPILOT_SYNC_TOKEN"
+          else
+            AUTH_HEADER="X-Fluxixo-Source: github-actions"
+          fi
+          PAYLOAD="{\"source\":\"github-actions\",\"workflow\":\"fluxixo_seo_daily\",\"project\":\"dealvault\",\"site\":\"https://www.fluxixo.shop\",\"brandColor\":\"#e4007c\",\"sha\":\"$GITHUB_SHA\"}"
+          curl -fsS --max-time 15 -X POST "$TARGET_URL" \
+            -H "Content-Type: application/json" \
+            -H "$AUTH_HEADER" \
+            -d "$PAYLOAD" \
+            || echo "Cloudflare Autopilot SEO sync unavailable (non-blocking)."

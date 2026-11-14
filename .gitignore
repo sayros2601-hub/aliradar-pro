@@ -55,3 +55,19 @@ README_ADAPTER_RU.txt
 .claude/
 *.image_hash_cache.json
 
+# Cloudflare Autopilot Worker & Wrangler build artifacts
+.wrangler/
+cloudflare_autopilot/.wrangler/
+cloudflare_autopilot/node_modules/
+cloudflare_autopilot/.dev.vars
+cloudflare_autopilot/dist/
+
+# Temporary generated test & staging artifacts
+.pytest_cache/
+.coverage
+htmlcov/
+test-results/
+playwright-report/
+*.tmp
+.daily-stage-*/
+

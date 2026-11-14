@@ -1,0 +1,13 @@
+{
+  "name": "fluxixo-autopilot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cloudflare-native FLUXIXO Autopilot Worker with D1, Workers AI studio cutout generation, redirects, and Cron Triggers",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:schema": "wrangler d1 execute fluxixo-autopilot-db --remote --file=schema.sql",
+    "db:seed": "wrangler d1 execute fluxixo-autopilot-db --remote --file=seed.sql"
+  }
+}

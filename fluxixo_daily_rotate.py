@@ -4,11 +4,12 @@ Cloud Daily Accumulator & Builder for FLUXIXO (https://www.fluxixo.shop/).
 Runs daily in GitHub Actions (100% cloud, PC off):
 - NEVER deletes any existing products, images, or HTML pages from the catalog.
 - Adds +3 new unique studio-cutout products every day at the front of the collection, continuously growing the catalog.
-- Automatically replenishes reserve_pool.json via AliExpress Official API (AppKey 557652) + rembg studio cutout pipeline when reserve runs low.
+- Uses Cloudflare Workers AI direct cutout generation (`FLUXIXO_IMAGE_MODE=generate`, `@cf/black-forest-labs/flux-2-klein-4b`) by default, with legacy `rembg` cutout fallback (`FLUXIXO_IMAGE_MODE=cut`).
 - Rebuilds SEO pages, sitemap.xml, and hashed release bundle.
-- Deploys to Cloudflare Pages (`dealvault` -> https://www.fluxixo.shop/).
+- Deploys to Cloudflare Pages (`dealvault` -> https://www.fluxixo.shop/) and optionally syncs telemetry to `CLOUDFLARE_AUTOPILOT_URL`.
 """
 import argparse
+from contextlib import contextmanager
 import hashlib
 import hmac
 import json
@@ -18,6 +19,7 @@ import subprocess
 import sys
 import time
 import xml.etree.ElementTree as ET
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -34,6 +36,10 @@ LEDGER_PATH = REPO_ROOT / "data" / "fluxixo_daily_ledger.json"
 
 ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "a4be28e05f73ad2b3939d364ea8b2817")
 PROJECT_NAME = "dealvault"
+SITE_ORIGIN = "https://www.fluxixo.shop"
+BRAND_ACCENT = "#e4007c"
+DEFAULT_IMAGE_MODE = "generate"
+WORKERS_AI_MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 API_URL = "https://api-sg.aliexpress.com/sync"
 
 # Unique product discovery pool for automatic cloud replenishment when reserve_pool runs low
@@ -110,24 +116,113 @@ from fluxixo_ai.autonomous import DailyError
 from fluxixo_site.tools import yandex_indexnow
 
 
+def resolve_image_mode() -> str:
+    """Return active studio image mode ('generate' by default, or 'cut' when configured)."""
+    raw = (os.environ.get("FLUXIXO_IMAGE_MODE") or "").strip().lower()
+    return raw or DEFAULT_IMAGE_MODE
+
+
+def _resolve_cloudflare_token(*, optional: bool = False) -> str:
+    """Read CLOUDFLARE_API_TOKEN from environment or local DPAPI store."""
+    token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
+    if token:
+        return token
+    try:
+        from deploy_to_cloudflare import get_token
+        token = (get_token() or "").strip()
+    except Exception:
+        if not optional:
+            raise
+        return ""
+    if not token and not optional:
+        raise RuntimeError("CLOUDFLARE_API_TOKEN is missing")
+    return token
+
+
+@contextmanager
+def _runtime_cloudflare_env(*, needs_token: bool = False):
+    """Temporarily ensure image-mode and Cloudflare env defaults without leaking state across callers."""
+    added_keys = []
+    mode = resolve_image_mode()
+    defaults = {
+        "FLUXIXO_IMAGE_MODE": mode,
+        "CLOUDFLARE_ACCOUNT_ID": os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip() or ACCOUNT_ID,
+    }
+    if needs_token and mode == "generate" and not os.environ.get("CLOUDFLARE_API_TOKEN", "").strip():
+        token = _resolve_cloudflare_token(optional=True)
+        if token:
+            defaults["CLOUDFLARE_API_TOKEN"] = token
+    try:
+        for key, value in defaults.items():
+            if not os.environ.get(key, "").strip():
+                os.environ[key] = value
+                added_keys.append(key)
+        yield
+    finally:
+        for key in added_keys:
+            os.environ.pop(key, None)
+
+
+def report_autopilot_sync(event: str, details: dict | None = None) -> bool:
+    """Non-blocking telemetry sync to Cloudflare Autopilot Worker when CLOUDFLARE_AUTOPILOT_URL is configured."""
+    base_url = os.environ.get("CLOUDFLARE_AUTOPILOT_URL", "").strip().rstrip("/")
+    if not base_url:
+        return False
+    parsed = urllib.parse.urlsplit(base_url)
+    if parsed.scheme not in ("https", "http") or not parsed.netloc:
+        print(f"Autopilot sync warning ({event}): invalid CLOUDFLARE_AUTOPILOT_URL")
+        return False
+    target_url = f"{base_url}/api/catalog-sync" if parsed.path in ("", "/") else base_url
+    payload = {
+        "event": event,
+        "project": PROJECT_NAME,
+        "site": SITE_ORIGIN,
+        "brandColor": BRAND_ACCENT,
+        "imageMode": resolve_image_mode(),
+        "workersAiModel": WORKERS_AI_MODEL,
+        "accountId": os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip() or ACCOUNT_ID,
+        "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        **(details or {}),
+    }
+    headers = {
+        "Content-Type": "application/json; charset=utf-8",
+        "User-Agent": "FLUXIXO-Daily-Rotate/2.0",
+    }
+    sync_token = os.environ.get("AUTOPILOT_SYNC_TOKEN", "").strip()
+    if sync_token:
+        headers["Authorization"] = f"Bearer {sync_token}"
+    try:
+        req = urllib.request.Request(
+            target_url,
+            data=json.dumps(payload).encode("utf-8"),
+            headers=headers,
+            method="POST",
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            print(f"Autopilot sync ({event}): HTTP {resp.status}")
+            return 200 <= resp.status < 300
+    except Exception as exc:
+        print(f"Autopilot sync warning ({event}): {exc}")
+        return False
+
+
 def accumulate_catalog(count: int, *, now=None, discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None, preferred_markets=None) -> dict:
     """Add only source-grounded, quality-checked items under the UTC ledger."""
     from fluxixo_ai.autonomous import accumulate
-    return accumulate(count=count, site_root=SITE_ROOT, dist=DIST, reserve_dir=RESERVE_DIR,
-                      ledger_path=LEDGER_PATH, now=now, discover_fn=discover_fn,
-                      media_fn=media_fn, validation_run_id=validation_run_id, queue_store=queue_store,
-                      refresh_fn=refresh_fn, preferred_markets=preferred_markets)
+    with _runtime_cloudflare_env(needs_token=(media_fn is None)):
+        return accumulate(count=count, site_root=SITE_ROOT, dist=DIST, reserve_dir=RESERVE_DIR,
+                          ledger_path=LEDGER_PATH, now=now, discover_fn=discover_fn,
+                          media_fn=media_fn, validation_run_id=validation_run_id, queue_store=queue_store,
+                          refresh_fn=refresh_fn, preferred_markets=preferred_markets)
 
 
 def deploy_release() -> None:
-    token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
-    if not token:
-        from deploy_to_cloudflare import get_token
-        token = get_token()
+    token = _resolve_cloudflare_token(optional=False)
+    account_id = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip() or ACCOUNT_ID
 
     env = os.environ.copy()
     env["CLOUDFLARE_API_TOKEN"] = token
-    env["CLOUDFLARE_ACCOUNT_ID"] = ACCOUNT_ID
+    env["CLOUDFLARE_ACCOUNT_ID"] = account_id
 
     cmd = "npx.cmd" if os.name == "nt" else "npx"
     subprocess.run(
@@ -241,6 +336,10 @@ def main() -> None:
                 stream.write(f"added={outcome['added']}\n")
                 stream.write(f"ids={','.join(outcome.get('ids', []))}\n")
                 stream.write(f"deploy={'1' if outcome['added'] or outcome.get('validation_existing') else '0'}\n")
+        report_autopilot_sync(
+            "prepare" if args.prepare_only else "accumulate",
+            {"added": outcome.get("added", 0), "ids": outcome.get("ids", [])},
+        )
         if args.validation_run_id and outcome["added"] == 0:
             print("Validation already recorded; rebuild for deployment retry without another product.")
 
@@ -264,6 +363,10 @@ def main() -> None:
         deploy_release()
         if not args.skip_indexnow:
             submit_indexnow()
+        report_autopilot_sync(
+            "deploy",
+            {"addCount": args.add_count, "deployExisting": bool(args.deploy_existing)},
+        )
 
 
 if __name__ == "__main__":

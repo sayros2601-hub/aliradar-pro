@@ -5,15 +5,32 @@ lightweight CI jobs and offline tests import cleanly without rembg or numpy.
 """
 from __future__ import annotations
 
+import base64
+from io import BytesIO
 import json
 import math
+import os
 from pathlib import Path
+import re
 from typing import Any
+import urllib.error
+import urllib.request
+import uuid
+
+try:
+    import tomllib
+except ImportError:  # pragma: no cover
+    tomllib = None
 
 from PIL import Image, ImageChops, ImageDraw, ImageEnhance, ImageFilter, ImageOps
 
 ALPHA_FLOOR = 24
 TIGHT_BBOX_ALPHA = 20
+DEFAULT_CLOUDFLARE_ACCOUNT_ID = 'a4be28e05f73ad2b3939d364ea8b2817'
+DEFAULT_CLOUDFLARE_AUTOPILOT_URL = 'https://fluxixo-autopilot.sayros2601.workers.dev'
+DEFAULT_FLUX2_MODEL = '@cf/black-forest-labs/flux-2-klein-4b'
+DEFAULT_FLUX1_FALLBACK_MODEL = '@cf/black-forest-labs/flux-1-schnell'
+WRANGLER_OAUTH_USER_AGENT = 'wrangler/4.151.3'
 
 
 def compute_dhash(image: Image.Image, *, size: int = 8) -> str:
@@ -695,3 +712,423 @@ def compose_studio_frame(
             (x, y, x + fit[0], y + fit[1]),
         )
     return canvas
+
+
+def _estimate_studio_backdrop(rgb: Image.Image) -> tuple[int, int, int]:
+    """Estimate studio backdrop RGB from bright low-chroma perimeter pixels."""
+    w, h = rgb.size
+    raw = rgb.tobytes()
+    rs: list[int] = []
+    gs: list[int] = []
+    bs: list[int] = []
+
+    def _collect(idx: int) -> None:
+        off = idx * 3
+        r, g, b = raw[off], raw[off + 1], raw[off + 2]
+        if min(r, g, b) >= 215 and max(r, g, b) - min(r, g, b) <= 22:
+            rs.append(r)
+            gs.append(g)
+            bs.append(b)
+
+    for x in range(w):
+        _collect(x)
+        if h > 1:
+            _collect((h - 1) * w + x)
+    for y in range(1, h - 1):
+        _collect(y * w)
+        if w > 1:
+            _collect(y * w + w - 1)
+
+    if not rs:
+        return (255, 255, 255)
+    rs.sort()
+    gs.sort()
+    bs.sort()
+    mid = len(rs) // 2
+    return (rs[mid], gs[mid], bs[mid])
+
+
+def _flood_fill_background(cand_bytes: bytes, w: int, h: int) -> bytearray:
+    """4-connected flood-fill from image borders; returns fg mask (0=background, 255=foreground)."""
+    total = w * h
+    fg = bytearray(b'\xff' * total)
+    stack: list[int] = []
+
+    def _seed(idx: int) -> None:
+        if cand_bytes[idx] and fg[idx]:
+            fg[idx] = 0
+            stack.append(idx)
+
+    for x in range(w):
+        _seed(x)
+        _seed((h - 1) * w + x)
+    for y in range(1, h - 1):
+        _seed(y * w)
+        _seed(y * w + w - 1)
+
+    while stack:
+        idx = stack.pop()
+        x = idx % w
+        if x > 0:
+            n = idx - 1
+            if cand_bytes[n] and fg[n]:
+                fg[n] = 0
+                stack.append(n)
+        if x + 1 < w:
+            n = idx + 1
+            if cand_bytes[n] and fg[n]:
+                fg[n] = 0
+                stack.append(n)
+        if idx >= w:
+            n = idx - w
+            if cand_bytes[n] and fg[n]:
+                fg[n] = 0
+                stack.append(n)
+        if idx + w < total:
+            n = idx + w
+            if cand_bytes[n] and fg[n]:
+                fg[n] = 0
+                stack.append(n)
+    return fg
+
+
+def _decontaminate_rim_pixel(
+    rgb_out: bytearray,
+    idx: int,
+    alpha_val: int,
+    bg_rgb: tuple[int, int, int],
+) -> None:
+    """Recover true edge foreground color by unmixing studio backdrop from partial alpha."""
+    af = alpha_val / 255.0
+    if af < 0.15 or af >= 1.0:
+        return
+    off = idx * 3
+    inv = 1.0 - af
+    rgb_out[off] = max(0, min(255, round((rgb_out[off] - inv * bg_rgb[0]) / af)))
+    rgb_out[off + 1] = max(0, min(255, round((rgb_out[off + 1] - inv * bg_rgb[1]) / af)))
+    rgb_out[off + 2] = max(0, min(255, round((rgb_out[off + 2] - inv * bg_rgb[2]) / af)))
+
+
+def extract_isolated_studio_alpha(image: Image.Image) -> Image.Image:
+    """Extract crisp RGBA cutout from an isolated white-backdrop studio image without rembg or numpy."""
+    if 'A' in image.getbands():
+        rgba_in = image.convert('RGBA')
+        white_bg = Image.new('RGBA', rgba_in.size, (255, 255, 255, 255))
+        rgb = Image.alpha_composite(white_bg, rgba_in).convert('RGB')
+    else:
+        rgb = image.convert('RGB')
+
+    w, h = rgb.size
+    if w < 2 or h < 2:
+        return rgb.convert('RGBA')
+
+    bg_rgb = _estimate_studio_backdrop(rgb)
+    bg_r, bg_g, bg_b = bg_rgb
+    r_ch, g_ch, b_ch = rgb.split()
+    mn_ch = ImageChops.darker(ImageChops.darker(r_ch, g_ch), b_ch)
+    mx_ch = ImageChops.lighter(ImageChops.lighter(r_ch, g_ch), b_ch)
+    chroma_ch = ImageChops.subtract(mx_ch, mn_ch)
+    bg_dist_ch = ImageChops.lighter(
+        ImageChops.lighter(
+            ImageChops.difference(r_ch, Image.new('L', (w, h), bg_r)),
+            ImageChops.difference(g_ch, Image.new('L', (w, h), bg_g)),
+        ),
+        ImageChops.difference(b_ch, Image.new('L', (w, h), bg_b)),
+    )
+
+    cand_mask = ImageChops.darker(
+        mn_ch.point(lambda v: 255 if v >= 232 else 0),
+        ImageChops.darker(
+            chroma_ch.point(lambda v: 255 if v <= 14 else 0),
+            bg_dist_ch.point(lambda v: 255 if v <= 24 else 0),
+        ),
+    )
+    alpha_out = _flood_fill_background(cand_mask.tobytes(), w, h)
+    chroma_bytes = chroma_ch.tobytes()
+    dist_bytes = bg_dist_ch.tobytes()
+    rgb_out = bytearray(rgb.tobytes())
+
+    # Two 1px exterior boundary passes smooth AA edges without piercing closed object outlines.
+    soft_lo, soft_hi = 10.0, 48.0
+    span = soft_hi - soft_lo
+    decontam_indices: set[int] = set()
+    for _ in range(2):
+        hard_bin = Image.frombytes('L', (w, h), bytes(255 if a > 0 else 0 for a in alpha_out))
+        ring = ImageChops.subtract(hard_bin, hard_bin.filter(ImageFilter.MinFilter(3)))
+        bbox = ring.getbbox()
+        if not bbox:
+            break
+        ring_bytes = ring.tobytes()
+        changed = False
+        for y in range(bbox[1], bbox[3]):
+            row_start = y * w
+            for idx in range(row_start + bbox[0], row_start + bbox[2]):
+                if not ring_bytes[idx]:
+                    continue
+                strength = max(float(dist_bytes[idx]), float(chroma_bytes[idx]) * 2.4)
+                if strength <= soft_lo:
+                    if alpha_out[idx] != 0:
+                        alpha_out[idx] = 0
+                        decontam_indices.discard(idx)
+                        changed = True
+                elif strength < soft_hi:
+                    a = round(255.0 * (strength - soft_lo) / span)
+                    if a < alpha_out[idx]:
+                        alpha_out[idx] = a
+                    decontam_indices.add(idx)
+        if not changed:
+            break
+
+    for idx in decontam_indices:
+        _decontaminate_rim_pixel(rgb_out, idx, alpha_out[idx], bg_rgb)
+
+    out = Image.frombytes('RGB', (w, h), bytes(rgb_out)).convert('RGBA')
+    out.putalpha(Image.frombytes('L', (w, h), bytes(alpha_out)))
+    return out
+
+
+def resolve_cloudflare_ai_token(explicit_token: str | None = None) -> tuple[str, str]:
+    """Resolve Cloudflare Workers AI bearer token & User-Agent, or ('', '') if unavailable."""
+    if isinstance(explicit_token, str) and explicit_token.strip():
+        return explicit_token.strip(), 'fluxixo-image-studio/1.0'
+
+    for env_name in ('CLOUDFLARE_AI_TOKEN', 'CLOUDFLARE_API_TOKEN'):
+        env_val = os.environ.get(env_name)
+        if isinstance(env_val, str) and env_val.strip():
+            return env_val.strip(), 'fluxixo-image-studio/1.0'
+
+    candidates: list[Path] = []
+    appdata = (os.environ.get('APPDATA') or '').strip()
+    if appdata:
+        candidates.append(Path(appdata) / 'xdg.config' / '.wrangler' / 'config' / 'default.toml')
+    xdg_home = (os.environ.get('XDG_CONFIG_HOME') or '').strip()
+    if xdg_home:
+        candidates.append(Path(xdg_home) / '.wrangler' / 'config' / 'default.toml')
+
+    for cfg_path in candidates:
+        try:
+            if not cfg_path.is_file():
+                continue
+            raw_text = cfg_path.read_text(encoding='utf-8')
+        except OSError:
+            continue
+        oauth_token = ''
+        if tomllib is not None:
+            try:
+                parsed = tomllib.loads(raw_text)
+                val = parsed.get('oauth_token')
+                if isinstance(val, str):
+                    oauth_token = val.strip()
+            except Exception:
+                oauth_token = ''
+        if not oauth_token:
+            match = re.search(r"""^\s*oauth_token\s*=\s*(['"])(.+?)\1""", raw_text, re.MULTILINE)
+            if match:
+                oauth_token = match.group(2).strip()
+        if oauth_token:
+            return oauth_token, WRANGLER_OAUTH_USER_AGENT
+
+    return '', ''
+
+
+def _encode_reference_image(reference_image: Image.Image | bytes) -> bytes:
+    """Normalize PIL Image or image bytes to PNG bytes suitable for Workers AI multipart upload."""
+    if isinstance(reference_image, Image.Image):
+        img = reference_image
+        if 'A' in img.getbands():
+            rgba = img.convert('RGBA')
+            rgb = Image.alpha_composite(Image.new('RGBA', rgba.size, (255, 255, 255, 255)), rgba).convert('RGB')
+        else:
+            rgb = img.convert('RGB')
+        if max(rgb.size) > 1024:
+            rgb = rgb.copy()
+            rgb.thumbnail((1024, 1024), Image.Resampling.LANCZOS)
+        buf = BytesIO()
+        rgb.save(buf, format='PNG')
+        return buf.getvalue()
+
+    if isinstance(reference_image, (bytes, bytearray)):
+        raw = bytes(reference_image)
+        try:
+            with Image.open(BytesIO(raw)) as img:
+                img.load()
+                return _encode_reference_image(img)
+        except Exception:
+            return raw
+
+    raise TypeError('reference_image must be PIL.Image.Image, bytes, or None')
+
+
+def _encode_multipart_form(
+    fields: dict[str, str],
+    files: dict[str, tuple[str, str, bytes]] | None = None,
+) -> tuple[bytes, str]:
+    boundary = f'----FluxixoBoundary{uuid.uuid4().hex}'
+    body = bytearray()
+    for name, value in fields.items():
+        body.extend(
+            f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"\r\n\r\n{value}\r\n'.encode('utf-8')
+        )
+    for name, (filename, content_type, data) in (files or {}).items():
+        body.extend(
+            f'--{boundary}\r\nContent-Disposition: form-data; name="{name}"; filename="{filename}"\r\n'
+            f'Content-Type: {content_type}\r\n\r\n'.encode('utf-8')
+        )
+        body.extend(data)
+        body.extend(b'\r\n')
+    body.extend(f'--{boundary}--\r\n'.encode('utf-8'))
+    return bytes(body), f'multipart/form-data; boundary={boundary}'
+
+
+def _decode_cloudflare_ai_image(raw_bytes: bytes, content_type: str) -> Image.Image:
+    ct = (content_type or '').lower()
+    if 'json' in ct or raw_bytes.lstrip().startswith(b'{'):
+        payload = json.loads(raw_bytes.decode('utf-8'))
+        if isinstance(payload, dict) and payload.get('success') is False:
+            raise RuntimeError(f'cloudflare_ai_error:{payload.get("errors")}')
+        result = payload.get('result') if isinstance(payload, dict) else None
+        b64 = result.get('image') if isinstance(result, dict) else (payload.get('image') if isinstance(payload, dict) else None)
+        if not isinstance(b64, str) or not b64.strip():
+            raise RuntimeError('cloudflare_ai_missing_image')
+        text = b64.strip()
+        if text.startswith('data:') and ',' in text:
+            text = text.split(',', 1)[1]
+        img_bytes = base64.b64decode(text)
+    else:
+        img_bytes = raw_bytes
+
+    with Image.open(BytesIO(img_bytes)) as img:
+        img.load()
+        return img.copy()
+
+
+def _post_cloudflare_ai(
+    url: str,
+    body: bytes,
+    content_type: str,
+    token: str,
+    user_agent: str,
+    timeout: float,
+) -> Image.Image:
+    headers = {
+        'User-Agent': user_agent or 'fluxixo-image-studio/1.0',
+        'Content-Type': content_type,
+    }
+    if token:
+        headers['Authorization'] = f'Bearer {token}'
+    req = urllib.request.Request(
+        url,
+        data=body,
+        method='POST',
+        headers=headers,
+    )
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        raw = resp.read()
+        resp_ct = resp.headers.get('Content-Type', '') if resp.headers else ''
+    return _decode_cloudflare_ai_image(raw, resp_ct)
+
+
+def _post_autopilot_cutout(
+    autopilot_url: str,
+    mp_body: bytes,
+    mp_ct: str,
+    timeout: float,
+) -> Image.Image:
+    base = autopilot_url.rstrip('/')
+    endpoint = base if base.endswith('/api/generate-cutout') else f'{base}/api/generate-cutout'
+    sync_token = os.environ.get('AUTOPILOT_SYNC_TOKEN', '').strip()
+    return _post_cloudflare_ai(
+        endpoint,
+        mp_body,
+        mp_ct,
+        sync_token,
+        'fluxixo-image-studio/1.0',
+        timeout,
+    )
+
+
+def generate_studio_cutout(
+    prompt: str,
+    reference_image: Image.Image | bytes | None = None,
+    *,
+    angle: str = 'hero front three-quarter studio view',
+    model: str = DEFAULT_FLUX2_MODEL,
+    account_id: str = DEFAULT_CLOUDFLARE_ACCOUNT_ID,
+    token: str | None = None,
+    width: int = 1024,
+    height: int = 1024,
+    timeout: float = 45.0,
+) -> Image.Image:
+    """Generate an isolated studio product image via Cloudflare Workers AI and master it to 1254x1254 RGBA."""
+    auth_token, user_agent = resolve_cloudflare_ai_token(token)
+    autopilot_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
+    if not auth_token and not autopilot_url:
+        raise RuntimeError('cloudflare_ai_token_unavailable')
+
+    ref_bytes = _encode_reference_image(reference_image) if reference_image is not None else None
+    subject = ' '.join(str(prompt or '').split())[:220] or 'compact precision product'
+    view_angle = ' '.join(str(angle or 'hero front three-quarter studio view').split())[:120]
+    ref_clause = 'Exact same ' if ref_bytes is not None else ''
+    ref_tail = ' shown in the reference image' if ref_bytes is not None else ''
+    full_prompt = (
+        f'{ref_clause}{subject}{ref_tail}, {view_angle}, '
+        'isolated single standalone product centered on a pure solid #FFFFFF white studio background, '
+        'full uncropped object with clean margins, crisp commercial studio product lighting, '
+        'sharp detail, no text, no captions, no labels, no logos, no watermark, no props, no hands'
+    )
+
+    safe_model = str(model or DEFAULT_FLUX2_MODEL).lstrip('/')
+    primary_url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{safe_model}'
+    fallback_url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{DEFAULT_FLUX1_FALLBACK_MODEL}'
+    worker_url = autopilot_url or DEFAULT_CLOUDFLARE_AUTOPILOT_URL
+
+    fields = {'prompt': full_prompt, 'width': str(int(width)), 'height': str(int(height))}
+    files = {'input_image_0': ('reference.png', 'image/png', ref_bytes)} if ref_bytes is not None else None
+    mp_body, mp_ct = _encode_multipart_form(fields, files)
+
+    raw_img: Image.Image | None = None
+    if not auth_token:
+        raw_img = _post_autopilot_cutout(worker_url, mp_body, mp_ct, timeout)
+    elif 'flux-2' in safe_model or ref_bytes is not None:
+        try:
+            raw_img = _post_cloudflare_ai(primary_url, mp_body, mp_ct, auth_token, user_agent, timeout)
+        except Exception as exc:
+            try:
+                if safe_model == DEFAULT_FLUX1_FALLBACK_MODEL and ref_bytes is None:
+                    raise exc
+                json_body = json.dumps({'prompt': full_prompt, 'steps': 4}).encode('utf-8')
+                raw_img = _post_cloudflare_ai(
+                    fallback_url, json_body, 'application/json', auth_token, user_agent, timeout,
+                )
+            except Exception as fb_exc:
+                # Pages-scoped tokens return 401/403 on /ai/run; fall back cleanly to the Worker's AI binding.
+                is_auth_err = any(
+                    isinstance(e, urllib.error.HTTPError) and e.code in (401, 403)
+                    for e in (exc, fb_exc)
+                )
+                if is_auth_err and worker_url:
+                    raw_img = _post_autopilot_cutout(worker_url, mp_body, mp_ct, timeout)
+                else:
+                    raise exc
+    else:
+        json_body = json.dumps({'prompt': full_prompt, 'steps': 4}).encode('utf-8')
+        try:
+            raw_img = _post_cloudflare_ai(primary_url, json_body, 'application/json', auth_token, user_agent, timeout)
+        except urllib.error.HTTPError as exc:
+            if exc.code in (401, 403) and worker_url:
+                raw_img = _post_autopilot_cutout(worker_url, mp_body, mp_ct, timeout)
+            else:
+                raise
+
+    cutout = extract_isolated_studio_alpha(raw_img)
+    if tight_alpha_bbox(cutout) is None:
+        raise RuntimeError('generated_cutout_empty')
+
+    return compose_studio_frame(
+        cutout,
+        canvas_size=1254,
+        max_box=890,
+        normalize_tonality=True,
+        add_contact_shadow=True,
+        apply_clarity=True,
+    )

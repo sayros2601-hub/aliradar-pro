@@ -95,15 +95,57 @@ class LocalesImageMetadataTests(unittest.TestCase):
         early = (REDESIGN_DIR / 'static' / 'early.js').read_text(encoding='utf-8')
         self.assertIn("document.documentElement.classList.add('js')", early)
         self.assertIn('DOMContentLoaded', early)
+        self.assertIn('requestAnimationFrame', early)
         self.assertIn("classList.add('anim')", early)
 
         css = (REDESIGN_DIR / 'static' / 'style.css').read_text(encoding='utf-8')
-        self.assertRegex(css, r'\.js\s+\.day\s*\{[^}]*--p\s*:\s*0')
-        self.assertNotIn('.js .rv{opacity:0', css.replace('\n', ' '))
+        # Transitions stay gated until early.js adds html.anim after initial paint.
+        self.assertRegex(css, r'html\.anim\s+body\s*\{[^}]*transition\s*:')
+        self.assertRegex(css, r'html\.anim\s+\.top\s*\{[^}]*transition\s*:')
+        self.assertRegex(css, r'\.js\.anim\s+\.langs\s*\{[^}]*transition\s*:')
+
+        # Generic .rv blocks must not start hidden at opacity:0 before deferred JS runs.
+        self.assertRegex(css, r'\.js\s+\.rv\s*\{[^}]*opacity\s*:\s*1')
+        self.assertNotRegex(css, r'\.js\s+\.rv\s*\{[^}]*opacity\s*:\s*0')
+
+        # Mobile language sheet stays hidden without a 100vmax backdrop shadow until .open.
         langs_rest = re.search(r'\.js\s+\.langs\s*\{([^}]*)\}', css)
         self.assertIsNotNone(langs_rest)
         self.assertNotIn('100vmax', langs_rest.group(1))
+        self.assertRegex(langs_rest.group(1), r'opacity\s*:\s*0')
+        self.assertRegex(langs_rest.group(1), r'visibility\s*:\s*hidden')
+        self.assertRegex(langs_rest.group(1), r'transition\s*:\s*none')
         self.assertRegex(css, r'\.js\s+\.langs\.open\s*\{[^}]*100vmax')
+
+        # Pinned --p scroll spotlight was replaced by the .day-card / .day-slides carousel.
+        self.assertNotRegex(css, r'\.js\s+\.day\s*\{[^}]*--p')
+        self.assertRegex(css, r'\.day\s+\[hidden\]\s*\{[^}]*display\s*:\s*none\s*!important')
+        self.assertRegex(
+            css,
+            r'\.day-slides\.is-ready\s+\.day-card\s*\{[^}]*grid-area\s*:\s*1\s*/\s*1'
+            r'[^}]*opacity\s*:\s*0[^}]*visibility\s*:\s*hidden[^}]*pointer-events\s*:\s*none',
+        )
+        self.assertRegex(
+            css,
+            r'\.day-slides\.is-ready\s+\.day-card\.is-active\s*\{[^}]*opacity\s*:\s*1'
+            r'[^}]*visibility\s*:\s*visible[^}]*pointer-events\s*:\s*auto',
+        )
+        self.assertRegex(css, r'\.js\s+\.day-slides\.rv\s*\{[^}]*opacity\s*:\s*0')
+        self.assertRegex(
+            css,
+            r'\.js\s+\.day-slides\.rv\.in\s*,\s*\.js\s+\.day-slides\.rv:focus-within\s*\{'
+            r'[^}]*opacity\s*:\s*1[^}]*transform\s*:\s*none',
+        )
+
+        reduced_motion = re.search(
+            r'@media\s*\(prefers-reduced-motion\s*:\s*reduce\)\s*\{(?:[^{}]|\{[^{}]*\})*\}',
+            css,
+        )
+        self.assertIsNotNone(reduced_motion)
+        self.assertRegex(
+            reduced_motion.group(0),
+            r'\.js\s+\.rv\s*,\s*\.js\s+\.day-slides\.rv\s*\{[^}]*opacity\s*:\s*1[^}]*transform\s*:\s*none',
+        )
 
 
 if __name__ == '__main__':

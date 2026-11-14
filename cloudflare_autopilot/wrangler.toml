@@ -1,0 +1,21 @@
+name = "fluxixo-autopilot"
+main = "src/index.js"
+compatibility_date = "2026-10-21"
+account_id = "a4be28e05f73ad2b3939d364ea8b2817"
+workers_dev = true
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "fluxixo-autopilot-db"
+database_id = "595a7f4e-7004-4925-b77c-9bb4d1a0f9fe"
+
+[vars]
+SITE_ORIGIN = "https://www.fluxixo.shop"
+INDEXNOW_KEY = "ededa82eb5716fb9ef71632b519559cb"
+DEFAULT_IMAGE_MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
+
+[triggers]
+crons = ["30 15 * * *", "0 17 * * *", "17 5 * * *"]

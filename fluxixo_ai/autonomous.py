@@ -717,13 +717,143 @@ def _studio(cutout):
     )
 
 
+STUDIO_VIEW_ANGLES = (
+    ('hero studio view', 'diagonal three-quarter hero studio view, clear full silhouette'),
+    ('45-degree isometric studio angle', 'elevated side isometric studio view'),
+    ('close-up detail studio view', 'angled macro close-up detail studio view'),
+)
+
+
+def _load_verified_source_image(url, sources, perceptual_index):
+    """Download, size-check, and deduplicate one seller image against known sources."""
+    from PIL import Image
+    if not isinstance(url, str) or not url.strip():
+        return None
+    raw = _image_bytes(url)
+    digest = hashlib.sha256(raw).hexdigest()
+    if digest in sources:
+        return None
+    sources.add(digest)
+    with Image.open(BytesIO(raw)) as value:
+        if value.width < 1 or value.height < 1 or value.width * value.height > 25_000_000:
+            return None
+        value.load()
+        original = value.convert('RGBA')
+    if min(original.size) < VIEW_MIN_SIDE:
+        return None
+    source_hashes = image_studio.compute_perceptual_hashes(original)
+    if perceptual_index:
+        is_dup, _ = image_studio.is_perceptually_duplicate(source_hashes, perceptual_index)
+        if is_dup:
+            return None
+    return original, digest, source_hashes
+
+
+def _build_media_record(image_path, original_path, original, digest, url, cut_hashes, source_hashes, q_metrics):
+    """Assemble standardized media payload expected by accumulate()."""
+    return {
+        'image': image_path,
+        'original': original_path,
+        'source_sha256': digest,
+        'pixel_sha256': _pixel_hash(original),
+        'source_url': url,
+        'image_dhash': cut_hashes['dhash'],
+        'image_ahash': cut_hashes['ahash'],
+        'image_aspect': cut_hashes['aspect'],
+        'source_dhash': source_hashes['dhash'],
+        'source_ahash': source_hashes['ahash'],
+        'source_aspect': source_hashes['aspect'],
+        'image_quality': q_metrics,
+        'image_quality_verified': True,
+    }
+
+
 def _default_media_preparer():
+    mode = os.environ.get('FLUXIXO_IMAGE_MODE', 'generate').strip().lower()
+    cf_token, _ = image_studio.resolve_cloudflare_ai_token()
+    autopilot_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
+    if mode != 'cut' and (cf_token or autopilot_url):
+        from PIL import Image
+
+        def prepare_generated(candidate, internal_id, stage, *, perceptual_index=None):
+            """Download one verified seller reference photo and generate 3 distinct studio cutout views."""
+            urls = candidate.get('image_urls') or [candidate.get('image_url')]
+            sources = set()
+            ref_item = None
+            ref_url = None
+            for url in urls[:9]:
+                try:
+                    loaded = _load_verified_source_image(url, sources, perceptual_index)
+                except Exception:
+                    continue
+                if loaded is not None:
+                    ref_item = loaded
+                    ref_url = url
+                    break
+            if ref_item is None:
+                raise DailyError('visual_quality_failed')
+
+            ref_original, ref_digest, ref_hashes = ref_item
+            title = str(candidate.get('title') or '').strip() or 'compact precision product'
+            main, views, kept = None, [], []
+            for slot_idx, angle_choices in enumerate(STUDIO_VIEW_ANGLES[:PHOTOS_PER_PRODUCT]):
+                accepted = None
+                for angle in angle_choices:
+                    try:
+                        canvas = image_studio.generate_studio_cutout(
+                            title,
+                            reference_image=ref_original,
+                            angle=angle,
+                        )
+                        if not isinstance(canvas, Image.Image) or not canvas.getbbox() or not mask_usable(canvas):
+                            continue
+                        q_ok, q_metrics = image_studio.verify_studio_image(canvas, composed=canvas)
+                        if not q_ok:
+                            continue
+                        cut_hashes = image_studio.compute_perceptual_hashes(canvas)
+                        if perceptual_index:
+                            is_dup, _ = image_studio.is_perceptually_duplicate(cut_hashes, perceptual_index)
+                            if is_dup:
+                                continue
+                        fingerprint = _dhash(_on_white(canvas))
+                        if any(bin(fingerprint ^ other).count('1') <= VIEW_REPEAT for other in kept):
+                            continue
+                        accepted = (canvas, q_metrics, cut_hashes, fingerprint)
+                        break
+                    except Exception:
+                        continue
+                if accepted is None:
+                    break
+                canvas, q_metrics, cut_hashes, fingerprint = accepted
+                kept.append(fingerprint)
+                if slot_idx == 0:
+                    image_path = stage / f'{internal_id}-prepared.webp'
+                    original_path = stage / f'{internal_id}-original.webp'
+                    canvas.save(image_path, 'WEBP', quality=95, method=6)
+                    ref_original.save(original_path, 'WEBP', quality=90, method=6)
+                    main = _build_media_record(
+                        image_path, original_path, ref_original, ref_digest,
+                        ref_url, cut_hashes, ref_hashes, q_metrics,
+                    )
+                else:
+                    view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
+                    canvas.save(view_path, 'WEBP', quality=92, method=6)
+                    views.append(view_path)
+
+            if main is None or len(views) < PHOTOS_PER_PRODUCT - 1:
+                raise DailyError('visual_quality_failed')
+            main['views'] = views
+            return main
+
+        return prepare_generated
+
     try:
         from PIL import Image
         from rembg import remove, new_session
         session = new_session(CUT_MODEL)
     except Exception:
         raise DailyError('image_processor_unavailable') from None
+
     def prepare(candidate, internal_id, stage, *, perceptual_index=None):
         """Main photo plus two more views of the same listing, all cut out; fewer than three means another product."""
         urls = candidate.get('image_urls') or [candidate.get('image_url')]
@@ -732,23 +862,10 @@ def _default_media_preparer():
             if main is not None and len(views) >= PHOTOS_PER_PRODUCT - 1:
                 break
             try:
-                raw = _image_bytes(url)
-                digest = hashlib.sha256(raw).hexdigest()
-                if digest in sources:
+                loaded = _load_verified_source_image(url, sources, perceptual_index)
+                if loaded is None:
                     continue
-                sources.add(digest)
-                with Image.open(BytesIO(raw)) as value:
-                    if value.width < 1 or value.height < 1 or value.width * value.height > 25_000_000:
-                        continue
-                    value.load()
-                    original = value.convert('RGBA')
-                if min(original.size) < VIEW_MIN_SIDE:
-                    continue
-                source_hashes = image_studio.compute_perceptual_hashes(original)
-                if perceptual_index:
-                    is_dup, _ = image_studio.is_perceptually_duplicate(source_hashes, perceptual_index)
-                    if is_dup:
-                        continue
+                original, digest, source_hashes = loaded
                 source = stage / f'{internal_id}-source-{index}.png'
                 original.save(source, 'PNG')
                 poster = _check_ocr(source)
@@ -799,21 +916,10 @@ def _default_media_preparer():
                     canvas.save(image_path, 'WEBP', quality=95, method=6)
                     original.save(original_path, 'WEBP', quality=90, method=6)
                     main_light, main_parts = _light_share(canvas), _major_parts(canvas)
-                    main = {
-                        'image': image_path,
-                        'original': original_path,
-                        'source_sha256': digest,
-                        'pixel_sha256': _pixel_hash(original),
-                        'source_url': url,
-                        'image_dhash': cut_hashes['dhash'],
-                        'image_ahash': cut_hashes['ahash'],
-                        'image_aspect': cut_hashes['aspect'],
-                        'source_dhash': source_hashes['dhash'],
-                        'source_ahash': source_hashes['ahash'],
-                        'source_aspect': source_hashes['aspect'],
-                        'image_quality': q_metrics,
-                        'image_quality_verified': True,
-                    }
+                    main = _build_media_record(
+                        image_path, original_path, original, digest,
+                        url, cut_hashes, source_hashes, q_metrics,
+                    )
                 elif len(views) < PHOTOS_PER_PRODUCT - 1:
                     view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
                     canvas.save(view_path, 'WEBP', quality=92, method=6)
