@@ -31,7 +31,7 @@ import locales as L  # noqa: E402
 import journal_pages  # noqa: E402
 import market_seo  # noqa: E402
 from ui_text import CATEGORY_COPY_RU, CATEGORY_LONG_RU, MORE_RU, ROOT_EN, UI  # noqa: E402
-from featured_carousel import CAROUSEL_COPY, FEATURED_ORIGINAL_IMAGES, select_featured_products  # noqa: E402
+from featured_carousel import CAROUSEL_COPY, FEATURED_IMAGE_OVERRIDES, copy_featured_images, select_featured_products  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
 LANGS = ('es', 'pt', 'en', 'fr', 'he', 'ru')
@@ -467,9 +467,9 @@ class Site:
         slides = []
         for index, star in enumerate(featured, 1):
             position = carousel['count'].format(current=index, total=len(featured))
-            original = FEATURED_ORIGINAL_IMAGES.get(star['id'])
-            image_src = original or img(star['image'], 800)
-            image_class = ' class="day-original"' if original else ''
+            override = FEATURED_IMAGE_OVERRIDES.get(star['id'])
+            image_src = override or img(star['image'], 800)
+            image_class = ' class="day-cutout"' if override else ''
             seller_link = (f'<a class="btn line" href="{e(star["affiliateUrl"])}" target="_blank" '
                            f'rel="sponsored nofollow noopener">{e(u["seller_cta"])} <span aria-hidden="true">↗</span></a>')
             slides.append(
@@ -718,6 +718,7 @@ def main():
                     shutil.rmtree(child) if child.is_dir() else child.unlink()
         OUT.mkdir(exist_ok=True)
         link_assets()
+    copy_featured_images(OUT)
     (OUT / 'js').mkdir(exist_ok=True)
     shutil.copyfile(HERE / 'static/early.js', OUT / 'js/early.js')
     shutil.copyfile(HERE / 'static/app.js', OUT / 'js/fx.js')

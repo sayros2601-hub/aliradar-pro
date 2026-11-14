@@ -3,8 +3,11 @@ import copy
 from html.parser import HTMLParser
 import importlib.util
 from pathlib import Path
+import tempfile
 import unittest
 from unittest.mock import patch
+
+from PIL import Image
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -115,10 +118,10 @@ class FeaturedCarouselTest(unittest.TestCase):
         changed = self.render('ru', products=products, day='2030-02-01')
         self.assertEqual([s['attrs']['data-product-id'] for s in changed.slides], expected)
 
-    def test_two_intact_original_photos_replace_cutouts_without_heavy_shadow(self):
-        originals = {
-            'find-063-cable-tester': '/assets/originals/find-063-cable-tester.webp',
-            'find-023-cat-laser': '/assets/originals/find-023-cat-laser.webp',
+    def test_two_pinned_png_cutouts_bypass_old_thumbnails_without_heavy_shadow(self):
+        cutouts = {
+            'find-063-cable-tester': '/assets/featured/find-063-cable-tester-clean-v1.png',
+            'find-023-cat-laser': '/assets/featured/find-023-cat-laser-clean-v1.png',
         }
         for lang in ('ru', 'en', 'es', 'pt', 'fr', 'he'):
             with self.subTest(lang=lang):
@@ -129,16 +132,42 @@ class FeaturedCarouselTest(unittest.TestCase):
                     pid = slide['attrs']['data-product-id']
                     image = slide['images'][0]
                     self.assertNotIn('cut', image.get('class', '').split())
-                    if pid in originals:
-                        self.assertEqual(image['src'], originals[pid])
-                        self.assertIn('day-original', image.get('class', '').split())
-                        original_file = ROOT / 'fluxixo_site/dist' / image['src'].lstrip('/')
-                        self.assertTrue(original_file.is_file())
-                        self.assertGreater(original_file.stat().st_size, 0)
+                    if pid in cutouts:
+                        self.assertEqual(image['src'], cutouts[pid])
+                        self.assertIn('day-cutout', image.get('class', '').split())
                         replacements.append(pid)
                     else:
+                        self.assertNotIn('/assets/featured/', image['src'])
                         self.assertNotIn('/assets/originals/', image['src'])
-                self.assertEqual(set(replacements), set(originals))
+                self.assertEqual(set(replacements), set(cutouts))
+
+    def test_fixed_cutout_sources_have_transparency_and_copy_byte_for_byte(self):
+        source = ROOT / 'fluxixo_site/redesign/static/featured'
+        names = ('find-063-cable-tester-clean-v1.png', 'find-023-cat-laser-clean-v1.png')
+        for name in names:
+            asset = source / name
+            self.assertTrue(asset.is_file(), f'Missing curated cutout source: {asset}')
+            self.assertGreater(asset.stat().st_size, 0)
+            with Image.open(asset) as image:
+                self.assertEqual(image.format, 'PNG')
+                self.assertIn('A', image.getbands())
+                low, high = image.getchannel('A').getextrema()
+                self.assertLess(low, 255, 'Cutout background must actually be transparent')
+                self.assertGreater(high, 0, 'Product must not be fully transparent')
+        with tempfile.TemporaryDirectory() as scratch:
+            output = Path(scratch) / 'site'
+            self.module.copy_featured_images(output)
+            for name in names:
+                copied = output / 'assets/featured' / name
+                self.assertEqual(copied.read_bytes(), (source / name).read_bytes())
+
+    def test_missing_cutout_source_stops_before_copying_any_output(self):
+        with tempfile.TemporaryDirectory() as scratch:
+            source, output = Path(scratch) / 'source', Path(scratch) / 'site'
+            source.mkdir()
+            with self.assertRaisesRegex(FileNotFoundError, 'find-063-cable-tester-clean-v1.png'):
+                self.module.copy_featured_images(output, source)
+            self.assertFalse(output.exists())
 
     def test_missing_pinned_product_fails_instead_of_silently_substituting(self):
         selected = self.render('ru').slides

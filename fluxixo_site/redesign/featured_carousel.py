@@ -1,5 +1,8 @@
 """A fixed editorial selection of existing products; no rotation state or generation."""
 
+from pathlib import Path
+import shutil
+
 PINNED_PRODUCT_IDS = (
     'find-062-coffee-scale',
     'find-064-book-light',
@@ -10,10 +13,10 @@ PINNED_PRODUCT_IDS = (
     'find-024-trekking-poles',
 )
 
-# These two cutouts lose parts of the product; the existing source photos are intact.
-FEATURED_ORIGINAL_IMAGES = {
-    'find-063-cable-tester': '/assets/originals/find-063-cable-tester.webp',
-    'find-023-cat-laser': '/assets/originals/find-023-cat-laser.webp',
+# Curated transparent replacements are kept in source, separate from catalog images.
+FEATURED_IMAGE_OVERRIDES = {
+    'find-063-cable-tester': '/assets/featured/find-063-cable-tester-clean-v1.png',
+    'find-023-cat-laser': '/assets/featured/find-023-cat-laser-clean-v1.png',
 }
 
 CAROUSEL_COPY = {
@@ -50,3 +53,18 @@ def select_featured_products(products):
     if missing:
         raise ValueError('Pinned carousel products unavailable in this locale: ' + ', '.join(missing))
     return [by_id[pid] for pid in PINNED_PRODUCT_IDS]
+
+
+def copy_featured_images(output_dir, source_dir=None):
+    """Publish the two versioned source PNGs without touching catalog imagery."""
+    source_dir = Path(source_dir) if source_dir is not None else Path(__file__).parent / 'static/featured'
+    copies = [(source_dir / Path(url).name, Path(output_dir) / url.lstrip('/'))
+              for url in FEATURED_IMAGE_OVERRIDES.values()]
+    for source, _ in copies:
+        if not source.is_file():
+            raise FileNotFoundError(f'Missing curated carousel image: {source}')
+        if source.stat().st_size == 0:
+            raise ValueError(f'Empty curated carousel image: {source}')
+    for source, target in copies:
+        target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source, target)

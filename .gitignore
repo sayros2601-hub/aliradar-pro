@@ -1,6 +1,8 @@
 __pycache__/
 *.pyc
 *.png
+!fluxixo_site/redesign/static/featured/find-063-cable-tester-clean-v1.png
+!fluxixo_site/redesign/static/featured/find-023-cat-laser-clean-v1.png
 !assets/img/*.png
 !assets/img/*.jpg
 .DS_Store
