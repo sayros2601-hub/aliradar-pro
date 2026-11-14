@@ -276,7 +276,9 @@ html.anim .top{transition:background-color .9s}
 
   /* today's drop: swipe the cards */
   .drop{padding:14px 0 20px}
-  .drop-bar{margin-inline:var(--g);padding-bottom:10px}
+  /* Two fixed lines on phones: the date and the countdown change their text after load, and a clock that
+     wrapped only then jumped across the screen and pushed the cards down (CLS 0.23 on the English front page). */
+  .drop-bar{margin-inline:var(--g);padding-bottom:10px;flex-direction:column;align-items:flex-start;gap:8px}
   .drop-copy{margin:24px var(--g) 0;padding-top:20px;gap:16px}
   .clock{font-size:10.5px;letter-spacing:.12em}
   .drop h1{font-size:clamp(26px,6vw,32px);line-height:1.15}

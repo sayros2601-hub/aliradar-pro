@@ -121,6 +121,8 @@ class GoogleSeoComplianceTests(unittest.TestCase):
             (rel / 'indexnow.txt').write_text(key, encoding='utf-8')
             (rel / f'{key}.txt').write_text(key, encoding='utf-8')
             (rel / 'rss.xml').write_text('<rss><channel><item><title>x</title></item></channel></rss>', encoding='utf-8')
+            # Pinterest auto-publish feed: future products only, so an empty channel is valid.
+            (rel / 'pinterest-new.xml').write_text('<rss version="2.0"><channel></channel></rss>', encoding='utf-8')
             locs = ''.join(
                 f'<sitemap><loc>https://www.fluxixo.shop/sitemap-{lang}.xml</loc></sitemap>'
                 for lang in ('ru', 'en', 'pt', 'es', 'fr', 'he')

@@ -30,7 +30,8 @@ sys.path.insert(0, str(HERE))
 import locales as L  # noqa: E402
 import journal_pages  # noqa: E402
 import market_seo  # noqa: E402
-from ui_text import CATEGORY_COPY_RU, CATEGORY_LONG_RU, MORE_RU, ROOT_EN, UI  # noqa: E402
+from ui_text import (CATALOG_EN, CATEGORY_COPY_RU, CATEGORY_LONG, CATEGORY_LONG_HEADING, CATEGORY_LONG_RU,  # noqa: E402
+                     GUIDES_HEADING, MORE_RU, ROOT_EN, RU_CHECKLIST_GUIDE, RU_CHECKLIST_WORLDS, UI)
 from featured_carousel import CAROUSEL_COPY, FEATURED_IMAGE_OVERRIDES, copy_featured_images, select_featured_products  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
@@ -254,6 +255,18 @@ def img(path, width=None):
     return '/' + path
 
 
+def responsive(path, widths, sizes):
+    """srcset/sizes for the thumbnails that exist, so a phone downloads the width it shows instead of a desktop copy."""
+    parts = [f'/{L.thumb(path, w)} {w}w' for w in widths if (DIST / L.thumb(path, w)).exists()]
+    return f' srcset="{", ".join(parts)}" sizes="{sizes}"' if len(parts) > 1 else ''
+
+
+# One brand node shared by the front page and the About pages; sameAs ties the brand to its public profile.
+ORGANIZATION = {'@type': 'Organization', '@id': ORIGIN + '/#organization', 'name': 'FLUXIXO', 'url': ORIGIN + '/',
+                'logo': ORIGIN + '/apple-touch-icon.png', 'sameAs': ['https://www.pinterest.com/FLUXIXO/']}
+GUIDES = journal_pages.all_articles()
+
+
 class Site:
     def __init__(self, products, data, lang, root=False):
         # root: the English home served at '/'. It is the English member of the entry-page hreflang cluster;
@@ -290,6 +303,8 @@ class Site:
 
     def anchor(self, name):
         """The short front page uses its language's full catalog for catalog and search targets."""
+        if self.lang == 'en' and name in ('drop', 'mundos'):
+            return f'/#{name}'  # /en/ is the plain full catalog: the drop and the category bands live on '/'
         base = L.catalog_path(self.lang) if self.root and name in ('todo', 'find') else self.home()
         return f'{base}#{name}'
 
@@ -386,10 +401,18 @@ class Site:
     def rope(self, items, eager=False, lead=False, width=None):
         n = len(items)
         ts = [0.5] if n == 1 else [0.17 + i * (0.66 / (n - 1)) for i in range(n)]
+        # Widths measured on the live pages: the lead card is ~57vw on phones and 23vw on desktop, the four-item
+        # "related" row ~210px on phones and 18vw on desktop, the three-item category row (desktop only) ~27vw.
+        if lead:
+            widths, sizes = (480, 800), '(max-width:860px) 57vw, 23vw'
+        elif n > 3:
+            widths, sizes = (320, 480), '(max-width:480px) 38vw, (max-width:860px) 210px, 18vw'
+        else:
+            widths, sizes = (480, 800), '(max-width:860px) 40vw, 27vw'
         hangs = ''.join(
             f'<a class="hang" data-go href="{self.ppath(p)}" style="left:{t * 100:.1f}%;--y:{(40 + 360 * t * (1 - t)) / 300:.3f};--t:{p["tint"]}">'
             f'<i class="pin"></i><i class="str"></i>'
-            f'<img class="cut" src="{img(p["image"], width or (800 if eager else 480))}" alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="rope"))}" width="480" height="480" loading="{"eager" if eager else "lazy"}" decoding="async"'
+            f'<img class="cut" src="{img(p["image"], width or (800 if eager else 480))}"{responsive(p["image"], widths, sizes)} alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="rope"))}" width="480" height="480" loading="{"eager" if eager else "lazy"}" decoding="async"'
             f'{" fetchpriority=\"high\"" if lead and i == 0 else ""}>'
             f'<small>{i + 1:02d}</small><b>{e(p["name"])}</b>{"<span class=hl>" + e(" ".join(p["headline"])) + "</span>" if lead else ""}<em>{e(self.ui["more"])}</em></a>'
             for i, (p, t) in enumerate(zip(items, ts)))
@@ -428,10 +451,26 @@ class Site:
         return (f'<div class="p-gallery" data-label-prev="{e(self.ui["prev"])}" data-label-next="{e(self.ui["next"])}">'
                 f'<div class="p-stage" data-dots>{photo}{extra}</div></div>')
 
+    def guides(self, p):
+        """Links to the buying guides written about this product (journal preferred_product) in this language;
+        Russian tech, tool and travel items also get the general pre-order checklist."""
+        found = []
+        for article in GUIDES:
+            text = article['translations'].get(self.lang)
+            if not text:
+                continue
+            if article['preferred_product'] == p['id'] or (
+                    self.lang == 'ru' and article['slug'] == RU_CHECKLIST_GUIDE and p['world'] in RU_CHECKLIST_WORLDS):
+                found.append((journal_pages.article_path(self.lang, article['slug']), text[2]))
+        if not found:
+            return ''
+        links = ''.join(f'<li><a href="{href}">{e(heading)}</a></li>' for href, heading in found)
+        return f'<section class="p-more p-guides"><div><h2>{e(GUIDES_HEADING[self.lang])}</h2><ul>{links}</ul></div></section>'
+
     def card(self, p):
         s480 = img(p['image'], 480)
-        s800 = img(p['image'], 800)
-        srcset = f' srcset="{s480} 480w, {s800} 800w" sizes="(max-width:640px) 46vw, 240px"' if s800 != s480 else ''
+        # Cards are ~38vw wide in the two-column phone grid and at most 240px on desktop.
+        srcset = responsive(p['image'], (320, 480, 800), '(max-width:860px) 38vw, 240px')
         return (f'<a class="card" data-go data-w="{slug(p["world"])}" href="{self.ppath(p)}" style="--t:{WORLDS[p["world"]]}">'
                 f'<span class="ph"><img src="{s480}"{srcset} alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="card"))}" width="480" height="480" loading="lazy" decoding="async"></span>'
                 f'<span class="nm">{e(p["name"])}</span><span class="ct">{e(self.cat(p["world"]))}</span></a>')
@@ -465,7 +504,7 @@ class Site:
 
         # Phone only: every world one tap away, right under today's drop.
         tiles = ''.join(
-            f'<a href="{self.cpath(k)}" style="--t:{WORLDS[k]}"><img src="{img(self.in_world(k)[0]["image"], 480)}" alt="" width="480" height="480" loading="lazy" decoding="async">'
+            f'<a href="{self.cpath(k)}" style="--t:{WORLDS[k]}"><img src="{img(self.in_world(k)[0]["image"], 480)}"{responsive(self.in_world(k)[0]["image"], (320, 480), "72px")} alt="" width="480" height="480" loading="lazy" decoding="async">'
             f'<b>{e(self.cat(k))}</b><small>{len(self.in_world(k))}</small></a>' for k in self.worlds)
         cats = f'<nav class="cats" id="cats" aria-label="{e(u["nav"][1])}"><h2 class="d">{e(u["nav"][1])}</h2><div>{tiles}</div></nav>'
 
@@ -502,7 +541,7 @@ class Site:
         for i, key in enumerate(self.worlds):
             group = self.in_world(key)
             minis = ''.join(
-                f'<a class="mini" data-go href="{self.ppath(p)}"><img class="cut" src="{img(p["image"], 480)}" alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="mini"))}" width="480" height="480" loading="lazy" decoding="async"><b>{e(p["name"])}</b></a>'
+                f'<a class="mini" data-go href="{self.ppath(p)}"><img class="cut" src="{img(p["image"], 480)}"{responsive(p["image"], (320, 480, 800), "(max-width:860px) 36vw, 18.5vw")} alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="mini"))}" width="480" height="480" loading="lazy" decoding="async"><b>{e(p["name"])}</b></a>'
                 for p in [q for q in group if q not in drop][:8] or group[:8])
             bands.append(
                 f'<section class="world"{" id=\"mundos\"" if i == 0 else ""} data-page="{WORLDS[key]}" style="--t:{WORLDS[key]}"><div class="rv">'
@@ -540,8 +579,9 @@ class Site:
             root_listing = {'@type': 'ItemList', 'name': r['title'], 'numberOfItems': len(newest),
                             'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(newest)]}
             schema = {'@context': 'https://schema.org', '@graph': [
-                {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': ['en', 'ru', 'pt-BR', 'es-MX', 'fr', 'he-IL']},
-                {'@type': 'Organization', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'logo': ORIGIN + '/apple-touch-icon.png'}, root_listing]}
+                {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': ['en', 'ru', 'pt-BR', 'es-MX', 'fr', 'he-IL'],
+                 'publisher': {'@id': ORGANIZATION['@id']}},
+                ORGANIZATION, root_listing]}
             ov_root = market_seo.route_override(overrides, '/')
             write('/', self.page(ov_root.get('title') or ROOT_TITLE, ov_root.get('description') or ROOT_DESC, '/', root_body,
                                  paths, schema, tab='home'))
@@ -553,6 +593,12 @@ class Site:
             if self.lang == 'ru' else L.CATALOG_DESCRIPTION[self.lang]
         )
         home_title = ov_home.get('title') or L.CATALOG_TITLE[self.lang]
+        if self.lang == 'en':
+            # /en/ is the standalone full English catalog. The drop, the featured carousel and the category bands
+            # belong to the English front page at '/', so repeating them here only made two near-identical pages.
+            head = (f'<section class="c-hero"><h1 class="d">{e(CATALOG_EN["h1"])} <span class="s">{e(u["count"](n=len(items)))}</span></h1>'
+                    f'<p class="t">{e(CATALOG_EN["intro"])}</p></section>')
+            body = head + cats + everything
         hub_schema = market_seo.collection_schema(origin=ORIGIN, path=self.home(), title=home_title, description=desc,
                                                   lang=L.LANGUAGES[self.lang][0],
                                                   items=[(self.ppath(p), p['name']) for p in items],
@@ -609,7 +655,7 @@ class Site:
                     f'{"<ul class=facts>" + facts + "</ul>" if facts else ""}'
                     f'<div class="row">{self.buy(p, "data-main-cta")}</div><p class="note">{e(L.DISCLOSURE[self.lang])}</p></div>'
                     f'{self.gallery(p, name)}</div></section>'
-                    f'{more_html}{seo_notes_html}')
+                    f'{more_html}{self.guides(p)}{seo_notes_html}')
             if related:
                 body += (f'<section class="related"><p class="eye"><b>●</b> {e(self.cat(key))}</p>'
                          f'<h2 class="d rv">{e(u["related"][0])} <span class="s">{e(u["related"][1])}</span></h2>{self.rope(related)}</section>')
@@ -628,9 +674,10 @@ class Site:
                     f'<h1 class="d">{e(name)} <span class="s">{e(u["count"](n=len(group)))}</span></h1><p class="t">{e(self.copy(key))}</p></section>'
                     f'<section class="c-body">{self.rope(group[:3], width=800) if len(group) >= 3 else ""}'
                     f'<div class="chips">{chips}</div><div class="grid">{"".join(self.card(p) for p in group)}</div></section>')
-            long_text = CATEGORY_LONG_RU.get(key) if self.lang == 'ru' else None
+            long_text = CATEGORY_LONG_RU.get(key) if self.lang == 'ru' else CATEGORY_LONG.get(key, {}).get(self.lang)
             if long_text:
-                body += f'<section class="c-about"><h2>{e(name)}: что проверить перед заказом</h2><p>{e(long_text)}</p></section>'
+                heading = CATEGORY_LONG_HEADING[self.lang].format(name=name)
+                body += f'<section class="c-about"><h2>{e(heading)}</h2><p>{e(long_text)}</p></section>'
             ov = market_seo.route_override(overrides, path)
             title = ov.get('title') or L.CATEGORY_TITLE[self.lang].format(cat=name)
             desc = ov.get('description') or (self.copy(key) + ' ' + L.CATEGORY_COUNT[self.lang].format(n=len(group)))
@@ -643,8 +690,14 @@ class Site:
         copy = L.ABOUT[self.lang]
         sections = ''.join(f'<section id="{a}"><h2>{e(h)}</h2><p>{e(t)}</p></section>' for a, h, t in copy['sections'])
         path = L.about_path(self.lang)
+        schema = {'@context': 'https://schema.org', '@graph': [
+            {'@type': 'AboutPage', '@id': ORIGIN + path, 'url': ORIGIN + path, 'name': copy['title'],
+             'description': copy['desc'], 'inLanguage': L.LANGUAGES[self.lang][0],
+             'isPartOf': {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/'},
+             'about': {'@id': ORGANIZATION['@id']}},
+            ORGANIZATION]}
         write(path, self.page(copy['title'], copy['desc'], path, f'<article class="about"><h1 class="d">{e(copy["h1"])}</h1>{sections}</article>',
-                              {l: L.about_path(l) for l in LANGS}))
+                              {l: L.about_path(l) for l in LANGS}, schema))
 
 
 def write(path, html):
@@ -706,6 +759,16 @@ def proofread():
     # The Russian-only category notes and extra product advice.
     for key, text in CATEGORY_LONG_RU.items():
         check_texts.check_string(text, 'ru', f'category note/{key}', problems)
+    # Category notes in the other languages, their headings, the /en/ catalog intro and the guide links heading.
+    for key, by_lang in CATEGORY_LONG.items():
+        for lang, text in by_lang.items():
+            check_texts.check_string(text, lang, f'category note/{key}/{lang}', problems)
+    for lang, text in CATEGORY_LONG_HEADING.items():
+        check_texts.check_string(text.format(name='X'), lang, f'category note heading/{lang}', problems)
+    for key, text in CATALOG_EN.items():
+        check_texts.check_string(text, 'en', f'en catalog/{key}', problems)
+    for lang, text in GUIDES_HEADING.items():
+        check_texts.check_string(text, lang, f'guides heading/{lang}', problems)
     for pid, entry in long_copy().items():
         for part in (entry['who'], *entry['check']):
             check_texts.check_string(part, 'ru', f'{pid}/more', problems)

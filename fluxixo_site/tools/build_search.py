@@ -76,7 +76,8 @@ def make_thumbnails():
             continue
         with Image.open(source) as picture:
             IMAGE_SIZES[image] = picture.size
-        for width in (480, 800):
+        # 320 serves phone cards and small tiles (they are shown ~145-160px wide), 480/800 the larger slots.
+        for width in (320, 480, 800):
             relative = thumb(image, width)
             target = DIST/relative
             # A zero-byte file is the leftover of an interrupted run, so it is rebuilt.

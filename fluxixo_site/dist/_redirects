@@ -28,6 +28,15 @@
 /ru/deals/3-in-1-mini-robots-vacuum-cleaner-au /categories/dom/ 301
 /es/deals/car-tissue-box-sunshade-seat /es/categories/auto-viaje/ 301
 /ru/deals/5pcs-ultrathin-anti-rfid-walle /categories/v-doroge/ 301
+# Old product pages Google still shows whose exact product is in today's catalog (2026-11-14 audit).
+/ru/deals/2-4g-5ghz-dual-band-wifi-repeater-1200mbps-si /products/katord-wifi-repeater/ 301
+/ru/deals/4-antenna-1200mbps-wireless-wifi-repeater-2-4 /products/katord-wifi-repeater/ 301
+/ru/deals/20000mah-car-battery-jump-star-1 /products/find-008-jump-starter/ 301
+/ru/deals/l30-l50p-mini-laser-distance-meter-usb-c-rech /products/find-052-laser-meter/ 301
+/ru/deals/mini-sealed-pill-organizer-7-d /products/find-067-pill-organizer/ 301
+/ru/deals/interactive-cat-toy-gun-engaging-laser-chase /products/find-023-cat-laser/ 301
+/ru/deals/europe-us-plug-electric-fabric-sweat /products/find-055-lint-remover/ 301
+/ru/disclosure /about/ 301
 
 # Restored journal legacy .html links -> canonical trailing-slash guides
 /journal/compare-the-final-price.html /journal/compare-the-final-price/ 301
@@ -67,6 +76,7 @@
 
 # Dynamic rules come last; the first matching rule wins. Keep the whole file well under
 # the ~100-rule mark: rules after roughly the 106th were silently ignored in production.
+/ru/journal/* /journal/:splat 301
 /ru/* /catalog/ 301
 /deals/* /en/ 301
 /cat/* /en/ 301
@@ -83,6 +93,7 @@
 /:lang/contact/ /:lang/about/ 301
 /:lang/returns /:lang/about/ 301
 /:lang/returns/ /:lang/about/ 301
+/:lang/disclosure /:lang/about/ 301
 /:lang/deals/* /:lang/ 301
 /:lang/cat/* /:lang/ 301
 /:lang/guide /:lang/journal/ 301

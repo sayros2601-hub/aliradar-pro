@@ -178,3 +178,63 @@ CATEGORY_LONG_RU = {
                 'названию размера: обхват груди, длина спины и шея. У трекеров уточняйте, как именно определяется '
                 'местоположение, а у расходников — точную модель устройства, для которого они подходят.'),
 }
+
+# "What to check before ordering" notes for category pages in the other languages (the Russian ones are above).
+# Only the outdoor category had too little text of its own in these languages.
+CATEGORY_LONG = {
+    'На природе': {
+        'en': ('Gear for the garden, fishing and hiking trips: trekking poles, bite alarms, drip irrigation kits and other '
+               'light equipment. For outdoor items, check the material and weight, the folded length, and whether the '
+               'listing is for one piece or a pair. Measure the diameter of your hoses, rods or fittings before ordering: '
+               'a part only holds tight when those sizes match. If an item runs on a battery, look at how it charges and '
+               'whether the cable is in the box.'),
+        'pt': ('Equipamentos para jardim, pesca e trilhas: bastões de caminhada, alarmes de mordida, kits de irrigação por '
+               'gotejamento e outros itens leves. Em produtos para uso ao ar livre, confira o material e o peso, o '
+               'comprimento dobrado e se o anúncio vende uma unidade ou um par. Meça antes o diâmetro de mangueiras, varas '
+               'ou conexões: a peça só fica firme quando essas medidas coincidem. Se o item funciona com bateria, veja como '
+               'ela é carregada e se o cabo vem na caixa.'),
+        'es': ('Equipo para el jardín, la pesca y las caminatas: bastones de senderismo, alarmas de picada, kits de riego por '
+               'goteo y otros artículos ligeros. En los productos para exteriores revisa el material y el peso, la longitud '
+               'plegada y si el anuncio vende una pieza o un par. Mide antes el diámetro de mangueras, cañas o conectores: '
+               'la pieza solo queda firme cuando esas medidas coinciden. Si el artículo usa batería, fíjate en cómo se carga '
+               'y si el cable viene en la caja.'),
+        'fr': ('Du matériel pour le jardin, la pêche et la randonnée : bâtons de marche, détecteurs de touche, kits '
+               'd’arrosage goutte à goutte et autres équipements légers. Pour un article d’extérieur, vérifiez la matière '
+               'et le poids, la longueur repliée et si l’annonce vend une pièce ou une paire. Mesurez à l’avance le '
+               'diamètre de vos tuyaux, cannes ou raccords : une pièce ne tient bien que si ces cotes correspondent. Si '
+               'l’article fonctionne sur batterie, regardez comment il se recharge et si le câble est fourni.'),
+        'he': ('ציוד לגינה, לדיג ולטיולים: מקלות הליכה, מתריעי נגיסה, ערכות השקיה בטפטוף ופריטים קלים נוספים. במוצרים '
+               'לשטח כדאי לבדוק את החומר והמשקל, את האורך במצב מקופל ואם המודעה מוכרת יחידה אחת או זוג. מדדו מראש את '
+               'הקוטר של צינורות, חכות או מחברים: רק כשהמידות תואמות החלק יחזיק היטב. אם הפריט עובד על סוללה, בדקו איך '
+               'היא נטענת ואם הכבל כלול באריזה.'),
+    },
+}
+CATEGORY_LONG_HEADING = {
+    'ru': '{name}: что проверить перед заказом',
+    'en': '{name}: what to check before ordering',
+    'pt': '{name}: o que verificar antes de comprar',
+    'es': '{name}: qué revisar antes de pedir',
+    'fr': '{name} : ce qu’il faut vérifier avant de commander',
+    'he': '{name}: מה לבדוק לפני ההזמנה',
+}
+
+# The full English catalog at /en/. The English front page at '/' carries the drop, the carousel and the
+# category bands, so /en/ opens straight with the complete list instead of repeating them.
+CATALOG_EN = {
+    'h1': 'The full FLUXIXO catalog',
+    'intro': ('Every find on FLUXIXO in one list. Search by name or filter by category; each card opens a short '
+              'product page with photos and a link to the seller on AliExpress.'),
+}
+
+# Product pages link to the buying guides written about them (journal_pages: preferred_product).
+GUIDES_HEADING = {
+    'ru': 'Памятки по теме',
+    'en': 'Buying guides for this item',
+    'pt': 'Guias de compra para este item',
+    'es': 'Guías de compra para este artículo',
+    'fr': 'Guides d’achat pour cet article',
+    'he': 'מדריכי קנייה למוצר הזה',
+}
+# The Russian pre-order checklist fits every electronic or tool item, not just its preferred product.
+RU_CHECKLIST_GUIDE = 'pre-order-checklist-aliexpress'
+RU_CHECKLIST_WORLDS = ('Техника', 'Инструменты', 'В дороге')

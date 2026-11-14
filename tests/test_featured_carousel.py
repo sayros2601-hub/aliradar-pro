@@ -72,13 +72,14 @@ class FeaturedCarouselTest(unittest.TestCase):
     def render(self, lang='en', products=None, translations=None, day='2026-11-14'):
         module = self.module
         pages = {}
+        # English shows the carousel on its front page '/'; /en/ is the plain full catalog without it.
         site = module.Site(products if products is not None else self.products,
-                           translations if translations is not None else self.translations, lang)
+                           translations if translations is not None else self.translations, lang, root=lang == 'en')
         # Capture only the filesystem boundary; product selection and all HTML rendering stay real.
         with patch.object(module, 'write', side_effect=lambda path, html: pages.update({path: html})), \
                 patch.object(module, 'countdown_metadata', return_value={'published_day': day, 'due_day': day}):
             site.build_home()
-        return CarouselParser(pages['/catalog/' if lang == 'ru' else f'/{lang}/'])
+        return CarouselParser(pages['/catalog/' if lang == 'ru' else '/' if lang == 'en' else f'/{lang}/'])
 
     def test_seven_existing_cards_keep_image_text_and_both_urls_together(self):
         catalog = {product['id']: product for product in self.products}
