@@ -99,10 +99,22 @@ html.anim .top{transition:background-color .9s}
 
 /* find of the day: a quiet editorial card, revealed once */
 .day{padding:clamp(24px,2vw,32px) var(--g) clamp(32px,4vw,64px)}
+.day[data-carousel]{display:flex;flex-direction:column}
+.day [hidden]{display:none!important}
+.day-slides{display:grid;order:1;min-width:0;touch-action:pan-y pinch-zoom}
+.day-slides.is-ready .day-card{grid-area:1 / 1;align-self:stretch;min-width:0;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .35s ease,visibility 0s linear .35s}
+.day-slides.is-ready .day-card.is-active{opacity:1;visibility:visible;pointer-events:auto;z-index:1;
+  transition:opacity .35s ease,visibility 0s}
+.day-controls{order:2;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:10px;margin-top:18px}
+.day-controls .btn{min-width:46px;min-height:44px;padding:10px 16px;font:700 14px/1.25 var(--body);letter-spacing:0;text-transform:none}
+.day-controls .btn:hover{transform:none}
+.day-controls [data-carousel-count]{min-width:4.5ch;text-align:center;direction:ltr;font-size:13px;font-variant-numeric:tabular-nums;color:var(--soft)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 .day-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.05fr);align-items:center;gap:clamp(24px,4vw,64px);
   padding:clamp(18px,2.4vw,36px);border:1px solid var(--line);border-radius:28px;background:rgba(255,255,255,.5)}
-.js .day-card.rv{opacity:0;transform:translateY(8px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.6,.2,1)}
-.js .day-card.rv.in,.js .day-card.rv:focus-within{opacity:1;transform:none}
+.js .day-slides.rv{opacity:0;transform:translateY(8px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.6,.2,1)}
+.js .day-slides.rv.in,.js .day-slides.rv:focus-within{opacity:1;transform:none}
 .day-prod{display:grid;place-items:center;align-self:stretch;min-width:0;min-height:clamp(340px,34vw,500px);
   padding:clamp(24px,3vw,44px);border-radius:20px;background:var(--tint,var(--paper));overflow:hidden;text-decoration:none}
 .day-prod img{width:min(100%,440px);aspect-ratio:1;object-fit:contain;transition:transform .9s cubic-bezier(.2,.6,.2,1)}
@@ -298,6 +310,8 @@ html.anim .top{transition:background-color .9s}
 
   /* find of the day: the same card, stacked for small screens */
   .day{padding:32px var(--g)}
+  .day-controls{gap:8px;margin-top:16px}
+  .day-controls .btn{padding:10px 12px;font-size:13px}
   .day-card{grid-template-columns:minmax(0,1fr);gap:20px;padding:16px;border-radius:24px}
   .day-prod{min-height:0;height:clamp(260px,70vw,340px);padding:20px;border-radius:16px}
   .day-prod img{width:100%;height:100%;max-height:100%}
@@ -375,7 +389,7 @@ html.anim .top{transition:background-color .9s}
   .foot{padding:36px var(--g) 26px}
   .foot-row{margin-top:22px;font-size:12.5px}
 }
-@media (prefers-reduced-motion:reduce){.demo video{display:none}*,*::before,*::after{animation:none!important;transition:none!important}.js .rv,.js .day-card.rv{opacity:1;transform:none}.day-prod:hover img,.day-prod:focus-visible img{transform:none}}
+@media (prefers-reduced-motion:reduce){.demo video{display:none}*,*::before,*::after{animation:none!important;transition:none!important}.js .rv,.js .day-slides.rv{opacity:1;transform:none}.day-prod:hover img,.day-prod:focus-visible img{transform:none}}
 .seo-notes{max-width:1180px;margin:0 auto;padding:12px var(--g) 36px;display:grid;gap:24px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
 .market-guide,.product-faq{background:rgba(255,255,255,.55);border:1px solid rgba(18,16,20,.1);border-radius:18px;padding:20px 22px}
 .market-guide h2,.product-faq h2{font-size:18px;line-height:1.25;margin:0 0 12px}

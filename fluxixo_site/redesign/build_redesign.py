@@ -31,6 +31,7 @@ import locales as L  # noqa: E402
 import journal_pages  # noqa: E402
 import market_seo  # noqa: E402
 from ui_text import CATEGORY_COPY_RU, CATEGORY_LONG_RU, MORE_RU, ROOT_EN, UI  # noqa: E402
+from featured_carousel import CAROUSEL_COPY, select_featured_products  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
 LANGS = ('es', 'pt', 'en', 'fr', 'he', 'ru')
@@ -435,11 +436,10 @@ class Site:
         u, items = self.ui, self.items
         clock = countdown_metadata()
         drop = items[:3]
-        star = drop[datetime.now(timezone.utc).toordinal() % len(drop)]
+        featured = select_featured_products(items)
+        carousel = CAROUSEL_COPY[self.lang]
         guide_label = {'ru': 'Памятки перед покупкой', 'en': 'Buying guides', 'pt': 'Guias de compra',
                        'es': 'Guías de compra', 'fr': 'Guides d’achat', 'he': 'מדריכי קנייה'}[self.lang]
-        seller_link = (f'<a class="btn line" href="{e(star["affiliateUrl"])}" target="_blank" '
-                       f'rel="sponsored nofollow noopener">{e(u["seller_cta"])} <span aria-hidden="true">↗</span></a>')
         hero = (f'<section class="drop" id="drop" data-page="{PAPER}"><div class="drop-bar">'
                 # The cached page outlives midnight, so "today's drop" holds only while the date is really today;
                 # after that the same eyebrow reads "latest drop" (server picks at build, the browser re-picks live).
@@ -464,13 +464,30 @@ class Site:
             f'<b>{e(self.cat(k))}</b><small>{len(self.in_world(k))}</small></a>' for k in self.worlds)
         cats = f'<nav class="cats" id="cats" aria-label="{e(u["nav"][1])}"><h2 class="d">{e(u["nav"][1])}</h2><div>{tiles}</div></nav>'
 
-        day = (f'<section class="day" id="hoy" aria-labelledby="spotlight-title" style="--tint:{star["tint"]}" data-page="{PAPER}"><div class="day-card rv">'
-               f'<a class="day-prod" data-go href="{self.ppath(star)}"><img class="cut" src="{img(star["image"], 800)}" alt="{e(L.editorial_image_alt(star["name"], self.cat(star["world"]), self.lang, role="spotlight"))}" width="800" height="800" loading="lazy" decoding="async"></a>'
-               f'<div class="day-info"><p class="eye day-eye"><b>●</b> {e(u["find_day"])} · {e(self.cat(star["world"]))}</p>'
-               f'<h2 id="spotlight-title">{e(star["name"])}</h2><p class="day-caption">{e(" ".join(star["headline"]))}</p>'
-               f'<p class="t">{e(star["description"])}</p><div class="row"><a class="btn" data-go href="{self.ppath(star)}">{e(u["more"])}</a>'
-               f'{seller_link}</div></div>'
-               f'</div></section>')
+        slides = []
+        for index, star in enumerate(featured, 1):
+            position = carousel['count'].format(current=index, total=len(featured))
+            seller_link = (f'<a class="btn line" href="{e(star["affiliateUrl"])}" target="_blank" '
+                           f'rel="sponsored nofollow noopener">{e(u["seller_cta"])} <span aria-hidden="true">↗</span></a>')
+            slides.append(
+                f'<article class="day-card" data-carousel-slide data-product-id="{e(star["id"])}" '
+                f'role="group" aria-roledescription="{e(carousel["slide"])}" aria-label="{e(position + ": " + star["name"])}" '
+                f'style="--tint:{star["tint"]}"{" hidden" if index > 1 else ""}>'
+                f'<a class="day-prod" data-go href="{self.ppath(star)}"><img class="cut" src="{img(star["image"], 800)}" alt="{e(star["name"])}" width="800" height="800" loading="lazy" decoding="async"></a>'
+                f'<div class="day-info"><p class="eye day-eye"><b>●</b> {e(carousel["title"])} · {e(self.cat(star["world"]))}</p>'
+                f'<h2 id="spotlight-title-{index}">{e(star["name"])}</h2><p class="day-caption">{e(" ".join(star["headline"]))}</p>'
+                f'<p class="t">{e(star["description"])}</p><div class="row"><a class="btn" data-go href="{self.ppath(star)}">{e(u["more"])}</a>'
+                f'{seller_link}</div></div></article>')
+        controls = (
+            f'<div class="day-controls" data-carousel-controls role="group" aria-label="{e(carousel["controls"])}" hidden>'
+            f'<button class="btn line" type="button" data-carousel-prev aria-label="{e(carousel["prev"])}"><span aria-hidden="true">{self.back}</span></button>'
+            f'<span data-carousel-count aria-hidden="true">1 / {len(featured)}</span>'
+            f'<button class="btn line" type="button" data-carousel-next aria-label="{e(carousel["next"])}"><span aria-hidden="true">{self.fwd}</span></button></div>')
+        day = (f'<section class="day" id="hoy" data-carousel role="region" aria-roledescription="{e(carousel["carousel"])}" '
+               f'aria-label="{e(carousel["title"])}" data-page="{PAPER}">{controls}'
+               f'<div class="day-slides rv" data-carousel-slides aria-live="off">{"".join(slides)}</div>'
+               f'<span class="sr-only" data-carousel-status role="status" aria-live="polite" aria-atomic="true" '
+               f'data-count-template="{e(carousel["count"])}"></span></section>')
 
         bands = []
         total = len(self.worlds)

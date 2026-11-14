@@ -52,6 +52,78 @@ const FluxixoCountdown = (() => {
 })();
 if (typeof module !== 'undefined' && module.exports) module.exports = FluxixoCountdown;
 
+// A single rotation clock, separate from the publication counter and rope physics.
+const FluxixoCarousel = (() => {
+  function createCarouselController({ count, reducedMotion = false, pausedReasons = [],
+    onChange = () => {}, onState = () => {},
+    setTimeout: schedule = setTimeout, clearTimeout: cancel = clearTimeout } = {}) {
+    if (!Number.isInteger(count) || count < 1) throw new TypeError('Carousel requires a positive slide count');
+    const blockers = new Set(pausedReasons);
+    let index = 0, committedIndex = 0, userPaused = false, pending = false, pendingAutomatic = false, destroyed = false;
+    let timer = null, timerVersion = 0, changeVersion = 0;
+    const canRotate = () => !destroyed && !userPaused && !reducedMotion && !blockers.size && count > 1;
+    const state = () => ({ index, reducedMotion, playing: !userPaused && !reducedMotion,
+      rotating: canRotate() && !pending });
+    const clear = () => { timerVersion++; if (timer !== null) cancel(timer); timer = null; };
+    const abandonAutomatic = () => {
+      if (pending && pendingAutomatic) {
+        changeVersion++; index = committedIndex; pending = false; pendingAutomatic = false;
+      }
+    };
+    const arm = () => {
+      clear();
+      if (state().rotating) {
+        const version = timerVersion;
+        timer = schedule(() => {
+          if (version !== timerVersion || !state().rotating) return;
+          timer = null;
+          show((index + 1) % count, { manual: false });
+        }, 8000);
+      }
+      onState(state());
+    };
+    function show(next, meta) {
+      if (destroyed) return;
+      clear();
+      const version = ++changeVersion;
+      index = next; pending = true; pendingAutomatic = !meta.manual && !meta.initial;
+      onState(state());
+      const ready = onChange(index, { ...meta, canCommit: () => !destroyed && version === changeVersion && (!pendingAutomatic || canRotate()) });
+      const finish = () => {
+        if (destroyed || version !== changeVersion) return;
+        committedIndex = index; pending = false; pendingAutomatic = false; arm();
+      };
+      if (ready && typeof ready.then === 'function') ready.then(finish, finish);
+      else finish();
+    }
+    const controller = {
+      state,
+      move(step) { if (!destroyed) show((index + step % count + count) % count, { manual: true }); },
+      pause(reason, active) {
+        if (destroyed || blockers.has(reason) === Boolean(active)) return;
+        if (active) { blockers.add(reason); abandonAutomatic(); } else blockers.delete(reason);
+        arm();
+      },
+      stop() { if (!destroyed && !userPaused) { userPaused = true; abandonAutomatic(); arm(); } },
+      start() { if (!destroyed) { userPaused = false; arm(); } },
+      setReducedMotion(value) {
+        if (!destroyed && reducedMotion !== Boolean(value)) {
+          reducedMotion = Boolean(value); if (reducedMotion) abandonAutomatic(); arm();
+        }
+      },
+      destroy() { destroyed = true; changeVersion++; clear(); }
+    };
+    show(0, { manual: false, initial: true });
+    return controller;
+  }
+  function carouselSwipeStep(dx, dy, rtl = false) {
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.3) return 0;
+    return (dx < 0 ? 1 : -1) * (rtl ? -1 : 1);
+  }
+  return { createCarouselController, carouselSwipeStep };
+})();
+if (typeof module !== 'undefined' && module.exports) Object.assign(module.exports, FluxixoCarousel);
+
 (() => {
   if (typeof document === 'undefined') return;
   const root = document.documentElement;
@@ -66,6 +138,136 @@ if (typeof module !== 'undefined' && module.exports) module.exports = FluxixoCou
     if (entry.isIntersecting) { entry.target.classList.add('in'); seen.unobserve(entry.target); }
   }), { rootMargin: '0px 0px -4% 0px' });
   document.querySelectorAll('.rv').forEach(el => seen.observe(el));
+
+  // Seven curated products share one grid cell: invisible slides still reserve
+  // the tallest card's height, while inert/aria-hidden remove their interactions.
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const slides = [...carousel.querySelectorAll('[data-carousel-slide]')];
+    const stage = carousel.querySelector('[data-carousel-slides]');
+    const controls = carousel.querySelector('[data-carousel-controls]');
+    const previous = carousel.querySelector('[data-carousel-prev]');
+    const next = carousel.querySelector('[data-carousel-next]');
+    const count = carousel.querySelector('[data-carousel-count]');
+    const status = carousel.querySelector('[data-carousel-status]');
+    if (slides.length !== 7 || !stage || !controls || !previous || !next) return;
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const rtl = getComputedStyle(carousel).direction === 'rtl';
+    const focusable = slides.map(slide => [...slide.querySelectorAll('a[href],button,input,select,textarea,[tabindex]')]
+      .map(el => [el, el.getAttribute('tabindex')]));
+    // Keep the complete SSR/no-JS images, but after enhancement defer hidden
+    // sources so the shared grid position does not fetch all seven at once.
+    const sources = new Map();
+    slides.slice(1).forEach(slide => {
+      const img = slide.querySelector('img');
+      if (!img) return;
+      sources.set(img, { src: img.getAttribute('src'), srcset: img.getAttribute('srcset') });
+      img.removeAttribute('src'); img.removeAttribute('srcset');
+    });
+    const images = new Map();
+    let visible = false, requested = 0, displayed = 0, pointer = null, suppressClickUntil = 0;
+    const readyImage = slide => {
+      const img = slide.querySelector('img');
+      if (sources.has(img)) {
+        const source = sources.get(img);
+        img.loading = 'eager';
+        if (source.srcset) img.setAttribute('srcset', source.srcset);
+        if (source.src) img.setAttribute('src', source.src);
+        sources.delete(img);
+      }
+      if (!img || img.complete) return Promise.resolve();
+      if (images.has(img)) return images.get(img);
+      img.loading = 'eager';
+      const promise = new Promise(resolve => {
+        let timeout;
+        const done = () => {
+          clearTimeout(timeout);
+          img.removeEventListener('load', done); img.removeEventListener('error', done);
+          resolve();
+        };
+        timeout = setTimeout(done, 4000);
+        if (typeof img.decode === 'function') img.decode().then(done, done);
+        else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
+      });
+      images.set(img, promise);
+      return promise;
+    };
+    const warmNext = index => { if (visible) void readyImage(slides[(index + 1) % slides.length]); };
+    const render = (index, meta) => {
+      displayed = index;
+      slides.forEach((slide, i) => {
+        const active = i === index;
+        if (!active && slide.contains(document.activeElement)) previous.focus({ preventScroll: true });
+        slide.inert = !active;
+        slide.setAttribute('aria-hidden', String(!active));
+        focusable[i].forEach(([el, original]) => {
+          if (!active) el.setAttribute('tabindex', '-1');
+          else if (original === null) el.removeAttribute('tabindex');
+          else el.setAttribute('tabindex', original);
+        });
+        slide.classList.toggle('is-active', active);
+        slide.hidden = false;
+      });
+      if (count) count.textContent = `${index + 1} / ${slides.length}`;
+      if (status) status.textContent = meta.manual
+        ? (status.dataset.countTemplate || '{current} / {total}').replace('{current}', String(index + 1)).replace('{total}', String(slides.length)) : '';
+      if (meta.manual) controller.pause('hover', matchMedia('(hover: hover)').matches && Boolean(slides[index].querySelector('.day-prod:hover')));
+      warmNext(index);
+    };
+    const controller = FluxixoCarousel.createCarouselController({
+      count: slides.length, reducedMotion: motion.matches,
+      pausedReasons: ['offscreen', ...(document.hidden ? ['hidden'] : [])],
+      onChange(index, meta) {
+        const version = ++requested;
+        if (meta.initial) { render(index, meta); return; }
+        return readyImage(slides[index]).then(() => { if (version === requested && meta.canCommit()) render(index, meta); });
+      },
+      onState(state) {
+        if (status) status.setAttribute('aria-live', state.rotating ? 'off' : 'polite');
+      }
+    });
+    stage.classList.add('is-ready');
+    controls.hidden = false;
+    previous.addEventListener('click', () => controller.move(-1));
+    next.addEventListener('click', () => controller.move(1));
+    slides.forEach(slide => {
+      const photo = slide.querySelector('.day-prod');
+      if (!photo) return;
+      photo.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'touch' && slide.classList.contains('is-active')) controller.pause('hover', true);
+      });
+      photo.addEventListener('pointerleave', event => { if (event.pointerType !== 'touch') controller.pause('hover', false); });
+    });
+    stage.addEventListener('focusin', () => controller.pause('focus', true));
+    stage.addEventListener('focusout', event => controller.pause('focus', stage.contains(event.relatedTarget)));
+    document.addEventListener('visibilitychange', () => controller.pause('hidden', document.hidden));
+    motion.addEventListener('change', event => controller.setReducedMotion(event.matches));
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      controller.pause('offscreen', !visible);
+      if (visible) { void readyImage(slides[displayed]); warmNext(displayed); }
+    }, { rootMargin: '200px 0px' }).observe(carousel);
+    stage.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'touch' && event.isPrimary !== false) pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, axis: '' };
+    }, { passive: true });
+    stage.addEventListener('pointermove', event => {
+      if (!pointer || event.pointerId !== pointer.id) return;
+      const dx = event.clientX - pointer.x, dy = event.clientY - pointer.y;
+      if (!pointer.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 10) pointer.axis = Math.abs(dx) > Math.abs(dy) * 1.3 ? 'x' : 'y';
+      if (pointer.axis === 'x' && event.cancelable) event.preventDefault();
+    }, { passive: false });
+    stage.addEventListener('pointerup', event => {
+      if (!pointer || event.pointerId !== pointer.id) return;
+      const step = pointer.axis !== 'y' ? FluxixoCarousel.carouselSwipeStep(event.clientX - pointer.x, event.clientY - pointer.y, rtl) : 0;
+      pointer = null;
+      if (step) { suppressClickUntil = performance.now() + 500; controller.move(step); }
+    });
+    stage.addEventListener('pointercancel', () => { pointer = null; });
+    stage.addEventListener('click', event => {
+      if (performance.now() < suppressClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
+    }, true);
+    addEventListener('pagehide', () => controller.pause('pagehide', true));
+    addEventListener('pageshow', () => controller.pause('pagehide', false));
+  });
 
   // Wide screens: the section in the middle of the screen decides the page colour.
   const paint = new IntersectionObserver(entries => entries.forEach(entry => {
