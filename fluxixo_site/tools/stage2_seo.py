@@ -88,6 +88,8 @@ def save_overrides(data, path=OVERRIDES_FILE):
 
 
 def lang_from_path(route_path):
+    if route_path == '/':
+        return 'en'
     m = re.match(r'^/(en|pt|es|fr|he)(?:/|$)', route_path)
     return m.group(1) if m else 'ru'
 

@@ -52,7 +52,8 @@ class SitemapDateTests(unittest.TestCase):
 
     def test_russian_map_has_only_russian_pages(self):
         write_sitemaps.write_sitemaps(self.dist, self.routes)
-        self.assertEqual({'https://www.fluxixo.shop/', 'https://www.fluxixo.shop/products/a/'}, set(self.dates('sitemap-ru.xml')))
+        self.assertEqual({'https://www.fluxixo.shop/products/a/'}, set(self.dates('sitemap-ru.xml')))
+        self.assertEqual({'https://www.fluxixo.shop/'}, set(self.dates('sitemap-en.xml')))
 
 
 if __name__ == '__main__':

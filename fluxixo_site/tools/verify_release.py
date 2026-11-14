@@ -200,6 +200,7 @@ class Page(HTMLParser):
         self.title = ''
         self.description = None
         self.canonical = None
+        self.language = ''
         self.robots = ''
         self.h1 = 0
         self.hreflang = {}
@@ -211,7 +212,9 @@ class Page(HTMLParser):
 
     def handle_starttag(self, tag, attrs):
         a = {k: (v or '') for k, v in attrs}
-        if tag == 'meta' and a.get('name') == 'description':
+        if tag == 'html':
+            self.language = a.get('lang', '')
+        elif tag == 'meta' and a.get('name') == 'description':
             self.description = a.get('content', '')
         elif tag == 'meta' and a.get('name') == 'robots':
             self.robots = a.get('content', '')
@@ -342,8 +345,34 @@ def local_file(url_or_path):
     return RELEASE / (path + '/index.html' if path else 'index.html')
 
 
+def validate_home_languages(pages):
+    """Keep the English landing in the home cluster, separate from its full catalog."""
+    paths = {'en': '/', 'ru': '/catalog/', 'pt': '/pt/', 'es': '/es/', 'fr': '/fr/', 'he': '/he/'}
+    aliases = {'en': ('en', 'en-US'), 'ru': ('ru', 'ru-RU'), 'pt': ('pt', 'pt-BR'),
+               'es': ('es', 'es-MX'), 'fr': ('fr', 'fr-FR'), 'he': ('he', 'he-IL')}
+    expected = {tag: ORIGIN + paths[lang] for lang, tags in aliases.items() for tag in tags}
+    expected['x-default'] = ORIGIN + '/'
+    errors = []
+    for lang, path in [*paths.items(), ('en', '/en/')]:
+        url = ORIGIN + path
+        page = pages.get(url)
+        if page is None:
+            errors.append(f'missing language entry page: {url}')
+            continue
+        if page.language.lower().split('-', 1)[0] != lang:
+            errors.append(f'wrong HTML language for {url}: expected {lang}')
+        if page.canonical != url:
+            errors.append(f'wrong home canonical: {url}')
+        if path == '/en/':
+            if page.hreflang:
+                errors.append('standalone /en/ catalog must not declare home hreflang')
+        elif page.hreflang != expected:
+            errors.append(f'wrong home hreflang cluster: {url}')
+    return errors
+
+
 def validate_ru_sitemap(release, all_urls):
-    """Keep every current root/Russian route in Yandex's map, without foreign locales."""
+    """Keep current Russian routes in Yandex's map, excluding the English landing."""
     try:
         root = ET.parse(Path(release) / 'sitemap-ru.xml').getroot()
         urls = [(node.findtext(NS + 'loc') or '').strip() for node in root.findall(NS + 'url')]
@@ -352,6 +381,7 @@ def validate_ru_sitemap(release, all_urls):
     expected = {
         url for url in all_urls
         if url.startswith(ORIGIN + '/')
+        and urlsplit(url).path != '/'
         and not re.match(r'^/(en|pt|es|fr|he)(/|$)', urlsplit(url).path)
     }
     errors = []
@@ -458,7 +488,6 @@ def main():
         page = Page()
         page.feed(text)
         pages[url] = page
-        is_home = urlsplit(url).path == '/'
         if page.canonical != url:
             problems['canonical'].append(url)
         if page.h1 != 1:
@@ -494,8 +523,10 @@ def main():
             target = parts.path if parts.path.startswith('/') else '/' + parts.path
             if not local_file(target).exists():
                 problems['broken link'].append(f'{url} -> {link}')
-        if not is_home and not page.hreflang:
+        if urlsplit(url).path != '/en/' and not page.hreflang:
             problems['no language alternates'].append(url)
+    for error in validate_home_languages(pages):
+        problems['home language migration'].append(error)
     for url, page in pages.items():
         for language, target in page.hreflang.items():
             other = pages.get(target)
@@ -526,9 +557,12 @@ def main():
             dups = [u for u, c in collections.Counter(murls).items() if c > 1]
             if dups:
                 problems[f'sitemap-{lang}.xml'].append(f'duplicate URLs: {dups[:3]}')
-            bad = [u for u in murls if not urlsplit(u).path.startswith(f'/{lang}/')]
+            bad = [u for u in murls if not urlsplit(u).path.startswith(f'/{lang}/')
+                   and not (lang == 'en' and u == ORIGIN + '/')]
             if bad:
                 problems[f'sitemap-{lang}.xml'].append(f'wrong locale URLs: {bad[:3]}')
+            if lang == 'en' and ORIGIN + '/' in urls and ORIGIN + '/' not in murls:
+                problems['sitemap-en.xml'].append('English landing / is missing')
             missing_from_all = [u for u in murls if u not in set(urls)]
             if missing_from_all:
                 problems[f'sitemap-{lang}.xml'].append(f'unknown URLs: {missing_from_all[:3]}')

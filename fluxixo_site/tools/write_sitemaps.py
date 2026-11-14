@@ -72,11 +72,12 @@ def write_sitemaps(dist, routes, update_state=True):
 
         _append_url(sitemap, path, changed, dist=dist, include_video=True)
         match = re.match(r'^/(en|pt|es|fr|he)(?:/|$)', path)
-        if not match:
+        # The unprefixed landing is English; other unprefixed routes remain RU.
+        lang = 'en' if path == '/' else (match.group(1) if match else 'ru')
+        if lang == 'ru':
             _append_url(sitemap_ru, path, changed)
             latest_by_map['sitemap-ru.xml'] = max(latest_by_map.get('sitemap-ru.xml', ''), changed)
         else:
-            lang = match.group(1)
             _append_url(country_trees[lang], path, changed)
             fname = f'sitemap-{lang}.xml'
             latest_by_map[fname] = max(latest_by_map.get(fname, ''), changed)

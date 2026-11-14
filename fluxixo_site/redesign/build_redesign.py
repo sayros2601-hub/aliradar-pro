@@ -30,7 +30,7 @@ sys.path.insert(0, str(HERE))
 import locales as L  # noqa: E402
 import journal_pages  # noqa: E402
 import market_seo  # noqa: E402
-from ui_text import CATEGORY_COPY_RU, CATEGORY_LONG_RU, MORE_RU, ROOT_RU, UI  # noqa: E402
+from ui_text import CATEGORY_COPY_RU, CATEGORY_LONG_RU, MORE_RU, ROOT_EN, UI  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
 LANGS = ('es', 'pt', 'en', 'fr', 'he', 'ru')
@@ -92,7 +92,7 @@ CSS = re.sub(r'\s*\n\s*', ' ', re.sub(r'/\*.*?\*/', '', (HERE / 'static/style.cs
 VERIFY = ('<meta name="google-site-verification" content="BUSamFSGELSfaWQEaVVj2QzUgKQvWovtg-ZaHCfKNb0">'
           '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2"><meta name="yandex-verification" content="deee62492f76cf5b">'
           '<meta name="p:domain_verify" content="c0f81b8dc452173100fb9d91208205a1"/>')
-ROOT_TITLE, ROOT_DESC = ROOT_RU['title'], ROOT_RU['desc']
+ROOT_TITLE, ROOT_DESC = ROOT_EN['title'], ROOT_EN['desc']
 # Yandex Metrika runs on the Russian pages of the live site only (not on previews): static/ym.js, counter 114240176.
 METRIKA = ('<script src="/js/ym.js" defer></script>\n<noscript><div><img src="https://mc.yandex.ru/watch/114240176" '
            'style="position:absolute;left:-9999px" alt=""></div></noscript>\n')
@@ -255,8 +255,8 @@ def img(path, width=None):
 
 class Site:
     def __init__(self, products, data, lang, root=False):
-        # root: the Russian home served at '/'. It stays outside the hreflang clusters (their Russian member is
-        # /catalog/, the full catalog); '/' is the short front page: today's drop, the worlds, the newest finds.
+        # root: the English home served at '/'. It is the English member of the entry-page hreflang cluster;
+        # /en/ remains a separate full catalog with its own canonical URL.
         self.lang, self.data, self.ui, self.root = lang, data, UI[lang], root
         self.items = []
         self.rtl = lang in RTL
@@ -279,11 +279,11 @@ class Site:
         return '/' if self.root else L.catalog_path(self.lang)
 
     def start(self):
-        """Where the logo leads: Russian pages go to the Russian front page at '/', the others to their own home."""
-        return '/' if self.lang == 'ru' else self.home()
+        """The language's entry page: English uses '/', Russian uses '/catalog/'."""
+        return '/' if self.lang == 'en' else L.catalog_path(self.lang)
 
     def anchor(self, name):
-        """In-page targets of the menu. The front page at '/' has no full grid: its catalog and search are on /catalog/."""
+        """The short front page uses its language's full catalog for catalog and search targets."""
         base = L.catalog_path(self.lang) if self.root and name in ('todo', 'find') else self.home()
         return f'{base}#{name}'
 
@@ -369,7 +369,7 @@ class Site:
     def tabs(self, current=None, buy=None):
         """Phone bottom bar. On a product page it carries the buy button, so the way to the seller is always under the thumb."""
         home, labels = self.home(), self.ui['tabs']
-        links = [('home', home, 'home', labels[0]), ('cats', f'{home}#cats', 'grid', labels[1]),
+        links = [('home', self.start(), 'home', labels[0]), ('cats', f'{home}#cats', 'grid', labels[1]),
                  ('all', self.anchor('todo'), 'bag', labels[2]), ('find', self.anchor('find'), 'search', labels[3])]
         if buy:
             links = [links[0], links[2]]
@@ -497,10 +497,11 @@ class Site:
                    'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(items)]}
         body = hero + cats + day + ''.join(bands) + everything
         paths = {l: L.catalog_path(l) for l in LANGS}
+        paths['en'] = '/'
         overrides = market_seo.load_overrides()
         if self.root:
             # The front page is not a second catalog: the newest finds, a few words about the site, and the way on.
-            r, catalog, newest = ROOT_RU, L.catalog_path(self.lang), items[:12]
+            r, catalog, newest = ROOT_EN, L.catalog_path(self.lang), items[:12]
             fresh = (f'<section class="all" id="new" data-page="{PAPER}"><h2 class="d rv">{e(r["fresh"][0])} <span class="s">{e(r["fresh"][1])}</span></h2>'
                      f'<div class="grid">{"".join(self.card(p) for p in newest)}</div>'
                      f'<div class="lang-bar"><a class="btn" href="{catalog}#todo">{e(r["all_btn"].format(n=len(items)))} <span aria-hidden="true">{self.fwd}</span></a>'
@@ -514,11 +515,11 @@ class Site:
             root_listing = {'@type': 'ItemList', 'name': r['title'], 'numberOfItems': len(newest),
                             'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(newest)]}
             schema = {'@context': 'https://schema.org', '@graph': [
-                {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': ['ru', 'en', 'pt-BR', 'es-MX', 'fr', 'he-IL']},
+                {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': ['en', 'ru', 'pt-BR', 'es-MX', 'fr', 'he-IL']},
                 {'@type': 'Organization', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'logo': ORIGIN + '/apple-touch-icon.png'}, root_listing]}
             ov_root = market_seo.route_override(overrides, '/')
             write('/', self.page(ov_root.get('title') or ROOT_TITLE, ov_root.get('description') or ROOT_DESC, '/', root_body,
-                                 {**paths, self.lang: '/'}, schema, hreflang=False, tab='home'))
+                                 paths, schema, tab='home'))
             return
         # Titles and descriptions stay as search engines know them unless explicitly tuned in seo_overrides.json.
         ov_home = market_seo.route_override(overrides, self.home())
@@ -531,7 +532,8 @@ class Site:
                                                   lang=L.LANGUAGES[self.lang][0],
                                                   items=[(self.ppath(p), p['name']) for p in items],
                                                   crumbs=[(u['home'], self.home())])
-        write(self.home(), self.page(home_title, desc, self.home(), body, paths, hub_schema, tab='home'))
+        write(self.home(), self.page(home_title, desc, self.home(), body, paths, hub_schema,
+                                     hreflang=self.lang != 'en', tab='home'))
 
     def build_404(self):
         body = (f'<section class="c-hero"><p class="eye">404</p><h1 class="d">Page not found<span class="s">This link may have changed.</span></h1>'
@@ -673,10 +675,10 @@ def proofread():
             for part in (text if isinstance(text, tuple) else (text,)):
                 if isinstance(part, str) and part:
                     check_texts.check_string(part, lang, f'interface/{lang}/{key}', problems)
-    # The Russian-only texts: front page, category notes, extra product advice.
-    for key, text in ROOT_RU.items():
+    for key, text in ROOT_EN.items():
         for part in (text if isinstance(text, tuple) else (text,)):
-            check_texts.check_string(part, 'ru', f'front page/{key}', problems)
+            check_texts.check_string(part, 'en', f'front page/{key}', problems)
+    # The Russian-only category notes and extra product advice.
     for key, text in CATEGORY_LONG_RU.items():
         check_texts.check_string(text, 'ru', f'category note/{key}', problems)
     for pid, entry in long_copy().items():
@@ -721,7 +723,7 @@ def main():
         lambda rel_html_path, html: write('/' + rel_html_path.removesuffix('/index.html').removesuffix('index.html'), html),
         L.alternates,
     )
-    root = Site(products, data, 'ru', root=True)
+    root = Site(products, data, 'en', root=True)
     root.build_home()
     app_manifest(root)
     app_icons()

@@ -109,28 +109,27 @@ CATEGORY_COPY_RU = {
     'Питомцы': 'Автоматические игрушки, трекеры и аксессуары для кошек и собак.',
 }
 
-# The home page at '/' is Russian: it is the page Yandex treats as the main page of the site, and the Russian
-# section lives at the root (/products/, /categories/, /journal/). The other languages keep their own homes.
-ROOT_RU = dict(
-    title='Находки с AliExpress: гаджеты и вещи для дома | FLUXIXO',
-    desc=('Гаджеты и вещи для дома с AliExpress: короткие описания, подсказки перед покупкой и ссылки на продавца. '
-          'Выбирайте находки в каталоге FLUXIXO.'),
-    fresh=('Свежие', 'находки'),
-    all_btn='Весь каталог · {n}',
-    guides='Памятки перед покупкой',
-    about_h='Что такое FLUXIXO',
-    about=('FLUXIXO — независимая витрина необычных и полезных вещей с AliExpress: гаджеты, товары для дома и кухни, '
-           'автоаксессуары, инструменты, вещи для спорта, ухода и питомцев. В день появляется до трёх новых находок. '
-           'Сами мы ничего не продаём: кнопка в карточке ведёт на страницу продавца на AliExpress, где видны '
-           'актуальная цена, варианты и условия доставки.',
-           'У каждой находки есть короткое описание на русском, обработанное фото продавца и список того, что стоит '
-           'проверить перед заказом: совместимость, размеры, питание и комплектацию. Так проще понять, подойдёт ли вещь '
-           'именно вам, ещё до перехода к продавцу.'),
-    how_h='Как пользоваться сайтом',
-    how=('Начните с дропа дня вверху страницы, загляните в миры — так мы называем рубрики — или откройте весь каталог '
-         'с поиском по названию. В разделе «Памятки» лежат короткие инструкции: как сравнить итоговую цену с доставкой, '
-         'как выбрать усилитель Wi-Fi и автомобильный компрессор и что проверить перед любым заказом.'),
-    langs_h='FLUXIXO на других языках',
+# The shared front page at '/' is English for every visitor and crawler. Russian product, category and guide
+# URLs stay unchanged; '/catalog/' is the Russian entry page and '/en/' is the full English catalog.
+ROOT_EN = dict(
+    title='Useful AliExpress finds for everyday life | FLUXIXO',
+    desc=('Explore AliExpress finds for home, kitchen and everyday life, with buying checklists and links to sellers. '
+          'FLUXIXO may earn an affiliate commission.'),
+    fresh=('Latest', 'finds'),
+    all_btn='Full catalog · {n}',
+    guides='Buying guides',
+    about_h='What is FLUXIXO?',
+    about=('FLUXIXO is an independent collection of useful and unusual AliExpress finds for your home, kitchen, desk '
+           'and everyday life. We do not sell products: purchases take place on AliExpress, where the seller shows '
+           'the current price, available options and shipping details.',
+           'Each find includes a short description, product imagery and points to check before ordering, such as '
+           'compatibility, dimensions, power requirements and what is included. Images are illustrative; check the '
+           'seller’s listing before buying. We may earn a commission through affiliate links.'),
+    how_h='How to use FLUXIXO',
+    how=('Start with the latest finds at the top, browse the categories or open the full catalog to search by name. '
+         'Our buying guides explain what to compare before ordering, including the final price, delivery and product '
+         'specifications.'),
+    langs_h='Explore FLUXIXO in other languages',
 )
 
 # Headings of the extra buyer-advice block on Russian product pages (texts: tools/ru_long_copy.json).

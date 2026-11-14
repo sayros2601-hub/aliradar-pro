@@ -20,6 +20,12 @@ import write_sitemaps  # noqa: E402
 
 
 class AiFirewallTests(unittest.TestCase):
+    def test_english_root_and_russian_unprefixed_routes_have_separate_languages(self):
+        for path, expected in [('/', 'en'), ('/en/', 'en'), ('/catalog/', 'ru'),
+                               ('/products/a/', 'ru'), ('/journal/', 'ru'), ('/he/', 'he')]:
+            with self.subTest(path=path):
+                self.assertEqual(expected, stage2_seo.lang_from_path(path))
+
     def test_firewall_rejects_forbidden_tokens_lint_issues_and_ungrounded_specs(self):
         errs = ai_seo.validate_route_override(
             {'title': 'Best Price Offer $19 InStock', 'description': 'Free shipping guaranteed best seller review stars.'},
@@ -120,7 +126,8 @@ class MarketSeoAndSitemapsTests(unittest.TestCase):
             for name in ('sitemap.xml', 'sitemap-index.xml', 'sitemap-ru.xml', 'sitemap-en.xml', 'sitemap-pt.xml', 'sitemap-es.xml', 'sitemap-fr.xml', 'sitemap-he.xml'):
                 self.assertTrue((dist / name).exists(), name)
             en_urls = [n.text for n in ET.parse(dist / 'sitemap-en.xml').getroot().findall('.//{*}loc')]
-            self.assertEqual(['https://www.fluxixo.shop/en/', 'https://www.fluxixo.shop/en/products/a/'], en_urls)
+            self.assertEqual(['https://www.fluxixo.shop/', 'https://www.fluxixo.shop/en/',
+                              'https://www.fluxixo.shop/en/products/a/'], en_urls)
             idx_locs = [n.text for n in ET.parse(dist / 'sitemap-index.xml').getroot().findall('.//{*}loc')]
             self.assertIn('https://www.fluxixo.shop/sitemap-en.xml', idx_locs)
             self.assertIn('https://www.fluxixo.shop/sitemap-he.xml', idx_locs)

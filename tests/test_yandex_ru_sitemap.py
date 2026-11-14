@@ -34,20 +34,24 @@ class RussianSitemapGateTests(unittest.TestCase):
         return validator(self.release, self.urls)
 
     def test_complete_ru_map_passes_without_foreign_locale_pages(self):
-        self.write_map(self.urls[:3])
+        self.write_map(self.urls[1:3])
         self.assertEqual([], self.validate())
 
     def test_missing_new_product_is_rejected(self):
-        self.write_map(self.urls[:2])
+        self.write_map(self.urls[1:2])
         errors = self.validate()
         self.assertTrue(any('missing' in err and '/products/new-tool/' in err for err in errors), errors)
 
     def test_foreign_locale_url_is_rejected(self):
-        self.write_map(self.urls[:3] + [self.urls[3]])
+        self.write_map(self.urls[1:3] + [self.urls[3]])
         self.assertTrue(any('unexpected' in err and '/en/' in err for err in self.validate()))
 
+    def test_english_root_is_rejected_from_russian_map(self):
+        self.write_map(self.urls[:3])
+        self.assertTrue(any('unexpected' in err and ORIGIN + '/' in err for err in self.validate()))
+
     def test_duplicate_or_noncanonical_ru_url_is_rejected(self):
-        self.write_map(self.urls[:3] + [self.urls[2], 'http://fluxixo.shop/catalog/'])
+        self.write_map(self.urls[1:3] + [self.urls[2], 'http://fluxixo.shop/catalog/'])
         errors = self.validate()
         self.assertTrue(any('duplicate' in err for err in errors), errors)
         self.assertTrue(any('unexpected' in err for err in errors), errors)
