@@ -1,4 +1,131 @@
+// A scheduled start is not proof of a completed publication. Keep the due day
+// anchored to the release metadata, including when a cached page spans midnight.
+const FluxixoCountdown = (() => {
+  const parts = (date, timeZone) => Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+    timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+  }).formatToParts(date).filter(part => part.type !== 'literal').map(part => [part.type, part.value]));
+  const localDay = (date, timeZone) => {
+    const p = parts(date, timeZone);
+    return `${p.year}-${p.month}-${p.day}`;
+  };
+  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 19 } = {}) {
+    now = new Date(now);
+    if (publishedDay) {
+      const next = new Date(publishedDay + 'T12:00:00Z');
+      next.setUTCDate(next.getUTCDate() + 1);
+      dueDay = next.toISOString().slice(0, 10);
+    }
+    dueDay = dueDay || localDay(now, timeZone);
+    const [year, month, day] = dueDay.split('-').map(Number);
+    const wallClock = Date.UTC(year, month - 1, day, Number(hour));
+    let target = wallClock;
+    // Resolve the local 19:00 using the offset on that date, not today's offset.
+    // This also handles the 23/25-hour interval across Israel's DST changes.
+    for (let pass = 0; pass < 2; pass++) {
+      const p = parts(new Date(target), timeZone);
+      target += wallClock - Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+    }
+    const seconds = Math.max(0, Math.ceil((target - now.getTime()) / 1000));
+    return { status: seconds > 0 ? 'countdown' : 'awaiting', seconds, dueDay };
+  }
+  function createPublicationPoller(fetchStatus, timeZone = 'Asia/Jerusalem') {
+    let checkedAt = -Infinity, inFlight = false;
+    return async (now, publishedDay = '') => {
+      const at = new Date(now).getTime();
+      if (inFlight || at - checkedAt < 60000) return publishedDay;
+      checkedAt = at;
+      inFlight = true;
+      try {
+        const status = await fetchStatus();
+        const day = status && status.published_day;
+        if (typeof day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(day)
+            && new Date(day + 'T00:00:00Z').toISOString().slice(0, 10) === day
+            && day > publishedDay && day <= localDay(new Date(now), timeZone)) return day;
+      } catch (_) {
+        // Offline/failed publication remains pending; retry at most once a minute.
+      } finally { inFlight = false; }
+      return publishedDay;
+    };
+  }
+  return { getCountdownState, localDay, createPublicationPoller };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = FluxixoCountdown;
+
+// A single rotation clock, separate from the publication counter and rope physics.
+const FluxixoCarousel = (() => {
+  function createCarouselController({ count, reducedMotion = false, pausedReasons = [],
+    onChange = () => {}, onState = () => {},
+    setTimeout: schedule = setTimeout, clearTimeout: cancel = clearTimeout } = {}) {
+    if (!Number.isInteger(count) || count < 1) throw new TypeError('Carousel requires a positive slide count');
+    const blockers = new Set(pausedReasons);
+    let index = 0, committedIndex = 0, userPaused = false, pending = false, pendingAutomatic = false, destroyed = false;
+    let timer = null, timerVersion = 0, changeVersion = 0;
+    const canRotate = () => !destroyed && !userPaused && !reducedMotion && !blockers.size && count > 1;
+    const state = () => ({ index, reducedMotion, playing: !userPaused && !reducedMotion,
+      rotating: canRotate() && !pending });
+    const clear = () => { timerVersion++; if (timer !== null) cancel(timer); timer = null; };
+    const abandonAutomatic = () => {
+      if (pending && pendingAutomatic) {
+        changeVersion++; index = committedIndex; pending = false; pendingAutomatic = false;
+      }
+    };
+    const arm = () => {
+      clear();
+      if (state().rotating) {
+        const version = timerVersion;
+        timer = schedule(() => {
+          if (version !== timerVersion || !state().rotating) return;
+          timer = null;
+          show((index + 1) % count, { manual: false });
+        }, 3000);
+      }
+      onState(state());
+    };
+    function show(next, meta) {
+      if (destroyed) return;
+      clear();
+      const version = ++changeVersion;
+      index = next; pending = true; pendingAutomatic = !meta.manual && !meta.initial;
+      onState(state());
+      const ready = onChange(index, { ...meta, canCommit: () => !destroyed && version === changeVersion && (!pendingAutomatic || canRotate()) });
+      const finish = () => {
+        if (destroyed || version !== changeVersion) return;
+        committedIndex = index; pending = false; pendingAutomatic = false; arm();
+      };
+      if (ready && typeof ready.then === 'function') ready.then(finish, finish);
+      else finish();
+    }
+    const controller = {
+      state,
+      move(step) { if (!destroyed) show((index + step % count + count) % count, { manual: true }); },
+      pause(reason, active) {
+        if (destroyed || blockers.has(reason) === Boolean(active)) return;
+        if (active) { blockers.add(reason); abandonAutomatic(); } else blockers.delete(reason);
+        arm();
+      },
+      stop() { if (!destroyed && !userPaused) { userPaused = true; abandonAutomatic(); arm(); } },
+      start() { if (!destroyed) { userPaused = false; arm(); } },
+      setReducedMotion(value) {
+        if (!destroyed && reducedMotion !== Boolean(value)) {
+          reducedMotion = Boolean(value); if (reducedMotion) abandonAutomatic(); arm();
+        }
+      },
+      destroy() { destroyed = true; changeVersion++; clear(); }
+    };
+    show(0, { manual: false, initial: true });
+    return controller;
+  }
+  function carouselSwipeStep(dx, dy, rtl = false) {
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.3) return 0;
+    return (dx < 0 ? 1 : -1) * (rtl ? -1 : 1);
+  }
+  return { createCarouselController, carouselSwipeStep };
+})();
+if (typeof module !== 'undefined' && module.exports) Object.assign(module.exports, FluxixoCarousel);
+
 (() => {
+  if (typeof document === 'undefined') return;
   const root = document.documentElement;
   const lang = root.lang || 'en';
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -12,6 +139,136 @@
   }), { rootMargin: '0px 0px -4% 0px' });
   document.querySelectorAll('.rv').forEach(el => seen.observe(el));
 
+  // Seven curated products share one grid cell: invisible slides still reserve
+  // the tallest card's height, while inert/aria-hidden remove their interactions.
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const slides = [...carousel.querySelectorAll('[data-carousel-slide]')];
+    const stage = carousel.querySelector('[data-carousel-slides]');
+    const controls = carousel.querySelector('[data-carousel-controls]');
+    const previous = carousel.querySelector('[data-carousel-prev]');
+    const next = carousel.querySelector('[data-carousel-next]');
+    const count = carousel.querySelector('[data-carousel-count]');
+    const status = carousel.querySelector('[data-carousel-status]');
+    if (slides.length !== 7 || !stage || !controls || !previous || !next) return;
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const rtl = getComputedStyle(carousel).direction === 'rtl';
+    const focusable = slides.map(slide => [...slide.querySelectorAll('a[href],button,input,select,textarea,[tabindex]')]
+      .map(el => [el, el.getAttribute('tabindex')]));
+    // Keep the complete SSR/no-JS images, but after enhancement defer hidden
+    // sources so the shared grid position does not fetch all seven at once.
+    const sources = new Map();
+    slides.slice(1).forEach(slide => {
+      const img = slide.querySelector('img');
+      if (!img) return;
+      sources.set(img, { src: img.getAttribute('src'), srcset: img.getAttribute('srcset') });
+      img.removeAttribute('src'); img.removeAttribute('srcset');
+    });
+    const images = new Map();
+    let visible = false, requested = 0, displayed = 0, pointer = null, suppressClickUntil = 0;
+    const readyImage = slide => {
+      const img = slide.querySelector('img');
+      if (sources.has(img)) {
+        const source = sources.get(img);
+        img.loading = 'eager';
+        if (source.srcset) img.setAttribute('srcset', source.srcset);
+        if (source.src) img.setAttribute('src', source.src);
+        sources.delete(img);
+      }
+      if (!img || img.complete) return Promise.resolve();
+      if (images.has(img)) return images.get(img);
+      img.loading = 'eager';
+      const promise = new Promise(resolve => {
+        let timeout;
+        const done = () => {
+          clearTimeout(timeout);
+          img.removeEventListener('load', done); img.removeEventListener('error', done);
+          resolve();
+        };
+        timeout = setTimeout(done, 4000);
+        if (typeof img.decode === 'function') img.decode().then(done, done);
+        else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
+      });
+      images.set(img, promise);
+      return promise;
+    };
+    const warmNext = index => { if (visible) void readyImage(slides[(index + 1) % slides.length]); };
+    const render = (index, meta) => {
+      displayed = index;
+      slides.forEach((slide, i) => {
+        const active = i === index;
+        if (!active && slide.contains(document.activeElement)) previous.focus({ preventScroll: true });
+        slide.inert = !active;
+        slide.setAttribute('aria-hidden', String(!active));
+        focusable[i].forEach(([el, original]) => {
+          if (!active) el.setAttribute('tabindex', '-1');
+          else if (original === null) el.removeAttribute('tabindex');
+          else el.setAttribute('tabindex', original);
+        });
+        slide.classList.toggle('is-active', active);
+        slide.hidden = false;
+      });
+      if (count) count.textContent = `${index + 1} / ${slides.length}`;
+      if (status) status.textContent = meta.manual
+        ? (status.dataset.countTemplate || '{current} / {total}').replace('{current}', String(index + 1)).replace('{total}', String(slides.length)) : '';
+      if (meta.manual) controller.pause('hover', matchMedia('(hover: hover)').matches && Boolean(slides[index].querySelector('.day-prod:hover')));
+      warmNext(index);
+    };
+    const controller = FluxixoCarousel.createCarouselController({
+      count: slides.length, reducedMotion: motion.matches,
+      pausedReasons: ['offscreen', ...(document.hidden ? ['hidden'] : [])],
+      onChange(index, meta) {
+        const version = ++requested;
+        if (meta.initial) { render(index, meta); return; }
+        return readyImage(slides[index]).then(() => { if (version === requested && meta.canCommit()) render(index, meta); });
+      },
+      onState(state) {
+        if (status) status.setAttribute('aria-live', state.rotating ? 'off' : 'polite');
+      }
+    });
+    stage.classList.add('is-ready');
+    controls.hidden = false;
+    previous.addEventListener('click', () => controller.move(-1));
+    next.addEventListener('click', () => controller.move(1));
+    slides.forEach(slide => {
+      const photo = slide.querySelector('.day-prod');
+      if (!photo) return;
+      photo.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'touch' && slide.classList.contains('is-active')) controller.pause('hover', true);
+      });
+      photo.addEventListener('pointerleave', event => { if (event.pointerType !== 'touch') controller.pause('hover', false); });
+    });
+    stage.addEventListener('focusin', () => controller.pause('focus', true));
+    stage.addEventListener('focusout', event => controller.pause('focus', stage.contains(event.relatedTarget)));
+    document.addEventListener('visibilitychange', () => controller.pause('hidden', document.hidden));
+    motion.addEventListener('change', event => controller.setReducedMotion(event.matches));
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      controller.pause('offscreen', !visible);
+      if (visible) { void readyImage(slides[displayed]); warmNext(displayed); }
+    }, { rootMargin: '200px 0px' }).observe(carousel);
+    stage.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'touch' && event.isPrimary !== false) pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, axis: '' };
+    }, { passive: true });
+    stage.addEventListener('pointermove', event => {
+      if (!pointer || event.pointerId !== pointer.id) return;
+      const dx = event.clientX - pointer.x, dy = event.clientY - pointer.y;
+      if (!pointer.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 10) pointer.axis = Math.abs(dx) > Math.abs(dy) * 1.3 ? 'x' : 'y';
+      if (pointer.axis === 'x' && event.cancelable) event.preventDefault();
+    }, { passive: false });
+    stage.addEventListener('pointerup', event => {
+      if (!pointer || event.pointerId !== pointer.id) return;
+      const step = pointer.axis !== 'y' ? FluxixoCarousel.carouselSwipeStep(event.clientX - pointer.x, event.clientY - pointer.y, rtl) : 0;
+      pointer = null;
+      if (step) { suppressClickUntil = performance.now() + 500; controller.move(step); }
+    });
+    stage.addEventListener('pointercancel', () => { pointer = null; });
+    stage.addEventListener('click', event => {
+      if (performance.now() < suppressClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
+    }, true);
+    addEventListener('pagehide', () => controller.pause('pagehide', true));
+    addEventListener('pageshow', () => controller.pause('pagehide', false));
+  });
+
   // Wide screens: the section in the middle of the screen decides the page colour.
   const paint = new IntersectionObserver(entries => entries.forEach(entry => {
     if (entry.isIntersecting && !phone.matches) document.body.style.setProperty('--page', entry.target.dataset.page);
@@ -23,11 +280,43 @@
     const day = new Date(el.getAttribute('datetime') + 'T12:00:00Z');
     if (!isNaN(day)) el.textContent = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(day);
   });
-  // Next drop: "today" while today's has not landed yet, otherwise "tomorrow".
-  document.querySelectorAll('[data-next]').forEach(el => {
-    const [today, tomorrow] = el.dataset.when.split('|');
-    el.textContent = el.dataset.next >= new Date().toISOString().slice(0, 10) ? tomorrow : today;
+  // Count down to the planned start; if the release is late, say so honestly.
+  const clocks = [...document.querySelectorAll('[data-countdown]')];
+  const pollPublication = FluxixoCountdown.createPublicationPoller(async () => {
+    const response = await fetch('/drop-status.json?v=' + Math.floor(Date.now() / 60000), { cache: 'no-store' });
+    if (!response.ok) throw new Error('Publication status unavailable');
+    return response.json();
   });
+  const refreshPublication = async now => {
+    const previous = clocks.reduce((day, el) => el.dataset.publishedDay > day ? el.dataset.publishedDay : day, '');
+    const published = await pollPublication(now, previous);
+    if (published > previous) {
+      clocks.forEach(el => { el.dataset.publishedDay = published; });
+      updateClocks();
+    }
+  };
+  const updateClocks = () => {
+    const now = new Date();
+    let awaiting = false;
+    clocks.forEach(el => {
+      const value = FluxixoCountdown.getCountdownState(now, {
+        publishedDay: el.dataset.publishedDay, dueDay: el.dataset.dueDay,
+        timeZone: el.dataset.timezone, hour: el.dataset.hour
+      });
+      const pad = n => String(n).padStart(2, '0');
+      el.textContent = value.status === 'awaiting' ? el.dataset.awaiting
+        : `${pad(Math.floor(value.seconds / 3600))}:${pad(Math.floor(value.seconds / 60) % 60)}:${pad(value.seconds % 60)}`;
+      el.dataset.state = value.status;
+      awaiting = awaiting || value.status === 'awaiting';
+    });
+    if (awaiting && !document.hidden) refreshPublication(now);
+  };
+  if (clocks.length) {
+    updateClocks();
+    setInterval(updateClocks, 1000);
+    document.addEventListener('visibilitychange', updateClocks);
+    window.addEventListener('pageshow', updateClocks);
+  }
   // The eyebrow says "today's drop" only while the latest drop really landed today; the cached page
   // outlives midnight, so after that the same line honestly reads "latest drop".
   document.querySelectorAll('[data-drop]').forEach(el => {
@@ -35,10 +324,9 @@
     el.textContent = el.dataset.on >= new Date().toISOString().slice(0, 10) ? todays : latest;
   });
 
-  // Wide screens, one loop: scroll speed swings the hanging products; scroll position drives the pinned scene.
+  // Wide screens: scroll speed swings the hanging products.
   const hangs = [...document.querySelectorAll('.hang')].map((el, i) => ({ el, a: 0, v: 0, phase: i * 1.7, shown: 0 }));
   hangs.forEach(h => h.el.addEventListener('pointerenter', e => { h.v += (e.movementX || 6) > 0 ? 3 : -3; }));
-  const day = document.querySelector('.day');
   const near = new Set();
   let last = scrollY, running = false;
   const frame = time => {
@@ -52,12 +340,6 @@
         if (Math.abs(angle - h.shown) > 0.02) { h.shown = angle; h.el.style.setProperty('--a', angle.toFixed(2)); }
       }
     }
-    if (day) {
-      const rect = day.getBoundingClientRect();
-      const p = Math.max(0, Math.min(1, -rect.top / (rect.height - innerHeight)));
-      day.style.setProperty('--p', calm ? 1 : p.toFixed(4));
-      day.classList.toggle('live', calm || p > 0.6);
-    }
     requestAnimationFrame(frame);
   };
   const loop = () => {
@@ -68,7 +350,7 @@
     entries.forEach(entry => entry.isIntersecting ? near.add(entry.target) : near.delete(entry.target));
     loop();
   }, { rootMargin: '200px 0px' });
-  [...document.querySelectorAll('.rope'), day].filter(Boolean).forEach(el => nearby.observe(el));
+  document.querySelectorAll('.rope').forEach(el => nearby.observe(el));
   phone.addEventListener('change', loop);
 
   // Swipe rows: dots show which card is in view and jump to it; product galleries also get arrows.

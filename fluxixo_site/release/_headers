@@ -65,7 +65,7 @@
 /js/early.b45c2135ff61.js
   Cache-Control: public, max-age=31536000, immutable
 
-/js/fx.a7a96926f964.js
+/js/fx.44974fe9c8aa.js
   Cache-Control: public, max-age=31536000, immutable
 
 /js/i18n.f50e1ea83e76.js
@@ -133,3 +133,6 @@
 
 /sitemap.xml
   Cache-Control: public, max-age=0, must-revalidate
+
+/drop-status.json
+  Cache-Control: no-store
