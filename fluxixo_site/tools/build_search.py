@@ -8,6 +8,7 @@ from locales import (
     translations
 )
 import journal_pages
+from pinterest_feed import build_pinterest_feed
 from PIL import Image
 import csv
 import hashlib
@@ -341,6 +342,10 @@ rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 </rss>
 """
 write('rss.xml', rss_xml)
+
+# Separate Pinterest subscription: baseline products are permanently excluded.
+write('pinterest-new.xml', build_pinterest_feed(
+    DIST, products, i18n, ROOT/'tools/pinterest-feed-state.json', now=now_dt))
 
 # Generate Pinterest Bulk Create CSV (/pinterest-feed.csv) & Social feed (/social-feed.json)
 csv_buf = io.StringIO()
