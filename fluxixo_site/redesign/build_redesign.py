@@ -436,6 +436,10 @@ class Site:
         clock = countdown_metadata()
         drop = items[:3]
         star = drop[datetime.now(timezone.utc).toordinal() % len(drop)]
+        guide_label = {'ru': 'Памятки перед покупкой', 'en': 'Buying guides', 'pt': 'Guias de compra',
+                       'es': 'Guías de compra', 'fr': 'Guides d’achat', 'he': 'מדריכי קנייה'}[self.lang]
+        seller_link = (f'<a class="btn line" href="{e(star["affiliateUrl"])}" target="_blank" '
+                       f'rel="sponsored nofollow noopener">{e(u["seller_cta"])} <span aria-hidden="true">↗</span></a>')
         hero = (f'<section class="drop" id="drop" data-page="{PAPER}"><div class="drop-bar">'
                 # The cached page outlives midnight, so "today's drop" holds only while the date is really today;
                 # after that the same eyebrow reads "latest drop" (server picks at build, the browser re-picks live).
@@ -449,8 +453,9 @@ class Site:
                 f'{self.rope(drop, eager=True, lead=True)}<div class="drop-copy">'
                 f'<h1>{e(u["hero_heading"])}</h1><div class="drop-summary">'
                 f'<p class="drop-sub">{e(u["drop_text"])}</p>'
-                f'<p class="drop-frequency">{e(u["hero_frequency"])}</p>'
-                f'<a class="btn" href="{L.catalog_path(self.lang)}#todo">{e(u["hero_cta"])}</a>'
+                f'<div class="drop-actions"><a class="btn" href="{L.catalog_path(self.lang)}#todo">{e(u["hero_cta"])}</a>'
+                f'<a class="guide-link" href="{journal_pages.index_path(self.lang)}">{e(guide_label)} <span aria-hidden="true">{self.fwd}</span></a></div>'
+                f'<p class="drop-frequency">{e(u["hero_note"])}</p>'
                 f'</div></div></section>')
 
         # Phone only: every world one tap away, right under today's drop.
@@ -459,13 +464,12 @@ class Site:
             f'<b>{e(self.cat(k))}</b><small>{len(self.in_world(k))}</small></a>' for k in self.worlds)
         cats = f'<nav class="cats" id="cats" aria-label="{e(u["nav"][1])}"><h2 class="d">{e(u["nav"][1])}</h2><div>{tiles}</div></nav>'
 
-        day = (f'<section class="day" id="hoy" style="--tint:{star["tint"]};--word:{ACCENT if star["dark"] else INK}" data-page="{star["tint"]}"><div class="day-pin"><div class="day-fill"></div>'
-               f'<p class="eye day-eye"><b>★</b> {e(u["find_day"])} · {e(self.cat(star["world"]))}</p>'
-               f'<div class="d day-word" aria-hidden="true">{e(star["name"])}</div>'
-               f'<div class="day-prod"><img class="cut" src="{img(star["image"], 800)}" alt="{e(L.editorial_image_alt(star["name"], self.cat(star["world"]), self.lang, role="spotlight"))}" width="800" height="800" loading="lazy" decoding="async"></div>'
-
-               f'<div class="day-info"><h2 class="d">{e(star["name"])}</h2><p class="s">{e(" ".join(star["headline"]))}</p>'
-               f'<p class="t">{e(star["description"])}</p><div class="row">{self.buy(star)}<a class="btn line" data-go href="{self.ppath(star)}">{e(u["more"])}</a></div></div>'
+        day = (f'<section class="day" id="hoy" aria-labelledby="spotlight-title" style="--tint:{star["tint"]}" data-page="{PAPER}"><div class="day-card rv">'
+               f'<a class="day-prod" data-go href="{self.ppath(star)}"><img class="cut" src="{img(star["image"], 800)}" alt="{e(L.editorial_image_alt(star["name"], self.cat(star["world"]), self.lang, role="spotlight"))}" width="800" height="800" loading="lazy" decoding="async"></a>'
+               f'<div class="day-info"><p class="eye day-eye"><b>●</b> {e(u["find_day"])} · {e(self.cat(star["world"]))}</p>'
+               f'<h2 id="spotlight-title">{e(star["name"])}</h2><p class="day-caption">{e(" ".join(star["headline"]))}</p>'
+               f'<p class="t">{e(star["description"])}</p><div class="row"><a class="btn" data-go href="{self.ppath(star)}">{e(u["more"])}</a>'
+               f'{seller_link}</div></div>'
                f'</div></section>')
 
         bands = []
@@ -523,8 +527,6 @@ class Site:
             if self.lang == 'ru' else L.CATALOG_DESCRIPTION[self.lang]
         )
         home_title = ov_home.get('title') or L.CATALOG_TITLE[self.lang]
-        j_link_label = {'ru': 'Памятки перед покупкой', 'en': 'Buying Guides', 'pt': 'Guias de Compra', 'es': 'Guías de Compra', 'fr': 'Guides d’Achat', 'he': 'מדריכי קנייה'}[self.lang]
-        body = body.replace('</section>', f'<div class="lang-bar"><a class="btn line" href="{journal_pages.index_path(self.lang)}">{e(j_link_label)}</a></div></section>', 1)
         hub_schema = market_seo.collection_schema(origin=ORIGIN, path=self.home(), title=home_title, description=desc,
                                                   lang=L.LANGUAGES[self.lang][0],
                                                   items=[(self.ppath(p), p['name']) for p in items],

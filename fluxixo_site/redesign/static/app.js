@@ -122,10 +122,9 @@ if (typeof module !== 'undefined' && module.exports) module.exports = FluxixoCou
     el.textContent = el.dataset.on >= new Date().toISOString().slice(0, 10) ? todays : latest;
   });
 
-  // Wide screens, one loop: scroll speed swings the hanging products; scroll position drives the pinned scene.
+  // Wide screens: scroll speed swings the hanging products.
   const hangs = [...document.querySelectorAll('.hang')].map((el, i) => ({ el, a: 0, v: 0, phase: i * 1.7, shown: 0 }));
   hangs.forEach(h => h.el.addEventListener('pointerenter', e => { h.v += (e.movementX || 6) > 0 ? 3 : -3; }));
-  const day = document.querySelector('.day');
   const near = new Set();
   let last = scrollY, running = false;
   const frame = time => {
@@ -139,12 +138,6 @@ if (typeof module !== 'undefined' && module.exports) module.exports = FluxixoCou
         if (Math.abs(angle - h.shown) > 0.02) { h.shown = angle; h.el.style.setProperty('--a', angle.toFixed(2)); }
       }
     }
-    if (day) {
-      const rect = day.getBoundingClientRect();
-      const p = Math.max(0, Math.min(1, -rect.top / (rect.height - innerHeight)));
-      day.style.setProperty('--p', calm ? 1 : p.toFixed(4));
-      day.classList.toggle('live', calm || p > 0.6);
-    }
     requestAnimationFrame(frame);
   };
   const loop = () => {
@@ -155,7 +148,7 @@ if (typeof module !== 'undefined' && module.exports) module.exports = FluxixoCou
     entries.forEach(entry => entry.isIntersecting ? near.add(entry.target) : near.delete(entry.target));
     loop();
   }, { rootMargin: '200px 0px' });
-  [...document.querySelectorAll('.rope'), day].filter(Boolean).forEach(el => nearby.observe(el));
+  document.querySelectorAll('.rope').forEach(el => nearby.observe(el));
   phone.addEventListener('change', loop);
 
   // Swipe rows: dots show which card is in view and jump to it; product galleries also get arrows.
