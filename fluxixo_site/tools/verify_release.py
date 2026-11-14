@@ -438,6 +438,18 @@ def validate_search_engine_parity(release):
                 errors.append('rss.xml contains zero <item> entries')
         except ET.ParseError as exc:
             errors.append(f'invalid rss.xml: {exc}')
+    # Pinterest auto-publish subscribes to this feed; it may be empty (future products only) but must parse.
+    pin_path = rel / 'pinterest-new.xml'
+    if not pin_path.exists():
+        errors.append('missing pinterest-new.xml for Pinterest auto-publish')
+    else:
+        try:
+            for it in ET.parse(pin_path).getroot().findall('.//item'):
+                if it.find('enclosure') is None or '/en/products/' not in (it.findtext('link') or ''):
+                    errors.append(f'pinterest-new.xml item without image or English link: {it.findtext("guid")}')
+                    break
+        except ET.ParseError as exc:
+            errors.append(f'invalid pinterest-new.xml: {exc}')
     idx_xml = rel / 'sitemap-index.xml'
     if idx_xml.exists():
         try:
