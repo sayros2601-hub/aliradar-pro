@@ -31,7 +31,7 @@ import locales as L  # noqa: E402
 import journal_pages  # noqa: E402
 import market_seo  # noqa: E402
 from ui_text import CATEGORY_COPY_RU, CATEGORY_LONG_RU, MORE_RU, ROOT_EN, UI  # noqa: E402
-from featured_carousel import CAROUSEL_COPY, select_featured_products  # noqa: E402
+from featured_carousel import CAROUSEL_COPY, FEATURED_ORIGINAL_IMAGES, select_featured_products  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
 LANGS = ('es', 'pt', 'en', 'fr', 'he', 'ru')
@@ -467,13 +467,16 @@ class Site:
         slides = []
         for index, star in enumerate(featured, 1):
             position = carousel['count'].format(current=index, total=len(featured))
+            original = FEATURED_ORIGINAL_IMAGES.get(star['id'])
+            image_src = original or img(star['image'], 800)
+            image_class = ' class="day-original"' if original else ''
             seller_link = (f'<a class="btn line" href="{e(star["affiliateUrl"])}" target="_blank" '
                            f'rel="sponsored nofollow noopener">{e(u["seller_cta"])} <span aria-hidden="true">↗</span></a>')
             slides.append(
                 f'<article class="day-card" data-carousel-slide data-product-id="{e(star["id"])}" '
                 f'role="group" aria-roledescription="{e(carousel["slide"])}" aria-label="{e(position + ": " + star["name"])}" '
                 f'style="--tint:{star["tint"]}"{" hidden" if index > 1 else ""}>'
-                f'<a class="day-prod" data-go href="{self.ppath(star)}"><img class="cut" src="{img(star["image"], 800)}" alt="{e(star["name"])}" width="800" height="800" loading="lazy" decoding="async"></a>'
+                f'<a class="day-prod" data-go href="{self.ppath(star)}"><img{image_class} src="{e(image_src)}" alt="{e(star["name"])}" width="800" height="800" loading="lazy" decoding="async"></a>'
                 f'<div class="day-info"><p class="eye day-eye"><b>●</b> {e(carousel["title"])} · {e(self.cat(star["world"]))}</p>'
                 f'<h2 id="spotlight-title-{index}">{e(star["name"])}</h2><p class="day-caption">{e(" ".join(star["headline"]))}</p>'
                 f'<p class="t">{e(star["description"])}</p><div class="row"><a class="btn" data-go href="{self.ppath(star)}">{e(u["more"])}</a>'

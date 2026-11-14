@@ -10,6 +10,12 @@ PINNED_PRODUCT_IDS = (
     'find-024-trekking-poles',
 )
 
+# These two cutouts lose parts of the product; the existing source photos are intact.
+FEATURED_ORIGINAL_IMAGES = {
+    'find-063-cable-tester': '/assets/originals/find-063-cable-tester.webp',
+    'find-023-cat-laser': '/assets/originals/find-023-cat-laser.webp',
+}
+
 CAROUSEL_COPY = {
     'ru': dict(title='Избранные находки', carousel='карусель', slide='слайд',
                prev='Предыдущий товар', next='Следующий товар',

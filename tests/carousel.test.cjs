@@ -33,21 +33,22 @@ function fixture(extra = {}) {
   return { time, changes, controller };
 }
 
-test('autoplay shows exactly seven slides in order, every eight seconds, with one timer', () => {
+test('autoplay shows exactly seven slides in order, every three seconds, with one timer', () => {
   const { time, changes } = fixture();
   assert.equal(changes[0].index, 0);
-  time.advance(7999);
+  time.advance(2999);
   assert.equal(changes.length, 1);
   time.advance(1);
+  assert.equal(changes.length, 2, 'the first automatic transition must happen at 3000 ms');
   assert.equal(changes[1].index, 1);
-  for (let i = 0; i < 6; i++) { assert.equal(time.count(), 1); time.advance(8000); }
+  for (let i = 0; i < 6; i++) { assert.equal(time.count(), 1); time.advance(3000); }
   assert.deepEqual(changes.map(x => x.index), [0, 1, 2, 3, 4, 5, 6, 0]);
   assert.equal(time.count(), 1);
 });
 
 test('hover, hidden document and offscreen pauses compose without restarting early', () => {
   const { controller: c, time, changes } = fixture();
-  time.advance(3000);
+  time.advance(1000);
   c.pause('hover', true);
   c.pause('hidden', true);
   c.pause('offscreen', true);
@@ -59,7 +60,9 @@ test('hover, hidden document and offscreen pauses compose without restarting ear
   c.pause('offscreen', false);
   c.pause('offscreen', false);
   assert.equal(time.count(), 1);
-  time.advance(8000);
+  time.advance(2999);
+  assert.equal(changes.length, 1);
+  time.advance(1);
   assert.equal(changes.at(-1).index, 1);
 });
 
@@ -74,22 +77,24 @@ test('keyboard focus pauses the slide until focus leaves, independent of image h
   assert.equal(changes.length, 2);
   assert.equal(time.count(), 0);
   c.pause('focus', false);
-  time.advance(8000);
+  time.advance(2999);
+  assert.equal(changes.at(-1).index, 1);
+  time.advance(1);
   assert.equal(changes.at(-1).index, 2);
 });
 
 test('manual previous/next wrap and reset a single full interval', () => {
   const { controller: c, time, changes } = fixture();
-  time.advance(7000);
+  time.advance(2000);
   c.move(-1);
   assert.equal(changes.at(-1).index, 6);
   assert.equal(changes.at(-1).manual, true);
-  time.advance(7999);
+  time.advance(2999);
   assert.equal(changes.at(-1).index, 6);
   c.move(1);
   assert.equal(changes.at(-1).index, 0);
   assert.equal(time.count(), 1);
-  time.advance(8000);
+  time.advance(3000);
   assert.equal(changes.at(-1).index, 1);
 });
 
@@ -112,7 +117,7 @@ test('image readiness delays autoplay; paused and superseded changes cannot resu
   const { controller: c, time } = fixture({ onChange(index) {
     if (index === 1) return new Promise(resolve => { finish = resolve; });
   } });
-  time.advance(8000);
+  time.advance(3000);
   assert.equal(c.state().index, 1);
   assert.equal(time.count(), 0);
   time.advance(40000);
@@ -125,7 +130,7 @@ test('image readiness delays autoplay; paused and superseded changes cannot resu
   assert.equal(c.state().index, 2);
   assert.equal(time.count(), 0);
   c.start();
-  time.advance(7999);
+  time.advance(2999);
   assert.equal(c.state().index, 2);
   time.advance(1);
   assert.equal(c.state().index, 3);
@@ -149,7 +154,7 @@ test('pausing during automatic image loading cancels the visual change and retai
         resolve();
       }; });
     } });
-    time.advance(8000);
+    time.advance(3000);
     assert.equal(visible, 0);
     pause(c);
     finish();

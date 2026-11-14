@@ -115,6 +115,31 @@ class FeaturedCarouselTest(unittest.TestCase):
         changed = self.render('ru', products=products, day='2030-02-01')
         self.assertEqual([s['attrs']['data-product-id'] for s in changed.slides], expected)
 
+    def test_two_intact_original_photos_replace_cutouts_without_heavy_shadow(self):
+        originals = {
+            'find-063-cable-tester': '/assets/originals/find-063-cable-tester.webp',
+            'find-023-cat-laser': '/assets/originals/find-023-cat-laser.webp',
+        }
+        for lang in ('ru', 'en', 'es', 'pt', 'fr', 'he'):
+            with self.subTest(lang=lang):
+                page = self.render(lang)
+                self.assertEqual(len(page.slides), 7)
+                replacements = []
+                for slide in page.slides:
+                    pid = slide['attrs']['data-product-id']
+                    image = slide['images'][0]
+                    self.assertNotIn('cut', image.get('class', '').split())
+                    if pid in originals:
+                        self.assertEqual(image['src'], originals[pid])
+                        self.assertIn('day-original', image.get('class', '').split())
+                        original_file = ROOT / 'fluxixo_site/dist' / image['src'].lstrip('/')
+                        self.assertTrue(original_file.is_file())
+                        self.assertGreater(original_file.stat().st_size, 0)
+                        replacements.append(pid)
+                    else:
+                        self.assertNotIn('/assets/originals/', image['src'])
+                self.assertEqual(set(replacements), set(originals))
+
     def test_missing_pinned_product_fails_instead_of_silently_substituting(self):
         selected = self.render('ru').slides
         self.assertEqual(len(selected), 7)

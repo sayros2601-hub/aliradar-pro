@@ -78,7 +78,7 @@ const FluxixoCarousel = (() => {
           if (version !== timerVersion || !state().rotating) return;
           timer = null;
           show((index + 1) % count, { manual: false });
-        }, 8000);
+        }, 3000);
       }
       onState(state());
     };

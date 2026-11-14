@@ -115,7 +115,7 @@ html.anim .top{transition:background-color .9s}
   padding:clamp(18px,2.4vw,36px);border:1px solid var(--line);border-radius:28px;background:rgba(255,255,255,.5)}
 .js .day-slides.rv{opacity:0;transform:translateY(8px);transition:opacity .65s ease,transform .65s cubic-bezier(.2,.6,.2,1)}
 .js .day-slides.rv.in,.js .day-slides.rv:focus-within{opacity:1;transform:none}
-.day-prod{display:grid;place-items:center;align-self:stretch;min-width:0;min-height:clamp(340px,34vw,500px);
+.day-prod{display:flex;align-items:center;justify-content:center;align-self:stretch;min-width:0;min-height:clamp(340px,34vw,500px);
   padding:clamp(24px,3vw,44px);border-radius:20px;background:var(--tint,var(--paper));overflow:hidden;text-decoration:none}
 .day-prod img{width:min(100%,440px);aspect-ratio:1;object-fit:contain;transition:transform .9s cubic-bezier(.2,.6,.2,1)}
 .day-prod:focus-visible img{transform:scale(1.025)}
