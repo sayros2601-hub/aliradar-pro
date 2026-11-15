@@ -18,4 +18,4 @@ INDEXNOW_KEY = "ededa82eb5716fb9ef71632b519559cb"
 DEFAULT_IMAGE_MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 
 [triggers]
-crons = ["30 15 * * *", "0 17 * * *", "17 5 * * *"]
+crons = ["30 15 * * *", "0 16 * * *", "0 17 * * *", "17 5 * * *"]

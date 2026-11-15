@@ -490,10 +490,10 @@ function buildStudioPrompt(rawPrompt) {
     return base;
   }
   return (
-    `Studio e-commerce product photography of ${base}, ` +
-    `centered isolated product on a pure seamless #FFFFFF solid white background, ` +
-    `soft natural contact shadow directly under the base, crisp edge separation, ` +
-    `clean commercial catalog cutout, zero props, zero text, zero watermarks.`
+    `Single standalone ${base}, ` +
+    `floating in mid-air centered on a pure flat #FFFFFF solid white background with generous white margin on all sides, ` +
+    `zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, crisp edge separation, ` +
+    `clean commercial industrial design catalog cutout, zero props, zero text, zero letters, zero watermarks, no people, no hands, no pets.`
   );
 }
 

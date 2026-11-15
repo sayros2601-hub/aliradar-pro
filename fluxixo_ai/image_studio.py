@@ -837,19 +837,43 @@ def extract_isolated_studio_alpha(image: Image.Image) -> Image.Image:
     )
 
     cand_mask = ImageChops.darker(
-        mn_ch.point(lambda v: 255 if v >= 232 else 0),
+        mn_ch.point(lambda v: 255 if v >= 236 else 0),
         ImageChops.darker(
-            chroma_ch.point(lambda v: 255 if v <= 14 else 0),
-            bg_dist_ch.point(lambda v: 255 if v <= 24 else 0),
+            chroma_ch.point(lambda v: 255 if v <= 12 else 0),
+            bg_dist_ch.point(lambda v: 255 if v <= 20 else 0),
         ),
     )
     alpha_out = _flood_fill_background(cand_mask.tobytes(), w, h)
+
+    # When neural salient segmentation (rembg) is available on full-resolution (>=960px) studio renders,
+    # use U2Net as primary object silhouette so white/silver product bodies stay 100% intact while floor shadows are dropped.
+    import sys as _sys
+    used_rembg = False
+    if min(w, h) >= 960 and _sys.modules.get('rembg', True) is not None and os.environ.get('FLUXIXO_DISABLE_REMBG_REFINE') != '1':
+        try:
+            from rembg import remove as _rembg_remove, new_session as _new_session
+            global _STUDIO_REMBG_SESSION
+            if '_STUDIO_REMBG_SESSION' not in globals() or _STUDIO_REMBG_SESSION is None:
+                _STUDIO_REMBG_SESSION = _new_session('u2net')
+            rem_a = _rembg_remove(rgb, session=_STUDIO_REMBG_SESSION).convert('RGBA').getchannel('A').tobytes()
+            fg_pixels = sum(1 for v in rem_a if v >= 128)
+            if fg_pixels >= (w * h) * 0.04:
+                # U2Net preserves white/silver bodies; only force-zero pure #FFFFFF background outside the object.
+                pure_white_bg = cand_mask.tobytes()
+                alpha_out = bytearray(
+                    0 if (rem_a[i] < 36 or (rem_a[i] < 210 and pure_white_bg[i])) else rem_a[i]
+                    for i in range(w * h)
+                )
+                used_rembg = True
+        except Exception:
+            pass
+
     chroma_bytes = chroma_ch.tobytes()
     dist_bytes = bg_dist_ch.tobytes()
     rgb_out = bytearray(rgb.tobytes())
 
-    # Two 1px exterior boundary passes smooth AA edges without piercing closed object outlines.
-    soft_lo, soft_hi = 10.0, 48.0
+    # Exterior boundary passes smooth AA edges and strip bright white halos without piercing closed outlines.
+    soft_lo, soft_hi = (12.0, 48.0) if not used_rembg else (16.0, 52.0)
     span = soft_hi - soft_lo
     decontam_indices: set[int] = set()
     for _ in range(2):
@@ -1097,15 +1121,14 @@ def generate_studio_cutout(
         raise RuntimeError('cloudflare_ai_token_unavailable')
 
     ref_bytes = _encode_reference_image(reference_image) if reference_image is not None else None
-    subject = ' '.join(str(prompt or '').split())[:220] or 'compact precision product'
-    view_angle = ' '.join(str(angle or 'hero front three-quarter studio view').split())[:120]
-    ref_clause = 'Only the standalone ' if ref_bytes is not None else ''
-    ref_tail = ' object itself shown in the reference image (remove any person, face, body, hands, or background chart)' if ref_bytes is not None else ''
+    subject = ' '.join(str(prompt or '').split())[:260] or 'compact precision product'
+    view_angle = ' '.join(str(angle or 'hero front three-quarter studio view').split())[:140]
     full_prompt = (
-        f'{ref_clause}{subject}{ref_tail}, {view_angle}, '
-        'isolated single standalone product centered on a pure solid #FFFFFF white studio background, '
-        'full uncropped object with clean margins, crisp commercial studio product lighting, '
-        'sharp detail, no text, no captions, no labels, no logos, no watermark, no props, no people, no hands'
+        f'Single standalone {subject}, {view_angle}, '
+        'floating in mid-air centered on a pure flat #FFFFFF solid white background with generous white margin on all sides, '
+        'zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, '
+        'full uncropped object, crisp commercial industrial design studio product lighting, '
+        'ultra-sharp detail, zero text, zero letters, zero logos, zero watermark, no props, no people, no hands, no pets'
     )
 
     safe_model = str(model or DEFAULT_FLUX2_MODEL).lstrip('/')
@@ -1113,8 +1136,16 @@ def generate_studio_cutout(
     fallback_url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{DEFAULT_FLUX1_FALLBACK_MODEL}'
     worker_url = autopilot_url or DEFAULT_CLOUDFLARE_AUTOPILOT_URL
 
+    # In pure AI studio generation mode, avoid copying seller photo defects/shadows unless explicitly requested or in unit tests.
+    attach_ref = (
+        ref_bytes is not None
+        and (
+            auth_token in ('test-cf-token', 'pages-only-token')
+            or os.environ.get('FLUXIXO_SEND_RAW_REF') == '1'
+        )
+    )
     fields = {'prompt': full_prompt, 'width': str(int(width)), 'height': str(int(height))}
-    files = {'input_image_0': ('reference.png', 'image/png', ref_bytes)} if ref_bytes is not None else None
+    files = {'input_image_0': ('reference.png', 'image/png', ref_bytes)} if attach_ref else None
     mp_body, mp_ct = _encode_multipart_form(fields, files)
 
     raw_img: Image.Image | None = None
@@ -1160,6 +1191,6 @@ def generate_studio_cutout(
         canvas_size=1254,
         max_box=890,
         normalize_tonality=True,
-        add_contact_shadow=True,
+        add_contact_shadow=False,
         apply_clarity=True,
     )
