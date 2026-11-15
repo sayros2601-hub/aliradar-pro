@@ -1068,6 +1068,46 @@ export default {
       return handleGenerateCutout(request, env, url);
     }
 
+    if (request.method === "POST" && path === "/api/generate-copy") {
+      let body = {};
+      try {
+        const text = await request.text();
+        if (text.trim()) body = JSON.parse(text);
+      } catch {
+        return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
+      }
+      const model = String(body.model || "@cf/meta/llama-3.3-70b-instruct-fp8-fast");
+      const messages = Array.isArray(body.messages) ? body.messages : [];
+      if (!messages.length) {
+        return jsonResponse({ ok: false, error: "messages array is required" }, 400);
+      }
+      try {
+        const aiRes = await env.AI.run(model, {
+          messages,
+          temperature: Number(body.temperature ?? 0.25),
+          max_tokens: Number(body.max_tokens ?? 1800),
+          response_format: body.response_format || { type: "json_object" },
+        });
+        const content =
+          typeof aiRes?.response === "string"
+            ? aiRes.response
+            : typeof aiRes?.response === "object" && aiRes?.response !== null
+            ? JSON.stringify(aiRes.response)
+            : JSON.stringify(aiRes);
+        return jsonResponse({
+          ok: true,
+          model,
+          choices: [{ message: { role: "assistant", content } }],
+          raw: aiRes,
+        });
+      } catch (err) {
+        return jsonResponse(
+          { ok: false, model, error: err instanceof Error ? err.message : String(err) },
+          502
+        );
+      }
+    }
+
     if (request.method === "POST" && path === "/api/seo-sync") {
       return handleSeoSync(request, env, url);
     }

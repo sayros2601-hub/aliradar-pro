@@ -6106,90 +6106,6 @@
         "description": "דיספנסר חשמלי נטען ב־USB עם חיישן אינפרה-אדום, מיכל של 320 מ״ל וחמש רמות הקצפה למניעת מגע במשאבה בכיור הבית או המטבח. בדקו בעמוד המוכר את יחס הדילול לסבון הנוזלי ואת כבל הטעינה המצורף."
       }
     },
-    "auto-1005013343685372": {
-      "en": {
-        "name": "Hand-Crank Emergency Radio Lantern",
-        "headline": [
-          "Light and radio,",
-          "offline backup."
-        ],
-        "description": "All-in-one emergency unit combines a flashlight, compact radio tuner, solar panel, and hand crank for camping or power outages. Verify supported radio frequency bands, port specs, and battery notes before ordering."
-      },
-      "pt": {
-        "name": "Lanterna e Rádio Solar com Manivela",
-        "headline": [
-          "Luz de apoio,",
-          "energia manual."
-        ],
-        "description": "Equipamento portátil que reúne lanterna, receptor de rádio, painel solar e dínamo manual para acampamentos ou quedas de energia. Confira as faixas de sintonia compatíveis e os cabos inclusos com o vendedor."
-      },
-      "es": {
-        "name": "Linterna y Radio Solar con Manivela",
-        "headline": [
-          "Luz y señal,",
-          "sin depender de red."
-        ],
-        "description": "Dispositivo portátil que integra linterna, radio, panel solar y manivela de carga manual para campismo o cortes de luz. Revisa las bandas de radio admitidas y la ficha de puertos antes de comprar."
-      },
-      "fr": {
-        "name": "Lanterne Radio Solaire à Manivelle",
-        "headline": [
-          "Éclairage et radio,",
-          "en toute autonomie."
-        ],
-        "description": "Appareil de secours réunissant lampe, tuner radio, panneau solaire et manivelle dynamo pour le bivouac ou les coupures. Vérifiez les fréquences radio prises en charge et la connectique sur la page vendeur."
-      },
-      "he": {
-        "name": "פנס ורדיו חירום סולארי עם דינמו",
-        "headline": [
-          "אור וקליטה,",
-          "גם בלי חשמל."
-        ],
-        "description": "מכשיר שטח משולב הכולל פנס, מקלט רדיו, פאנל סולארי וידית דינמו ידנית לטיולים והפסקות חשמל. בדקו בפרטי הדגם את תדרי הקליטה הנתמכים וסוגי היציאות."
-      }
-    },
-    "auto-1005012575372282": {
-      "en": {
-        "name": "Articulating USB Borescope with LED Light",
-        "headline": [
-          "See around bends,",
-          "tight spots clear."
-        ],
-        "description": "Inspection endoscope camera on a flexible probe with adjustable LED lighting helps examine pipes, cavities, and engine bays on a compatible screen. Verify probe diameter, cable length, and connector type for your device before buying."
-      },
-      "pt": {
-        "name": "Endoscópio USB Articulado com LED",
-        "headline": [
-          "Veja nos cantos,",
-          "sem desmontar."
-        ],
-        "description": "Câmera endoscópica articulada com iluminação LED ajustável para inspecionar tubulações, frestas e compartimentos mecânicos direto na tela compatível. Confirme o diâmetro da sonda, o comprimento do cabo e o conector antes de pedir."
-      },
-      "es": {
-        "name": "Endoscopio USB Articulado con Luz LED",
-        "headline": [
-          "Explora rincones,",
-          "sin desarmar."
-        ],
-        "description": "Cámara de inspección con sonda flexible y luz LED regulable para revisar tuberías, huecos y zonas de difícil acceso desde una pantalla compatible. Verifica el diámetro de la punta, el largo del cable y el conector exacto."
-      },
-      "fr": {
-        "name": "Endoscope USB Articulé à Éclairage LED",
-        "headline": [
-          "Explorer les recoins,",
-          "sans tout démonter."
-        ],
-        "description": "Sonde d’inspection articulée équipée d’un éclairage LED réglable pour observer conduits, cloisons et mécanismes sur écran compatible. Vérifiez le diamètre de la tête, la longueur du câble et la connectique requise avant achat."
-      },
-      "he": {
-        "name": "מצלמת אנדוסקופ גמישה עם תאורה",
-        "headline": [
-          "רואים לעומק,",
-          "גם בפיתולים."
-        ],
-        "description": "מצלמת בדיקה עם כבל גמיש ותאורת LED להצצה לתוך צנרת, פתחים צרים ותאי מנוע דרך מסך תואם. לפני הרכישה בדקו את קוטר הראש, אורך הכבל וסוג החיבור הנדרש למכשיר שלכם."
-      }
-    },
     "auto-1005009410831317": {
       "en": {
         "name": "Smart Self-Rolling Interactive Pet Ball",
@@ -6230,6 +6146,216 @@
           "ומזמין למרדף."
         ],
         "description": "כדור ממונע הנע מעצמו ומשנה כיוון במגע עם קירות ורהיטים כדי להפעיל חתולים או כלבים קטנים בבית. בדקו את קוטר הכדור, הציפוי החיצוני ואופן הטעינה לפני הקנייה."
+      }
+    },
+    "auto-1005012919201086": {
+      "en": {
+        "name": "Leakproof Travel Dog Water Dispenser Cup",
+        "headline": [
+          "One-button pour,",
+          "lock the spout."
+        ],
+        "description": "Portable pet water flask with an attached trough bowl, single-press release valve, and lock switch for park walks without spills in your bag. Verify capacity, detachable food cup, and wrist strap options before buying."
+      },
+      "pt": {
+        "name": "Garrafa Bebedouro Portátil para Cães",
+        "headline": [
+          "Gole na hora,",
+          "trava antivazamento."
+        ],
+        "description": "Garrafa de passeio com concha acoplada, botão de liberação e trava de segurança para hidratar seu cachorro na rua sem molhar a bolsa. Confira a capacidade em ml, o compartimento extra de ração e a alça de mão."
+      },
+      "es": {
+        "name": "Botella Bebedero Portátil para Perros",
+        "headline": [
+          "Agua al instante,",
+          "seguro antiderrame."
+        ],
+        "description": "Botella de paseo con tazón integrado, botón dispensador y seguro de cierre para hidratar a tu perro fuera de casa y regresar el agua sobrante. Revisa la capacidad, si incluye vaso extra y correa de mano."
+      },
+      "fr": {
+        "name": "Gourde Distributeur d’Eau Étanche pour Chien",
+        "headline": [
+          "Un bouton suffit,",
+          "sac au sec."
+        ],
+        "description": "Gourde de promenade avec coupelle intégrée, bouton d’écoulement et loquet de blocage pour abreuver votre chien sans fuite dans le sac. Vérifiez la contenance, le compartiment friandises éventuel et la dragonne."
+      },
+      "he": {
+        "name": "בקבוק שתייה אטום לטיול עם כלב",
+        "headline": [
+          "לחיצה אחת,",
+          "שתייה נקייה בדרך."
+        ],
+        "description": "בקבוק טיולים עם קערית מובנית, כפתור מזיגה ומנגנון נעילה למניעת נזילות בתיק ושתייה נוחה בפארק. בדקו מראש את נפח המיכל, רצועת הנשיאה ואם קיים תא לחטיפים."
+      }
+    },
+    "auto-1005012687234522": {
+      "en": {
+        "name": "Motorized Bottle Air Sealer",
+        "headline": [
+          "Seals opened bottles,",
+          "simple storage."
+        ],
+        "description": "Compact motorized wine cap sits atop an opened bottle and draws out air to help slow oxidation between pours. Verify neck-size compatibility, number of stoppers included, and battery or USB requirements before purchasing."
+      },
+      "pt": {
+        "name": "Tampa a Vácuo Elétrica para Garrafas",
+        "headline": [
+          "Fecha sem ar,",
+          "conserva melhor."
+        ],
+        "description": "Vedador motorizado compacto que se encaixa no gargalo da garrafa aberta para extrair o ar após servir. Confira os diâmetros compatíveis, a quantidade de tampas no kit e o padrão de carregamento ou pilhas."
+      },
+      "es": {
+        "name": "Tapón de Vacío Eléctrico para Vino",
+        "headline": [
+          "Extrae el aire,",
+          "cuida la botella."
+        ],
+        "description": "Tapón motorizado compacto que se coloca sobre botellas abiertas para retirar aire excedente durante el resguardo. Confirma la compatibilidad de boquilla, cantidad de piezas y tipo de alimentación antes de comprar."
+      },
+      "fr": {
+        "name": "Bouchon à Vide Électrique pour Bouteille",
+        "headline": [
+          "Retire l’air,",
+          "prolonge l’ouverture."
+        ],
+        "description": "Bouchon motorisé compact qui extrait l’air d’une bouteille entamée afin de limiter l’oxydation entre deux dégustations. Vérifiez le diamètre de goulot compatible, le nombre de bouchons et l’alimentation chez le vendeur."
+      },
+      "he": {
+        "name": "פקק ואקום חשמלי לבקבוקי יין",
+        "headline": [
+          "שאיבת אוויר,",
+          "שמירה עד הפעם הבאה."
+        ],
+        "description": "פקק ממונע המונח על פתח בקבוק יין פתוח ושואב החוצה עודפי אוויר להאטת חמצון באחסון. בדקו מראש את קוטר הפייה התואם, כמות הפקקים בערכה ואופן הטעינה."
+      }
+    },
+    "auto-1005013553805507": {
+      "en": {
+        "name": "Wood Stove Air Circulator",
+        "headline": [
+          "Warmth distribution made easy,",
+          "no batteries needed."
+        ],
+        "description": "This thermoelectric fan is designed to sit on top of a wood stove, circulating warm air throughout the room using thermal energy, making it a great addition to any home. Check the product details before ordering."
+      },
+      "pt": {
+        "name": "Ventilador de Ar para Lareira",
+        "headline": [
+          "Distribuição de calor eficaz,",
+          "sem necessidade de baterias."
+        ],
+        "description": "Coloque o ventilador termoelétrico sobre a lareira e desfrute do ar quente circulando pela sala sem precisar de tomadas ou pilhas. Verifique as especificações do produto antes de fazer a compra."
+      },
+      "es": {
+        "name": "Circulador de Aire para Estufa",
+        "headline": [
+          "Distribución de calor sin esfuerzo,",
+          "sin cables."
+        ],
+        "description": "Este ventilador termoelétrico se coloca sobre la estufa de leña, distribuyendo el aire cálido por la habitación sin necesidad de electricidad, lo que lo hace ideal para cualquier hogar. Revisa las características del producto antes de confirmar tu pedido."
+      },
+      "fr": {
+        "name": "Ventilateur de Chaleur pour Poêle",
+        "headline": [
+          "Diffusion de chaleur efficace,",
+          "sans batterie."
+        ],
+        "description": "Placez le ventilateur thermoélectrique sur le poêle à bois et profitez de l'air chaud circulant dans la pièce sans avoir besoin de prise ni de piles. Vérifiez les détails du produit avant de passer commande."
+      },
+      "he": {
+        "name": "מאוורר חום לתנור",
+        "headline": [
+          "הפצה חשמלית של חום,",
+          "ללא סוללות."
+        ],
+        "description": "התקן את מאוורר החום על גבי התנור ותיהנו מאוויר חם המקיף את החדר ללא שימוש בחשמל או סוללות. בדקו את פרטי המוצר לפני הזמנה."
+      }
+    },
+    "auto-1005013158011754": {
+      "en": {
+        "name": "GyroFit Trainer",
+        "headline": [
+          "Build grip,",
+          "enhance forearm."
+        ],
+        "description": "A compact, mechanical gyro ball that generates progressive resistance to strengthen the wrist and forearm, perfect for office or home use, check the listing for included accessories and features."
+      },
+      "pt": {
+        "name": "Treinador Giroscópico",
+        "headline": [
+          "Fortaleça o punho,",
+          "melhore o agarre."
+        ],
+        "description": "Esfera giroscópica portátil para treinar o punho e o antebraço, criando resistência progressiva ao girar, ideal para uso no escritório ou em casa, verifique os acessórios incluídos."
+      },
+      "es": {
+        "name": "Entrenador Giroscópico",
+        "headline": [
+          "Tonifica la muñeca,",
+          "mejora el agarre."
+        ],
+        "description": "Esfera giroscópica mecánica para entrenar la muñeca y el antebrazo, generando resistencia progresiva al girar, perfecta para usar en la oficina o en casa, revise los accesorios incluidos en la publicación."
+      },
+      "fr": {
+        "name": "Équipement de Renforcement",
+        "headline": [
+          "Renforcez le poignet,",
+          "améliorez la prise."
+        ],
+        "description": "Sphère gyroscopique mécanique pour renforcer le poignet et l’avant-bras, créant une résistance progressive lors de la rotation, idéale pour une utilisation au bureau ou à la maison, vérifiez les accessoires inclus."
+      },
+      "he": {
+        "name": "מאמן גירוסקופי",
+        "headline": [
+          "חזק את כף היד,",
+          "שפר את האחיזה."
+        ],
+        "description": "כדור גירוסקופי מכני קומפקטי לחיזוק פרק כף היד והאמה, יוצר התנגדות גוברת בסיבוב, מותאם לשימוש במשרד או בבית, בדקו את האביזרים הכלולים."
+      }
+    },
+    "auto-1005012367265501": {
+      "en": {
+        "name": "Shape Duplicator Tool",
+        "headline": [
+          "Copy complex shapes,",
+          "cut with ease."
+        ],
+        "description": "A contour gauge with adjustable locking mechanism, designed to accurately transfer profiles onto various surfaces, ensuring precise cuts and clean edges."
+      },
+      "pt": {
+        "name": "Gabarito de Contornos",
+        "headline": [
+          "Crie um molde,",
+          "corte com precisão."
+        ],
+        "description": "Um medidor de perfil com lâminas deslizantes e trava lateral, permite copiar curvas complexas e transferi-las para diferentes materiais, garantindo cortes precisos e arestas limpas."
+      },
+      "es": {
+        "name": "Calibrador de Perfil",
+        "headline": [
+          "Copia la forma,",
+          "corta con facilidad."
+        ],
+        "description": "Un medidor de perfil con láminas ajustables y seguro de fijación, diseñado para transferir perfiles de manera precisa a diversas superficies, asegurando cortes limpios y precisos."
+      },
+      "fr": {
+        "name": "Jauge de Profil",
+        "headline": [
+          "Relevez la forme,",
+          "coupez avec précision."
+        ],
+        "description": "Un copieur de profil à lamelles coulissantes doté d’un levier de blocage, permet de reporter exactement les contours sur différentes surfaces, garantissant des coupes nettes et précises."
+      },
+      "he": {
+        "name": "שבלונת קווי מתאר",
+        "headline": [
+          "העתק את הצורה,",
+          "חתוך בדיוק."
+        ],
+        "description": "סרגל שיניים עם לוחות מותאמים ונעילה, מאפשר להעתיק קימורים מורכבים ולהעבירם לשטחים שונים, תוך אבטחת חיתוכים מדויקים וקצוות נקיים."
       }
     }
   }

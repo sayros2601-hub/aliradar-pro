@@ -47,18 +47,35 @@
     ],
     "2026-11-15": [
       {
-        "catalog_id": "auto-1005013343685372",
-        "product_id": "1005013343685372",
+        "catalog_id": "auto-1005013553805507",
+        "product_id": "1005013553805507",
         "source": "api"
       },
       {
-        "catalog_id": "auto-1005012575372282",
-        "product_id": "1005012575372282",
+        "catalog_id": "auto-1005013158011754",
+        "product_id": "1005013158011754",
         "source": "api"
       },
+      {
+        "catalog_id": "auto-1005012367265501",
+        "product_id": "1005012367265501",
+        "source": "api"
+      }
+    ],
+    "2026-11-14": [
       {
         "catalog_id": "auto-1005009410831317",
         "product_id": "1005009410831317",
+        "source": "api"
+      },
+      {
+        "catalog_id": "auto-1005012919201086",
+        "product_id": "1005012919201086",
+        "source": "api"
+      },
+      {
+        "catalog_id": "auto-1005012687234522",
+        "product_id": "1005012687234522",
         "source": "api"
       }
     ]

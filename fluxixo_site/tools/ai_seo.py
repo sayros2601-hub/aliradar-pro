@@ -160,19 +160,40 @@ OPENROUTER_MODELS = (
     'openrouter/free',
     'meta-llama/llama-3.3-70b-instruct:free',
 )
+CLOUDFLARE_AI_MODELS = (
+    '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+    '@cf/qwen/qwen3-30b-a3b-fp8',
+)
+DEFAULT_CLOUDFLARE_ACCOUNT_ID = 'a4be28e05f73ad2b3939d364ea8b2817'
+
+
+def _resolve_wrangler_oauth_token():
+    try:
+        from fluxixo_ai.image_studio import resolve_cloudflare_ai_token
+        tok, _ = resolve_cloudflare_ai_token()
+        return tok
+    except Exception:
+        return ''
 
 
 def load_ai_keys(local=False, explicit=None):
-    """Read optional free AI keys from explicit mapping, environment, or Windows DPAPI."""
+    """Read optional free AI keys from explicit mapping, environment, or Windows DPAPI / Wrangler."""
     mapping = {
         'GEMINI_API_KEY': 'gemini-api-key.dpapi',
         'GROQ_API_KEY': 'groq-api-key.dpapi',
         'OPENROUTER_API_KEY': 'openrouter-api-key.dpapi',
+        'CLOUDFLARE_AI_TOKEN': 'cloudflare-token.dpapi',
     }
     found = {}
     for env_name in mapping:
-        val = (explicit or {}).get(env_name) or os.environ.get(env_name) or ''
+        val = (explicit or {}).get(env_name) or (os.environ.get(env_name) if explicit is None else '') or ''
         found[env_name] = str(val).strip()
+    if not found['CLOUDFLARE_AI_TOKEN'] and explicit is None:
+        cf_env = os.environ.get('CLOUDFLARE_API_TOKEN', '').strip()
+        if cf_env:
+            found['CLOUDFLARE_AI_TOKEN'] = cf_env
+        elif os.environ.get('FLUXIXO_IMAGE_MODE', '').strip().lower() == 'generate' or os.environ.get('FLUXIXO_USE_CLOUDFLARE_AI', '').strip().lower() in ('1', 'true', 'yes'):
+            found['CLOUDFLARE_AI_TOKEN'] = _resolve_wrangler_oauth_token()
     if local:
         try:
             from dpapi_store import load_credential
@@ -182,12 +203,14 @@ def load_ai_keys(local=False, explicit=None):
             for env_name, filename in mapping.items():
                 if not found[env_name]:
                     found[env_name] = (load_credential(filename) or '').strip()
+        if not found['CLOUDFLARE_AI_TOKEN']:
+            found['CLOUDFLARE_AI_TOKEN'] = _resolve_wrangler_oauth_token()
     return found
 
 
 def has_ai_provider(keys=None):
     k = keys if keys is not None else load_ai_keys(local=False)
-    return any(bool(k.get(name)) for name in ('GEMINI_API_KEY', 'GROQ_API_KEY', 'OPENROUTER_API_KEY'))
+    return any(bool(k.get(name)) for name in ('GEMINI_API_KEY', 'GROQ_API_KEY', 'OPENROUTER_API_KEY', 'CLOUDFLARE_AI_TOKEN'))
 
 
 def _post_json(url, payload, headers, timeout=35):
@@ -276,16 +299,55 @@ def _call_openai_compat(url, key, models, label, system_prompt, user_prompt, ext
                 {'role': 'user', 'content': user_prompt},
             ],
         }
-        if label == 'groq':
+        if label in ('groq', 'cloudflare'):
             payload['response_format'] = {'type': 'json_object'}
         try:
             res = transport(url, payload, headers)
             choices = res.get('choices') or []
             msg = (choices[0].get('message') or {}).get('content', '') if choices else ''
+            if isinstance(msg, dict):
+                return msg, f'{label}:{model}'
             return _extract_json_object(msg), f'{label}:{model}'
         except Exception as exc:
             errors.append(f'{model}:{exc}')
     raise RuntimeError(f'{label} failed: ' + '; '.join(errors[:2]))
+
+
+def _call_cloudflare_ai(token, system_prompt, user_prompt, transport=_post_json):
+    account_id = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '').strip() or DEFAULT_CLOUDFLARE_ACCOUNT_ID
+    url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1/chat/completions'
+    try:
+        if not token or token == 'autopilot':
+            raise RuntimeError('use_worker_endpoint')
+        return _call_openai_compat(
+            url,
+            token,
+            CLOUDFLARE_AI_MODELS,
+            'cloudflare',
+            system_prompt,
+            user_prompt,
+            extra_headers={'User-Agent': 'wrangler/4.162.0'},
+            transport=transport,
+        )
+    except Exception as primary_exc:
+        worker_base = (
+            os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
+            or 'https://fluxixo-autopilot.sayros2601.workers.dev'
+        ).rstrip('/')
+        worker_url = f'{worker_base}/api/generate-copy'
+        try:
+            return _call_openai_compat(
+                worker_url,
+                token or 'autopilot',
+                CLOUDFLARE_AI_MODELS,
+                'cloudflare',
+                system_prompt,
+                user_prompt,
+                extra_headers={'User-Agent': 'fluxixo-ai-seo/1.0'},
+                transport=transport,
+            )
+        except Exception:
+            raise primary_exc
 
 
 def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
@@ -320,6 +382,16 @@ def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
                 system_prompt,
                 user_prompt,
                 extra_headers={'HTTP-Referer': 'https://www.fluxixo.shop/', 'X-Title': 'FLUXIXO SEO'},
+                transport=transport,
+            )
+        except Exception as exc:
+            errors.append(str(exc))
+    if resolved.get('CLOUDFLARE_AI_TOKEN'):
+        try:
+            return _call_cloudflare_ai(
+                resolved['CLOUDFLARE_AI_TOKEN'],
+                system_prompt,
+                user_prompt,
                 transport=transport,
             )
         except Exception as exc:

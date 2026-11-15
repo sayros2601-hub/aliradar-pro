@@ -890,12 +890,16 @@ def extract_isolated_studio_alpha(image: Image.Image) -> Image.Image:
 def resolve_cloudflare_ai_token(explicit_token: str | None = None) -> tuple[str, str]:
     """Resolve Cloudflare Workers AI bearer token & User-Agent, or ('', '') if unavailable."""
     if isinstance(explicit_token, str) and explicit_token.strip():
-        return explicit_token.strip(), 'fluxixo-image-studio/1.0'
+        tok = explicit_token.strip()
+        ua = WRANGLER_OAUTH_USER_AGENT if tok.startswith('cfoat_') else 'fluxixo-image-studio/1.0'
+        return tok, ua
 
     for env_name in ('CLOUDFLARE_AI_TOKEN', 'CLOUDFLARE_API_TOKEN'):
         env_val = os.environ.get(env_name)
         if isinstance(env_val, str) and env_val.strip():
-            return env_val.strip(), 'fluxixo-image-studio/1.0'
+            tok = env_val.strip()
+            ua = WRANGLER_OAUTH_USER_AGENT if tok.startswith('cfoat_') else 'fluxixo-image-studio/1.0'
+            return tok, ua
 
     candidates: list[Path] = []
     appdata = (os.environ.get('APPDATA') or '').strip()
@@ -913,18 +917,45 @@ def resolve_cloudflare_ai_token(explicit_token: str | None = None) -> tuple[str,
         except OSError:
             continue
         oauth_token = ''
+        exp_str = ''
         if tomllib is not None:
             try:
                 parsed = tomllib.loads(raw_text)
                 val = parsed.get('oauth_token')
                 if isinstance(val, str):
                     oauth_token = val.strip()
+                exp_val = parsed.get('expiration_time')
+                if isinstance(exp_val, str):
+                    exp_str = exp_val.strip()
             except Exception:
                 oauth_token = ''
         if not oauth_token:
             match = re.search(r"""^\s*oauth_token\s*=\s*(['"])(.+?)\1""", raw_text, re.MULTILINE)
             if match:
                 oauth_token = match.group(2).strip()
+        if not exp_str:
+            exp_match = re.search(r"""^\s*expiration_time\s*=\s*(['"])(.+?)\1""", raw_text, re.MULTILINE)
+            if exp_match:
+                exp_str = exp_match.group(2).strip()
+        if exp_str:
+            try:
+                from datetime import datetime, timedelta, timezone
+                exp_dt = datetime.fromisoformat(exp_str.replace('Z', '+00:00'))
+                if exp_dt <= datetime.now(timezone.utc) + timedelta(minutes=2):
+                    import subprocess
+                    subprocess.run(
+                        ['npx', 'wrangler', 'whoami'],
+                        stdout=subprocess.DEVNULL,
+                        stderr=subprocess.DEVNULL,
+                        timeout=15,
+                        shell=(os.name == 'nt'),
+                    )
+                    raw_text = cfg_path.read_text(encoding='utf-8')
+                    match = re.search(r"""^\s*oauth_token\s*=\s*(['"])(.+?)\1""", raw_text, re.MULTILINE)
+                    if match:
+                        oauth_token = match.group(2).strip()
+            except Exception:
+                pass
         if oauth_token:
             return oauth_token, WRANGLER_OAUTH_USER_AGENT
 
@@ -1068,13 +1099,13 @@ def generate_studio_cutout(
     ref_bytes = _encode_reference_image(reference_image) if reference_image is not None else None
     subject = ' '.join(str(prompt or '').split())[:220] or 'compact precision product'
     view_angle = ' '.join(str(angle or 'hero front three-quarter studio view').split())[:120]
-    ref_clause = 'Exact same ' if ref_bytes is not None else ''
-    ref_tail = ' shown in the reference image' if ref_bytes is not None else ''
+    ref_clause = 'Only the standalone ' if ref_bytes is not None else ''
+    ref_tail = ' object itself shown in the reference image (remove any person, face, body, hands, or background chart)' if ref_bytes is not None else ''
     full_prompt = (
         f'{ref_clause}{subject}{ref_tail}, {view_angle}, '
         'isolated single standalone product centered on a pure solid #FFFFFF white studio background, '
         'full uncropped object with clean margins, crisp commercial studio product lighting, '
-        'sharp detail, no text, no captions, no labels, no logos, no watermark, no props, no hands'
+        'sharp detail, no text, no captions, no labels, no logos, no watermark, no props, no people, no hands'
     )
 
     safe_model = str(model or DEFAULT_FLUX2_MODEL).lstrip('/')

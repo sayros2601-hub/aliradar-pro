@@ -278,8 +278,12 @@ def discover(
     check_hot_background=False,
     presearch_fn=None,
     preferred_markets=None,
+    required_markets=(),
 ):
-    """Compare API results, screen rarity/presearch, verify target markets, and request exact links."""
+    """Compare API results, screen rarity/presearch, verify target markets, and request exact links.
+
+    required_markets (with check_all_markets): a product must be sold in every one of these countries, otherwise
+    it is skipped (each language's front-page rope shows only products sold in its country)."""
     from . import discovery_curator
     if (isinstance(count, bool) or not isinstance(count, int) or not 0 <= count <= 3
             or not isinstance(existing, list) or not callable(call)
@@ -387,16 +391,21 @@ def discover(
                     continue
             pref_set = set(pref_tuple)
             verified_pool = []
+            full_overlap_count = 0
             for base_neg_score, pid, item in sorted(eligible, key=lambda value: (value[0], value[1])):
                 if check_all_markets:
                     discovery_curator.verify_markets_for_candidate(
                         call, item, discovery_curator.ALL_MARKETS, utc_now.isoformat(),
                     )
                     avail = item.get('availableMarkets') or []
-                    if not avail:
+                    if not avail or not set(required_markets or ()) <= set(avail):
                         continue
                     overlap = len(set(avail) & pref_set) if pref_set else 0
                     verified_pool.append((0 if (not pref_set or overlap > 0) else 1, -overlap, base_neg_score, pid, item))
+                    if not pref_set or overlap == len(pref_set):
+                        full_overlap_count += 1
+                        if full_overlap_count >= 2:
+                            break
                 else:
                     verified_pool.append((0, 0, base_neg_score, pid, item))
             for _, _, _, _, item in sorted(verified_pool, key=lambda v: v[:4]):
@@ -790,15 +799,22 @@ def _default_media_preparer():
             sources = set()
             ref_item = None
             ref_url = None
+            best_luma = -1.0
             for url in urls[:9]:
                 try:
                     loaded = _load_verified_source_image(url, sources, perceptual_index)
                 except Exception:
                     continue
                 if loaded is not None:
-                    ref_item = loaded
-                    ref_url = url
-                    break
+                    cand_img = loaded[0].convert('RGB')
+                    bg = image_studio._estimate_studio_backdrop(cand_img)
+                    bg_luma = sum(bg) / 3.0
+                    if bg_luma > best_luma:
+                        best_luma = bg_luma
+                        ref_item = loaded
+                        ref_url = url
+                    if bg_luma >= 248.0:
+                        break
             if ref_item is None:
                 raise DailyError('visual_quality_failed')
 
@@ -1031,6 +1047,24 @@ def _extract_media_perceptual(media):
     return out
 
 
+def required_markets():
+    """Countries every new product must be sold in (FLUXIXO_REQUIRED_MARKETS, default all six).
+
+    Each language's front-page rope shows the first three products sold in its country, so a new product missing
+    one country leaves an older product hanging under "today's drop" there (2026-11-15: a borescope not sold in
+    Russia and France, a radio not sold in the US and Brazil). 'none' switches the rule off."""
+    from .discovery_curator import ALL_MARKETS
+    raw = os.environ.get('FLUXIXO_REQUIRED_MARKETS', '').strip().upper()
+    if raw == 'NONE':
+        return ()
+    if not raw:
+        return tuple(ALL_MARKETS)
+    markets = tuple(dict.fromkeys(m.strip() for m in raw.split(',') if m.strip()))
+    if not markets or any(m not in ALL_MARKETS for m in markets):
+        raise DailyError('required_markets_invalid')
+    return markets
+
+
 def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None,
                enforce_unique_copy=None, snippet_fetcher=None, preferred_markets=None):
@@ -1086,6 +1120,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         return api_holder[0]
     from . import discovery_curator
     using_default_discover = discover_fn is None
+    must_sell_in = required_markets() if using_default_discover else ()
     if discover_fn is None:
         discover_fn = lambda existing, amount, when: discover(
             get_api(),
@@ -1097,6 +1132,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             check_hot_background=True,
             presearch_fn=discovery_curator.default_web_presearch,
             preferred_markets=preferred_markets,
+            required_markets=must_sell_in,
         )
     if refresh_fn is None:
         refresh_fn = lambda entry, when: refresh_queued(get_api(), entry, when)
@@ -1172,6 +1208,18 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         queue_store.fail(queue_claim['claim_id'], owner, 'duplicate_existing', now=instant)
                     continue
                 exclusions.append({'id': record_item['id'], 'sourceProductId': record_item['sourceProductId'], 'sourceTitle': record_item['sourceTitle']})
+                if must_sell_in and not set(must_sell_in) <= set(candidate.get('availableMarkets') or ()):
+                    # A queued candidate was found before this rule: check every country now, before any image work.
+                    try:
+                        discovery_curator.verify_markets_for_candidate(
+                            get_api(), candidate, discovery_curator.ALL_MARKETS, instant.astimezone(timezone.utc).isoformat())
+                    except Exception:
+                        pass
+                    if not set(must_sell_in) <= set(candidate.get('availableMarkets') or ()):
+                        if queue_claim:
+                            queue_store.fail(queue_claim['claim_id'], owner, 'markets_incomplete', now=instant)
+                        continue
+                    record_item['availableMarkets'] = list(candidate['availableMarkets'])
                 try:
                     if strict_copy:
                         # Reject untranslated or duplicated copy before spending

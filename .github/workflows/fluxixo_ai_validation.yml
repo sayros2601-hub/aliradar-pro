@@ -1,10 +1,8 @@
 name: FLUXIXO one-time authorized validation
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'data/validation_requests/fluxixo-validation-20261110-01.json'
+  # Owner 2026-11-15: Automatic GitHub Actions triggers disabled; Cloudflare Worker handles AI workloads.
+  workflow_dispatch:
 
 permissions:
   contents: write

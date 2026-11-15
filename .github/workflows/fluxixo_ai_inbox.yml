@@ -1,10 +1,8 @@
 name: FLUXIXO shared AI inbox
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - '.fluxixo-ai/requests/*.json'
+  # Owner 2026-11-15: Automatic GitHub Actions triggers disabled; Cloudflare Worker handles AI workloads.
+  workflow_dispatch:
 
 permissions:
   contents: write

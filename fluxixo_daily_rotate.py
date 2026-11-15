@@ -40,7 +40,8 @@ ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "a4be28e05f73ad2b3939d364ea
 PROJECT_NAME = "dealvault"
 SITE_ORIGIN = "https://www.fluxixo.shop"
 BRAND_ACCENT = "#e4007c"
-DEFAULT_IMAGE_MODE = "cut"  # owner 2026-11-14: generation runs on GitHub; Cloudflare is hosting only
+DEFAULT_IMAGE_MODE = "generate"  # owner 2026-11-15: Cloudflare Workers AI (FLUX.2 + Llama 3.3) is primary; GitHub Actions schedules disabled
+DEFAULT_AUTOPILOT_URL = "https://fluxixo-autopilot.sayros2601.workers.dev"
 WORKERS_AI_MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 API_URL = "https://api-sg.aliexpress.com/sync"
 
@@ -125,17 +126,22 @@ def resolve_image_mode() -> str:
 
 
 def _resolve_cloudflare_token(*, optional: bool = False) -> str:
-    """Read CLOUDFLARE_API_TOKEN from environment or local DPAPI store."""
-    token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip()
+    """Read CLOUDFLARE_API_TOKEN from environment, local DPAPI store, or Wrangler OAuth config."""
+    token = os.environ.get("CLOUDFLARE_API_TOKEN", "").strip() or os.environ.get("CLOUDFLARE_AI_TOKEN", "").strip()
     if token:
         return token
     try:
         from deploy_to_cloudflare import get_token
         token = (get_token() or "").strip()
     except Exception:
-        if not optional:
-            raise
-        return ""
+        token = ""
+    if not token:
+        try:
+            from fluxixo_ai.image_studio import resolve_cloudflare_ai_token
+            token, _ = resolve_cloudflare_ai_token()
+            token = (token or "").strip()
+        except Exception:
+            token = ""
     if not token and not optional:
         raise RuntimeError("CLOUDFLARE_API_TOKEN is missing")
     return token
@@ -167,7 +173,7 @@ def _runtime_cloudflare_env(*, needs_token: bool = False):
 
 def report_autopilot_sync(event: str, details: dict | None = None) -> bool:
     """Non-blocking telemetry sync to Cloudflare Autopilot Worker when CLOUDFLARE_AUTOPILOT_URL is configured."""
-    base_url = os.environ.get("CLOUDFLARE_AUTOPILOT_URL", "").strip().rstrip("/")
+    base_url = (os.environ.get("CLOUDFLARE_AUTOPILOT_URL") or DEFAULT_AUTOPILOT_URL).strip().rstrip("/")
     if not base_url:
         return False
     parsed = urllib.parse.urlsplit(base_url)
