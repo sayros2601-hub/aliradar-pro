@@ -4,7 +4,8 @@ Cloud Daily Accumulator & Builder for FLUXIXO (https://www.fluxixo.shop/).
 Runs daily in GitHub Actions (100% cloud, PC off):
 - NEVER deletes any existing products, images, or HTML pages from the catalog.
 - Adds +3 new unique studio-cutout products every day at the front of the collection, continuously growing the catalog.
-- Uses Cloudflare Workers AI direct cutout generation (`FLUXIXO_IMAGE_MODE=generate`, `@cf/black-forest-labs/flux-2-klein-4b`) by default, with legacy `rembg` cutout fallback (`FLUXIXO_IMAGE_MODE=cut`).
+- Cuts each product out of the seller's own photos with `rembg` on GitHub (`FLUXIXO_IMAGE_MODE=cut`, the default since
+  2026-11-14: Cloudflare is hosting only); Cloudflare Workers AI generation (`FLUXIXO_IMAGE_MODE=generate`) stays optional.
 - Rebuilds SEO pages, sitemap.xml, and hashed release bundle.
 - Deploys to Cloudflare Pages (`dealvault` -> https://www.fluxixo.shop/) and optionally syncs telemetry to `CLOUDFLARE_AUTOPILOT_URL`.
 """
@@ -39,7 +40,7 @@ ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "a4be28e05f73ad2b3939d364ea
 PROJECT_NAME = "dealvault"
 SITE_ORIGIN = "https://www.fluxixo.shop"
 BRAND_ACCENT = "#e4007c"
-DEFAULT_IMAGE_MODE = "generate"
+DEFAULT_IMAGE_MODE = "cut"  # owner 2026-11-14: generation runs on GitHub; Cloudflare is hosting only
 WORKERS_AI_MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 API_URL = "https://api-sg.aliexpress.com/sync"
 
@@ -118,7 +119,7 @@ from fluxixo_site.tools import yandex_indexnow
 
 
 def resolve_image_mode() -> str:
-    """Return active studio image mode ('generate' by default, or 'cut' when configured)."""
+    """Return active studio image mode ('cut' by default, or 'generate' when configured)."""
     raw = (os.environ.get("FLUXIXO_IMAGE_MODE") or "").strip().lower()
     return raw or DEFAULT_IMAGE_MODE
 

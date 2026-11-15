@@ -145,7 +145,10 @@ class DiscoveryCuratorTests(unittest.TestCase):
     def test_rotating_queries_rotate_and_cover_all_six_markets(self):
         q1 = discovery_curator.select_rotating_queries(NOW.date().toordinal())
         q2 = discovery_curator.select_rotating_queries(NOW.date().toordinal() + 1)
-        self.assertEqual(len(discovery_curator.CURATED_RARE_QUERIES), len(q1))
+        # Every active curated query rotates in; types already on the site (RETIRED_TYPES) never do.
+        active = [q for q in discovery_curator.CURATED_RARE_QUERIES if q['key'] not in discovery_curator.RETIRED_TYPES]
+        self.assertEqual(len(active), len(q1))
+        self.assertFalse({q['key'] for q in q1} & discovery_curator.RETIRED_TYPES)
         self.assertEqual(set(MARKETS), {q['market'] for q in q1})
         self.assertNotEqual([q['key'] for q in q1[:6]], [q['key'] for q in q2[:6]])
 

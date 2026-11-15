@@ -300,9 +300,17 @@ def discover(
         ai_queries = discovery_curator.generate_ai_discovery_queries(
             existing, target_markets=pref_tuple or discovery_curator.ALL_MARKETS, limit=4,
         )
-        task_seeds = ai_queries + rotated
+        # The tool seeds (with their own six-language copy) back up the curated pool once it runs low.
+        task_seeds = ai_queries + rotated + list(SEEDS)
     else:
         task_seeds = list(SEEDS)
+    # Never the same kind of product twice: drop every type the site already shows (by hand-audited list, by an
+    # earlier product from the same task, or by the task's word groups in an existing English name/seller title).
+    catalog_texts = [str(item[key]) for item in existing if isinstance(item, dict)
+                     for key in ('name_en', 'sourceTitle') if item.get(key)]
+    used_task_keys = {str(item['sourceTask']) for item in existing if isinstance(item, dict) and item.get('sourceTask')}
+    task_seeds = [task for task in task_seeds
+                  if not discovery_curator.type_already_listed(task, catalog_texts, used_task_keys)]
     if not task_seeds:
         return []
     if seeds is not None or not use_curated_pool:
@@ -769,7 +777,8 @@ def _build_media_record(image_path, original_path, original, digest, url, cut_ha
 
 
 def _default_media_preparer():
-    mode = os.environ.get('FLUXIXO_IMAGE_MODE', 'generate').strip().lower()
+    # Cut-out from the seller's own photos on GitHub (how every photo on the site was made); AI generation only on request.
+    mode = os.environ.get('FLUXIXO_IMAGE_MODE', 'cut').strip().lower()
     cf_token, _ = image_studio.resolve_cloudflare_ai_token()
     autopilot_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
     if mode != 'cut' and (cf_token or autopilot_url):
@@ -1033,6 +1042,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         raise DailyError('validation_requires_one')
     if count == 0:
         return {'added': 0}
+    # Only the paid AI-generation mode caps image attempts (the workflow exports it then); unset, the free cut-out
+    # mode keeps trying up to MAX_ATTEMPTS, so one rejected photo no longer cancels the whole evening.
     raw_media_budget = os.environ.get('FLUXIXO_MAX_MEDIA_PRODUCTS')
     if raw_media_budget is not None and not re.fullmatch(r'[0-3]', raw_media_budget.strip()):
         raise DailyError('media_budget_invalid')
@@ -1140,7 +1151,10 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             if queue_batch:
                 batch, queue_batch = queue_batch, []
             else:
-                batch = discover_fn(old + exclusions + [x[0] for x in prepared], needed - len(prepared), instant)
+                # English names let discovery recognise a product type that is already on the site.
+                known = [{**p, 'name_en': translations.get('products', {}).get(p.get('id'), {}).get('en', {}).get('name', '')}
+                         if isinstance(p, dict) else p for p in old]
+                batch = discover_fn(known + exclusions + [x[0] for x in prepared], needed - len(prepared), instant)
             if not batch:
                 break
             progress = False

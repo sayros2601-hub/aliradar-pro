@@ -19,13 +19,13 @@ on:
         required: false
         default: '0'
       image_mode:
-        description: 'Product image mode: generate (Cloudflare Workers AI) or cut (legacy OCR/rembg)'
+        description: 'Product image mode: cut (seller photos cut out on GitHub, default) or generate (Cloudflare Workers AI)'
         required: false
-        default: 'generate'
+        default: 'cut'
         type: choice
         options:
-          - generate
           - cut
+          - generate
 
 permissions:
   contents: write
@@ -43,7 +43,8 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       LEDGER: data/fluxixo_daily_ledger.json
       PUBLISH_STATE: data/fluxixo_publish_state.json
-      FLUXIXO_IMAGE_MODE: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.image_mode) || vars.FLUXIXO_IMAGE_MODE || 'generate' }}
+      # Owner 2026-11-14: products, texts and photos are made here on GitHub; Cloudflare only hosts the site.
+      FLUXIXO_IMAGE_MODE: ${{ (github.event_name == 'workflow_dispatch' && github.event.inputs.image_mode) || vars.FLUXIXO_IMAGE_MODE || 'cut' }}
       CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
       CLOUDFLARE_AUTOPILOT_URL: ${{ vars.CLOUDFLARE_AUTOPILOT_URL || 'https://fluxixo-autopilot.sayros2601.workers.dev' }}
     steps:
@@ -125,9 +126,12 @@ jobs:
           AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
           ADD_COUNT: ${{ steps.today.outputs.add_count }}
           MARKETS: ${{ steps.today.outputs.markets }}
-          FLUXIXO_MAX_MEDIA_PRODUCTS: ${{ steps.today.outputs.add_count }}
           FLUXIXO_STRICT_COPY: '1'
-        run: python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$MARKETS" --prepare-only
+        run: |
+          # Only paid AI generation caps image attempts; in cut-out mode a rejected photo is retried with another
+          # product instead of cancelling the whole evening, so the cap stays unset there.
+          if [ "${FLUXIXO_IMAGE_MODE,,}" = "generate" ]; then export FLUXIXO_MAX_MEDIA_PRODUCTS="$ADD_COUNT"; fi
+          python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$MARKETS" --prepare-only
 
       - name: Persist prepared products and their images before building pages
         if: steps.today.outputs.skip != 'true'

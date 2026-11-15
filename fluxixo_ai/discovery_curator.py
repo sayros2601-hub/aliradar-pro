@@ -92,6 +92,61 @@ def _tokens(text: str) -> set[str]:
     return set(re.findall(r'[a-z0-9а-яё]+', (text or '').casefold()))
 
 
+# Curated product types that already have a product of the same kind on the site, or one so close that a visitor
+# would see a repeat (owner, 2026-11-14: "даже похожее что-то с таким товаром не нужно никогда"). Audited by hand
+# against the English names and seller titles of all 96 products; newer repeats are caught by type_already_listed().
+RETIRED_TYPES = frozenset({
+    'rare_ultrasonic_cleaner_pod',      # find-051 Ultrasonic Cleaner
+    'rare_gravity_spice_mill',          # find-065 Electric Gravity Salt & Pepper Grinder
+    'rare_obd_windshield_hud',          # find-042 Car GPS HUD Speedometer Display
+    'rare_uv_toothbrush_pod',           # find-057 UV Toothbrush Holder & Sanitizer
+    'rare_tennis_ball_pressurizer',     # find-018 Tennis & Padel Ball Pressurizer
+    'rare_mini_thermal_printer',        # find-059 Bluetooth Thermal Label Printer
+    'rare_auto_soap_foamer',            # auto-1005010357329711 Touchless Foam Soap Dispenser
+    'rare_portable_tire_compressor',    # find-060 / import-0074 tire inflators
+    'rare_cordless_electric_scissors',  # find-035 Cordless Electric Rotary Scissors
+    'rare_turbine_air_duster',          # import-0119 Cordless Electric Air Duster Blower
+    'rare_hydroponic_herb_pod',         # find-048 hydroponic garden
+    'rare_infrared_pizza_thermometer',  # find-002 kitchen thermometer: a second one is a repeat
+    'rare_digital_spoon_scale',         # find-062 kitchen scale: a second one is a repeat
+    'rare_pixel_desk_clock',            # find-039 LED matrix pixel panel
+    'rare_bike_laser_lane_light',       # find-028 LED Bicycle Tail Light
+    'rare_usb_voltage_analyzer',        # USB dongle: close to the cable/charger junk the site never shows
+})
+# Fallback seed types that must never run: the owner treats anything cable-like as junk.
+EXCLUDED_SEED_TYPES = frozenset({'cable_fish_tape'})
+_STEM_SUFFIXES = ('ings', 'ing', 'ers', 'er', 'ies', 'es', 's', 'ed')
+
+
+def _stem(word: str) -> str:
+    for suffix in _STEM_SUFFIXES:
+        if len(word) > len(suffix) + 2 and word.endswith(suffix):
+            return word[: -len(suffix)] + ('y' if suffix == 'ies' else '')
+    return word
+
+
+def _stem_words(text: str) -> set[str]:
+    return {_stem(w) for w in re.findall(r'[a-z0-9]+', (text or '').casefold())}
+
+
+def type_already_listed(task: dict[str, Any], catalog_texts: list[str], used_task_keys: set[str]) -> bool:
+    """True when this product type is already on the site: retired by hand, used before (sourceTask), or every word
+    group of the task found (with plural/-ing forms folded) in an existing product's English name or seller title.
+    Unlike matches_rare_query this ignores the commodity ban list, which made real repeats look new."""
+    key = str(task.get('key') or '')
+    if key in RETIRED_TYPES or key in EXCLUDED_SEED_TYPES or key in used_task_keys:
+        return True
+    groups = task.get('groups') or ()
+    if not groups:
+        return False
+    stem_groups = [[[_stem(w) for w in str(term).casefold().split()] for term in group] for group in groups]
+    for text in catalog_texts:
+        words = _stem_words(text)
+        if all(any(all(w in words for w in term) for term in group) for group in stem_groups):
+            return True
+    return False
+
+
 def jaccard_similarity(text_a: str, text_b: str) -> float:
     """Normalized token overlap between two product titles or descriptions."""
     a = _tokens(text_a)
@@ -288,7 +343,8 @@ def select_rotating_queries(
     preferred_markets: tuple[str, ...] | list[str] | None = None,
 ) -> list[dict[str, Any]]:
     """Order curated queries so peak-window target markets come first without starving fallback markets."""
-    items = list(pool if pool is not None else CURATED_RARE_QUERIES)
+    # Types already on the site never enter the rotation (see RETIRED_TYPES).
+    items = [q for q in (pool if pool is not None else CURATED_RARE_QUERIES) if q.get('key') not in RETIRED_TYPES]
     if not items:
         return []
     offset = now_ordinal % len(items)

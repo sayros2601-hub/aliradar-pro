@@ -6105,6 +6105,132 @@
         ],
         "description": "דיספנסר חשמלי נטען ב־USB עם חיישן אינפרה-אדום, מיכל של 320 מ״ל וחמש רמות הקצפה למניעת מגע במשאבה בכיור הבית או המטבח. בדקו בעמוד המוכר את יחס הדילול לסבון הנוזלי ואת כבל הטעינה המצורף."
       }
+    },
+    "auto-1005013343685372": {
+      "en": {
+        "name": "Hand-Crank Emergency Radio Lantern",
+        "headline": [
+          "Light and radio,",
+          "offline backup."
+        ],
+        "description": "All-in-one emergency unit combines a flashlight, compact radio tuner, solar panel, and hand crank for camping or power outages. Verify supported radio frequency bands, port specs, and battery notes before ordering."
+      },
+      "pt": {
+        "name": "Lanterna e Rádio Solar com Manivela",
+        "headline": [
+          "Luz de apoio,",
+          "energia manual."
+        ],
+        "description": "Equipamento portátil que reúne lanterna, receptor de rádio, painel solar e dínamo manual para acampamentos ou quedas de energia. Confira as faixas de sintonia compatíveis e os cabos inclusos com o vendedor."
+      },
+      "es": {
+        "name": "Linterna y Radio Solar con Manivela",
+        "headline": [
+          "Luz y señal,",
+          "sin depender de red."
+        ],
+        "description": "Dispositivo portátil que integra linterna, radio, panel solar y manivela de carga manual para campismo o cortes de luz. Revisa las bandas de radio admitidas y la ficha de puertos antes de comprar."
+      },
+      "fr": {
+        "name": "Lanterne Radio Solaire à Manivelle",
+        "headline": [
+          "Éclairage et radio,",
+          "en toute autonomie."
+        ],
+        "description": "Appareil de secours réunissant lampe, tuner radio, panneau solaire et manivelle dynamo pour le bivouac ou les coupures. Vérifiez les fréquences radio prises en charge et la connectique sur la page vendeur."
+      },
+      "he": {
+        "name": "פנס ורדיו חירום סולארי עם דינמו",
+        "headline": [
+          "אור וקליטה,",
+          "גם בלי חשמל."
+        ],
+        "description": "מכשיר שטח משולב הכולל פנס, מקלט רדיו, פאנל סולארי וידית דינמו ידנית לטיולים והפסקות חשמל. בדקו בפרטי הדגם את תדרי הקליטה הנתמכים וסוגי היציאות."
+      }
+    },
+    "auto-1005012575372282": {
+      "en": {
+        "name": "Articulating USB Borescope with LED Light",
+        "headline": [
+          "See around bends,",
+          "tight spots clear."
+        ],
+        "description": "Inspection endoscope camera on a flexible probe with adjustable LED lighting helps examine pipes, cavities, and engine bays on a compatible screen. Verify probe diameter, cable length, and connector type for your device before buying."
+      },
+      "pt": {
+        "name": "Endoscópio USB Articulado com LED",
+        "headline": [
+          "Veja nos cantos,",
+          "sem desmontar."
+        ],
+        "description": "Câmera endoscópica articulada com iluminação LED ajustável para inspecionar tubulações, frestas e compartimentos mecânicos direto na tela compatível. Confirme o diâmetro da sonda, o comprimento do cabo e o conector antes de pedir."
+      },
+      "es": {
+        "name": "Endoscopio USB Articulado con Luz LED",
+        "headline": [
+          "Explora rincones,",
+          "sin desarmar."
+        ],
+        "description": "Cámara de inspección con sonda flexible y luz LED regulable para revisar tuberías, huecos y zonas de difícil acceso desde una pantalla compatible. Verifica el diámetro de la punta, el largo del cable y el conector exacto."
+      },
+      "fr": {
+        "name": "Endoscope USB Articulé à Éclairage LED",
+        "headline": [
+          "Explorer les recoins,",
+          "sans tout démonter."
+        ],
+        "description": "Sonde d’inspection articulée équipée d’un éclairage LED réglable pour observer conduits, cloisons et mécanismes sur écran compatible. Vérifiez le diamètre de la tête, la longueur du câble et la connectique requise avant achat."
+      },
+      "he": {
+        "name": "מצלמת אנדוסקופ גמישה עם תאורה",
+        "headline": [
+          "רואים לעומק,",
+          "גם בפיתולים."
+        ],
+        "description": "מצלמת בדיקה עם כבל גמיש ותאורת LED להצצה לתוך צנרת, פתחים צרים ותאי מנוע דרך מסך תואם. לפני הרכישה בדקו את קוטר הראש, אורך הכבל וסוג החיבור הנדרש למכשיר שלכם."
+      }
+    },
+    "auto-1005009410831317": {
+      "en": {
+        "name": "Smart Self-Rolling Interactive Pet Ball",
+        "headline": [
+          "Bounces off walls,",
+          "keeps play lively."
+        ],
+        "description": "Motorized rolling ball shifts direction when nudged against furniture, encouraging indoor cats or small dogs to stay active. Check ball diameter, outer shell texture, and charging port setup on the product listing."
+      },
+      "pt": {
+        "name": "Bola Interativa Rolante para Pets",
+        "headline": [
+          "Muda de rota,",
+          "estimula em casa."
+        ],
+        "description": "Bola motorizada que muda de direção ao encostar em obstáculos, ajudando gatos e cães pequenos a gastar energia dentro de casa. Verifique o diâmetro, o revestimento externo e o carregamento USB na ficha do vendedor."
+      },
+      "es": {
+        "name": "Pelota Interactiva Rodante para Mascotas",
+        "headline": [
+          "Esquiva bordes,",
+          "juego activo."
+        ],
+        "description": "Pelota motorizada que cambia de trayectoria al tocar muebles para entretener a gatos o perros pequeños en interiores. Revisa el diámetro, la cubierta exterior y el modo de carga antes de confirmar tu compra."
+      },
+      "fr": {
+        "name": "Balle Interactive Automatique pour Animaux",
+        "headline": [
+          "Trajet imprévu,",
+          "jeu actif."
+        ],
+        "description": "Balle motorisée qui modifie sa trajectoire contre les obstacles pour stimuler chats et petits chiens en intérieur. Vérifiez le diamètre exact, le revêtement extérieur et la recharge USB sur la fiche vendeur."
+      },
+      "he": {
+        "name": "כדור אינטראקטיבי מתגלגל לחיות מחמד",
+        "headline": [
+          "משנה כיוון,",
+          "ומזמין למרדף."
+        ],
+        "description": "כדור ממונע הנע מעצמו ומשנה כיוון במגע עם קירות ורהיטים כדי להפעיל חתולים או כלבים קטנים בבית. בדקו את קוטר הכדור, הציפוי החיצוני ואופן הטעינה לפני הקנייה."
+      }
     }
   }
 }
