@@ -44,7 +44,10 @@ window.MIRA_CATALOG = {
         "status": "not_run",
         "saturated": false
       },
-      "views": [],
+      "views": [
+        "assets/images/auto-1005013553805507-gallery-action-9c503b5c76.webp",
+        "assets/images/auto-1005013553805507-gallery-effect-93be7b0b18.webp"
+      ],
       "sourceImageSha256": "1831e31c2c70895c1f3e3a2453b2ad721f256b33b9ae1335fb61b63d60912ea7",
       "sourcePixelSha256": "b0286c73ab6fb7a8315c6bc3d448f686c0e22d06aceae1dba39adac638e3bb26",
       "imageDhash": "030f4e4f2937232f",
@@ -108,7 +111,10 @@ window.MIRA_CATALOG = {
         "status": "not_run",
         "saturated": false
       },
-      "views": [],
+      "views": [
+        "assets/images/auto-1005013158011754-gallery-action-61bec88107.webp",
+        "assets/images/auto-1005013158011754-gallery-effect-6bac4569cf.webp"
+      ],
       "sourceImageSha256": "90479c3fa30f81473ed12036eeaff587b38cb66852a657ccf256edb70afa0ceb",
       "sourcePixelSha256": "43a7aa84b9c276f19860604257e8bfb486bfd003be564cd1967d1323d5114ab2",
       "imageDhash": "197747ad6c642d8f",
@@ -172,7 +178,10 @@ window.MIRA_CATALOG = {
         "status": "not_run",
         "saturated": false
       },
-      "views": [],
+      "views": [
+        "assets/images/auto-1005012367265501-gallery-action-f71620f4f4.webp",
+        "assets/images/auto-1005012367265501-gallery-effect-6552aea68c.webp"
+      ],
       "sourceImageSha256": "6b49174292e3704a6e73a943666daba49f3a6e9df3d7b07e9bdf63603355e91a",
       "sourcePixelSha256": "73f2bb975790f8bcf0507e50a55682671e5576416bd0f1129798fa61a4c98b6a",
       "imageDhash": "733c8f63530d2330",
@@ -302,7 +311,10 @@ window.MIRA_CATALOG = {
         "heading": "",
         "saturated": false
       },
-      "views": [],
+      "views": [
+        "assets/images/auto-1005012687234522-gallery-action-b1c68098e5.webp",
+        "assets/images/auto-1005012687234522-gallery-effect-58a58bce83.webp"
+      ],
       "sourceImageSha256": "89e80ec8c5cac1651f4d2332a2a698e3bac0a5099b39e36d9d655e2d6871ef17",
       "sourcePixelSha256": "e735258d5afec3f2fda0f7e4b8f2492fd5c5cec004cf3b85ded8ed396af5cae7",
       "imageDhash": "636a6a0a4a4a4a42",
@@ -367,7 +379,10 @@ window.MIRA_CATALOG = {
         "heading": "",
         "saturated": false
       },
-      "views": [],
+      "views": [
+        "assets/images/auto-1005009410831317-gallery-action-e9b029e91f.webp",
+        "assets/images/auto-1005009410831317-gallery-effect-5ab4e92fe6.webp"
+      ],
       "sourceImageSha256": "0e680b7b3a328e0c86094001eeabcb899dee1b017fa37d198f3dee0b73cd702f",
       "sourcePixelSha256": "4264c49fc4b7470fa3524268933d3b1a2406a07fcf29e01fb205fb8eaf34187b",
       "imageDhash": "03636527b1915606",
@@ -585,7 +600,11 @@ window.MIRA_CATALOG = {
       "details": "Экстрактор для извлечения повреждённых винтов. Набор из пяти левосторонних свёрл и экстракторов с прямым хвостовиком рассчитан на ступенчатое выкручивание сорванных и прикипевших болтов в диапазоне от 3,2 до 8,7 мм. Убедитесь в подходящем зажиме патрона шуруповёрта и оцените доступ к шляпке винта.",
       "facts": [],
       "sourceImageSha256": "d1d8ff4810cfd614a4a82662d80063b05aa48e012fd09036b42c36a3fba38d3d",
-      "sourcePixelSha256": "d2a396599fcef724146b772af4fc2c915f0eb87ba3372479715f444e4144a9ab"
+      "sourcePixelSha256": "d2a396599fcef724146b772af4fc2c915f0eb87ba3372479715f444e4144a9ab",
+      "views": [
+        "assets/images/auto-1005004679234788-gallery-action-71c2c1bf73.webp",
+        "assets/images/auto-1005004679234788-gallery-effect-4a8099fd2c.webp"
+      ]
     },
     {
       "id": "find-064-book-light",

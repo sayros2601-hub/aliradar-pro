@@ -1,35 +1,35 @@
 {
   "/": {
-    "sha256": "5c3969b537a483388ee57bad3d34e5a9c5cccd90acc5a107392239c87656eef1",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "1835359d25c7c93539e4ef180878b454ec359ddef4aef7152c6d5f356fbfd7dd",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/catalog/": {
-    "sha256": "6f50627850774cee855208db95c55f86ba323c399ae97914693f47c18f26afb9",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "ecd13d614f914c2b9836a7cef4922e400db0650361e10368d69f618a3d78b938",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/en/products/auto-1005013553805507/": {
-    "sha256": "22b8e24ccaff48418ef792471639e262bb6ee40b6a52aee9290f4cfdbcc980f4",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "1b558a46d2804d2b79b45c8b53db684e83273f4664378c578dd6f474086b6504",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/en/products/auto-1005013158011754/": {
-    "sha256": "daeaf23c6a4b6c2723d847f5627edee32979d18aabcde8fed910a7f7219e87fc",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "a86589b230b671fcc656bb361e02752a8a98a1cc165830e4801eb9f03f7530ee",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/en/products/auto-1005012367265501/": {
-    "sha256": "529c5fd358535faeb266c3ebb144fa36d7630a5639014a5614e608b889083bfe",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "b256768d085b4103fb6fd11c953d2dcf70df4c2b23864138b3d96e1f92a54077",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/en/products/auto-1005012919201086/": {
     "sha256": "692a03ed8dfb1ed1900fd270da0d7a02d4594c3322b18dfb56b21e96f4d13fb1",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/en/products/auto-1005012687234522/": {
-    "sha256": "782bc2eaecd51d473db85832cece821ab3c4f36e4afd666c33ec719f594a26a4",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "2acbe4fbb803f5b422147adb7a256851fde677d8935a1f171ad0e0a310689946",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/en/products/auto-1005009410831317/": {
-    "sha256": "0f2c787ab88059a61c5084135c62bcb5e88331e16d9b5b47b3b3af9fe4f49f75",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "80c7ae7b7a311e3b94ba1bb28a7392d61ac83979979eb99c1d34fa0c9dd790e0",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/en/products/auto-1005010357329711/": {
     "sha256": "f00c5c6c0e715619ffb3c094b79d1f48cb7a86882e25a47131024e788dd5f8cc",
@@ -48,8 +48,8 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/en/products/auto-1005004679234788/": {
-    "sha256": "568a0e91b842d0175bc7ca7fbb6390aa7bf0950dd89d6a69858c52493a874322",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "0b65db10b584373c8075219109e650201b29b5f92c3e7b2a0db67cf3711ef463",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/en/products/find-064-book-light/": {
     "sha256": "7b2573b659e9312fb8f4bb94996500d383ad0c5d2b93c7d9500390d72c3f3bfc",
@@ -456,28 +456,28 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/pt/products/auto-1005013553805507/": {
-    "sha256": "76503e377f9a46e3bf6856cd52f4e1bbe705edfeb3e3da4032c5ce1d22aed7e7",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "7898ea7964abb1e289358a3d518b1cd14e2506ffef7bd8381a454a46ca4a5753",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/pt/products/auto-1005013158011754/": {
-    "sha256": "69261125c135e816ad8b1ed07e9941cd59301f5d3dffed539b66e3453cb4929a",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "81d0813b65e58db3a520ab3bc6bccafe00e717547c437bb85dfbc545e4b0351f",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/pt/products/auto-1005012367265501/": {
-    "sha256": "05335d86dc48d281548e3a072f9566b37ab13d441ccf3fb3d5cecaff839de837",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "8e9abfd488ee35f2c9de947b4a53b2ebac3878fe686cff5f3ed4b710c167e985",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/pt/products/auto-1005012919201086/": {
     "sha256": "1c0859987f14df3a75677be4e58b1fecfcb0976789a52557605b4d1a024ac4d6",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/pt/products/auto-1005012687234522/": {
-    "sha256": "e6bfce21cb5f929a94c3b826b8c1005c34aae9f298b4cabba194aeeae11bc41b",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "bae43da5c9eb1337ad811e87baf11d1b3afb7d6bcce4ebf1c0557dc78225e9d9",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/pt/products/auto-1005009410831317/": {
-    "sha256": "ef3581b3186f38bfd427161f41ff6e528ea8d5d0569c1d5d1dab43d0a5d49a6f",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "f9bb7dabbe8761f1a88e59b2a207883cb8653d0808e73c186662b36f6761e59e",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/pt/products/auto-1005010357329711/": {
     "sha256": "f6435144411e23233622a50ae31c2ba48e9b82c0a6bf8f426b48756a9a5690f3",
@@ -496,8 +496,8 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/pt/products/auto-1005004679234788/": {
-    "sha256": "0594b967dbae417bf35a2a54714ebbcdbf6f8fe7c007d0b5c186aa9cf19a5d86",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "d71c2d636823fac1b3b865b181a26fee6dea769f5f8a49653779586f994ed202",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/pt/products/find-064-book-light/": {
     "sha256": "7b24ec45a7fc3deeb7646c00f12ff1dfacf14e88e48b5eafd74b98b53dc4ca4f",
@@ -900,32 +900,32 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/pt/": {
-    "sha256": "d8ce22b4427f85144b273096f4f27ffc4265834319e6dfc9fc1fdae8f7c13f16",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "43995948a51cc221ccff125f9af026cded3f18822cf06c21df7d4bca138d546a",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/es/products/auto-1005013553805507/": {
-    "sha256": "b93883cef0b76bd0e2415594a6c2aff8cfc83e108e64b3619218c377d1fcb41b",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "e915f5eb13b25e4743efda3f531b9948d06e357acdd32efd22703f581d7e4c04",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/es/products/auto-1005013158011754/": {
-    "sha256": "3ec34d655c4b5bc47976eb71a6285982a176086c185f3658b2a550181c902f94",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "228622bac6d1474fb5df2e69cb1b7b8c593fefeda4f37801d45b9a4da71cb044",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/es/products/auto-1005012367265501/": {
-    "sha256": "f89fdc7e1ea88b77720595d5e5835e211cf294ca4226c368fa421cddfdd60edf",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "10670aed74ad4e241fad53f54961d9d3172bd9648924562985bb6f3c0868cca9",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/es/products/auto-1005012919201086/": {
     "sha256": "d9d8f9b7ec6f662f9ac479adad8031e4662ebcfb452e936f7fa6c62ffb9b07f2",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/es/products/auto-1005012687234522/": {
-    "sha256": "2bfdfc7440f2f912c7bf105518eca21eeb61997fd92c541abd2934f50ca3db7e",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "2219ccad41089b4e353bce64cf362ef33761b13b42b3cd6fe1a8caeb6abb6e12",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/es/products/auto-1005009410831317/": {
-    "sha256": "f8dbc6d3d6c9951ecf07a27304104bf8a1b9c55f3051d677a116c87d62b0854c",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "a293fbabff3183942c8a9df6cbf0ebc1255a3d730675638fc10d2c55f3634bd0",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/es/products/auto-1005010357329711/": {
     "sha256": "3d509439f7918a6b76d058a987625d15d9dff2983ebab4ef1b9fc89df45ac047",
@@ -944,8 +944,8 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/es/products/auto-1005004679234788/": {
-    "sha256": "f7e874e11815f936b7397b19af5568abbc7cb553f613c6e65ba48ec36500040f",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "d458fd82cf926213fc30bfdc2ad795e475708b28312be48c693354e5909e8c80",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/es/products/find-064-book-light/": {
     "sha256": "46d4ccecda4d45b3b0d957875c815a82ad67f299d71e2accf8835575cd49fc91",
@@ -1348,32 +1348,32 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/es/": {
-    "sha256": "7bdf6fe50ba28be9db1a32ea9fae5f3d1f617f9c822c3af9361911ee647c1f72",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "c8577c27db4a57667d13ff04bcb83f42ea25f7bd13439d01563691b8bcaa903f",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/fr/products/auto-1005013553805507/": {
-    "sha256": "80737447d347b1cb232d8d64393146c0423ae9e9ed259fe8fec9d36dffa3b9b3",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "73befda791c2ea4454222539a275f716a642c91e30941a76b5a990218ff8e68a",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/fr/products/auto-1005013158011754/": {
-    "sha256": "2c19ad791237981b52e99a791f93b8b068889e61e55339fdf80edd1d01bdc35f",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "5d7b5bb18c59ae0249b24506292d40020edc7d37390bd2c18fe7e5a44ac78392",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/fr/products/auto-1005012367265501/": {
-    "sha256": "a1c4ba1e7b3b85136650dadace28c287cac547b3a677d78d79434541d43b8eaa",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "fcac7706ac79532cee2f37d8cdf55b2e0df9c9ff9ef21f1cfc668cadc1729b05",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/fr/products/auto-1005012919201086/": {
     "sha256": "b54c3aa124597fdccff06e085d338a31fe9f790021197b0c130df04fee52c6d5",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/fr/products/auto-1005012687234522/": {
-    "sha256": "7e9698c483a1dda9da52b7de2b689d157aec2e5ebb781366bca2b4c6c9087c5a",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "d2cd30ce2850c9cefb5b61c556cfa1a7b1ad8b132500f0ebe60eb9915087cab3",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/fr/products/auto-1005009410831317/": {
-    "sha256": "3ddc77402a356b45cc4b8aa584f71d08bc377021f8288baf656026d1e4cdd379",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "bbafeb956d27d3fa85612fa8a0d21bd420849c5718b0527dcbb492d288c92495",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/fr/products/auto-1005010357329711/": {
     "sha256": "c197dc46b78c612e15451c8dc552d52afe7376cf5693584e14b4dd0019e0a9d3",
@@ -1392,8 +1392,8 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/fr/products/auto-1005004679234788/": {
-    "sha256": "bcd0592d7b7882e830946e6d3aca2d459a9382ca46f7effac7dbb07506d3a80c",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "1093f3a2622ac665af92629e160d47a7bc959fc2f0889109d5ba4292e6e6d800",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/fr/products/find-064-book-light/": {
     "sha256": "27c100d1afe48e0dc615ad6ffa173b622129580547575f2ae521ccf49bc2b091",
@@ -1796,32 +1796,32 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/fr/": {
-    "sha256": "e5dee3d5d29a23bc98166753fc8200af41183576a2833a0dc34a48e772e9f3d2",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "bbc77f33e4192d7f6cf04f5086a1d6bcb5a3552128787d9c92142f2efe8e298b",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/he/products/auto-1005013553805507/": {
-    "sha256": "d744995df24b3a3902faca18265678567760f59791e790f9da2958fc46d93048",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "bf046ce0d9e5f9f2d0cb20a0a508064e551dba7372c62b1b21f3f8b7a5355cfa",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/he/products/auto-1005013158011754/": {
-    "sha256": "b76d70f35ef88e5749c35e400df6b6f6b31852106d45daa390874af3a6104bdb",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "9bd8195b4e205a1dfaa65d05be4910603efa41cca9552596032c221927297a7a",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/he/products/auto-1005012367265501/": {
-    "sha256": "95d095518e53b645975373710eb75e46fcff87b24053a0a675e8549c8c3e7668",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "415c937a7ae26278c2a83e5f621fc58837a473ef7f27eeed3f33fe63f59102cf",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/he/products/auto-1005012919201086/": {
     "sha256": "26bcad23ff971913276e74fb9a94b94803cb238c6ff1ae6ea8ca031e8b112e91",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/he/products/auto-1005012687234522/": {
-    "sha256": "6ab593da0742855026fa1548fe3fd07afcf3641a25bb299a2af4a16e943d91b3",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "9c0a838f927c393242c853f4ac60d1bd3c83e28384455c9ff2f590b73996ed10",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/he/products/auto-1005009410831317/": {
-    "sha256": "316872e98d48971f8eb7458f36576da3f915b80f9076f45ee40082aa3f74cee1",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "6e0d8458405d7b5d9455cc4f0a41c7f58973204a06c3902c918a816211c21e4c",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/he/products/auto-1005010357329711/": {
     "sha256": "e1d55ff71cef860c1f7fdf3614440bbe4cbfaa6058f11de2f5c9c1b8ca8ccd7a",
@@ -1840,8 +1840,8 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/he/products/auto-1005004679234788/": {
-    "sha256": "81432fdf0f193ba212235a41cb39deb3ee95f05eda59ce22172968b9e444eab2",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "ae65ede47a22ad78a5055033b70b241a134e159b17495da31a0a4364e130b922",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/he/products/find-064-book-light/": {
     "sha256": "0eb2c4f2f55709ebaf4983778e2b642c5abd7d66d67b64ae618f937ce11db2b8",
@@ -2244,8 +2244,8 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/he/": {
-    "sha256": "423fd213191cee086ed0eba2095cbf43ac0a3450415da28721854f224a8cde15",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "dee0aa3854aea161e3348e35b4dbec678b6d666ab606010402c6d6b640b6fd95",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/about/": {
     "sha256": "5c851c5a2a3614980fefee220de9f4fe3bccbd9710a0f256fd4bce76f489a7af",
@@ -2420,28 +2420,28 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/products/auto-1005013553805507/": {
-    "sha256": "5e1f4c8717eb546557eca1a4b4e83d32c7df031c31324ed60a303d9c28c9309d",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "678a256a6389b62711703d41e15b135d94dfd97cfa63440a34f729c405815a78",
+    "lastmod": "2026-11-16T10:38:39+00:00"
   },
   "/products/auto-1005013158011754/": {
-    "sha256": "b96f96849e81002f1ac62ed067867c2970bdfaf2e53521fefec3e3f71a074e4a",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "0c358e8dd769a04452c7eec6d49a03603c26f769a79b298185d13315af65b4fe",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/products/auto-1005012367265501/": {
-    "sha256": "a92196ad1a004c0d51905c206d22b88d1a6ed67fc241e3788d7ae72daedbfd22",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "ec005265fb988bc810a1ca54abc5d4ab252f45c2b6dcd4bc47f9548c7761a3bf",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/products/auto-1005012919201086/": {
     "sha256": "f3e30d5b74e311bdf1c167b02f1b69bc85c25b3f2c67d59c95595effe0e632a9",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/products/auto-1005012687234522/": {
-    "sha256": "b944c4d73ebe226fdd4bbb23b790d2afe25b78f907ee96b93367e2e3d5d5556e",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "80f6da67e4026e4150dc8e66547f2ceb17e9557b091c4515916ba3f7888b91f4",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/products/auto-1005009410831317/": {
-    "sha256": "352dcad4490d1048160efe9addde0bfdd911158f1f94b0258716d21b3faa0d26",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "53447d6fcf266952b3086e1432483635e0e6bfd29345cc7b3f16227f32a0f3d9",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/products/auto-1005010357329711/": {
     "sha256": "29accaa6966bc71d3ebc13f201ed438f18789b619f8ea3e3abe8fd55b8af373f",
@@ -2460,8 +2460,8 @@
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/products/auto-1005004679234788/": {
-    "sha256": "1f367b646dbe172375affcfcbca80ef0c6947fe91a0a1710942e1e2ee98630b8",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "531a1303946627c1f8801b39f931a124657a5837f12ee9e715c43c74f439ac2e",
+    "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/products/find-064-book-light/": {
     "sha256": "b742a1d872091b65237f3b75b0903c4e662625b76c907a967aaa383fa4baf45f",
