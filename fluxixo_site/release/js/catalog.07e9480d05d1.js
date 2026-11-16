@@ -449,7 +449,10 @@ window.MIRA_CATALOG = {
         "status": "unavailable:JSONDecodeError",
         "saturated": false
       },
-      "views": [],
+      "views": [
+        "assets/images/auto-1005010357329711-gallery-action-1dca7b9400.webp",
+        "assets/images/auto-1005010357329711-gallery-effect-2007814ad5.webp"
+      ],
       "sourceImageSha256": "d31d896e042a56d2073ce102d8e650a61fc642d57e5522ca930d3534e9a4aaa2",
       "sourcePixelSha256": "d393638869e87227facc678b280f1bfe80c2f6c7bec0fcf301acf8fef32aa2e3",
       "imageDhash": "2726262625070607",
@@ -795,7 +798,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005010192060931",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010192060931.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010192060931.html",
+      "views": [
+        "assets/images/find-063-cable-tester-gallery-action-0c24926897.webp",
+        "assets/images/find-063-cable-tester-gallery-effect-821749aa21.webp"
+      ]
     },
     {
       "id": "find-057-uv-toothbrush",
@@ -823,7 +830,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012725447808",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012725447808.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012725447808.html",
+      "views": [
+        "assets/images/find-057-uv-toothbrush-gallery-action-944629a5e8.webp",
+        "assets/images/find-057-uv-toothbrush-gallery-effect-9859f24074.webp"
+      ]
     },
     {
       "id": "find-058-key-finder",
@@ -915,7 +926,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008380178784",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008380178784.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008380178784.html",
+      "views": [
+        "assets/images/find-054-soldering-iron-gallery-action-99cb26ac92.webp",
+        "assets/images/find-054-soldering-iron-gallery-effect-7af7838d7a.webp"
+      ]
     },
     {
       "id": "find-055-lint-remover",
@@ -975,7 +990,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013525988012",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013525988012.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013525988012.html",
+      "views": [
+        "assets/images/find-056-milk-frother-gallery-action-a1eab10549.webp",
+        "assets/images/find-056-milk-frother-gallery-effect-e865f64d5a.webp"
+      ]
     },
     {
       "id": "find-051-ultrasonic-cleaner",
@@ -1003,7 +1022,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013151609503",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013151609503.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013151609503.html",
+      "views": [
+        "assets/images/find-051-ultrasonic-cleaner-gallery-action-d800b6c197.webp",
+        "assets/images/find-051-ultrasonic-cleaner-gallery-effect-e2dde4b11f.webp"
+      ]
     },
     {
       "id": "find-052-laser-meter",
@@ -1031,7 +1054,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013381565639",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013381565639.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013381565639.html",
+      "views": [
+        "assets/images/find-052-laser-meter-gallery-action-b754fc3ead.webp",
+        "assets/images/find-052-laser-meter-gallery-effect-4e21e4c2c3.webp"
+      ]
     },
     {
       "id": "find-053-vacuum-sealer",
@@ -1091,7 +1118,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005010122561084",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010122561084.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010122561084.html",
+      "views": [
+        "assets/images/import-0024-gallery-action-7bf4bc068b.webp",
+        "assets/images/import-0024-gallery-effect-17dc3ae563.webp"
+      ]
     },
     {
       "id": "find-001-neck-cooler",
@@ -1119,7 +1150,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005011798288613",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011798288613.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011798288613.html",
+      "views": [
+        "assets/images/find-001-neck-cooler-gallery-action-d2bd7f3707.webp",
+        "assets/images/find-001-neck-cooler-gallery-effect-c99e1d846d.webp"
+      ]
     },
     {
       "id": "find-002-meat-thermo",
@@ -1231,7 +1266,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013138934226",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013138934226.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013138934226.html",
+      "views": [
+        "assets/images/find-005-moto-tpms-gallery-action-43d7beb09a.webp",
+        "assets/images/find-005-moto-tpms-gallery-effect-9453176736.webp"
+      ]
     },
     {
       "id": "find-006-phone-cooler",
@@ -1259,7 +1298,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013069561167",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013069561167.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013069561167.html",
+      "views": [
+        "assets/images/find-006-phone-cooler-gallery-action-173b87215e.webp",
+        "assets/images/find-006-phone-cooler-gallery-effect-224aa2074b.webp"
+      ]
     },
     {
       "id": "find-007-phone-gamepad",
@@ -1343,7 +1386,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013147484784",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013147484784.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013147484784.html",
+      "views": [
+        "assets/images/find-009-bulb-camera-gallery-action-3bb6a6d366.webp",
+        "assets/images/find-009-bulb-camera-gallery-effect-bec7b76bcc.webp"
+      ]
     },
     {
       "id": "find-010-gallon-pump",
@@ -1371,7 +1418,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012329741557",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012329741557.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012329741557.html",
+      "views": [
+        "assets/images/find-010-gallon-pump-gallery-action-c4ec6183d7.webp",
+        "assets/images/find-010-gallon-pump-gallery-effect-52cffdfbd6.webp"
+      ]
     },
     {
       "id": "find-011-nail-drill",
