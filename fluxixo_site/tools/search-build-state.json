@@ -20,8 +20,8 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/en/products/auto-1005012919201086/": {
-    "sha256": "692a03ed8dfb1ed1900fd270da0d7a02d4594c3322b18dfb56b21e96f4d13fb1",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "9ba021c3cb37093d6348af87ae41ce9671563f2ecbe5a43b25a85e5bf09a2fc5",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/auto-1005012687234522/": {
     "sha256": "2acbe4fbb803f5b422147adb7a256851fde677d8935a1f171ad0e0a310689946",
@@ -52,24 +52,24 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/en/products/find-064-book-light/": {
-    "sha256": "7b2573b659e9312fb8f4bb94996500d383ad0c5d2b93c7d9500390d72c3f3bfc",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "a7919e4e5479e2c82df7e6f92320b3ff9851a2f823608d6d42250d0dff8e7873",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/find-065-spice-grinder/": {
-    "sha256": "f2f853c584f6feabe69a5f667203b2b16a47efb88903b9e59315f749e08a399e",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "9aa5a3f096b6533b3402f7428490ae5c8ac6e55765ee69055cc9d03f0e27ce78",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/find-067-pill-organizer/": {
-    "sha256": "dbfb0bf6b7889e5464858b603da0b2e16b0c0da4acab63161caf06335e6cf948",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "9ef64a5497d6b5b6c449a7f8b9698c70a53b6903d0b440c660383595d73062f8",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/find-060-tire-inflator/": {
-    "sha256": "aca86f13d385960be80c505c212dc351a1cf831dd34d6ebe5868ff3296a64615",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "fbd25654f0f341edc4d6a9218c246171041463d73f38c75c127e56bdf49f76b5",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/find-062-coffee-scale/": {
-    "sha256": "0d176fbaa1bc421169098b4b5e27df8f5cef7346654a3a3603a0b9fc0411e2ac",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "6e7cd4315d5cd6b610ac7bfeaeb2a0f7949d4bc97ce82cf25c4d79240a774852",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/find-063-cable-tester/": {
     "sha256": "175774597551c24b1baf79e3f6be3e9c18b58bf036bde4c029fd0dc2b15599a0",
@@ -80,20 +80,20 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/en/products/find-058-key-finder/": {
-    "sha256": "a757f60aae3bac4911ed7b101752ee8b193cb1ccd219235bd475b45c31258256",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "028dacd75c0206616d616f8c3482a0105d76687b3c6b1d85521558b0e7ac9db5",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/find-059-label-printer/": {
-    "sha256": "9fde1c711736900cf036031321caff35e6da0eedf321460fae236c1e3e484c2d",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "d0ab04a27b3a3178c5f79441b0f5f582ed7addc029c73dc8c7fcbaf424de1602",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/find-054-soldering-iron/": {
     "sha256": "e49db85dcb83944cc051ae510029af47b41b2f11675034cf0b8cc328f987a609",
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/en/products/find-055-lint-remover/": {
-    "sha256": "fe4b6df059d99d57ce392d2d2ad6cdd002379580c917ba6f326c78d4e984b902",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "fa09704c38faca50abf5df9b88ec5fe46a9493ca3fccaddd2708a66a600836f2",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/find-056-milk-frother/": {
     "sha256": "d8cc41a6f09a49fcbda807f22aa5c6a44993a8a841a2e8ad1d21c22661312deb",
@@ -108,8 +108,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/en/products/find-053-vacuum-sealer/": {
-    "sha256": "41be45abbe1bb9ff1b4188f438aac226cf504447532220fd6d471bedbb226ed5",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "e057bed71126d858d5c91d1fb4744532c96f24e92c9ba2a09ec7b0bd376c599a",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/en/products/import-0024/": {
     "sha256": "43e45e4ef61f8e1e8b9610412846ace21996c3d91f18a51365fbe7c249eb38fc",
@@ -468,8 +468,8 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/pt/products/auto-1005012919201086/": {
-    "sha256": "1c0859987f14df3a75677be4e58b1fecfcb0976789a52557605b4d1a024ac4d6",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "a3abf440a182ccb1d67f4697168f4c850dd3934226ad36d2524454598edc6668",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/auto-1005012687234522/": {
     "sha256": "bae43da5c9eb1337ad811e87baf11d1b3afb7d6bcce4ebf1c0557dc78225e9d9",
@@ -500,24 +500,24 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/pt/products/find-064-book-light/": {
-    "sha256": "7b24ec45a7fc3deeb7646c00f12ff1dfacf14e88e48b5eafd74b98b53dc4ca4f",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "960a3fbe7e423c8787ef9fdc3a835ebdb3063e85d8957cec027324d30390a033",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/find-065-spice-grinder/": {
-    "sha256": "6502fb7c7124af5f0ccf0be8c6864b388f333932126c55c7abc0ac8dbdbc4fd9",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "c1bd7aaea851a0ae2c6587b3fc45f98b26980ce40dacf5c9d72076aae0fd30f5",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/find-067-pill-organizer/": {
-    "sha256": "d095f7441c03b34cd05c7581c3dd0077f78388b97a89a288c57147c75741118e",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "123b9b1062b387cdbe8f1ea05ee525462da2f2b648972db7fb767eebc3b28524",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/find-060-tire-inflator/": {
-    "sha256": "15454b66b4c9dc6e11108358b2f7e78c298007d187fa55899fba93585e553eb7",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "9daf09f90e3234a737177bb50e4a786e62c1a683479346eae516e8840cab2215",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/find-062-coffee-scale/": {
-    "sha256": "2a83a7ae907eaaa7b0941670551c0cbbfe4e19e35cd9dfe1e09928aada016881",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "2b58d8ffa71ab86162aa870df882ff1d90279a2e49a7777a438532118ace53ad",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/find-063-cable-tester/": {
     "sha256": "c61604f13035fc57a219c6a76075c1f61311c14d2eaf51474274c2c84bf0ea40",
@@ -528,20 +528,20 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/pt/products/find-058-key-finder/": {
-    "sha256": "2c4769ee3eef95b0152f5a0ffc903d9b32659b99446c030b54c2f13be27e521a",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "b1afebcf35bb254c9521e0b87cd75d4806a4b7f7586e32b21da52a69369b9281",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/find-059-label-printer/": {
-    "sha256": "fba34940978b64e31a10e7a8e15a6dfff29f3451f62aadd34818ba83c5de0e68",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "40e589248c4395f2fa2fb1aadba5b97d111b531746f212fbd8b5d9b6fe7156df",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/find-054-soldering-iron/": {
     "sha256": "a6281cbba2fc6a3938bf35c8eadd153d14ceca2fc1eb7f0fb688f3ecf178874c",
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/pt/products/find-055-lint-remover/": {
-    "sha256": "1bf1d1d187754587b2fa28ddc4648155f3bfb1122368f35c055b08309e3a53f8",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "2a8830d96adb3730f3a0dcc77fe14e4c133509fd4d432481c98025fec69f182b",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/find-056-milk-frother/": {
     "sha256": "0b8cc3be940913410b430fbc4cd277ef352cd6470e4164769a13416b9fdce8c2",
@@ -556,8 +556,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/pt/products/find-053-vacuum-sealer/": {
-    "sha256": "6caa56ba69f55a7b210bb6660378fa0dc91840a1c17099cab50d460804ea87a2",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "e8092561ad85652d5183cfd250a7111a6ad412a9a51b2625a5152a43b4f49779",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/pt/products/import-0024/": {
     "sha256": "afbe728e5dce48bed03f117e80739ab38cfde9a74260c32eda4e89c3df11bf98",
@@ -916,8 +916,8 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/es/products/auto-1005012919201086/": {
-    "sha256": "d9d8f9b7ec6f662f9ac479adad8031e4662ebcfb452e936f7fa6c62ffb9b07f2",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "ded03cb76c8bd50279e6dd9f33e9b2f741dcb41b45408af4ef39849159d7ff7e",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/auto-1005012687234522/": {
     "sha256": "2219ccad41089b4e353bce64cf362ef33761b13b42b3cd6fe1a8caeb6abb6e12",
@@ -948,24 +948,24 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/es/products/find-064-book-light/": {
-    "sha256": "46d4ccecda4d45b3b0d957875c815a82ad67f299d71e2accf8835575cd49fc91",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "ee9ca3492e5489123e68be865310e7aa114d47218501de1ce553bd0005c6817a",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/find-065-spice-grinder/": {
-    "sha256": "566ebed58fed1714ee335b80b896f29576ae4001065024d686ca66aa52dfcee8",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "ae5c5e0bb9f2b08cc241d1b59a11a93ba7c665b414d7d8704a719e68f71d0b2c",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/find-067-pill-organizer/": {
-    "sha256": "911d3a80ea6021bb905a919bdadf9c7e105525490790e6344aa6e7c826d70067",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "b8353072896defdc23948734dabc1abf3ce5a26faeef1e2e6144b0cf372d716a",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/find-060-tire-inflator/": {
-    "sha256": "ea69b92d511d6d731fe133378a5fb58197ba26d871d44575b83d290820f71746",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "f395d9f59573438e6f0bef841cae3829dfd7ea07394eba50fb5913d2720dcf0f",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/find-062-coffee-scale/": {
-    "sha256": "ca871b3145626766bf67f797d94c85417c27e36d8cffc2d87d6145a8fef0bbfa",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "5424af5d6e71da3e24232d2755faaf8e345d42bfbbb1ef9ed93b302f3606b6d8",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/find-063-cable-tester/": {
     "sha256": "4f88d7eac4bf30d5cfc11e10df240d366de56eedc4e16e139ad322130681258f",
@@ -976,20 +976,20 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/es/products/find-058-key-finder/": {
-    "sha256": "74f2542e67c8191bdd6ea8aec77b8d6bdba3acf533b6a39f9462bbb93a3d112e",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "fae31be22135a7a26a35ee526c4af57bbe0a5d53a83d287c533d8622f3208b6c",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/find-059-label-printer/": {
-    "sha256": "e2adfa76b94413a4b3759928c0eeb02fb6eaddb9eda3ce0c86b8775e19e4d2f8",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "39edb8b84dc4cf285cb4fb3960f20a9cda03d5b253ccdc205022eeccbed3b059",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/find-054-soldering-iron/": {
     "sha256": "bc80f356a2a7221dfd2b257bbe9701950890760993962a41ba04be483b9bab5a",
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/es/products/find-055-lint-remover/": {
-    "sha256": "6e073124408d948d615dfb790f8e273aaa5edacd8017bcf9c53f077446389b47",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "7ec18b3db6089f7ef529328e2f042f7a7540d16e711321ab18e288673fe0cdfc",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/find-056-milk-frother/": {
     "sha256": "478821d50fb29f352fb21303b026804f047f2ebdf741981fefc36c7e9f0baac1",
@@ -1004,8 +1004,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/es/products/find-053-vacuum-sealer/": {
-    "sha256": "234a5541120e0e32cdc03531b6403ac0471966f508280d8f20c116382301a12b",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "71aa7aed238dbf03d57b9d75504ba3a710f151d9bc2b42e38f6c313de7e8a055",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/es/products/import-0024/": {
     "sha256": "72f907a4a279ce7ee3a2ad85ba1600fd60177df966b7b415393960680bc9a25c",
@@ -1364,8 +1364,8 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/fr/products/auto-1005012919201086/": {
-    "sha256": "b54c3aa124597fdccff06e085d338a31fe9f790021197b0c130df04fee52c6d5",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "7c53637ba3cfa270317081729763a1b60f233cebc50b9ec43be0fdf7bd9ebada",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/auto-1005012687234522/": {
     "sha256": "d2cd30ce2850c9cefb5b61c556cfa1a7b1ad8b132500f0ebe60eb9915087cab3",
@@ -1396,24 +1396,24 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/fr/products/find-064-book-light/": {
-    "sha256": "27c100d1afe48e0dc615ad6ffa173b622129580547575f2ae521ccf49bc2b091",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "3fded9de590007e2ccf34b682faf00516174a8f9510c0f7b9e17daba85a36e53",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/find-065-spice-grinder/": {
-    "sha256": "04d4d7acd01f4e197263f0c106ea78cc506ff0752b8531d018d54c17d5e0e4c0",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "b352cd483184b405fe6fdbcf6faf0b1d9f94994c8724dc78df6e045d35afb2af",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/find-067-pill-organizer/": {
-    "sha256": "0c5c5f520c2122334cb7f4a84266fcbf5a54f7132135f4a1ef4e115b37e9d289",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "e9d5f67d48d98dd60dce3e3514fbb6bb6c8c5314b0814cf36046688a42658156",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/find-060-tire-inflator/": {
-    "sha256": "c0b62cbe62b0fecd1f0a8423993b8268e3fed2d64ee29b1ec3a82ab382083c54",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "da61a42d9340f3d32e5a36551bd9f2780332872bc42a768f3fa7c7caf4f038fe",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/find-062-coffee-scale/": {
-    "sha256": "30a05fd03ddd95137514341b07bc3a839b153fc61de1450b080d00bf1430a02d",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "b817f8c75dbc943bd264357e1fdc75c881d5b55beb5b8a8d6f928962c6665085",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/find-063-cable-tester/": {
     "sha256": "d7e33f59ccf50cf696550f447615300cad6657d34aed37fcaf1c733f9e94838c",
@@ -1424,20 +1424,20 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/fr/products/find-058-key-finder/": {
-    "sha256": "a11d93af8e1bd113dfc6dbcdae021f974893ed7854f3ff906e236cd62017c701",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "c386cfe0058845d1ee1a34a8a194c936e8857e3a38e83efd061ebc50b32bff15",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/find-059-label-printer/": {
-    "sha256": "72c9b030113814c375d5942063d6b7a5bf57dc2509b487bb6acc046b5deb7a85",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "e886fc9c0f1d1339191395a0ba16be0649b9b08cae629bfa0d6c25fef2d6c612",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/find-054-soldering-iron/": {
     "sha256": "3f05f74f87503982feef4735384ef56447a99b15f1a8a784c495a0ce2cb0fd22",
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/fr/products/find-055-lint-remover/": {
-    "sha256": "316f862e737af6e9b85f9706bc12e8da7613d0a59036f3d5a8c393b82c5bd32b",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "7c5ed719be61cd69c331edbae646efc872a8cb0ff0962a1678a5468477d85848",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/find-056-milk-frother/": {
     "sha256": "b12362decc162ed143f4944618b038fa48d50c036be0c5447ce4b775ce9ee5b0",
@@ -1452,8 +1452,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/fr/products/find-053-vacuum-sealer/": {
-    "sha256": "05c9498990b89a70048e8663561d46f053e76ba766a230af57591b14532484d8",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "3ddc4a2adbca9b7bc96b0ec85e89804d038f0207e104a04f926559826ee474e9",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/fr/products/import-0024/": {
     "sha256": "6f1a27368267619ad9d560550daa19d3fe205772fd5ee620a00cb6e1712530f5",
@@ -1812,8 +1812,8 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/he/products/auto-1005012919201086/": {
-    "sha256": "26bcad23ff971913276e74fb9a94b94803cb238c6ff1ae6ea8ca031e8b112e91",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "8c870938d5d01eb1965b4c8afbf3f62835f5a124f724f09073a8733b15430a5e",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/auto-1005012687234522/": {
     "sha256": "9c0a838f927c393242c853f4ac60d1bd3c83e28384455c9ff2f590b73996ed10",
@@ -1844,24 +1844,24 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/he/products/find-064-book-light/": {
-    "sha256": "0eb2c4f2f55709ebaf4983778e2b642c5abd7d66d67b64ae618f937ce11db2b8",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "0bbcaab573b4d52702deb460da91b6c0630369aa6b2277c1603e7e32a882dbdc",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/find-065-spice-grinder/": {
-    "sha256": "98c84debfba59001ebad201053adb4a0bc1d1e3fcf5aec8aea37f7409fce2515",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "edbab2ff58d3e740770a631e5bd72ee9c139e04d95aac2d199c971577406b823",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/find-067-pill-organizer/": {
-    "sha256": "a8a6aa0e21542846463307314dd8c0d9d2aca08abaa336175863d0b80018f826",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "c4ba1215610d6701668e8974455ea205851379ce3d1c9c5e760360f1ff16bd07",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/find-060-tire-inflator/": {
-    "sha256": "99d9a7a6172df2a43d61e44f4dd8d2367c34666f6a75b0e8183ba79117654c07",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "a14a6d481e3b97fe20b0a4a0e09f807cb3c273e51e369aa6c883508ca5b1a4be",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/find-062-coffee-scale/": {
-    "sha256": "096b4cd742287f071de6cdb542ee006e9a2da78977e6a520ec5ac83cfdb067f8",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "403738b8492102abfc73f5d4bb1169968dc06b49f81a52175ed13410a4b21e18",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/find-063-cable-tester/": {
     "sha256": "a5323675fbe737da0232c8814570b422bfdfaebacb89c10f5a94efd0927aa184",
@@ -1872,20 +1872,20 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/he/products/find-058-key-finder/": {
-    "sha256": "8eb822bfca92a948ff714caf37a309d4ed83a20192e0080afc031259ede73ff0",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "4c5da15de6c346f657c537cda7ede1603e80b16f389e64991ff7aa6d7b6515ff",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/find-059-label-printer/": {
-    "sha256": "0d067e0fd62a6fb5ceaa15418e2b0e7dee482df61c00d9a148df5d86abff7152",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "87b29926ace9fac31147fa33f59850626d82363a150129741f77ea018d763148",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/find-054-soldering-iron/": {
     "sha256": "fd0b0d3c3aa044bf6d63f7834f2f3430a7d403fbfdbb1ff0a97bdac7b9f12c40",
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/he/products/find-055-lint-remover/": {
-    "sha256": "ce56ff70484641e9cbb9a09488e4f5b3ab90182c5b7ca83de0d26cda3df96a04",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "acad34f3894d59a63872d265df7de06bc95cc82495ca2463f4db39f30e893672",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/find-056-milk-frother/": {
     "sha256": "3b5941299b9e2e186aba257b8b84efa7a85ab1c9132cf3065b9c6d0b9eb09002",
@@ -1900,8 +1900,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/he/products/find-053-vacuum-sealer/": {
-    "sha256": "b6efd1725eee8586797d6775759a838e4ff9534eb5e23176f824d943f3a41efb",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "24433d80fe9c564c930fe717f528c2489ec03479a955437ab6ca77520a995b4e",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/he/products/import-0024/": {
     "sha256": "3df7ce8dd4f3bcfd6d8bd3ec1926d870b0d4703d1dd1b83743f07cf8af8a646b",
@@ -2432,8 +2432,8 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/products/auto-1005012919201086/": {
-    "sha256": "f3e30d5b74e311bdf1c167b02f1b69bc85c25b3f2c67d59c95595effe0e632a9",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "7e9cc26a96ff46032cd5f62e00d7b2f0238377ef7553c638f1eae5718c3906de",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/auto-1005012687234522/": {
     "sha256": "80f6da67e4026e4150dc8e66547f2ceb17e9557b091c4515916ba3f7888b91f4",
@@ -2464,24 +2464,24 @@
     "lastmod": "2026-11-16T10:44:52+00:00"
   },
   "/products/find-064-book-light/": {
-    "sha256": "b742a1d872091b65237f3b75b0903c4e662625b76c907a967aaa383fa4baf45f",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "6effd2211d6e20d47bea52e7f206052effcc33f8a99149ef2eb59b4f5c74ea56",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/find-065-spice-grinder/": {
-    "sha256": "8bd62f625f22c57e5855561015a5df75fc6bebe45c7bcef573acefae4bbddc1a",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "ee565149b79cf54cdaabacbb2a1154be5ca0c38972e59d6973aac822ef1b2ec7",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/find-067-pill-organizer/": {
-    "sha256": "b1a0a4823c7c7183e5b8429db3d87e3e9b642f345659e0e276ae5b3565e31255",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "03b40dc97ca12476687a1336cacc6b592a368d040ee5fa1a53694ddb0841983a",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/find-060-tire-inflator/": {
-    "sha256": "cb4f1e417b47a514068dcb210f6a67d24892f6e6804dd05326872fc02d84ef38",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "503235db185c298601d4eb0bce6d6c48f6d85694fbcffba24c9899019df1cf11",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/find-062-coffee-scale/": {
-    "sha256": "a11a4ce169a893474ecebb273ab68f3c6c1d91f9dcbadfa8bf13869ea8edd2a8",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "55a35363edd07654700c71ae51eaf4f136e7ea65b021c6ee50cd6aaa3ffda88d",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/find-063-cable-tester/": {
     "sha256": "52c8672cb65da11eacd9b279176c6d1deb431a3cad15dd52d3bf30f7d6917d42",
@@ -2492,20 +2492,20 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/products/find-058-key-finder/": {
-    "sha256": "8e8970b54466c8cbce1a4c88bf4e79f2356744f3f36b0aafa27d69ed33b9e74f",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "e5edf3ee291dfcafc8bac9f1f3050baf09feece4b0487f971743d80894d9d152",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/find-059-label-printer/": {
-    "sha256": "04e0458561aea0e246dc094a9ad851178f697a09aa638cbb7b6b2a8554808437",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "638f144ee611c3399cd092cf124931d5d8638ffbe7369bf83c5351eef84a9d9f",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/find-054-soldering-iron/": {
     "sha256": "2914d429a78b878aad59ac11b6cdca22ddb3360cced1816e3916aef9c70e3817",
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/products/find-055-lint-remover/": {
-    "sha256": "5842c48526814463336b865faf527c5dadfff1ac0aa016a149cd627e92550c19",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "86a10a1349b751f612f09ac22499dabeac7fc26a09e46f6736b32b972f5b2d3b",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/find-056-milk-frother/": {
     "sha256": "81fa0e64cc2885f20cff93ef6b0c7b2a57d787e117d126f3bab50aa259aa72f5",
@@ -2520,8 +2520,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/products/find-053-vacuum-sealer/": {
-    "sha256": "9005d3c00897a7c8e0c2a7395e4e84a6949afd4a686e199cb785daa6cf25bc71",
-    "lastmod": "2026-11-14T17:12:02+00:00"
+    "sha256": "9efba9de8985fc14a4001e84bc6a7ad643566aa29bfe1e75d6c147d20e810237",
+    "lastmod": "2026-11-16T10:54:26+00:00"
   },
   "/products/import-0024/": {
     "sha256": "20d366d8347cb9f1f730fc2f415e3205248a7c78e577bef8dca5fde8b4743374",

@@ -246,7 +246,10 @@ window.MIRA_CATALOG = {
         "heading": "",
         "saturated": false
       },
-      "views": [],
+      "views": [
+        "assets/images/auto-1005012919201086-gallery-action-9b8c8179f0.webp",
+        "assets/images/auto-1005012919201086-gallery-effect-2859e90122.webp"
+      ],
       "sourceImageSha256": "e2a831228b589aa562fb43263f4e6a11897e1ebb1b08ff2f9933af7db7a72ccc",
       "sourcePixelSha256": "80b8158fea0123800a4aa02f26b3567f5c76e7b5660f4b5f61af0d9e8691dee5",
       "imageDhash": "63b1216455596726",
@@ -632,7 +635,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005007202873213",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007202873213.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007202873213.html",
+      "views": [
+        "assets/images/find-064-book-light-gallery-action-b40a94d494.webp",
+        "assets/images/find-064-book-light-gallery-effect-89dd8d803a.webp"
+      ]
     },
     {
       "id": "find-065-spice-grinder",
@@ -660,7 +667,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013368832628",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013368832628.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013368832628.html",
+      "views": [
+        "assets/images/find-065-spice-grinder-gallery-action-a269a6dea1.webp",
+        "assets/images/find-065-spice-grinder-gallery-effect-a37aac1f83.webp"
+      ]
     },
     {
       "id": "find-067-pill-organizer",
@@ -688,7 +699,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008038578506",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008038578506.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008038578506.html",
+      "views": [
+        "assets/images/find-067-pill-organizer-gallery-action-67824fdbda.webp",
+        "assets/images/find-067-pill-organizer-gallery-effect-0b596055bf.webp"
+      ]
     },
     {
       "id": "find-060-tire-inflator",
@@ -716,7 +731,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013197548476",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013197548476.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013197548476.html",
+      "views": [
+        "assets/images/find-060-tire-inflator-gallery-action-af6349c944.webp",
+        "assets/images/find-060-tire-inflator-gallery-effect-56a82e4207.webp"
+      ]
     },
     {
       "id": "find-062-coffee-scale",
@@ -744,7 +763,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012780690869",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012780690869.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012780690869.html",
+      "views": [
+        "assets/images/find-062-coffee-scale-gallery-action-c95f71a678.webp",
+        "assets/images/find-062-coffee-scale-gallery-effect-4a9602e2c9.webp"
+      ]
     },
     {
       "id": "find-063-cable-tester",
@@ -828,7 +851,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008507001024",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008507001024.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008507001024.html",
+      "views": [
+        "assets/images/find-058-key-finder-gallery-action-c791576c99.webp",
+        "assets/images/find-058-key-finder-gallery-effect-f5d8230e38.webp"
+      ]
     },
     {
       "id": "find-059-label-printer",
@@ -856,7 +883,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005009253532387",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009253532387.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009253532387.html",
+      "views": [
+        "assets/images/find-059-label-printer-gallery-action-5c704a9a3d.webp",
+        "assets/images/find-059-label-printer-gallery-effect-c2260f877e.webp"
+      ]
     },
     {
       "id": "find-054-soldering-iron",
@@ -912,7 +943,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013166128264",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013166128264.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013166128264.html",
+      "views": [
+        "assets/images/find-055-lint-remover-gallery-action-8e1ca1b0ac.webp",
+        "assets/images/find-055-lint-remover-gallery-effect-02c7733425.webp"
+      ]
     },
     {
       "id": "find-056-milk-frother",
@@ -1024,7 +1059,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012945423332",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012945423332.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012945423332.html",
+      "views": [
+        "assets/images/find-053-vacuum-sealer-gallery-action-4b1698a8ea.webp",
+        "assets/images/find-053-vacuum-sealer-gallery-effect-3904cec99d.webp"
+      ]
     },
     {
       "id": "import-0024",
