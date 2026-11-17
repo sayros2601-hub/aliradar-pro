@@ -13,9 +13,9 @@ window.MIRA_CATALOG = {
       ],
       "description": "Установите термовентилятор на верхнюю поверхность камина и наслаждайтесь тёплым воздухом, циркулирующим по комнате без использования батареек или электричества. Проверьте характеристики перед заказом.",
       "category": "Дом",
-      "image": "assets/images/auto-1005013553805507.webp",
-      "original": "assets/originals/auto-1005013553805507.webp",
-      "imageNote": "Студийное изображение и ракурсы сгенерированы через Cloudflare Workers AI (FLUX.2).",
+      "image": "assets/images/auto-1005013553805507-chatgpt-20261115.webp",
+      "original": "assets/originals/auto-1005013553805507-supplier-20261115.png",
+      "imageNote": "Студийная визуализация создана встроенным генератором ChatGPT по фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3U2Ur39",
       "sourceUrl": "https://www.aliexpress.com/item/1005013553805507.html",
       "sourceProductId": "1005013553805507",
@@ -45,29 +45,29 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005013553805507-v2.webp",
-        "assets/images/auto-1005013553805507-v3.webp"
+        "assets/images/auto-1005013553805507-gallery-action-9c503b5c76.webp",
+        "assets/images/auto-1005013553805507-gallery-effect-93be7b0b18.webp"
       ],
-      "sourceImageSha256": "acc02b3c34b3f93427e6054049fbbce5ce04912ff406e22cafefc16b34ba6798",
-      "sourcePixelSha256": "2223fbb467b714973812bb3614c8e81cd8d8cb902855f085dce0207c294dc59d",
-      "imageDhash": "062773c3a30716c6",
-      "imageAhash": "c38301611183e3ff",
+      "sourceImageSha256": "1831e31c2c70895c1f3e3a2453b2ad721f256b33b9ae1335fb61b63d60912ea7",
+      "sourcePixelSha256": "b0286c73ab6fb7a8315c6bc3d448f686c0e22d06aceae1dba39adac638e3bb26",
+      "imageDhash": "030f4e4f2937232f",
+      "imageAhash": "e1e3e7038180c1c7",
       "imageAspect": "0.78",
-      "sourceImageDhash": "060f4d2e1f978fac",
+      "sourceImageDhash": "060f4d2e1f978f2c",
       "sourceImageAhash": "f3e3e78383c1c3ff",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 688,
-        "fg_height": 880,
-        "fg_max_side": 880,
-        "fg_min_side": 688,
-        "upscale_ratio": 1.011,
-        "sharpness": 35.171,
-        "fg_mean_luma": 77.24,
-        "fg_luma_std": 70.68,
+        "fg_width": 875,
+        "fg_height": 1116,
+        "fg_max_side": 1116,
+        "fg_min_side": 875,
+        "upscale_ratio": 0.797,
+        "sharpness": 8.868,
+        "fg_mean_luma": 81.62,
+        "fg_luma_std": 31.44,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
-        "halo_fringe_ratio": 0.006,
+        "halo_fringe_ratio": 0.0,
         "reasons": []
       }
     },
@@ -80,9 +80,9 @@ window.MIRA_CATALOG = {
       ],
       "description": "Портативный гироскопический шар для тренировки кисти и предплечья, создающий прогрессивное сопротивление при вращении, идеален для занятий на рабочем месте или дома, проверьте наличие дополнительных аксессуаров.",
       "category": "Спорт",
-      "image": "assets/images/auto-1005013158011754.webp",
-      "original": "assets/originals/auto-1005013158011754.webp",
-      "imageNote": "Студийное изображение и ракурсы сгенерированы через Cloudflare Workers AI (FLUX.2).",
+      "image": "assets/images/auto-1005013158011754-chatgpt-20261115.webp",
+      "original": "assets/originals/auto-1005013158011754-supplier-20261115.jpg",
+      "imageNote": "Студийная визуализация создана встроенным генератором ChatGPT по фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3HcpxK3",
       "sourceUrl": "https://www.aliexpress.com/item/1005013158011754.html",
       "sourceProductId": "1005013158011754",
@@ -112,29 +112,29 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005013158011754-v2.webp",
-        "assets/images/auto-1005013158011754-v3.webp"
+        "assets/images/auto-1005013158011754-gallery-action-61bec88107.webp",
+        "assets/images/auto-1005013158011754-gallery-effect-6bac4569cf.webp"
       ],
-      "sourceImageSha256": "021057030fe13062826cb233ec7d60893546cef2b893e576d97a7635809db5ea",
-      "sourcePixelSha256": "4c8ce9baf4b35a9707996ad383eea152bf4bcb4ed6e95147d9e7f1ca1cc352b4",
-      "imageDhash": "0f3b690fcc4d030f",
-      "imageAhash": "e3c1810066fd81c3",
-      "imageAspect": "0.97",
-      "sourceImageDhash": "a4f4c6c6bba98eae",
-      "sourceImageAhash": "f8f072f7004c0600",
+      "sourceImageSha256": "90479c3fa30f81473ed12036eeaff587b38cb66852a657ccf256edb70afa0ceb",
+      "sourcePixelSha256": "43a7aa84b9c276f19860604257e8bfb486bfd003be564cd1967d1323d5114ab2",
+      "imageDhash": "197747ad6c642d8f",
+      "imageAhash": "ffbf63000482c5e7",
+      "imageAspect": "0.82",
+      "sourceImageDhash": "e072769b9690923a",
+      "sourceImageAhash": "3effffc1434c0000",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 857,
-        "fg_height": 880,
-        "fg_max_side": 880,
-        "fg_min_side": 857,
-        "upscale_ratio": 1.011,
-        "sharpness": 12.685,
-        "fg_mean_luma": 87.55,
-        "fg_luma_std": 52.48,
+        "fg_width": 954,
+        "fg_height": 1167,
+        "fg_max_side": 1167,
+        "fg_min_side": 954,
+        "upscale_ratio": 0.763,
+        "sharpness": 38.463,
+        "fg_mean_luma": 105.26,
+        "fg_luma_std": 60.87,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
-        "halo_fringe_ratio": 0.021,
+        "halo_fringe_ratio": 0.0,
         "reasons": []
       }
     },
@@ -147,9 +147,9 @@ window.MIRA_CATALOG = {
       ],
       "description": "Шаблон с набором пластин для переноса сложных изгибов на различные материалы, оснащен рычажной блокировкой формы, что позволяет точно повторить контур.",
       "category": "Инструменты",
-      "image": "assets/images/auto-1005012367265501.webp",
-      "original": "assets/originals/auto-1005012367265501.webp",
-      "imageNote": "Студийное изображение и ракурсы сгенерированы через Cloudflare Workers AI (FLUX.2).",
+      "image": "assets/images/auto-1005012367265501-chatgpt-20261115.webp",
+      "original": "assets/originals/auto-1005012367265501-supplier-20261115.jpg",
+      "imageNote": "Студийная визуализация создана встроенным генератором ChatGPT по фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c329XLkr",
       "sourceUrl": "https://www.aliexpress.com/item/1005012367265501.html",
       "sourceProductId": "1005012367265501",
@@ -179,29 +179,29 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005012367265501-v2.webp",
-        "assets/images/auto-1005012367265501-v3.webp"
+        "assets/images/auto-1005012367265501-gallery-action-f71620f4f4.webp",
+        "assets/images/auto-1005012367265501-gallery-effect-6552aea68c.webp"
       ],
-      "sourceImageSha256": "451cb3fff3132a10d9cc0fc70baa2fbd15b750545799d61cdacbd922ec55a80f",
-      "sourcePixelSha256": "da38fdb5b3312a315d883710e9061183cdd1484b1b2c17fc14b18fe27ba20795",
-      "imageDhash": "59110273471c5344",
-      "imageAhash": "fff8e010030fffff",
-      "imageAspect": "1.21",
-      "sourceImageDhash": "c6707dcf13ce0f0f",
+      "sourceImageSha256": "6b49174292e3704a6e73a943666daba49f3a6e9df3d7b07e9bdf63603355e91a",
+      "sourcePixelSha256": "73f2bb975790f8bcf0507e50a55682671e5576416bd0f1129798fa61a4c98b6a",
+      "imageDhash": "733c8f63530d2330",
+      "imageAhash": "bf0f030181e0fbff",
+      "imageAspect": "1.57",
+      "sourceImageDhash": "d6707dcf13ce0f1f",
       "sourceImageAhash": "ff3f0703837fffff",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 880,
-        "fg_height": 727,
-        "fg_max_side": 880,
-        "fg_min_side": 727,
-        "upscale_ratio": 1.011,
-        "sharpness": 20.846,
-        "fg_mean_luma": 117.03,
-        "fg_luma_std": 73.43,
+        "fg_width": 1186,
+        "fg_height": 756,
+        "fg_max_side": 1186,
+        "fg_min_side": 756,
+        "upscale_ratio": 0.75,
+        "sharpness": 15.741,
+        "fg_mean_luma": 98.49,
+        "fg_luma_std": 55.24,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
-        "halo_fringe_ratio": 0.002,
+        "halo_fringe_ratio": 0.0,
         "reasons": []
       }
     },
@@ -214,9 +214,9 @@ window.MIRA_CATALOG = {
       ],
       "description": "Бутылка со складной чашей-лотком, кнопкой подачи и замком клапана позволяет напоить питомца в парке и вернуть остаток воды обратно в колбу. Проверьте объём ёмкости, наличие отсека для пакетов и шнурка.",
       "category": "Питомцы",
-      "image": "assets/images/auto-1005012919201086.webp",
-      "original": "assets/originals/auto-1005012919201086.webp",
-      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "image": "assets/images/auto-1005012919201086-chatgpt-20261115.webp",
+      "original": "assets/originals/auto-1005012919201086-supplier-20261115.jpg",
+      "imageNote": "Студийная визуализация создана встроенным генератором ChatGPT по фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3pGQIRD",
       "sourceUrl": "https://www.aliexpress.com/item/1005012919201086.html",
       "sourceProductId": "1005012919201086",
@@ -247,29 +247,29 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005012919201086-v2.webp",
-        "assets/images/auto-1005012919201086-v3.webp"
+        "assets/images/auto-1005012919201086-gallery-action-9b8c8179f0.webp",
+        "assets/images/auto-1005012919201086-gallery-effect-2859e90122.webp"
       ],
-      "sourceImageSha256": "193c8afa78e4553d51060592276df9ff674624457a6224c5a4ffec9b2c5dea9a",
-      "sourcePixelSha256": "84b1543b6eed5392104dc6b7a6ed7b34f5e1f00ef9c8f8f53c8ba475b3176af5",
-      "imageDhash": "0d4d4d4d6dad4f31",
-      "imageAhash": "e7e7a7a7a44581d1",
-      "imageAspect": "0.46",
+      "sourceImageSha256": "e2a831228b589aa562fb43263f4e6a11897e1ebb1b08ff2f9933af7db7a72ccc",
+      "sourcePixelSha256": "80b8158fea0123800a4aa02f26b3567f5c76e7b5660f4b5f61af0d9e8691dee5",
+      "imageDhash": "63b1216455596726",
+      "imageAhash": "33d9109098a1b3ff",
+      "imageAspect": "1.10",
       "sourceImageDhash": "ab6b4531bb183a9b",
       "sourceImageAhash": "ffb3e0d80f0e080f",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 405,
-        "fg_height": 880,
-        "fg_max_side": 880,
-        "fg_min_side": 405,
-        "upscale_ratio": 1.011,
-        "sharpness": 12.956,
-        "fg_mean_luma": 150.65,
-        "fg_luma_std": 61.88,
+        "fg_width": 1103,
+        "fg_height": 1001,
+        "fg_max_side": 1103,
+        "fg_min_side": 1001,
+        "upscale_ratio": 0.807,
+        "sharpness": 9.878,
+        "fg_mean_luma": 130.46,
+        "fg_luma_std": 55.68,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
-        "halo_fringe_ratio": 0.016,
+        "halo_fringe_ratio": 0.0,
         "reasons": []
       }
     },
@@ -282,9 +282,9 @@ window.MIRA_CATALOG = {
       ],
       "description": "Компактный вакуумный стоппер садится на горлышко открытой бутылки и удаляет лишний воздух, замедляя окисление напитка при хранении. Проверьте совместимый диаметр горлышка, число пробок в наборе и питание.",
       "category": "Кухня",
-      "image": "assets/images/auto-1005012687234522.webp",
-      "original": "assets/originals/auto-1005012687234522.webp",
-      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "image": "assets/images/auto-1005012687234522-chatgpt-20261115.webp",
+      "original": "assets/originals/auto-1005012687234522-supplier-20261115.jpg",
+      "imageNote": "Студийная визуализация создана встроенным генератором ChatGPT по фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3AiHYGb",
       "sourceUrl": "https://www.aliexpress.com/item/1005012687234522.html",
       "sourceProductId": "1005012687234522",
@@ -315,26 +315,26 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005012687234522-v2.webp",
-        "assets/images/auto-1005012687234522-v3.webp"
+        "assets/images/auto-1005012687234522-gallery-action-b1c68098e5.webp",
+        "assets/images/auto-1005012687234522-gallery-effect-58a58bce83.webp"
       ],
-      "sourceImageSha256": "c944fb087664f56a42ece77e3ca102673a7847fb661d687fd03a60f5de349343",
-      "sourcePixelSha256": "e00c01c32ee1d45223f7392bfbeb17bc724240b8f65466cb467a9261823ba772",
-      "imageDhash": "0f4dcdccccceccce",
-      "imageAhash": "c3e3e367e6e766e7",
-      "imageAspect": "0.38",
+      "sourceImageSha256": "89e80ec8c5cac1651f4d2332a2a698e3bac0a5099b39e36d9d655e2d6871ef17",
+      "sourcePixelSha256": "e735258d5afec3f2fda0f7e4b8f2492fd5c5cec004cf3b85ded8ed396af5cae7",
+      "imageDhash": "636a6a0a4a4a4a42",
+      "imageAhash": "b010b0f0f0f0f0f0",
+      "imageAspect": "0.81",
       "sourceImageDhash": "63636343a3030303",
       "sourceImageAhash": "fd3030f0f0f0f0ff",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 335,
-        "fg_height": 880,
-        "fg_max_side": 880,
-        "fg_min_side": 335,
-        "upscale_ratio": 1.011,
-        "sharpness": 12.267,
-        "fg_mean_luma": 73.49,
-        "fg_luma_std": 45.42,
+        "fg_width": 865,
+        "fg_height": 1066,
+        "fg_max_side": 1066,
+        "fg_min_side": 865,
+        "upscale_ratio": 0.835,
+        "sharpness": 8.183,
+        "fg_mean_luma": 70.53,
+        "fg_luma_std": 36.57,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
         "halo_fringe_ratio": 0.0,
@@ -350,9 +350,9 @@ window.MIRA_CATALOG = {
       ],
       "description": "Интерактивный мяч самостоятельно катится по полу, отскакивает от препятствий и удерживает интерес кошки или небольшой собаки дома. Проверьте диаметр мяча, тип внешней оболочки и удобство зарядки перед заказом.",
       "category": "Питомцы",
-      "image": "assets/images/auto-1005009410831317.webp",
-      "original": "assets/originals/auto-1005009410831317.webp",
-      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "image": "assets/images/auto-1005009410831317-chatgpt-20261115.webp",
+      "original": "assets/originals/auto-1005009410831317-supplier-20261115.jpg",
+      "imageNote": "Студийная визуализация создана встроенным генератором ChatGPT по фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c35CN5hD",
       "sourceUrl": "https://www.aliexpress.com/item/1005009410831317.html",
       "sourceProductId": "1005009410831317",
@@ -383,29 +383,29 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005009410831317-v2.webp",
-        "assets/images/auto-1005009410831317-v3.webp"
+        "assets/images/auto-1005009410831317-gallery-action-e9b029e91f.webp",
+        "assets/images/auto-1005009410831317-gallery-effect-5ab4e92fe6.webp"
       ],
-      "sourceImageSha256": "71b63c522a373aaf882ede8e2816365bef784782b09744c076da00fb67b4ae3a",
-      "sourcePixelSha256": "9603000e0ab4fcc081f70a0a1403c06a42677ad1dd2514f9004f035658d66704",
-      "imageDhash": "1f370b486d339e31",
-      "imageAhash": "c783800080dfff9f",
-      "imageAspect": "0.82",
+      "sourceImageSha256": "0e680b7b3a328e0c86094001eeabcb899dee1b017fa37d198f3dee0b73cd702f",
+      "sourcePixelSha256": "4264c49fc4b7470fa3524268933d3b1a2406a07fcf29e01fb205fb8eaf34187b",
+      "imageDhash": "03636527b1915606",
+      "imageAhash": "fff0b0c0d0fffff7",
+      "imageAspect": "1.29",
       "sourceImageDhash": "6002632583170c01",
       "sourceImageAhash": "ffffb180c1fff7ff",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 719,
-        "fg_height": 880,
-        "fg_max_side": 880,
-        "fg_min_side": 719,
-        "upscale_ratio": 1.011,
-        "sharpness": 10.61,
-        "fg_mean_luma": 162.44,
-        "fg_luma_std": 56.44,
+        "fg_width": 1108,
+        "fg_height": 861,
+        "fg_max_side": 1108,
+        "fg_min_side": 861,
+        "upscale_ratio": 0.803,
+        "sharpness": 13.968,
+        "fg_mean_luma": 110.12,
+        "fg_luma_std": 85.52,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
-        "halo_fringe_ratio": 0.024,
+        "halo_fringe_ratio": 0.0,
         "reasons": []
       }
     },
@@ -418,9 +418,9 @@ window.MIRA_CATALOG = {
       ],
       "description": "Бесконтактный пенный диспенсер с инфракрасным датчиком, бачком на 320 мл и пятью уровнями подачи дозирует густую пену без нажатия на помпу. Работает от встроенного аккумулятора с USB-зарядкой; перед заказом уточните рекомендованное разведение мыла и комплект кабеля у продавца.",
       "category": "Дом",
-      "image": "assets/images/auto-1005010357329711.webp",
-      "original": "assets/originals/auto-1005010357329711.webp",
-      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "image": "assets/images/auto-1005010357329711-chatgpt-20261115.webp",
+      "original": "assets/originals/auto-1005010357329711-supplier-20261115.jpeg",
+      "imageNote": "Студийная визуализация создана встроенным генератором ChatGPT по фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c3pExu55",
       "sourceUrl": "https://www.aliexpress.com/item/1005010357329711.html",
       "sourceProductId": "1005010357329711",
@@ -450,29 +450,29 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005010357329711-v2.webp",
-        "assets/images/auto-1005010357329711-v3.webp"
+        "assets/images/auto-1005010357329711-gallery-action-1dca7b9400.webp",
+        "assets/images/auto-1005010357329711-gallery-effect-2007814ad5.webp"
       ],
-      "sourceImageSha256": "34882766e217faf9089064978c8ac623be908364cea8a86862eb2a3aa2ba3e52",
-      "sourcePixelSha256": "289e4b357bbb01934c1f2717bdc03010a9dc186432dbba9fab359c9129c80cf3",
-      "imageDhash": "0f4d9e9ecd4d1f38",
-      "imageAhash": "818547c7e7e7cf9f",
-      "imageAspect": "0.61",
+      "sourceImageSha256": "d31d896e042a56d2073ce102d8e650a61fc642d57e5522ca930d3534e9a4aaa2",
+      "sourcePixelSha256": "d393638869e87227facc678b280f1bfe80c2f6c7bec0fcf301acf8fef32aa2e3",
+      "imageDhash": "2726262625070607",
+      "imageAhash": "c0c0c1c2ffe3e303",
+      "imageAspect": "0.53",
       "sourceImageDhash": "137161497b336386",
       "sourceImageAhash": "f9b939fd9d99f000",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 536,
-        "fg_height": 880,
-        "fg_max_side": 880,
-        "fg_min_side": 536,
-        "upscale_ratio": 1.011,
-        "sharpness": 10.019,
-        "fg_mean_luma": 189.69,
-        "fg_luma_std": 50.45,
+        "fg_width": 623,
+        "fg_height": 1183,
+        "fg_max_side": 1183,
+        "fg_min_side": 623,
+        "upscale_ratio": 0.752,
+        "sharpness": 11.416,
+        "fg_mean_luma": 196.05,
+        "fg_luma_std": 43.11,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
-        "halo_fringe_ratio": 0.002,
+        "halo_fringe_ratio": 0.0,
         "reasons": []
       }
     },
@@ -606,7 +606,11 @@ window.MIRA_CATALOG = {
       "details": "Экстрактор для извлечения повреждённых винтов. Набор из пяти левосторонних свёрл и экстракторов с прямым хвостовиком рассчитан на ступенчатое выкручивание сорванных и прикипевших болтов в диапазоне от 3,2 до 8,7 мм. Убедитесь в подходящем зажиме патрона шуруповёрта и оцените доступ к шляпке винта.",
       "facts": [],
       "sourceImageSha256": "d1d8ff4810cfd614a4a82662d80063b05aa48e012fd09036b42c36a3fba38d3d",
-      "sourcePixelSha256": "d2a396599fcef724146b772af4fc2c915f0eb87ba3372479715f444e4144a9ab"
+      "sourcePixelSha256": "d2a396599fcef724146b772af4fc2c915f0eb87ba3372479715f444e4144a9ab",
+      "views": [
+        "assets/images/auto-1005004679234788-gallery-action-71c2c1bf73.webp",
+        "assets/images/auto-1005004679234788-gallery-effect-4a8099fd2c.webp"
+      ]
     },
     {
       "id": "find-064-book-light",
@@ -634,7 +638,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005007202873213",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007202873213.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007202873213.html",
+      "views": [
+        "assets/images/find-064-book-light-gallery-action-b40a94d494.webp",
+        "assets/images/find-064-book-light-gallery-effect-89dd8d803a.webp"
+      ]
     },
     {
       "id": "find-065-spice-grinder",
@@ -662,7 +670,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013368832628",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013368832628.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013368832628.html",
+      "views": [
+        "assets/images/find-065-spice-grinder-gallery-action-a269a6dea1.webp",
+        "assets/images/find-065-spice-grinder-gallery-effect-a37aac1f83.webp"
+      ]
     },
     {
       "id": "find-067-pill-organizer",
@@ -690,7 +702,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008038578506",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008038578506.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008038578506.html",
+      "views": [
+        "assets/images/find-067-pill-organizer-gallery-action-67824fdbda.webp",
+        "assets/images/find-067-pill-organizer-gallery-effect-0b596055bf.webp"
+      ]
     },
     {
       "id": "find-060-tire-inflator",
@@ -718,7 +734,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013197548476",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013197548476.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013197548476.html",
+      "views": [
+        "assets/images/find-060-tire-inflator-gallery-action-af6349c944.webp",
+        "assets/images/find-060-tire-inflator-gallery-effect-56a82e4207.webp"
+      ]
     },
     {
       "id": "find-062-coffee-scale",
@@ -746,7 +766,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012780690869",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012780690869.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012780690869.html",
+      "views": [
+        "assets/images/find-062-coffee-scale-gallery-action-c95f71a678.webp",
+        "assets/images/find-062-coffee-scale-gallery-effect-4a9602e2c9.webp"
+      ]
     },
     {
       "id": "find-063-cable-tester",
@@ -774,7 +798,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005010192060931",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010192060931.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010192060931.html",
+      "views": [
+        "assets/images/find-063-cable-tester-gallery-action-0c24926897.webp",
+        "assets/images/find-063-cable-tester-gallery-effect-821749aa21.webp"
+      ]
     },
     {
       "id": "find-057-uv-toothbrush",
@@ -802,7 +830,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012725447808",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012725447808.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012725447808.html",
+      "views": [
+        "assets/images/find-057-uv-toothbrush-gallery-action-944629a5e8.webp",
+        "assets/images/find-057-uv-toothbrush-gallery-effect-9859f24074.webp"
+      ]
     },
     {
       "id": "find-058-key-finder",
@@ -830,7 +862,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008507001024",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008507001024.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008507001024.html",
+      "views": [
+        "assets/images/find-058-key-finder-gallery-action-c791576c99.webp",
+        "assets/images/find-058-key-finder-gallery-effect-f5d8230e38.webp"
+      ]
     },
     {
       "id": "find-059-label-printer",
@@ -858,7 +894,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005009253532387",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009253532387.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009253532387.html",
+      "views": [
+        "assets/images/find-059-label-printer-gallery-action-5c704a9a3d.webp",
+        "assets/images/find-059-label-printer-gallery-effect-c2260f877e.webp"
+      ]
     },
     {
       "id": "find-054-soldering-iron",
@@ -886,7 +926,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008380178784",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008380178784.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008380178784.html",
+      "views": [
+        "assets/images/find-054-soldering-iron-gallery-action-99cb26ac92.webp",
+        "assets/images/find-054-soldering-iron-gallery-effect-7af7838d7a.webp"
+      ]
     },
     {
       "id": "find-055-lint-remover",
@@ -914,7 +958,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013166128264",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013166128264.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013166128264.html",
+      "views": [
+        "assets/images/find-055-lint-remover-gallery-action-8e1ca1b0ac.webp",
+        "assets/images/find-055-lint-remover-gallery-effect-02c7733425.webp"
+      ]
     },
     {
       "id": "find-056-milk-frother",
@@ -942,7 +990,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013525988012",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013525988012.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013525988012.html",
+      "views": [
+        "assets/images/find-056-milk-frother-gallery-action-a1eab10549.webp",
+        "assets/images/find-056-milk-frother-gallery-effect-e865f64d5a.webp"
+      ]
     },
     {
       "id": "find-051-ultrasonic-cleaner",
@@ -970,7 +1022,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013151609503",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013151609503.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013151609503.html",
+      "views": [
+        "assets/images/find-051-ultrasonic-cleaner-gallery-action-d800b6c197.webp",
+        "assets/images/find-051-ultrasonic-cleaner-gallery-effect-e2dde4b11f.webp"
+      ]
     },
     {
       "id": "find-052-laser-meter",
@@ -998,7 +1054,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013381565639",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013381565639.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013381565639.html",
+      "views": [
+        "assets/images/find-052-laser-meter-gallery-action-b754fc3ead.webp",
+        "assets/images/find-052-laser-meter-gallery-effect-4e21e4c2c3.webp"
+      ]
     },
     {
       "id": "find-053-vacuum-sealer",
@@ -1026,7 +1086,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012945423332",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012945423332.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012945423332.html",
+      "views": [
+        "assets/images/find-053-vacuum-sealer-gallery-action-4b1698a8ea.webp",
+        "assets/images/find-053-vacuum-sealer-gallery-effect-3904cec99d.webp"
+      ]
     },
     {
       "id": "import-0024",
@@ -1054,7 +1118,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005010122561084",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010122561084.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010122561084.html",
+      "views": [
+        "assets/images/import-0024-gallery-action-62087c1380.webp",
+        "assets/images/import-0024-gallery-effect-73b40f8ddb.webp"
+      ]
     },
     {
       "id": "find-001-neck-cooler",
@@ -1082,7 +1150,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005011798288613",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011798288613.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011798288613.html",
+      "views": [
+        "assets/images/find-001-neck-cooler-gallery-action-d2bd7f3707.webp",
+        "assets/images/find-001-neck-cooler-gallery-effect-c99e1d846d.webp"
+      ]
     },
     {
       "id": "find-002-meat-thermo",
@@ -1110,7 +1182,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005007923722752",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007923722752.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007923722752.html",
+      "views": [
+        "assets/images/find-002-meat-thermo-gallery-action-ea9d6b7dbd.webp",
+        "assets/images/find-002-meat-thermo-gallery-effect-ffcfcb881f.webp"
+      ]
     },
     {
       "id": "find-003-mosquito-racket",
@@ -1138,7 +1214,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005011949737989",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011949737989.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011949737989.html",
+      "views": [
+        "assets/images/find-003-mosquito-racket-gallery-action-16d43588b2.webp",
+        "assets/images/find-003-mosquito-racket-gallery-effect-5499a8dcf7.webp"
+      ]
     },
     {
       "id": "find-004-moto-intercom",
@@ -1166,7 +1246,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005007345049533",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007345049533.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007345049533.html",
+      "views": [
+        "assets/images/find-004-moto-intercom-gallery-action-52f69151d4.webp",
+        "assets/images/find-004-moto-intercom-gallery-effect-fc726eb59c.webp"
+      ]
     },
     {
       "id": "find-005-moto-tpms",
@@ -1194,7 +1278,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013138934226",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013138934226.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013138934226.html",
+      "views": [
+        "assets/images/find-005-moto-tpms-gallery-action-43d7beb09a.webp",
+        "assets/images/find-005-moto-tpms-gallery-effect-9453176736.webp"
+      ]
     },
     {
       "id": "find-006-phone-cooler",
@@ -1222,7 +1310,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013069561167",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013069561167.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013069561167.html",
+      "views": [
+        "assets/images/find-006-phone-cooler-gallery-action-173b87215e.webp",
+        "assets/images/find-006-phone-cooler-gallery-effect-224aa2074b.webp"
+      ]
     },
     {
       "id": "find-007-phone-gamepad",
@@ -1250,7 +1342,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012306370309",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012306370309.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012306370309.html",
+      "views": [
+        "assets/images/find-007-phone-gamepad-gallery-action-9c4c030026.webp",
+        "assets/images/find-007-phone-gamepad-gallery-effect-ef1289eb0e.webp"
+      ]
     },
     {
       "id": "find-008-jump-starter",
@@ -1278,7 +1374,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013246153250",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013246153250.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013246153250.html",
+      "views": [
+        "assets/images/find-008-jump-starter-gallery-action-02cb11859d.webp",
+        "assets/images/find-008-jump-starter-gallery-effect-c4309353bc.webp"
+      ]
     },
     {
       "id": "find-009-bulb-camera",
@@ -1306,7 +1406,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013147484784",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013147484784.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013147484784.html",
+      "views": [
+        "assets/images/find-009-bulb-camera-gallery-action-3bb6a6d366.webp",
+        "assets/images/find-009-bulb-camera-gallery-effect-bec7b76bcc.webp"
+      ]
     },
     {
       "id": "find-010-gallon-pump",
@@ -1334,7 +1438,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012329741557",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012329741557.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012329741557.html",
+      "views": [
+        "assets/images/find-010-gallon-pump-gallery-action-c4ec6183d7.webp",
+        "assets/images/find-010-gallon-pump-gallery-effect-52cffdfbd6.webp"
+      ]
     },
     {
       "id": "find-011-nail-drill",
@@ -1362,7 +1470,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005006444449944",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006444449944.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006444449944.html",
+      "views": [
+        "assets/images/find-011-nail-drill-gallery-action-da9e82afb3.webp",
+        "assets/images/find-011-nail-drill-gallery-effect-06339eafbe.webp"
+      ]
     },
     {
       "id": "find-012-hair-curler",
@@ -1390,7 +1502,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012406439621",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012406439621.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012406439621.html",
+      "views": [
+        "assets/images/find-012-hair-curler-gallery-action-f358b933c9.webp",
+        "assets/images/find-012-hair-curler-gallery-effect-5dba12fb1a.webp"
+      ]
     },
     {
       "id": "find-013-kick-trainer",
@@ -1446,7 +1562,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012637951929",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012637951929.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012637951929.html",
+      "views": [
+        "assets/images/find-014-lunch-box-gallery-action-e3bb1a40a9.webp",
+        "assets/images/find-014-lunch-box-gallery-effect-1f30aa214e.webp"
+      ]
     },
     {
       "id": "find-015-fishing-float",
@@ -1502,7 +1622,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012717717456",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012717717456.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012717717456.html",
+      "views": [
+        "assets/images/find-016-mini-chainsaw-gallery-action-83bca9451e.webp",
+        "assets/images/find-016-mini-chainsaw-gallery-effect-c591d95425.webp"
+      ]
     },
     {
       "id": "find-017-star-projector",
@@ -1530,7 +1654,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012889773492",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012889773492.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012889773492.html",
+      "views": [
+        "assets/images/find-017-star-projector-gallery-action-b30a189271.webp",
+        "assets/images/find-017-star-projector-gallery-effect-b05636e94e.webp"
+      ]
     },
     {
       "id": "find-018-padel-pressurizer",
@@ -1614,7 +1742,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013062287580",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013062287580.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013062287580.html",
+      "views": [
+        "assets/images/find-020-espresso-portable-gallery-action-843499af7d.webp",
+        "assets/images/find-020-espresso-portable-gallery-effect-b1c155228a.webp"
+      ]
     },
     {
       "id": "find-021-drip-irrigation",
@@ -1642,7 +1774,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013110936784",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013110936784.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013110936784.html",
+      "views": [
+        "assets/images/find-021-drip-irrigation-gallery-action-6a6c5d56da.webp",
+        "assets/images/find-021-drip-irrigation-gallery-effect-121ab6140c.webp"
+      ]
     },
     {
       "id": "find-022-litter-deodorizer",
@@ -1670,7 +1806,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005007295821197",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007295821197.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007295821197.html",
+      "views": [
+        "assets/images/find-022-litter-deodorizer-gallery-action-37c919634c.webp",
+        "assets/images/find-022-litter-deodorizer-gallery-effect-2da4b45f6f.webp"
+      ]
     },
     {
       "id": "find-023-cat-laser",
@@ -1698,7 +1838,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005007135304891",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007135304891.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007135304891.html",
+      "views": [
+        "assets/images/find-023-cat-laser-gallery-action-233a4c0096.webp",
+        "assets/images/find-023-cat-laser-gallery-effect-9bc0094ed4.webp"
+      ]
     },
     {
       "id": "find-024-trekking-poles",
@@ -1754,7 +1898,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012646322706",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012646322706.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012646322706.html",
+      "views": [
+        "assets/images/find-025-period-belt-gallery-action-69cc1808df.webp",
+        "assets/images/find-025-period-belt-gallery-effect-afa919c9b3.webp"
+      ]
     },
     {
       "id": "find-026-veg-purifier",
@@ -1782,7 +1930,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012983612508",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012983612508.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012983612508.html",
+      "views": [
+        "assets/images/find-026-veg-purifier-gallery-action-c4b8a25296.webp",
+        "assets/images/find-026-veg-purifier-gallery-effect-961c12caad.webp"
+      ]
     },
     {
       "id": "find-027-heated-insoles",
@@ -1810,7 +1962,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013277975332",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013277975332.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013277975332.html",
+      "views": [
+        "assets/images/find-027-heated-insoles-gallery-action-c8e8747749.webp",
+        "assets/images/find-027-heated-insoles-gallery-effect-35b81367d1.webp"
+      ]
     },
     {
       "id": "find-028-bike-taillight",
@@ -1838,7 +1994,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013261575699",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013261575699.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013261575699.html",
+      "views": [
+        "assets/images/find-028-bike-taillight-gallery-action-691139af0d.webp",
+        "assets/images/find-028-bike-taillight-gallery-effect-71b29c1484.webp"
+      ]
     },
     {
       "id": "find-029-window-cleaner",
@@ -1866,7 +2026,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005009806712673",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009806712673.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009806712673.html",
+      "views": [
+        "assets/images/find-029-window-cleaner-gallery-action-e4704b0332.webp",
+        "assets/images/find-029-window-cleaner-gallery-effect-cfcdfc9f68.webp"
+      ]
     },
     {
       "id": "find-030-ai-recorder",
@@ -1894,7 +2058,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005010328225887",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010328225887.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010328225887.html",
+      "views": [
+        "assets/images/find-030-ai-recorder-gallery-action-fb301699d6.webp",
+        "assets/images/find-030-ai-recorder-gallery-effect-789fa7e2ff.webp"
+      ]
     },
     {
       "id": "find-031-kids-print-camera",
@@ -1922,7 +2090,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013482610686",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013482610686.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013482610686.html",
+      "views": [
+        "assets/images/find-031-kids-print-camera-gallery-action-ca4f9569cf.webp",
+        "assets/images/find-031-kids-print-camera-gallery-effect-0901825802.webp"
+      ]
     },
     {
       "id": "find-032-sous-vide",
@@ -1950,7 +2122,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005009849788088",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009849788088.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009849788088.html",
+      "views": [
+        "assets/images/find-032-sous-vide-gallery-action-9b41de4036.webp",
+        "assets/images/find-032-sous-vide-gallery-effect-b97e9c671b.webp"
+      ]
     },
     {
       "id": "find-033-callus-remover",
@@ -2006,7 +2182,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005011858997518",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011858997518.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011858997518.html",
+      "views": [
+        "assets/images/find-034-smart-rope-gallery-action-08168872e8.webp",
+        "assets/images/find-034-smart-rope-gallery-effect-eb42d859ff.webp"
+      ]
     },
     {
       "id": "find-035-cordless-scissors",
@@ -2034,7 +2214,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012982717298",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012982717298.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012982717298.html",
+      "views": [
+        "assets/images/find-035-cordless-scissors-gallery-action-5af1be1a37.webp",
+        "assets/images/find-035-cordless-scissors-gallery-effect-b4c0d558af.webp"
+      ]
     },
     {
       "id": "find-036-stud-finder",
@@ -2062,7 +2246,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013100283561",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013100283561.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013100283561.html",
+      "views": [
+        "assets/images/find-036-stud-finder-gallery-action-42299b3d2d.webp",
+        "assets/images/find-036-stud-finder-gallery-effect-b08d04fe9c.webp"
+      ]
     },
     {
       "id": "find-037-banneton",
@@ -2090,7 +2278,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012742966390",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012742966390.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012742966390.html",
+      "views": [
+        "assets/images/find-037-banneton-gallery-action-a6c33ad747.webp",
+        "assets/images/find-037-banneton-gallery-effect-bfd1fc645f.webp"
+      ]
     },
     {
       "id": "find-038-bike-gps",
@@ -2118,7 +2310,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005006327951638",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006327951638.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006327951638.html",
+      "views": [
+        "assets/images/find-038-bike-gps-gallery-action-ee4e9c7dd8.webp",
+        "assets/images/find-038-bike-gps-gallery-effect-d0f1a8ba3d.webp"
+      ]
     },
     {
       "id": "find-039-pixel-display",
@@ -2174,7 +2370,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005007223760516",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007223760516.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005007223760516.html",
+      "views": [
+        "assets/images/find-040-microscope-gallery-action-47d64a4616.webp",
+        "assets/images/find-040-microscope-gallery-effect-6aebff0ce0.webp"
+      ]
     },
     {
       "id": "find-041-heated-gloves",
@@ -2202,7 +2402,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013424643680",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013424643680.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013424643680.html",
+      "views": [
+        "assets/images/find-041-heated-gloves-gallery-action-fdc7767a2c.webp",
+        "assets/images/find-041-heated-gloves-gallery-effect-b54a6518ad.webp"
+      ]
     },
     {
       "id": "find-042-car-hud",
@@ -2286,7 +2490,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012787495948",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012787495948.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012787495948.html",
+      "views": [
+        "assets/images/find-044-crepe-maker-gallery-action-d1e4ef7099.webp",
+        "assets/images/find-044-crepe-maker-gallery-effect-c1294aaf3c.webp"
+      ]
     },
     {
       "id": "find-045-white-noise",
@@ -2314,7 +2522,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005010455609574",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010455609574.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010455609574.html",
+      "views": [
+        "assets/images/find-045-white-noise-gallery-action-0c5d041315.webp",
+        "assets/images/find-045-white-noise-gallery-effect-97f31f6a96.webp"
+      ]
     },
     {
       "id": "find-046-eye-massager",
@@ -2342,7 +2554,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013227823025",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013227823025.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013227823025.html",
+      "views": [
+        "assets/images/find-046-eye-massager-gallery-action-afad8af565.webp",
+        "assets/images/find-046-eye-massager-gallery-effect-c146c1aa87.webp"
+      ]
     },
     {
       "id": "find-047-scanner-pen",
@@ -2398,7 +2614,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005009692583631",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009692583631.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009692583631.html",
+      "views": [
+        "assets/images/find-048-hydroponic-gallery-action-20c4f38a26.webp",
+        "assets/images/find-048-hydroponic-gallery-effect-aab4db2489.webp"
+      ]
     },
     {
       "id": "find-049-electric-scrubber",
@@ -2426,7 +2646,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012696773525",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012696773525.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012696773525.html",
+      "views": [
+        "assets/images/find-049-electric-scrubber-gallery-action-861b7e54b4.webp",
+        "assets/images/find-049-electric-scrubber-gallery-effect-146db79384.webp"
+      ]
     },
     {
       "id": "find-050-wine-opener",
@@ -2454,7 +2678,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005009885733856",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009885733856.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009885733856.html",
+      "views": [
+        "assets/images/find-050-wine-opener-gallery-action-cda18c0066.webp",
+        "assets/images/find-050-wine-opener-gallery-effect-2f71e13632.webp"
+      ]
     },
     {
       "id": "import-0032",
@@ -2482,7 +2710,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012931376534",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012931376534.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012931376534.html",
+      "views": [
+        "assets/images/import-0032-gallery-action-4122d5ec55.webp",
+        "assets/images/import-0032-gallery-effect-c0dd3e5ada.webp"
+      ]
     },
     {
       "id": "import-0042",
@@ -2510,7 +2742,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008032142642",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008032142642.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008032142642.html",
+      "views": [
+        "assets/images/import-0042-gallery-action-917287b24b.webp",
+        "assets/images/import-0042-gallery-effect-8c87af7215.webp"
+      ]
     },
     {
       "id": "import-0001",
@@ -2538,7 +2774,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005010274525972",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010274525972.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010274525972.html",
+      "views": [
+        "assets/images/import-0001-gallery-action-f7dd665ccc.webp",
+        "assets/images/import-0001-gallery-effect-daed6aabbc.webp"
+      ]
     },
     {
       "id": "import-0010",
@@ -2566,7 +2806,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008453098012",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008453098012.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008453098012.html",
+      "views": [
+        "assets/images/import-0010-gallery-action-b0a2218766.webp",
+        "assets/images/import-0010-gallery-effect-23f1c6a22d.webp"
+      ]
     },
     {
       "id": "import-0070",
@@ -2594,7 +2838,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012809624235",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012809624235.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012809624235.html",
+      "views": [
+        "assets/images/import-0070-gallery-action-0a08f9f37d.webp",
+        "assets/images/import-0070-gallery-effect-dabbb8c3e1.webp"
+      ]
     },
     {
       "id": "import-0451",
@@ -2622,7 +2870,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005010528801315",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010528801315.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010528801315.html",
+      "views": [
+        "assets/images/import-0451-gallery-action-e32baa4bae.webp",
+        "assets/images/import-0451-gallery-effect-d5831a13bb.webp"
+      ]
     },
     {
       "id": "import-0041",
@@ -2650,7 +2902,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008603585460",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008603585460.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008603585460.html",
+      "views": [
+        "assets/images/import-0041-gallery-action-0428513052.webp",
+        "assets/images/import-0041-gallery-effect-a764eb1adc.webp"
+      ]
     },
     {
       "id": "import-0026",
@@ -2678,7 +2934,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013049109862",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013049109862.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013049109862.html",
+      "views": [
+        "assets/images/import-0026-gallery-action-c3e2965de5.webp",
+        "assets/images/import-0026-gallery-effect-d11578d291.webp"
+      ]
     },
     {
       "id": "import-0051",
@@ -2734,7 +2994,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012278726601",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012278726601.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012278726601.html",
+      "views": [
+        "assets/images/import-0057-gallery-action-8d0deba6ca.webp",
+        "assets/images/import-0057-gallery-effect-d644d02ec1.webp"
+      ]
     },
     {
       "id": "import-0074",
@@ -2762,7 +3026,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005008707184695",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008707184695.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008707184695.html",
+      "views": [
+        "assets/images/import-0074-gallery-action-d1b8afe656.webp",
+        "assets/images/import-0074-gallery-effect-3dbb2239bb.webp"
+      ]
     },
     {
       "id": "import-0093",
@@ -2790,7 +3058,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005006165666836",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006165666836.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006165666836.html",
+      "views": [
+        "assets/images/import-0093-gallery-action-5940a7e748.webp",
+        "assets/images/import-0093-gallery-effect-6fec13848c.webp"
+      ]
     },
     {
       "id": "import-0117",
@@ -2818,7 +3090,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005012289023528",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012289023528.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012289023528.html",
+      "views": [
+        "assets/images/import-0117-gallery-action-d8c3f4bd54.webp",
+        "assets/images/import-0117-gallery-effect-eed583d8a1.webp"
+      ]
     },
     {
       "id": "import-0119",
@@ -2846,7 +3122,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005011692496508",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011692496508.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011692496508.html",
+      "views": [
+        "assets/images/import-0119-gallery-action-9e67e450f4.webp",
+        "assets/images/import-0119-gallery-effect-ff055afe13.webp"
+      ]
     },
     {
       "id": "import-0104",
@@ -2874,7 +3154,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005009637190232",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009637190232.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005009637190232.html",
+      "views": [
+        "assets/images/import-0104-gallery-action-621d408b4e.webp",
+        "assets/images/import-0104-gallery-effect-e2816debe8.webp"
+      ]
     },
     {
       "id": "import-0488",
@@ -2958,7 +3242,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013363359765",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013363359765.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013363359765.html",
+      "views": [
+        "assets/images/import-0129-gallery-action-c937e3b611.webp",
+        "assets/images/import-0129-gallery-effect-47559a5ce8.webp"
+      ]
     },
     {
       "id": "import-0211",
@@ -2986,7 +3274,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013169167872",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013169167872.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013169167872.html",
+      "views": [
+        "assets/images/import-0211-gallery-action-6bea9902c0.webp",
+        "assets/images/import-0211-gallery-effect-b763fe208b.webp"
+      ]
     },
     {
       "id": "import-0216",
@@ -3014,7 +3306,11 @@ window.MIRA_CATALOG = {
         }
       ],
       "sourceProductId": "1005013008804363",
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013008804363.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013008804363.html",
+      "views": [
+        "assets/images/import-0216-gallery-action-9f02a2bfbc.webp",
+        "assets/images/import-0216-gallery-effect-4b274c83f0.webp"
+      ]
     },
     {
       "id": "import-0231",
@@ -3149,7 +3445,11 @@ window.MIRA_CATALOG = {
       "rotation": 0,
       "details": "Двухдиапазонный повторитель Wi-Fi 2.4G и 5G с внешними антеннами для расширения зоны покрытия дома и в офисе. Поворотные антенны помогают сориентировать приём в сторону основного роутера и пробросить стабильный сигнал в дальнюю спальню или рабочий балкон через капитальные стены. Обратите внимание на сетевой порт для проводного режима точки доступа, вилку EU 220 В и габариты блока.\n\nПеред оформлением заказа на AliExpress выберите нужный тип вилки и проверьте характеристики у продавца.",
       "facts": [],
-      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011800659333.html"
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011800659333.html",
+      "views": [
+        "assets/images/katord-wifi-repeater-gallery-action-87e47b9fc4.webp",
+        "assets/images/katord-wifi-repeater-gallery-effect-b9c110de1e.webp"
+      ]
     }
   ]
 };
