@@ -100,9 +100,9 @@ def plan(ledger, state, *, now=None, manual_count=None):
     if manual_count is not None and (type(manual_count) is not int or not 0 <= manual_count <= DAILY_MAX):
         raise ScheduleError('count_invalid')
     entry = state['days'].get(day)
-    # Leave two hours before local midnight. The workflow rechecks immediately
+    # Leave one hour before local midnight. The workflow rechecks immediately
     # before a deployment capped at 15 minutes, so its public date cannot roll.
-    publication_due = 19 <= local.hour < 22
+    publication_due = 21 <= local.hour < 23
     result = {'skip': True, 'add_count': 0, 'markets': _markets(day), 'day': day,
               'publication_day': day, 'action': 'skip', 'reason': '',
               'record_publication': False, 'publish': False}
@@ -139,8 +139,8 @@ def plan(ledger, state, *, now=None, manual_count=None):
         if not publication_due:
             return answer('skip', 'waiting_publication')
         return answer('recover', 'prepared_catalog', track=True)
-    if ((manual_count is None and local.hour * 60 + local.minute < 17 * 60 + 30)
-            or local.hour >= 22):
+    if ((manual_count is None and local.hour * 60 + local.minute < 19 * 60)
+            or local.hour >= 23):
         return answer('skip', 'outside_daily_window')
     if entry:
         if entry['status'] == 'published':
@@ -269,6 +269,18 @@ def write_state(path, state):
             temporary.unlink(missing_ok=True)
 
 
+def _parse_manual_count(value):
+    clean = str(value).strip()
+    if not clean or clean.lower() == 'auto':
+        return None
+    try:
+        return int(clean)
+    except ValueError:
+        raise argparse.ArgumentTypeError(
+            f"invalid manual count: {value!r} (expected 'auto', '', or 0..{DAILY_MAX})"
+        ) from None
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=('plan', 'guard-publication', 'reserve', 'mark-prepared', 'mark-published'))
@@ -276,7 +288,11 @@ def main():
     parser.add_argument('--state', required=True)
     parser.add_argument('--now', help='Aware ISO timestamp for offline diagnosis')
     parser.add_argument('--output', help='Append plan outputs to the GitHub Actions output file')
-    parser.add_argument('--manual-count', type=int)
+    parser.add_argument(
+        '--manual-count',
+        type=_parse_manual_count,
+        help="Override batch size (0-3), or 'auto'/empty for automatic schedule",
+    )
     parser.add_argument('--day')
     parser.add_argument('--count', type=int)
     args = parser.parse_args()

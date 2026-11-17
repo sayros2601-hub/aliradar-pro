@@ -1,9 +1,13 @@
-"""Free multi-provider AI SEO orchestrator with strict verification & deterministic fallback.
+"""Google AI Studio exclusive SEO orchestrator with strict verification & deterministic fallback.
 
-Supports three free-tier LLM providers with zero credit card requirement:
-1. Google Gemini API (GEMINI_API_KEY -> generativelanguage.googleapis.com)
-2. Groq API (GROQ_API_KEY -> api.groq.com)
-3. OpenRouter free router (OPENROUTER_API_KEY -> openrouter.ai)
+Routes cloud text, SEO, and product-card copy exclusively through Google AI Studio:
+1. Direct Google AI Studio API (`GEMINI_API_KEY` / `GEMINI_TEXT_API_KEY` -> generativelanguage.googleapis.com)
+2. Optional Cloudflare Worker transport proxy (`CLOUDFLARE_AUTOPILOT_URL`/api/generate-copy)
+   acting strictly as a Google AI Studio relay when direct keys are absent locally and
+   `FLUXIXO_AI_TRANSPORT` is in `('autopilot', 'cloudflare_worker', 'worker')` (or explicit).
+
+Cloudflare Workers AI (`@cf/...`) LLM inference is disabled completely. Explicit caller-supplied
+`GROQ_API_KEY` / `OPENROUTER_API_KEY` overrides remain supported only when passed via `keys` / `explicit`.
 
 Every candidate output passes through the repository's own check_texts firewall,
 policy banlist (FORBIDDEN), unverified-claim filter, length bounds, uniqueness
@@ -146,10 +150,17 @@ BANNED_CLAIMS_RE = re.compile(
 )
 
 GEMINI_MODELS = (
+    'gemini-4-argon',
+    'gemini-4-carbon',
+    'gemini-4-hydrogen',
     'gemini-3.8-flash',
+    'gemini-3.7-flash',
+    'gemini-3.6-flash',
+    'gemini-3.5-flash',
     'gemini-3.5-flash-lite',
+    'gemini-3.1-flash-lite',
+    'gemini-2.5-pro',
     'gemini-2.5-flash',
-    'gemini-2.0-flash-lite',
 )
 GROQ_MODELS = (
     'llama-3.3-70b-versatile',
@@ -160,40 +171,40 @@ OPENROUTER_MODELS = (
     'openrouter/free',
     'meta-llama/llama-3.3-70b-instruct:free',
 )
-CLOUDFLARE_AI_MODELS = (
-    '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
-    '@cf/qwen/qwen3-30b-a3b-fp8',
-)
-DEFAULT_CLOUDFLARE_ACCOUNT_ID = 'a4be28e05f73ad2b3939d364ea8b2817'
+DEFAULT_CLOUDFLARE_AUTOPILOT_URL = 'https://fluxixo-autopilot.sayros2601.workers.dev'
+AUTOPILOT_TRANSPORTS = frozenset(('autopilot', 'cloudflare_worker', 'worker'))
 
 
-def _resolve_wrangler_oauth_token():
-    try:
-        from fluxixo_ai.image_studio import resolve_cloudflare_ai_token
-        tok, _ = resolve_cloudflare_ai_token()
-        return tok
-    except Exception:
+def _direct_gemini_key(keys):
+    if not isinstance(keys, dict):
         return ''
+    return str(keys.get('GEMINI_API_KEY') or keys.get('GEMINI_TEXT_API_KEY') or '').strip()
+
+
+def _autopilot_url_from_keys(keys):
+    if not isinstance(keys, dict):
+        return ''
+    url = str(keys.get('CLOUDFLARE_AUTOPILOT_URL') or '').strip().rstrip('/')
+    if not url or not re.match(r'^https?://', url, re.IGNORECASE):
+        return ''
+    if 'FLUXIXO_AI_TRANSPORT' in keys:
+        mode = str(keys.get('FLUXIXO_AI_TRANSPORT') or '').strip().lower()
+        if mode not in AUTOPILOT_TRANSPORTS:
+            return ''
+    return url
 
 
 def load_ai_keys(local=False, explicit=None):
-    """Read optional free AI keys from explicit mapping, environment, or Windows DPAPI / Wrangler."""
+    """Read Google AI Studio keys and optional autopilot transport from explicit mapping, env, or DPAPI."""
     mapping = {
         'GEMINI_API_KEY': 'gemini-api-key.dpapi',
-        'GROQ_API_KEY': 'groq-api-key.dpapi',
-        'OPENROUTER_API_KEY': 'openrouter-api-key.dpapi',
-        'CLOUDFLARE_AI_TOKEN': 'cloudflare-token.dpapi',
+        'GEMINI_TEXT_API_KEY': 'gemini-text-api-key.dpapi',
+        'GEMINI_IMAGE_API_KEY': 'gemini-image-api-key.dpapi',
     }
     found = {}
     for env_name in mapping:
         val = (explicit or {}).get(env_name) or (os.environ.get(env_name) if explicit is None else '') or ''
         found[env_name] = str(val).strip()
-    if not found['CLOUDFLARE_AI_TOKEN'] and explicit is None:
-        cf_env = os.environ.get('CLOUDFLARE_API_TOKEN', '').strip()
-        if cf_env:
-            found['CLOUDFLARE_AI_TOKEN'] = cf_env
-        elif os.environ.get('FLUXIXO_IMAGE_MODE', '').strip().lower() == 'generate' or os.environ.get('FLUXIXO_USE_CLOUDFLARE_AI', '').strip().lower() in ('1', 'true', 'yes'):
-            found['CLOUDFLARE_AI_TOKEN'] = _resolve_wrangler_oauth_token()
     if local:
         try:
             from dpapi_store import load_credential
@@ -203,14 +214,41 @@ def load_ai_keys(local=False, explicit=None):
             for env_name, filename in mapping.items():
                 if not found[env_name]:
                     found[env_name] = (load_credential(filename) or '').strip()
-        if not found['CLOUDFLARE_AI_TOKEN']:
-            found['CLOUDFLARE_AI_TOKEN'] = _resolve_wrangler_oauth_token()
+    if not found.get('GEMINI_API_KEY') and found.get('GEMINI_TEXT_API_KEY'):
+        found['GEMINI_API_KEY'] = found['GEMINI_TEXT_API_KEY']
+
+    if explicit is not None:
+        raw_url = str(explicit.get('CLOUDFLARE_AUTOPILOT_URL') or '').strip().rstrip('/')
+        has_mode = 'FLUXIXO_AI_TRANSPORT' in explicit
+        raw_mode = str(explicit.get('FLUXIXO_AI_TRANSPORT') or '').strip().lower()
+        for legacy_key in ('GROQ_API_KEY', 'OPENROUTER_API_KEY'):
+            val = str(explicit.get(legacy_key) or '').strip()
+            if val:
+                found[legacy_key] = val
+    else:
+        raw_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip().rstrip('/')
+        has_mode = 'FLUXIXO_AI_TRANSPORT' in os.environ
+        raw_mode = os.environ.get('FLUXIXO_AI_TRANSPORT', '').strip().lower()
+
+    valid_url = raw_url if raw_url and re.match(r'^https?://', raw_url, re.IGNORECASE) else ''
+    if not valid_url and not raw_url and raw_mode in AUTOPILOT_TRANSPORTS:
+        valid_url = DEFAULT_CLOUDFLARE_AUTOPILOT_URL
+    autopilot_active = bool(valid_url) and (
+        raw_mode in AUTOPILOT_TRANSPORTS
+        or (explicit is not None and not has_mode)
+    )
+    found['CLOUDFLARE_AUTOPILOT_URL'] = valid_url if autopilot_active else ''
+    found['FLUXIXO_AI_TRANSPORT'] = raw_mode or ('autopilot' if autopilot_active else '')
     return found
 
 
 def has_ai_provider(keys=None):
     k = keys if keys is not None else load_ai_keys(local=False)
-    return any(bool(k.get(name)) for name in ('GEMINI_API_KEY', 'GROQ_API_KEY', 'OPENROUTER_API_KEY', 'CLOUDFLARE_AI_TOKEN'))
+    if _direct_gemini_key(k) or _autopilot_url_from_keys(k):
+        return True
+    if keys is not None:
+        return any(bool(k.get(name)) for name in ('GROQ_API_KEY', 'OPENROUTER_API_KEY'))
+    return False
 
 
 def _post_json(url, payload, headers, timeout=35):
@@ -262,28 +300,61 @@ def _extract_json_object(raw_text):
     raise ValueError('AI response did not contain a JSON object')
 
 
+def _gemini_model_candidates():
+    override = [
+        m.strip().lstrip('/')
+        for m in os.environ.get('FLUXIXO_GEMINI_TEXT_MODEL', '').split(',')
+        if m.strip() and not m.strip().lstrip('/').startswith('@cf/')
+    ]
+    out = list(override)
+    for model in GEMINI_MODELS:
+        if model not in out:
+            out.append(model)
+    return tuple(out)
+
+
+def _gemini_thinking_level():
+    return (os.environ.get('FLUXIXO_GEMINI_THINKING_LEVEL') or 'HIGH').strip().upper()
+
+
+def _is_thinking_v34(model):
+    m = model.lower()
+    return ('gemini-4' in m or 'gemini-3' in m) and 'lite' not in m
+
+
+def _extract_gemini_text(res):
+    candidates = res.get('candidates') or []
+    parts = ((candidates[0].get('content') or {}).get('parts') or []) if candidates else []
+    text = ''.join(p.get('text', '') for p in parts if isinstance(p, dict) and not p.get('thought'))
+    if not text and parts:
+        text = ''.join(p.get('text', '') for p in parts if isinstance(p, dict))
+    return text
+
+
 def _call_gemini(key, system_prompt, user_prompt, transport=_post_json):
     errors = []
-    for model in GEMINI_MODELS:
+    thinking_level = _gemini_thinking_level()
+    for model in _gemini_model_candidates():
         url = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent'
+        is_thinking_v34 = _is_thinking_v34(model)
+        gen_cfg = {
+            'responseMimeType': 'application/json',
+            'temperature': 0.25,
+            'maxOutputTokens': 8192 if is_thinking_v34 else 4096,
+        }
+        if is_thinking_v34 and thinking_level in ('LOW', 'MEDIUM', 'HIGH'):
+            gen_cfg['thinkingConfig'] = {'thinkingLevel': thinking_level}
         payload = {
             'systemInstruction': {'parts': [{'text': system_prompt}]},
             'contents': [{'role': 'user', 'parts': [{'text': user_prompt}]}],
-            'generationConfig': {
-                'responseMimeType': 'application/json',
-                'temperature': 0.25,
-                'maxOutputTokens': 1800,
-            },
+            'generationConfig': gen_cfg,
         }
         try:
             res = transport(url, payload, {'x-goog-api-key': key})
-            candidates = res.get('candidates') or []
-            parts = ((candidates[0].get('content') or {}).get('parts') or []) if candidates else []
-            text = ''.join(p.get('text', '') for p in parts if isinstance(p, dict))
-            return _extract_json_object(text), f'gemini:{model}'
+            return _extract_json_object(_extract_gemini_text(res)), f'gemini:{model}'
         except Exception as exc:
             errors.append(f'{model}:{exc}')
-    raise RuntimeError('Gemini failed: ' + '; '.join(errors[:2]))
+    raise RuntimeError('Gemini failed: ' + '; '.join(errors[:3]))
 
 
 def _call_openai_compat(url, key, models, label, system_prompt, user_prompt, extra_headers=None, transport=_post_json):
@@ -299,7 +370,7 @@ def _call_openai_compat(url, key, models, label, system_prompt, user_prompt, ext
                 {'role': 'user', 'content': user_prompt},
             ],
         }
-        if label in ('groq', 'cloudflare'):
+        if label == 'groq':
             payload['response_format'] = {'type': 'json_object'}
         try:
             res = transport(url, payload, headers)
@@ -313,89 +384,111 @@ def _call_openai_compat(url, key, models, label, system_prompt, user_prompt, ext
     raise RuntimeError(f'{label} failed: ' + '; '.join(errors[:2]))
 
 
-def _call_cloudflare_ai(token, system_prompt, user_prompt, transport=_post_json):
-    account_id = os.environ.get('CLOUDFLARE_ACCOUNT_ID', '').strip() or DEFAULT_CLOUDFLARE_ACCOUNT_ID
-    url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/v1/chat/completions'
-    try:
-        if not token or token == 'autopilot':
-            raise RuntimeError('use_worker_endpoint')
-        return _call_openai_compat(
-            url,
-            token,
-            CLOUDFLARE_AI_MODELS,
-            'cloudflare',
-            system_prompt,
-            user_prompt,
-            extra_headers={'User-Agent': 'wrangler/4.162.0'},
-            transport=transport,
-        )
-    except Exception as primary_exc:
-        worker_base = (
-            os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
-            or 'https://fluxixo-autopilot.sayros2601.workers.dev'
-        ).rstrip('/')
-        worker_url = f'{worker_base}/api/generate-copy'
-        try:
-            return _call_openai_compat(
-                worker_url,
-                token or 'autopilot',
-                CLOUDFLARE_AI_MODELS,
-                'cloudflare',
-                system_prompt,
-                user_prompt,
-                extra_headers={'User-Agent': 'fluxixo-ai-seo/1.0'},
-                transport=transport,
-            )
-        except Exception:
-            raise primary_exc
+def _call_autopilot_gemini_copy(worker_base_url, system_prompt, user_prompt, transport=_post_json, *, sync_token=''):
+    """Relay SEO copy generation through Cloudflare Worker strictly as Google AI Studio transport."""
+    base = str(worker_base_url or '').strip().rstrip('/')
+    if not base or not re.match(r'^https?://', base, re.IGNORECASE):
+        raise RuntimeError('Autopilot proxy URL is invalid or unset')
+    url = base if base.endswith('/api/generate-copy') else f'{base}/api/generate-copy'
+    candidates = _gemini_model_candidates()
+    preferred_model = candidates[0] if candidates else GEMINI_MODELS[0]
+    thinking_level = _gemini_thinking_level()
+    headers = {
+        'X-Fluxixo-Provider': 'gemini',
+        'X-AI-Provider': 'gemini',
+    }
+    token = str(sync_token or os.environ.get('AUTOPILOT_SYNC_TOKEN') or '').strip()
+    if token:
+        headers['Authorization'] = f'Bearer {token}'
+    payload = {
+        'provider': 'gemini',
+        'model': preferred_model,
+        'preferred_model': preferred_model,
+        'models': list(candidates),
+        'thinking_level': thinking_level if thinking_level in ('LOW', 'MEDIUM', 'HIGH') else 'HIGH',
+        'temperature': 0.25,
+        'max_tokens': 8192,
+        'response_format': {'type': 'json_object'},
+        'messages': [
+            {'role': 'system', 'content': system_prompt},
+            {'role': 'user', 'content': user_prompt},
+        ],
+    }
+    res = transport(url, payload, headers)
+    if not isinstance(res, dict):
+        raise RuntimeError('Autopilot proxy returned non-object response')
+    if res.get('ok') is False:
+        raise RuntimeError(str(res.get('error') or 'Autopilot proxy error'))
+    resp_provider = str(res.get('provider') or '').strip().lower()
+    resp_model = str(res.get('model') or '').strip()
+    if resp_provider and resp_provider not in ('gemini', 'google-ai-studio'):
+        raise RuntimeError(f'Autopilot proxy returned disallowed provider: {resp_provider}')
+    if '@cf/' in resp_model.lower():
+        raise RuntimeError(f'Autopilot proxy returned disallowed Workers AI model: {resp_model}')
+    provider_tag = resp_model if resp_model.startswith('gemini:') else f'gemini:{resp_model or preferred_model}'
+    choices = res.get('choices') or []
+    if choices and isinstance(choices[0], dict):
+        msg = (choices[0].get('message') or {}).get('content', '')
+        if isinstance(msg, dict):
+            return msg, provider_tag
+        if msg:
+            return _extract_json_object(str(msg)), provider_tag
+    return _extract_json_object(_extract_gemini_text(res)), provider_tag
 
 
 def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
-    """Query the first working free AI provider and return (parsed_dict, provider_tag)."""
+    """Query Google AI Studio (Worker transport first when active, direct API fallback) and return (parsed_dict, provider_tag)."""
     resolved = keys if keys is not None else load_ai_keys(local=False)
     errors = []
-    if resolved.get('GEMINI_API_KEY'):
+    direct_key = _direct_gemini_key(resolved)
+    autopilot_url = _autopilot_url_from_keys(resolved)
+    sync_token = str(resolved.get('AUTOPILOT_SYNC_TOKEN') or '').strip()
+    transport_mode = str(resolved.get('FLUXIXO_AI_TRANSPORT') or '').strip().lower()
+    prefer_worker = bool(autopilot_url) and transport_mode in AUTOPILOT_TRANSPORTS
+    attempts = (
+        [('worker', autopilot_url), ('direct', direct_key)]
+        if prefer_worker
+        else [('direct', direct_key), ('worker', autopilot_url)]
+    )
+    for kind, cred in attempts:
+        if not cred:
+            continue
         try:
-            return _call_gemini(resolved['GEMINI_API_KEY'], system_prompt, user_prompt, transport=transport)
+            if kind == 'worker':
+                return _call_autopilot_gemini_copy(cred, system_prompt, user_prompt, transport=transport, sync_token=sync_token)
+            return _call_gemini(cred, system_prompt, user_prompt, transport=transport)
         except Exception as exc:
             errors.append(str(exc))
-    if resolved.get('GROQ_API_KEY'):
-        try:
-            return _call_openai_compat(
-                'https://api.groq.com/openai/v1/chat/completions',
-                resolved['GROQ_API_KEY'],
-                GROQ_MODELS,
-                'groq',
-                system_prompt,
-                user_prompt,
-                transport=transport,
-            )
-        except Exception as exc:
-            errors.append(str(exc))
-    if resolved.get('OPENROUTER_API_KEY'):
-        try:
-            return _call_openai_compat(
-                'https://openrouter.ai/api/v1/chat/completions',
-                resolved['OPENROUTER_API_KEY'],
-                OPENROUTER_MODELS,
-                'openrouter',
-                system_prompt,
-                user_prompt,
-                extra_headers={'HTTP-Referer': 'https://www.fluxixo.shop/', 'X-Title': 'FLUXIXO SEO'},
-                transport=transport,
-            )
-        except Exception as exc:
-            errors.append(str(exc))
-    if resolved.get('CLOUDFLARE_AI_TOKEN'):
-        try:
-            return _call_cloudflare_ai(
-                resolved['CLOUDFLARE_AI_TOKEN'],
-                system_prompt,
-                user_prompt,
-                transport=transport,
-            )
-        except Exception as exc:
-            errors.append(str(exc))
+
+    if keys is not None:
+        if resolved.get('GROQ_API_KEY'):
+            try:
+                return _call_openai_compat(
+                    'https://api.groq.com/openai/v1/chat/completions',
+                    resolved['GROQ_API_KEY'],
+                    GROQ_MODELS,
+                    'groq',
+                    system_prompt,
+                    user_prompt,
+                    transport=transport,
+                )
+            except Exception as exc:
+                errors.append(str(exc))
+        if resolved.get('OPENROUTER_API_KEY'):
+            try:
+                return _call_openai_compat(
+                    'https://openrouter.ai/api/v1/chat/completions',
+                    resolved['OPENROUTER_API_KEY'],
+                    OPENROUTER_MODELS,
+                    'openrouter',
+                    system_prompt,
+                    user_prompt,
+                    extra_headers={'HTTP-Referer': 'https://www.fluxixo.shop/', 'X-Title': 'FLUXIXO SEO'},
+                    transport=transport,
+                )
+            except Exception as exc:
+                errors.append(str(exc))
+
     if not errors:
         return None, 'deterministic'
     return None, 'fallback:' + '; '.join(errors)[:180]

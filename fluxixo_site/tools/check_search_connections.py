@@ -3,7 +3,8 @@
 Checks:
 1. DPAPI-encrypted credential store in `.local/` (`CryptProtectData` / `CryptUnprotectData`).
 2. Cloudflare API (token status, Pages project `dealvault`, latest deployment, custom domains,
-   apex redirect `fluxixo.shop -> www.fluxixo.shop`, SSL/security/cache headers, Web Analytics beacon).
+   apex redirect `fluxixo.shop -> www.fluxixo.shop`, SSL/security/cache headers, Web Analytics beacon,
+   Autopilot Worker `/api/status` transport, and non-intrusive Google AI Studio key presence).
 3. Google Search integration (`google-site-verification` meta tag, `sitemap.xml`, `robots.txt`,
    `rss.xml`, WebSub hub reachability, and optional `gsc-service-account.dpapi` API query).
 4. Microsoft Bing integration (`msvalidate.01` meta tag, `BingSiteAuth.xml`, IndexNow key files,
@@ -23,10 +24,13 @@ import ctypes
 import ctypes.wintypes
 from html.parser import HTMLParser
 import json
+import os
 from pathlib import Path
 import re
+import shutil
 import ssl
 import statistics
+import subprocess
 import sys
 import time
 from urllib.error import HTTPError, URLError
@@ -41,11 +45,14 @@ TOOLS_DIR = Path(__file__).resolve().parent
 SITE_ROOT = TOOLS_DIR.parent
 HUB_ROOT = SITE_ROOT.parent
 LOCAL_DIR = HUB_ROOT / ".local"
+WORKER_DIR = HUB_ROOT / "cloudflare_autopilot"
+WORKER_NAME = "fluxixo-autopilot"
 
 ORIGIN = "https://www.fluxixo.shop"
 APEX_ORIGIN = "https://fluxixo.shop"
 CF_ACCOUNT_ID = "a4be28e05f73ad2b3939d364ea8b2817"
 CF_PROJECT_NAME = "dealvault"
+CF_AUTOPILOT_URL = "https://fluxixo-autopilot.sayros2601.workers.dev"
 
 EXPECTED_GOOGLE_VERIFY = "BUSamFSGELSfaWQEaVVj2QzUgKQvWovtg-ZaHCfKNb0"
 EXPECTED_BING_VERIFY = "49287D3DFF71EA9430905E14A0A426F2"
@@ -71,6 +78,11 @@ CREDENTIAL_SPECS = {
     "bing": ("bing-api-key.dpapi", "Bing Webmaster API Key"),
     "yandex": ("yandex-oauth-token.dpapi", "Yandex Webmaster OAuth Token"),
     "gsc": ("gsc-service-account.dpapi", "Google Search Console Service Account / Token"),
+    "gemini": ("gemini-api-key.dpapi", "Google AI Studio Gemini API Key"),
+    "gemini_text": ("gemini-text-api-key.dpapi", "Google AI Studio Text / Argon API Key"),
+    "gemini_image": ("gemini-image-api-key.dpapi", "Google Nano Banana Image API Key"),
+    "github_dispatch": ("github-dispatch-token.dpapi", "GitHub Actions Dispatch Token (Worker)"),
+    "autopilot_sync": ("autopilot-sync-token.dpapi", "FLUXIXO Autopilot Sync Token"),
 }
 
 
@@ -280,6 +292,164 @@ def check_credentials_store() -> dict:
     return report
 
 
+def _resolve_autopilot_url() -> str:
+    env_url = os.environ.get("CLOUDFLARE_AUTOPILOT_URL", "").strip().rstrip("/")
+    if env_url and re.match(r"^https?://", env_url, re.IGNORECASE):
+        return env_url
+    return CF_AUTOPILOT_URL
+
+
+def _resolve_local_wrangler() -> str | None:
+    suffix = ".cmd" if os.name == "nt" else ""
+    for base in (WORKER_DIR, HUB_ROOT):
+        cand = base / "node_modules" / ".bin" / f"wrangler{suffix}"
+        if cand.is_file():
+            return str(cand.resolve())
+    return shutil.which("wrangler")
+
+
+def _probe_worker_secret_names() -> set[str] | None:
+    """Return configured Worker secret names (never values) via local Wrangler if authenticated, else None."""
+    wrangler_bin = _resolve_local_wrangler()
+    if not wrangler_bin or not WORKER_DIR.is_dir():
+        return None
+    try:
+        res = subprocess.run(
+            [wrangler_bin, "secret", "list", "--name", WORKER_NAME, "--format", "json"],
+            cwd=str(WORKER_DIR),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            timeout=12,
+        )
+        if res.returncode != 0:
+            return None
+        out = res.stdout.decode("utf-8", errors="replace")
+        start, end = out.find("["), out.rfind("]")
+        if start == -1 or end <= start:
+            return None
+        items = json.loads(out[start:end + 1])
+        return {str(item["name"]) for item in items if isinstance(item, dict) and item.get("name")}
+    except (OSError, subprocess.SubprocessError, ValueError):
+        return None
+
+
+def check_autopilot_worker(autopilot_url: str | None = None) -> dict:
+    """Non-intrusive read-only Cloudflare Worker `/api/status` transport diagnostic."""
+    base = (autopilot_url or _resolve_autopilot_url()).rstrip("/")
+    status_url = f"{base}/api/status"
+    st, body, _, ms, err = http_get(status_url, timeout=10.0)
+    payload = None
+    parse_err = err
+    if st == 200 and not err:
+        try:
+            payload = json.loads(body.decode("utf-8"))
+        except (UnicodeDecodeError, ValueError) as exc:
+            parse_err = f"Invalid JSON from /api/status: {exc}"
+    reachable = st == 200 and not parse_err and isinstance(payload, dict) and bool(payload.get("ok"))
+    raw_secrets = payload.get("configured_secrets") if isinstance(payload, dict) else None
+    configured_secrets = (
+        {str(k): bool(v) for k, v in raw_secrets.items()}
+        if isinstance(raw_secrets, dict)
+        else {}
+    )
+    countdown = payload.get("countdown") if isinstance(payload, dict) and isinstance(payload.get("countdown"), dict) else {}
+    return {
+        "url": status_url,
+        "status": st,
+        "response_ms": round(ms, 1),
+        "reachable": reachable,
+        "service": payload.get("service") if isinstance(payload, dict) else None,
+        "published_day": payload.get("published_day") if isinstance(payload, dict) else None,
+        "countdown_status": countdown.get("status"),
+        "d1_counts": payload.get("d1_counts") if isinstance(payload, dict) and isinstance(payload.get("d1_counts"), dict) else {},
+        "configured_secrets": configured_secrets,
+        "error": parse_err,
+    }
+
+
+def check_google_ai_studio(
+    worker_configured: dict[str, bool] | None = None,
+    worker_secret_names: set[str] | None = None,
+) -> dict:
+    """Verify Google AI Studio & Autopilot dispatch key presence across DPAPI, env, and Worker (never values)."""
+    dpapi = {
+        "GEMINI_API_KEY": bool(load_credential("gemini")),
+        "GEMINI_TEXT_API_KEY": bool(load_credential("gemini_text")),
+        "GEMINI_IMAGE_API_KEY": bool(load_credential("gemini_image")),
+        "GITHUB_DISPATCH_TOKEN": bool(load_credential("github_dispatch")),
+        "AUTOPILOT_SYNC_TOKEN": bool(load_credential("autopilot_sync")),
+    }
+    env_present = {
+        name: bool(os.environ.get(name, "").strip())
+        for name in ("GEMINI_API_KEY", "GEMINI_TEXT_API_KEY", "GEMINI_IMAGE_API_KEY", "AUTOPILOT_SYNC_TOKEN")
+    }
+    wc = worker_configured or {}
+    worker_aliases = {
+        "GEMINI_API_KEY": ("gemini_api_key", "gemini", "gemini_key"),
+        "GEMINI_TEXT_API_KEY": ("gemini_text_api_key", "gemini_text"),
+        "GEMINI_IMAGE_API_KEY": ("gemini_image_api_key", "gemini_image"),
+        "GITHUB_DISPATCH_TOKEN": ("github_dispatch_token", "github_dispatch"),
+        "AUTOPILOT_SYNC_TOKEN": ("autopilot_sync_token", "autopilot_sync"),
+    }
+    worker_secrets: dict[str, bool | None] = {}
+    saw_status_alias = False
+    for secret_name, aliases in worker_aliases.items():
+        alias_vals = [bool(wc[a]) for a in aliases if a in wc]
+        if alias_vals:
+            saw_status_alias = True
+        if worker_secret_names is not None:
+            worker_secrets[secret_name] = (secret_name in worker_secret_names) or any(alias_vals)
+        elif alias_vals:
+            worker_secrets[secret_name] = any(alias_vals)
+        else:
+            worker_secrets[secret_name] = None
+
+    dpapi_ready = dpapi["GEMINI_API_KEY"] or dpapi["GEMINI_TEXT_API_KEY"]
+    env_ready = env_present["GEMINI_API_KEY"] or env_present["GEMINI_TEXT_API_KEY"]
+    w_states = [worker_secrets["GEMINI_API_KEY"], worker_secrets["GEMINI_TEXT_API_KEY"]]
+    if any(s is True for s in w_states):
+        worker_text_ready: bool | None = True
+    elif any(s is False for s in w_states):
+        worker_text_ready = False
+    else:
+        worker_text_ready = None
+
+    if worker_secret_names is not None and saw_status_alias:
+        probe_source = "wrangler+api_status"
+    elif worker_secret_names is not None:
+        probe_source = "wrangler"
+    elif saw_status_alias:
+        probe_source = "api_status"
+    else:
+        probe_source = "local_only"
+
+    if dpapi_ready and worker_text_ready is True:
+        status = "ready (DPAPI + Worker)"
+    elif dpapi_ready and worker_text_ready is False:
+        status = "ready (DPAPI local; Worker secret missing)"
+    elif dpapi_ready:
+        status = "ready (DPAPI local; Worker secret unverified)"
+    elif worker_text_ready is True:
+        status = "ready (Worker secret; DPAPI missing locally)"
+    elif env_ready:
+        status = "ready (environment)"
+    else:
+        status = "missing (run seo_setup_secrets.py --gemini-key)"
+
+    return {
+        "ready": bool(dpapi_ready or env_ready or worker_text_ready is True),
+        "dpapi_ready": dpapi_ready,
+        "env_ready": env_ready,
+        "worker_secret_ready": worker_text_ready,
+        "workers_ai_required": False,
+        "probe_source": probe_source,
+        "dpapi": dpapi,
+        "env": env_present,
+        "worker_secrets": worker_secrets,
+        "status": status,
+    }
+
+
 def check_cloudflare() -> dict:
     result = {
         "token_status": "missing",
@@ -289,6 +459,8 @@ def check_cloudflare() -> dict:
         "apex_redirect": {},
         "ssl_and_headers": {},
         "web_analytics_beacon": {},
+        "autopilot_worker": {},
+        "google_ai_studio": {},
         "issues": [],
     }
     token = load_credential("cloudflare")
@@ -388,6 +560,17 @@ def check_cloudflare() -> dict:
         result["issues"].append("Missing X-Content-Type-Options: nosniff header")
     if not hdrs.get("content-security-policy"):
         result["issues"].append("Missing Content-Security-Policy header")
+
+    worker_info = check_autopilot_worker()
+    result["autopilot_worker"] = worker_info
+    if not worker_info.get("reachable"):
+        result["issues"].append(
+            f"Cloudflare Worker transport {worker_info.get('url')} failed (HTTP {worker_info.get('status')})"
+        )
+    result["google_ai_studio"] = check_google_ai_studio(
+        worker_configured=worker_info.get("configured_secrets"),
+        worker_secret_names=_probe_worker_secret_names(),
+    )
 
     return result
 
@@ -981,6 +1164,21 @@ def print_human_summary(report: dict) -> None:
     print(f"  - Live Edge Headers            : HTTP {sh.get('status')} | CF-Ray={sh.get('cf_ray')} | Cache-Control={sh.get('cache_control')}")
     print(f"  - Security Headers             : X-Content-Type-Options={sh.get('x_content_type_options')} | CSP={sh.get('content_security_policy_present')}")
     print(f"  - Cloudflare Web Analytics     : Beacon injected={cf['web_analytics_beacon'].get('injected_on_root')}")
+    aw = cf.get("autopilot_worker") or {}
+    if aw:
+        print(
+            f"  - Autopilot Worker (/api/status): HTTP {aw.get('status')} | ok={aw.get('reachable')} "
+            f"| service={aw.get('service')} | {aw.get('response_ms')} ms"
+        )
+    gai = cf.get("google_ai_studio") or report.get("google_ai_studio") or {}
+    if gai:
+        dp = gai.get("dpapi") or {}
+        ws = gai.get("worker_secrets") or {}
+        print(
+            f"  - Google AI Studio Readiness   : {gai.get('status')} "
+            f"(DPAPI GEMINI_API_KEY={dp.get('GEMINI_API_KEY')}, Worker={ws.get('GEMINI_API_KEY')}, "
+            f"WorkersAI_required={gai.get('workers_ai_required')})"
+        )
 
     gg = report["google"]
     print("\n[3] Google Search Integration")
@@ -1082,6 +1280,7 @@ def main() -> int:
         "origin": ORIGIN,
         "credentials": creds,
         "cloudflare": cf,
+        "google_ai_studio": cf.get("google_ai_studio", {}),
         "google": gg,
         "bing": bg,
         "yandex": yx,

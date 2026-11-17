@@ -50,7 +50,7 @@ function computeIsraelDropCountdown({
   publishedDay = "",
   dueDay = "",
   timeZone = ISRAEL_TZ,
-  hour = 19,
+  hour = 21,
 } = {}) {
   const current = new Date(now);
   let targetDay = dueDay;
@@ -198,7 +198,13 @@ async function queryStatusPayload(env) {
     ok: true,
     service: "fluxixo-autopilot",
     site_origin: env.SITE_ORIGIN || "https://www.fluxixo.shop",
-    default_image_model: env.DEFAULT_IMAGE_MODEL || "@cf/black-forest-labs/flux-2-klein-4b",
+    ai_provider: env.AI_PROVIDER || "google-ai-studio",
+    transport_only: true,
+    github_repo: env.GITHUB_REPO || "sayros2601-hub/aliradar-pro",
+    default_gemini_image_model: env.DEFAULT_GEMINI_IMAGE_MODEL || "gemini-3-pro-image",
+    default_gemini_text_model: env.DEFAULT_GEMINI_TEXT_MODEL || "gemini-4-argon",
+    gemini_thinking_level: env.GEMINI_THINKING_LEVEL || "HIGH",
+    gemini_image_size: env.GEMINI_IMAGE_SIZE || "1K",
     now_utc: now.toISOString(),
     published_day: publishedDay || null,
     countdown,
@@ -247,6 +253,11 @@ async function queryStatusPayload(env) {
       };
     }),
     configured_secrets: {
+      gemini_api_key: Boolean(env.GEMINI_API_KEY),
+      gemini_image_api_key: Boolean(env.GEMINI_IMAGE_API_KEY),
+      gemini_text_api_key: Boolean(env.GEMINI_TEXT_API_KEY),
+      github_dispatch_token: Boolean(env.GITHUB_DISPATCH_TOKEN),
+      autopilot_sync_token: Boolean(env.AUTOPILOT_SYNC_TOKEN),
       bing_webmaster: Boolean(env.BING_WEBMASTER_API_KEY),
       yandex_webmaster: Boolean(env.YANDEX_WEBMASTER_TOKEN),
       gsc_service_account: Boolean(env.GSC_SERVICE_ACCOUNT_JSON),
@@ -458,101 +469,424 @@ function detectImageMime(bytes) {
   return "image/png";
 }
 
-async function extractAiImageBytes(aiResult) {
-  if (!aiResult) {
-    throw new Error("Workers AI returned empty response");
-  }
-  if (aiResult instanceof ReadableStream) {
-    return new Uint8Array(await new Response(aiResult).arrayBuffer());
-  }
-  if (aiResult instanceof Response) {
-    return new Uint8Array(await aiResult.arrayBuffer());
-  }
-  if (aiResult instanceof ArrayBuffer) {
-    return new Uint8Array(aiResult);
-  }
-  if (ArrayBuffer.isView(aiResult)) {
-    return new Uint8Array(aiResult.buffer, aiResult.byteOffset, aiResult.byteLength);
-  }
-  if (typeof aiResult === "object" && typeof aiResult.image === "string") {
-    return base64ToUint8Array(aiResult.image);
-  }
-  if (typeof aiResult === "string") {
-    return base64ToUint8Array(aiResult);
-  }
-  throw new Error("Unsupported Workers AI image output shape");
+const WORLD_BACKGROUNDS = {
+  Техника: "#DFE5FB",
+  Дом: "#F1E3CF",
+  Кухня: "#D9EEDE",
+  "В дороге": "#FBE7A6",
+  Инструменты: "#FDD8C4",
+  Уход: "#F8D9E6",
+  Спорт: "#D3EDF5",
+  "На природе": "#DFEAC4",
+  Питомцы: "#E9DCF8",
+};
+
+const GEMINI_IMAGE_MODELS = [
+  "gemini-3-pro-image",
+  "gemini-nano-banana-2.1",
+  "gemini-3.1-flash-image",
+  "gemini-3.1-flash-lite-image",
+  "gemini-3.1-flash-image-preview",
+  "gemini-2.5-flash-image",
+];
+
+const GEMINI_VISION_MODELS = [
+  "gemini-4-hydrogen",
+  "gemini-3.8-flash",
+  "gemini-3.7-flash",
+  "gemini-3.5-flash",
+  "gemini-3.5-flash-lite",
+  "gemini-2.5-flash",
+];
+
+const GEMINI_COPY_MODELS = [
+  "gemini-4-argon",
+  "gemini-4-carbon",
+  "gemini-4-hydrogen",
+  "gemini-3.8-flash",
+  "gemini-3.7-flash",
+  "gemini-3.6-flash",
+  "gemini-3.5-flash",
+  "gemini-3.5-flash-lite",
+  "gemini-3.1-flash-lite",
+  "gemini-2.5-pro",
+  "gemini-2.5-flash",
+];
+
+const RETRYABLE_GEMINI_STATUSES = new Set([400, 403, 404, 429, 500, 502, 503, 504]);
+
+function normalizeHexColor(rawHex) {
+  const cleaned = String(rawHex || "").trim();
+  const match = /^#?([0-9a-fA-F]{6})$/.exec(cleaned);
+  return match ? `#${match[1].toUpperCase()}` : "";
 }
 
-function buildStudioPrompt(rawPrompt) {
-  const trimmed = (rawPrompt || "").trim();
-  const base = trimmed || "modern minimalist consumer electronics product";
-  if (/#ffffff/i.test(base) && /studio/i.test(base)) {
-    return base;
+function resolveTargetBackgroundHex(rawHex, category) {
+  const normalized = normalizeHexColor(rawHex);
+  if (normalized) return normalized;
+  const cat = String(category || "").trim();
+  return WORLD_BACKGROUNDS[cat] || "";
+}
+
+function uint8ArrayToBase64(bytes) {
+  let binary = "";
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
   }
+  return btoa(binary);
+}
+
+function isGeminiThinkingModel(modelName) {
   return (
-    `Single standalone ${base}, ` +
-    `floating in mid-air centered on a pure flat #FFFFFF solid white background with generous white margin on all sides, ` +
-    `zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, crisp edge separation, ` +
-    `clean commercial industrial design catalog cutout, zero props, zero text, zero letters, zero watermarks, no people, no hands, no pets.`
+    (modelName.includes("gemini-4") || modelName.includes("gemini-3")) &&
+    !modelName.includes("lite")
   );
 }
 
-async function handleGenerateCutout(request, env, url) {
-  const model = env.DEFAULT_IMAGE_MODEL || "@cf/black-forest-labs/flux-2-klein-4b";
+function resolveGeminiModelChain(preferredModels, fallbackModels) {
+  const preferred = (Array.isArray(preferredModels) ? preferredModels : [preferredModels])
+    .map((m) => (typeof m === "string" ? m.trim() : ""))
+    .filter((m) => m.startsWith("gemini-"));
+  return Array.from(new Set([...preferred, ...fallbackModels].filter(Boolean)));
+}
+
+function extractGeminiText(data) {
+  const cParts = data?.candidates?.[0]?.content?.parts || [];
+  return cParts
+    .filter((p) => p && typeof p.text === "string" && !p.thought)
+    .map((p) => p.text)
+    .join("");
+}
+
+async function callGeminiModelChain({
+  geminiKey,
+  models,
+  buildBody,
+  extractResult,
+  label,
+  timeoutMs = 45000,
+}) {
+  let lastErr = null;
+  for (const modelName of models) {
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
+      modelName
+    )}:generateContent`;
+    let res;
+    try {
+      res = await fetch(endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          "x-goog-api-key": geminiKey,
+        },
+        body: JSON.stringify(buildBody(modelName)),
+        signal: AbortSignal.timeout(timeoutMs),
+      });
+    } catch (err) {
+      lastErr = new Error(
+        `${label} network/timeout (${modelName}): ${err instanceof Error ? err.message : String(err)}`
+      );
+      continue;
+    }
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      lastErr = new Error(`${label} HTTP ${res.status} (${modelName}): ${detail.slice(0, 240)}`);
+      if (RETRYABLE_GEMINI_STATUSES.has(res.status)) continue;
+      throw lastErr;
+    }
+    let data;
+    try {
+      data = await res.json();
+    } catch (err) {
+      lastErr = new Error(
+        `${label} invalid JSON (${modelName}): ${err instanceof Error ? err.message : String(err)}`
+      );
+      continue;
+    }
+    const result = extractResult(data, modelName);
+    if (result !== null && result !== undefined) {
+      return result;
+    }
+    lastErr = new Error(`${label} returned empty response (${modelName})`);
+  }
+  throw lastErr || new Error(`${label} failed`);
+}
+
+async function parseStudioImagePayload(request) {
   const contentType = (request.headers.get("content-type") || "").toLowerCase();
-  const wantMeta =
-    url.searchParams.get("meta") === "1" || url.searchParams.get("format") === "json";
-
-  let rawPrompt = "";
-  let productId = "studio-sample";
-  let viewName = "main";
-  let width = 1024;
-  let height = 1024;
-  let refBlob = null;
-  let refName = "reference.png";
-
   if (contentType.includes("multipart/form-data")) {
     const form = await request.formData();
-    rawPrompt = String(form.get("prompt") || "");
-    productId = String(form.get("product_id") || productId).trim() || "studio-sample";
-    viewName = String(form.get("view_name") || viewName).trim() || "main";
-    const parsedW = Number.parseInt(String(form.get("width") || "1024"), 10);
-    const parsedH = Number.parseInt(String(form.get("height") || "1024"), 10);
-    if (Number.isFinite(parsedW)) width = Math.min(Math.max(parsedW, 256), 2048);
-    if (Number.isFinite(parsedH)) height = Math.min(Math.max(parsedH, 256), 2048);
     const maybeFile =
       form.get("input_image_0") ||
       form.get("reference_image") ||
       form.get("image") ||
       form.get("file");
-    if (maybeFile && typeof maybeFile !== "string" && typeof maybeFile.arrayBuffer === "function") {
-      refBlob = maybeFile;
-      refName = maybeFile.name || "reference.png";
+    const refBlob =
+      maybeFile && typeof maybeFile !== "string" && typeof maybeFile.arrayBuffer === "function"
+        ? maybeFile
+        : null;
+    const fields = {};
+    for (const [k, v] of form.entries()) {
+      if (typeof v === "string") fields[k] = v;
     }
-  } else {
-    let body = {};
-    try {
-      const text = await request.text();
-      if (text.trim()) body = JSON.parse(text);
-    } catch {
-      return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
-    }
-    rawPrompt = String(body.prompt || "");
-    productId = String(body.product_id || productId).trim() || "studio-sample";
-    viewName = String(body.view_name || viewName).trim() || "main";
-    if (body.width !== undefined) {
-      const parsedW = Number.parseInt(String(body.width), 10);
-      if (Number.isFinite(parsedW)) width = Math.min(Math.max(parsedW, 256), 2048);
-    }
-    if (body.height !== undefined) {
-      const parsedH = Number.parseInt(String(body.height), 10);
-      if (Number.isFinite(parsedH)) height = Math.min(Math.max(parsedH, 256), 2048);
-    }
-    if (typeof body.image_base64 === "string" && body.image_base64.trim()) {
-      const bytes = base64ToUint8Array(body.image_base64);
-      refBlob = new Blob([bytes], { type: detectImageMime(bytes) });
+    return { fields, refBlob };
+  }
+  let body = {};
+  try {
+    const text = await request.text();
+    if (text.trim()) body = JSON.parse(text);
+  } catch {
+    return { error: "Invalid JSON body", status: 400 };
+  }
+  let refBlob = null;
+  if (typeof body.image_base64 === "string" && body.image_base64.trim()) {
+    const bytes = base64ToUint8Array(body.image_base64);
+    refBlob = new Blob([bytes], { type: detectImageMime(bytes) });
+  }
+  return { fields: body && typeof body === "object" ? body : {}, refBlob };
+}
+
+function buildStudioPrompt(rawPrompt, { backgroundHex = "", visualSpec = "" } = {}) {
+  const trimmed = (rawPrompt || "").trim();
+  const base = trimmed || "modern minimalist consumer electronics product";
+  const targetHex = normalizeHexColor(backgroundHex);
+  const spec = String(visualSpec || "").replace(/\s+/g, " ").trim();
+
+  if (!targetHex && !spec && /#ffffff/i.test(base) && /studio/i.test(base)) {
+    return base;
+  }
+  if (/Ultra-clean commercial industrial design studio product photograph/i.test(base) && /zero floor plane/i.test(base)) {
+    return base;
+  }
+
+  const subject = spec ? `${base} (${spec})` : base;
+  const bgHex = targetHex || "#FFFFFF";
+  const bgDesc = targetHex
+    ? `completely flat uniform seamless solid color void matching hex ${bgHex}`
+    : "pure flat #FFFFFF solid white background with generous white margin on all sides";
+
+  return (
+    `Ultra-clean commercial industrial design studio product photograph of ONLY the exact single standalone ${subject} from the reference photo, ` +
+    `floating weightless in mid-air centered in full uncropped view against a ${bgDesc}, faithfully keeping its true real silhouette, carry strap/handle, knobs, and proportions without distortion, ` +
+    `zero floor plane, zero tabletop, zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, zero vignette, no frame borders, no edge lines, even shadowless lighting, crisp edge separation, ` +
+    `strictly remove all external collage boxes, inset cards, promotional banners, seller badges, overlaid marketing text, Chinese characters, watermarks, hands, people, and pets.`
+  );
+}
+
+async function describeProductFromImage(
+  geminiKey,
+  refBlob,
+  productHint = "",
+  { preferredModel = "" } = {}
+) {
+  const rawBytes = new Uint8Array(await refBlob.arrayBuffer());
+  if (!rawBytes.byteLength || rawBytes.byteLength > 6_000_000) {
+    throw new Error("Reference image is empty or exceeds 6MB limit");
+  }
+  const hint = String(productHint || "").replace(/\s+/g, " ").trim().slice(0, 160);
+  const promptText =
+    `Describe ONLY the standalone physical product in this e-commerce image${hint ? ` ("${hint}")` : ""} ` +
+    `in 2-3 concise visual sentences for a studio product photographer: overall silhouette, carry handle/strap or antenna if present, casing materials, colors, screen, knobs, and controls. ` +
+    `CRITICAL: Describe ONLY the object floating alone; NEVER mention rocks, tables, surfaces, backgrounds, collage insets, promotional badges, overlaid text, digits, price tags, or hands.`;
+  const parts = [
+    { text: promptText },
+    {
+      inlineData: {
+        mimeType: detectImageMime(rawBytes),
+        data: uint8ArrayToBase64(rawBytes),
+      },
+    },
+  ];
+  const models = resolveGeminiModelChain(preferredModel, GEMINI_VISION_MODELS);
+  return callGeminiModelChain({
+    geminiKey,
+    models,
+    label: "Gemini vision",
+    timeoutMs: 30000,
+    buildBody: (modelName) => {
+      const thinking = isGeminiThinkingModel(modelName);
+      const generationConfig = {
+        temperature: 0.15,
+        maxOutputTokens: thinking ? 2048 : 350,
+      };
+      if (thinking) {
+        generationConfig.thinkingConfig = { thinkingLevel: "LOW" };
+      }
+      return {
+        contents: [{ role: "user", parts }],
+        generationConfig,
+      };
+    },
+    extractResult: (data, modelName) => {
+      const visualSpec = extractGeminiText(data).replace(/\s+/g, " ").trim().slice(0, 550);
+      return visualSpec ? { visualSpec, model: `gemini:${modelName}` } : null;
+    },
+  });
+}
+
+async function generateNanoBananaImage(
+  geminiKey,
+  studioPrompt,
+  refBlob,
+  { preferredModel = "gemini-3-pro-image", imageSize = "1K", aspectRatio = "1:1" } = {}
+) {
+  const parts = [{ text: studioPrompt }];
+  if (refBlob) {
+    const rawBytes = new Uint8Array(await refBlob.arrayBuffer());
+    if (rawBytes.byteLength > 0 && rawBytes.byteLength <= 6_000_000) {
+      parts.push({
+        inlineData: {
+          mimeType: detectImageMime(rawBytes),
+          data: uint8ArrayToBase64(rawBytes),
+        },
+      });
     }
   }
+  const models = resolveGeminiModelChain(preferredModel, GEMINI_IMAGE_MODELS);
+  return callGeminiModelChain({
+    geminiKey,
+    models,
+    label: "Nano Banana",
+    timeoutMs: 55000,
+    buildBody: () => ({
+      contents: [{ role: "user", parts }],
+      generationConfig: {
+        responseModalities: ["IMAGE"],
+        imageConfig: { aspectRatio, imageSize },
+      },
+    }),
+    extractResult: (data, modelName) => {
+      const cands = Array.isArray(data?.candidates) ? data.candidates : [];
+      for (const cand of cands) {
+        const cParts = Array.isArray(cand?.content?.parts) ? cand.content.parts : [];
+        for (const p of cParts) {
+          const inline = p?.inlineData || p?.inline_data;
+          if (inline?.data) {
+            return { bytes: base64ToUint8Array(inline.data), model: modelName };
+          }
+        }
+      }
+      return null;
+    },
+  });
+}
+
+function extractMessageText(content) {
+  if (typeof content === "string") return content;
+  if (Array.isArray(content)) {
+    return content
+      .map((part) => (typeof part === "string" ? part : part?.text || ""))
+      .join("\n")
+      .trim();
+  }
+  return "";
+}
+
+async function generateGeminiCopy(
+  geminiKey,
+  messages,
+  {
+    preferredModels = [],
+    thinkingLevel = "HIGH",
+    temperature = 0.25,
+    maxTokens = 1800,
+    jsonOutput = true,
+  } = {}
+) {
+  const sysParts = [];
+  const contents = [];
+  for (const m of messages) {
+    const text = m ? extractMessageText(m.content) : "";
+    if (!text) continue;
+    if (m.role === "system") {
+      sysParts.push({ text });
+    } else {
+      contents.push({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text }],
+      });
+    }
+  }
+  const models = resolveGeminiModelChain(preferredModels, GEMINI_COPY_MODELS);
+  const resolvedThinking = ["LOW", "MEDIUM", "HIGH"].includes(
+    String(thinkingLevel || "HIGH").toUpperCase()
+  )
+    ? String(thinkingLevel || "HIGH").toUpperCase()
+    : "HIGH";
+
+  return callGeminiModelChain({
+    geminiKey,
+    models,
+    label: "Gemini copy",
+    timeoutMs: 45000,
+    buildBody: (modelName) => {
+      const isThinking = isGeminiThinkingModel(modelName);
+      const generationConfig = {
+        temperature,
+        maxOutputTokens: isThinking ? 8192 : maxTokens,
+      };
+      if (jsonOutput) {
+        generationConfig.responseMimeType = "application/json";
+      }
+      if (isThinking) {
+        generationConfig.thinkingConfig = { thinkingLevel: resolvedThinking };
+      }
+      const body = {
+        contents: contents.length ? contents : [{ role: "user", parts: [{ text: "" }] }],
+        generationConfig,
+      };
+      if (sysParts.length) {
+        body.systemInstruction = { parts: sysParts };
+      }
+      return body;
+    },
+    extractResult: (data, modelName) => {
+      const content = extractGeminiText(data);
+      return content.trim() ? { content, model: `gemini:${modelName}`, raw: data } : null;
+    },
+  });
+}
+
+function clampDim(val, fallback = 1024) {
+  const parsed = Number.parseInt(String(val ?? fallback), 10);
+  return Number.isFinite(parsed) ? Math.min(Math.max(parsed, 256), 2048) : fallback;
+}
+
+async function handleGenerateCutout(request, env, url) {
+  const geminiKey = String(env.GEMINI_IMAGE_API_KEY || env.GEMINI_API_KEY || "").trim();
+  if (!geminiKey) {
+    return jsonResponse(
+      { ok: false, error: "GEMINI_API_KEY not configured for Nano Banana image generation" },
+      503
+    );
+  }
+
+  const parsed = await parseStudioImagePayload(request);
+  if (parsed.error) {
+    return jsonResponse({ ok: false, error: parsed.error }, parsed.status || 400);
+  }
+
+  const { fields, refBlob } = parsed;
+  const wantMeta =
+    url.searchParams.get("meta") === "1" || url.searchParams.get("format") === "json";
+  const rawPrompt = String(fields.prompt || "");
+  const productId = String(fields.product_id || "studio-sample").trim() || "studio-sample";
+  const viewName = String(fields.view_name || "main").trim() || "main";
+  const rawBackgroundHex = String(fields.background_hex || fields.backgroundHex || "");
+  const category = String(fields.category || "");
+  let visualSpec = String(fields.visual_spec || fields.visualSpec || "");
+  const width = clampDim(fields.width, 1024);
+  const height = clampDim(fields.height, 1024);
+  const aspectRatio = String(fields.aspect_ratio || fields.aspectRatio || "1:1").trim() || "1:1";
+  const imageSize =
+    String(fields.image_size || fields.imageSize || env.GEMINI_IMAGE_SIZE || "1K").trim() || "1K";
+  const preferredModel =
+    resolveGeminiModelChain(
+      [fields.model, url.searchParams.get("model"), env.DEFAULT_GEMINI_IMAGE_MODEL],
+      GEMINI_IMAGE_MODELS
+    )[0] || "gemini-3-pro-image";
 
   if (!rawPrompt.trim() && !refBlob) {
     return jsonResponse(
@@ -561,41 +895,34 @@ async function handleGenerateCutout(request, env, url) {
     );
   }
 
-  const studioPrompt = buildStudioPrompt(rawPrompt);
+  const targetHex = resolveTargetBackgroundHex(rawBackgroundHex, category);
+  if (refBlob && !visualSpec.trim() && url.searchParams.get("use_vision") === "1") {
+    try {
+      const desc = await describeProductFromImage(geminiKey, refBlob, rawPrompt);
+      visualSpec = desc.visualSpec;
+    } catch {
+      visualSpec = "";
+    }
+  }
+
+  const studioPrompt = buildStudioPrompt(rawPrompt, { backgroundHex: targetHex, visualSpec });
   const createdAt = new Date().toISOString();
+  let effectiveModel = preferredModel;
 
   try {
-    let aiResult;
-    if (model.includes("flux-2")) {
-      const aiForm = new FormData();
-      aiForm.append("prompt", studioPrompt);
-      aiForm.append("width", String(width));
-      aiForm.append("height", String(height));
-      if (refBlob) {
-        aiForm.append("input_image_0", refBlob, refName);
-      }
-      const formResponse = new Response(aiForm);
-      aiResult = await env.AI.run(model, {
-        multipart: {
-          body: formResponse.body,
-          contentType: formResponse.headers.get("content-type"),
-        },
-      });
-    } else {
-      const inputs = { prompt: studioPrompt, width, height };
-      if (refBlob) {
-        inputs.image = Array.from(new Uint8Array(await refBlob.arrayBuffer()));
-      }
-      aiResult = await env.AI.run(model, inputs);
-    }
-
-    const imageBytes = await extractAiImageBytes(aiResult);
+    const nanoRes = await generateNanoBananaImage(geminiKey, studioPrompt, refBlob, {
+      preferredModel,
+      imageSize,
+      aspectRatio,
+    });
+    const imageBytes = nanoRes.bytes;
+    effectiveModel = nanoRes.model;
     const mimeType = detectImageMime(imageBytes);
 
     const insertRes = await env.DB.prepare(
       "INSERT INTO studio_generations (product_id, view_name, model, status, width, height, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
     )
-      .bind(productId, viewName, model, "completed", width, height, createdAt)
+      .bind(productId, viewName, effectiveModel, "completed", width, height, createdAt)
       .run();
 
     const generationId = insertRes.meta?.last_row_id || null;
@@ -606,13 +933,16 @@ async function handleGenerateCutout(request, env, url) {
         id: generationId,
         product_id: productId,
         view_name: viewName,
-        model,
+        model: effectiveModel,
+        provider: "google-ai-studio",
         status: "completed",
         width,
         height,
         bytes: imageBytes.byteLength,
         mime_type: mimeType,
         has_reference_image: Boolean(refBlob),
+        background_hex: targetHex || "#FFFFFF",
+        visual_spec: visualSpec,
         prompt_used: studioPrompt,
         created_at: createdAt,
       });
@@ -623,17 +953,19 @@ async function handleGenerateCutout(request, env, url) {
       headers: corsHeaders({
         "Content-Type": mimeType,
         "Cache-Control": "no-store",
+        "X-Studio-Background-Hex": targetHex || "#FFFFFF",
         "X-Studio-Generation-Id": String(generationId || ""),
         "X-Studio-Product-Id": productId,
         "X-Studio-View-Name": viewName,
-        "X-Studio-Model": model,
+        "X-Studio-Model": effectiveModel,
+        "X-Studio-Provider": "google-ai-studio",
       }),
     });
   } catch (err) {
     await env.DB.prepare(
       "INSERT INTO studio_generations (product_id, view_name, model, status, width, height, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
     )
-      .bind(productId, viewName, model, "error", width, height, createdAt)
+      .bind(productId, viewName, effectiveModel, "error", width, height, createdAt)
       .run()
       .catch(() => {});
 
@@ -642,8 +974,110 @@ async function handleGenerateCutout(request, env, url) {
         ok: false,
         product_id: productId,
         view_name: viewName,
-        model,
+        model: effectiveModel,
+        provider: "google-ai-studio",
         status: "error",
+        error: err instanceof Error ? err.message : String(err),
+      },
+      502
+    );
+  }
+}
+
+async function handleDescribeProduct(request, env) {
+  const geminiKey = String(
+    env.GEMINI_IMAGE_API_KEY || env.GEMINI_TEXT_API_KEY || env.GEMINI_API_KEY || ""
+  ).trim();
+  if (!geminiKey) {
+    return jsonResponse(
+      { ok: false, error: "GEMINI_API_KEY not configured for Google AI Studio product inspection" },
+      503
+    );
+  }
+
+  const parsed = await parseStudioImagePayload(request);
+  if (parsed.error) {
+    return jsonResponse({ ok: false, error: parsed.error }, parsed.status || 400);
+  }
+
+  const { fields, refBlob } = parsed;
+  if (!refBlob) {
+    return jsonResponse({ ok: false, error: "Provide an image for product inspection" }, 400);
+  }
+
+  const productHint = String(fields.prompt || fields.title || "");
+  const preferredModel = typeof fields.model === "string" ? fields.model : "";
+  try {
+    const descRes = await describeProductFromImage(geminiKey, refBlob, productHint, {
+      preferredModel,
+    });
+    return jsonResponse({
+      ok: true,
+      model: descRes.model,
+      provider: "google-ai-studio",
+      visual_spec: descRes.visualSpec,
+    });
+  } catch (err) {
+    return jsonResponse(
+      {
+        ok: false,
+        provider: "google-ai-studio",
+        error: err instanceof Error ? err.message : String(err),
+      },
+      502
+    );
+  }
+}
+
+async function handleGenerateCopy(request, env) {
+  const geminiCopyKey = String(env.GEMINI_TEXT_API_KEY || env.GEMINI_API_KEY || "").trim();
+  if (!geminiCopyKey) {
+    return jsonResponse(
+      { ok: false, error: "GEMINI_API_KEY not configured for Google AI Studio copy generation" },
+      503
+    );
+  }
+
+  let body = {};
+  try {
+    const text = await request.text();
+    if (text.trim()) body = JSON.parse(text);
+  } catch {
+    return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
+  }
+
+  const messages = Array.isArray(body.messages) ? body.messages : [];
+  if (!messages.length) {
+    return jsonResponse({ ok: false, error: "messages array is required" }, 400);
+  }
+
+  const temperature = Number.isFinite(Number(body.temperature)) ? Number(body.temperature) : 0.25;
+  const maxTokens = Number.isFinite(Number(body.max_tokens))
+    ? Math.min(Math.max(Number(body.max_tokens), 256), 8192)
+    : 1800;
+
+  try {
+    const gemRes = await generateGeminiCopy(geminiCopyKey, messages, {
+      preferredModels: [body.model, env.DEFAULT_GEMINI_TEXT_MODEL],
+      thinkingLevel: String(
+        body.thinking_level || env.GEMINI_THINKING_LEVEL || "HIGH"
+      ).toUpperCase(),
+      temperature,
+      maxTokens,
+      jsonOutput: (body.response_format?.type || "json_object") === "json_object",
+    });
+    return jsonResponse({
+      ok: true,
+      model: gemRes.model,
+      provider: "google-ai-studio",
+      choices: [{ message: { role: "assistant", content: gemRes.content } }],
+      raw: gemRes.raw,
+    });
+  } catch (err) {
+    return jsonResponse(
+      {
+        ok: false,
+        provider: "google-ai-studio",
         error: err instanceof Error ? err.message : String(err),
       },
       502
@@ -961,6 +1395,158 @@ async function handleSeoSync(request, env, url) {
   }
 }
 
+const ALLOWED_DISPATCH_WORKFLOWS = new Map([
+  ["fluxixo_daily_rotate.yml", "fluxixo_daily_rotate.yml"],
+  ["daily_rotate", "fluxixo_daily_rotate.yml"],
+  ["rotate", "fluxixo_daily_rotate.yml"],
+  ["fluxixo_seo_daily.yml", "fluxixo_seo_daily.yml"],
+  ["seo_daily", "fluxixo_seo_daily.yml"],
+  ["seo", "fluxixo_seo_daily.yml"],
+]);
+
+function hasValidSyncAuth(request, expectedToken) {
+  const auth = String(request.headers.get("Authorization") || "").trim();
+  if (!auth.toLowerCase().startsWith("bearer ")) return false;
+  const provided = auth.slice(7).trim();
+  if (provided.length !== expectedToken.length) return false;
+  let diff = 0;
+  for (let i = 0; i < expectedToken.length; i++) {
+    diff |= provided.charCodeAt(i) ^ expectedToken.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
+async function dispatchGitHubWorkflow(env, workflowFile, inputs = {}) {
+  const token = String(env.GITHUB_DISPATCH_TOKEN || "").trim();
+  const repo = String(env.GITHUB_REPO || "sayros2601-hub/aliradar-pro").trim();
+  const ref = "main";
+  const cleanInputs = {};
+  if (inputs && typeof inputs === "object") {
+    for (const [key, value] of Object.entries(inputs)) {
+      if (value !== undefined && value !== null) {
+        cleanInputs[key] = String(value);
+      }
+    }
+  }
+  if (!token) {
+    return {
+      ok: false,
+      skipped: true,
+      http_status: null,
+      repo,
+      workflow: workflowFile,
+      ref,
+      inputs: cleanInputs,
+      error: "GITHUB_DISPATCH_TOKEN not configured",
+    };
+  }
+
+  const endpoint = `https://api.github.com/repos/${repo}/actions/workflows/${encodeURIComponent(
+    workflowFile
+  )}/dispatches`;
+  const payload = Object.keys(cleanInputs).length
+    ? { ref, inputs: cleanInputs }
+    : { ref };
+
+  try {
+    const resp = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        Accept: "application/vnd.github+json",
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json; charset=utf-8",
+        "User-Agent": "FLUXIXO-Autopilot/2.0",
+        "X-GitHub-Api-Version": "2022-11-28",
+      },
+      body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(15000),
+    });
+    const bodyText = await resp.text().catch(() => "");
+    return {
+      ok: resp.status === 204 || resp.ok,
+      skipped: false,
+      http_status: resp.status,
+      repo,
+      workflow: workflowFile,
+      ref,
+      inputs: cleanInputs,
+      error: resp.ok ? null : bodyText.slice(0, 300) || `GitHub HTTP ${resp.status}`,
+    };
+  } catch (err) {
+    return {
+      ok: false,
+      skipped: false,
+      http_status: null,
+      repo,
+      workflow: workflowFile,
+      ref,
+      inputs: cleanInputs,
+      error: err instanceof Error ? err.message : String(err),
+    };
+  }
+}
+
+async function handleDispatch(request, env, url) {
+  const syncToken = String(env.AUTOPILOT_SYNC_TOKEN || "").trim();
+  if (syncToken && !hasValidSyncAuth(request, syncToken)) {
+    return jsonResponse({ ok: false, error: "Unauthorized" }, 401);
+  }
+  if (!String(env.GITHUB_DISPATCH_TOKEN || "").trim()) {
+    return jsonResponse({ ok: false, error: "GITHUB_DISPATCH_TOKEN not configured" }, 503);
+  }
+
+  let body = {};
+  try {
+    const text = await request.text();
+    if (text.trim()) body = JSON.parse(text);
+  } catch {
+    return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
+  }
+
+  const rawWorkflow = String(body?.workflow || url.searchParams.get("workflow") || "").trim();
+  const workflowFile = ALLOWED_DISPATCH_WORKFLOWS.get(rawWorkflow);
+  if (!workflowFile) {
+    return jsonResponse(
+      {
+        ok: false,
+        error:
+          "Invalid or missing workflow; expected fluxixo_daily_rotate.yml or fluxixo_seo_daily.yml",
+      },
+      400
+    );
+  }
+
+  const inputs =
+    body?.inputs && typeof body.inputs === "object" && !Array.isArray(body.inputs)
+      ? { ...body.inputs }
+      : {};
+  const addCountParam = body?.add_count ?? url.searchParams.get("add_count");
+  if (workflowFile === "fluxixo_daily_rotate.yml") {
+    if (addCountParam !== undefined && addCountParam !== null && String(addCountParam).trim() !== "") {
+      inputs.add_count = String(addCountParam).trim();
+    } else if (inputs.add_count === undefined) {
+      inputs.add_count = "auto";
+    }
+  }
+
+  const result = await dispatchGitHubWorkflow(env, workflowFile, inputs);
+  const ranAt = new Date().toISOString();
+  await env.DB.prepare(
+    "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
+  )
+    .bind(
+      "api-dispatch",
+      workflowFile,
+      result.ok ? "ok" : "error",
+      JSON.stringify(result),
+      ranAt
+    )
+    .run()
+    .catch(() => {});
+
+  return jsonResponse({ ...result, dispatched_at: ranAt }, result.ok ? 200 : 502);
+}
+
 async function runScheduledAction(controller, env) {
   const cron = controller.cron || "manual";
   const ranAt = new Date().toISOString();
@@ -969,29 +1555,45 @@ async function runScheduledAction(controller, env) {
   const utcToday = now.toISOString().slice(0, 10);
 
   if (cron === "17 5 * * *") {
+    let seoReport = null;
+    let seoError = null;
     try {
-      const report = await runSeoSync(env, { source: "cron", force: false });
-      const status = report.ok ? "ok" : "partial_error";
-      await env.DB.prepare(
-        "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
-      )
-        .bind(cron, "seo_sync", status, JSON.stringify(report), ranAt)
-        .run();
-      return;
+      seoReport = await runSeoSync(env, { source: "cron", force: false });
     } catch (err) {
-      await env.DB.prepare(
-        "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
-      )
-        .bind(
-          cron,
-          "seo_sync",
-          "error",
-          JSON.stringify({ error: err instanceof Error ? err.message : String(err) }),
-          ranAt
-        )
-        .run();
-      return;
+      seoError = err instanceof Error ? err.message : String(err);
     }
+
+    const dispatchRes = env.GITHUB_DISPATCH_TOKEN
+      ? await dispatchGitHubWorkflow(env, "fluxixo_seo_daily.yml")
+      : {
+          ok: false,
+          skipped: true,
+          http_status: null,
+          workflow: "fluxixo_seo_daily.yml",
+          reason: "GITHUB_DISPATCH_TOKEN not configured",
+        };
+
+    const seoOk = Boolean(seoReport?.ok);
+    const dispatchOk = !env.GITHUB_DISPATCH_TOKEN || dispatchRes.ok;
+    const status =
+      seoError && !dispatchRes.ok
+        ? "error"
+        : seoOk && dispatchOk
+        ? "ok"
+        : "partial_error";
+
+    const details = {
+      ...(seoReport || { ok: false, error: seoError }),
+      dispatch_http_status: dispatchRes.http_status,
+      github_dispatch: dispatchRes,
+    };
+
+    await env.DB.prepare(
+      "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
+    )
+      .bind(cron, "seo_sync", status, JSON.stringify(details), ranAt)
+      .run();
+    return;
   }
 
   const [todayState, utcLedgerCount, latestPublished] = await env.DB.batch([
@@ -1010,7 +1612,23 @@ async function runScheduledAction(controller, env) {
   const remainingAllowance = Math.max(0, DAILY_MAX - doneToday);
   const stateRow = todayState.results?.[0] || null;
 
-  const action = cron === "30 15 * * *" ? "prepare_window_check" : "drop_1900_check";
+  const dispatchRes = env.GITHUB_DISPATCH_TOKEN
+    ? await dispatchGitHubWorkflow(env, "fluxixo_daily_rotate.yml", { add_count: "auto" })
+    : {
+        ok: false,
+        skipped: true,
+        http_status: null,
+        workflow: "fluxixo_daily_rotate.yml",
+        inputs: { add_count: "auto" },
+        reason: "GITHUB_DISPATCH_TOKEN not configured",
+      };
+
+  const israelHour = Number(getTzParts(now, ISRAEL_TZ).hour || 0);
+  const action =
+    cron === "0 17 * * *" || (israelHour >= 18 && israelHour < 21)
+      ? "prepare_window_check"
+      : "drop_2100_check";
+  const status = !env.GITHUB_DISPATCH_TOKEN || dispatchRes.ok ? "ok" : "dispatch_error";
   const details = {
     israel_today: israelToday,
     utc_today: utcToday,
@@ -1019,12 +1637,14 @@ async function runScheduledAction(controller, env) {
     today_publish_state: stateRow,
     published_day: publishedDay || null,
     countdown,
+    dispatch_http_status: dispatchRes.http_status,
+    github_dispatch: dispatchRes,
   };
 
   await env.DB.prepare(
     "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
   )
-    .bind(cron, action, "ok", JSON.stringify(details), ranAt)
+    .bind(cron, action, status, JSON.stringify(details), ranAt)
     .run();
 }
 
@@ -1068,44 +1688,16 @@ export default {
       return handleGenerateCutout(request, env, url);
     }
 
+    if (request.method === "POST" && path === "/api/describe-product") {
+      return handleDescribeProduct(request, env);
+    }
+
     if (request.method === "POST" && path === "/api/generate-copy") {
-      let body = {};
-      try {
-        const text = await request.text();
-        if (text.trim()) body = JSON.parse(text);
-      } catch {
-        return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
-      }
-      const model = String(body.model || "@cf/meta/llama-3.3-70b-instruct-fp8-fast");
-      const messages = Array.isArray(body.messages) ? body.messages : [];
-      if (!messages.length) {
-        return jsonResponse({ ok: false, error: "messages array is required" }, 400);
-      }
-      try {
-        const aiRes = await env.AI.run(model, {
-          messages,
-          temperature: Number(body.temperature ?? 0.25),
-          max_tokens: Number(body.max_tokens ?? 1800),
-          response_format: body.response_format || { type: "json_object" },
-        });
-        const content =
-          typeof aiRes?.response === "string"
-            ? aiRes.response
-            : typeof aiRes?.response === "object" && aiRes?.response !== null
-            ? JSON.stringify(aiRes.response)
-            : JSON.stringify(aiRes);
-        return jsonResponse({
-          ok: true,
-          model,
-          choices: [{ message: { role: "assistant", content } }],
-          raw: aiRes,
-        });
-      } catch (err) {
-        return jsonResponse(
-          { ok: false, model, error: err instanceof Error ? err.message : String(err) },
-          502
-        );
-      }
+      return handleGenerateCopy(request, env);
+    }
+
+    if (request.method === "POST" && path === "/api/dispatch") {
+      return handleDispatch(request, env, url);
     }
 
     if (request.method === "POST" && path === "/api/seo-sync") {
@@ -1122,11 +1714,54 @@ export default {
       }
       const event = String(body.event || "catalog_sync").slice(0, 120);
       const ranAt = new Date().toISOString();
-      await env.DB.prepare(
-        "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
-      )
-        .bind("external-sync", event, "ok", JSON.stringify(body), ranAt)
-        .run();
+      const syncToken = String(env.AUTOPILOT_SYNC_TOKEN || "").trim();
+      const isAuthed = !syncToken || hasValidSyncAuth(request, syncToken);
+      const dbOps = [
+        env.DB.prepare(
+          "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
+        ).bind("external-sync", event, "ok", JSON.stringify(body), ranAt),
+      ];
+      if (isAuthed && body.publish_state && typeof body.publish_state === "object") {
+        const psDays = body.publish_state.days && typeof body.publish_state.days === "object"
+          ? body.publish_state.days
+          : body.publish_state;
+        for (const [day, row] of Object.entries(psDays)) {
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !row || typeof row !== "object") continue;
+          dbOps.push(
+            env.DB.prepare(
+              "INSERT OR REPLACE INTO daily_publish_state (day, status, reserved_count, baseline_count, utc_day, published_day, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+            ).bind(
+              day,
+              String(row.status || "published"),
+              Number(row.reserved_count || 0),
+              Number(row.baseline_count || 0),
+              String(row.utc_day || day),
+              row.published_day ? String(row.published_day) : null,
+              ranAt
+            )
+          );
+        }
+      }
+      if (isAuthed && body.ledger_days && typeof body.ledger_days === "object") {
+        for (const [day, rows] of Object.entries(body.ledger_days)) {
+          if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !Array.isArray(rows)) continue;
+          for (const row of rows) {
+            if (!row || typeof row !== "object" || !row.catalog_id) continue;
+            dbOps.push(
+              env.DB.prepare(
+                "INSERT OR IGNORE INTO daily_ledger (day, catalog_id, product_id, source, created_at) VALUES (?, ?, ?, ?, ?)"
+              ).bind(
+                day,
+                String(row.catalog_id),
+                row.product_id ? String(row.product_id) : null,
+                String(row.source || "api"),
+                ranAt
+              )
+            );
+          }
+        }
+      }
+      await env.DB.batch(dbOps);
       return jsonResponse({ ok: true, synced: true, event, recorded_at: ranAt });
     }
 
@@ -1139,7 +1774,10 @@ export default {
           "GET /api/status",
           "GET /drop-status.json",
           "GET /api/redirects",
+          "POST /api/describe-product",
           "POST /api/generate-cutout",
+          "POST /api/generate-copy",
+          "POST /api/dispatch",
           "POST /api/seo-sync",
           "POST /api/catalog-sync",
         ],

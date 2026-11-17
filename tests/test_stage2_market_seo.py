@@ -92,6 +92,46 @@ class AiFirewallTests(unittest.TestCase):
         self.assertTrue(any('generativelanguage.googleapis.com' in u for u in calls))
         self.assertTrue(any('api.groq.com' in u for u in calls))
 
+    def test_complete_json_excludes_workers_ai_and_supports_worker_copy_transport(self):
+        seen_urls = []
+
+        def fake_transport(url, payload, headers):
+            seen_urls.append((url, payload, headers))
+            return {
+                'ok': True,
+                'provider': 'gemini',
+                'model': 'gemini-4-argon',
+                'choices': [{'message': {'content': '{"status":"ok"}'}}],
+            }
+
+        # Pure Cloudflare AI tokens without Gemini or Autopilot URL never invoke Workers AI
+        res_none, prov_none = ai_seo.complete_json(
+            'sys',
+            'user',
+            keys={'CLOUDFLARE_AI_TOKEN': 'cf-tok', 'CLOUDFLARE_API_TOKEN': 'cf-api'},
+            transport=fake_transport,
+        )
+        self.assertIsNone(res_none)
+        self.assertEqual('deterministic', prov_none)
+        self.assertEqual([], seen_urls)
+
+        # Worker transport acts purely as a Google AI Studio HTTP proxy (/api/generate-copy)
+        res_wk, prov_wk = ai_seo.complete_json(
+            'sys',
+            'user',
+            keys={
+                'CLOUDFLARE_AUTOPILOT_URL': 'https://fluxixo-autopilot.sayros2601.workers.dev',
+                'FLUXIXO_AI_TRANSPORT': 'worker',
+            },
+            transport=fake_transport,
+        )
+        self.assertEqual({'status': 'ok'}, res_wk)
+        self.assertEqual('gemini:gemini-4-argon', prov_wk)
+        self.assertEqual(1, len(seen_urls))
+        self.assertEqual('https://fluxixo-autopilot.sayros2601.workers.dev/api/generate-copy', seen_urls[0][0])
+        self.assertEqual('gemini', seen_urls[0][1]['provider'])
+        self.assertNotIn('@cf/', json.dumps(seen_urls[0][1]))
+
 
 class MarketSeoAndSitemapsTests(unittest.TestCase):
     def test_rotating_related_covers_entire_category(self):

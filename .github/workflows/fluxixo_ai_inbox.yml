@@ -1,7 +1,12 @@
 name: FLUXIXO shared AI inbox
 
 on:
-  # Owner 2026-11-15: Automatic GitHub Actions triggers disabled; Cloudflare Worker handles AI workloads.
+  # Owner 2026-11-15: Bounded AliExpress inbox broker runs headless on GitHub Actions;
+  # Cloudflare Worker serves strictly as transport/dispatch/Pages publishing.
+  push:
+    branches: [main]
+    paths:
+      - '.fluxixo-ai/requests/*.json'
   workflow_dispatch:
 
 permissions:

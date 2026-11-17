@@ -3,7 +3,7 @@
 Closed-loop daily SEO automation:
 1. Evaluates active experiments (>14 days old) and auto-rolls back any underperformer.
 2. Detects per-country & per-query opportunities across Google, Bing, and Yandex + technical dist/ health.
-3. Calls ai_seo (Gemini/Groq/OpenRouter or deterministic strategist) through the check_texts firewall.
+3. Calls ai_seo (Google AI Studio direct / Cloudflare Worker transport, or deterministic strategist) through the check_texts firewall.
 4. Writes validated overrides to tools/seo_overrides.json, rebuilds & runs verify_release.py;
    automatically reverts on ANY build or verification failure.
 """

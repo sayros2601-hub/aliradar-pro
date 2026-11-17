@@ -1,9 +1,12 @@
 """Tests for rare-gadget discovery, anti-commodity stoplists, 6-market verification, studio image QA, and per-country ordering."""
 from datetime import datetime, timezone
+import os
 from pathlib import Path
 import random
+import re
 import sys
 import unittest
+import unittest.mock
 
 from PIL import Image, ImageDraw, ImageFilter
 
@@ -353,6 +356,110 @@ class PeakHourSchedulingTests(unittest.TestCase):
         # First 6 queries come strictly from the preferred peak cluster before falling back
         self.assertTrue(all(q['market'] in ('RU', 'IL', 'FR') for q in ordered[:6]))
         self.assertEqual(set(MARKETS), {q['market'] for q in ordered})
+
+
+_FIRST_TASK = discovery_curator.select_rotating_queries(NOW.date().toordinal())[0]
+
+
+class SoldEverywhereTests(unittest.TestCase):
+    """A new product must be sold in all six countries, or one country's front-page rope keeps an older product."""
+
+    TASK = _FIRST_TASK
+    # Countries other than the one the search runs in (that one is confirmed by the search's own detail call).
+    OTHERS = [m for m in MARKETS if m != _FIRST_TASK['market']]
+
+    def _discover(self, title_by_pid, sold_in, required, *, fail_once=()):
+        task = self.TASK
+        terms = ' '.join(group[0] for group in task['groups'])
+        titles = {pid: title.format(terms=terms) for pid, title in title_by_pid.items()}
+        failed = set()
+
+        def fake_call(method, params):
+            def wrap(rows):
+                key = method.replace('.', '_') + '_response'
+                return {key: {'resp_result': {'resp_code': '200', 'result': {
+                    'current_record_count': len(rows), 'products': {'product': rows}}}}}
+            if method == HOT:
+                return wrap([])
+            if method == QUERY:
+                return wrap([_api_row(pid, t) for pid, t in titles.items()] if params.get('keywords') == task['query'] else [])
+            if method == DETAIL:
+                country = params.get('country')
+                pids = str(params.get('product_ids') or '').split(',')
+                if len(pids) == 1 and (pids[0], country) in fail_once and (pids[0], country) not in failed:
+                    failed.add((pids[0], country))
+                    raise RuntimeError('API did not answer')
+                # The search's own detail call (its country) returns every row; per-country checks follow sold_in.
+                return wrap([_api_row(pid, titles[pid]) for pid in pids
+                             if pid in titles and (country == task['market'] or country in sold_in[pid])])
+            if method == LINK:
+                url = str(params.get('source_values'))
+                pid = re.search(r'item/(\d+)\.html', url).group(1)
+                return {'aliexpress_affiliate_link_generate_response': {'resp_result': {'resp_code': '200', 'result': {
+                    'promotion_links': {'promotion_link': [{'source_value': url,
+                                                            'promotion_link': f'https://s.click.aliexpress.com/e/{pid}'}]}}}}}
+            raise AssertionError(f'Unexpected method {method}')
+
+        with unittest.mock.patch.object(discovery_curator.time, 'sleep'):
+            return autonomous.discover(
+                fake_call, existing=[], count=1, now=NOW, use_curated_pool=True, check_all_markets=True,
+                check_hot_background=True, presearch_fn=lambda _: {'checked': True, 'status': 'ok', 'saturated': False},
+                required_markets=required)
+
+    def test_product_missing_a_country_is_skipped_for_one_sold_everywhere(self):
+        partly = set(MARKETS) - set(self.OTHERS[:2])
+        picks = self._discover(
+            {'777000001': 'Pocket {terms} Studio Edition', '777000002': 'Folding {terms} Travel Edition'},
+            {'777000001': partly, '777000002': set(MARKETS)},
+            tuple(MARKETS))
+        self.assertEqual(['777000002'], [p['product_id'] for p in picks])
+        self.assertEqual(list(MARKETS), picks[0]['availableMarkets'])
+
+    def test_nothing_is_picked_when_no_product_is_sold_everywhere(self):
+        partly = set(MARKETS) - set(self.OTHERS[:1])
+        self.assertEqual([], self._discover({'777000001': 'Pocket {terms} Studio Edition'},
+                                            {'777000001': partly}, tuple(MARKETS)))
+
+    def test_without_the_rule_a_partly_sold_product_can_still_be_found(self):
+        partly = set(MARKETS) - set(self.OTHERS[:2])
+        picks = self._discover({'777000001': 'Pocket {terms} Studio Edition'}, {'777000001': partly}, ())
+        self.assertEqual([m for m in MARKETS if m in partly], picks[0]['availableMarkets'])
+
+    def test_a_country_that_errors_once_is_asked_again(self):
+        picks = self._discover({'777000003': 'Compact {terms} Home Edition'}, {'777000003': set(MARKETS)},
+                               tuple(MARKETS), fail_once={('777000003', self.OTHERS[-1])})
+        self.assertEqual(list(MARKETS), picks[0]['availableMarkets'])
+
+    def test_required_markets_setting(self):
+        with unittest.mock.patch.dict(os.environ, {'FLUXIXO_REQUIRED_MARKETS': ''}):
+            self.assertEqual(tuple(MARKETS), autonomous.required_markets())
+        with unittest.mock.patch.dict(os.environ, {'FLUXIXO_REQUIRED_MARKETS': 'none'}):
+            self.assertEqual((), autonomous.required_markets())
+        with unittest.mock.patch.dict(os.environ, {'FLUXIXO_REQUIRED_MARKETS': 'ru, us'}):
+            self.assertEqual(('RU', 'US'), autonomous.required_markets())
+        with unittest.mock.patch.dict(os.environ, {'FLUXIXO_REQUIRED_MARKETS': 'RU,DE'}):
+            with self.assertRaises(autonomous.DailyError):
+                autonomous.required_markets()
+
+    def test_presearch_exclusivity_catches_english_duplicate_via_name_en(self):
+        existing = [
+            {
+                'id': 'levitating-moon-001',
+                'name': 'Левитирующий светильник Луна на магнитной подставке',
+                'name_en': 'Magnetic Levitating Floating Lunar Moon Lamp Desk Sculpture',
+            }
+        ]
+        candidate = {
+            'product_id': '999888777',
+            'title': 'Magnetic Levitating Floating Lunar Moon Lamp Desk Sculpture Edition',
+            'orders_count': 40,
+            'evaluate_rate': '97%',
+            'price': 38.0,
+        }
+        ok, reason, meta = discovery_curator.presearch_exclusivity_check(candidate, existing)
+        self.assertFalse(ok)
+        self.assertIn('catalog_concept_duplicate:levitating-moon-001', reason)
+        self.assertEqual('catalog_overlap', meta.get('stage'))
 
 
 if __name__ == '__main__':

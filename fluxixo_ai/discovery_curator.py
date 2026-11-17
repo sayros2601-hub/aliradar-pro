@@ -4,6 +4,7 @@ from __future__ import annotations
 from datetime import datetime, timezone
 import os
 import re
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -55,7 +56,7 @@ CURATED_RARE_QUERIES: list[dict[str, Any]] = [
     {'key': 'rare_gyro_powerball', 'query': 'auto start gyroscopic wrist ball exerciser', 'groups': (('gyro', 'gyroscopic', 'wrist'), ('ball',)), 'category': 'Спорт', 'market': 'FR', 'theme': 'blue'},
     {'key': 'rare_gravity_spice_mill', 'query': 'gravity induction electric pepper grinder', 'groups': (('gravity',), ('grinder', 'mill')), 'category': 'Кухня', 'market': 'BR', 'theme': 'sand'},
     {'key': 'rare_obd_windshield_hud', 'query': 'car obd2 windshield head up display hud', 'groups': (('hud', 'head up'), ('car', 'obd', 'windshield')), 'category': 'В дороге', 'market': 'MX', 'theme': 'rose'},
-    {'key': 'rare_contour_profile_gauge', 'query': 'locking contour profile duplicator gauge tool', 'groups': (('contour', 'profile'), ('gauge',)), 'category': 'Инструменты', 'market': 'RU', 'theme': 'coral'},
+    {'key': 'rare_contour_profile_gauge', 'query': 'contour gauge duplicator lock', 'groups': (('contour', 'profile'), ('gauge',)), 'category': 'Инструменты', 'market': 'RU', 'theme': 'coral'},
     {'key': 'rare_plasma_arc_lighter', 'query': 'waterproof dual arc plasma lighter usb outdoor', 'groups': (('plasma', 'arc'), ('lighter',)), 'category': 'На природе', 'market': 'US', 'theme': 'blue'},
     {'key': 'rare_auto_rolling_pet_ball', 'query': 'smart automatic rolling interactive cat dog ball', 'groups': (('automatic', 'smart', 'interactive'), ('ball',)), 'category': 'Питомцы', 'market': 'IL', 'theme': 'lavender'},
     {'key': 'rare_laser_level_inclinometer', 'query': 'digital magnetic inclinometer angle cube gauge', 'groups': (('angle', 'inclinometer'), ('digital', 'gauge')), 'category': 'Инструменты', 'market': 'FR', 'theme': 'sand'},
@@ -63,14 +64,14 @@ CURATED_RARE_QUERIES: list[dict[str, Any]] = [
     {'key': 'rare_uv_toothbrush_pod', 'query': 'portable uv toothbrush sanitizer travel case', 'groups': (('uv', 'uvc'), ('toothbrush',)), 'category': 'Уход', 'market': 'BR', 'theme': 'lavender'},
     {'key': 'rare_solar_crank_beacon', 'query': 'hand crank solar emergency weather radio lantern', 'groups': (('crank', 'solar'), ('radio', 'lantern')), 'category': 'На природе', 'market': 'RU', 'theme': 'coral'},
     {'key': 'rare_pixel_desk_clock', 'query': 'smart pixel art desk clock ambient weather display', 'groups': (('pixel',), ('clock', 'display')), 'category': 'Техника', 'market': 'US', 'theme': 'blue'},
-    {'key': 'rare_rapid_defrost_tray', 'query': 'conductive aluminum rapid meat defrosting tray', 'groups': (('defrost', 'thaw'), ('tray', 'plate')), 'category': 'Кухня', 'market': 'IL', 'theme': 'sand'},
+    {'key': 'rare_rapid_defrost_tray', 'query': 'defrosting tray thawing plate', 'groups': (('defrost', 'defrosting', 'thaw', 'thawing'), ('tray', 'plate', 'board')), 'category': 'Кухня', 'market': 'IL', 'theme': 'sand'},
     {'key': 'rare_turbine_air_duster', 'query': 'jet dry compressed air blower turbo duster fan', 'groups': (('turbo', 'jet'), ('duster', 'blower')), 'category': 'Техника', 'market': 'FR', 'theme': 'blue'},
     {'key': 'rare_magnetic_vortex_mug', 'query': 'automatic magnetic self stirring insulated coffee mug', 'groups': (('magnetic', 'self stirring'), ('mug', 'cup')), 'category': 'Кухня', 'market': 'US', 'theme': 'rose'},
     {'key': 'rare_folding_camping_shower', 'query': 'rechargeable portable outdoor electric camping shower', 'groups': (('portable', 'electric'), ('shower',)), 'category': 'На природе', 'market': 'BR', 'theme': 'blue'},
     {'key': 'rare_tennis_ball_pressurizer', 'query': 'tennis padel ball pressurizer saver canister', 'groups': (('pressurizer', 'pressure'), ('tennis', 'padel')), 'category': 'Спорт', 'market': 'MX', 'theme': 'sand'},
     {'key': 'rare_digital_spoon_scale', 'query': 'digital gram measuring spoon lcd scale coffee', 'groups': (('spoon',), ('scale',)), 'category': 'Кухня', 'market': 'RU', 'theme': 'coral'},
     {'key': 'rare_mini_thermal_printer', 'query': 'pocket inkless thermal bluetooth note printer', 'groups': (('thermal',), ('printer',)), 'category': 'Техника', 'market': 'BR', 'theme': 'lavender'},
-    {'key': 'rare_timed_lock_vault', 'query': 'timer lock box container phone habit vault', 'groups': (('timer', 'time'), ('lock', 'box')), 'category': 'Дом', 'market': 'IL', 'theme': 'rose'},
+    {'key': 'rare_timed_lock_vault', 'query': 'phone timer lock box', 'groups': (('timer', 'time'), ('lock', 'box')), 'category': 'Дом', 'market': 'IL', 'theme': 'rose'},
     {'key': 'rare_bike_laser_lane_light', 'query': 'bicycle rear taillight laser lane safety signal', 'groups': (('laser',), ('bicycle', 'bike', 'taillight')), 'category': 'Спорт', 'market': 'FR', 'theme': 'blue'},
     {'key': 'rare_pet_grooming_vacuum', 'query': 'low noise pet nail grinder clipper led light', 'groups': (('nail', 'claw'), ('grinder',)), 'category': 'Питомцы', 'market': 'US', 'theme': 'sand'},
     {'key': 'rare_usb_voltage_analyzer', 'query': 'usb c digital power meter tester ammeter screen', 'groups': (('usb', 'type c'), ('tester', 'meter')), 'category': 'Техника', 'market': 'RU', 'theme': 'blue'},
@@ -112,6 +113,11 @@ RETIRED_TYPES = frozenset({
     'rare_pixel_desk_clock',            # find-039 LED matrix pixel panel
     'rare_bike_laser_lane_light',       # find-028 LED Bicycle Tail Light
     'rare_usb_voltage_analyzer',        # USB dongle: close to the cable/charger junk the site never shows
+    'rare_endoscope_borescope',         # USB camera wire/probe: cousin of find-040 microscope & cable-like
+    'rare_pet_grooming_vacuum',         # rotary claw grinder: cousin of find-011 nail drill
+    'rare_car_gap_caddy',               # car seat organizer with USB: cousin of existing car mounts/organizers
+    'rare_magnetic_vortex_mug',         # drink mixer: cousin of find-056 milk frother
+    'rare_laser_level_inclinometer',    # digital angle meter: cousin of find-052 laser distance meter
 })
 # Fallback seed types that must never run: the owner treats anything cable-like as junk.
 EXCLUDED_SEED_TYPES = frozenset({'cable_fish_tape'})
@@ -448,7 +454,7 @@ def presearch_exclusivity_check(
     for existing in existing_items:
         if not isinstance(existing, dict):
             continue
-        for field in ('sourceTitle', 'name'):
+        for field in ('sourceTitle', 'name_en', 'name'):
             other = str(existing.get(field) or '').strip()
             if not other:
                 continue
@@ -509,28 +515,38 @@ def verify_markets_for_candidate(
             continue
         if market == primary_market and market in market_states:
             continue
-        try:
-            rows = _rows(
-                call(
+        # One more try when the API errors: a country that did not answer is not a country that does not sell it
+        # (2026-11-15: a cat ball sold in France was first recorded without France).
+        for attempt in range(2):
+            try:
+                rows = _rows(
+                    call(
+                        DETAIL,
+                        {
+                            'product_ids': pid,
+                            'country': market,
+                            'target_currency': 'USD',
+                            'target_language': 'EN',
+                            'tracking_id': 'default',
+                        },
+                    ),
                     DETAIL,
-                    {
-                        'product_ids': pid,
-                        'country': market,
-                        'target_currency': 'USD',
-                        'target_language': 'EN',
-                        'tracking_id': 'default',
-                    },
-                ),
-                DETAIL,
-            )
-            matched = [r for r in rows[:20] if isinstance(r, dict) and str(r.get('product_id')) == pid]
-            if matched:
-                norm = normalize_product(matched[0], market, DETAIL, utc_iso)
-                market_states[market] = norm['markets'][market]
-                if market in voltage_ok and market not in confirmed:
-                    confirmed.append(market)
-        except Exception:
-            continue
+                )
+            except Exception:
+                if attempt == 0:
+                    time.sleep(1.0)
+                    continue
+                break
+            try:
+                matched = [r for r in rows[:20] if isinstance(r, dict) and str(r.get('product_id')) == pid]
+                if matched:
+                    norm = normalize_product(matched[0], market, DETAIL, utc_iso)
+                    market_states[market] = norm['markets'][market]
+                    if market in voltage_ok and market not in confirmed:
+                        confirmed.append(market)
+            except Exception:
+                pass
+            break
 
     # Preserve canonical order from ALL_MARKETS.
     ordered_confirmed = [m for m in ALL_MARKETS if m in confirmed]
@@ -545,16 +561,28 @@ def generate_ai_discovery_queries(
     target_markets: tuple[str, ...] = ALL_MARKETS,
     limit: int = 6,
 ) -> list[dict[str, Any]]:
-    """Optionally brainstorm fresh rare-gadget searches via configured free AI keys."""
+    """Optionally brainstorm fresh rare-gadget searches via Google AI Studio (direct or Worker transport)."""
+    if limit <= 0 or not target_markets:
+        return []
     try:
         from fluxixo_site.tools import ai_seo
     except Exception:
         return []
-    keys = ai_seo.load_ai_keys(local=False)
-    if not ai_seo.has_ai_provider(keys):
+    try:
+        if not ai_seo.has_ai_provider():
+            return []
+    except Exception:
         return []
 
-    sample_names = [str(p.get('name', '')) for p in existing_items[:25] if isinstance(p, dict)]
+    seen_sample: set[str] = set()
+    sample_names: list[str] = []
+    for p in existing_items:
+        if not isinstance(p, dict):
+            continue
+        label = str(p.get('name_en') or p.get('sourceTitle') or p.get('name') or '').strip()
+        if label and label.casefold() not in seen_sample:
+            seen_sample.add(label.casefold())
+            sample_names.append(label[:70])
     sys_prompt = (
         'You curate unusual, genuinely clever non-everyday physical gadgets from AliExpress '
         'that people do NOT already own at home (kinetic/physics items, optical borescopes, '
@@ -562,16 +590,12 @@ def generate_ai_discovery_queries(
         'stickers, screws, or spare parts. Reply strictly with JSON: '
         '{"queries":[{"query":"english 4-6 word query","keyword_required":"single core word","category":"Техника|Дом|Кухня|В дороге|Инструменты|Уход|Спорт|На природе|Питомцы"}]}'
     )
-    user_prompt = f'Avoid topics already in catalog: {sample_names[:18]}. Propose {limit} distinct ideas.'
+    user_prompt = f'Avoid ALL topics already in catalog ({len(sample_names)} items): {sample_names}. Propose {limit} distinct ideas.'
     raw_obj = None
-    for caller_key, env_name in ((ai_seo._call_gemini, 'GEMINI_API_KEY'), (ai_seo._call_groq, 'GROQ_API_KEY'), (ai_seo._call_openrouter, 'OPENROUTER_API_KEY')):
-        if not keys.get(env_name):
-            continue
-        try:
-            raw_obj, _ = caller_key(keys[env_name], sys_prompt, user_prompt)
-            break
-        except Exception:
-            continue
+    try:
+        raw_obj, _ = ai_seo.complete_json(sys_prompt, user_prompt)
+    except Exception:
+        raw_obj = None
     if not isinstance(raw_obj, dict) or not isinstance(raw_obj.get('queries'), list):
         return []
 

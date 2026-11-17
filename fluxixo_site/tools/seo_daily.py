@@ -89,14 +89,18 @@ def http(method, url, *, headers=None, body=None, timeout=40):
 def secrets(local):
     names = {'GSC_SERVICE_ACCOUNT_JSON': 'gsc-service-account.dpapi', 'BING_WEBMASTER_API_KEY': 'bing-api-key.dpapi',
              'YANDEX_WEBMASTER_TOKEN': 'yandex-oauth-token.dpapi', 'SEO_DATA_KEY': 'seo-data-key.dpapi',
-             'GEMINI_API_KEY': 'gemini-api-key.dpapi', 'GROQ_API_KEY': 'groq-api-key.dpapi',
-             'OPENROUTER_API_KEY': 'openrouter-api-key.dpapi'}
+             'GEMINI_API_KEY': 'gemini-api-key.dpapi', 'GEMINI_TEXT_API_KEY': 'gemini-text-api-key.dpapi',
+             'AUTOPILOT_SYNC_TOKEN': 'autopilot-sync-token.dpapi'}
     found = {name: (os.environ.get(name) or '').strip() for name in names}
+    for extra in ('CLOUDFLARE_AUTOPILOT_URL', 'FLUXIXO_AI_TRANSPORT'):
+        val = (os.environ.get(extra) or '').strip()
+        if val:
+            found[extra] = val
     if local:
         sys.path.insert(0, str(SITE / 'tools'))
         from dpapi_store import load_credential
         for name, file in names.items():
-            if not found[name]:
+            if file and not found[name]:
                 found[name] = (load_credential(file) or '').strip()
     return found
 
@@ -630,7 +634,17 @@ def main():
         try:
             sys.path.insert(0, str(SITE / 'tools'))
             import stage2_seo
-            ai_keys = {k: keys[k] for k in ('GEMINI_API_KEY', 'GROQ_API_KEY', 'OPENROUTER_API_KEY') if k in keys}
+            ai_keys = {
+                k: str(keys[k]).strip()
+                for k in (
+                    'GEMINI_API_KEY',
+                    'GEMINI_TEXT_API_KEY',
+                    'CLOUDFLARE_AUTOPILOT_URL',
+                    'FLUXIXO_AI_TRANSPORT',
+                    'AUTOPILOT_SYNC_TOKEN',
+                )
+                if str(keys.get(k) or '').strip()
+            }
             stage2_res = stage2_seo.run_stage2(today, DIST, results, state, ai_keys, apply_changes=bool(args.apply and not args.dry_run))
             print(f'stage2: applied={len(stage2_res["applied"])}, rolled_back={len(stage2_res["rolled_back"])}, proposed={len(stage2_res["proposed"])}', flush=True)
         except Exception as exc:

@@ -1,14 +1,19 @@
-name: FLUXIXO daily evening update (19:00 Israel, max 3 products)
+name: FLUXIXO daily evening update (21:00 Israel, max 3 products)
 
 on:
-  # Owner 2026-11-15: Automatic schedules moved to Cloudflare Worker (fluxixo-autopilot).
-  # GitHub Actions automatic schedule is disabled; manual workflow_dispatch only if ever needed.
+  schedule:
+    # Israel evening prepare (19:00 IST / 19:00 IDT) and 21:00 publish fallback windows across DST (UTC).
+    # Primary triggers run on Cloudflare Worker (fluxixo-autopilot) at 17:00, 18:00, 19:00 UTC.
+    - cron: '15 16 * * *'
+    - cron: '15 17 * * *'
+    - cron: '15 18 * * *'
+    - cron: '15 19 * * *'
   workflow_dispatch:
     inputs:
       add_count:
-        description: '0 rebuilds without new images; 1-3 requests remaining daily allowance'
+        description: 'auto follows daily schedule rules; 0 rebuilds without new images; 1-3 requests remaining daily allowance'
         required: false
-        default: '0'
+        default: 'auto'
 
 permissions:
   contents: write
@@ -26,10 +31,18 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       LEDGER: data/fluxixo_daily_ledger.json
       PUBLISH_STATE: data/fluxixo_publish_state.json
-      # Owner 2026-11-15: AI studio generation (FLUX.2), 6-language copy/SEO (Llama 3.3 70B), D1 state,
-      # and daily cron schedules run on Cloudflare (fluxixo-autopilot Worker + Workers AI + Pages dealvault).
+      # Owner 2026-11-15: Cloud pipeline runs headless on GitHub Actions without the user's PC.
+      # Google AI Studio API handles all text/SEO (Gemini) and studio images (Nano Banana 1K) exclusively;
+      # Cloudflare serves strictly as transport/dispatch (fluxixo-autopilot Worker) and Pages publishing (dealvault).
       FLUXIXO_IMAGE_MODE: generate
-      FLUXIXO_USE_CLOUDFLARE_AI: '1'
+      FLUXIXO_IMAGE_PROVIDER: nano_banana
+      FLUXIXO_USE_VISION_SPEC: '1'
+      FLUXIXO_GEMINI_THINKING_LEVEL: HIGH
+      FLUXIXO_GEMINI_IMAGE_SIZE: 1K
+      FLUXIXO_STRICT_COPY: '1'
+      FLUXIXO_GEMINI_TEXT_MODEL: ${{ vars.FLUXIXO_GEMINI_TEXT_MODEL || '' }}
+      FLUXIXO_GEMINI_IMAGE_MODEL: ${{ vars.FLUXIXO_GEMINI_IMAGE_MODEL || '' }}
+      FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}
       CLOUDFLARE_AUTOPILOT_URL: https://fluxixo-autopilot.sayros2601.workers.dev
       CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
     steps:
@@ -43,13 +56,17 @@ jobs:
         id: today
         env:
           EVENT_NAME: ${{ github.event_name }}
-          INPUT_COUNT: ${{ github.event.inputs.add_count || '0' }}
+          INPUT_COUNT: ${{ github.event.inputs.add_count || 'auto' }}
         run: |
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            python3 -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT" --manual-count "$INPUT_COUNT"
-          else
-            python3 -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT"
-          fi
+          INPUT_COUNT="${INPUT_COUNT//[[:space:]]/}"
+          case "${EVENT_NAME}:${INPUT_COUNT}" in
+            workflow_dispatch:0|workflow_dispatch:1|workflow_dispatch:2|workflow_dispatch:3)
+              python3 -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT" --manual-count "$INPUT_COUNT"
+              ;;
+            *)
+              python3 -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT"
+              ;;
+          esac
 
       - name: Set up Python 3.12
         if: steps.today.outputs.skip != 'true'
@@ -105,14 +122,14 @@ jobs:
           ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
           ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GEMINI_IMAGE_API_KEY: ${{ secrets.GEMINI_IMAGE_API_KEY }}
+          GEMINI_TEXT_API_KEY: ${{ secrets.GEMINI_TEXT_API_KEY }}
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
           ADD_COUNT: ${{ steps.today.outputs.add_count }}
           MARKETS: ${{ steps.today.outputs.markets }}
-          FLUXIXO_STRICT_COPY: '1'
         run: |
-          # A rejected photo is retried with another product (no image-attempt cap in cut-out mode), and every new
-          # product must be sold in all six countries (FLUXIXO_REQUIRED_MARKETS default) so it hangs on every rope.
+          # Every new product generates 3 studio cutout angles via Google AI Studio (Nano Banana 1K) and must be
+          # sold in all six countries (FLUXIXO_REQUIRED_MARKETS default) so it hangs on every rope.
           python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$MARKETS" --prepare-only
 
       - name: Persist prepared products and their images before building pages
@@ -148,12 +165,17 @@ jobs:
         if: steps.today.outputs.skip != 'true'
         env:
           EVENT_NAME: ${{ github.event_name }}
+          INPUT_COUNT: ${{ github.event.inputs.add_count || 'auto' }}
         run: |
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            python -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT" --manual-count 0
-          else
-            python -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT"
-          fi
+          INPUT_COUNT="${INPUT_COUNT//[[:space:]]/}"
+          case "${EVENT_NAME}:${INPUT_COUNT}" in
+            workflow_dispatch:0|workflow_dispatch:1|workflow_dispatch:2|workflow_dispatch:3)
+              python -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT" --manual-count 0
+              ;;
+            *)
+              python -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT"
+              ;;
+          esac
 
       - name: Build and verify all six languages without new images
         if: steps.today.outputs.skip != 'true'
@@ -162,6 +184,10 @@ jobs:
           RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
           ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
           ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_IMAGE_API_KEY: ${{ secrets.GEMINI_IMAGE_API_KEY }}
+          GEMINI_TEXT_API_KEY: ${{ secrets.GEMINI_TEXT_API_KEY }}
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
         run: |
           if [ "$RECORD_PUBLICATION" = "true" ]; then export FLUXIXO_PREPARED_PUBLISH_DAY="$DAY"; fi
           python -B fluxixo_daily_rotate.py --add 0 --refresh-clean-links
@@ -176,15 +202,21 @@ jobs:
         timeout-minutes: 15
         env:
           EVENT_NAME: ${{ github.event_name }}
+          INPUT_COUNT: ${{ github.event.inputs.add_count || 'auto' }}
           DAY: ${{ steps.publication.outputs.publication_day }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
         run: |
-          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            python -B -m fluxixo_ai.daily_schedule guard-publication --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY" --manual-count 0
-          else
-            python -B -m fluxixo_ai.daily_schedule guard-publication --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
-          fi
+          INPUT_COUNT="${INPUT_COUNT//[[:space:]]/}"
+          case "${EVENT_NAME}:${INPUT_COUNT}" in
+            workflow_dispatch:0|workflow_dispatch:1|workflow_dispatch:2|workflow_dispatch:3)
+              python -B -m fluxixo_ai.daily_schedule guard-publication --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY" --manual-count 0
+              ;;
+            *)
+              python -B -m fluxixo_ai.daily_schedule guard-publication --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
+              ;;
+          esac
           python -B fluxixo_daily_rotate.py --add 0 --deploy --deploy-existing
 
       - name: Record success only after deployment completes
@@ -192,6 +224,7 @@ jobs:
         env:
           DAY: ${{ steps.today.outputs.day }}
           RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
         run: |
           if [ "$RECORD_PUBLICATION" = "true" ]; then
             python -B -m fluxixo_ai.daily_schedule mark-published --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
@@ -202,6 +235,7 @@ jobs:
             git commit -m "chore(fluxixo): record published daily batch [skip ci]"
             git push origin HEAD:main
           fi
+          python -B -c "import fluxixo_daily_rotate as d; d.report_autopilot_sync('published', {'day': '$DAY'})" || true
 
       - name: Report a blocked preparation without spending another allowance
         if: steps.today.outputs.reason == 'interrupted_prepare'

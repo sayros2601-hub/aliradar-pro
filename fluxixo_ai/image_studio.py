@@ -12,8 +12,10 @@ import math
 import os
 from pathlib import Path
 import re
+import sys
 from typing import Any
 import urllib.error
+import urllib.parse
 import urllib.request
 import uuid
 
@@ -28,9 +30,26 @@ ALPHA_FLOOR = 24
 TIGHT_BBOX_ALPHA = 20
 DEFAULT_CLOUDFLARE_ACCOUNT_ID = 'a4be28e05f73ad2b3939d364ea8b2817'
 DEFAULT_CLOUDFLARE_AUTOPILOT_URL = 'https://fluxixo-autopilot.sayros2601.workers.dev'
-DEFAULT_FLUX2_MODEL = '@cf/black-forest-labs/flux-2-klein-4b'
-DEFAULT_FLUX1_FALLBACK_MODEL = '@cf/black-forest-labs/flux-1-schnell'
 WRANGLER_OAUTH_USER_AGENT = 'wrangler/4.151.3'
+DEFAULT_GEMINI_IMAGE_MODEL = 'gemini-3-pro-image'
+GEMINI_IMAGE_FALLBACK_MODELS = (
+    'gemini-3-pro-image',
+    'gemini-nano-banana-2.1',
+    'gemini-3.1-flash-image',
+    'gemini-3.1-flash-lite-image',
+    'gemini-3.1-flash-image-preview',
+    'gemini-2.5-flash-image',
+)
+DEFAULT_GEMINI_VISION_MODEL = 'gemini-4-hydrogen'
+GEMINI_VISION_FALLBACK_MODELS = (
+    'gemini-4-hydrogen',
+    'gemini-3.8-flash',
+    'gemini-3.7-flash',
+    'gemini-3.5-flash',
+    'gemini-3.5-flash-lite',
+    'gemini-2.5-flash',
+)
+DEFAULT_VISION_MODEL = DEFAULT_GEMINI_VISION_MODEL
 
 
 def compute_dhash(image: Image.Image, *, size: int = 8) -> str:
@@ -714,21 +733,69 @@ def compose_studio_frame(
     return canvas
 
 
-def _estimate_studio_backdrop(rgb: Image.Image) -> tuple[int, int, int]:
-    """Estimate studio backdrop RGB from bright low-chroma perimeter pixels."""
+WORLD_BACKGROUNDS: dict[str, str] = {
+    'Техника': '#DFE5FB',
+    'Дом': '#F1E3CF',
+    'Кухня': '#D9EEDE',
+    'В дороге': '#FBE7A6',
+    'Инструменты': '#FDD8C4',
+    'Уход': '#F8D9E6',
+    'Спорт': '#D3EDF5',
+    'На природе': '#DFEAC4',
+    'Питомцы': '#E9DCF8',
+}
+
+
+def normalize_hex_color(raw_hex: str | None) -> str:
+    """Return normalized '#RRGGBB' hex string or '' when invalid."""
+    cleaned = str(raw_hex or '').strip().lstrip('#')
+    if len(cleaned) == 6 and all(ch in '0123456789abcdefABCDEF' for ch in cleaned):
+        return f'#{cleaned.upper()}'
+    return ''
+
+
+def parse_hex_color(raw_hex: str | None) -> tuple[int, int, int] | None:
+    """Parse '#RRGGBB' hex color into an (R, G, B) tuple, or None when invalid."""
+    hx = normalize_hex_color(raw_hex)
+    if not hx:
+        return None
+    return (int(hx[1:3], 16), int(hx[3:5], 16), int(hx[5:7], 16))
+
+
+def resolve_world_background(category: str | None = None, background_hex: str | None = None) -> str | None:
+    """Resolve explicit hex color or FLUXIXO site category pastel color, returning None if unmapped."""
+    explicit = normalize_hex_color(background_hex)
+    if explicit:
+        return explicit
+    cat = str(category or '').strip()
+    return WORLD_BACKGROUNDS.get(cat)
+
+
+def _is_colored_backdrop(bg_rgb: tuple[int, int, int]) -> bool:
+    return min(bg_rgb) < 238 or (max(bg_rgb) - min(bg_rgb)) >= 14
+
+
+def _estimate_studio_backdrop(
+    rgb: Image.Image,
+    *,
+    target_bg_rgb: tuple[int, int, int] | None = None,
+) -> tuple[int, int, int]:
+    """Estimate studio backdrop RGB from border pixels, supporting white or site-colored studio sweeps."""
     w, h = rgb.size
     raw = rgb.tobytes()
-    rs: list[int] = []
-    gs: list[int] = []
-    bs: list[int] = []
+    samples: list[tuple[int, int, int]] = []
+    bright_rs: list[int] = []
+    bright_gs: list[int] = []
+    bright_bs: list[int] = []
 
     def _collect(idx: int) -> None:
         off = idx * 3
         r, g, b = raw[off], raw[off + 1], raw[off + 2]
+        samples.append((r, g, b))
         if min(r, g, b) >= 215 and max(r, g, b) - min(r, g, b) <= 22:
-            rs.append(r)
-            gs.append(g)
-            bs.append(b)
+            bright_rs.append(r)
+            bright_gs.append(g)
+            bright_bs.append(b)
 
     for x in range(w):
         _collect(x)
@@ -739,13 +806,40 @@ def _estimate_studio_backdrop(rgb: Image.Image) -> tuple[int, int, int]:
         if w > 1:
             _collect(y * w + w - 1)
 
-    if not rs:
-        return (255, 255, 255)
-    rs.sort()
-    gs.sort()
-    bs.sort()
-    mid = len(rs) // 2
-    return (rs[mid], gs[mid], bs[mid])
+    if target_bg_rgb is not None and _is_colored_backdrop(target_bg_rgb):
+        tr, tg, tb = target_bg_rgb
+        near = [c for c in samples if (c[0] - tr) ** 2 + (c[1] - tg) ** 2 + (c[2] - tb) ** 2 <= 62 * 62]
+        pool = near or samples
+        rs = sorted(c[0] for c in pool)
+        gs = sorted(c[1] for c in pool)
+        bs = sorted(c[2] for c in pool)
+        mid = len(pool) // 2
+        return (rs[mid], gs[mid], bs[mid]) if pool else target_bg_rgb
+
+    if bright_rs and len(bright_rs) >= len(samples) * 0.45:
+        bright_rs.sort()
+        bright_gs.sort()
+        bright_bs.sort()
+        mid = len(bright_rs) // 2
+        return (bright_rs[mid], bright_gs[mid], bright_bs[mid])
+
+    # Auto-detect colored pastel studio sweeps by sampling corner consensus.
+    corners = [
+        rgb.getpixel((x, y))
+        for x, y in ((0, 0), (w - 1, 0), (0, h - 1), (w - 1, h - 1))
+    ]
+    if corners and min(min(c) for c in corners) >= 150:
+        cr = sorted(c[0] for c in corners)[len(corners) // 2]
+        cg = sorted(c[1] for c in corners)[len(corners) // 2]
+        cb = sorted(c[2] for c in corners)[len(corners) // 2]
+        matching = sum(
+            1 for c in samples
+            if (c[0] - cr) ** 2 + (c[1] - cg) ** 2 + (c[2] - cb) ** 2 <= 32 * 32
+        )
+        if matching >= len(samples) * 0.45:
+            return (cr, cg, cb)
+
+    return (255, 255, 255)
 
 
 def _flood_fill_background(cand_bytes: bytes, w: int, h: int) -> bytearray:
@@ -809,12 +903,96 @@ def _decontaminate_rim_pixel(
     rgb_out[off + 2] = max(0, min(255, round((rgb_out[off + 2] - inv * bg_rgb[2]) / af)))
 
 
-def extract_isolated_studio_alpha(image: Image.Image) -> Image.Image:
-    """Extract crisp RGBA cutout from an isolated white-backdrop studio image without rembg or numpy."""
+def _build_colored_bg_candidates(raw_rgb: bytes, total: int, bg_rgb: tuple[int, int, int]) -> tuple[bytes, bytes]:
+    """Return (flood_candidates, euclidean_dist_u8) for a colored pastel studio backdrop and its soft shadows."""
+    bg_r, bg_g, bg_b = bg_rgb
+    bg_sum = max(1, bg_r + bg_g + bg_b)
+    bg_rn, bg_gn, bg_bn = bg_r / bg_sum, bg_g / bg_sum, bg_b / bg_sum
+    bg_sat = max(bg_r, bg_g, bg_b) - min(bg_r, bg_g, bg_b)
+    min_shadow_sum = max(320, round(bg_sum * 0.62))
+    max_shadow_sum = bg_sum + 28
+    cand = bytearray(total)
+    dist_u8 = bytearray(total)
+
+    for i in range(total):
+        off = i * 3
+        r, g, b = raw_rgb[off], raw_rgb[off + 1], raw_rgb[off + 2]
+        dr, dg, db = r - bg_r, g - bg_g, b - bg_b
+        d2 = dr * dr + dg * dg + db * db
+        dist_u8[i] = min(255, round(math.sqrt(d2)))
+        if d2 <= 28 * 28:
+            cand[i] = 255
+            continue
+        if bg_sat >= 16:
+            s = r + g + b
+            if min_shadow_sum <= s <= max_shadow_sum:
+                rn, gn, bn = r / s, g / s, b / s
+                if abs(rn - bg_rn) + abs(gn - bg_gn) + abs(bn - bg_bn) <= 0.030:
+                    cand[i] = 255
+    return bytes(cand), bytes(dist_u8)
+
+
+def _clear_enclosed_bg_holes(
+    fg: bytearray,
+    raw_rgb: bytes,
+    w: int,
+    h: int,
+    bg_rgb: tuple[int, int, int],
+    *,
+    hole_dist_sq: int = 24 * 24,
+    min_hole_pixels: int = 36,
+) -> None:
+    """Clear enclosed background pockets (e.g., handle or strap loops) that match a colored studio backdrop."""
+    bg_r, bg_g, bg_b = bg_rgb
+    total = w * h
+    visited = bytearray(total)
+    for start in range(total):
+        if fg[start] == 0 or visited[start]:
+            continue
+        off = start * 3
+        dr, dg, db = raw_rgb[off] - bg_r, raw_rgb[off + 1] - bg_g, raw_rgb[off + 2] - bg_b
+        if dr * dr + dg * dg + db * db > hole_dist_sq:
+            continue
+        comp = [start]
+        visited[start] = 1
+        stack = [start]
+        while stack:
+            idx = stack.pop()
+            x = idx % w
+            neighbors = []
+            if x > 0:
+                neighbors.append(idx - 1)
+            if x + 1 < w:
+                neighbors.append(idx + 1)
+            if idx >= w:
+                neighbors.append(idx - w)
+            if idx + w < total:
+                neighbors.append(idx + w)
+            for ni in neighbors:
+                if fg[ni] and not visited[ni]:
+                    noff = ni * 3
+                    ndr, ndg, ndb = raw_rgb[noff] - bg_r, raw_rgb[noff + 1] - bg_g, raw_rgb[noff + 2] - bg_b
+                    if ndr * ndr + ndg * ndg + ndb * ndb <= hole_dist_sq:
+                        visited[ni] = 1
+                        comp.append(ni)
+                        stack.append(ni)
+        if len(comp) >= min_hole_pixels:
+            for ci in comp:
+                fg[ci] = 0
+
+
+def extract_isolated_studio_alpha(
+    image: Image.Image,
+    *,
+    background_hex: str | None = None,
+) -> Image.Image:
+    """Extract crisp RGBA cutout from a white OR colored-world studio image without rembg or numpy."""
+    target_bg_rgb = parse_hex_color(background_hex)
     if 'A' in image.getbands():
         rgba_in = image.convert('RGBA')
-        white_bg = Image.new('RGBA', rgba_in.size, (255, 255, 255, 255))
-        rgb = Image.alpha_composite(white_bg, rgba_in).convert('RGB')
+        fill_rgb = target_bg_rgb or (255, 255, 255)
+        solid_bg = Image.new('RGBA', rgba_in.size, (*fill_rgb, 255))
+        rgb = Image.alpha_composite(solid_bg, rgba_in).convert('RGB')
     else:
         rgb = image.convert('RGB')
 
@@ -822,8 +1000,12 @@ def extract_isolated_studio_alpha(image: Image.Image) -> Image.Image:
     if w < 2 or h < 2:
         return rgb.convert('RGBA')
 
-    bg_rgb = _estimate_studio_backdrop(rgb)
+    total = w * h
+    bg_rgb = _estimate_studio_backdrop(rgb, target_bg_rgb=target_bg_rgb)
     bg_r, bg_g, bg_b = bg_rgb
+    bg_colored = _is_colored_backdrop(bg_rgb)
+    raw_rgb = rgb.tobytes()
+
     r_ch, g_ch, b_ch = rgb.split()
     mn_ch = ImageChops.darker(ImageChops.darker(r_ch, g_ch), b_ch)
     mx_ch = ImageChops.lighter(ImageChops.lighter(r_ch, g_ch), b_ch)
@@ -836,17 +1018,86 @@ def extract_isolated_studio_alpha(image: Image.Image) -> Image.Image:
         ImageChops.difference(b_ch, Image.new('L', (w, h), bg_b)),
     )
 
-    cand_mask = ImageChops.darker(
-        mn_ch.point(lambda v: 255 if v >= 236 else 0),
-        ImageChops.darker(
-            chroma_ch.point(lambda v: 255 if v <= 12 else 0),
-            bg_dist_ch.point(lambda v: 255 if v <= 20 else 0),
-        ),
-    )
-    alpha_out = _flood_fill_background(cand_mask.tobytes(), w, h)
+    if bg_colored:
+        cand_bytes, euc_dist_bytes = _build_colored_bg_candidates(raw_rgb, total, bg_rgb)
+        alpha_out = bytearray(cand_bytes)
+        # Seed border ring (outer 4px collar) so 1px JPEG/border edge lines cannot seal off flood fill.
+        seeded = bytearray(b'\xff' * total)
+        stack: list[int] = []
+        for y in range(h):
+            is_top_bot = y < 4 or y >= h - 4
+            row_off = y * w
+            for x in range(w):
+                if is_top_bot or x < 4 or x >= w - 4:
+                    idx = row_off + x
+                    if euc_dist_bytes[idx] <= 34:
+                        seeded[idx] = 0
+                        stack.append(idx)
+        while stack:
+            idx = stack.pop()
+            x = idx % w
+            if x > 0 and seeded[idx - 1] and alpha_out[idx - 1]:
+                seeded[idx - 1] = 0
+                stack.append(idx - 1)
+            if x + 1 < w and seeded[idx + 1] and alpha_out[idx + 1]:
+                seeded[idx + 1] = 0
+                stack.append(idx + 1)
+            if idx >= w and seeded[idx - w] and alpha_out[idx - w]:
+                seeded[idx - w] = 0
+                stack.append(idx - w)
+            if idx + w < total and seeded[idx + w] and alpha_out[idx + w]:
+                seeded[idx + w] = 0
+                stack.append(idx + w)
+        alpha_out = seeded
+        _clear_enclosed_bg_holes(alpha_out, raw_rgb, w, h, bg_rgb)
+        # Clear isolated tiny perimeter slivers (e.g. 1-2px AI border lines < 180px touching frame edges).
+        visited_s = bytearray(total)
+        for y in range(h):
+            is_edge_y = y < 6 or y >= h - 6
+            row_off = y * w
+            for x in range(w):
+                if not (is_edge_y or x < 6 or x >= w - 6):
+                    continue
+                s_idx = row_off + x
+                if not alpha_out[s_idx] or visited_s[s_idx]:
+                    continue
+                comp = [s_idx]
+                visited_s[s_idx] = 1
+                stk = [s_idx]
+                while stk:
+                    ci = stk.pop()
+                    cx = ci % w
+                    for ni in (
+                        (ci - 1 if cx > 0 else -1),
+                        (ci + 1 if cx + 1 < w else -1),
+                        (ci - w if ci >= w else -1),
+                        (ci + w if ci + w < total else -1),
+                    ):
+                        if ni >= 0 and alpha_out[ni] and not visited_s[ni]:
+                            visited_s[ni] = 1
+                            comp.append(ni)
+                            stk.append(ni)
+                            if len(comp) > 220:
+                                stk.clear()
+                                break
+                if len(comp) <= 220:
+                    for ci in comp:
+                        alpha_out[ci] = 0
+        pure_white_bg = b'\x00' * total
+    else:
+        cand_mask = ImageChops.darker(
+            mn_ch.point(lambda v: 255 if v >= 236 else 0),
+            ImageChops.darker(
+                chroma_ch.point(lambda v: 255 if v <= 12 else 0),
+                bg_dist_ch.point(lambda v: 255 if v <= 20 else 0),
+            ),
+        )
+        pure_white_bg = cand_mask.tobytes()
+        alpha_out = _flood_fill_background(pure_white_bg, w, h)
+        euc_dist_bytes = bg_dist_ch.tobytes()
 
     # When neural salient segmentation (rembg) is available on full-resolution (>=960px) studio renders,
-    # use U2Net as primary object silhouette so white/silver product bodies stay 100% intact while floor shadows are dropped.
+    # use U2Net as outer shadow cleaner on white backdrops, and intersect cleanly with colored-hole masks.
     import sys as _sys
     used_rembg = False
     if min(w, h) >= 960 and _sys.modules.get('rembg', True) is not None and os.environ.get('FLUXIXO_DISABLE_REMBG_REFINE') != '1':
@@ -857,23 +1108,34 @@ def extract_isolated_studio_alpha(image: Image.Image) -> Image.Image:
                 _STUDIO_REMBG_SESSION = _new_session('u2net')
             rem_a = _rembg_remove(rgb, session=_STUDIO_REMBG_SESSION).convert('RGBA').getchannel('A').tobytes()
             fg_pixels = sum(1 for v in rem_a if v >= 128)
-            if fg_pixels >= (w * h) * 0.04:
-                # U2Net preserves white/silver bodies; only force-zero pure #FFFFFF background outside the object.
-                pure_white_bg = cand_mask.tobytes()
-                alpha_out = bytearray(
-                    0 if (rem_a[i] < 36 or (rem_a[i] < 210 and pure_white_bg[i])) else rem_a[i]
-                    for i in range(w * h)
-                )
+            if fg_pixels >= total * 0.04:
+                if bg_colored:
+                    alpha_out = bytearray(
+                        0 if (
+                            alpha_out[i] == 0
+                            or (rem_a[i] < 24 and euc_dist_bytes[i] <= 98 and (raw_rgb[i * 3] + raw_rgb[i * 3 + 1] + raw_rgb[i * 3 + 2]) >= 280)
+                        ) else alpha_out[i]
+                        for i in range(total)
+                    )
+                else:
+                    alpha_out = bytearray(
+                        0 if (
+                            alpha_out[i] == 0
+                            or rem_a[i] < 24
+                            or (rem_a[i] < 210 and pure_white_bg[i])
+                        ) else (255 if rem_a[i] >= 96 and not pure_white_bg[i] else rem_a[i])
+                        for i in range(total)
+                    )
                 used_rembg = True
         except Exception:
             pass
 
     chroma_bytes = chroma_ch.tobytes()
-    dist_bytes = bg_dist_ch.tobytes()
-    rgb_out = bytearray(rgb.tobytes())
+    dist_bytes = euc_dist_bytes if bg_colored else bg_dist_ch.tobytes()
+    rgb_out = bytearray(raw_rgb)
 
-    # Exterior boundary passes smooth AA edges and strip bright white halos without piercing closed outlines.
-    soft_lo, soft_hi = (12.0, 48.0) if not used_rembg else (16.0, 52.0)
+    # Exterior boundary passes smooth AA edges and strip background halos without piercing closed outlines.
+    soft_lo, soft_hi = (16.0, 44.0) if bg_colored else ((12.0, 48.0) if not used_rembg else (16.0, 52.0))
     span = soft_hi - soft_lo
     decontam_indices: set[int] = set()
     for _ in range(2):
@@ -889,7 +1151,7 @@ def extract_isolated_studio_alpha(image: Image.Image) -> Image.Image:
             for idx in range(row_start + bbox[0], row_start + bbox[2]):
                 if not ring_bytes[idx]:
                     continue
-                strength = max(float(dist_bytes[idx]), float(chroma_bytes[idx]) * 2.4)
+                strength = float(dist_bytes[idx]) if bg_colored else max(float(dist_bytes[idx]), float(chroma_bytes[idx]) * 2.4)
                 if strength <= soft_lo:
                     if alpha_out[idx] != 0:
                         alpha_out[idx] = 0
@@ -987,7 +1249,7 @@ def resolve_cloudflare_ai_token(explicit_token: str | None = None) -> tuple[str,
 
 
 def _encode_reference_image(reference_image: Image.Image | bytes) -> bytes:
-    """Normalize PIL Image or image bytes to PNG bytes suitable for Workers AI multipart upload."""
+    """Normalize PIL Image or image bytes to PNG bytes for studio image generation."""
     if isinstance(reference_image, Image.Image):
         img = reference_image
         if 'A' in img.getbands():
@@ -1014,6 +1276,33 @@ def _encode_reference_image(reference_image: Image.Image | bytes) -> bytes:
     raise TypeError('reference_image must be PIL.Image.Image, bytes, or None')
 
 
+def _encode_reference_jpeg_base64(
+    reference_image: Image.Image | bytes,
+    *,
+    max_side: int = 768,
+    quality: int = 88,
+) -> str:
+    """Normalize PIL Image or bytes to base64 JPEG suitable for Gemini Multimodal Vision."""
+    if isinstance(reference_image, Image.Image):
+        img = reference_image
+        if 'A' in img.getbands():
+            rgba = img.convert('RGBA')
+            rgb = Image.alpha_composite(Image.new('RGBA', rgba.size, (255, 255, 255, 255)), rgba).convert('RGB')
+        else:
+            rgb = img.convert('RGB')
+    elif isinstance(reference_image, (bytes, bytearray)):
+        with Image.open(BytesIO(bytes(reference_image))) as opened:
+            opened.load()
+            return _encode_reference_jpeg_base64(opened, max_side=max_side, quality=quality)
+    else:
+        raise TypeError('reference_image must be PIL.Image.Image, bytes, or None')
+
+    rgb.thumbnail((max_side, max_side), Image.Resampling.LANCZOS)
+    buf = BytesIO()
+    rgb.save(buf, format='JPEG', quality=quality)
+    return base64.b64encode(buf.getvalue()).decode('ascii')
+
+
 def _encode_multipart_form(
     fields: dict[str, str],
     files: dict[str, tuple[str, str, bytes]] | None = None,
@@ -1035,16 +1324,36 @@ def _encode_multipart_form(
     return bytes(body), f'multipart/form-data; boundary={boundary}'
 
 
-def _decode_cloudflare_ai_image(raw_bytes: bytes, content_type: str) -> Image.Image:
+def _append_query_param(url: str, key: str, value: str) -> str:
+    parts = urllib.parse.urlsplit(url)
+    pairs = [(k, v) for k, v in urllib.parse.parse_qsl(parts.query, keep_blank_values=True) if k != key]
+    pairs.append((key, value))
+    return urllib.parse.urlunsplit((parts.scheme, parts.netloc, parts.path, urllib.parse.urlencode(pairs), parts.fragment))
+
+
+def _resolve_worker_transport_url() -> str:
+    """Return Cloudflare Worker transport base URL when explicitly enabled, else ''."""
+    transport = os.environ.get('FLUXIXO_AI_TRANSPORT', '').strip().lower()
+    if transport in ('direct', 'google', 'gemini', 'none', 'disabled'):
+        return ''
+    explicit_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
+    if explicit_url:
+        return explicit_url.rstrip('/')
+    if transport in ('worker', 'cloudflare_worker', 'autopilot'):
+        return DEFAULT_CLOUDFLARE_AUTOPILOT_URL.rstrip('/')
+    return ''
+
+
+def _decode_worker_image(raw_bytes: bytes, content_type: str) -> Image.Image:
     ct = (content_type or '').lower()
     if 'json' in ct or raw_bytes.lstrip().startswith(b'{'):
         payload = json.loads(raw_bytes.decode('utf-8'))
-        if isinstance(payload, dict) and payload.get('success') is False:
-            raise RuntimeError(f'cloudflare_ai_error:{payload.get("errors")}')
+        if isinstance(payload, dict) and (payload.get('success') is False or payload.get('ok') is False):
+            raise RuntimeError(f'worker_ai_error:{payload.get("error") or payload.get("errors")}')
         result = payload.get('result') if isinstance(payload, dict) else None
         b64 = result.get('image') if isinstance(result, dict) else (payload.get('image') if isinstance(payload, dict) else None)
         if not isinstance(b64, str) or not b64.strip():
-            raise RuntimeError('cloudflare_ai_missing_image')
+            raise RuntimeError('worker_ai_missing_image')
         text = b64.strip()
         if text.startswith('data:') and ',' in text:
             text = text.split(',', 1)[1]
@@ -1057,49 +1366,428 @@ def _decode_cloudflare_ai_image(raw_bytes: bytes, content_type: str) -> Image.Im
         return img.copy()
 
 
-def _post_cloudflare_ai(
-    url: str,
-    body: bytes,
-    content_type: str,
-    token: str,
-    user_agent: str,
-    timeout: float,
-) -> Image.Image:
-    headers = {
-        'User-Agent': user_agent or 'fluxixo-image-studio/1.0',
-        'Content-Type': content_type,
-    }
-    if token:
-        headers['Authorization'] = f'Bearer {token}'
-    req = urllib.request.Request(
-        url,
-        data=body,
-        method='POST',
-        headers=headers,
-    )
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        raw = resp.read()
-        resp_ct = resp.headers.get('Content-Type', '') if resp.headers else ''
-    return _decode_cloudflare_ai_image(raw, resp_ct)
-
-
 def _post_autopilot_cutout(
     autopilot_url: str,
     mp_body: bytes,
     mp_ct: str,
     timeout: float,
+    *,
+    provider: str = 'nano_banana',
 ) -> Image.Image:
     base = autopilot_url.rstrip('/')
     endpoint = base if base.endswith('/api/generate-cutout') else f'{base}/api/generate-cutout'
+    if provider:
+        endpoint = _append_query_param(endpoint, 'provider', provider)
+    headers = {
+        'User-Agent': 'fluxixo-image-studio/1.0',
+        'Content-Type': mp_ct,
+    }
     sync_token = os.environ.get('AUTOPILOT_SYNC_TOKEN', '').strip()
-    return _post_cloudflare_ai(
-        endpoint,
-        mp_body,
-        mp_ct,
-        sync_token,
-        'fluxixo-image-studio/1.0',
-        timeout,
+    if sync_token:
+        headers['Authorization'] = f'Bearer {sync_token}'
+    req = urllib.request.Request(endpoint, data=mp_body, method='POST', headers=headers)
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        raw = resp.read()
+        resp_ct = resp.headers.get('Content-Type', '') if resp.headers else ''
+    return _decode_worker_image(raw, resp_ct)
+
+
+def _post_json_request(
+    url: str,
+    payload: dict[str, Any],
+    headers: dict[str, str],
+    timeout: float,
+) -> dict[str, Any]:
+    req_headers = {
+        'User-Agent': 'fluxixo-image-studio/1.0',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        **headers,
+    }
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode('utf-8'),
+        method='POST',
+        headers=req_headers,
     )
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        return json.loads(resp.read().decode('utf-8', 'replace'))
+
+
+def _resolve_gemini_models(
+    requested: str | None,
+    env_var: str,
+    fallback_models: tuple[str, ...],
+) -> list[str]:
+    candidates: list[str] = []
+    for raw_source in (requested, os.environ.get(env_var, '')):
+        text = str(raw_source or '').strip()
+        if not text:
+            continue
+        for part in text.split(','):
+            name = part.strip().lstrip('/')
+            if name and not name.startswith('@cf/') and name not in candidates:
+                candidates.append(name)
+    for fb in fallback_models:
+        if fb not in candidates:
+            candidates.append(fb)
+    return candidates
+
+
+def _extract_gemini_text_response(payload: dict[str, Any]) -> str:
+    candidates = payload.get('candidates') if isinstance(payload, dict) else None
+    if not isinstance(candidates, list) or not candidates or not isinstance(candidates[0], dict):
+        return ''
+    content = candidates[0].get('content')
+    parts = content.get('parts') if isinstance(content, dict) else None
+    if not isinstance(parts, list):
+        return ''
+    text = ''.join(
+        p.get('text', '')
+        for p in parts
+        if isinstance(p, dict) and not p.get('thought') and isinstance(p.get('text'), str)
+    )
+    if not text:
+        text = ''.join(
+            p.get('text', '')
+            for p in parts
+            if isinstance(p, dict) and isinstance(p.get('text'), str)
+        )
+    return text
+
+
+def _prefer_worker_transport(worker_url: str) -> bool:
+    """Return True when Worker HTTP transport should be tried before direct Gemini."""
+    return bool(worker_url) and os.environ.get('FLUXIXO_AI_TRANSPORT', '').strip().lower() in (
+        'autopilot', 'cloudflare_worker', 'worker',
+    )
+
+
+def describe_product_from_reference(
+    reference_image: Image.Image | bytes | None,
+    *,
+    product_title: str = '',
+    api_key: str | None = None,
+    vision_model: str | None = None,
+    timeout: float = 25.0,
+    account_id: str = DEFAULT_CLOUDFLARE_ACCOUNT_ID,
+    token: str | None = None,
+) -> str:
+    """Use Google AI Studio Multimodal Vision (Worker first when active, direct Gemini fallback) to extract clean isolated object attributes."""
+    del account_id, token  # Accepted for signature backward compatibility; Cloudflare Workers AI is never called.
+    if reference_image is None:
+        return ''
+
+    gem_key = resolve_gemini_text_api_key(api_key)
+    worker_url = _resolve_worker_transport_url()
+    if not gem_key and not worker_url:
+        return ''
+
+    try:
+        b64_jpg = _encode_reference_jpeg_base64(reference_image)
+    except Exception:
+        return ''
+
+    hint = ' '.join(str(product_title or '').split())[:160]
+    vision_prompt = (
+        f'Describe ONLY the standalone physical product in this AliExpress image{f" ({hint})" if hint else ""} '
+        'in 2-3 concise visual sentences for a studio product photographer: overall silhouette, carry handle/strap or antenna if present, casing materials, colors, screen/controls, '
+        'and what its active powered-on working effect looks like when switched on (such as LED light mask glow, beam, mist, spray, rotor spin, or glowing readout). '
+        'CRITICAL: Describe ONLY the isolated object floating alone; NEVER mention rocks, tables, surfaces, backgrounds, '
+        'inset thumbnails, collage boxes, overlaid promotional text, digits, price tags, or hands.'
+    )
+
+    def _describe_direct() -> str:
+        candidates = _resolve_gemini_models(
+            vision_model,
+            'FLUXIXO_GEMINI_VISION_MODEL',
+            GEMINI_VISION_FALLBACK_MODELS,
+        )
+        headers = {'x-goog-api-key': gem_key}
+        for cand_model in candidates:
+            gen_cfg: dict[str, Any] = {
+                'temperature': 0.15,
+                'maxOutputTokens': 1024,
+            }
+            if ('gemini-4' in cand_model or 'gemini-3' in cand_model) and 'lite' not in cand_model:
+                gen_cfg['thinkingConfig'] = {'thinkingLevel': 'LOW'}
+            payload = {
+                'contents': [
+                    {
+                        'role': 'user',
+                        'parts': [
+                            {'text': vision_prompt},
+                            {'inlineData': {'mimeType': 'image/jpeg', 'data': b64_jpg}},
+                        ],
+                    }
+                ],
+                'generationConfig': gen_cfg,
+            }
+            url = f'https://generativelanguage.googleapis.com/v1beta/models/{cand_model}:generateContent'
+            try:
+                resp = _post_json_request(url, payload, headers, timeout)
+                text = _extract_gemini_text_response(resp)
+                if text.strip():
+                    return ' '.join(text.split())[:550]
+            except urllib.error.HTTPError as exc:
+                if exc.code in (400, 403, 404, 429, 500, 502, 503, 504):
+                    continue
+                return ''
+            except Exception:
+                continue
+        return ''
+
+    def _describe_worker() -> str:
+        endpoint = worker_url if worker_url.endswith('/api/describe-product') else f'{worker_url}/api/describe-product'
+        endpoint = _append_query_param(endpoint, 'provider', 'nano_banana')
+        sync_token = os.environ.get('AUTOPILOT_SYNC_TOKEN', '').strip()
+        headers = {'Authorization': f'Bearer {sync_token}'} if sync_token else {}
+        worker_payload = {
+            'prompt': hint,
+            'title': hint,
+            'image_base64': b64_jpg,
+            'provider': 'nano_banana',
+        }
+        try:
+            resp = _post_json_request(endpoint, worker_payload, headers, timeout)
+        except Exception:
+            return ''
+        if not isinstance(resp, dict) or resp.get('ok') is False:
+            return ''
+        result = resp.get('result') if isinstance(resp.get('result'), dict) else {}
+        text = resp.get('visual_spec') or result.get('response') or ''
+        return ' '.join(str(text).split())[:550]
+
+    steps = (_describe_worker, _describe_direct) if _prefer_worker_transport(worker_url) else (_describe_direct, _describe_worker)
+    for fn, enabled in zip(steps, (bool(worker_url), bool(gem_key)) if _prefer_worker_transport(worker_url) else (bool(gem_key), bool(worker_url))):
+        if not enabled:
+            continue
+        out = fn()
+        if out:
+            return out
+    return ''
+
+
+def build_studio_prompt(
+    prompt: str,
+    *,
+    angle: str = 'hero front three-quarter studio view',
+    background_hex: str | None = None,
+    visual_spec: str = '',
+) -> str:
+    """Compose a reference-guided, text-free, zero-shadow Google AI Studio prompt for the target site backdrop."""
+    subject = ' '.join(str(prompt or '').split())[:220] or 'compact precision product'
+    view_angle = ' '.join(str(angle or 'hero front three-quarter studio view').split())[:140]
+    spec = ' '.join(str(visual_spec or '').split())[:460]
+    item_clause = f'{subject} ({spec})' if spec else subject
+    lower_angle = view_angle.lower()
+    is_effect_slot = any(k in lower_angle for k in ('close-up', 'detail', 'effect', 'action'))
+    is_secondary_slot = ('45-degree' in lower_angle or 'isometric' in lower_angle or 'side' in lower_angle or 'rear' in lower_angle)
+
+    target_hex = normalize_hex_color(background_hex)
+    if target_hex:
+        bg_clause = (
+            f'floating weightless in mid-air centered against a completely flat uniform seamless solid pastel color void matching hex {target_hex} '
+            'with generous clean border on all sides'
+        )
+    else:
+        bg_clause = 'floating in mid-air centered on a pure flat #FFFFFF solid white background with generous white margin on all sides'
+
+    if is_effect_slot:
+        angle_directive = (
+            f'{view_angle}, active powered-on functional demonstration macro showcasing the working effect in operation '
+            '(vibrant illuminated LED/light/mask glow, laser beam, indicator readout, steam/airflow blades, or active working mechanism clearly visible and turned ON, '
+            'noticeably different from the static turned-off front hero shot)'
+        )
+        lighting_clause = 'crisp dimensional studio rim lighting that accentuates active glowing lights, optical effects, and micro-details cleanly'
+    elif is_secondary_slot:
+        angle_directive = (
+            f'{view_angle}, rotated 60-to-120 degrees to reveal the side profile, rear controls, charging port, straps, or underside mechanics rather than repeating the front view'
+        )
+        lighting_clause = 'even shadowless studio lighting'
+    else:
+        angle_directive = view_angle
+        lighting_clause = 'even shadowless studio lighting'
+
+    return (
+        f'Ultra-clean commercial industrial design studio product photograph of ONLY the exact single standalone {item_clause} from the reference photo, '
+        f'{angle_directive}, {bg_clause}, faithfully keeping its true real silhouette, carry strap/handle, knobs, and proportions without distortion, '
+        'zero floor plane, zero tabletop, zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, zero vignette, no frame borders, no edge lines, '
+        f'{lighting_clause}, full uncropped object, crisp edge separation, '
+        'strictly remove all external collage boxes, inset cards, promotional banners, seller badges, overlaid marketing text, Chinese characters, watermarks, hands, people, and pets'
+    )
+
+
+def _load_dpapi_secret(filename: str) -> str:
+    try:
+        from dpapi_store import load_credential
+    except ImportError:
+        tools_dir = str(Path(__file__).resolve().parents[1] / 'fluxixo_site' / 'tools')
+        if tools_dir not in sys.path:
+            sys.path.insert(0, tools_dir)
+        try:
+            from dpapi_store import load_credential
+        except ImportError:
+            return ''
+    try:
+        return (load_credential(filename) or '').strip()
+    except Exception:
+        return ''
+
+
+def resolve_gemini_api_key(api_key: str | None = None, *, local: bool = True) -> str:
+    """Resolve Google AI Studio key from explicit arg, env (GEMINI_IMAGE_API_KEY / GEMINI_API_KEY), or DPAPI."""
+    if api_key and str(api_key).strip():
+        return str(api_key).strip()
+    for env_name in ('GEMINI_IMAGE_API_KEY', 'GEMINI_API_KEY', 'GOOGLE_API_KEY'):
+        val = os.environ.get(env_name, '').strip()
+        if val:
+            return val
+    if local:
+        for dpapi_name in ('gemini-image-api-key.dpapi', 'gemini-api-key.dpapi'):
+            val = _load_dpapi_secret(dpapi_name)
+            if val:
+                return val
+    return ''
+
+
+def resolve_gemini_text_api_key(api_key: str | None = None, *, local: bool = True) -> str:
+    """Resolve Google AI Studio key for multimodal vision (GEMINI_TEXT_API_KEY / GEMINI_API_KEY / GEMINI_IMAGE_API_KEY)."""
+    if api_key and str(api_key).strip():
+        return str(api_key).strip()
+    for env_name in ('GEMINI_TEXT_API_KEY', 'GEMINI_API_KEY', 'GEMINI_IMAGE_API_KEY', 'GOOGLE_API_KEY'):
+        val = os.environ.get(env_name, '').strip()
+        if val:
+            return val
+    if local:
+        for dpapi_name in ('gemini-text-api-key.dpapi', 'gemini-api-key.dpapi'):
+            val = _load_dpapi_secret(dpapi_name)
+            if val:
+                return val
+        return resolve_gemini_api_key(local=True)
+    return ''
+
+
+def resolve_image_provider(
+    provider: str | None = None,
+    *,
+    gemini_key: str = '',
+    cf_token: str = '',
+    autopilot_url: str = '',
+) -> str:
+    """Always route studio image generation through Google AI Studio (Nano Banana)."""
+    del provider, gemini_key, cf_token, autopilot_url
+    return 'nano_banana'
+
+
+def _detect_image_mime(raw_bytes: bytes) -> str:
+    if raw_bytes.startswith(b'\x89PNG\r\n\x1a\n'):
+        return 'image/png'
+    if raw_bytes.startswith(b'\xff\xd8\xff'):
+        return 'image/jpeg'
+    if len(raw_bytes) >= 12 and raw_bytes[:4] == b'RIFF' and raw_bytes[8:12] == b'WEBP':
+        return 'image/webp'
+    return 'image/png'
+
+
+def _build_gemini_image_payload(
+    full_prompt: str,
+    ref_bytes: bytes | None = None,
+    *,
+    aspect_ratio: str = '1:1',
+    image_size: str = '1K',
+) -> dict[str, Any]:
+    parts: list[dict[str, Any]] = [{'text': full_prompt}]
+    if ref_bytes:
+        parts.append({
+            'inlineData': {
+                'mimeType': _detect_image_mime(ref_bytes),
+                'data': base64.b64encode(ref_bytes).decode('ascii'),
+            },
+        })
+    return {
+        'contents': [{'role': 'user', 'parts': parts}],
+        'generationConfig': {
+            'responseModalities': ['IMAGE'],
+            'imageConfig': {
+                'aspectRatio': str(aspect_ratio or '1:1').strip() or '1:1',
+                'imageSize': str(image_size or '1K').strip() or '1K',
+            },
+        },
+    }
+
+
+def _decode_gemini_image_response(payload: dict[str, Any]) -> Image.Image:
+    candidates = payload.get('candidates') if isinstance(payload, dict) else None
+    if isinstance(candidates, list):
+        for cand in candidates:
+            content = cand.get('content') if isinstance(cand, dict) else None
+            parts = content.get('parts') if isinstance(content, dict) else None
+            if not isinstance(parts, list):
+                continue
+            for part in parts:
+                if not isinstance(part, dict):
+                    continue
+                inline = part.get('inlineData') or part.get('inline_data')
+                if isinstance(inline, dict) and inline.get('data'):
+                    raw = base64.b64decode(str(inline['data']).strip())
+                    with Image.open(BytesIO(raw)) as img:
+                        img.load()
+                        return img.copy()
+    reason = ''
+    if isinstance(payload, dict):
+        fb = payload.get('promptFeedback') or {}
+        if isinstance(fb, dict) and fb.get('blockReason'):
+            reason = str(fb.get('blockReason'))
+        elif isinstance(candidates, list) and candidates and isinstance(candidates[0], dict):
+            reason = str(candidates[0].get('finishReason') or '')
+    raise RuntimeError(f'gemini_empty_image:{reason or "no_inline_image"}')
+
+
+def _post_gemini_generate_image(
+    full_prompt: str,
+    gemini_key: str,
+    *,
+    ref_bytes: bytes | None = None,
+    model: str | None = None,
+    aspect_ratio: str = '1:1',
+    image_size: str = '1K',
+    timeout: float = 60.0,
+) -> Image.Image:
+    candidates = _resolve_gemini_models(
+        model,
+        'FLUXIXO_GEMINI_IMAGE_MODEL',
+        GEMINI_IMAGE_FALLBACK_MODELS,
+    )
+    payload = _build_gemini_image_payload(
+        full_prompt,
+        ref_bytes,
+        aspect_ratio=aspect_ratio,
+        image_size=image_size,
+    )
+    headers = {'x-goog-api-key': gemini_key}
+    last_exc: Exception | None = None
+    for cand_model in candidates:
+        url = f'https://generativelanguage.googleapis.com/v1beta/models/{cand_model}:generateContent'
+        try:
+            parsed = _post_json_request(url, payload, headers, timeout)
+            return _decode_gemini_image_response(parsed)
+        except urllib.error.HTTPError as exc:
+            err_detail = ''
+            try:
+                err_detail = exc.read(1200).decode('utf-8', 'replace')
+            except Exception:
+                pass
+            last_exc = RuntimeError(f'gemini_image_http_{exc.code}({cand_model}): {err_detail[:240]}')
+            if exc.code in (400, 403, 404, 429, 500, 502, 503, 504):
+                continue
+            raise last_exc from None
+        except Exception as exc:
+            last_exc = exc
+            continue
+    if last_exc is not None:
+        raise last_exc
+    raise RuntimeError('gemini_image_generation_failed')
 
 
 def generate_studio_cutout(
@@ -1107,82 +1795,105 @@ def generate_studio_cutout(
     reference_image: Image.Image | bytes | None = None,
     *,
     angle: str = 'hero front three-quarter studio view',
-    model: str = DEFAULT_FLUX2_MODEL,
+    model: str | None = None,
     account_id: str = DEFAULT_CLOUDFLARE_ACCOUNT_ID,
     token: str | None = None,
     width: int = 1024,
     height: int = 1024,
     timeout: float = 45.0,
+    background_hex: str | None = None,
+    category: str | None = None,
+    visual_spec: str | None = None,
+    use_vision: bool = False,
+    provider: str | None = None,
+    gemini_api_key: str | None = None,
+    aspect_ratio: str = '1:1',
+    image_size: str | None = None,
 ) -> Image.Image:
-    """Generate an isolated studio product image via Cloudflare Workers AI and master it to 1254x1254 RGBA."""
-    auth_token, user_agent = resolve_cloudflare_ai_token(token)
-    autopilot_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
-    if not auth_token and not autopilot_url:
-        raise RuntimeError('cloudflare_ai_token_unavailable')
-
+    """Generate an isolated studio product image exclusively via Google AI Studio (Nano Banana) and master to 1254x1254 RGBA."""
+    del account_id, token, provider  # Accepted for signature backward compatibility; Cloudflare Workers AI is never called.
     ref_bytes = _encode_reference_image(reference_image) if reference_image is not None else None
-    subject = ' '.join(str(prompt or '').split())[:260] or 'compact precision product'
-    view_angle = ' '.join(str(angle or 'hero front three-quarter studio view').split())[:140]
-    full_prompt = (
-        f'Single standalone {subject}, {view_angle}, '
-        'floating in mid-air centered on a pure flat #FFFFFF solid white background with generous white margin on all sides, '
-        'zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, '
-        'full uncropped object, crisp commercial industrial design studio product lighting, '
-        'ultra-sharp detail, zero text, zero letters, zero logos, zero watermark, no props, no people, no hands, no pets'
-    )
+    target_hex = resolve_world_background(category, background_hex)
+    resolved_spec = (visual_spec or '').strip()
 
-    safe_model = str(model or DEFAULT_FLUX2_MODEL).lstrip('/')
-    primary_url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{safe_model}'
-    fallback_url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{DEFAULT_FLUX1_FALLBACK_MODEL}'
-    worker_url = autopilot_url or DEFAULT_CLOUDFLARE_AUTOPILOT_URL
+    gem_key = resolve_gemini_api_key(gemini_api_key)
+    worker_url = _resolve_worker_transport_url()
+    if not gem_key and not worker_url:
+        raise RuntimeError('gemini_api_key_unavailable')
 
-    # In pure AI studio generation mode, avoid copying seller photo defects/shadows unless explicitly requested or in unit tests.
-    attach_ref = (
-        ref_bytes is not None
-        and (
-            auth_token in ('test-cf-token', 'pages-only-token')
-            or os.environ.get('FLUXIXO_SEND_RAW_REF') == '1'
+    if use_vision and not resolved_spec and ref_bytes is not None:
+        resolved_spec = describe_product_from_reference(
+            reference_image,
+            product_title=prompt,
+            api_key=gemini_api_key,
+            timeout=min(25.0, float(timeout)),
         )
+
+    full_prompt = build_studio_prompt(
+        prompt,
+        angle=angle,
+        background_hex=target_hex,
+        visual_spec=resolved_spec,
     )
-    fields = {'prompt': full_prompt, 'width': str(int(width)), 'height': str(int(height))}
-    files = {'input_image_0': ('reference.png', 'image/png', ref_bytes)} if attach_ref else None
-    mp_body, mp_ct = _encode_multipart_form(fields, files)
+    resolved_size = str(image_size or os.environ.get('FLUXIXO_GEMINI_IMAGE_SIZE', '1K') or '1K').strip()
 
+    def _cutout_direct() -> Image.Image:
+        return _post_gemini_generate_image(
+            full_prompt,
+            gem_key,
+            ref_bytes=ref_bytes,
+            model=model,
+            aspect_ratio=aspect_ratio,
+            image_size=resolved_size,
+            timeout=max(float(timeout), 60.0),
+        )
+
+    def _cutout_worker() -> Image.Image:
+        attach_ref = ref_bytes is not None and os.environ.get('FLUXIXO_SEND_RAW_REF', '1') != '0'
+        fields = {
+            'prompt': full_prompt,
+            'provider': 'nano_banana',
+            'width': str(int(width)),
+            'height': str(int(height)),
+            'aspect_ratio': str(aspect_ratio or '1:1').strip() or '1:1',
+            'image_size': resolved_size,
+        }
+        if target_hex:
+            fields['background_hex'] = target_hex
+        if category:
+            fields['category'] = str(category).strip()
+        if resolved_spec:
+            fields['visual_spec'] = resolved_spec
+        safe_model = str(model or os.environ.get('FLUXIXO_GEMINI_IMAGE_MODEL', '') or '').strip().lstrip('/')
+        if safe_model and not safe_model.startswith('@cf/'):
+            fields['model'] = safe_model
+        files = {'input_image_0': ('reference.png', 'image/png', ref_bytes)} if attach_ref else None
+        mp_body, mp_ct = _encode_multipart_form(fields, files)
+        return _post_autopilot_cutout(
+            worker_url,
+            mp_body,
+            mp_ct,
+            max(float(timeout), 60.0),
+            provider='nano_banana',
+        )
+
+    prefer_worker = _prefer_worker_transport(worker_url) and not (gemini_api_key and str(gemini_api_key).strip())
+    attempts = [(_cutout_worker, bool(worker_url)), (_cutout_direct, bool(gem_key))] if prefer_worker else [(_cutout_direct, bool(gem_key)), (_cutout_worker, bool(worker_url))]
     raw_img: Image.Image | None = None
-    if not auth_token:
-        raw_img = _post_autopilot_cutout(worker_url, mp_body, mp_ct, timeout)
-    elif 'flux-2' in safe_model or ref_bytes is not None:
+    last_err: Exception | None = None
+    for fn, enabled in attempts:
+        if not enabled:
+            continue
         try:
-            raw_img = _post_cloudflare_ai(primary_url, mp_body, mp_ct, auth_token, user_agent, timeout)
+            raw_img = fn()
+            break
         except Exception as exc:
-            try:
-                if safe_model == DEFAULT_FLUX1_FALLBACK_MODEL and ref_bytes is None:
-                    raise exc
-                json_body = json.dumps({'prompt': full_prompt, 'steps': 4}).encode('utf-8')
-                raw_img = _post_cloudflare_ai(
-                    fallback_url, json_body, 'application/json', auth_token, user_agent, timeout,
-                )
-            except Exception as fb_exc:
-                # Pages-scoped tokens return 401/403 on /ai/run; fall back cleanly to the Worker's AI binding.
-                is_auth_err = any(
-                    isinstance(e, urllib.error.HTTPError) and e.code in (401, 403)
-                    for e in (exc, fb_exc)
-                )
-                if is_auth_err and worker_url:
-                    raw_img = _post_autopilot_cutout(worker_url, mp_body, mp_ct, timeout)
-                else:
-                    raise exc
-    else:
-        json_body = json.dumps({'prompt': full_prompt, 'steps': 4}).encode('utf-8')
-        try:
-            raw_img = _post_cloudflare_ai(primary_url, json_body, 'application/json', auth_token, user_agent, timeout)
-        except urllib.error.HTTPError as exc:
-            if exc.code in (401, 403) and worker_url:
-                raw_img = _post_autopilot_cutout(worker_url, mp_body, mp_ct, timeout)
-            else:
-                raise
+            last_err = exc
+    if raw_img is None:
+        assert last_err is not None
+        raise last_err
 
-    cutout = extract_isolated_studio_alpha(raw_img)
+    cutout = extract_isolated_studio_alpha(raw_img, background_hex=target_hex)
     if tight_alpha_bbox(cutout) is None:
         raise RuntimeError('generated_cutout_empty')
 

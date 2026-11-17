@@ -41,16 +41,58 @@ for route in ['/','/index.html','/catalog/*','/categories/*','/products/*','/en/
     headers+='\n'+route+'\n  Cache-Control: public, max-age=0, must-revalidate\n'
 headers+='\n/drop-status.json\n  Cache-Control: no-store\n'
 (RELEASE/'_headers').write_text(headers,encoding='utf-8')
+_IMAGE_VERSION_PREFIXES = ('assets/thumbs/', 'assets/images/', 'assets/featured/')
+_image_versions = {}
+
+
+def version_image_url(url):
+    """Append a content hash query tag to cached local images without changing canonical filenames."""
+    parts = urlsplit(url)
+    if parts.scheme or parts.netloc or parts.query:
+        return url
+    key = parts.path.lstrip('/')
+    is_poster = key.startswith('assets/video/') and key.endswith('.poster.jpg')
+    if not (key.startswith(_IMAGE_VERSION_PREFIXES) or is_poster):
+        return url
+    if key not in _image_versions:
+        target = RELEASE / key
+        _image_versions[key] = hashlib.sha256(target.read_bytes()).hexdigest()[:10] if target.is_file() else ''
+    digest = _image_versions[key]
+    if not digest:
+        return url
+    prefix = '/' if parts.path.startswith('/') else ''
+    suffix = f'#{parts.fragment}' if parts.fragment else ''
+    return f'{prefix}{key}?v={digest}{suffix}'
+
+
 for file in RELEASE.rglob('*.html'):
-    text=file.read_text(encoding='utf-8')
+    text = file.read_text(encoding='utf-8')
+
     def update(match):
-        attr,url=match.groups()
-        path=urlsplit(url).path
-        key=path.lstrip('/')
-        if key not in mapping:return match.group(0)
-        return attr+'="'+('/' if path.startswith('/') else '')+mapping[key]+'"'
-    text=re.sub(r'(href|src)="([^"]+)"',update,text)
-    file.write_text(text,encoding='utf-8')
+        attr, url = match.groups()
+        path = urlsplit(url).path
+        key = path.lstrip('/')
+        if key in mapping:
+            return attr + '="' + ('/' if path.startswith('/') else '') + mapping[key] + '"'
+        if attr != 'href':
+            versioned = version_image_url(url)
+            if versioned != url:
+                return f'{attr}="{versioned}"'
+        return match.group(0)
+
+    def update_srcset(match):
+        items = []
+        for candidate in match.group(1).split(','):
+            tokens = candidate.strip().split()
+            if not tokens:
+                continue
+            tokens[0] = version_image_url(tokens[0])
+            items.append(' '.join(tokens))
+        return f'srcset="{", ".join(items)}"'
+
+    text = re.sub(r'(href|src|poster)="([^"]+)"', update, text)
+    text = re.sub(r'srcset="([^"]+)"', update_srcset, text)
+    file.write_text(text, encoding='utf-8')
 manifest={f.relative_to(RELEASE).as_posix():hashlib.sha256(f.read_bytes()).hexdigest() for f in RELEASE.rglob('*') if f.is_file()}
 (BASE/'release-manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
 (BASE/'asset-map.json').write_text(json.dumps(mapping,indent=2),encoding='utf-8')

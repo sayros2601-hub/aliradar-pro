@@ -1,8 +1,10 @@
 name: FLUXIXO daily SEO telemetry & Bing/Yandex sync
 
 on:
-  # Owner 2026-11-15: Daily SEO IndexNow & Bing/Yandex sync runs on Cloudflare Worker (fluxixo-autopilot cron 17 5 * * *).
-  # GitHub Actions schedule disabled.
+  # Owner 2026-11-15: Cloudflare Worker (fluxixo-autopilot, cron 17 5 * * *) acts as transport/telemetry hub
+  # and can trigger this job via workflow_dispatch; fallback schedule runs at 05:25 UTC for encrypted GSC/Bing/Yandex telemetry.
+  schedule:
+    - cron: '25 5 * * *'
   workflow_dispatch:
 
 permissions:
@@ -20,6 +22,10 @@ jobs:
     timeout-minutes: 15
     env:
       PYTHONDONTWRITEBYTECODE: '1'
+      FLUXIXO_GEMINI_THINKING_LEVEL: HIGH
+      FLUXIXO_GEMINI_TEXT_MODEL: ${{ vars.FLUXIXO_GEMINI_TEXT_MODEL || '' }}
+      FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}
+      CLOUDFLARE_AUTOPILOT_URL: https://fluxixo-autopilot.sayros2601.workers.dev
     steps:
       - name: Checkout latest main
         uses: actions/checkout@v4
@@ -41,6 +47,8 @@ jobs:
           BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
           YANDEX_WEBMASTER_TOKEN: ${{ secrets.YANDEX_WEBMASTER_TOKEN }}
           SEO_DATA_KEY: ${{ secrets.SEO_DATA_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_TEXT_API_KEY: ${{ secrets.GEMINI_TEXT_API_KEY }}
         run: python -B fluxixo_site/tools/seo_daily.py --summary "$GITHUB_STEP_SUMMARY"
 
       - name: Persist encrypted SEO telemetry state
@@ -52,4 +60,29 @@ jobs:
             git commit -m "chore(seo): daily Google/Bing/Yandex sync telemetry [skip ci]"
             git pull --rebase --autostash --quiet origin main && git push origin HEAD:main
           fi
-      # Owner 2026-11-15: SEO sync lives only here on GitHub; the Cloudflare autopilot Worker it used to ping is gone.
+
+      - name: Sync SEO telemetry with Cloudflare Autopilot Worker (non-blocking)
+        continue-on-error: true
+        env:
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+        run: |
+          BASE_URL="${CLOUDFLARE_AUTOPILOT_URL%/}"
+          if [ -z "$BASE_URL" ]; then
+            echo "CLOUDFLARE_AUTOPILOT_URL is empty; skipping SEO sync ping."
+            exit 0
+          fi
+          case "$BASE_URL" in
+            */api/seo-sync) TARGET_URL="$BASE_URL" ;;
+            *) TARGET_URL="$BASE_URL/api/seo-sync" ;;
+          esac
+          if [ -n "${AUTOPILOT_SYNC_TOKEN:-}" ]; then
+            AUTH_HEADER="Authorization: Bearer $AUTOPILOT_SYNC_TOKEN"
+          else
+            AUTH_HEADER="X-Fluxixo-Source: github-actions"
+          fi
+          PAYLOAD="{\"source\":\"github-actions\",\"workflow\":\"fluxixo_seo_daily\",\"project\":\"dealvault\",\"site\":\"https://www.fluxixo.shop\",\"brandColor\":\"#e4007c\",\"sha\":\"$GITHUB_SHA\"}"
+          curl -fsS --max-time 15 -X POST "$TARGET_URL" \
+            -H "Content-Type: application/json" \
+            -H "$AUTH_HEADER" \
+            -d "$PAYLOAD" \
+            || echo "Cloudflare Autopilot SEO sync unavailable (non-blocking)."

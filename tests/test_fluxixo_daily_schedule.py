@@ -12,7 +12,7 @@ from fluxixo_ai import daily_schedule as schedule
 from fluxixo_ai.daily_ledger import record
 
 ROOT = Path(__file__).resolve().parents[1]
-NOW = datetime(2026, 11, 14, 17, 0, tzinfo=timezone.utc)
+NOW = datetime(2026, 11, 14, 19, 0, tzinfo=timezone.utc)
 DAY = '2026-11-14'
 
 
@@ -33,18 +33,18 @@ class DailyScheduleTests(unittest.TestCase):
         self.ledger = seed_ledger()
         self.state = {'version': 1, 'days': {}}
 
-    def test_prepares_at_1730_and_publishes_at_19_in_both_winter_and_summer(self):
+    def test_prepares_at_1900_and_publishes_at_21_in_both_winter_and_summer(self):
         cases = [
-            ('2026-11-14T15:29:59+00:00', True, False),
-            ('2026-11-14T15:30:00+00:00', False, False),
-            ('2026-11-14T16:59:59+00:00', False, False),
-            ('2026-11-14T17:00:00+00:00', False, True),
-            ('2026-07-14T14:29:59+00:00', True, False),
-            ('2026-07-14T14:30:00+00:00', False, False),
-            ('2026-07-14T15:59:59+00:00', False, False),
-            ('2026-07-14T16:00:00+00:00', False, True),
-            ('2026-11-14T22:00:00+00:00', True, False),
-            ('2026-07-14T21:00:00+00:00', True, False),
+            ('2026-11-14T16:59:59+00:00', True, False),
+            ('2026-11-14T17:00:00+00:00', False, False),
+            ('2026-11-14T18:59:59+00:00', False, False),
+            ('2026-11-14T19:00:00+00:00', False, True),
+            ('2026-07-14T15:59:59+00:00', True, False),
+            ('2026-07-14T16:00:00+00:00', False, False),
+            ('2026-07-14T17:59:59+00:00', False, False),
+            ('2026-07-14T18:00:00+00:00', False, True),
+            ('2026-11-14T21:00:00+00:00', True, False),
+            ('2026-07-14T20:00:00+00:00', True, False),
         ]
         for instant, skip, publish in cases:
             with self.subTest(instant=instant):
@@ -53,7 +53,7 @@ class DailyScheduleTests(unittest.TestCase):
                 self.assertEqual(0 if skip else 3, result['add_count'])
                 self.assertEqual(publish, result['publish'])
 
-    def test_prepared_batch_waits_until_19_without_generating_again(self):
+    def test_prepared_batch_waits_until_21_without_generating_again(self):
         early = NOW - timedelta(minutes=90)
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=early)
         ledger = added(self.ledger, 3)
@@ -65,20 +65,20 @@ class DailyScheduleTests(unittest.TestCase):
         self.assertEqual((False, True, 0, 'recover'),
                          (due['skip'], due['publish'], due['add_count'], due['action']))
 
-    def test_tracked_publication_closes_at_22_israel_in_winter_and_summer(self):
+    def test_tracked_publication_closes_at_23_israel_in_winter_and_summer(self):
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
         ledger = added(self.ledger, 3)
         prepared = schedule.mark_prepared(ledger, reserved, DAY, now=NOW)
-        for instant in ('2026-11-14T20:00:00+00:00', '2027-07-14T19:00:00+00:00'):
+        for instant in ('2026-11-14T21:00:00+00:00', '2027-07-14T20:00:00+00:00'):
             with self.subTest(instant=instant):
                 at = datetime.fromisoformat(instant)
                 self.assertFalse(schedule.plan(ledger, prepared, now=at)['publish'])
                 self.assertFalse(schedule.plan(ledger, prepared, now=at, manual_count=0)['publish'])
                 self.assertEqual(0, schedule.plan(ledger, prepared, now=at)['add_count'])
 
-    def test_late_generation_does_not_start_after_local_22(self):
+    def test_late_generation_does_not_start_after_local_23(self):
         result = schedule.plan(self.ledger, self.state,
-                               now=datetime.fromisoformat('2026-11-14T20:00:00+00:00'))
+                               now=datetime.fromisoformat('2026-11-14T21:00:00+00:00'))
         self.assertTrue(result['skip'])
         self.assertEqual(0, result['add_count'])
 
@@ -88,14 +88,14 @@ class DailyScheduleTests(unittest.TestCase):
         ledger = added(self.ledger, 3)
         prepared = schedule.mark_prepared(ledger, reserved, DAY, now=NOW)
         schedule.guard_publication(ledger, prepared, DAY, now=NOW)
-        for instant in ('2026-11-14T20:00:00+00:00', '2026-11-15T17:00:00+00:00'):
+        for instant in ('2026-11-14T21:00:00+00:00', '2026-11-15T18:00:00+00:00'):
             with self.subTest(instant=instant), self.assertRaises(schedule.ScheduleError):
                 schedule.guard_publication(ledger, prepared, DAY,
                     now=datetime.fromisoformat(instant))
 
     def test_untracked_manual_zero_remains_available_late_without_recording_publication(self):
         result = schedule.plan(self.ledger, self.state,
-            now=datetime.fromisoformat('2026-11-14T20:30:00+00:00'), manual_count=0)
+            now=datetime.fromisoformat('2026-11-14T21:30:00+00:00'), manual_count=0)
         self.assertTrue(result['publish'])
         self.assertFalse(result['record_publication'])
 

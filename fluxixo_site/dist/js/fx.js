@@ -9,7 +9,7 @@ const FluxixoCountdown = (() => {
     const p = parts(date, timeZone);
     return `${p.year}-${p.month}-${p.day}`;
   };
-  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 19 } = {}) {
+  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 21 } = {}) {
     now = new Date(now);
     if (publishedDay) {
       const next = new Date(publishedDay + 'T12:00:00Z');
@@ -20,7 +20,7 @@ const FluxixoCountdown = (() => {
     const [year, month, day] = dueDay.split('-').map(Number);
     const wallClock = Date.UTC(year, month - 1, day, Number(hour));
     let target = wallClock;
-    // Resolve the local 19:00 using the offset on that date, not today's offset.
+    // Resolve the local 21:00 using the offset on that date, not today's offset.
     // This also handles the 23/25-hour interval across Israel's DST changes.
     for (let pass = 0; pass < 2; pass++) {
       const p = parts(new Date(target), timeZone);

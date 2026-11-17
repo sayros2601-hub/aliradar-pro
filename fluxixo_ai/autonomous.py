@@ -191,8 +191,67 @@ def _sanitize_deterministic_copy(record_item, translated, candidate, site_root, 
     return new_record, new_trans
 
 
+_AI_STUDIO_KEY_NAMES = (
+    'GEMINI_API_KEY',
+    'GEMINI_TEXT_API_KEY',
+    'GEMINI_IMAGE_API_KEY',
+    'CLOUDFLARE_AUTOPILOT_URL',
+    'FLUXIXO_AI_TRANSPORT',
+)
+
+
+def _strict_copy_enabled():
+    """Return True when strict copy validation is enabled via FLUXIXO_STRICT_COPY or STRICT_COPY."""
+    raw = os.environ.get('FLUXIXO_STRICT_COPY')
+    if raw is None:
+        raw = os.environ.get('STRICT_COPY', '')
+    return str(raw).strip().lower() in ('1', 'true', 'yes')
+
+
+def _load_ai_studio_keys(ai_seo):
+    """Load Google AI Studio keys and optional Worker HTTP transport without Cloudflare Workers AI tokens."""
+    if not hasattr(ai_seo, 'load_ai_keys'):
+        return {}
+    raw_keys = ai_seo.load_ai_keys(local=False) or {}
+    return {k: raw_keys[k] for k in _AI_STUDIO_KEY_NAMES if k in raw_keys}
+
+
+def _copy_validation_problems(
+    record_item,
+    translated,
+    site_root,
+    *,
+    catalog_corpus=None,
+    copy_originality=None,
+    reject_placeholders=True,
+):
+    """Validate 6-language copy with check_texts and optional copy_originality checks."""
+    from . import discovery_curator
+
+    ct_mod = discovery_curator._lazy_check_texts()
+    problems = list(
+        ct_mod.lint_product_bundle(
+            record_item['id'], record_item, translated, reject_placeholders=reject_placeholders,
+        ) or ()
+    )
+    if problems:
+        return problems
+    try:
+        if copy_originality is None:
+            _, copy_originality = _import_tools_modules(site_root)
+        full_bundle = {
+            'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
+            **translated,
+        }
+        problems.extend(copy_originality.check_source_title_mirroring(full_bundle, record_item.get('sourceTitle', '')) or ())
+        problems.extend(copy_originality.check_catalog_similarity(full_bundle, catalog_corpus) or ())
+    except Exception:
+        pass
+    return problems
+
+
 def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_corpus=None, snippet_fetcher=None):
-    """Optionally enhance 6-language copy with free AI when keys are set, strictly gated by check_texts."""
+    """Optionally enhance 6-language copy with Google AI Studio when configured, strictly gated by check_texts."""
     ai_seo = copy_originality = None
     try:
         ai_seo, copy_originality = _import_tools_modules(site_root)
@@ -203,7 +262,8 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
         'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
         **translated,
     }
-    if ai_seo.has_ai_provider():
+    keys = _load_ai_studio_keys(ai_seo)
+    if ai_seo.has_ai_provider(keys):
         try:
             enriched, provider = ai_seo.enrich_product_copy(
                 {
@@ -212,13 +272,26 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                     'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
                 },
                 base,
+                keys=keys,
                 catalog_corpus=catalog_corpus,
                 snippet_fetcher=snippet_fetcher,
             )
-            if enriched and provider != 'deterministic' and not provider.startswith('fallback:') and not provider.startswith('deterministic-after-lint'):
-                record_item = {**record_item, **enriched['ru'], 'details': enriched['ru']['description']}
-                translated = {lang: enriched[lang] for lang in LANGS if lang != 'ru' and lang in enriched}
-                return record_item, translated
+            if (
+                isinstance(enriched, dict)
+                and isinstance(enriched.get('ru'), dict)
+                and provider != 'deterministic'
+                and not provider.startswith('fallback:')
+                and not provider.startswith('deterministic-after-lint')
+            ):
+                cand_record = {**record_item, **enriched['ru'], 'details': enriched['ru']['description']}
+                cand_trans = {lang: enriched[lang] for lang in LANGS if lang != 'ru' and lang in enriched}
+                if not _copy_validation_problems(
+                    cand_record, cand_trans, site_root,
+                    catalog_corpus=catalog_corpus,
+                    copy_originality=copy_originality,
+                    reject_placeholders=True,
+                ):
+                    return cand_record, cand_trans
         except Exception:
             pass
 
@@ -302,7 +375,7 @@ def discover(
             preferred_markets=pref_tuple or None,
         )
         ai_queries = discovery_curator.generate_ai_discovery_queries(
-            existing, target_markets=pref_tuple or discovery_curator.ALL_MARKETS, limit=4,
+            existing, target_markets=pref_tuple or discovery_curator.ALL_MARKETS, limit=6,
         )
         # The tool seeds (with their own six-language copy) back up the curated pool once it runs low.
         task_seeds = ai_queries + rotated + list(SEEDS)
@@ -322,7 +395,7 @@ def discover(
         task_seeds = task_seeds[offset:] + task_seeds[:offset]
     known_ids = {str(item['sourceProductId']) for item in existing if isinstance(item, dict) and item.get('sourceProductId')}
     known_titles = {str(item[key]).strip().casefold() for item in existing if isinstance(item, dict)
-                    for key in ('name', 'sourceTitle') if item.get(key)}
+                    for key in ('name', 'name_en', 'sourceTitle') if item.get(key)}
     known_models = {item.get('sourceModelKey') for item in existing if isinstance(item, dict) and item.get('sourceModelKey')}
     chosen = []
     for task in task_seeds:
@@ -354,7 +427,7 @@ def discover(
                                         'target_currency': 'USD', 'target_language': 'EN', 'tracking_id': 'default'}), DETAIL)
             eligible = []
             catalog_plus_chosen = existing + [
-                {'id': c['product_id'], 'sourceTitle': c['title'], 'name': c['title']}
+                {'id': c['product_id'], 'sourceTitle': c['title'], 'name_en': c['title'], 'name': c['title']}
                 for c in chosen
             ]
             for raw in details[:20]:
@@ -785,21 +858,43 @@ def _build_media_record(image_path, original_path, original, digest, url, cut_ha
     }
 
 
+def _resolve_worker_transport_url():
+    """Return Cloudflare Worker HTTP proxy URL when Worker transport is active."""
+    resolver = getattr(image_studio, '_resolve_worker_transport_url', None)
+    if callable(resolver):
+        return resolver()
+    transport = os.environ.get('FLUXIXO_AI_TRANSPORT', '').strip().lower()
+    if transport in ('direct', 'google', 'gemini', 'none', 'disabled'):
+        return ''
+    explicit_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip().rstrip('/')
+    if explicit_url:
+        return explicit_url
+    if transport in ('worker', 'cloudflare_worker', 'autopilot'):
+        return getattr(image_studio, 'DEFAULT_CLOUDFLARE_AUTOPILOT_URL', '').rstrip('/')
+    return ''
+
+
 def _default_media_preparer():
-    # Cut-out from the seller's own photos on GitHub (how every photo on the site was made); AI generation only on request.
-    mode = os.environ.get('FLUXIXO_IMAGE_MODE', 'cut').strip().lower()
-    cf_token, _ = image_studio.resolve_cloudflare_ai_token()
-    autopilot_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
-    if mode != 'cut' and (cf_token or autopilot_url):
+    # Cloud studio generation via Google AI Studio (Worker HTTP transport first when active, direct Gemini fallback) by default;
+    # rembg cut-out only when FLUXIXO_IMAGE_MODE=cut or no AI Studio credentials/transport exist.
+    mode = (os.environ.get('FLUXIXO_IMAGE_MODE') or 'generate').strip().lower()
+    gemini_key = image_studio.resolve_gemini_api_key()
+    worker_url = _resolve_worker_transport_url()
+    if mode != 'cut' and (gemini_key or worker_url):
         from PIL import Image
 
+        provider = image_studio.resolve_image_provider(
+            gemini_key=gemini_key,
+            autopilot_url=worker_url,
+        )
+        image_size = os.environ.get('FLUXIXO_GEMINI_IMAGE_SIZE', '1K').strip() or '1K'
+        use_vision_spec = os.environ.get('FLUXIXO_USE_VISION_SPEC', '').strip().lower() in ('1', 'true', 'yes')
+
         def prepare_generated(candidate, internal_id, stage, *, perceptual_index=None):
-            """Download one verified seller reference photo and generate 3 distinct studio cutout views."""
+            """Download verified seller reference photos and generate 3 distinct studio views (hero, alternate angle, active effect)."""
             urls = candidate.get('image_urls') or [candidate.get('image_url')]
             sources = set()
-            ref_item = None
-            ref_url = None
-            best_luma = -1.0
+            loaded_candidates = []
             for url in urls[:9]:
                 try:
                     loaded = _load_verified_source_image(url, sources, perceptual_index)
@@ -809,26 +904,46 @@ def _default_media_preparer():
                     cand_img = loaded[0].convert('RGB')
                     bg = image_studio._estimate_studio_backdrop(cand_img)
                     bg_luma = sum(bg) / 3.0
-                    if bg_luma > best_luma:
-                        best_luma = bg_luma
-                        ref_item = loaded
-                        ref_url = url
-                    if bg_luma >= 248.0:
+                    loaded_candidates.append((bg_luma, loaded, url))
+                    if len(loaded_candidates) >= 4:
                         break
-            if ref_item is None:
+            if not loaded_candidates:
                 raise DailyError('visual_quality_failed')
 
+            hero_idx = max(range(len(loaded_candidates)), key=lambda i: loaded_candidates[i][0])
+            _, ref_item, ref_url = loaded_candidates[hero_idx]
+            alt_items = [loaded_candidates[i][1] for i in range(len(loaded_candidates)) if i != hero_idx]
             ref_original, ref_digest, ref_hashes = ref_item
             title = str(candidate.get('title') or '').strip() or 'compact precision product'
+            category = str(candidate.get('category') or (candidate.get('task') or {}).get('category') or '').strip()
+            target_bg = image_studio.resolve_world_background(category)
+            visual_spec = ''
+            if use_vision_spec or provider != 'nano_banana':
+                visual_spec = image_studio.describe_product_from_reference(
+                    ref_original,
+                    product_title=title,
+                )
+            slot_refs = [
+                ref_original,
+                alt_items[0][0] if alt_items else ref_original,
+                alt_items[1][0] if len(alt_items) > 1 else (alt_items[0][0] if alt_items else ref_original),
+            ]
             main, views, kept = None, [], []
             for slot_idx, angle_choices in enumerate(STUDIO_VIEW_ANGLES[:PHOTOS_PER_PRODUCT]):
+                slot_ref = slot_refs[slot_idx]
                 accepted = None
                 for angle in angle_choices:
                     try:
                         canvas = image_studio.generate_studio_cutout(
                             title,
-                            reference_image=ref_original,
+                            reference_image=slot_ref,
                             angle=angle,
+                            background_hex=target_bg,
+                            category=category or None,
+                            visual_spec=visual_spec or None,
+                            provider=provider,
+                            gemini_api_key=None,
+                            image_size=image_size,
                         )
                         if not isinstance(canvas, Image.Image) or not canvas.getbbox() or not mask_usable(canvas):
                             continue
@@ -1148,7 +1263,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 media_holder.append(_default_media_preparer())
             return media_holder[0](candidate, internal_id, stage, perceptual_index=perceptual_index)
     strict_copy = (
-        str(os.environ.get('FLUXIXO_STRICT_COPY', '')).strip().lower() in ('1', 'true', 'yes')
+        _strict_copy_enabled()
         if enforce_unique_copy is None else bool(enforce_unique_copy)
     )
     old = catalog['products']
@@ -1228,24 +1343,13 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                             record_item, translated, candidate, site_root,
                             catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
                         )
-                        ct_mod = discovery_curator._lazy_check_texts()
-                        if ct_mod.lint_product_bundle(record_item['id'], record_item, translated, reject_placeholders=True):
+                        if _copy_validation_problems(
+                            record_item, translated, site_root,
+                            catalog_corpus=catalog_corpus, reject_placeholders=True,
+                        ):
                             if queue_claim:
                                 queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                             continue
-                        try:
-                            _, co_mod = _import_tools_modules(site_root)
-                            full_bundle = {
-                                'ru': {'name': record_item['name'], 'headline': record_item['headline'], 'description': record_item['description']},
-                                **translated,
-                            }
-                            if (co_mod.check_source_title_mirroring(full_bundle, record_item.get('sourceTitle', ''))
-                                    or co_mod.check_catalog_similarity(full_bundle, catalog_corpus)):
-                                if queue_claim:
-                                    queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
-                                continue
-                        except Exception:
-                            pass
                     media_attempts += 1
                     media = (
                         media_fn(candidate, record_item['id'], stage, perceptual_index=perceptual_index)

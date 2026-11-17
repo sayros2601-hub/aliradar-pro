@@ -80,12 +80,16 @@ def make_thumbnails():
         for width in (320, 480, 800):
             relative = thumb(image, width)
             target = DIST/relative
-            # A zero-byte file is the leftover of an interrupted run, so it is rebuilt.
-            if not (target.exists() and target.stat().st_size):
+            # A zero-byte file or a thumbnail older than its source image is rebuilt.
+            stale = (
+                not (target.exists() and target.stat().st_size)
+                or target.stat().st_mtime_ns < source.stat().st_mtime_ns
+            )
+            if stale:
                 target.parent.mkdir(parents=True, exist_ok=True)
                 with Image.open(source) as picture:
                     picture.thumbnail((width, width), Image.Resampling.LANCZOS)
-                    picture.save(target, 'WEBP', quality=82, method=4)
+                    picture.save(target, 'WEBP', quality=86, method=4)
             with Image.open(target) as picture:
                 IMAGE_SIZES[relative] = picture.size
 
