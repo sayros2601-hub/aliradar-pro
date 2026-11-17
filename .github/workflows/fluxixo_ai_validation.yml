@@ -1,12 +1,12 @@
 name: FLUXIXO one-time authorized validation
 
 on:
-  # Owner 2026-11-15: Headless validation dispatch using Google AI Studio API exclusively for text & images;
-  # Cloudflare serves strictly as transport/Pages publishing.
+  # Headless validation dispatch using Cloudflare Workers AI + GitHub (rembg + Models) — zero Google/Gemini.
   workflow_dispatch:
 
 permissions:
   contents: write
+  models: read
 
 concurrency:
   group: fluxixo-daily-accumulation
@@ -19,14 +19,14 @@ jobs:
     timeout-minutes: 25
     env:
       PYTHONDONTWRITEBYTECODE: '1'
-      FLUXIXO_IMAGE_MODE: generate
-      FLUXIXO_IMAGE_PROVIDER: nano_banana
-      FLUXIXO_GEMINI_THINKING_LEVEL: HIGH
-      FLUXIXO_GEMINI_IMAGE_SIZE: 1K
+      FLUXIXO_IMAGE_MODE: hybrid
+      FLUXIXO_IMAGE_PROVIDER: cloudflare
+      FLUXIXO_USE_VISION_SPEC: '1'
       FLUXIXO_STRICT_COPY: '1'
-      FLUXIXO_GEMINI_TEXT_MODEL: ${{ vars.FLUXIXO_GEMINI_TEXT_MODEL || '' }}
-      FLUXIXO_GEMINI_IMAGE_MODEL: ${{ vars.FLUXIXO_GEMINI_IMAGE_MODEL || '' }}
-      FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || '' }}
+      FLUXIXO_CF_TEXT_MODEL: ${{ vars.FLUXIXO_CF_TEXT_MODEL || '@cf/meta/llama-3.3-70b-instruct-fp8-fast' }}
+      FLUXIXO_CF_IMAGE_MODEL: ${{ vars.FLUXIXO_CF_IMAGE_MODEL || '@cf/black-forest-labs/flux-2-klein-9b' }}
+      FLUXIXO_CF_VISION_MODEL: ${{ vars.FLUXIXO_CF_VISION_MODEL || '@cf/meta/llama-4-scout-17b-16e-instruct' }}
+      FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}
       CLOUDFLARE_AUTOPILOT_URL: https://fluxixo-autopilot.sayros2601.workers.dev
       CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
     steps:
@@ -43,14 +43,14 @@ jobs:
       - name: Verify the fixed one-time request
         run: |
           python -c 'import json; p=json.load(open("data/validation_requests/fluxixo-validation-20261110-01.json")); assert p == {"run_id":"fluxixo-validation-20261110-01","operation":"validation","count":1}'
-      - name: Install bounded OCR dependencies only in cut mode
-        if: env.FLUXIXO_IMAGE_MODE == 'cut'
+      - name: Install bounded OCR dependencies only in cut or hybrid mode
+        if: env.FLUXIXO_IMAGE_MODE != 'generate'
         timeout-minutes: 15
         run: bash .github/scripts/install_ocr.sh
       - name: Install existing site and image-quality dependencies
         run: |
           python -m pip install --retries 5 --timeout 60 -r requirements.txt requests
-          if [ "${FLUXIXO_IMAGE_MODE,,}" = "cut" ]; then
+          if [ "${FLUXIXO_IMAGE_MODE,,}" != "generate" ]; then
             python -m pip install --retries 5 --timeout 60 rembg onnxruntime
           fi
           npm ci --ignore-scripts
@@ -59,10 +59,9 @@ jobs:
         env:
           ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
           ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_IMAGE_API_KEY: ${{ secrets.GEMINI_IMAGE_API_KEY }}
-          GEMINI_TEXT_API_KEY: ${{ secrets.GEMINI_TEXT_API_KEY }}
           AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -B fluxixo_daily_rotate.py --add 1 --validation-run-id fluxixo-validation-20261110-01
       - name: Commit and push the catalog and one-time ledger before deployment
         if: steps.prepare.outputs.deploy == '1'

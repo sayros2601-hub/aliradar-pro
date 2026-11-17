@@ -58,14 +58,15 @@ class AiFirewallTests(unittest.TestCase):
         self.assertTrue(any('Latin words' in e for e in ru_errs))
         self.assertTrue(any('ungrounded specs' in e for e in ru_errs))
 
-    def test_provider_fallback_gemini_to_groq_and_auto_retry(self):
+    def test_provider_fallback_cloudflare_to_github_models_and_auto_retry(self):
         calls = []
 
         def fake_transport(url, payload, headers):
             calls.append(url)
-            if 'generativelanguage.googleapis.com' in url:
-                raise RuntimeError('HTTP 429: quota exceeded')
-            # First Groq call fails check_texts (missing space before '?' in fr)
+            self.assertNotIn('generativelanguage.googleapis.com', url)
+            if 'api.cloudflare.com' in url:
+                raise RuntimeError('HTTP 429: neuron quota exhausted')
+            # First GitHub Models call fails check_texts (missing space before '?' in fr)
             body = json.dumps(payload, ensure_ascii=False)
             if 'validation_errors' not in body:
                 bad = {
@@ -84,38 +85,43 @@ class AiFirewallTests(unittest.TestCase):
         opp = {'path': '/fr/products/import-0010/', 'lang': 'fr', 'product_name': 'Chargeur USB-C', 'category': 'Техника'}
         cur = {'title': 'Old title', 'description': 'Old description long enough to provide context.', 'h1': 'Chargeur USB-C'}
         res, provider = ai_seo.propose_route_optimization(
-            opp, cur, keys={'GEMINI_API_KEY': 'k1', 'GROQ_API_KEY': 'k2', 'OPENROUTER_API_KEY': ''}, transport=fake_transport
+            opp,
+            cur,
+            keys={'CLOUDFLARE_API_TOKEN': 'cf-tok', 'GITHUB_TOKEN': 'gh-tok'},
+            transport=fake_transport,
         )
         self.assertIsNotNone(res)
-        self.assertTrue(provider.startswith('groq:'))
+        self.assertTrue(provider.startswith('github_models:'), provider)
         self.assertIn(' ?', res['faq'][0]['q'])
-        self.assertTrue(any('generativelanguage.googleapis.com' in u for u in calls))
-        self.assertTrue(any('api.groq.com' in u for u in calls))
+        self.assertTrue(any('api.cloudflare.com' in u for u in calls))
+        self.assertTrue(any('models.github.ai' in u for u in calls))
 
-    def test_complete_json_excludes_workers_ai_and_supports_worker_copy_transport(self):
+    def test_complete_json_supports_cloudflare_worker_copy_transport_without_gemini(self):
         seen_urls = []
 
         def fake_transport(url, payload, headers):
             seen_urls.append((url, payload, headers))
+            self.assertNotIn('generativelanguage.googleapis.com', url)
             return {
                 'ok': True,
-                'provider': 'gemini',
-                'model': 'gemini-4-argon',
+                'provider': 'cloudflare-workers-ai',
+                'model': '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
                 'choices': [{'message': {'content': '{"status":"ok"}'}}],
             }
 
-        # Pure Cloudflare AI tokens without Gemini or Autopilot URL never invoke Workers AI
-        res_none, prov_none = ai_seo.complete_json(
+        # Direct Cloudflare token routes directly to Cloudflare REST API when Worker URL is disabled
+        res_cf, prov_cf = ai_seo.complete_json(
             'sys',
             'user',
-            keys={'CLOUDFLARE_AI_TOKEN': 'cf-tok', 'CLOUDFLARE_API_TOKEN': 'cf-api'},
+            keys={'CLOUDFLARE_API_TOKEN': 'cf-api', 'CLOUDFLARE_ACCOUNT_ID': 'acc-123'},
             transport=fake_transport,
         )
-        self.assertIsNone(res_none)
-        self.assertEqual('deterministic', prov_none)
-        self.assertEqual([], seen_urls)
+        self.assertEqual({'status': 'ok'}, res_cf)
+        self.assertEqual('cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast', prov_cf)
+        self.assertIn('api.cloudflare.com/client/v4/accounts/acc-123/ai/run/', seen_urls[0][0])
 
-        # Worker transport acts purely as a Google AI Studio HTTP proxy (/api/generate-copy)
+        # Worker transport routes to /api/generate-copy using Cloudflare Workers AI models
+        seen_urls.clear()
         res_wk, prov_wk = ai_seo.complete_json(
             'sys',
             'user',
@@ -126,11 +132,11 @@ class AiFirewallTests(unittest.TestCase):
             transport=fake_transport,
         )
         self.assertEqual({'status': 'ok'}, res_wk)
-        self.assertEqual('gemini:gemini-4-argon', prov_wk)
+        self.assertEqual('cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast', prov_wk)
         self.assertEqual(1, len(seen_urls))
         self.assertEqual('https://fluxixo-autopilot.sayros2601.workers.dev/api/generate-copy', seen_urls[0][0])
-        self.assertEqual('gemini', seen_urls[0][1]['provider'])
-        self.assertNotIn('@cf/', json.dumps(seen_urls[0][1]))
+        self.assertEqual('cloudflare-workers-ai', seen_urls[0][1]['provider'])
+        self.assertEqual('@cf/meta/llama-3.3-70b-instruct-fp8-fast', seen_urls[0][1]['model'])
 
 
 class MarketSeoAndSitemapsTests(unittest.TestCase):

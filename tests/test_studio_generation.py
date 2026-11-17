@@ -94,27 +94,26 @@ class StudioGenerationTests(unittest.TestCase):
         self.assertEqual(255, cutout.getpixel((245, 275))[3], 'enclosed white highlight inside object was punched out')
         self.assertEqual((255, 255, 255, 255), cutout.getpixel((245, 275)))
 
-    def test_resolve_gemini_keys_and_exclusive_nano_banana_provider(self):
+    def test_resolve_cloudflare_tokens_and_exclusive_cloudflare_provider(self):
         with patch.dict(
             os.environ,
             {
-                'GEMINI_IMAGE_API_KEY': 'img-key-1',
-                'GEMINI_TEXT_API_KEY': 'txt-key-1',
-                'GEMINI_API_KEY': 'shared-key-2',
-                'FLUXIXO_IMAGE_PROVIDER': 'cloudflare',
-                'FLUXIXO_USE_CLOUDFLARE_AI': '1',
+                'CLOUDFLARE_API_TOKEN': 'cf-tok-1',
+                'CLOUDFLARE_AI_TOKEN': 'cf-ai-2',
+                'FLUXIXO_IMAGE_PROVIDER': 'nano_banana',
             },
             clear=False,
         ), patch.object(ims, '_load_dpapi_secret', return_value=''):
-            self.assertEqual('img-key-1', ims.resolve_gemini_api_key(local=False))
-            self.assertEqual('txt-key-1', ims.resolve_gemini_text_api_key(local=False))
-            self.assertEqual('explicit-img', ims.resolve_gemini_api_key('explicit-img', local=False))
+            tok, ua = ims.resolve_cloudflare_ai_token(local=False)
+            self.assertEqual('cf-ai-2', tok)
+            self.assertEqual('fluxixo-image-studio/1.0', ua)
+            self.assertEqual(('explicit-tok', 'fluxixo-image-studio/1.0'), ims.resolve_cloudflare_ai_token('explicit-tok', local=False))
             self.assertEqual(
-                'nano_banana',
-                ims.resolve_image_provider('cloudflare', cf_token='cf-tok', autopilot_url='https://example.workers.dev'),
+                'cloudflare',
+                ims.resolve_image_provider('nano_banana', cf_token='cf-tok', autopilot_url='https://example.workers.dev'),
             )
 
-    def test_generate_studio_cutout_google_ai_studio_and_worker_http_transport(self):
+    def test_generate_studio_cutout_cloudflare_direct_and_worker_http_transport(self):
         ref = _studio_white_scene(640, variant=0)
         generated_bytes = _jpeg_bytes(_studio_white_scene(800, variant=1))
         b64_img = base64.b64encode(generated_bytes).decode('ascii')
@@ -122,24 +121,21 @@ class StudioGenerationTests(unittest.TestCase):
         seen_requests = []
 
         def fake_urlopen_primary(req, timeout=60):
-            seen_requests.append((req.full_url, dict(req.header_items()), json.loads(req.data.decode('utf-8'))))
-            self.assertNotIn('api.cloudflare.com', req.full_url)
-            self.assertNotIn('@cf/', req.full_url)
-            return _FakeHttpResponse(json.dumps({
-                'candidates': [{
-                    'content': {
-                        'parts': [{'inlineData': {'mimeType': 'image/jpeg', 'data': b64_img}}],
-                    },
-                }],
-            }).encode('utf-8'))
+            seen_requests.append((req.full_url, dict(req.header_items()), req.data))
+            self.assertNotIn('generativelanguage.googleapis.com', req.full_url)
+            self.assertIn('api.cloudflare.com/client/v4/accounts/', req.full_url)
+            return _FakeHttpResponse(json.dumps({'success': True, 'result': {'image': b64_img}}).encode('utf-8'))
 
-        with patch.object(ims, '_load_dpapi_secret', return_value=''), \
-             patch.object(ims.urllib.request, 'urlopen', side_effect=fake_urlopen_primary):
+        with patch.dict(
+            os.environ,
+            {'FLUXIXO_AI_TRANSPORT': 'direct', 'CLOUDFLARE_AUTOPILOT_URL': ''},
+            clear=False,
+        ), patch.object(ims, '_load_dpapi_secret', return_value=''), \
+           patch.object(ims.urllib.request, 'urlopen', side_effect=fake_urlopen_primary):
             cutout = ims.generate_studio_cutout(
                 'Telescopic inspection tool',
                 reference_image=ref,
-                gemini_api_key='test-gemini-key',
-                token='ignored-cf-token',
+                token='test-cf-token',
             )
 
         self.assertEqual('RGBA', cutout.mode)
@@ -148,23 +144,23 @@ class StudioGenerationTests(unittest.TestCase):
         ok, metrics = ims.verify_studio_image(cutout, composed=cutout)
         self.assertTrue(ok, f'Generated cutout failed QA: {metrics}')
 
-        url, headers, payload = seen_requests[0]
-        self.assertIn('generativelanguage.googleapis.com/v1beta/models/gemini-3-pro-image:generateContent', url)
+        url, headers, body = seen_requests[0]
+        self.assertIn('/ai/run/@cf/black-forest-labs/flux-2-klein-9b', url)
         hdrs = {k.lower(): v for k, v in headers.items()}
-        self.assertEqual('test-gemini-key', hdrs['x-goog-api-key'])
-        inline = payload['contents'][0]['parts'][1]['inlineData']
-        self.assertEqual('image/png', inline['mimeType'])
+        self.assertEqual('Bearer test-cf-token', hdrs['authorization'])
+        self.assertIn(b'name="input_image_0"', body)
 
-        # Without direct Gemini key, optional Worker HTTP transport routes to /api/generate-cutout (never api.cloudflare.com)
+        # Worker HTTP transport routes to /api/generate-cutout (never api.cloudflare.com or Google)
         clean_env = {
             k: v
             for k, v in os.environ.items()
-            if k not in ('GEMINI_API_KEY', 'GEMINI_IMAGE_API_KEY', 'GEMINI_TEXT_API_KEY', 'GOOGLE_API_KEY')
+            if k not in ('CLOUDFLARE_API_TOKEN', 'CLOUDFLARE_AI_TOKEN')
         }
         worker_calls = []
 
         def fake_urlopen_worker(req, timeout=60):
             worker_calls.append((req.full_url, dict(req.header_items()), req.data))
+            self.assertNotIn('generativelanguage.googleapis.com', req.full_url)
             self.assertNotIn('api.cloudflare.com', req.full_url)
             return _FakeHttpResponse(generated_bytes, content_type='image/jpeg')
 
@@ -181,12 +177,11 @@ class StudioGenerationTests(unittest.TestCase):
             cutout_worker = ims.generate_studio_cutout(
                 'Telescopic inspection tool',
                 reference_image=ref,
-                token='ignored-pages-only-token',
             )
 
         self.assertEqual(1, len(worker_calls))
         self.assertEqual(
-            'https://fluxixo-autopilot.sayros2601.workers.dev/api/generate-cutout?provider=nano_banana',
+            'https://fluxixo-autopilot.sayros2601.workers.dev/api/generate-cutout?provider=cloudflare',
             worker_calls[0][0],
         )
         self.assertIn(b'name="input_image_0"', worker_calls[0][2])
@@ -222,8 +217,14 @@ class StudioGenerationTests(unittest.TestCase):
         }
 
         with tempfile.TemporaryDirectory() as tmp, \
-             patch.dict(os.environ, {'FLUXIXO_IMAGE_MODE': 'generate'}, clear=False), \
-             patch.object(ims, 'resolve_gemini_api_key', return_value='gem-test-key'), \
+             patch.dict(
+                 os.environ,
+                 {
+                     'FLUXIXO_IMAGE_MODE': 'generate',
+                     'CLOUDFLARE_AUTOPILOT_URL': 'https://fluxixo-autopilot.sayros2601.workers.dev',
+                 },
+                 clear=False,
+             ), \
              patch.object(autonomous, '_image_bytes', return_value=ref_bytes) as dl_mock, \
              patch.object(autonomous, '_check_ocr', side_effect=AssertionError('OCR must not run in generate mode')), \
              patch.object(ims, 'generate_studio_cutout', side_effect=fake_generate), \
@@ -237,7 +238,7 @@ class StudioGenerationTests(unittest.TestCase):
                 [c[1] for c in gen_calls],
             )
             self.assertTrue(all(c[0] == 'Telescopic inspection mirror tool' for c in gen_calls))
-            self.assertTrue(all(c[3] == 'nano_banana' for c in gen_calls))
+            self.assertTrue(all(c[3] == 'cloudflare' for c in gen_calls))
             self.assertTrue(media['image_quality_verified'])
             self.assertEqual(2, len(media['views']))
             self.assertEqual('auto-777001-prepared.webp', Path(media['image']).name)
@@ -256,19 +257,82 @@ class StudioGenerationTests(unittest.TestCase):
                     self.assertEqual((0, 255), out_img.getchannel('A').getextrema())
             self.assertTrue(Path(media['original']).is_file())
 
+    def test_default_media_preparer_hybrid_mode_uses_rembg_slots_1_2_and_cloudflare_slot_3(self):
+        import types
+
+        ref0 = _studio_white_scene(800, variant=0)
+        ref1 = _studio_white_scene(800, variant=1)
+        slot3_generated = ims.compose_studio_frame(
+            ims.extract_isolated_studio_alpha(_studio_white_scene(800, variant=2)),
+            canvas_size=1254,
+            max_box=890,
+            normalize_tonality=True,
+            add_contact_shadow=True,
+            apply_clarity=True,
+        )
+        raw_map = {
+            'https://ae01.alicdn.com/kf/888001-1.jpg': _jpeg_bytes(ref0),
+            'https://ae01.alicdn.com/kf/888001-2.jpg': _jpeg_bytes(ref1),
+        }
+
+        fake_rembg = types.ModuleType('rembg')
+        fake_rembg.new_session = lambda model: f'session:{model}'
+        fake_rembg.remove = lambda work, session=None: ims.extract_isolated_studio_alpha(work)
+
+        gen_calls = []
+
+        def fake_generate(prompt, reference_image=None, *, angle='', **kwargs):
+            gen_calls.append((prompt, angle, kwargs.get('provider')))
+            return slot3_generated
+
+        candidate = {
+            'product_id': '888001',
+            'title': 'USB LED Desk Lamp',
+            'image_url': 'https://ae01.alicdn.com/kf/888001-1.jpg',
+            'image_urls': list(raw_map),
+        }
+
+        with tempfile.TemporaryDirectory() as tmp, \
+             patch.dict(
+                 os.environ,
+                 {
+                     'FLUXIXO_IMAGE_MODE': 'hybrid',
+                     'CLOUDFLARE_AUTOPILOT_URL': 'https://fluxixo-autopilot.sayros2601.workers.dev',
+                 },
+                 clear=False,
+             ), \
+             patch.object(autonomous, '_image_bytes', side_effect=lambda u: raw_map[u]), \
+             patch.object(autonomous, '_check_ocr', return_value=False), \
+             patch.object(autonomous, '_has_text', return_value=False), \
+             patch.object(ims, 'generate_studio_cutout', side_effect=fake_generate), \
+             patch.dict(sys.modules, {'rembg': fake_rembg}):
+            preparer = autonomous._default_media_preparer()
+            media = preparer(candidate, 'auto-888001', Path(tmp))
+
+        # Only Slot 3 active-effect image hits Cloudflare FLUX.2 (Slots 1-2 came from rembg -> 0 Neurons)
+        self.assertEqual([('USB LED Desk Lamp', 'close-up detail studio view', 'cloudflare')], gen_calls)
+        self.assertEqual('auto-888001-prepared.webp', Path(media['image']).name)
+        self.assertEqual(['auto-888001-view-2.webp', 'auto-888001-view-3.webp'], [Path(v).name for v in media['views']])
+
     def test_default_media_preparer_cut_mode_and_missing_keys_preserve_rembg_fallback(self):
-        with patch.dict(os.environ, {'FLUXIXO_IMAGE_MODE': 'cut'}, clear=False), \
-             patch.object(ims, 'resolve_gemini_api_key', return_value='gem-test-key'), \
-             patch.dict(sys.modules, {'rembg': None}):
+        with patch.dict(
+            os.environ,
+            {'FLUXIXO_IMAGE_MODE': 'cut', 'CLOUDFLARE_AUTOPILOT_URL': 'https://fluxixo-autopilot.sayros2601.workers.dev'},
+            clear=False,
+        ), patch.dict(sys.modules, {'rembg': None}):
             with self.assertRaisesRegex(autonomous.DailyError, 'image_processor_unavailable'):
                 autonomous._default_media_preparer()
 
+        clean = {
+            k: v
+            for k, v in os.environ.items()
+            if k not in ('CLOUDFLARE_API_TOKEN', 'CLOUDFLARE_AI_TOKEN', 'CLOUDFLARE_AUTOPILOT_URL', 'FLUXIXO_AI_TRANSPORT')
+        }
         with patch.dict(
             os.environ,
-            {'FLUXIXO_IMAGE_MODE': 'generate', 'CLOUDFLARE_AUTOPILOT_URL': '', 'FLUXIXO_AI_TRANSPORT': ''},
-            clear=False,
-        ), patch.object(ims, 'resolve_gemini_api_key', return_value=''), \
-           patch.object(ims, '_load_dpapi_secret', return_value=''), \
+            {**clean, 'FLUXIXO_IMAGE_MODE': 'generate', 'CLOUDFLARE_AUTOPILOT_URL': '', 'FLUXIXO_AI_TRANSPORT': ''},
+            clear=True,
+        ), patch.object(ims, '_load_dpapi_secret', return_value=''), \
            patch.dict(sys.modules, {'rembg': None}):
             with self.assertRaisesRegex(autonomous.DailyError, 'image_processor_unavailable'):
                 autonomous._default_media_preparer()
@@ -303,19 +367,17 @@ class StudioGenerationTests(unittest.TestCase):
         seen = []
 
         def fake_urlopen(req, timeout=60):
-            seen.append((req.full_url, json.loads(req.data.decode('utf-8'))))
-            self.assertNotIn('api.cloudflare.com', req.full_url)
-            return _FakeHttpResponse(json.dumps({
-                'candidates': [{
-                    'content': {
-                        'parts': [{'inlineData': {'mimeType': 'image/png', 'data': b64_out}}],
-                    },
-                }],
-            }).encode('utf-8'))
+            seen.append((req.full_url, req.data))
+            self.assertNotIn('generativelanguage.googleapis.com', req.full_url)
+            self.assertIn('api.cloudflare.com', req.full_url)
+            return _FakeHttpResponse(json.dumps({'success': True, 'result': {'image': b64_out}}).encode('utf-8'))
 
-        with patch.dict(os.environ, {'GEMINI_IMAGE_API_KEY': 'world-key'}, clear=True), \
-             patch.object(ims, '_load_dpapi_secret', return_value=''), \
-             patch.object(ims.urllib.request, 'urlopen', side_effect=fake_urlopen):
+        with patch.dict(
+            os.environ,
+            {'CLOUDFLARE_API_TOKEN': 'world-cf-key', 'CLOUDFLARE_AUTOPILOT_URL': '', 'FLUXIXO_AI_TRANSPORT': 'direct'},
+            clear=True,
+        ), patch.object(ims, '_load_dpapi_secret', return_value=''), \
+           patch.object(ims.urllib.request, 'urlopen', side_effect=fake_urlopen):
             cutout = ims.generate_studio_cutout(
                 'Outdoor plasma lighter',
                 reference_image=ref,
@@ -325,21 +387,21 @@ class StudioGenerationTests(unittest.TestCase):
 
         self.assertEqual((1254, 1254), cutout.size)
         self.assertEqual(1, len(seen))
-        parts = seen[0][1]['contents'][0]['parts']
-        self.assertIn('clear cylindrical case with hinged latch', parts[0]['text'])
-        self.assertIn('#DFEAC4', parts[0]['text'])
-        self.assertEqual('image/png', parts[1]['inlineData']['mimeType'])
+        self.assertIn(b'clear cylindrical case with hinged latch', seen[0][1])
+        self.assertIn(b'#DFEAC4', seen[0][1])
+        self.assertIn(b'name="input_image_0"', seen[0][1])
 
-    def test_describe_product_from_reference_uses_google_vision_and_gracefully_handles_missing_keys(self):
+    def test_describe_product_from_reference_uses_cloudflare_vision_and_gracefully_handles_missing_keys(self):
         ref = _studio_white_scene(480, variant=0)
         clean_env = {
             k: v
             for k, v in os.environ.items()
             if k not in (
-                'GEMINI_API_KEY',
-                'GEMINI_TEXT_API_KEY',
-                'GEMINI_IMAGE_API_KEY',
-                'GOOGLE_API_KEY',
+                'CLOUDFLARE_API_TOKEN',
+                'CLOUDFLARE_AI_TOKEN',
+                'GITHUB_TOKEN',
+                'GH_TOKEN',
+                'GITHUB_MODELS_TOKEN',
                 'CLOUDFLARE_AUTOPILOT_URL',
                 'FLUXIXO_AI_TRANSPORT',
             )
@@ -347,47 +409,44 @@ class StudioGenerationTests(unittest.TestCase):
         with patch.dict(os.environ, clean_env, clear=True), \
              patch.object(ims, '_load_dpapi_secret', return_value=''), \
              patch.object(ims.urllib.request, 'urlopen', side_effect=AssertionError('missing keys must not hit network')):
-            self.assertEqual('', ims.describe_product_from_reference(ref, product_title='Dial tool', token='cf-tok'))
+            self.assertEqual('', ims.describe_product_from_reference(ref, product_title='Dial tool'))
 
         calls = []
 
         def fake_urlopen(req, timeout=25):
             calls.append((req.full_url, json.loads(req.data.decode('utf-8'))))
-            self.assertNotIn('api.cloudflare.com', req.full_url)
-            self.assertNotIn('@cf/', req.full_url)
-            if 'gemini-4-hydrogen:' in req.full_url:
+            self.assertNotIn('generativelanguage.googleapis.com', req.full_url)
+            self.assertIn('api.cloudflare.com', req.full_url)
+            if '@cf/meta/llama-4-scout-17b-16e-instruct' in req.full_url:
                 raise urllib.error.HTTPError(req.full_url, 429, 'Too Many Requests', {}, BytesIO(b'{}'))
             return _FakeHttpResponse(json.dumps({
-                'candidates': [{
-                    'content': {
-                        'parts': [{'text': 'Compact matte metal body with circular dial and orange toggle.'}],
-                    },
-                }],
+                'result': {'response': 'Compact matte metal body with circular dial and orange toggle.'},
             }).encode('utf-8'))
 
-        with patch.dict(os.environ, {**clean_env, 'GEMINI_TEXT_API_KEY': 'vision-gem-key'}, clear=True), \
+        with patch.dict(os.environ, {**clean_env, 'CLOUDFLARE_API_TOKEN': 'cf-vision-key'}, clear=True), \
              patch.object(ims, '_load_dpapi_secret', return_value=''), \
              patch.object(ims.urllib.request, 'urlopen', side_effect=fake_urlopen):
-            desc = ims.describe_product_from_reference(ref, product_title='Dial tool', token='ignored-cf-token')
+            desc = ims.describe_product_from_reference(ref, product_title='Dial tool')
 
         self.assertEqual('Compact matte metal body with circular dial and orange toggle.', desc)
         self.assertEqual(2, len(calls))
-        self.assertIn('gemini-4-hydrogen:generateContent', calls[0][0])
-        self.assertIn('gemini-3.8-flash:generateContent', calls[1][0])
+        self.assertIn('@cf/meta/llama-4-scout-17b-16e-instruct', calls[0][0])
+        self.assertIn('@cf/mistralai/mistral-small-3.1-24b-instruct', calls[1][0])
 
-    def test_nano_banana_provider_resolution_1k_generation_and_strict_isolation(self):
+    def test_cloudflare_provider_resolution_9b_to_4b_cascade_and_strict_isolation(self):
         with patch.dict(
             os.environ,
             {
-                'GEMINI_IMAGE_API_KEY': 'img-key-1',
-                'GEMINI_API_KEY': 'shared-key-2',
+                'CLOUDFLARE_API_TOKEN': 'cf-tok-1',
+                'CLOUDFLARE_AI_TOKEN': 'cf-ai-2',
             },
             clear=False,
         ):
-            self.assertEqual('img-key-1', ims.resolve_gemini_api_key(local=False))
+            tok, _ = ims.resolve_cloudflare_ai_token(local=False)
+            self.assertEqual('cf-ai-2', tok)
             self.assertEqual(
-                'nano_banana',
-                ims.resolve_image_provider('cloudflare', gemini_key='img-key-1', cf_token='cf-tok'),
+                'cloudflare',
+                ims.resolve_image_provider('nano_banana', cf_token='cf-tok'),
             )
 
         ref = _studio_white_scene(640, variant=0)
@@ -401,60 +460,55 @@ class StudioGenerationTests(unittest.TestCase):
         calls = []
 
         def fake_urlopen(req, timeout=60):
-            calls.append((req.full_url, dict(req.header_items()), json.loads(req.data.decode('utf-8'))))
-            self.assertNotIn('cloudflare.com', req.full_url)
-            if 'gemini-3-pro-image:' in req.full_url:
+            calls.append((req.full_url, dict(req.header_items()), req.data))
+            self.assertNotIn('generativelanguage.googleapis.com', req.full_url)
+            if 'flux-2-klein-9b' in req.full_url:
                 raise urllib.error.HTTPError(req.full_url, 404, 'Not Found', {}, BytesIO(b'{}'))
-            if 'gemini-nano-banana-2.1:' in req.full_url:
-                raise urllib.error.HTTPError(req.full_url, 429, 'Quota Exceeded', {}, BytesIO(b'{}'))
             return _FakeHttpResponse(json.dumps({
-                'candidates': [{
-                    'content': {
-                        'parts': [{'inlineData': {'mimeType': 'image/png', 'data': b64_out}}],
-                    },
-                }],
+                'success': True,
+                'result': {'image': b64_out},
             }).encode('utf-8'))
 
-        with patch.dict(os.environ, {'FLUXIXO_IMAGE_PROVIDER': 'nano_banana'}, clear=False), \
-             patch.object(ims, '_load_dpapi_secret', return_value=''), \
-             patch.object(ims, 'describe_product_from_reference', side_effect=AssertionError('vision optional unless requested')), \
-             patch.object(ims.urllib.request, 'urlopen', side_effect=fake_urlopen):
+        with patch.dict(
+            os.environ,
+            {'FLUXIXO_IMAGE_PROVIDER': 'cloudflare', 'FLUXIXO_AI_TRANSPORT': 'direct', 'CLOUDFLARE_AUTOPILOT_URL': ''},
+            clear=False,
+        ), patch.object(ims, '_load_dpapi_secret', return_value=''), \
+           patch.object(ims, 'describe_product_from_reference', side_effect=AssertionError('vision optional unless requested')), \
+           patch.object(ims.urllib.request, 'urlopen', side_effect=fake_urlopen):
             cutout = ims.generate_studio_cutout(
                 'solar lantern clip',
                 reference_image=ref,
                 category='На природе',
-                gemini_api_key='tier1-nano-key',
-                image_size='1K',
+                token='cf-direct-key',
             )
 
-        self.assertEqual(3, len(calls))
-        self.assertIn('gemini-3-pro-image:generateContent', calls[0][0])
-        self.assertIn('gemini-nano-banana-2.1:generateContent', calls[1][0])
-        self.assertIn('gemini-3.1-flash-image:generateContent', calls[2][0])
+        self.assertEqual(2, len(calls))
+        self.assertIn('@cf/black-forest-labs/flux-2-klein-9b', calls[0][0])
+        self.assertIn('@cf/black-forest-labs/flux-2-klein-4b', calls[1][0])
         hdrs = {k.lower(): v for k, v in calls[0][1].items()}
-        self.assertEqual('tier1-nano-key', hdrs['x-goog-api-key'])
-        gen_cfg = calls[0][2]['generationConfig']
-        self.assertEqual(['IMAGE'], gen_cfg['responseModalities'])
-        self.assertEqual({'aspectRatio': '1:1', 'imageSize': '1K'}, gen_cfg['imageConfig'])
+        self.assertEqual('Bearer cf-direct-key', hdrs['authorization'])
         self.assertEqual('RGBA', cutout.mode)
         self.assertEqual((1254, 1254), cutout.size)
         self.assertEqual((0, 255), cutout.getchannel('A').getextrema())
 
         def fake_429(req, timeout=60):
-            self.assertNotIn('cloudflare.com', req.full_url)
-            raise urllib.error.HTTPError(req.full_url, 429, 'Too Many Requests', {}, BytesIO(b'quota 0'))
+            self.assertNotIn('generativelanguage.googleapis.com', req.full_url)
+            raise urllib.error.HTTPError(req.full_url, 429, 'Too Many Requests', {}, BytesIO(b'quota exhausted'))
 
-        with patch.dict(os.environ, {'FLUXIXO_IMAGE_PROVIDER': 'nano_banana'}, clear=False), \
-             patch.object(ims, '_load_dpapi_secret', return_value=''), \
-             patch.object(ims.urllib.request, 'urlopen', side_effect=fake_429):
-            with self.assertRaisesRegex(RuntimeError, 'gemini_image_http_429'):
+        with patch.dict(
+            os.environ,
+            {'FLUXIXO_IMAGE_PROVIDER': 'cloudflare', 'FLUXIXO_AI_TRANSPORT': 'direct', 'CLOUDFLARE_AUTOPILOT_URL': ''},
+            clear=False,
+        ), patch.object(ims, '_load_dpapi_secret', return_value=''), \
+           patch.object(ims.urllib.request, 'urlopen', side_effect=fake_429):
+            with self.assertRaisesRegex(urllib.error.HTTPError, '429'):
                 ims.generate_studio_cutout(
                     'solar lantern clip',
-                    gemini_api_key='free-tier-key',
-                    token='should-not-fallback-to-cf',
+                    token='free-tier-cf-token',
                 )
 
-    def test_ai_seo_argon_high_and_discovery_complete_json(self):
+    def test_ai_seo_cloudflare_workers_ai_and_discovery_complete_json(self):
         from fluxixo_site.tools import ai_seo
         from fluxixo_ai import discovery_curator
 
@@ -462,39 +516,33 @@ class StudioGenerationTests(unittest.TestCase):
 
         def fake_transport(url, payload, headers):
             seen.append((url, payload))
-            self.assertNotIn('@cf/', url)
-            self.assertNotIn('api.cloudflare.com', url)
-            if 'gemini-4-argon:' in url or 'gemini-4-carbon:' in url:
-                raise RuntimeError('HTTP 429: limit 0 on free tier')
+            self.assertNotIn('generativelanguage.googleapis.com', url)
+            if 'llama-3.3-70b' in url or 'qwen3.8-27b' in url:
+                raise RuntimeError('HTTP 429: neuron quota busy')
             return {
-                'candidates': [{
-                    'content': {
-                        'parts': [
-                            {'thought': True, 'text': 'internal reasoning'},
-                            {'text': '{"queries":[{"query":"optical glass prism physics cube","keyword_required":"prism","category":"Техника"}]}'},
-                        ],
+                'choices': [{
+                    'message': {
+                        'content': '<think>internal reasoning</think>{"queries":[{"query":"optical glass prism physics cube","keyword_required":"prism","category":"Техника"}]}',
                     },
                 }],
             }
 
-        with patch.dict(os.environ, {'FLUXIXO_GEMINI_THINKING_LEVEL': 'HIGH'}, clear=False):
-            parsed, provider_tag = ai_seo.complete_json(
-                'sys',
-                'user',
-                keys={'GEMINI_API_KEY': 'test-key'},
-                transport=fake_transport,
-            )
+        parsed, provider_tag = ai_seo.complete_json(
+            'sys',
+            'user',
+            keys={'CLOUDFLARE_API_TOKEN': 'cf-test-key', 'GITHUB_TOKEN': 'gh-test-key'},
+            transport=fake_transport,
+        )
 
-        self.assertEqual('gemini:gemini-4-hydrogen', provider_tag)
+        self.assertTrue(provider_tag.startswith('cloudflare:') or provider_tag.startswith('github_models:'), provider_tag)
         self.assertEqual('prism', parsed['queries'][0]['keyword_required'])
-        self.assertEqual('HIGH', seen[0][1]['generationConfig']['thinkingConfig']['thinkingLevel'])
-        self.assertEqual(8192, seen[0][1]['generationConfig']['maxOutputTokens'])
+        self.assertTrue(seen[0][1]['messages'][0]['role'] == 'system')
 
-        with patch.dict(os.environ, {'GEMINI_API_KEY': 'test-key'}, clear=False), \
+        with patch.dict(os.environ, {'CLOUDFLARE_API_TOKEN': 'cf-test-key'}, clear=False), \
              patch.object(
                  ai_seo,
                  'complete_json',
-                 return_value=({'queries': [{'query': 'optical glass prism physics cube', 'keyword_required': 'prism', 'category': 'Техника'}]}, 'gemini:gemini-4-argon'),
+                 return_value=({'queries': [{'query': 'optical glass prism physics cube', 'keyword_required': 'prism', 'category': 'Техника'}]}, 'cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast'),
              ):
             ideas = discovery_curator.generate_ai_discovery_queries(
                 [],

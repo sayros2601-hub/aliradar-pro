@@ -192,11 +192,14 @@ def _sanitize_deterministic_copy(record_item, translated, candidate, site_root, 
 
 
 _AI_STUDIO_KEY_NAMES = (
-    'GEMINI_API_KEY',
-    'GEMINI_TEXT_API_KEY',
-    'GEMINI_IMAGE_API_KEY',
     'CLOUDFLARE_AUTOPILOT_URL',
+    'CLOUDFLARE_ACCOUNT_ID',
+    'CLOUDFLARE_API_TOKEN',
+    'AUTOPILOT_SYNC_TOKEN',
+    'GITHUB_TOKEN',
     'FLUXIXO_AI_TRANSPORT',
+    'GROQ_API_KEY',
+    'OPENROUTER_API_KEY',
 )
 
 
@@ -209,7 +212,7 @@ def _strict_copy_enabled():
 
 
 def _load_ai_studio_keys(ai_seo):
-    """Load Google AI Studio keys and optional Worker HTTP transport without Cloudflare Workers AI tokens."""
+    """Load Cloudflare Worker, Workers AI, and GitHub Models keys without Google/Gemini."""
     if not hasattr(ai_seo, 'load_ai_keys'):
         return {}
     raw_keys = ai_seo.load_ai_keys(local=False) or {}
@@ -864,134 +867,357 @@ def _resolve_worker_transport_url():
     if callable(resolver):
         return resolver()
     transport = os.environ.get('FLUXIXO_AI_TRANSPORT', '').strip().lower()
-    if transport in ('direct', 'google', 'gemini', 'none', 'disabled'):
+    if transport in ('direct', 'none', 'disabled'):
         return ''
-    explicit_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip().rstrip('/')
-    if explicit_url:
-        return explicit_url
+    explicit_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL')
+    if explicit_url is not None:
+        cleaned = explicit_url.strip().rstrip('/')
+        if cleaned:
+            return cleaned
+        if not transport:
+            return ''
     if transport in ('worker', 'cloudflare_worker', 'autopilot'):
         return getattr(image_studio, 'DEFAULT_CLOUDFLARE_AUTOPILOT_URL', '').rstrip('/')
     return ''
 
 
-def _default_media_preparer():
-    # Cloud studio generation via Google AI Studio (Worker HTTP transport first when active, direct Gemini fallback) by default;
-    # rembg cut-out only when FLUXIXO_IMAGE_MODE=cut or no AI Studio credentials/transport exist.
-    mode = (os.environ.get('FLUXIXO_IMAGE_MODE') or 'generate').strip().lower()
-    gemini_key = image_studio.resolve_gemini_api_key()
+def _resolve_cloudflare_media_ready():
+    """Return (worker_url, cf_token, has_cloudflare) for Workers AI image generation."""
     worker_url = _resolve_worker_transport_url()
-    if mode != 'cut' and (gemini_key or worker_url):
-        from PIL import Image
+    token_fn = getattr(image_studio, 'resolve_cloudflare_ai_token', None)
+    cf_token = ''
+    if callable(token_fn):
+        cf_token, _ = token_fn(local=not bool(worker_url))
+    return worker_url, (cf_token or '').strip(), bool(worker_url or (cf_token or '').strip())
 
-        provider = image_studio.resolve_image_provider(
-            gemini_key=gemini_key,
-            autopilot_url=worker_url,
+
+def _extract_rembg_view(
+    original,
+    index,
+    internal_id,
+    stage,
+    remove_fn,
+    session,
+    *,
+    perceptual_index=None,
+    kept=None,
+    main_ready=False,
+    extra_slot_open=True,
+    main_light=0.0,
+    main_parts=1,
+):
+    """Extract and verify one studio cutout via local rembg + Tesseract OCR check."""
+    from PIL import Image
+
+    source = stage / f'{internal_id}-source-{index}.png'
+    original.save(source, 'PNG')
+    poster = _check_ocr(source)
+    if poster and not main_ready and not extra_slot_open:
+        return None
+    work = original
+    if max(work.size) > 1600:
+        work = work.copy()
+        work.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
+    cutout = _drop_specks(remove_fn(work, session=session).convert('RGBA'))
+    if not cutout.getbbox() or not mask_usable(cutout):
+        return None
+    if main_ready or poster:
+        cutout = _drop_specks(cutout, keep=0.06)
+    raw_bbox = cutout.getbbox()
+    raw_fg_size = (
+        max(1, round((raw_bbox[2] - raw_bbox[0]) * (original.width / work.width))),
+        max(1, round((raw_bbox[3] - raw_bbox[1]) * (original.height / work.height))),
+    ) if raw_bbox else original.size
+    canvas = _studio(cutout)
+    q_ok, q_metrics = image_studio.verify_studio_image(
+        cutout,
+        raw_fg_size=raw_fg_size,
+        composed=canvas,
+    )
+    if not q_ok:
+        return None
+    if main_ready or poster:
+        if (
+            _light_share(canvas) > max(0.3, main_light + 0.2)
+            or _major_parts(canvas) > main_parts
+            or _has_text(canvas, stage, f'{internal_id}-check-{index}')
+        ):
+            return None
+    cut_hashes = image_studio.compute_perceptual_hashes(canvas)
+    if perceptual_index:
+        is_dup, _ = image_studio.is_perceptually_duplicate(cut_hashes, perceptual_index)
+        if is_dup:
+            return None
+    fingerprint = _dhash(_on_white(canvas))
+    if kept and any(bin(fingerprint ^ other).count('1') <= VIEW_REPEAT for other in kept):
+        return None
+    return canvas, q_metrics, cut_hashes, fingerprint, poster
+
+
+def _generate_cf_slot_view(
+    *,
+    title,
+    slot_ref,
+    angle_choices,
+    target_bg,
+    category,
+    visual_spec,
+    provider,
+    perceptual_index=None,
+    kept=(),
+):
+    """Generate and validate one studio view via Cloudflare Workers AI."""
+    from PIL import Image
+
+    for angle in angle_choices:
+        try:
+            canvas = image_studio.generate_studio_cutout(
+                title,
+                reference_image=slot_ref,
+                angle=angle,
+                background_hex=target_bg,
+                category=category or None,
+                visual_spec=visual_spec or None,
+                provider=provider,
+            )
+            if not isinstance(canvas, Image.Image) or not canvas.getbbox() or not mask_usable(canvas):
+                continue
+            q_ok, q_metrics = image_studio.verify_studio_image(canvas, composed=canvas)
+            if not q_ok:
+                continue
+            cut_hashes = image_studio.compute_perceptual_hashes(canvas)
+            if perceptual_index:
+                is_dup, _ = image_studio.is_perceptually_duplicate(cut_hashes, perceptual_index)
+                if is_dup:
+                    continue
+            fingerprint = _dhash(_on_white(canvas))
+            if any(bin(fingerprint ^ other).count('1') <= VIEW_REPEAT for other in kept):
+                continue
+            return canvas, q_metrics, cut_hashes, fingerprint
+        except Exception:
+            continue
+    return None
+
+
+def _default_media_preparer():
+    # Studio image preparation modes (strictly Google/Gemini-free):
+    # - 'hybrid': rembg cutouts on GitHub for Slots 1-2 + Cloudflare FLUX.2 active-effect generation for Slot 3 (0 Google quota).
+    # - 'generate': Cloudflare Workers AI (FLUX.2 Klein 9B/4B) for all 3 slots without rembg/OCR.
+    # - 'cut': local rembg cutouts for all 3 slots.
+    mode = (os.environ.get('FLUXIXO_IMAGE_MODE') or 'generate').strip().lower()
+    worker_url, _cf_token, has_cloudflare = _resolve_cloudflare_media_ready()
+    use_vision_spec = os.environ.get('FLUXIXO_USE_VISION_SPEC', '').strip().lower() in ('1', 'true', 'yes')
+    provider = image_studio.resolve_image_provider(autopilot_url=worker_url)
+
+    def _run_cloudflare_generation(candidate, internal_id, stage, *, perceptual_index=None, preloaded=None):
+        urls = candidate.get('image_urls') or [candidate.get('image_url')]
+        sources = set()
+        loaded_candidates = list(preloaded or [])
+        for url in urls[:9]:
+            if len(loaded_candidates) >= 4:
+                break
+            try:
+                loaded = _load_verified_source_image(url, sources, perceptual_index)
+            except Exception:
+                continue
+            if loaded is not None:
+                cand_img = loaded[0].convert('RGB')
+                bg = image_studio._estimate_studio_backdrop(cand_img)
+                bg_luma = sum(bg) / 3.0
+                loaded_candidates.append((bg_luma, loaded, url))
+        if not loaded_candidates:
+            raise DailyError('visual_quality_failed')
+
+        hero_idx = max(range(len(loaded_candidates)), key=lambda i: loaded_candidates[i][0])
+        _, ref_item, ref_url = loaded_candidates[hero_idx]
+        alt_items = [loaded_candidates[i][1] for i in range(len(loaded_candidates)) if i != hero_idx]
+        ref_original, ref_digest, ref_hashes = ref_item
+        title = str(candidate.get('title') or '').strip() or 'compact precision product'
+        category = str(candidate.get('category') or (candidate.get('task') or {}).get('category') or '').strip()
+        target_bg = image_studio.resolve_world_background(category)
+        visual_spec = ''
+        if use_vision_spec:
+            visual_spec = image_studio.describe_product_from_reference(
+                ref_original,
+                product_title=title,
+            )
+        slot_refs = [
+            ref_original,
+            alt_items[0][0] if alt_items else ref_original,
+            alt_items[1][0] if len(alt_items) > 1 else (alt_items[0][0] if alt_items else ref_original),
+        ]
+        main, views, kept = None, [], []
+        for slot_idx, angle_choices in enumerate(STUDIO_VIEW_ANGLES[:PHOTOS_PER_PRODUCT]):
+            accepted = _generate_cf_slot_view(
+                title=title,
+                slot_ref=slot_refs[slot_idx],
+                angle_choices=angle_choices,
+                target_bg=target_bg,
+                category=category,
+                visual_spec=visual_spec,
+                provider=provider,
+                perceptual_index=perceptual_index,
+                kept=kept,
+            )
+            if accepted is None:
+                break
+            canvas, q_metrics, cut_hashes, fingerprint = accepted
+            kept.append(fingerprint)
+            if slot_idx == 0:
+                image_path = stage / f'{internal_id}-prepared.webp'
+                original_path = stage / f'{internal_id}-original.webp'
+                canvas.save(image_path, 'WEBP', quality=95, method=6)
+                ref_original.save(original_path, 'WEBP', quality=90, method=6)
+                main = _build_media_record(
+                    image_path, original_path, ref_original, ref_digest,
+                    ref_url, cut_hashes, ref_hashes, q_metrics,
+                )
+            else:
+                view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
+                canvas.save(view_path, 'WEBP', quality=92, method=6)
+                views.append(view_path)
+
+        if main is None or len(views) < PHOTOS_PER_PRODUCT - 1:
+            raise DailyError('visual_quality_failed')
+        main['views'] = views
+        return main
+
+    if mode == 'generate' and has_cloudflare:
+        return lambda candidate, internal_id, stage, *, perceptual_index=None: _run_cloudflare_generation(
+            candidate, internal_id, stage, perceptual_index=perceptual_index,
         )
-        image_size = os.environ.get('FLUXIXO_GEMINI_IMAGE_SIZE', '1K').strip() or '1K'
-        use_vision_spec = os.environ.get('FLUXIXO_USE_VISION_SPEC', '').strip().lower() in ('1', 'true', 'yes')
 
-        def prepare_generated(candidate, internal_id, stage, *, perceptual_index=None):
-            """Download verified seller reference photos and generate 3 distinct studio views (hero, alternate angle, active effect)."""
+    rembg_session = None
+    rembg_remove = None
+    try:
+        from rembg import remove as _rembg_remove, new_session
+        rembg_session = new_session(CUT_MODEL)
+        rembg_remove = _rembg_remove
+    except Exception:
+        rembg_session = None
+        rembg_remove = None
+
+    if mode == 'hybrid' and has_cloudflare:
+        if rembg_session is None:
+            return lambda candidate, internal_id, stage, *, perceptual_index=None: _run_cloudflare_generation(
+                candidate, internal_id, stage, perceptual_index=perceptual_index,
+            )
+
+        def prepare_hybrid(candidate, internal_id, stage, *, perceptual_index=None):
+            """Use local rembg for Slots 1-2 (0 Neurons) and Cloudflare FLUX.2 for Slot 3 active-effect demo."""
             urls = candidate.get('image_urls') or [candidate.get('image_url')]
-            sources = set()
-            loaded_candidates = []
-            for url in urls[:9]:
+            main, views, kept, sources, main_light, main_parts = None, [], [], set(), 0.0, 1
+            loaded_sources = []
+            max_cut_views = max(0, PHOTOS_PER_PRODUCT - 2)  # Slot 1 + Slot 2; reserve final slot for FLUX.2 active effect
+            for index, url in enumerate(urls[:9]):
+                if main is not None and len(views) >= max_cut_views and len(loaded_sources) >= 3:
+                    break
                 try:
                     loaded = _load_verified_source_image(url, sources, perceptual_index)
+                    if loaded is None:
+                        continue
+                    original, digest, source_hashes = loaded
+                    cand_img = original.convert('RGB')
+                    bg_luma = sum(image_studio._estimate_studio_backdrop(cand_img)) / 3.0
+                    loaded_sources.append((bg_luma, loaded, url))
+                    if main is not None and len(views) >= max_cut_views:
+                        continue
+                    extracted = _extract_rembg_view(
+                        original,
+                        index,
+                        internal_id,
+                        stage,
+                        rembg_remove,
+                        rembg_session,
+                        perceptual_index=perceptual_index,
+                        kept=kept,
+                        main_ready=main is not None,
+                        extra_slot_open=len(views) < max_cut_views,
+                        main_light=main_light,
+                        main_parts=main_parts,
+                    )
+                    if extracted is None:
+                        continue
+                    canvas, q_metrics, cut_hashes, fingerprint, poster = extracted
+                    kept.append(fingerprint)
+                    if main is None and not poster:
+                        image_path = stage / f'{internal_id}-prepared.webp'
+                        original_path = stage / f'{internal_id}-original.webp'
+                        canvas.save(image_path, 'WEBP', quality=95, method=6)
+                        original.save(original_path, 'WEBP', quality=90, method=6)
+                        main_light, main_parts = _light_share(canvas), _major_parts(canvas)
+                        main = _build_media_record(
+                            image_path, original_path, original, digest,
+                            url, cut_hashes, source_hashes, q_metrics,
+                        )
+                    elif len(views) < max_cut_views:
+                        view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
+                        canvas.save(view_path, 'WEBP', quality=92, method=6)
+                        views.append(view_path)
+                    else:
+                        kept.pop()
+                except DailyError as error:
+                    if str(error) == 'ocr_unavailable':
+                        raise
                 except Exception:
                     continue
-                if loaded is not None:
-                    cand_img = loaded[0].convert('RGB')
-                    bg = image_studio._estimate_studio_backdrop(cand_img)
-                    bg_luma = sum(bg) / 3.0
-                    loaded_candidates.append((bg_luma, loaded, url))
-                    if len(loaded_candidates) >= 4:
-                        break
-            if not loaded_candidates:
-                raise DailyError('visual_quality_failed')
 
-            hero_idx = max(range(len(loaded_candidates)), key=lambda i: loaded_candidates[i][0])
-            _, ref_item, ref_url = loaded_candidates[hero_idx]
-            alt_items = [loaded_candidates[i][1] for i in range(len(loaded_candidates)) if i != hero_idx]
-            ref_original, ref_digest, ref_hashes = ref_item
+            if not loaded_sources:
+                raise DailyError('visual_quality_failed')
+            if main is None:
+                return _run_cloudflare_generation(
+                    candidate,
+                    internal_id,
+                    stage,
+                    perceptual_index=perceptual_index,
+                    preloaded=loaded_sources[:4],
+                )
+
             title = str(candidate.get('title') or '').strip() or 'compact precision product'
             category = str(candidate.get('category') or (candidate.get('task') or {}).get('category') or '').strip()
             target_bg = image_studio.resolve_world_background(category)
+            ref_item = max(loaded_sources, key=lambda row: row[0])[1]
+            ref_original = ref_item[0]
+            alt_items = [row[1][0] for row in loaded_sources if row[1][1] != ref_item[1]]
             visual_spec = ''
-            if use_vision_spec or provider != 'nano_banana':
+            if use_vision_spec:
                 visual_spec = image_studio.describe_product_from_reference(
                     ref_original,
                     product_title=title,
                 )
-            slot_refs = [
-                ref_original,
-                alt_items[0][0] if alt_items else ref_original,
-                alt_items[1][0] if len(alt_items) > 1 else (alt_items[0][0] if alt_items else ref_original),
-            ]
-            main, views, kept = None, [], []
-            for slot_idx, angle_choices in enumerate(STUDIO_VIEW_ANGLES[:PHOTOS_PER_PRODUCT]):
-                slot_ref = slot_refs[slot_idx]
-                accepted = None
-                for angle in angle_choices:
-                    try:
-                        canvas = image_studio.generate_studio_cutout(
-                            title,
-                            reference_image=slot_ref,
-                            angle=angle,
-                            background_hex=target_bg,
-                            category=category or None,
-                            visual_spec=visual_spec or None,
-                            provider=provider,
-                            gemini_api_key=None,
-                            image_size=image_size,
-                        )
-                        if not isinstance(canvas, Image.Image) or not canvas.getbbox() or not mask_usable(canvas):
-                            continue
-                        q_ok, q_metrics = image_studio.verify_studio_image(canvas, composed=canvas)
-                        if not q_ok:
-                            continue
-                        cut_hashes = image_studio.compute_perceptual_hashes(canvas)
-                        if perceptual_index:
-                            is_dup, _ = image_studio.is_perceptually_duplicate(cut_hashes, perceptual_index)
-                            if is_dup:
-                                continue
-                        fingerprint = _dhash(_on_white(canvas))
-                        if any(bin(fingerprint ^ other).count('1') <= VIEW_REPEAT for other in kept):
-                            continue
-                        accepted = (canvas, q_metrics, cut_hashes, fingerprint)
-                        break
-                    except Exception:
-                        continue
+
+            # Fill Slot 2 via Cloudflare only if seller gallery lacked a second clean cutout; always generate Slot 3 effect.
+            while len(views) < PHOTOS_PER_PRODUCT - 1:
+                slot_idx = len(views) + 1
+                angle_choices = STUDIO_VIEW_ANGLES[min(slot_idx, len(STUDIO_VIEW_ANGLES) - 1)]
+                slot_ref = (alt_items[-1] if alt_items else ref_original) if slot_idx >= PHOTOS_PER_PRODUCT - 1 else (alt_items[0] if alt_items else ref_original)
+                accepted = _generate_cf_slot_view(
+                    title=title,
+                    slot_ref=slot_ref,
+                    angle_choices=angle_choices,
+                    target_bg=target_bg,
+                    category=category,
+                    visual_spec=visual_spec,
+                    provider=provider,
+                    perceptual_index=perceptual_index,
+                    kept=kept,
+                )
                 if accepted is None:
                     break
-                canvas, q_metrics, cut_hashes, fingerprint = accepted
+                canvas, _q_metrics, _cut_hashes, fingerprint = accepted
                 kept.append(fingerprint)
-                if slot_idx == 0:
-                    image_path = stage / f'{internal_id}-prepared.webp'
-                    original_path = stage / f'{internal_id}-original.webp'
-                    canvas.save(image_path, 'WEBP', quality=95, method=6)
-                    ref_original.save(original_path, 'WEBP', quality=90, method=6)
-                    main = _build_media_record(
-                        image_path, original_path, ref_original, ref_digest,
-                        ref_url, cut_hashes, ref_hashes, q_metrics,
-                    )
-                else:
-                    view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
-                    canvas.save(view_path, 'WEBP', quality=92, method=6)
-                    views.append(view_path)
+                view_path = stage / f'{internal_id}-view-{len(views) + 2}.webp'
+                canvas.save(view_path, 'WEBP', quality=92, method=6)
+                views.append(view_path)
 
-            if main is None or len(views) < PHOTOS_PER_PRODUCT - 1:
+            if len(views) < PHOTOS_PER_PRODUCT - 1:
                 raise DailyError('visual_quality_failed')
             main['views'] = views
             return main
 
-        return prepare_generated
+        return prepare_hybrid
 
-    try:
-        from PIL import Image
-        from rembg import remove, new_session
-        session = new_session(CUT_MODEL)
-    except Exception:
+    if rembg_session is None:
         raise DailyError('image_processor_unavailable') from None
 
     def prepare(candidate, internal_id, stage, *, perceptual_index=None):
@@ -1006,49 +1232,23 @@ def _default_media_preparer():
                 if loaded is None:
                     continue
                 original, digest, source_hashes = loaded
-                source = stage / f'{internal_id}-source-{index}.png'
-                original.save(source, 'PNG')
-                poster = _check_ocr(source)
-                if poster and main is None and len(views) >= PHOTOS_PER_PRODUCT - 1:
-                    continue  # the main photo itself must be a clean shot
-                work = original
-                if max(work.size) > 1600:
-                    work = work.copy()
-                    work.thumbnail((1600, 1600), Image.Resampling.LANCZOS)
-                cutout = _drop_specks(remove(work, session=session).convert('RGBA'))
-                if not cutout.getbbox() or not mask_usable(cutout):
-                    continue
-                if main is not None or poster:
-                    # Extra views keep only sizeable parts: no seller logo, no stray dimension lines.
-                    cutout = _drop_specks(cutout, keep=0.06)
-                raw_bbox = cutout.getbbox()
-                raw_fg_size = (
-                    max(1, round((raw_bbox[2] - raw_bbox[0]) * (original.width / work.width))),
-                    max(1, round((raw_bbox[3] - raw_bbox[1]) * (original.height / work.height))),
-                ) if raw_bbox else original.size
-                canvas = _studio(cutout)
-                q_ok, q_metrics = image_studio.verify_studio_image(
-                    cutout,
-                    raw_fg_size=raw_fg_size,
-                    composed=canvas,
+                extracted = _extract_rembg_view(
+                    original,
+                    index,
+                    internal_id,
+                    stage,
+                    rembg_remove,
+                    rembg_session,
+                    perceptual_index=perceptual_index,
+                    kept=kept,
+                    main_ready=main is not None,
+                    extra_slot_open=len(views) < PHOTOS_PER_PRODUCT - 1,
+                    main_light=main_light,
+                    main_parts=main_parts,
                 )
-                if not q_ok:
+                if extracted is None:
                     continue
-                if main is not None or poster:
-                    # Extra views: no leftover backdrop and no words anywhere on the cut-out (boxes, logos,
-                    # captions). A photo with text may still give a clean view once its background is cut away.
-                    # A white product is allowed to be white; a backdrop slab makes a view much lighter than the main.
-                    if (_light_share(canvas) > max(0.3, main_light + 0.2) or _major_parts(canvas) > main_parts
-                            or _has_text(canvas, stage, f'{internal_id}-check-{index}')):
-                        continue
-                cut_hashes = image_studio.compute_perceptual_hashes(canvas)
-                if perceptual_index:
-                    is_dup, _ = image_studio.is_perceptually_duplicate(cut_hashes, perceptual_index)
-                    if is_dup:
-                        continue
-                fingerprint = _dhash(_on_white(canvas))
-                if any(bin(fingerprint ^ other).count('1') <= VIEW_REPEAT for other in kept):
-                    continue
+                canvas, q_metrics, cut_hashes, fingerprint, poster = extracted
                 kept.append(fingerprint)
                 if main is None and not poster:
                     image_path = stage / f'{internal_id}-prepared.webp'

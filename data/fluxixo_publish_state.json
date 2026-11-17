@@ -13,12 +13,6 @@
       "baseline_count": 3,
       "utc_day": "2026-11-15",
       "published_day": "2026-11-15"
-    },
-    "2026-11-17": {
-      "status": "preparing",
-      "reserved_count": 3,
-      "baseline_count": 0,
-      "utc_day": "2026-11-17"
     }
   }
 }

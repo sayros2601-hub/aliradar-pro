@@ -4,6 +4,9 @@ compatibility_date = "2026-10-21"
 account_id = "a4be28e05f73ad2b3939d364ea8b2817"
 workers_dev = true
 
+[ai]
+binding = "AI"
+
 [[d1_databases]]
 binding = "DB"
 database_name = "fluxixo-autopilot-db"
@@ -12,12 +15,12 @@ database_id = "595a7f4e-7004-4925-b77c-9bb4d1a0f9fe"
 [vars]
 SITE_ORIGIN = "https://www.fluxixo.shop"
 INDEXNOW_KEY = "ededa82eb5716fb9ef71632b519559cb"
-AI_PROVIDER = "google-ai-studio"
+AI_PROVIDER = "cloudflare-workers-ai"
 GITHUB_REPO = "sayros2601-hub/aliradar-pro"
-DEFAULT_GEMINI_IMAGE_MODEL = "gemini-3-pro-image"
-DEFAULT_GEMINI_TEXT_MODEL = "gemini-4-argon"
-GEMINI_THINKING_LEVEL = "HIGH"
-GEMINI_IMAGE_SIZE = "1K"
+DEFAULT_IMAGE_MODEL = "@cf/black-forest-labs/flux-2-klein-9b"
+FALLBACK_IMAGE_MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
+DEFAULT_TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+DEFAULT_VISION_MODEL = "@cf/meta/llama-4-scout-17b-16e-instruct"
 
 [triggers]
 crons = ["0 17 * * *", "0 18 * * *", "0 19 * * *", "17 5 * * *"]

@@ -151,12 +151,12 @@ class CopyOriginalityTests(unittest.TestCase):
         calls = []
 
         def fake_transport(url, payload, headers, timeout=35):
-            calls.append(json.loads(payload['contents'][0]['parts'][0]['text']))
+            calls.append(json.loads(payload['messages'][-1]['content']))
             if len(calls) == 1:
                 bad = _clean_bundle()
                 bad['en']['name'] = 'Stainless Rotary Herb Mill Cutter Kitchen Tool'
                 bad['en']['description'] = 'Stainless rotary herb mill cutter kitchen tool for slicing fresh herbs fast.'
-                return {'candidates': [{'content': {'parts': [{'text': json.dumps(bad, ensure_ascii=False)}]}}]}
+                return {'choices': [{'message': {'content': json.dumps(bad, ensure_ascii=False)}}]}
 
             good = _clean_bundle()
             good['ru'] = {
@@ -189,16 +189,16 @@ class CopyOriginalityTests(unittest.TestCase):
                 'headline': ['עשבי תיבול', 'בסיבוב קל.'],
                 'description': 'תוף נירוסטה קוצץ פטרוזיליה וכוסברה ישירות לצלחת בלי למעוך את העלים הירוקים.',
             }
-            return {'candidates': [{'content': {'parts': [{'text': json.dumps(good, ensure_ascii=False)}]}}]}
+            return {'choices': [{'message': {'content': json.dumps(good, ensure_ascii=False)}}]}
 
         bundle, provider = ai_seo.enrich_product_copy(
             ctx,
             base_bundle,
-            keys={'GEMINI_API_KEY': 'fake-gemini-key'},
+            keys={'GITHUB_TOKEN': 'fake-github-token'},
             transport=fake_transport,
         )
         self.assertEqual(2, len(calls))
-        self.assertTrue(provider.startswith('gemini:'), provider)
+        self.assertTrue(provider.startswith('github_models:'), provider)
         retry_payload = calls[1]
         self.assertIn('previous_validation_errors', retry_payload)
         self.assertTrue(

@@ -17,6 +17,7 @@ on:
 
 permissions:
   contents: write
+  models: read
 
 concurrency:
   group: fluxixo-daily-accumulation
@@ -31,17 +32,16 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       LEDGER: data/fluxixo_daily_ledger.json
       PUBLISH_STATE: data/fluxixo_publish_state.json
-      # Owner 2026-11-15: Cloud pipeline runs headless on GitHub Actions without the user's PC.
-      # Google AI Studio API handles all text/SEO (Gemini) and studio images (Nano Banana 1K) exclusively;
-      # Cloudflare serves strictly as transport/dispatch (fluxixo-autopilot Worker) and Pages publishing (dealvault).
-      FLUXIXO_IMAGE_MODE: generate
-      FLUXIXO_IMAGE_PROVIDER: nano_banana
+      # Hybrid pipeline (zero Google/Gemini dependency):
+      # Slots 1-2 use local rembg cutouts on GitHub Actions (0 Neurons);
+      # Slot 3 (active working effect), vision inspection, and 6-language copy use Cloudflare Workers AI + GitHub Models.
+      FLUXIXO_IMAGE_MODE: hybrid
+      FLUXIXO_IMAGE_PROVIDER: cloudflare
       FLUXIXO_USE_VISION_SPEC: '1'
-      FLUXIXO_GEMINI_THINKING_LEVEL: HIGH
-      FLUXIXO_GEMINI_IMAGE_SIZE: 1K
       FLUXIXO_STRICT_COPY: '1'
-      FLUXIXO_GEMINI_TEXT_MODEL: ${{ vars.FLUXIXO_GEMINI_TEXT_MODEL || '' }}
-      FLUXIXO_GEMINI_IMAGE_MODEL: ${{ vars.FLUXIXO_GEMINI_IMAGE_MODEL || '' }}
+      FLUXIXO_CF_TEXT_MODEL: ${{ vars.FLUXIXO_CF_TEXT_MODEL || '@cf/meta/llama-3.3-70b-instruct-fp8-fast' }}
+      FLUXIXO_CF_IMAGE_MODEL: ${{ vars.FLUXIXO_CF_IMAGE_MODEL || '@cf/black-forest-labs/flux-2-klein-9b' }}
+      FLUXIXO_CF_VISION_MODEL: ${{ vars.FLUXIXO_CF_VISION_MODEL || '@cf/meta/llama-4-scout-17b-16e-instruct' }}
       FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}
       CLOUDFLARE_AUTOPILOT_URL: https://fluxixo-autopilot.sayros2601.workers.dev
       CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
@@ -81,7 +81,7 @@ jobs:
           node-version: '22'
 
       - name: Install bounded OCR dependencies only for new products
-        if: steps.today.outputs.action == 'prepare' && env.FLUXIXO_IMAGE_MODE == 'cut'
+        if: steps.today.outputs.action == 'prepare' && env.FLUXIXO_IMAGE_MODE != 'generate'
         timeout-minutes: 15
         run: bash .github/scripts/install_ocr.sh
 
@@ -92,7 +92,7 @@ jobs:
           ACTION: ${{ steps.today.outputs.action }}
         run: |
           python -m pip install --retries 5 --timeout 60 -r requirements.txt requests
-          if [ "$ACTION" = "prepare" ] && [ "${FLUXIXO_IMAGE_MODE,,}" = "cut" ]; then
+          if [ "$ACTION" = "prepare" ] && [ "${FLUXIXO_IMAGE_MODE,,}" != "generate" ]; then
             python -m pip install --retries 5 --timeout 60 rembg onnxruntime
           fi
           npm ci --ignore-scripts
@@ -121,15 +121,14 @@ jobs:
         env:
           ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
           ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_IMAGE_API_KEY: ${{ secrets.GEMINI_IMAGE_API_KEY }}
-          GEMINI_TEXT_API_KEY: ${{ secrets.GEMINI_TEXT_API_KEY }}
           AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ADD_COUNT: ${{ steps.today.outputs.add_count }}
           MARKETS: ${{ steps.today.outputs.markets }}
         run: |
-          # Every new product generates 3 studio cutout angles via Google AI Studio (Nano Banana 1K) and must be
-          # sold in all six countries (FLUXIXO_REQUIRED_MARKETS default) so it hangs on every rope.
+          # Every new product uses hybrid mode (rembg Slots 1-2 + Cloudflare FLUX.2 Slot 3 active effect) and must
+          # be sold in all six countries (FLUXIXO_REQUIRED_MARKETS default) so it hangs on every rope.
           python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$MARKETS" --prepare-only
 
       - name: Persist prepared products and their images before building pages
@@ -184,10 +183,9 @@ jobs:
           RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
           ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
           ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_IMAGE_API_KEY: ${{ secrets.GEMINI_IMAGE_API_KEY }}
-          GEMINI_TEXT_API_KEY: ${{ secrets.GEMINI_TEXT_API_KEY }}
           AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if [ "$RECORD_PUBLICATION" = "true" ]; then export FLUXIXO_PREPARED_PUBLISH_DAY="$DAY"; fi
           python -B fluxixo_daily_rotate.py --add 0 --refresh-clean-links

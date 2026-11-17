@@ -3,10 +3,10 @@
 Daily Catalog Accumulator, Builder & Release Runner for FLUXIXO (https://www.fluxixo.shop/).
 - NEVER deletes any existing products, images, or HTML pages from the catalog.
 - Adds +3 new unique studio products every day at the front of the collection, continuously growing the catalog.
-- Routes ALL text and studio image generation exclusively to the Google AI Studio API
-  (high-tier Gemini text with HIGH thinking + Nano Banana 1K studio generation; `rembg` cut stays optional via FLUXIXO_IMAGE_MODE=cut).
-- Uses Cloudflare SOLELY for Autopilot transport (`CLOUDFLARE_AUTOPILOT_URL` sync/dispatch)
-  and static release hosting (`wrangler pages deploy` -> `dealvault` -> https://www.fluxixo.shop/).
+- Routes ALL copy/vision/image generation strictly via Cloudflare Workers AI + GitHub (rembg Slots 1-2 +
+  FLUX.2 Klein 9B/4B Slot 3 active effect in hybrid mode; zero Google/Gemini dependency).
+- Uses Cloudflare Autopilot Worker (`CLOUDFLARE_AUTOPILOT_URL`), Workers AI (`env.AI`), GitHub Models/Actions,
+  and Cloudflare Pages (`dealvault` -> https://www.fluxixo.shop/).
 - Rebuilds SEO pages, sitemap.xml, and hashed release bundle.
 """
 import argparse
@@ -40,10 +40,11 @@ ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "a4be28e05f73ad2b3939d364ea
 PROJECT_NAME = "dealvault"
 SITE_ORIGIN = "https://www.fluxixo.shop"
 BRAND_ACCENT = "#e4007c"
-DEFAULT_IMAGE_MODE = "generate"  # Google AI Studio (Gemini text HIGH + Nano Banana studio generation)
-DEFAULT_IMAGE_PROVIDER = "nano_banana"
-DEFAULT_GEMINI_THINKING_LEVEL = "HIGH"
-DEFAULT_GEMINI_IMAGE_SIZE = "1K"
+DEFAULT_IMAGE_MODE = "hybrid"  # rembg cutouts on GitHub (Slots 1-2) + Cloudflare FLUX.2 Klein 9B/4B active effect (Slot 3)
+DEFAULT_IMAGE_PROVIDER = "cloudflare"
+DEFAULT_CF_TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+DEFAULT_CF_IMAGE_MODEL = "@cf/black-forest-labs/flux-2-klein-9b"
+DEFAULT_CF_VISION_MODEL = "@cf/meta/llama-4-scout-17b-16e-instruct"
 DEFAULT_AUTOPILOT_URL = "https://fluxixo-autopilot.sayros2601.workers.dev"
 API_URL = "https://api-sg.aliexpress.com/sync"
 
@@ -122,7 +123,7 @@ from fluxixo_site.tools import yandex_indexnow
 
 
 def resolve_image_mode() -> str:
-    """Return active studio image mode ('generate' by default, or 'cut' when configured)."""
+    """Return active studio image mode ('hybrid' by default, or 'generate'/'cut' when configured)."""
     raw = (os.environ.get("FLUXIXO_IMAGE_MODE") or "").strip().lower()
     return raw or DEFAULT_IMAGE_MODE
 
@@ -162,36 +163,37 @@ def _resolve_cloudflare_token(*, optional: bool = False) -> str:
 
 @contextmanager
 def _runtime_cloudflare_env(*, needs_token: bool = False):
-    """Temporarily ensure Google AI Studio and image-mode defaults without setting Cloudflare AI flags or tokens."""
-    del needs_token  # Cloudflare tokens are used solely for Pages deploy_release(), never during preparation.
+    """Temporarily ensure Cloudflare Workers AI + GitHub hybrid defaults without Google/Gemini credentials."""
     defaults = {
         "FLUXIXO_IMAGE_MODE": resolve_image_mode(),
         "FLUXIXO_IMAGE_PROVIDER": DEFAULT_IMAGE_PROVIDER,
-        "FLUXIXO_GEMINI_THINKING_LEVEL": DEFAULT_GEMINI_THINKING_LEVEL,
-        "FLUXIXO_GEMINI_IMAGE_SIZE": DEFAULT_GEMINI_IMAGE_SIZE,
+        "CLOUDFLARE_AUTOPILOT_URL": os.environ.get("CLOUDFLARE_AUTOPILOT_URL", "").strip() or DEFAULT_AUTOPILOT_URL,
+        "CLOUDFLARE_ACCOUNT_ID": os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip() or ACCOUNT_ID,
+        "FLUXIXO_CF_TEXT_MODEL": os.environ.get("FLUXIXO_CF_TEXT_MODEL", "").strip() or DEFAULT_CF_TEXT_MODEL,
+        "FLUXIXO_CF_IMAGE_MODEL": os.environ.get("FLUXIXO_CF_IMAGE_MODEL", "").strip() or DEFAULT_CF_IMAGE_MODEL,
+        "FLUXIXO_CF_VISION_MODEL": os.environ.get("FLUXIXO_CF_VISION_MODEL", "").strip() or DEFAULT_CF_VISION_MODEL,
     }
     for env_name, dpapi_name in (
-        ("GEMINI_IMAGE_API_KEY", "gemini-image-api-key.dpapi"),
-        ("GEMINI_TEXT_API_KEY", "gemini-text-api-key.dpapi"),
-        ("GEMINI_API_KEY", "gemini-api-key.dpapi"),
         ("AUTOPILOT_SYNC_TOKEN", "autopilot-sync-token.dpapi"),
     ):
         if not os.environ.get(env_name, "").strip():
             secret_val = _load_dpapi_secret(dpapi_name)
             if secret_val:
                 defaults[env_name] = secret_val
+    if needs_token and not os.environ.get("CLOUDFLARE_API_TOKEN", "").strip():
+        tok = _resolve_cloudflare_token(optional=True)
+        if tok:
+            defaults["CLOUDFLARE_API_TOKEN"] = tok
 
     added_keys = []
     prior_provider = os.environ.get("FLUXIXO_IMAGE_PROVIDER")
     changed_provider = False
-    # Never allow legacy Cloudflare Workers AI toggles to hijack Google AI Studio routing.
-    prior_use_cf = os.environ.pop("FLUXIXO_USE_CLOUDFLARE_AI", None)
     try:
         for key, value in defaults.items():
             if not os.environ.get(key, "").strip():
                 os.environ[key] = value
                 added_keys.append(key)
-        if os.environ.get("FLUXIXO_IMAGE_PROVIDER", "").strip().lower() in ("cloudflare", "cf", "workers_ai", "workers-ai"):
+        if os.environ.get("FLUXIXO_IMAGE_PROVIDER", "").strip().lower() not in ("cloudflare", "cf", "workers_ai", "workers-ai"):
             os.environ["FLUXIXO_IMAGE_PROVIDER"] = DEFAULT_IMAGE_PROVIDER
             changed_provider = True
         yield
@@ -203,8 +205,6 @@ def _runtime_cloudflare_env(*, needs_token: bool = False):
                 os.environ["FLUXIXO_IMAGE_PROVIDER"] = prior_provider
         for key in added_keys:
             os.environ.pop(key, None)
-        if prior_use_cf is not None:
-            os.environ["FLUXIXO_USE_CLOUDFLARE_AI"] = prior_use_cf
 
 
 def report_autopilot_sync(event: str, details: dict | None = None) -> bool:
@@ -217,13 +217,17 @@ def report_autopilot_sync(event: str, details: dict | None = None) -> bool:
         print(f"Autopilot sync warning ({event}): invalid CLOUDFLARE_AUTOPILOT_URL")
         return False
     target_url = f"{base_url}/api/catalog-sync" if parsed.path in ("", "/") else base_url
-    thinking_level = (
-        os.environ.get("FLUXIXO_GEMINI_THINKING_LEVEL", "").strip().upper()
-        or DEFAULT_GEMINI_THINKING_LEVEL
+    text_model = (
+        os.environ.get("FLUXIXO_CF_TEXT_MODEL", "").strip()
+        or DEFAULT_CF_TEXT_MODEL
     )
-    image_size = (
-        os.environ.get("FLUXIXO_GEMINI_IMAGE_SIZE", "").strip()
-        or DEFAULT_GEMINI_IMAGE_SIZE
+    image_model = (
+        os.environ.get("FLUXIXO_CF_IMAGE_MODEL", "").strip()
+        or DEFAULT_CF_IMAGE_MODEL
+    )
+    vision_model = (
+        os.environ.get("FLUXIXO_CF_VISION_MODEL", "").strip()
+        or DEFAULT_CF_VISION_MODEL
     )
     sync_payload = dict(details or {})
     publish_state_path = REPO_ROOT / "data" / "fluxixo_publish_state.json"
@@ -246,11 +250,12 @@ def report_autopilot_sync(event: str, details: dict | None = None) -> bool:
         "project": PROJECT_NAME,
         "site": SITE_ORIGIN,
         "brandColor": BRAND_ACCENT,
-        "aiProvider": "google-ai-studio",
+        "aiProvider": "cloudflare-workers-ai",
         "imageMode": resolve_image_mode(),
         "imageProvider": DEFAULT_IMAGE_PROVIDER,
-        "textThinkingLevel": thinking_level,
-        "geminiImageSize": image_size,
+        "textModel": text_model,
+        "imageModel": image_model,
+        "visionModel": vision_model,
         "accountId": os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip() or ACCOUNT_ID,
         "timestamp": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         **sync_payload,

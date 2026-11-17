@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  models: read
 
 # Share the same lock as the daily catalog build so commits never collide.
 concurrency:
@@ -22,8 +23,7 @@ jobs:
     timeout-minutes: 15
     env:
       PYTHONDONTWRITEBYTECODE: '1'
-      FLUXIXO_GEMINI_THINKING_LEVEL: HIGH
-      FLUXIXO_GEMINI_TEXT_MODEL: ${{ vars.FLUXIXO_GEMINI_TEXT_MODEL || '' }}
+      FLUXIXO_CF_TEXT_MODEL: ${{ vars.FLUXIXO_CF_TEXT_MODEL || '@cf/meta/llama-3.3-70b-instruct-fp8-fast' }}
       FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}
       CLOUDFLARE_AUTOPILOT_URL: https://fluxixo-autopilot.sayros2601.workers.dev
     steps:
@@ -47,8 +47,9 @@ jobs:
           BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
           YANDEX_WEBMASTER_TOKEN: ${{ secrets.YANDEX_WEBMASTER_TOKEN }}
           SEO_DATA_KEY: ${{ secrets.SEO_DATA_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          GEMINI_TEXT_API_KEY: ${{ secrets.GEMINI_TEXT_API_KEY }}
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -B fluxixo_site/tools/seo_daily.py --summary "$GITHUB_STEP_SUMMARY"
 
       - name: Persist encrypted SEO telemetry state

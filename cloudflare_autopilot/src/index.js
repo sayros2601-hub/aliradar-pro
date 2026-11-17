@@ -198,13 +198,13 @@ async function queryStatusPayload(env) {
     ok: true,
     service: "fluxixo-autopilot",
     site_origin: env.SITE_ORIGIN || "https://www.fluxixo.shop",
-    ai_provider: env.AI_PROVIDER || "google-ai-studio",
-    transport_only: true,
+    ai_provider: env.AI_PROVIDER || "cloudflare-workers-ai",
+    workers_ai_bound: Boolean(env.AI),
     github_repo: env.GITHUB_REPO || "sayros2601-hub/aliradar-pro",
-    default_gemini_image_model: env.DEFAULT_GEMINI_IMAGE_MODEL || "gemini-3-pro-image",
-    default_gemini_text_model: env.DEFAULT_GEMINI_TEXT_MODEL || "gemini-4-argon",
-    gemini_thinking_level: env.GEMINI_THINKING_LEVEL || "HIGH",
-    gemini_image_size: env.GEMINI_IMAGE_SIZE || "1K",
+    default_image_model: env.DEFAULT_IMAGE_MODEL || "@cf/black-forest-labs/flux-2-klein-9b",
+    fallback_image_model: env.FALLBACK_IMAGE_MODEL || "@cf/black-forest-labs/flux-2-klein-4b",
+    default_text_model: env.DEFAULT_TEXT_MODEL || "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+    default_vision_model: env.DEFAULT_VISION_MODEL || "@cf/qwen/qwen3.8-27b",
     now_utc: now.toISOString(),
     published_day: publishedDay || null,
     countdown,
@@ -253,9 +253,7 @@ async function queryStatusPayload(env) {
       };
     }),
     configured_secrets: {
-      gemini_api_key: Boolean(env.GEMINI_API_KEY),
-      gemini_image_api_key: Boolean(env.GEMINI_IMAGE_API_KEY),
-      gemini_text_api_key: Boolean(env.GEMINI_TEXT_API_KEY),
+      workers_ai: Boolean(env.AI),
       github_dispatch_token: Boolean(env.GITHUB_DISPATCH_TOKEN),
       autopilot_sync_token: Boolean(env.AUTOPILOT_SYNC_TOKEN),
       bing_webmaster: Boolean(env.BING_WEBMASTER_API_KEY),
@@ -481,39 +479,23 @@ const WORLD_BACKGROUNDS = {
   Питомцы: "#E9DCF8",
 };
 
-const GEMINI_IMAGE_MODELS = [
-  "gemini-3-pro-image",
-  "gemini-nano-banana-2.1",
-  "gemini-3.1-flash-image",
-  "gemini-3.1-flash-lite-image",
-  "gemini-3.1-flash-image-preview",
-  "gemini-2.5-flash-image",
+const CF_IMAGE_MODELS = [
+  "@cf/black-forest-labs/flux-2-klein-9b",
+  "@cf/black-forest-labs/flux-2-klein-4b",
 ];
 
-const GEMINI_VISION_MODELS = [
-  "gemini-4-hydrogen",
-  "gemini-3.8-flash",
-  "gemini-3.7-flash",
-  "gemini-3.5-flash",
-  "gemini-3.5-flash-lite",
-  "gemini-2.5-flash",
+const CF_VISION_MODELS = [
+  "@cf/meta/llama-4-scout-17b-16e-instruct",
+  "@cf/mistralai/mistral-small-3.1-24b-instruct",
+  "@cf/qwen/qwen3.8-27b",
 ];
 
-const GEMINI_COPY_MODELS = [
-  "gemini-4-argon",
-  "gemini-4-carbon",
-  "gemini-4-hydrogen",
-  "gemini-3.8-flash",
-  "gemini-3.7-flash",
-  "gemini-3.6-flash",
-  "gemini-3.5-flash",
-  "gemini-3.5-flash-lite",
-  "gemini-3.1-flash-lite",
-  "gemini-2.5-pro",
-  "gemini-2.5-flash",
+const CF_COPY_MODELS = [
+  "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/qwen/qwen3.8-27b",
+  "@cf/zai-org/glm-4.7-flash",
+  "@cf/openai/gpt-oss-120b",
 ];
-
-const RETRYABLE_GEMINI_STATUSES = new Set([400, 403, 404, 429, 500, 502, 503, 504]);
 
 function normalizeHexColor(rawHex) {
   const cleaned = String(rawHex || "").trim();
@@ -537,81 +519,61 @@ function uint8ArrayToBase64(bytes) {
   return btoa(binary);
 }
 
-function isGeminiThinkingModel(modelName) {
-  return (
-    (modelName.includes("gemini-4") || modelName.includes("gemini-3")) &&
-    !modelName.includes("lite")
-  );
-}
-
-function resolveGeminiModelChain(preferredModels, fallbackModels) {
+function resolveCfModelChain(preferredModels, fallbackModels) {
   const preferred = (Array.isArray(preferredModels) ? preferredModels : [preferredModels])
-    .map((m) => (typeof m === "string" ? m.trim() : ""))
-    .filter((m) => m.startsWith("gemini-"));
+    .map((m) => (typeof m === "string" ? m.trim().replace(/^\/+/, "") : ""))
+    .filter((m) => m.startsWith("@cf/"));
   return Array.from(new Set([...preferred, ...fallbackModels].filter(Boolean)));
 }
 
-function extractGeminiText(data) {
-  const cParts = data?.candidates?.[0]?.content?.parts || [];
-  return cParts
-    .filter((p) => p && typeof p.text === "string" && !p.thought)
-    .map((p) => p.text)
-    .join("");
+async function extractAiImageBytes(aiResult) {
+  if (!aiResult) {
+    throw new Error("Workers AI returned empty response");
+  }
+  if (aiResult instanceof ReadableStream) {
+    return new Uint8Array(await new Response(aiResult).arrayBuffer());
+  }
+  if (aiResult instanceof Response) {
+    return new Uint8Array(await aiResult.arrayBuffer());
+  }
+  if (aiResult instanceof ArrayBuffer) {
+    return new Uint8Array(aiResult);
+  }
+  if (ArrayBuffer.isView(aiResult)) {
+    return new Uint8Array(aiResult.buffer, aiResult.byteOffset, aiResult.byteLength);
+  }
+  if (typeof aiResult === "object" && typeof aiResult.image === "string") {
+    return base64ToUint8Array(aiResult.image);
+  }
+  if (typeof aiResult === "object" && aiResult.result && typeof aiResult.result.image === "string") {
+    return base64ToUint8Array(aiResult.result.image);
+  }
+  if (typeof aiResult === "string") {
+    return base64ToUint8Array(aiResult);
+  }
+  throw new Error("Unsupported Workers AI image output shape");
 }
 
-async function callGeminiModelChain({
-  geminiKey,
-  models,
-  buildBody,
-  extractResult,
-  label,
-  timeoutMs = 45000,
-}) {
-  let lastErr = null;
-  for (const modelName of models) {
-    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(
-      modelName
-    )}:generateContent`;
-    let res;
-    try {
-      res = await fetch(endpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          "x-goog-api-key": geminiKey,
-        },
-        body: JSON.stringify(buildBody(modelName)),
-        signal: AbortSignal.timeout(timeoutMs),
-      });
-    } catch (err) {
-      lastErr = new Error(
-        `${label} network/timeout (${modelName}): ${err instanceof Error ? err.message : String(err)}`
-      );
-      continue;
-    }
-    if (!res.ok) {
-      const detail = await res.text().catch(() => "");
-      lastErr = new Error(`${label} HTTP ${res.status} (${modelName}): ${detail.slice(0, 240)}`);
-      if (RETRYABLE_GEMINI_STATUSES.has(res.status)) continue;
-      throw lastErr;
-    }
-    let data;
-    try {
-      data = await res.json();
-    } catch (err) {
-      lastErr = new Error(
-        `${label} invalid JSON (${modelName}): ${err instanceof Error ? err.message : String(err)}`
-      );
-      continue;
-    }
-    const result = extractResult(data, modelName);
-    if (result !== null && result !== undefined) {
-      return result;
-    }
-    lastErr = new Error(`${label} returned empty response (${modelName})`);
+function stripReasoningTags(text) {
+  return String(text || "")
+    .replace(/<think>[\s\S]*?<\/think>/gi, "")
+    .trim();
+}
+
+function extractAiChatText(aiRes) {
+  if (!aiRes) return "";
+  if (typeof aiRes === "string") return stripReasoningTags(aiRes);
+  if (typeof aiRes?.response === "string") return stripReasoningTags(aiRes.response);
+  if (typeof aiRes?.response === "object" && aiRes.response !== null) {
+    return JSON.stringify(aiRes.response);
   }
-  throw lastErr || new Error(`${label} failed`);
+  const choiceMsg = aiRes?.choices?.[0]?.message?.content;
+  if (typeof choiceMsg === "string") return stripReasoningTags(choiceMsg);
+  if (typeof choiceMsg === "object" && choiceMsg !== null) return JSON.stringify(choiceMsg);
+  const nestedMsg = aiRes?.result?.choices?.[0]?.message?.content;
+  if (typeof nestedMsg === "string") return stripReasoningTags(nestedMsg);
+  if (typeof aiRes?.result?.response === "string") return stripReasoningTags(aiRes.result.response);
+  return "";
 }
 
 async function parseStudioImagePayload(request) {
@@ -676,7 +638,7 @@ function buildStudioPrompt(rawPrompt, { backgroundHex = "", visualSpec = "" } = 
 }
 
 async function describeProductFromImage(
-  geminiKey,
+  env,
   refBlob,
   productHint = "",
   { preferredModel = "" } = {}
@@ -688,89 +650,82 @@ async function describeProductFromImage(
   const hint = String(productHint || "").replace(/\s+/g, " ").trim().slice(0, 160);
   const promptText =
     `Describe ONLY the standalone physical product in this e-commerce image${hint ? ` ("${hint}")` : ""} ` +
-    `in 2-3 concise visual sentences for a studio product photographer: overall silhouette, carry handle/strap or antenna if present, casing materials, colors, screen, knobs, and controls. ` +
+    `in 2-3 concise visual sentences for a studio product photographer: overall silhouette, carry handle/strap or antenna if present, casing materials, colors, screen/controls, ` +
+    `and what active working effect it shows when powered on (if LED/glow/beam/mist/rotor/heat is present). ` +
     `CRITICAL: Describe ONLY the object floating alone; NEVER mention rocks, tables, surfaces, backgrounds, collage insets, promotional badges, overlaid text, digits, price tags, or hands.`;
-  const parts = [
-    { text: promptText },
-    {
-      inlineData: {
-        mimeType: detectImageMime(rawBytes),
-        data: uint8ArrayToBase64(rawBytes),
-      },
-    },
-  ];
-  const models = resolveGeminiModelChain(preferredModel, GEMINI_VISION_MODELS);
-  return callGeminiModelChain({
-    geminiKey,
-    models,
-    label: "Gemini vision",
-    timeoutMs: 30000,
-    buildBody: (modelName) => {
-      const thinking = isGeminiThinkingModel(modelName);
-      const generationConfig = {
+  const dataUri = `data:${detectImageMime(rawBytes)};base64,${uint8ArrayToBase64(rawBytes)}`;
+  const models = resolveCfModelChain([preferredModel, env.DEFAULT_VISION_MODEL], CF_VISION_MODELS);
+  let lastErr = null;
+  for (const modelName of models) {
+    try {
+      const aiRes = await env.AI.run(modelName, {
+        messages: [
+          {
+            role: "user",
+            content: [
+              { type: "text", text: promptText },
+              { type: "image_url", image_url: { url: dataUri } },
+            ],
+          },
+        ],
         temperature: 0.15,
-        maxOutputTokens: thinking ? 2048 : 350,
-      };
-      if (thinking) {
-        generationConfig.thinkingConfig = { thinkingLevel: "LOW" };
-      }
-      return {
-        contents: [{ role: "user", parts }],
-        generationConfig,
-      };
-    },
-    extractResult: (data, modelName) => {
-      const visualSpec = extractGeminiText(data).replace(/\s+/g, " ").trim().slice(0, 550);
-      return visualSpec ? { visualSpec, model: `gemini:${modelName}` } : null;
-    },
-  });
-}
-
-async function generateNanoBananaImage(
-  geminiKey,
-  studioPrompt,
-  refBlob,
-  { preferredModel = "gemini-3-pro-image", imageSize = "1K", aspectRatio = "1:1" } = {}
-) {
-  const parts = [{ text: studioPrompt }];
-  if (refBlob) {
-    const rawBytes = new Uint8Array(await refBlob.arrayBuffer());
-    if (rawBytes.byteLength > 0 && rawBytes.byteLength <= 6_000_000) {
-      parts.push({
-        inlineData: {
-          mimeType: detectImageMime(rawBytes),
-          data: uint8ArrayToBase64(rawBytes),
-        },
+        max_tokens: 400,
       });
+      const visualSpec = extractAiChatText(aiRes).replace(/\s+/g, " ").trim().slice(0, 550);
+      if (visualSpec) {
+        return { visualSpec, model: modelName };
+      }
+      lastErr = new Error(`Cloudflare vision returned empty text (${modelName})`);
+    } catch (err) {
+      lastErr = new Error(
+        `Cloudflare vision error (${modelName}): ${err instanceof Error ? err.message : String(err)}`
+      );
     }
   }
-  const models = resolveGeminiModelChain(preferredModel, GEMINI_IMAGE_MODELS);
-  return callGeminiModelChain({
-    geminiKey,
-    models,
-    label: "Nano Banana",
-    timeoutMs: 55000,
-    buildBody: () => ({
-      contents: [{ role: "user", parts }],
-      generationConfig: {
-        responseModalities: ["IMAGE"],
-        imageConfig: { aspectRatio, imageSize },
-      },
-    }),
-    extractResult: (data, modelName) => {
-      const cands = Array.isArray(data?.candidates) ? data.candidates : [];
-      for (const cand of cands) {
-        const cParts = Array.isArray(cand?.content?.parts) ? cand.content.parts : [];
-        for (const p of cParts) {
-          const inline = p?.inlineData || p?.inline_data;
-          if (inline?.data) {
-            return { bytes: base64ToUint8Array(inline.data), model: modelName };
-          }
-        }
+  throw lastErr || new Error("Cloudflare vision failed");
+}
+
+async function generateCloudflareFluxImage(
+  env,
+  studioPrompt,
+  refBlob,
+  { preferredModels = [], width = 1024, height = 1024 } = {}
+) {
+  const models = resolveCfModelChain(
+    [...preferredModels, env.DEFAULT_IMAGE_MODEL, env.FALLBACK_IMAGE_MODEL],
+    CF_IMAGE_MODELS
+  );
+  const refBytes = refBlob ? new Uint8Array(await refBlob.arrayBuffer()) : null;
+  const refMime = refBlob?.type || (refBytes ? detectImageMime(refBytes) : "image/png");
+  let lastErr = null;
+  for (const modelName of models) {
+    try {
+      const aiForm = new FormData();
+      aiForm.append("prompt", studioPrompt);
+      aiForm.append("width", String(width));
+      aiForm.append("height", String(height));
+      if (refBytes && refBytes.byteLength > 0 && refBytes.byteLength <= 6_000_000) {
+        aiForm.append("input_image_0", new Blob([refBytes], { type: refMime }), "reference.png");
       }
-      return null;
-    },
-  });
+      const formResponse = new Response(aiForm);
+      const aiResult = await env.AI.run(modelName, {
+        multipart: {
+          body: formResponse.body,
+          contentType: formResponse.headers.get("content-type"),
+        },
+      });
+      const bytes = await extractAiImageBytes(aiResult);
+      if (bytes && bytes.byteLength > 100) {
+        return { bytes, model: modelName };
+      }
+      lastErr = new Error(`Cloudflare image returned empty bytes (${modelName})`);
+    } catch (err) {
+      lastErr = new Error(
+        `Cloudflare image error (${modelName}): ${err instanceof Error ? err.message : String(err)}`
+      );
+    }
+  }
+  throw lastErr || new Error("Cloudflare image generation failed");
 }
 
 function extractMessageText(content) {
@@ -784,69 +739,47 @@ function extractMessageText(content) {
   return "";
 }
 
-async function generateGeminiCopy(
-  geminiKey,
+async function generateCloudflareCopy(
+  env,
   messages,
   {
     preferredModels = [],
-    thinkingLevel = "HIGH",
     temperature = 0.25,
-    maxTokens = 1800,
+    maxTokens = 4096,
     jsonOutput = true,
   } = {}
 ) {
-  const sysParts = [];
-  const contents = [];
-  for (const m of messages) {
-    const text = m ? extractMessageText(m.content) : "";
-    if (!text) continue;
-    if (m.role === "system") {
-      sysParts.push({ text });
-    } else {
-      contents.push({
-        role: m.role === "assistant" ? "model" : "user",
-        parts: [{ text }],
-      });
-    }
-  }
-  const models = resolveGeminiModelChain(preferredModels, GEMINI_COPY_MODELS);
-  const resolvedThinking = ["LOW", "MEDIUM", "HIGH"].includes(
-    String(thinkingLevel || "HIGH").toUpperCase()
-  )
-    ? String(thinkingLevel || "HIGH").toUpperCase()
-    : "HIGH";
-
-  return callGeminiModelChain({
-    geminiKey,
-    models,
-    label: "Gemini copy",
-    timeoutMs: 45000,
-    buildBody: (modelName) => {
-      const isThinking = isGeminiThinkingModel(modelName);
-      const generationConfig = {
+  const cleanMessages = messages
+    .map((m) => ({ role: m?.role || "user", content: extractMessageText(m?.content) }))
+    .filter((m) => Boolean(m.content));
+  const models = resolveCfModelChain(
+    [...preferredModels, env.DEFAULT_TEXT_MODEL],
+    CF_COPY_MODELS
+  );
+  let lastErr = null;
+  for (const modelName of models) {
+    try {
+      const params = {
+        messages: cleanMessages.length ? cleanMessages : [{ role: "user", content: "" }],
         temperature,
-        maxOutputTokens: isThinking ? 8192 : maxTokens,
+        max_tokens: maxTokens,
       };
       if (jsonOutput) {
-        generationConfig.responseMimeType = "application/json";
+        params.response_format = { type: "json_object" };
       }
-      if (isThinking) {
-        generationConfig.thinkingConfig = { thinkingLevel: resolvedThinking };
+      const aiRes = await env.AI.run(modelName, params);
+      const content = extractAiChatText(aiRes);
+      if (content.trim()) {
+        return { content, model: modelName, raw: aiRes };
       }
-      const body = {
-        contents: contents.length ? contents : [{ role: "user", parts: [{ text: "" }] }],
-        generationConfig,
-      };
-      if (sysParts.length) {
-        body.systemInstruction = { parts: sysParts };
-      }
-      return body;
-    },
-    extractResult: (data, modelName) => {
-      const content = extractGeminiText(data);
-      return content.trim() ? { content, model: `gemini:${modelName}`, raw: data } : null;
-    },
-  });
+      lastErr = new Error(`Cloudflare copy returned empty content (${modelName})`);
+    } catch (err) {
+      lastErr = new Error(
+        `Cloudflare copy error (${modelName}): ${err instanceof Error ? err.message : String(err)}`
+      );
+    }
+  }
+  throw lastErr || new Error("Cloudflare copy failed");
 }
 
 function clampDim(val, fallback = 1024) {
@@ -855,10 +788,9 @@ function clampDim(val, fallback = 1024) {
 }
 
 async function handleGenerateCutout(request, env, url) {
-  const geminiKey = String(env.GEMINI_IMAGE_API_KEY || env.GEMINI_API_KEY || "").trim();
-  if (!geminiKey) {
+  if (!env.AI) {
     return jsonResponse(
-      { ok: false, error: "GEMINI_API_KEY not configured for Nano Banana image generation" },
+      { ok: false, error: "Cloudflare Workers AI binding (env.AI) not configured" },
       503
     );
   }
@@ -879,14 +811,10 @@ async function handleGenerateCutout(request, env, url) {
   let visualSpec = String(fields.visual_spec || fields.visualSpec || "");
   const width = clampDim(fields.width, 1024);
   const height = clampDim(fields.height, 1024);
-  const aspectRatio = String(fields.aspect_ratio || fields.aspectRatio || "1:1").trim() || "1:1";
-  const imageSize =
-    String(fields.image_size || fields.imageSize || env.GEMINI_IMAGE_SIZE || "1K").trim() || "1K";
-  const preferredModel =
-    resolveGeminiModelChain(
-      [fields.model, url.searchParams.get("model"), env.DEFAULT_GEMINI_IMAGE_MODEL],
-      GEMINI_IMAGE_MODELS
-    )[0] || "gemini-3-pro-image";
+  const preferredModels = resolveCfModelChain(
+    [fields.model, url.searchParams.get("model"), env.DEFAULT_IMAGE_MODEL, env.FALLBACK_IMAGE_MODEL],
+    CF_IMAGE_MODELS
+  );
 
   if (!rawPrompt.trim() && !refBlob) {
     return jsonResponse(
@@ -898,7 +826,7 @@ async function handleGenerateCutout(request, env, url) {
   const targetHex = resolveTargetBackgroundHex(rawBackgroundHex, category);
   if (refBlob && !visualSpec.trim() && url.searchParams.get("use_vision") === "1") {
     try {
-      const desc = await describeProductFromImage(geminiKey, refBlob, rawPrompt);
+      const desc = await describeProductFromImage(env, refBlob, rawPrompt);
       visualSpec = desc.visualSpec;
     } catch {
       visualSpec = "";
@@ -907,16 +835,16 @@ async function handleGenerateCutout(request, env, url) {
 
   const studioPrompt = buildStudioPrompt(rawPrompt, { backgroundHex: targetHex, visualSpec });
   const createdAt = new Date().toISOString();
-  let effectiveModel = preferredModel;
+  let effectiveModel = preferredModels[0] || "@cf/black-forest-labs/flux-2-klein-9b";
 
   try {
-    const nanoRes = await generateNanoBananaImage(geminiKey, studioPrompt, refBlob, {
-      preferredModel,
-      imageSize,
-      aspectRatio,
+    const fluxRes = await generateCloudflareFluxImage(env, studioPrompt, refBlob, {
+      preferredModels,
+      width,
+      height,
     });
-    const imageBytes = nanoRes.bytes;
-    effectiveModel = nanoRes.model;
+    const imageBytes = fluxRes.bytes;
+    effectiveModel = fluxRes.model;
     const mimeType = detectImageMime(imageBytes);
 
     const insertRes = await env.DB.prepare(
@@ -934,7 +862,7 @@ async function handleGenerateCutout(request, env, url) {
         product_id: productId,
         view_name: viewName,
         model: effectiveModel,
-        provider: "google-ai-studio",
+        provider: "cloudflare-workers-ai",
         status: "completed",
         width,
         height,
@@ -958,7 +886,7 @@ async function handleGenerateCutout(request, env, url) {
         "X-Studio-Product-Id": productId,
         "X-Studio-View-Name": viewName,
         "X-Studio-Model": effectiveModel,
-        "X-Studio-Provider": "google-ai-studio",
+        "X-Studio-Provider": "cloudflare-workers-ai",
       }),
     });
   } catch (err) {
@@ -975,7 +903,7 @@ async function handleGenerateCutout(request, env, url) {
         product_id: productId,
         view_name: viewName,
         model: effectiveModel,
-        provider: "google-ai-studio",
+        provider: "cloudflare-workers-ai",
         status: "error",
         error: err instanceof Error ? err.message : String(err),
       },
@@ -985,12 +913,9 @@ async function handleGenerateCutout(request, env, url) {
 }
 
 async function handleDescribeProduct(request, env) {
-  const geminiKey = String(
-    env.GEMINI_IMAGE_API_KEY || env.GEMINI_TEXT_API_KEY || env.GEMINI_API_KEY || ""
-  ).trim();
-  if (!geminiKey) {
+  if (!env.AI) {
     return jsonResponse(
-      { ok: false, error: "GEMINI_API_KEY not configured for Google AI Studio product inspection" },
+      { ok: false, error: "Cloudflare Workers AI binding (env.AI) not configured" },
       503
     );
   }
@@ -1008,20 +933,20 @@ async function handleDescribeProduct(request, env) {
   const productHint = String(fields.prompt || fields.title || "");
   const preferredModel = typeof fields.model === "string" ? fields.model : "";
   try {
-    const descRes = await describeProductFromImage(geminiKey, refBlob, productHint, {
+    const descRes = await describeProductFromImage(env, refBlob, productHint, {
       preferredModel,
     });
     return jsonResponse({
       ok: true,
       model: descRes.model,
-      provider: "google-ai-studio",
+      provider: "cloudflare-workers-ai",
       visual_spec: descRes.visualSpec,
     });
   } catch (err) {
     return jsonResponse(
       {
         ok: false,
-        provider: "google-ai-studio",
+        provider: "cloudflare-workers-ai",
         error: err instanceof Error ? err.message : String(err),
       },
       502
@@ -1030,10 +955,9 @@ async function handleDescribeProduct(request, env) {
 }
 
 async function handleGenerateCopy(request, env) {
-  const geminiCopyKey = String(env.GEMINI_TEXT_API_KEY || env.GEMINI_API_KEY || "").trim();
-  if (!geminiCopyKey) {
+  if (!env.AI) {
     return jsonResponse(
-      { ok: false, error: "GEMINI_API_KEY not configured for Google AI Studio copy generation" },
+      { ok: false, error: "Cloudflare Workers AI binding (env.AI) not configured" },
       503
     );
   }
@@ -1054,30 +978,27 @@ async function handleGenerateCopy(request, env) {
   const temperature = Number.isFinite(Number(body.temperature)) ? Number(body.temperature) : 0.25;
   const maxTokens = Number.isFinite(Number(body.max_tokens))
     ? Math.min(Math.max(Number(body.max_tokens), 256), 8192)
-    : 1800;
+    : 4096;
 
   try {
-    const gemRes = await generateGeminiCopy(geminiCopyKey, messages, {
-      preferredModels: [body.model, env.DEFAULT_GEMINI_TEXT_MODEL],
-      thinkingLevel: String(
-        body.thinking_level || env.GEMINI_THINKING_LEVEL || "HIGH"
-      ).toUpperCase(),
+    const cfRes = await generateCloudflareCopy(env, messages, {
+      preferredModels: [body.model, ...(Array.isArray(body.models) ? body.models : []), env.DEFAULT_TEXT_MODEL],
       temperature,
       maxTokens,
       jsonOutput: (body.response_format?.type || "json_object") === "json_object",
     });
     return jsonResponse({
       ok: true,
-      model: gemRes.model,
-      provider: "google-ai-studio",
-      choices: [{ message: { role: "assistant", content: gemRes.content } }],
-      raw: gemRes.raw,
+      model: cfRes.model,
+      provider: "cloudflare-workers-ai",
+      choices: [{ message: { role: "assistant", content: cfRes.content } }],
+      raw: cfRes.raw,
     });
   } catch (err) {
     return jsonResponse(
       {
         ok: false,
-        provider: "google-ai-studio",
+        provider: "cloudflare-workers-ai",
         error: err instanceof Error ? err.message : String(err),
       },
       502

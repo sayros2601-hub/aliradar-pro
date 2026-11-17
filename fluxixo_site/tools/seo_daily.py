@@ -89,10 +89,10 @@ def http(method, url, *, headers=None, body=None, timeout=40):
 def secrets(local):
     names = {'GSC_SERVICE_ACCOUNT_JSON': 'gsc-service-account.dpapi', 'BING_WEBMASTER_API_KEY': 'bing-api-key.dpapi',
              'YANDEX_WEBMASTER_TOKEN': 'yandex-oauth-token.dpapi', 'SEO_DATA_KEY': 'seo-data-key.dpapi',
-             'GEMINI_API_KEY': 'gemini-api-key.dpapi', 'GEMINI_TEXT_API_KEY': 'gemini-text-api-key.dpapi',
+             'CLOUDFLARE_API_TOKEN': 'cloudflare-token.dpapi',
              'AUTOPILOT_SYNC_TOKEN': 'autopilot-sync-token.dpapi'}
     found = {name: (os.environ.get(name) or '').strip() for name in names}
-    for extra in ('CLOUDFLARE_AUTOPILOT_URL', 'FLUXIXO_AI_TRANSPORT'):
+    for extra in ('CLOUDFLARE_AUTOPILOT_URL', 'FLUXIXO_AI_TRANSPORT', 'GITHUB_TOKEN', 'GH_TOKEN', 'CLOUDFLARE_ACCOUNT_ID'):
         val = (os.environ.get(extra) or '').strip()
         if val:
             found[extra] = val
@@ -637,9 +637,10 @@ def main():
             ai_keys = {
                 k: str(keys[k]).strip()
                 for k in (
-                    'GEMINI_API_KEY',
-                    'GEMINI_TEXT_API_KEY',
                     'CLOUDFLARE_AUTOPILOT_URL',
+                    'CLOUDFLARE_ACCOUNT_ID',
+                    'CLOUDFLARE_API_TOKEN',
+                    'GITHUB_TOKEN',
                     'FLUXIXO_AI_TRANSPORT',
                     'AUTOPILOT_SYNC_TOKEN',
                 )

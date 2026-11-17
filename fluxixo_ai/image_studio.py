@@ -31,25 +31,23 @@ TIGHT_BBOX_ALPHA = 20
 DEFAULT_CLOUDFLARE_ACCOUNT_ID = 'a4be28e05f73ad2b3939d364ea8b2817'
 DEFAULT_CLOUDFLARE_AUTOPILOT_URL = 'https://fluxixo-autopilot.sayros2601.workers.dev'
 WRANGLER_OAUTH_USER_AGENT = 'wrangler/4.151.3'
-DEFAULT_GEMINI_IMAGE_MODEL = 'gemini-3-pro-image'
-GEMINI_IMAGE_FALLBACK_MODELS = (
-    'gemini-3-pro-image',
-    'gemini-nano-banana-2.1',
-    'gemini-3.1-flash-image',
-    'gemini-3.1-flash-lite-image',
-    'gemini-3.1-flash-image-preview',
-    'gemini-2.5-flash-image',
+DEFAULT_IMAGE_MODEL = '@cf/black-forest-labs/flux-2-klein-9b'
+FALLBACK_IMAGE_MODEL = '@cf/black-forest-labs/flux-2-klein-4b'
+CF_IMAGE_FALLBACK_MODELS = (
+    '@cf/black-forest-labs/flux-2-klein-9b',
+    '@cf/black-forest-labs/flux-2-klein-4b',
 )
-DEFAULT_GEMINI_VISION_MODEL = 'gemini-4-hydrogen'
-GEMINI_VISION_FALLBACK_MODELS = (
-    'gemini-4-hydrogen',
-    'gemini-3.8-flash',
-    'gemini-3.7-flash',
-    'gemini-3.5-flash',
-    'gemini-3.5-flash-lite',
-    'gemini-2.5-flash',
+DEFAULT_VISION_MODEL = '@cf/meta/llama-4-scout-17b-16e-instruct'
+CF_VISION_FALLBACK_MODELS = (
+    '@cf/meta/llama-4-scout-17b-16e-instruct',
+    '@cf/mistralai/mistral-small-3.1-24b-instruct',
+    '@cf/qwen/qwen3.8-27b',
 )
-DEFAULT_VISION_MODEL = DEFAULT_GEMINI_VISION_MODEL
+GITHUB_MODELS_URL = 'https://models.github.ai/inference/chat/completions'
+GITHUB_VISION_MODELS = (
+    'openai/gpt-4o-mini',
+    'openai/gpt-4o',
+)
 
 
 def compute_dhash(image: Image.Image, *, size: int = 8) -> str:
@@ -1248,8 +1246,8 @@ def resolve_cloudflare_ai_token(explicit_token: str | None = None) -> tuple[str,
     return '', ''
 
 
-def _encode_reference_image(reference_image: Image.Image | bytes) -> bytes:
-    """Normalize PIL Image or image bytes to PNG bytes for studio image generation."""
+def _encode_reference_image(reference_image: Image.Image | bytes, *, max_side: int = 448) -> bytes:
+    """Normalize PIL Image or image bytes to PNG bytes (<512x512 required by Cloudflare FLUX.2 input_image_0)."""
     if isinstance(reference_image, Image.Image):
         img = reference_image
         if 'A' in img.getbands():
@@ -1257,9 +1255,9 @@ def _encode_reference_image(reference_image: Image.Image | bytes) -> bytes:
             rgb = Image.alpha_composite(Image.new('RGBA', rgba.size, (255, 255, 255, 255)), rgba).convert('RGB')
         else:
             rgb = img.convert('RGB')
-        if max(rgb.size) > 1024:
+        if max(rgb.size) > max_side:
             rgb = rgb.copy()
-            rgb.thumbnail((1024, 1024), Image.Resampling.LANCZOS)
+            rgb.thumbnail((max_side, max_side), Image.Resampling.LANCZOS)
         buf = BytesIO()
         rgb.save(buf, format='PNG')
         return buf.getvalue()
@@ -1269,7 +1267,7 @@ def _encode_reference_image(reference_image: Image.Image | bytes) -> bytes:
         try:
             with Image.open(BytesIO(raw)) as img:
                 img.load()
-                return _encode_reference_image(img)
+                return _encode_reference_image(img, max_side=max_side)
         except Exception:
             return raw
 
@@ -1279,8 +1277,8 @@ def _encode_reference_image(reference_image: Image.Image | bytes) -> bytes:
 def _encode_reference_jpeg_base64(
     reference_image: Image.Image | bytes,
     *,
-    max_side: int = 768,
-    quality: int = 88,
+    max_side: int = 448,
+    quality: int = 86,
 ) -> str:
     """Normalize PIL Image or bytes to base64 JPEG suitable for Gemini Multimodal Vision."""
     if isinstance(reference_image, Image.Image):
@@ -1332,13 +1330,17 @@ def _append_query_param(url: str, key: str, value: str) -> str:
 
 
 def _resolve_worker_transport_url() -> str:
-    """Return Cloudflare Worker transport base URL when explicitly enabled, else ''."""
+    """Return Cloudflare Worker URL when configured via env URL or worker transport."""
     transport = os.environ.get('FLUXIXO_AI_TRANSPORT', '').strip().lower()
-    if transport in ('direct', 'google', 'gemini', 'none', 'disabled'):
+    if transport in ('direct', 'none', 'disabled', 'off'):
         return ''
-    explicit_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL', '').strip()
-    if explicit_url:
-        return explicit_url.rstrip('/')
+    explicit_url = os.environ.get('CLOUDFLARE_AUTOPILOT_URL')
+    if explicit_url is not None:
+        cleaned = explicit_url.strip().rstrip('/')
+        if cleaned:
+            return cleaned
+        if not transport:
+            return ''
     if transport in ('worker', 'cloudflare_worker', 'autopilot'):
         return DEFAULT_CLOUDFLARE_AUTOPILOT_URL.rstrip('/')
     return ''
@@ -1372,7 +1374,7 @@ def _post_autopilot_cutout(
     mp_ct: str,
     timeout: float,
     *,
-    provider: str = 'nano_banana',
+    provider: str = 'cloudflare',
 ) -> Image.Image:
     base = autopilot_url.rstrip('/')
     endpoint = base if base.endswith('/api/generate-cutout') else f'{base}/api/generate-cutout'
@@ -1414,7 +1416,7 @@ def _post_json_request(
         return json.loads(resp.read().decode('utf-8', 'replace'))
 
 
-def _resolve_gemini_models(
+def _resolve_cf_models(
     requested: str | None,
     env_var: str,
     fallback_models: tuple[str, ...],
@@ -1426,7 +1428,7 @@ def _resolve_gemini_models(
             continue
         for part in text.split(','):
             name = part.strip().lstrip('/')
-            if name and not name.startswith('@cf/') and name not in candidates:
+            if name and name.startswith('@cf/') and name not in candidates:
                 candidates.append(name)
     for fb in fallback_models:
         if fb not in candidates:
@@ -1434,32 +1436,26 @@ def _resolve_gemini_models(
     return candidates
 
 
-def _extract_gemini_text_response(payload: dict[str, Any]) -> str:
-    candidates = payload.get('candidates') if isinstance(payload, dict) else None
-    if not isinstance(candidates, list) or not candidates or not isinstance(candidates[0], dict):
+def _extract_cf_text_response(payload: dict[str, Any]) -> str:
+    if not isinstance(payload, dict):
         return ''
-    content = candidates[0].get('content')
-    parts = content.get('parts') if isinstance(content, dict) else None
-    if not isinstance(parts, list):
-        return ''
-    text = ''.join(
-        p.get('text', '')
-        for p in parts
-        if isinstance(p, dict) and not p.get('thought') and isinstance(p.get('text'), str)
-    )
-    if not text:
-        text = ''.join(
-            p.get('text', '')
-            for p in parts
-            if isinstance(p, dict) and isinstance(p.get('text'), str)
-        )
-    return text
+    result = payload.get('result') if isinstance(payload.get('result'), dict) else payload
+    raw_resp = result.get('response') if isinstance(result, dict) else None
+    if isinstance(raw_resp, str) and raw_resp.strip():
+        return re.sub(r'<think>[\s\S]*?</think>', '', raw_resp, flags=re.IGNORECASE).strip()
+    choices = (result.get('choices') if isinstance(result, dict) else None) or payload.get('choices')
+    if isinstance(choices, list) and choices and isinstance(choices[0], dict):
+        msg = choices[0].get('message') or {}
+        content = msg.get('content', '') if isinstance(msg, dict) else ''
+        if isinstance(content, str) and content.strip():
+            return re.sub(r'<think>[\s\S]*?</think>', '', content, flags=re.IGNORECASE).strip()
+    return ''
 
 
 def _prefer_worker_transport(worker_url: str) -> bool:
-    """Return True when Worker HTTP transport should be tried before direct Gemini."""
+    """Return True when Cloudflare Worker transport should be tried first."""
     return bool(worker_url) and os.environ.get('FLUXIXO_AI_TRANSPORT', '').strip().lower() in (
-        'autopilot', 'cloudflare_worker', 'worker',
+        '', 'autopilot', 'cloudflare_worker', 'worker',
     )
 
 
@@ -1469,18 +1465,19 @@ def describe_product_from_reference(
     product_title: str = '',
     api_key: str | None = None,
     vision_model: str | None = None,
-    timeout: float = 25.0,
+    timeout: float = 45.0,
     account_id: str = DEFAULT_CLOUDFLARE_ACCOUNT_ID,
     token: str | None = None,
 ) -> str:
-    """Use Google AI Studio Multimodal Vision (Worker first when active, direct Gemini fallback) to extract clean isolated object attributes."""
-    del account_id, token  # Accepted for signature backward compatibility; Cloudflare Workers AI is never called.
+    """Inspect product via Cloudflare Workers AI Vision (Worker first, direct CF/GitHub Models fallback) — never Google/Gemini."""
+    del api_key
     if reference_image is None:
         return ''
 
-    gem_key = resolve_gemini_text_api_key(api_key)
     worker_url = _resolve_worker_transport_url()
-    if not gem_key and not worker_url:
+    cf_token, cf_ua = resolve_cloudflare_ai_token(token)
+    gh_token = resolve_github_models_token()
+    if not worker_url and not cf_token and not gh_token:
         return ''
 
     try:
@@ -1497,71 +1494,94 @@ def describe_product_from_reference(
         'inset thumbnails, collage boxes, overlaid promotional text, digits, price tags, or hands.'
     )
 
-    def _describe_direct() -> str:
-        candidates = _resolve_gemini_models(
-            vision_model,
-            'FLUXIXO_GEMINI_VISION_MODEL',
-            GEMINI_VISION_FALLBACK_MODELS,
-        )
-        headers = {'x-goog-api-key': gem_key}
-        for cand_model in candidates:
-            gen_cfg: dict[str, Any] = {
-                'temperature': 0.15,
-                'maxOutputTokens': 1024,
-            }
-            if ('gemini-4' in cand_model or 'gemini-3' in cand_model) and 'lite' not in cand_model:
-                gen_cfg['thinkingConfig'] = {'thinkingLevel': 'LOW'}
-            payload = {
-                'contents': [
-                    {
-                        'role': 'user',
-                        'parts': [
-                            {'text': vision_prompt},
-                            {'inlineData': {'mimeType': 'image/jpeg', 'data': b64_jpg}},
-                        ],
-                    }
-                ],
-                'generationConfig': gen_cfg,
-            }
-            url = f'https://generativelanguage.googleapis.com/v1beta/models/{cand_model}:generateContent'
-            try:
-                resp = _post_json_request(url, payload, headers, timeout)
-                text = _extract_gemini_text_response(resp)
-                if text.strip():
-                    return ' '.join(text.split())[:550]
-            except urllib.error.HTTPError as exc:
-                if exc.code in (400, 403, 404, 429, 500, 502, 503, 504):
-                    continue
-                return ''
-            except Exception:
-                continue
-        return ''
-
     def _describe_worker() -> str:
+        if not worker_url:
+            return ''
         endpoint = worker_url if worker_url.endswith('/api/describe-product') else f'{worker_url}/api/describe-product'
-        endpoint = _append_query_param(endpoint, 'provider', 'nano_banana')
+        endpoint = _append_query_param(endpoint, 'provider', 'cloudflare')
         sync_token = os.environ.get('AUTOPILOT_SYNC_TOKEN', '').strip()
         headers = {'Authorization': f'Bearer {sync_token}'} if sync_token else {}
-        worker_payload = {
+        worker_payload: dict[str, Any] = {
             'prompt': hint,
             'title': hint,
             'image_base64': b64_jpg,
-            'provider': 'nano_banana',
+            'provider': 'cloudflare-workers-ai',
         }
+        if vision_model and str(vision_model).strip().startswith('@cf/'):
+            worker_payload['model'] = str(vision_model).strip()
         try:
             resp = _post_json_request(endpoint, worker_payload, headers, timeout)
         except Exception:
             return ''
         if not isinstance(resp, dict) or resp.get('ok') is False:
             return ''
-        result = resp.get('result') if isinstance(resp.get('result'), dict) else {}
-        text = resp.get('visual_spec') or result.get('response') or ''
+        text = resp.get('visual_spec') or _extract_cf_text_response(resp)
         return ' '.join(str(text).split())[:550]
 
-    steps = (_describe_worker, _describe_direct) if _prefer_worker_transport(worker_url) else (_describe_direct, _describe_worker)
-    for fn, enabled in zip(steps, (bool(worker_url), bool(gem_key)) if _prefer_worker_transport(worker_url) else (bool(gem_key), bool(worker_url))):
-        if not enabled:
-            continue
+    def _describe_cf_direct() -> str:
+        if not cf_token:
+            return ''
+        candidates = _resolve_cf_models(vision_model, 'FLUXIXO_CF_VISION_MODEL', CF_VISION_FALLBACK_MODELS)
+        headers = {'Authorization': f'Bearer {cf_token}', 'User-Agent': cf_ua or 'fluxixo-image-studio/1.0'}
+        data_uri = f'data:image/jpeg;base64,{b64_jpg}'
+        payload = {
+            'messages': [
+                {
+                    'role': 'user',
+                    'content': [
+                        {'type': 'text', 'text': vision_prompt},
+                        {'type': 'image_url', 'image_url': {'url': data_uri}},
+                    ],
+                }
+            ],
+            'temperature': 0.15,
+            'max_tokens': 400,
+        }
+        for cand_model in candidates:
+            url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{cand_model}'
+            try:
+                resp = _post_json_request(url, payload, headers, timeout)
+                text = _extract_cf_text_response(resp)
+                if text.strip():
+                    return ' '.join(text.split())[:550]
+            except Exception:
+                continue
+        return ''
+
+    def _describe_github() -> str:
+        if not gh_token:
+            return ''
+        headers = {
+            'Authorization': f'Bearer {gh_token}',
+            'Accept': 'application/vnd.github+json',
+            'X-GitHub-Api-Version': '2022-11-28',
+        }
+        data_uri = f'data:image/jpeg;base64,{b64_jpg}'
+        for cand_model in GITHUB_VISION_MODELS:
+            payload = {
+                'model': cand_model,
+                'messages': [
+                    {
+                        'role': 'user',
+                        'content': [
+                            {'type': 'text', 'text': vision_prompt},
+                            {'type': 'image_url', 'image_url': {'url': data_uri}},
+                        ],
+                    }
+                ],
+                'temperature': 0.15,
+                'max_tokens': 350,
+            }
+            try:
+                resp = _post_json_request(GITHUB_MODELS_URL, payload, headers, timeout)
+                text = _extract_cf_text_response(resp)
+                if text.strip():
+                    return ' '.join(text.split())[:550]
+            except Exception:
+                continue
+        return ''
+
+    for fn in (_describe_worker, _describe_cf_direct, _describe_github):
         out = fn()
         if out:
             return out
@@ -1635,36 +1655,33 @@ def _load_dpapi_secret(filename: str) -> str:
         return ''
 
 
-def resolve_gemini_api_key(api_key: str | None = None, *, local: bool = True) -> str:
-    """Resolve Google AI Studio key from explicit arg, env (GEMINI_IMAGE_API_KEY / GEMINI_API_KEY), or DPAPI."""
-    if api_key and str(api_key).strip():
-        return str(api_key).strip()
-    for env_name in ('GEMINI_IMAGE_API_KEY', 'GEMINI_API_KEY', 'GOOGLE_API_KEY'):
+def resolve_cloudflare_ai_token(explicit_token: str | None = None, *, local: bool = True) -> tuple[str, str]:
+    """Resolve Cloudflare Workers AI bearer token & User-Agent from arg, env, DPAPI, or Wrangler OAuth."""
+    if isinstance(explicit_token, str) and explicit_token.strip():
+        tok = explicit_token.strip()
+        ua = WRANGLER_OAUTH_USER_AGENT if tok.startswith('cfoat_') else 'fluxixo-image-studio/1.0'
+        return tok, ua
+    for env_name in ('CLOUDFLARE_AI_TOKEN', 'CLOUDFLARE_API_TOKEN'):
+        env_val = os.environ.get(env_name, '').strip()
+        if env_val:
+            ua = WRANGLER_OAUTH_USER_AGENT if env_val.startswith('cfoat_') else 'fluxixo-image-studio/1.0'
+            return env_val, ua
+    if local:
+        val = _load_dpapi_secret('cloudflare-token.dpapi')
+        if val:
+            ua = WRANGLER_OAUTH_USER_AGENT if val.startswith('cfoat_') else 'fluxixo-image-studio/1.0'
+            return val, ua
+    return '', ''
+
+
+def resolve_github_models_token(explicit_token: str | None = None) -> str:
+    """Resolve GitHub Models token (GITHUB_TOKEN / GH_TOKEN) when running in GitHub Actions or local CLI."""
+    if isinstance(explicit_token, str) and explicit_token.strip():
+        return explicit_token.strip()
+    for env_name in ('GITHUB_TOKEN', 'GH_TOKEN', 'GITHUB_MODELS_TOKEN'):
         val = os.environ.get(env_name, '').strip()
         if val:
             return val
-    if local:
-        for dpapi_name in ('gemini-image-api-key.dpapi', 'gemini-api-key.dpapi'):
-            val = _load_dpapi_secret(dpapi_name)
-            if val:
-                return val
-    return ''
-
-
-def resolve_gemini_text_api_key(api_key: str | None = None, *, local: bool = True) -> str:
-    """Resolve Google AI Studio key for multimodal vision (GEMINI_TEXT_API_KEY / GEMINI_API_KEY / GEMINI_IMAGE_API_KEY)."""
-    if api_key and str(api_key).strip():
-        return str(api_key).strip()
-    for env_name in ('GEMINI_TEXT_API_KEY', 'GEMINI_API_KEY', 'GEMINI_IMAGE_API_KEY', 'GOOGLE_API_KEY'):
-        val = os.environ.get(env_name, '').strip()
-        if val:
-            return val
-    if local:
-        for dpapi_name in ('gemini-text-api-key.dpapi', 'gemini-api-key.dpapi'):
-            val = _load_dpapi_secret(dpapi_name)
-            if val:
-                return val
-        return resolve_gemini_api_key(local=True)
     return ''
 
 
@@ -1675,119 +1692,51 @@ def resolve_image_provider(
     cf_token: str = '',
     autopilot_url: str = '',
 ) -> str:
-    """Always route studio image generation through Google AI Studio (Nano Banana)."""
+    """Route studio image generation through Cloudflare Workers AI (never Google/Gemini)."""
     del provider, gemini_key, cf_token, autopilot_url
-    return 'nano_banana'
+    return 'cloudflare'
 
 
-def _detect_image_mime(raw_bytes: bytes) -> str:
-    if raw_bytes.startswith(b'\x89PNG\r\n\x1a\n'):
-        return 'image/png'
-    if raw_bytes.startswith(b'\xff\xd8\xff'):
-        return 'image/jpeg'
-    if len(raw_bytes) >= 12 and raw_bytes[:4] == b'RIFF' and raw_bytes[8:12] == b'WEBP':
-        return 'image/webp'
-    return 'image/png'
-
-
-def _build_gemini_image_payload(
+def _post_cloudflare_direct_cutout(
     full_prompt: str,
-    ref_bytes: bytes | None = None,
+    cf_token: str,
+    cf_ua: str,
     *,
-    aspect_ratio: str = '1:1',
-    image_size: str = '1K',
-) -> dict[str, Any]:
-    parts: list[dict[str, Any]] = [{'text': full_prompt}]
-    if ref_bytes:
-        parts.append({
-            'inlineData': {
-                'mimeType': _detect_image_mime(ref_bytes),
-                'data': base64.b64encode(ref_bytes).decode('ascii'),
-            },
-        })
-    return {
-        'contents': [{'role': 'user', 'parts': parts}],
-        'generationConfig': {
-            'responseModalities': ['IMAGE'],
-            'imageConfig': {
-                'aspectRatio': str(aspect_ratio or '1:1').strip() or '1:1',
-                'imageSize': str(image_size or '1K').strip() or '1K',
-            },
-        },
-    }
-
-
-def _decode_gemini_image_response(payload: dict[str, Any]) -> Image.Image:
-    candidates = payload.get('candidates') if isinstance(payload, dict) else None
-    if isinstance(candidates, list):
-        for cand in candidates:
-            content = cand.get('content') if isinstance(cand, dict) else None
-            parts = content.get('parts') if isinstance(content, dict) else None
-            if not isinstance(parts, list):
-                continue
-            for part in parts:
-                if not isinstance(part, dict):
-                    continue
-                inline = part.get('inlineData') or part.get('inline_data')
-                if isinstance(inline, dict) and inline.get('data'):
-                    raw = base64.b64decode(str(inline['data']).strip())
-                    with Image.open(BytesIO(raw)) as img:
-                        img.load()
-                        return img.copy()
-    reason = ''
-    if isinstance(payload, dict):
-        fb = payload.get('promptFeedback') or {}
-        if isinstance(fb, dict) and fb.get('blockReason'):
-            reason = str(fb.get('blockReason'))
-        elif isinstance(candidates, list) and candidates and isinstance(candidates[0], dict):
-            reason = str(candidates[0].get('finishReason') or '')
-    raise RuntimeError(f'gemini_empty_image:{reason or "no_inline_image"}')
-
-
-def _post_gemini_generate_image(
-    full_prompt: str,
-    gemini_key: str,
-    *,
+    account_id: str = DEFAULT_CLOUDFLARE_ACCOUNT_ID,
     ref_bytes: bytes | None = None,
     model: str | None = None,
-    aspect_ratio: str = '1:1',
-    image_size: str = '1K',
+    width: int = 1024,
+    height: int = 1024,
     timeout: float = 60.0,
 ) -> Image.Image:
-    candidates = _resolve_gemini_models(
-        model,
-        'FLUXIXO_GEMINI_IMAGE_MODEL',
-        GEMINI_IMAGE_FALLBACK_MODELS,
-    )
-    payload = _build_gemini_image_payload(
-        full_prompt,
-        ref_bytes,
-        aspect_ratio=aspect_ratio,
-        image_size=image_size,
-    )
-    headers = {'x-goog-api-key': gemini_key}
+    candidates = _resolve_cf_models(model, 'FLUXIXO_CF_IMAGE_MODEL', CF_IMAGE_FALLBACK_MODELS)
+    fields = {
+        'prompt': full_prompt,
+        'width': str(int(width)),
+        'height': str(int(height)),
+    }
+    files = {'input_image_0': ('reference.png', 'image/png', ref_bytes)} if ref_bytes else None
+    mp_body, mp_ct = _encode_multipart_form(fields, files)
+    headers = {
+        'Authorization': f'Bearer {cf_token}',
+        'User-Agent': cf_ua or 'fluxixo-image-studio/1.0',
+        'Content-Type': mp_ct,
+    }
     last_exc: Exception | None = None
     for cand_model in candidates:
-        url = f'https://generativelanguage.googleapis.com/v1beta/models/{cand_model}:generateContent'
+        url = f'https://api.cloudflare.com/client/v4/accounts/{account_id}/ai/run/{cand_model}'
         try:
-            parsed = _post_json_request(url, payload, headers, timeout)
-            return _decode_gemini_image_response(parsed)
-        except urllib.error.HTTPError as exc:
-            err_detail = ''
-            try:
-                err_detail = exc.read(1200).decode('utf-8', 'replace')
-            except Exception:
-                pass
-            last_exc = RuntimeError(f'gemini_image_http_{exc.code}({cand_model}): {err_detail[:240]}')
-            if exc.code in (400, 403, 404, 429, 500, 502, 503, 504):
-                continue
-            raise last_exc from None
+            req = urllib.request.Request(url, data=mp_body, method='POST', headers=headers)
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                raw = resp.read()
+                resp_ct = resp.headers.get('Content-Type', '') if resp.headers else ''
+            return _decode_worker_image(raw, resp_ct)
         except Exception as exc:
             last_exc = exc
             continue
     if last_exc is not None:
         raise last_exc
-    raise RuntimeError('gemini_image_generation_failed')
+    raise RuntimeError('cloudflare_image_generation_failed')
 
 
 def generate_studio_cutout(
@@ -1810,22 +1759,23 @@ def generate_studio_cutout(
     aspect_ratio: str = '1:1',
     image_size: str | None = None,
 ) -> Image.Image:
-    """Generate an isolated studio product image exclusively via Google AI Studio (Nano Banana) and master to 1254x1254 RGBA."""
-    del account_id, token, provider  # Accepted for signature backward compatibility; Cloudflare Workers AI is never called.
-    ref_bytes = _encode_reference_image(reference_image) if reference_image is not None else None
+    """Generate an isolated studio product image via Cloudflare Workers AI (FLUX.2 Klein 9B/4B) and master to 1254x1254 RGBA."""
+    del provider, gemini_api_key, aspect_ratio, image_size
+    ref_bytes = _encode_reference_image(reference_image, max_side=448) if reference_image is not None else None
     target_hex = resolve_world_background(category, background_hex)
     resolved_spec = (visual_spec or '').strip()
 
-    gem_key = resolve_gemini_api_key(gemini_api_key)
     worker_url = _resolve_worker_transport_url()
-    if not gem_key and not worker_url:
-        raise RuntimeError('gemini_api_key_unavailable')
+    cf_token, cf_ua = resolve_cloudflare_ai_token(token, local=not bool(worker_url))
+    if not worker_url and not cf_token:
+        raise RuntimeError('cloudflare_ai_unavailable')
 
-    if use_vision and not resolved_spec and ref_bytes is not None:
+    if use_vision and not resolved_spec and reference_image is not None:
         resolved_spec = describe_product_from_reference(
             reference_image,
             product_title=prompt,
-            api_key=gemini_api_key,
+            account_id=account_id,
+            token=token,
             timeout=min(25.0, float(timeout)),
         )
 
@@ -1835,28 +1785,14 @@ def generate_studio_cutout(
         background_hex=target_hex,
         visual_spec=resolved_spec,
     )
-    resolved_size = str(image_size or os.environ.get('FLUXIXO_GEMINI_IMAGE_SIZE', '1K') or '1K').strip()
-
-    def _cutout_direct() -> Image.Image:
-        return _post_gemini_generate_image(
-            full_prompt,
-            gem_key,
-            ref_bytes=ref_bytes,
-            model=model,
-            aspect_ratio=aspect_ratio,
-            image_size=resolved_size,
-            timeout=max(float(timeout), 60.0),
-        )
 
     def _cutout_worker() -> Image.Image:
         attach_ref = ref_bytes is not None and os.environ.get('FLUXIXO_SEND_RAW_REF', '1') != '0'
         fields = {
             'prompt': full_prompt,
-            'provider': 'nano_banana',
+            'provider': 'cloudflare-workers-ai',
             'width': str(int(width)),
             'height': str(int(height)),
-            'aspect_ratio': str(aspect_ratio or '1:1').strip() or '1:1',
-            'image_size': resolved_size,
         }
         if target_hex:
             fields['background_hex'] = target_hex
@@ -1864,8 +1800,8 @@ def generate_studio_cutout(
             fields['category'] = str(category).strip()
         if resolved_spec:
             fields['visual_spec'] = resolved_spec
-        safe_model = str(model or os.environ.get('FLUXIXO_GEMINI_IMAGE_MODEL', '') or '').strip().lstrip('/')
-        if safe_model and not safe_model.startswith('@cf/'):
+        safe_model = str(model or os.environ.get('FLUXIXO_CF_IMAGE_MODEL', '') or '').strip().lstrip('/')
+        if safe_model.startswith('@cf/'):
             fields['model'] = safe_model
         files = {'input_image_0': ('reference.png', 'image/png', ref_bytes)} if attach_ref else None
         mp_body, mp_ct = _encode_multipart_form(fields, files)
@@ -1874,11 +1810,23 @@ def generate_studio_cutout(
             mp_body,
             mp_ct,
             max(float(timeout), 60.0),
-            provider='nano_banana',
+            provider='cloudflare',
         )
 
-    prefer_worker = _prefer_worker_transport(worker_url) and not (gemini_api_key and str(gemini_api_key).strip())
-    attempts = [(_cutout_worker, bool(worker_url)), (_cutout_direct, bool(gem_key))] if prefer_worker else [(_cutout_direct, bool(gem_key)), (_cutout_worker, bool(worker_url))]
+    def _cutout_direct() -> Image.Image:
+        return _post_cloudflare_direct_cutout(
+            full_prompt,
+            cf_token,
+            cf_ua,
+            account_id=account_id,
+            ref_bytes=ref_bytes,
+            model=model,
+            width=width,
+            height=height,
+            timeout=max(float(timeout), 60.0),
+        )
+
+    attempts = [(_cutout_worker, bool(worker_url)), (_cutout_direct, bool(cf_token))] if _prefer_worker_transport(worker_url) else [(_cutout_direct, bool(cf_token)), (_cutout_worker, bool(worker_url))]
     raw_img: Image.Image | None = None
     last_err: Exception | None = None
     for fn, enabled in attempts:
