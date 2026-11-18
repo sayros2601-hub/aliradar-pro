@@ -6485,6 +6485,132 @@
       ],
       "description": "סרגל שיניים עם לוחות מותאמים ונעילה, מאפשר להעתיק קימורים מורכבים ולהעבירם לשטחים שונים, תוך אבטחת חיתוכים מדויקים וקצוות נקיים."
     }
+  },
+  "auto-1005012473764350": {
+    "en": {
+      "name": "Electrostatic Lab Tool",
+      "headline": [
+        "A must-have",
+        "for physics labs"
+      ],
+      "description": "This electrostatic generator is designed for demonstrating physical phenomena in a laboratory setting, check specifications before purchasing."
+    },
+    "pt": {
+      "name": "Gerador Eletrostático",
+      "headline": [
+        "Um equipamento",
+        "para laboratórios"
+      ],
+      "description": "O gerador eletrostático é utilizado para demonstrar fenômenos físicos em laboratórios, confira as características antes de comprar."
+    },
+    "es": {
+      "name": "Generador Electroestático",
+      "headline": [
+        "Un dispositivo",
+        "para laboratorios"
+      ],
+      "description": "El generador electroestático se utiliza para demostrar fenómenos físicos en laboratorios, revise las características antes de comprar."
+    },
+    "fr": {
+      "name": "Générateur Électrostatique",
+      "headline": [
+        "Un outil",
+        "pour les laboratoires"
+      ],
+      "description": "Le générateur électrostatique est conçu pour démontrer des phénomènes physiques dans un environnement de laboratoire, vérifiez les caractéristiques avant l’achat."
+    },
+    "he": {
+      "name": "מכונת אלקטרוסטטיקה",
+      "headline": [
+        "ציוד",
+        "למעבדות"
+      ],
+      "description": "מכונת האלקטרוסטטיקה משמשת להדגמת תופעות פיזיקליות במעבדה, בדקו את המפרט לפני הקנייה."
+    }
+  },
+  "auto-1005012569530905": {
+    "en": {
+      "name": "Rapid Thaw Tray",
+      "headline": [
+        "Thaw naturally,",
+        "no microwave needed."
+      ],
+      "description": "A specially designed aluminum tray for quick and even thawing of frozen foods, such as steaks, fillets, and more, at room temperature, without energy consumption."
+    },
+    "pt": {
+      "name": "Placa de Descongelamento Rápido",
+      "headline": [
+        "Descongele naturalmente,",
+        "sem micro-ondas."
+      ],
+      "description": "Placa de alumínio projetada para descongelar rapidamente carnes, peixes e outros alimentos congelados, em temperatura ambiente, sem consumo de energia."
+    },
+    "es": {
+      "name": "Bandeja de Descongelado Rápido",
+      "headline": [
+        "Descongela de forma natural,",
+        "sin microondas."
+      ],
+      "description": "Bandeja de aluminio diseñada para descongelar rápidamente carnes, pescados y otros productos congelados, a temperatura ambiente, sin consumo de energía."
+    },
+    "fr": {
+      "name": "Plateau de Décongélation Rapide",
+      "headline": [
+        "Décongélez naturellement,",
+        "sans micro-ondes."
+      ],
+      "description": "Plateau en aluminium conçu pour décongeler rapidement les aliments congelés, tels que les steaks, les filets, etc., à température ambiante, sans consommation d'énergie."
+    },
+    "he": {
+      "name": "מגש הפשרה מהירה",
+      "headline": [
+        "הפשרה טבעית,",
+        "בלי מיקרוגל."
+      ],
+      "description": "מגש אלומיניום מיוחד להפשרה מהירה ואחידה של מוצרים קפואים, כגון בשר, דגים ועוד, בטמפרטורת החדר, בלי צריכת אנרגיה."
+    }
+  },
+  "auto-1005013037089570": {
+    "en": {
+      "name": "Portable Plasma Cutter",
+      "headline": [
+        "Heavy-duty tool",
+        "for metal cutting."
+      ],
+      "description": "Enables high-precision cutting of metal parts with increased speed and efficiency."
+    },
+    "pt": {
+      "name": "Cortadora de Plasma Portátil",
+      "headline": [
+        "Ferramenta profissional",
+        "para corte de metal."
+      ],
+      "description": "Permite cortar peças metálicas com alta precisão e velocidade, tornando o processo mais eficiente."
+    },
+    "es": {
+      "name": "Cortadora de Plasma Portátil",
+      "headline": [
+        "Herramienta pesada",
+        "para corte de metal."
+      ],
+      "description": "Permite realizar cortes precisos en piezas metálicas con mayor velocidad y eficiencia, ahorrando tiempo y esfuerzo."
+    },
+    "fr": {
+      "name": "Découpeuse au Plasma Portative",
+      "headline": [
+        "Outil professionnel",
+        "pour découpe de métal."
+      ],
+      "description": "Permet de réaliser des découpes précises de pièces métalliques avec une grande vitesse et une efficacité accrue, ce qui améliore la productivité."
+    },
+    "he": {
+      "name": "מכונת קיצוע פלזמה ניידת",
+      "headline": [
+        "כלי עבודה מקצועי",
+        "לחיתוך מתכת."
+      ],
+      "description": "מאפשרת ביצוע חיתוך מדויק של חלקים מתכתיים עם רמת דיוק ומהירות גבוהה."
+    }
   }
 };
 
