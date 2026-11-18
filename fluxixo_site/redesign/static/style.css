@@ -81,7 +81,7 @@ html.anim .top{transition:background-color .9s}
 
 /* rope */
 .rope{--rh:clamp(70px,11vw,170px);--hw:clamp(110px,27vw,400px);position:relative;margin:clamp(10px,2vw,30px) calc(var(--g) * -1) 0;
-  height:calc(var(--rh)*.45 + var(--hw)*1.12 + 130px)}
+  height:calc(var(--rh)*.45 + var(--hw)*1.12 + 130px);touch-action:pan-y;touch-action:pan-y pinch-zoom}
 .rope.four{--hw:clamp(84px,18vw,250px)}
 .drop>.rope.lead{--rh:clamp(70px,8vw,120px);--hw:clamp(180px,23vw,330px);margin-top:0;height:calc(var(--rh)*.45 + var(--hw)*1.12 + 150px)}
 .drop>.rope.lead .hang b{max-width:18ch;font-size:clamp(15px,1.4vw,20px);line-height:1.15}
@@ -249,8 +249,8 @@ html.anim .top{transition:background-color .9s}
   a,button{-webkit-tap-highlight-color:transparent}
   .btn:hover{transform:none;background:var(--accent)}
   .btn.line:hover{background:transparent;color:var(--ink)}
-  .btn:active,.card:active .ph,.mini:active,.hang:active,.cats a:active{transform:scale(.97)}
-  .card .ph,.mini,.hang,.cats a{transition:transform .15s}
+  .btn:active,.card:active .ph,.mini:active,.cats a:active{transform:scale(.97)}
+  .card .ph,.mini,.cats a{transition:transform .15s}
 
   /* top bar */
   .top{z-index:90;gap:10px;padding:9px var(--g);background:var(--page);backdrop-filter:none;-webkit-backdrop-filter:none;transition:none;border-bottom:1px solid var(--line)}
@@ -274,7 +274,7 @@ html.anim .top{transition:background-color .9s}
   .tabs.buy a{flex:0 0 60px}
   .tabs.buy a.btn{flex:1 1 auto;flex-direction:row;gap:10px;margin:7px 6px 7px 4px;padding:0 16px;font:800 18px/1 var(--display);letter-spacing:.02em;color:#fff}
 
-  /* today's drop: swipe the cards */
+  /* today's drop: the same rope as on a wide screen, sized for a phone; app.js swings it on scroll and under a finger */
   .drop{padding:14px 0 20px}
   /* Two fixed lines on phones: the date and the countdown change their text after load, and a clock that
      wrapped only then jumped across the screen and pushed the cards down (CLS 0.23 on the English front page). */
@@ -284,19 +284,16 @@ html.anim .top{transition:background-color .9s}
   .drop h1{font-size:clamp(26px,6vw,32px);line-height:1.15}
   .drop-sub{font-size:14px;line-height:1.55}
   .drop-actions{gap:10px}
-  .rope,.rope.four{display:flex;gap:10px;height:auto;margin:14px 0 0;padding:2px var(--g) 6px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--g);scrollbar-width:none;overscroll-behavior-x:contain}
-  .drop>.rope.lead{height:auto;margin:0;padding-top:2px}
-  .rope::-webkit-scrollbar,.chips::-webkit-scrollbar,.p-stage::-webkit-scrollbar,.langs::-webkit-scrollbar{display:none}
-  .rope svg,.hang .pin,.hang .str,.hang small,.hang em{display:none}
-  .hang{position:relative;top:auto;left:auto!important;width:auto;margin:0;flex:0 0 42vw;max-width:230px;transform:none;will-change:auto;scroll-snap-align:start;text-align:start;background:rgba(255,255,255,.6);border-radius:18px;padding:8px 10px 12px}
+  .rope{--rh:clamp(70px,26vw,170px);--hw:31vw;margin:8px 0 0;height:calc(var(--rh)*.45 + var(--hw)*1.12 + 112px);overflow-x:clip}
+  .rope.four{--hw:20.5vw;height:calc(var(--rh)*.45 + var(--hw)*1.12 + 104px)}
+  .drop>.rope.lead{--rh:clamp(70px,26vw,170px);--hw:31vw;margin:4px 0 0;height:calc(var(--rh)*.45 + var(--hw)*1.12 + 112px)}
+  .chips::-webkit-scrollbar,.p-stage::-webkit-scrollbar,.langs::-webkit-scrollbar{display:none}
+  .hang small{font-size:9.5px;letter-spacing:.14em;margin-top:4px}
+  .hang b,.drop>.rope.lead .hang b{font-size:12.5px;line-height:1.12;max-width:none;margin-top:5px;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:4;overflow:hidden}
+  .rope.four .hang b{font-size:11px}
+  .hang em{font-size:9.5px;letter-spacing:.1em;margin-top:7px}
   .hang:hover img{transform:none}
-  .hang b{font:700 13.5px/1.25 var(--body);text-transform:none;letter-spacing:0;max-width:none;margin:6px 0 0;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
-  .rope.lead .hang{flex-basis:76vw;max-width:420px;background:var(--t,#fff);border-radius:24px;padding:14px 16px 18px}
-  .rope.lead .hang img{width:84%;margin:0 auto}
-  .rope.lead .hang b,.drop>.rope.lead .hang b{max-width:none;font-size:18px;line-height:1.2;font-weight:800;margin-top:10px}
-  .rope.lead .hl{display:block;font:italic 400 18px/1.15 var(--serif);color:var(--soft);margin-top:4px}
-  html[lang|=he] .rope.lead .hl{font-style:normal}
-  .rope.lead .hang em{display:inline-flex;align-items:center;height:38px;margin-top:12px;padding:0 16px;border:0;border-radius:999px;background:var(--ink);color:var(--paper);font-size:11px;letter-spacing:.1em}
+  .hang:active img{transform:scale(.95)}
   .dots{display:flex;justify-content:center;gap:6px;height:6px;margin-top:8px}
   .dots i{width:6px;border-radius:3px;background:rgba(18,16,20,.2);transition:width .2s,background .2s}
   .dots i.on{width:18px;background:var(--ink)}
@@ -382,7 +379,6 @@ html.anim .top{transition:background-color .9s}
   .c-hero h1{font-size:clamp(34px,10vw,56px);line-height:.95;margin-top:12px}
   .c-hero p.t{font-size:14.5px;margin-top:10px;max-width:none}
   .c-body{padding:16px 0 30px}
-  .c-body .rope{display:none}
   .c-body .chips{margin-bottom:14px}
   .c-body .card .ph{background:rgba(255,255,255,.6)}
   .about{padding-top:20px}

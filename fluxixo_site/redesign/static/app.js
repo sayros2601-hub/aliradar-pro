@@ -271,7 +271,7 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     }
   } catch { /* ignore restricted storage/location contexts */ }
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  // Phones and small tablets get the app layout: no pinned scene, no swinging, no repainting.
+  // Phones and small tablets get the app layout: no pinned scene, no repainting; the rope swings there too.
   const phone = matchMedia('(max-width: 860px)');
   root.classList.add('js');
 
@@ -468,18 +468,23 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     el.textContent = el.dataset.on >= new Date().toISOString().slice(0, 10) ? todays : latest;
   });
 
-  // Wide screens: scroll speed swings the hanging products.
+  // Every screen: scroll speed swings the hanging products; a mouse brushing past nudges one, and on a touch screen
+  // so does a finger that pokes it or slides across the rope.
   const hangs = [...document.querySelectorAll('.hang')].map((el, i) => ({ el, a: 0, v: 0, phase: i * 1.7, shown: 0 }));
-  hangs.forEach(h => h.el.addEventListener('pointerenter', e => { h.v += (e.movementX || 6) > 0 ? 3 : -3; }));
   const near = new Set();
-  let last = scrollY, running = false;
+  let last = scrollY, lastTime = 0, running = false;
   const frame = time => {
-    if (phone.matches || !near.size) { running = false; return; }
+    if (!near.size) { running = false; return; }
+    // The swing is tuned per 60 Hz frame; on 90 and 120 Hz phone screens each frame takes a proportionally smaller
+    // step, so it swings at the same pace everywhere.
+    const k = lastTime ? Math.max(0.25, Math.min(3, (time - lastTime) / (1000 / 60))) : 1;
+    lastTime = time;
     const dy = scrollY - last; last = scrollY;
     if (!calm) {
+      const push = Math.max(-3, Math.min(3, dy / k * 0.02));
       for (const h of hangs) {
-        h.v += -h.a * 0.035 - h.v * 0.045 + Math.max(-3, Math.min(3, dy * 0.02));
-        h.a = Math.max(-16, Math.min(16, h.a + h.v));
+        h.v += (-h.a * 0.035 - h.v * 0.045 + push) * k;
+        h.a = Math.max(-16, Math.min(16, h.a + h.v * k));
         const angle = h.a + Math.sin(time / 1300 + h.phase) * 1.4;
         if (Math.abs(angle - h.shown) > 0.02) { h.shown = angle; h.el.style.setProperty('--a', angle.toFixed(2)); }
       }
@@ -487,7 +492,7 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     requestAnimationFrame(frame);
   };
   const loop = () => {
-    if (!phone.matches && !running && near.size) { running = true; last = scrollY; requestAnimationFrame(frame); }
+    if (!running && near.size) { running = true; last = scrollY; lastTime = 0; requestAnimationFrame(frame); }
   };
   // Nothing animates off screen, so the page never spends frames on what nobody sees.
   const nearby = new IntersectionObserver(entries => {
@@ -495,10 +500,67 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     loop();
   }, { rootMargin: '200px 0px' });
   document.querySelectorAll('.rope').forEach(el => nearby.observe(el));
-  phone.addEventListener('change', loop);
+  const nudge = (h, dv) => { h.v = Math.max(-5, Math.min(5, h.v + dv)); };
+  hangs.forEach(h => h.el.addEventListener('pointerenter', e => {
+    if (e.pointerType === 'mouse') { h.v += (e.movementX || 6) > 0 ? 3 : -3; return; }
+    // A poke on the left half pushes the product to the right, on the right half to the left.
+    const box = h.el.getBoundingClientRect();
+    nudge(h, e.clientX < box.left + box.width / 2 ? -2.2 : 2.2);
+  }));
+  if (!calm) {
+    // Touch: a finger sliding sideways along the rope sets each product it passes swinging; an up-down swipe still
+    // scrolls the page (touch-action: pan-y on .rope), and a slide is never taken for a tap on a product.
+    let quietUntil = 0;
+    document.querySelectorAll('.rope').forEach(rope => {
+      const own = hangs.filter(h => rope.contains(h.el));
+      let finger = null;
+      rope.addEventListener('pointerdown', e => {
+        if (e.pointerType !== 'mouse') finger = { id: e.pointerId, x: e.clientX, from: e.clientX };
+      }, { passive: true });
+      rope.addEventListener('pointermove', e => {
+        if (!finger || e.pointerId !== finger.id) return;
+        const dx = e.clientX - finger.x;
+        finger.x = e.clientX;
+        if (!dx) return;
+        for (const h of own) {
+          const box = h.el.getBoundingClientRect();
+          if (e.clientX > box.left - 8 && e.clientX < box.right + 8) nudge(h, -Math.max(-2.5, Math.min(2.5, dx * 0.12)));
+        }
+        loop();
+      }, { passive: true });
+      const lift = e => {
+        if (!finger || e.pointerId !== finger.id) return;
+        if (e.type === 'pointerup' && Math.abs(e.clientX - finger.from) > 12) quietUntil = performance.now() + 400;
+        finger = null;
+      };
+      rope.addEventListener('pointerup', lift);
+      rope.addEventListener('pointercancel', lift);
+      rope.addEventListener('click', e => {
+        if (performance.now() >= quietUntil) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const link = e.target.closest('a[data-go]');
+        const image = link && link.querySelector('img');
+        if (image) image.style.viewTransitionName = '';
+      }, true);
+    });
+    // Touch screens have no mouse brushing past, so the first time a rope comes into view a gust runs along it from
+    // left to right; every product swings the same way, so neighbours never knock into each other.
+    if (matchMedia('(hover: none)').matches) {
+      const greet = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        greet.unobserve(entry.target);
+        hangs.filter(h => entry.target.contains(h.el))
+          .forEach((h, i) => setTimeout(() => { nudge(h, -2); loop(); }, 150 + i * 110));
+      }), { threshold: 0.35 });
+      document.querySelectorAll('.rope').forEach(el => greet.observe(el));
+    }
+  }
 
   // Swipe rows: dots show which card is in view and jump to it; product galleries also get arrows.
+  // The rope hangs whole on every screen, so it is not a swipe row and gets no dots.
   document.querySelectorAll('[data-dots]').forEach(row => {
+    if (row.classList.contains('rope')) return;
     const cards = [...row.children].filter(el => el.tagName !== 'svg');
     if (cards.length < 2) return;
     const dots = document.createElement('div');
