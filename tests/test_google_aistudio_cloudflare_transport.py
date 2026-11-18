@@ -96,6 +96,9 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertIn("FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}", rotate_wf)
         self.assertIn("FLUXIXO_USE_VISION_SPEC: '1'", rotate_wf)
         self.assertIn("- cron: '5 11 * * *'", rotate_wf)
+        prepare_step = rotate_wf.split('- name: Prepare one bounded batch', 1)[1].split('- name: ', 1)[0]
+        self.assertIn("FLUXIXO_WEB_CHECK: '1'", prepare_step)
+        self.assertIn('SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}', prepare_step)
         self.assertIn('models: read', rotate_wf)
 
     def test_slot3_effect_prompt_and_white_enclosed_hole_cutout(self):
