@@ -1,4 +1,101 @@
 {
   "version": 1,
-  "routes": {}
+  "routes": {
+    "/products/auto-1005012473764350/": {
+      "faq": [
+        {
+          "q": "Нужно ли подключать электрофорную машину Уимсхёрста к розетке или батарейкам?",
+          "a": "Нет, генератор работает полностью автономно от ручного вращения рукоятки: ремённый привод раскручивает два встречных диска, а заряд накапливается за счёт электростатической индукции в двух лейденских банках."
+        },
+        {
+          "q": "Почему искра между разрядными шарами может быть слабой и что проверить перед опытом?",
+          "a": "Электростатические приборы чувствительны к влажности воздуха и загрязнению дисков: проводите опыты в сухом помещении, протрите акриловые диски насухо и убедитесь, что металлические щётки токосъёмников плотно касаются алюминиевых секторов."
+        },
+        {
+          "q": "Что проверить на странице продавца AliExpress перед заказом прибора?",
+          "a": "Сверьте диаметр дисков и размеры основания в сантиметрах, комплектацию запасных приводных ремней, а также целостность упаковки для бережной доставки лабораторного оборудования."
+        }
+      ]
+    },
+    "/en/products/auto-1005012473764350/": {
+      "faq": [
+        {
+          "q": "Does this Wimshurst electrostatic generator require batteries or wall power?",
+          "a": "No, the machine operates entirely by hand crank: turning the handle spins the two counter-rotating acrylic discs via drive belts, building high-voltage static charge inside the dual Leyden jar capacitors."
+        },
+        {
+          "q": "How do I get the strongest spark arc during physics demonstrations?",
+          "a": "Operate the generator in a low-humidity room, keep the acrylic discs clean and dry, and make sure the diagonal metal collector brushes lightly contact the aluminum foil sectors on both sides."
+        },
+        {
+          "q": "What specifications should I verify on the AliExpress listing before ordering?",
+          "a": "Check the exact disc diameter, overall base dimensions, and whether spare rubber drive belts are included in the selected package option."
+        }
+      ]
+    },
+    "/products/auto-1005012569530905/": {
+      "faq": [
+        {
+          "q": "За счёт чего алюминиевый поддон размораживает мясо без подключения к сети?",
+          "a": "Алюминиевый сплав обладает высокой теплопроводностью и работает как радиатор наоборот: он быстро забирает тепло из окружающего воздуха комнаты и передаёт его плотно прижатому замороженному продукту."
+        },
+        {
+          "q": "Зачем на поверхности поддона сделаны продольные желобки?",
+          "a": "Рельефные канавки пропускают воздух под продуктом для более активного теплообмена и одновременно отводят талую воду от растаявшего льда, чтобы мясо не лежало в жидкости."
+        },
+        {
+          "q": "Как выбрать подходящий размер поддона у продавца на AliExpress?",
+          "a": "Перед оплатой нажмите на нужную опцию в карточке продавца и сверьте длину, ширину и толщину плиты в миллиметрах — более толстые и крупные модели вмещают сразу несколько стейков и дольше держат тепло."
+        }
+      ]
+    },
+    "/en/products/auto-1005012569530905/": {
+      "faq": [
+        {
+          "q": "How does an aluminum defrosting tray thaw frozen meat without electricity?",
+          "a": "High-conductivity aluminum alloy transfers ambient room heat directly into frozen cuts placed flat on the surface, thawing meat significantly faster than resting it on a ceramic plate or wooden board."
+        },
+        {
+          "q": "What is the purpose of the parallel grooves on the tray?",
+          "a": "The recessed channels promote air circulation underneath the food and drain melted frost water away so steaks and fillets stay dry and firm."
+        },
+        {
+          "q": "What should I check on the seller listing before choosing a size?",
+          "a": "Verify the exact length, width, and plate thickness in millimeters for the selected variant, as sellers typically offer small, medium, and large trays on the same listing."
+        }
+      ]
+    },
+    "/products/auto-1005013037089570/": {
+      "faq": [
+        {
+          "q": "Что ещё потребуется для работы портативного плазменного резака кроме сети 220 В?",
+          "a": "Для воздушно-плазменной резки обязательно нужен внешний воздушный компрессор, подающий сжатый воздух под давлением (обычно 4–5 бар) через редуктор с влагоотделителем для формирования плазменной струи."
+        },
+        {
+          "q": "Какие металлы можно кроить этим инверторным аппаратом?",
+          "a": "Плазморез режет любые токопроводящие металлы: листовую углеродистую и оцинкованную сталь, нержавейку, алюминий, медь, латунь и чугун."
+        },
+        {
+          "q": "На что обратить внимание при выборе комплектации на AliExpress?",
+          "a": "Проверьте в описании выбранной опции наличие рукава плазмотрона (резака), кабеля с зажимом массы, комплекта расходных сопел и электродов, а также максимальную толщину чистого реза."
+        }
+      ]
+    },
+    "/en/products/auto-1005013037089570/": {
+      "faq": [
+        {
+          "q": "Does this portable plasma cutter require an external air compressor?",
+          "a": "Yes, air plasma cutters require a steady supply of compressed air from an external compressor (typically around 60–75 PSI / 4–5 bar) to ionize the plasma jet and blow molten metal cleanly out of the cut."
+        },
+        {
+          "q": "What types of metal can an inverter plasma cutter slice?",
+          "a": "It cuts electrically conductive metals including mild carbon steel, stainless steel, galvanized sheet, aluminum, brass, and copper."
+        },
+        {
+          "q": "What should I verify on the AliExpress listing before checkout?",
+          "a": "Confirm the required input voltage (110V vs 220V), maximum clean-cut thickness rating, and whether the plasma cutting gun hose, ground clamp, and spare consumables are included in your chosen SKU."
+        }
+      ]
+    }
+  }
 }
