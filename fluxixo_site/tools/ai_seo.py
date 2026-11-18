@@ -555,6 +555,7 @@ def validate_product_bundle(
     source_title='',
     catalog_corpus=None,
     snippet_fetcher=None,
+    min_desc_len=70,
 ):
     """Validate a complete 6-language product SEO bundle (name, headline, description)."""
     if not isinstance(bundle, dict):
@@ -570,7 +571,7 @@ def validate_product_bundle(
         headline = entry.get('headline', [])
         desc = entry.get('description', '')
         problems.extend(validate_text_field(name, lang, f'{lang}.name', max_len=62, min_len=4, allow_numbers_from=grounding or None))
-        problems.extend(validate_text_field(desc, lang, f'{lang}.description', max_len=360, min_len=35, allow_numbers_from=grounding or None, require_terminal_punct=True))
+        problems.extend(validate_text_field(desc, lang, f'{lang}.description', max_len=750, min_len=min_desc_len, allow_numbers_from=grounding or None, require_terminal_punct=True))
         if not isinstance(headline, list) or len(headline) != 2 or not all(isinstance(h, str) and h.strip() for h in headline):
             problems.append(f'{lang}.headline: must be a 2-line array')
         else:
@@ -606,7 +607,7 @@ def _strip_title_suffix(title, lang):
 
 
 def validate_route_override(candidate, lang, *, existing_titles=(), existing_descs=(), grounding_text=''):
-    """Validate Stage-2 route metadata & FAQ overrides against every firewall and originality rule."""
+    """Validate Stage-2 route metadata overrides against every firewall and originality rule."""
     if not isinstance(candidate, dict):
         return ['override must be an object']
     problems = []
@@ -641,19 +642,8 @@ def validate_route_override(candidate, lang, *, existing_titles=(), existing_des
                 break
         if desc == title:
             problems.append(f'{lang}.description: identical to title')
-    faq = candidate.get('faq')
-    if faq is not None:
-        if not isinstance(faq, list) or len(faq) > 3:
-            problems.append(f'{lang}.faq: must be a list of at most 3 Q&A objects')
-        else:
-            for idx, item in enumerate(faq):
-                if not isinstance(item, dict):
-                    problems.append(f'{lang}.faq[{idx}]: not an object')
-                    continue
-                q = ' '.join(str(item.get('q') or '').split())
-                a = ' '.join(str(item.get('a') or '').split())
-                problems.extend(validate_text_field(q, lang, f'{lang}.faq[{idx}].q', max_len=110, min_len=10, allow_numbers_from=grounding_text or None, require_question_mark=True))
-                problems.extend(validate_text_field(a, lang, f'{lang}.faq[{idx}].a', max_len=240, min_len=20, allow_numbers_from=grounding_text or None, require_terminal_punct=True))
+    if 'faq' in candidate and candidate.get('faq') is not None:
+        problems.append(f'{lang}.faq: Quick buyer questions / FAQ blocks are forbidden')
     return problems
 
 
@@ -661,15 +651,80 @@ def _sanitize_for_prompt(value):
     return ' '.join(str(value or '').split())[:300]
 
 
-def _nearby_catalog_phrases(catalog_corpus, limit=6):
+def _nearby_catalog_phrases(catalog_corpus, limit=8):
     if not isinstance(catalog_corpus, dict):
-        return {}
-    out = {}
+        return {}, {}
+    names_out, descs_out = {}, {}
     for lang in ('en', 'ru', 'he'):
         names = [e['text'] for e in (catalog_corpus.get(lang, {}).get('name') or [])[:limit]]
         if names:
-            out[lang] = names
-    return out
+            names_out[lang] = names
+        descs = [e['text'][:140] for e in (catalog_corpus.get(lang, {}).get('description') or [])[:limit]]
+        if descs:
+            descs_out[lang] = descs
+    return names_out, descs_out
+
+
+def validate_ru_long_entry(entry, grounding_text=''):
+    """Validate optional extended Russian buyer advice block (.p-more) for spelling, safety, and depth."""
+    if not isinstance(entry, dict):
+        return ['ru_long: must be an object']
+    problems = []
+    who = ' '.join(str(entry.get('who') or '').split())
+    checks = entry.get('check')
+    problems.extend(validate_text_field(
+        who, 'ru', 'ru_long.who', max_len=520, min_len=90,
+        allow_numbers_from=grounding_text or None, require_terminal_punct=True,
+    ))
+    if not isinstance(checks, list) or not 2 <= len(checks) <= 4:
+        problems.append('ru_long.check: must be a list of 2..4 verification bullets')
+    else:
+        for idx, item in enumerate(checks):
+            problems.extend(validate_text_field(
+                item, 'ru', f'ru_long.check[{idx}]', max_len=280, min_len=35,
+                allow_numbers_from=grounding_text or None, require_terminal_punct=True,
+            ))
+    return problems
+
+
+def enrich_ru_long_copy(product_context, bundle_ru_and_en, keys=None, transport=_post_json):
+    """Generate unique extended Russian buyer guidance (who + check) for future daily drops, strictly gated."""
+    resolved = keys if keys is not None else load_ai_keys(local=False)
+    if not has_ai_provider(resolved):
+        return None, 'deterministic'
+    source_title = str(product_context.get('source_title') or '')
+    ru_item = (bundle_ru_and_en or {}).get('ru') or {}
+    en_item = (bundle_ru_and_en or {}).get('en') or {}
+    grounding = f"{source_title} {json.dumps({'ru': ru_item, 'en': en_item}, ensure_ascii=False)}"
+    system_prompt = (
+        'Ты — старший редактор русскоязычного каталога FLUXIXO. Верни строгий JSON вида: '
+        '{"who": string (160..420 символов, живые конкретные сценарии кому и зачем пригодится товар), '
+        '"check": [string, string, string] (ровно 3 конкретных совета что проверить у продавца перед заказом)}.\n'
+        'Жёсткие правила:\n'
+        '1) Опирайся ТОЛЬКО на реальное назначение и конструкцию товара из source_title и описания — ничего не выдумывай и не искажай смысл;\n'
+        '2) Идеальная русская орфография, пунктуация и грамматика, ноль непереведённых английских слов (кроме USB/LED/Wi-Fi/Type-C);\n'
+        '3) Не упоминай цены, скидки, отзывы, рейтинги, «бесплатную доставку», «премиум» или вопросы-ответы FAQ.'
+    )
+    payload = {
+        'category': _sanitize_for_prompt(product_context.get('category')),
+        'source_title': _sanitize_for_prompt(source_title),
+        'ru_name': _sanitize_for_prompt(ru_item.get('name')),
+        'ru_description': _sanitize_for_prompt(ru_item.get('description')),
+        'en_name': _sanitize_for_prompt(en_item.get('name')),
+    }
+    prompt = json.dumps(payload, ensure_ascii=False)
+    for _ in range(2):
+        cand, provider = complete_json(system_prompt, prompt, keys=resolved, transport=transport)
+        if not cand:
+            return None, provider
+        probs = validate_ru_long_entry(cand, grounding_text=grounding)
+        if not probs:
+            return {
+                'who': ' '.join(str(cand['who']).split()),
+                'check': [' '.join(str(c).split()) for c in cand['check'][:3]],
+            }, provider
+        prompt = json.dumps({**payload, 'validation_errors': probs[:6]}, ensure_ascii=False)
+    return None, 'rejected'
 
 
 def enrich_product_copy(
@@ -680,24 +735,25 @@ def enrich_product_copy(
     *,
     catalog_corpus=None,
     snippet_fetcher=None,
+    min_desc_len=70,
 ):
-    """Use free AI (when configured) to craft original 6-language native editorial copy, gated strictly."""
+    """Use free AI (when configured) to craft original, broad 6-language native editorial copy, gated strictly."""
     resolved = keys if keys is not None else load_ai_keys(local=False)
     if not has_ai_provider(resolved):
         return base_bundle, 'deterministic'
 
     guides_block = '\n'.join(f'- {NATIVE_STYLE_GUIDES[lang]}' for lang in LANGS)
     system_prompt = (
-        'You are the multilingual product editor for FLUXIXO, an informational AliExpress showcase. '
+        'You are the multilingual SEO product editor for FLUXIXO, an informational AliExpress showcase. '
         'Return strict JSON only with keys: ru, en, pt, es, fr, he. Each key maps to '
-        '{"name": string (4-58 chars), "headline": [short line 1, short line 2], "description": string (60-240 chars ending with punctuation)}.\n'
-        'Hard editorial & originality rules:\n'
-        '1) Base claims ONLY on the verified seller title, category, and baseline context provided;\n'
-        '2) NEVER mirror the raw seller title verbatim or copy >=4 contiguous words from source_title into name/headline/description;\n'
-        '3) NEVER clone or paraphrase closely any existing catalog title/description listed in avoid_existing_titles;\n'
-        '4) NEVER mention prices, discounts, shipping speed, star ratings, warranties, or customer reviews;\n'
-        '5) Keep headline punchy and functional, without merely repeating words from name;\n'
-        '6) Vary sentence openings across items instead of stamping repetitive template phrases.\n'
+        '{"name": string (4-58 chars), "headline": [short line 1, short line 2], "description": string (220-480 chars, 2-3 informative sentences ending with punctuation)}.\n'
+        'Hard editorial, uniqueness & language integrity rules:\n'
+        '1) Preserve the EXACT product meaning, purpose, and mechanism grounded ONLY in source_title, category, and baseline context — NEVER alter meaning, invent specs, or add ungrounded claims across ANY language;\n'
+        '2) Write broad, informative multi-sentence descriptions covering how the item works, realistic use cases, and practical buyer checks before ordering — NEVER write short 1-sentence stubs and NEVER output FAQ/question-answer blocks;\n'
+        '3) NEVER mirror the raw seller title verbatim or copy >=4 contiguous words from source_title into name/headline/description;\n'
+        '4) NEVER clone or paraphrase any existing catalog item listed in avoid_existing_titles or avoid_existing_descriptions — make every sentence fresh and unique;\n'
+        '5) NEVER mention prices, discounts, shipping speed, star ratings, warranties, or customer reviews;\n'
+        '6) Enforce strict native orthography, punctuation, and regional grammar in every language (US English, Mexican Spanish, Brazilian Portuguese, Metropolitan French, Russian, Israeli Hebrew) with zero cross-alphabet leakage.\n'
         f'Language style guides:\n{guides_block}'
     )
     user_payload = {
@@ -706,9 +762,11 @@ def enrich_product_copy(
         'source_title': _sanitize_for_prompt(product_context.get('source_title')),
         'baseline_6_languages': base_bundle,
     }
-    nearby = _nearby_catalog_phrases(catalog_corpus)
-    if nearby:
-        user_payload['avoid_existing_titles'] = nearby
+    nearby_titles, nearby_descs = _nearby_catalog_phrases(catalog_corpus)
+    if nearby_titles:
+        user_payload['avoid_existing_titles'] = nearby_titles
+    if nearby_descs:
+        user_payload['avoid_existing_descriptions'] = nearby_descs
     source_title = str(product_context.get('source_title') or '')
     grounding = f"{source_title} {json.dumps(base_bundle, ensure_ascii=False)}"
     prompt = json.dumps(user_payload, ensure_ascii=False)
@@ -723,6 +781,7 @@ def enrich_product_copy(
             source_title=source_title,
             catalog_corpus=catalog_corpus,
             snippet_fetcher=snippet_fetcher,
+            min_desc_len=min_desc_len,
         )
         if not problems:
             normalized = {}
@@ -736,7 +795,7 @@ def enrich_product_copy(
         prompt = json.dumps({
             **user_payload,
             'previous_validation_errors': problems[:8],
-            'instruction': 'Fix every validation error strictly, rewrite any phrase overlapping source_title or catalog, keep name 4..58 chars, and return valid JSON.',
+            'instruction': 'Fix every validation error strictly, rewrite any phrase overlapping source_title or catalog, keep name 4..58 chars, preserve exact meaning and orthography in all 6 languages, and return valid JSON.',
         }, ensure_ascii=False)
 
     return base_bundle, 'deterministic-after-lint'
@@ -757,9 +816,6 @@ def _deterministic_route_proposal(opportunity, current_meta, market_profile):
     lang = opportunity.get('lang', 'en')
     name = _sanitize_for_prompt(opportunity.get('product_name') or current_meta.get('h1') or 'FLUXIXO')
     query = _sanitize_for_prompt(opportunity.get('top_query') or '')
-    category = str(opportunity.get('category') or '')
-    powered = category in POWERED_CATEGORIES
-    spec_note = market_profile['voltage_note'] if powered else market_profile['general_note']
     title_core = name
     if query and len(query) <= 38 and query.lower() not in name.lower():
         # Include exact search query words carefully for non-RU/HE or matching script.
@@ -776,36 +832,11 @@ def _deterministic_route_proposal(opportunity, current_meta, market_profile):
         candidate_desc = f'{lead}. {cta}' if lead else cta
     if len(candidate_desc) > 158:
         candidate_desc = candidate_desc[:157].rsplit(' ', 1)[0].rstrip(' ,;:—-') + '…'
-    faq_templates = {
-        'ru': [
-            {'q': f'Что проверить перед заказом «{name}»?', 'a': f'Сверьте комплектацию, {spec_note} и сроки доставки у продавца на AliExpress.'},
-        ],
-        'en': [
-            {'q': f'What should US buyers check before ordering {name}?', 'a': f'Check the exact variant thumbnail, {spec_note}, and {market_profile["shipping_note"]}.'},
-        ],
-        'pt': [
-            {'q': f'O que conferir antes de pedir {name} para o Brasil?', 'a': f'Confira a variação escolhida, {spec_note} e {market_profile["shipping_note"]}.'},
-        ],
-        'es': [
-            {'q': f'¿Qué revisar antes de pedir {name} en México?', 'a': f'Revisa la variante exacta, {spec_note} y {market_profile["shipping_note"]}.'},
-        ],
-        'fr': [
-            {'q': f'Que vérifier avant de commander {name} en France ?', 'a': f'Vérifiez la variante choisie, {spec_note} et {market_profile["shipping_note"]}.'},
-        ],
-        'he': [
-            {'q': f'מה לבדוק לפני הזמנת {name} לישראל?', 'a': f'היכנסו לעמוד המוצר, בחרו את האפשרות המדויקת ובדקו {spec_note}, וכן את {market_profile["shipping_note"]}.'},
-        ],
-    }
-    faq = []
-    for item in faq_templates.get(lang, faq_templates['en']):
-        q = item['q'].replace(' ?', '?') if lang != 'fr' else item['q']
-        a = item['a']
-        faq.append({'q': q[:108], 'a': a[:235]})
-    return {'title': title, 'description': candidate_desc, 'faq': faq}, 'deterministic'
+    return {'title': title, 'description': candidate_desc}, 'deterministic'
 
 
 def propose_route_optimization(opportunity, current_meta, *, existing_titles=(), existing_descs=(), keys=None, transport=_post_json):
-    """Propose & validate a title/description/FAQ upgrade for one weak-CTR or near-top route."""
+    """Propose & validate a unique title/description upgrade for one weak-CTR or near-top route (no FAQ blocks)."""
     lang = opportunity.get('lang', 'en')
     profile = MARKET_PROFILES.get(lang, MARKET_PROFILES['en'])
     resolved = keys if keys is not None else load_ai_keys(local=False)
@@ -824,12 +855,12 @@ def propose_route_optimization(opportunity, current_meta, *, existing_titles=(),
         lang_guide = NATIVE_STYLE_GUIDES.get(lang, '')
         system_prompt = (
             f'You are the autonomous SEO strategist for FLUXIXO targeting market {profile["market_name"]} ({lang}). '
-            'Return strict JSON with keys: "title" (<=60 chars), "description" (75-156 chars ending in punctuation), '
-            '"faq" (array of 2 concise {"q": string, "a": string} items for FAQPage JSON-LD). '
+            'Return strict JSON with keys: "title" (<=60 chars) and "description" (75-156 chars ending in punctuation). '
+            'NEVER include "faq" or question-answer blocks. '
             'Rules: 1) Improve organic CTR and relevance for the search queries without keyword stuffing or cloning existing catalog titles/descriptions; '
-            f'2) Respect country & category specifics ({spec_hint}); '
+            f'2) Preserve exact product meaning and respect country & category specifics ({spec_hint}); '
             '3) NEVER invent prices, percentages, shipping times, ratings, warranties, or claims not in the source context; '
-            '4) Follow this native editorial standard strictly: ' + lang_guide
+            '4) Follow this native editorial & orthography standard strictly: ' + lang_guide
         )
         req_payload = {
             'path': opportunity.get('path'),
@@ -860,15 +891,11 @@ def propose_route_optimization(opportunity, current_meta, *, existing_titles=(),
                 return {
                     'title': ' '.join(candidate['title'].split()),
                     'description': ' '.join(candidate['description'].split()),
-                    'faq': [
-                        {'q': ' '.join(f['q'].split()), 'a': ' '.join(f['a'].split())}
-                        for f in (candidate.get('faq') or [])[:3]
-                    ],
                 }, provider
             prompt = json.dumps({
                 **req_payload,
                 'validation_errors': problems[:8],
-                'instruction': 'Fix every validation error strictly and keep title <= 60 chars and description 75..156 chars.',
+                'instruction': 'Fix every validation error strictly, omit any faq field, and keep title <= 60 chars and description 75..156 chars.',
             }, ensure_ascii=False)
 
     proposal, mode = _deterministic_route_proposal(opportunity, current_meta, profile)

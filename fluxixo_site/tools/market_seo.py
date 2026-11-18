@@ -181,28 +181,8 @@ def default_faq(product_name, category_key, lang):
 
 
 def faq_section_and_schema(product_name, category_key, lang, overrides=None):
-    custom = (overrides or {}).get('faq')
-    items = [item for item in (custom or []) if isinstance(item, dict) and item.get('q') and item.get('a')]
-    if not items:
-        return '', None
-    heading = FAQ_HEADING.get(lang, FAQ_HEADING['en'])
-    details_html = ''.join(
-        f'<details class="faq-item"><summary>{e(item["q"])}</summary><p>{e(item["a"])}</p></details>'
-        for item in items
-    )
-    html = f'<section class="product-faq"><h2>{e(heading)}</h2>{details_html}</section>'
-    schema = {
-        '@type': 'FAQPage',
-        'mainEntity': [
-            {
-                '@type': 'Question',
-                'name': item['q'],
-                'acceptedAnswer': {'@type': 'Answer', 'text': item['a']},
-            }
-            for item in items
-        ],
-    }
-    return html, schema
+    """Disabled: product pages must never emit FAQ / Quick buyer questions blocks or FAQPage JSON-LD."""
+    return '', None
 
 
 def discover_video(dist_dir, product_id):

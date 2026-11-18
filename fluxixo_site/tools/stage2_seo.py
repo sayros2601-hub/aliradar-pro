@@ -322,7 +322,7 @@ def select_candidates(today, dist_dir, state, overrides, results, metrics):
         ranked.append({
             'path': path,
             'lang': info['lang'],
-            'reason': 'bing_keyword_align' if kw_list else 'market_faq_enrichment',
+            'reason': 'bing_keyword_align' if kw_list else 'market_seo_enrichment',
             'country': ai_seo.MARKET_PROFILES[info['lang']]['country_code'],
             'top_query': kw_list[0] if kw_list else '',
             'queries': kw_list[:5],

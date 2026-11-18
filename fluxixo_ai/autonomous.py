@@ -278,6 +278,7 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                 keys=keys,
                 catalog_corpus=catalog_corpus,
                 snippet_fetcher=snippet_fetcher,
+                min_desc_len=160,
             )
             if (
                 isinstance(enriched, dict)
@@ -294,6 +295,20 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                     copy_originality=copy_originality,
                     reject_placeholders=True,
                 ):
+                    if hasattr(ai_seo, 'enrich_ru_long_copy'):
+                        try:
+                            long_entry, _ = ai_seo.enrich_ru_long_copy(
+                                {
+                                    'category': record_item.get('category', ''),
+                                    'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
+                                },
+                                {'ru': enriched['ru'], 'en': enriched.get('en', {})},
+                                keys=keys,
+                            )
+                            if long_entry:
+                                cand_record['_ru_long'] = long_entry
+                        except Exception:
+                            pass
                     return cand_record, cand_trans
         except Exception:
             pass
@@ -1659,11 +1674,22 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         if not gate_ok:
             raise DailyError('pre_deploy_gate_failed:' + ','.join(gate_errors[:4]))
         fresh_catalog = dict(catalog)
+        ru_long_entries = {}
+        prepared_clean = []
+        for product, lang, media in prepared:
+            prod_copy = dict(product)
+            ru_long = prod_copy.pop('_ru_long', None)
+            if isinstance(ru_long, dict) and ru_long.get('who') and ru_long.get('check'):
+                ru_long_entries[prod_copy['id']] = ru_long
+            prepared_clean.append((prod_copy, lang, media))
+        prepared = prepared_clean
         fresh_catalog['products'] = [p[0] for p in prepared] + old
         fresh_i18n = dict(translations)
         fresh_i18n['products'] = dict(translations['products'])
         for product, lang, _ in prepared:
             fresh_i18n['products'][product['id']] = lang
+        long_ru_path = site_root / 'tools/ru_long_copy.json'
+        original_long_ru = long_ru_path.read_bytes() if long_ru_path.is_file() else None
         rows = [{'catalog_id': p['id'], 'product_id': p['sourceProductId'], 'source': 'api'} for p, _, _ in prepared]
         if validation_run_id is None:
             next_ledger = record(ledger, day, rows)
@@ -1690,10 +1716,16 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             text = '/* FLUXIXO catalog: existing collection + daily accumulated finds. */\nwindow.MIRA_CATALOG = ' + json.dumps(fresh_catalog, ensure_ascii=False, indent=2) + ';\n'
             _atomic_bytes(catalog_path, text.encode('utf-8'))
             _atomic_bytes(translations_path, (json.dumps(fresh_i18n, ensure_ascii=False, indent=2) + '\n').encode('utf-8'))
+            if ru_long_entries and long_ru_path.parent.is_dir():
+                existing_long = json.loads(original_long_ru.decode('utf-8')) if original_long_ru else {}
+                existing_long.update(ru_long_entries)
+                _atomic_bytes(long_ru_path, (json.dumps(existing_long, ensure_ascii=False, indent=2) + '\n').encode('utf-8'))
             atomic_write(ledger_path, next_ledger)
         except Exception:
             _atomic_bytes(catalog_path, original_catalog)
             _atomic_bytes(translations_path, original_i18n)
+            if original_long_ru is not None:
+                _atomic_bytes(long_ru_path, original_long_ru)
             _atomic_bytes(ledger_path, original_ledger)
             for target in created:
                 if target.is_relative_to(dist.resolve()):

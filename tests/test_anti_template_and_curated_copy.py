@@ -86,13 +86,13 @@ class AntiTemplateBoilerplateTests(unittest.TestCase):
             self.assertEqual('', html_out)
             self.assertIsNone(schema)
 
-        # Custom per-route FAQ is still rendered cleanly when explicitly provided
+        # Custom FAQ entries in overrides are also ignored so product-faq / Quick buyer questions never appear
         custom_html, custom_schema = market_seo.faq_section_and_schema(
             'Умные часы', 'Техника', 'ru',
             overrides={'faq': [{'q': 'Какая ширина крепления ремешка?', 'a': 'Проверьте ширину ушек корпуса на странице продавца перед заказом.'}]},
         )
-        self.assertIn('product-faq', custom_html)
-        self.assertEqual('FAQPage', custom_schema['@type'])
+        self.assertEqual('', custom_html)
+        self.assertIsNone(custom_schema)
 
     def test_verify_release_rejects_cloned_sections_placeholders_and_high_jaccard(self):
         cloned_guide = (
@@ -120,9 +120,14 @@ class AntiTemplateBoilerplateTests(unittest.TestCase):
         bad_pages['https://www.fluxixo.shop/products/dup-b/'] = (
             '<html><body><main><h1>Дубликат B</h1><p class="t">Одинаковое описание для двух разных страниц.</p></main></body></html>'
         )
+        bad_pages['https://www.fluxixo.shop/en/products/has-faq/'] = (
+            '<html><body><main><h1>Widget</h1><p class="t">Unique gadget copy for checking widgets carefully at checkout.</p>'
+            '<section class="product-faq"><h2>Quick buyer questions</h2></section></main></body></html>'
+        )
 
         errs = verify_release.validate_product_page_uniqueness(bad_pages)
         self.assertTrue(any('repeated <section class="market-guide">' in e for e in errs), errs)
+        self.assertTrue(any('forbidden <section class="product-faq">' in e for e in errs), errs)
         self.assertTrue(any('placeholder copy on product page' in e for e in errs), errs)
         self.assertTrue(any('duplicate product <p class="t">' in e for e in errs), errs)
         self.assertTrue(any('high template similarity in ru' in e for e in errs), errs)

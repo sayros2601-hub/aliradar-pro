@@ -35,19 +35,25 @@ class AiFirewallTests(unittest.TestCase):
 
         fr_errs = ai_seo.validate_route_override(
             {'title': 'Chargeur USB-C compact pour voyage | FLUXIXO',
-             'description': 'Chargeur rapide pour appareil photo et téléphone sans fil sur AliExpress.',
-             'faq': [{'q': 'Comment choisir la puissance?', 'a': 'Vérifiez la puissance maximale annoncée chez le vendeur AliExpress avant la commande.'}]},
+             'description': 'Chargeur rapide pour appareil photo et téléphone sans fil: vérifiez la prise sur AliExpress.'},
             'fr',
         )
         self.assertTrue(any('French needs' in e for e in fr_errs))
 
         es_errs = ai_seo.validate_route_override(
             {'title': 'Cargador compacto USB-C en México | FLUXIXO',
-             'description': 'Revisa clavija y potencia del cargador compacto antes de confirmar en AliExpress.',
-             'faq': [{'q': 'Cómo elegir la versión?', 'a': 'Abre la ficha del vendedor y selecciona el modelo compatible con tu equipo.'}]},
+             'description': 'Cómo revisar clavija y potencia del cargador compacto antes de confirmar en AliExpress?'},
             'es',
         )
         self.assertTrue(any('Spanish needs opening' in e for e in es_errs))
+
+        faq_errs = ai_seo.validate_route_override(
+            {'title': 'Cargador compacto USB-C en México | FLUXIXO',
+             'description': 'Revisa clavija y potencia del cargador compacto antes de confirmar en AliExpress.',
+             'faq': [{'q': '¿Cómo elegir la versión?', 'a': 'Abre la ficha del vendedor y selecciona el modelo compatible.'}]},
+            'es',
+        )
+        self.assertTrue(any('Quick buyer questions / FAQ blocks are forbidden' in e for e in faq_errs))
 
         ru_errs = ai_seo.validate_route_override(
             {'title': 'Зарядное устройство wireless quick | FLUXIXO',
@@ -66,19 +72,17 @@ class AiFirewallTests(unittest.TestCase):
             self.assertNotIn('generativelanguage.googleapis.com', url)
             if 'api.cloudflare.com' in url:
                 raise RuntimeError('HTTP 429: neuron quota exhausted')
-            # First GitHub Models call fails check_texts (missing space before '?' in fr)
+            # First GitHub Models call fails check_texts (missing space before ':' in fr)
             body = json.dumps(payload, ensure_ascii=False)
             if 'validation_errors' not in body:
                 bad = {
                     'title': 'Chargeur USB-C compact pour voyage | FLUXIXO',
-                    'description': 'Vérifiez le modèle exact, la prise européenne et les délais de livraison chez le vendeur AliExpress.',
-                    'faq': [{'q': 'Comment choisir la prise?', 'a': 'Sélectionnez la prise européenne 230V avant de finaliser votre panier sur AliExpress.'}],
+                    'description': 'Modèle vérifié: contrôlez la prise européenne et les délais de livraison chez le vendeur AliExpress.',
                 }
                 return {'choices': [{'message': {'content': json.dumps(bad, ensure_ascii=False)}}]}
             good = {
                 'title': 'Chargeur USB-C compact pour voyage | FLUXIXO',
-                'description': 'Vérifiez le modèle exact, la prise européenne et les délais de livraison chez le vendeur AliExpress.',
-                'faq': [{'q': 'Comment choisir la prise ?', 'a': 'Sélectionnez la prise européenne 230V avant de finaliser votre panier sur AliExpress.'}],
+                'description': 'Modèle vérifié : contrôlez la prise européenne et les délais de livraison chez le vendeur AliExpress.',
             }
             return {'choices': [{'message': {'content': json.dumps(good, ensure_ascii=False)}}]}
 
@@ -92,7 +96,8 @@ class AiFirewallTests(unittest.TestCase):
         )
         self.assertIsNotNone(res)
         self.assertTrue(provider.startswith('github_models:'), provider)
-        self.assertIn(' ?', res['faq'][0]['q'])
+        self.assertNotIn('faq', res)
+        self.assertIn(' :', res['description'])
         self.assertTrue(any('api.cloudflare.com' in u for u in calls))
         self.assertTrue(any('models.github.ai' in u for u in calls))
 

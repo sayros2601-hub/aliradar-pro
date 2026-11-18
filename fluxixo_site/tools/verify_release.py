@@ -291,10 +291,15 @@ def validate_product_page_uniqueness(
     for loc, items in sorted(by_locale.items()):
         section_pages = collections.defaultdict(list)
         pt_pages = collections.defaultdict(list)
+        pt_shingles = []
         word_sets = []
 
         for url, html in items:
+            if 'Quick buyer questions' in html or 'Частые вопросы перед покупкой' in html:
+                errors.append(f'forbidden Quick buyer questions block on product page: {url}')
             for cls_name, inner in _BOILERPLATE_SECTION_RE.findall(html):
+                if cls_name.lower() == 'product-faq':
+                    errors.append(f'forbidden <section class="product-faq"> on product page: {url}')
                 norm_sec = _strip_html_to_text(inner).casefold()
                 if norm_sec:
                     section_pages[(cls_name.lower(), norm_sec)].append(url)
@@ -304,13 +309,17 @@ def validate_product_page_uniqueness(
                 norm_pt = _strip_html_to_text(pt_match.group(1)).casefold()
                 if norm_pt:
                     pt_pages[norm_pt].append(url)
+                    pt_toks = [w for w in _WORD_TOK_RE.findall(norm_pt) if len(w) > 1]
+                    if len(pt_toks) >= 5:
+                        sh = {tuple(pt_toks[k:k + 3]) for k in range(len(pt_toks) - 2)}
+                        pt_shingles.append((url, sh))
 
             main_match = _MAIN_BLOCK_RE.search(html)
             main_txt = _strip_html_to_text(main_match.group(1) if main_match else html)
             word_sets.append(set(_WORD_TOK_RE.findall(main_txt.casefold())))
 
         for (cls_name, _), urls in sorted(section_pages.items(), key=lambda kv: kv[0]):
-            if len(urls) >= 3:
+            if cls_name != 'product-faq' and len(urls) >= 3:
                 errors.append(
                     f'repeated <section class="{cls_name}"> on {len(urls)} {loc} product pages ({urls[0]}..)'
                 )
@@ -320,6 +329,14 @@ def validate_product_page_uniqueness(
                 errors.append(
                     f'duplicate product <p class="t"> in {loc}: {urls[:3]}'
                 )
+
+        for i in range(len(pt_shingles)):
+            u_a, sh_a = pt_shingles[i]
+            for j in range(i + 1, len(pt_shingles)):
+                u_b, sh_b = pt_shingles[j]
+                union = len(sh_a | sh_b)
+                if union and (len(sh_a & sh_b) / union) >= 0.70:
+                    errors.append(f'near-duplicate product <p class="t"> in {loc}: {u_a} ~ {u_b}')
 
         if len(word_sets) >= min_pages_for_jaccard:
             jaccards = []
