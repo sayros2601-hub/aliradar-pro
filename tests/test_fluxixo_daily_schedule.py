@@ -12,7 +12,7 @@ from fluxixo_ai import daily_schedule as schedule
 from fluxixo_ai.daily_ledger import record
 
 ROOT = Path(__file__).resolve().parents[1]
-NOW = datetime(2026, 11, 14, 19, 0, tzinfo=timezone.utc)
+NOW = datetime(2026, 11, 14, 11, 30, tzinfo=timezone.utc)
 DAY = '2026-11-14'
 
 
@@ -33,16 +33,16 @@ class DailyScheduleTests(unittest.TestCase):
         self.ledger = seed_ledger()
         self.state = {'version': 1, 'days': {}}
 
-    def test_prepares_at_1900_and_publishes_at_21_in_both_winter_and_summer(self):
+    def test_prepares_at_1130_and_publishes_at_1330_in_both_winter_and_summer(self):
         cases = [
-            ('2026-11-14T16:59:59+00:00', True, False),
-            ('2026-11-14T17:00:00+00:00', False, False),
-            ('2026-11-14T18:59:59+00:00', False, False),
-            ('2026-11-14T19:00:00+00:00', False, True),
-            ('2026-07-14T15:59:59+00:00', True, False),
-            ('2026-07-14T16:00:00+00:00', False, False),
-            ('2026-07-14T17:59:59+00:00', False, False),
-            ('2026-07-14T18:00:00+00:00', False, True),
+            ('2026-11-14T09:29:59+00:00', True, False),
+            ('2026-11-14T09:30:00+00:00', False, False),
+            ('2026-11-14T11:29:59+00:00', False, False),
+            ('2026-11-14T11:30:00+00:00', False, True),
+            ('2026-07-14T08:29:59+00:00', True, False),
+            ('2026-07-14T08:30:00+00:00', False, False),
+            ('2026-07-14T10:29:59+00:00', False, False),
+            ('2026-07-14T10:30:00+00:00', False, True),
             ('2026-11-14T21:00:00+00:00', True, False),
             ('2026-07-14T20:00:00+00:00', True, False),
         ]

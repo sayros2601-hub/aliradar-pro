@@ -17,6 +17,10 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from .daily_ledger import DAILY_MAX, LedgerError, read_ledger, remaining
 
+PREPARE_START_MINUTES = 11 * 60 + 30  # 11:30 Asia/Jerusalem
+PUBLISH_START_MINUTES = 13 * 60 + 30  # 13:30 Asia/Jerusalem
+WINDOW_CLOSE_HOUR = 23
+
 
 class ScheduleError(Exception):
     pass
@@ -100,9 +104,10 @@ def plan(ledger, state, *, now=None, manual_count=None):
     if manual_count is not None and (type(manual_count) is not int or not 0 <= manual_count <= DAILY_MAX):
         raise ScheduleError('count_invalid')
     entry = state['days'].get(day)
+    local_minutes = local.hour * 60 + local.minute
     # Leave one hour before local midnight. The workflow rechecks immediately
     # before a deployment capped at 15 minutes, so its public date cannot roll.
-    publication_due = 21 <= local.hour < 23
+    publication_due = PUBLISH_START_MINUTES <= local_minutes and local.hour < WINDOW_CLOSE_HOUR
     result = {'skip': True, 'add_count': 0, 'markets': _markets(day), 'day': day,
               'publication_day': day, 'action': 'skip', 'reason': '',
               'record_publication': False, 'publish': False}
@@ -139,8 +144,8 @@ def plan(ledger, state, *, now=None, manual_count=None):
         if not publication_due:
             return answer('skip', 'waiting_publication')
         return answer('recover', 'prepared_catalog', track=True)
-    if ((manual_count is None and local.hour * 60 + local.minute < 19 * 60)
-            or local.hour >= 23):
+    if ((manual_count is None and local_minutes < PREPARE_START_MINUTES)
+            or local.hour >= WINDOW_CLOSE_HOUR):
         return answer('skip', 'outside_daily_window')
     if entry:
         if entry['status'] == 'published':

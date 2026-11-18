@@ -1,13 +1,13 @@
-name: FLUXIXO daily evening update (21:00 Israel, max 3 products)
+name: FLUXIXO daily update (13:30 Israel, max 3 products)
 
 on:
   schedule:
-    # Israel evening prepare (19:00 IST / 19:00 IDT) and 21:00 publish fallback windows across DST (UTC).
-    # Primary triggers run on Cloudflare Worker (fluxixo-autopilot) at 17:00, 18:00, 19:00 UTC.
-    - cron: '15 16 * * *'
-    - cron: '15 17 * * *'
-    - cron: '15 18 * * *'
-    - cron: '15 19 * * *'
+    # Israel prepare (11:30 IST / 11:30 IDT) and 13:30 publish fallback windows across DST (UTC).
+    # Primary triggers run on Cloudflare Worker (fluxixo-autopilot) at 09:30, 10:30, 11:30 UTC.
+    - cron: '35 8 * * *'
+    - cron: '35 9 * * *'
+    - cron: '35 10 * * *'
+    - cron: '32 11 * * *'
   workflow_dispatch:
     inputs:
       add_count:

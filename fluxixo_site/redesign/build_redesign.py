@@ -492,7 +492,7 @@ class Site:
                 f' · <time data-day datetime="{LAST_DROP}">{LAST_DROP}</time></p>'
                 f'<p class="clock row" title="{e(u["countdown_schedule"])}">{e(u["countdown_label"])}'
                 f'<b data-countdown data-published-day="{clock["published_day"]}" data-due-day="{clock["due_day"]}" '
-                f'data-timezone="Asia/Jerusalem" data-hour="21" data-awaiting="{e(u["countdown_awaiting"])}" '
+                f'data-timezone="Asia/Jerusalem" data-hour="13" data-minute="30" data-awaiting="{e(u["countdown_awaiting"])}" '
                 f'role="timer" aria-live="off">--:--:--</b></p></div>'
                 f'{self.rope(drop, eager=True, lead=True)}<div class="drop-copy">'
                 f'<h1>{e(u["hero_heading"])}</h1><div class="drop-summary">'

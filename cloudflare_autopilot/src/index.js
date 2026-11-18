@@ -50,7 +50,8 @@ function computeIsraelDropCountdown({
   publishedDay = "",
   dueDay = "",
   timeZone = ISRAEL_TZ,
-  hour = 21,
+  hour = 13,
+  minute = 30,
 } = {}) {
   const current = new Date(now);
   let targetDay = dueDay;
@@ -62,7 +63,7 @@ function computeIsraelDropCountdown({
   targetDay = targetDay || localDay(current, timeZone);
 
   const [year, month, day] = targetDay.split("-").map(Number);
-  const wallClock = Date.UTC(year, month - 1, day, Number(hour), 0, 0);
+  const wallClock = Date.UTC(year, month - 1, day, Number(hour), Number(minute), 0);
   let target = wallClock;
   for (let pass = 0; pass < 2; pass++) {
     const p = getTzParts(new Date(target), timeZone);
@@ -86,7 +87,9 @@ function computeIsraelDropCountdown({
     israel_day: `${israelParts.year}-${israelParts.month}-${israelParts.day}`,
     israel_time: `${israelParts.hour}:${israelParts.minute}:${israelParts.second}`,
     timezone: timeZone,
-    drop_hour: hour,
+    drop_hour: Number(hour),
+    drop_minute: Number(minute),
+    drop_time: `${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}`,
   };
 }
 
@@ -1544,11 +1547,12 @@ async function runScheduledAction(controller, env) {
         reason: "GITHUB_DISPATCH_TOKEN not configured",
       };
 
-  const israelHour = Number(getTzParts(now, ISRAEL_TZ).hour || 0);
+  const israelParts = getTzParts(now, ISRAEL_TZ);
+  const israelMinutes = Number(israelParts.hour || 0) * 60 + Number(israelParts.minute || 0);
   const action =
-    cron === "0 17 * * *" || (israelHour >= 18 && israelHour < 21)
+    cron === "30 9 * * *" || (israelMinutes >= 11 * 60 + 30 && israelMinutes < 13 * 60 + 30)
       ? "prepare_window_check"
-      : "drop_2100_check";
+      : "drop_1330_check";
   const status = !env.GITHUB_DISPATCH_TOKEN || dispatchRes.ok ? "ok" : "dispatch_error";
   const details = {
     israel_today: israelToday,
