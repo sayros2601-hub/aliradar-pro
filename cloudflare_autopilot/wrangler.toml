@@ -23,5 +23,5 @@ DEFAULT_TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
 DEFAULT_VISION_MODEL = "@cf/meta/llama-4-scout-17b-16e-instruct"
 
 [triggers]
-# Moscow time (UTC+3 all year): 12:00 prepare, 13:00 prepare retry, 14:00 publish, 14:20 SEO sync.
-crons = ["0 9 * * *", "0 10 * * *", "0 11 * * *", "20 11 * * *"]
+# Moscow time (UTC+3 all year): 12:00 prepare, 13:00 prepare retry, 14:00 publish; 05:17 UTC = the morning SEO sync.
+crons = ["0 9 * * *", "0 10 * * *", "0 11 * * *", "17 5 * * *"]

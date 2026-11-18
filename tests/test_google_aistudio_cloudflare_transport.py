@@ -76,7 +76,7 @@ class _FakeHttpResponse:
 class CloudflareWorkerContractTests(unittest.TestCase):
     def test_worker_1400_moscow_schedule_and_5xx_retry_contract(self):
         wrangler_text = (ROOT / 'cloudflare_autopilot' / 'wrangler.toml').read_text(encoding='utf-8')
-        self.assertIn('crons = ["0 9 * * *", "0 10 * * *", "0 11 * * *", "20 11 * * *"]', wrangler_text)
+        self.assertIn('crons = ["0 9 * * *", "0 10 * * *", "0 11 * * *", "17 5 * * *"]', wrangler_text)
         cron_block = wrangler_text.split('crons = [', 1)[1].split(']', 1)[0]
         crons = [line.strip() for line in cron_block.splitlines() if '"' in line]
         self.assertLessEqual(len(crons), 4)
@@ -89,7 +89,7 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertIn('hour = 14', index_text)
         self.assertIn('minute = 0', index_text)
         self.assertIn('drop_1400_check', index_text)
-        self.assertIn('if (cron === "20 11 * * *")', index_text)
+        self.assertIn('if (cron === "17 5 * * *")', index_text)
         self.assertIn('/Ultra-clean commercial industrial design studio product photograph/i.test(base)', index_text)
 
         rotate_wf = (ROOT / '.github' / 'workflows' / 'fluxixo_daily_rotate.yml').read_text(encoding='utf-8')

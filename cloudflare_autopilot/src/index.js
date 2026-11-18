@@ -1571,8 +1571,7 @@ async function runScheduledAction(controller, env) {
   const israelToday = localDay(now, DROP_TZ);
   const utcToday = now.toISOString().slice(0, 10);
 
-  // SEO sync runs inside the publication window, right after the 14:00 Moscow drop (14:20 Moscow = 11:20 UTC).
-  if (cron === "20 11 * * *") {
+  if (cron === "17 5 * * *") {
     let seoReport = null;
     let seoError = null;
     try {
