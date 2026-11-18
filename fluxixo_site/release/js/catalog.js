@@ -13,7 +13,7 @@ window.MIRA_CATALOG = {
       ],
       "description": "Электростатический генератор используется для демонстрации физических явлений в лаборатории, проверьте характеристики перед покупкой.",
       "category": "Техника",
-      "image": "assets/images/auto-1005012473764350.webp",
+      "image": "assets/images/auto-1005012473764350-studio-20261118.webp",
       "original": "assets/originals/auto-1005012473764350.webp",
       "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4PtSWCv",
@@ -46,8 +46,8 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005012473764350-v2.webp",
-        "assets/images/auto-1005012473764350-v3.webp"
+        "assets/images/auto-1005012473764350-studio-20261118-v2.webp",
+        "assets/images/auto-1005012473764350-studio-20261118-v3.webp"
       ],
       "sourceImageSha256": "b8729ff99323f346ba9d54bfb5720fc283a2cca178e70ce272202178680a08c0",
       "sourcePixelSha256": "a63b82e921b28d59d436d455dcf301915a9a832ec0266ad9b126f989bffa914d",
@@ -81,7 +81,7 @@ window.MIRA_CATALOG = {
       ],
       "description": "Алюминиевый поддон для быстрой и равномерной разморозки мяса, рыбы и других продуктов при комнатной температуре, без потребления энергии.",
       "category": "Кухня",
-      "image": "assets/images/auto-1005012569530905.webp",
+      "image": "assets/images/auto-1005012569530905-studio-20261118.webp",
       "original": "assets/originals/auto-1005012569530905.webp",
       "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2RpvHZX",
@@ -114,8 +114,8 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005012569530905-v2.webp",
-        "assets/images/auto-1005012569530905-v3.webp"
+        "assets/images/auto-1005012569530905-studio-20261118-v2.webp",
+        "assets/images/auto-1005012569530905-studio-20261118-v3.webp"
       ],
       "sourceImageSha256": "8dbeb1a72e7f5a65fc61ed81c30f3fd9e993ec800d9c52d3111dc0d7a57eac6b",
       "sourcePixelSha256": "ad866f6200adcfa47c73ad6db4f5dc905f0f970c80562a56da6a84e824cad1fc",
@@ -149,7 +149,7 @@ window.MIRA_CATALOG = {
       ],
       "description": "Позволяет выполнять качественную резку металлических деталей с высокой точностью и скоростью.",
       "category": "Инструменты",
-      "image": "assets/images/auto-1005013037089570.webp",
+      "image": "assets/images/auto-1005013037089570-studio-20261118.webp",
       "original": "assets/originals/auto-1005013037089570.webp",
       "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4bF4fCH",
@@ -182,8 +182,8 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005013037089570-v2.webp",
-        "assets/images/auto-1005013037089570-v3.webp"
+        "assets/images/auto-1005013037089570-studio-20261118-v2.webp",
+        "assets/images/auto-1005013037089570-studio-20261118-v3.webp"
       ],
       "sourceImageSha256": "fd32eba24d4b252183fb426cc5c6961364fce404f89fc2f3b5bbe75d7d9bfb83",
       "sourcePixelSha256": "287e01422da09d730ccd9566f37bcab8efe0d3da6e8f2925e4d8ec86fa577c36",
