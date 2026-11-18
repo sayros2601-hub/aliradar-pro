@@ -1,13 +1,13 @@
-name: FLUXIXO daily update (13:30 Israel, max 3 products)
+name: FLUXIXO daily update (14:00 Moscow, max 3 products)
 
 on:
   schedule:
-    # Israel prepare (11:30 IST / 11:30 IDT) and 13:30 publish fallback windows across DST (UTC).
-    # Primary triggers run on Cloudflare Worker (fluxixo-autopilot) at 09:30, 10:30, 11:30 UTC.
-    - cron: '35 8 * * *'
-    - cron: '35 9 * * *'
-    - cron: '35 10 * * *'
-    - cron: '32 11 * * *'
+    # Moscow schedule (UTC+3 all year): prepare from 12:00, publish at 14:00. These UTC crons are fallbacks;
+    # the primary triggers run on the Cloudflare Worker (fluxixo-autopilot) at 09:00, 10:00 and 11:00 UTC.
+    - cron: '5 9 * * *'
+    - cron: '5 10 * * *'
+    - cron: '5 11 * * *'
+    - cron: '35 11 * * *'
   workflow_dispatch:
     inputs:
       add_count:
@@ -128,8 +128,8 @@ jobs:
           ADD_COUNT: ${{ steps.today.outputs.add_count }}
           MARKETS: ${{ steps.today.outputs.markets }}
         run: |
-          # Every new product uses hybrid mode (rembg Slots 1-2 + Cloudflare FLUX.2 Slot 3 active effect) and must
-          # be sold in all six countries (FLUXIXO_REQUIRED_MARKETS default) so it hangs on every rope.
+          # 2-hour pre-publish preparation (from 12:00 Moscow): generates studio visuals directly on world backgrounds,
+          # unique broad 6-language SEO copy (zero FAQ blocks), and requires availability in all 6 target countries.
           python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$MARKETS" --prepare-only
 
       - name: Persist prepared products and their images before building pages

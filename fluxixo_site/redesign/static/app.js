@@ -9,7 +9,7 @@ const FluxixoCountdown = (() => {
     const p = parts(date, timeZone);
     return `${p.year}-${p.month}-${p.day}`;
   };
-  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 13, minute = 30 } = {}) {
+  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Europe/Moscow', hour = 14, minute = 0 } = {}) {
     now = new Date(now);
     if (publishedDay) {
       const next = new Date(publishedDay + 'T12:00:00Z');
@@ -20,8 +20,8 @@ const FluxixoCountdown = (() => {
     const [year, month, day] = dueDay.split('-').map(Number);
     const wallClock = Date.UTC(year, month - 1, day, Number(hour), Number(minute));
     let target = wallClock;
-    // Resolve the local 13:30 using the offset on that date, not today's offset.
-    // This also handles the 23/25-hour interval across Israel's DST changes.
+    // Resolve the local 14:00 using the offset on that date, not today's offset. Moscow keeps UTC+3 all year;
+    // the two passes still give the right instant in a zone with clock changes.
     for (let pass = 0; pass < 2; pass++) {
       const p = parts(new Date(target), timeZone);
       target += wallClock - Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
@@ -29,7 +29,7 @@ const FluxixoCountdown = (() => {
     const seconds = Math.max(0, Math.ceil((target - now.getTime()) / 1000));
     return { status: seconds > 0 ? 'countdown' : 'awaiting', seconds, dueDay };
   }
-  function createPublicationPoller(fetchStatus, timeZone = 'Asia/Jerusalem') {
+  function createPublicationPoller(fetchStatus, timeZone = 'Europe/Moscow') {
     let checkedAt = -Infinity, inFlight = false;
     return async (now, publishedDay = '') => {
       const at = new Date(now).getTime();
@@ -444,8 +444,8 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
       const value = FluxixoCountdown.getCountdownState(now, {
         publishedDay: el.dataset.publishedDay, dueDay: el.dataset.dueDay,
         timeZone: el.dataset.timezone,
-        hour: el.dataset.hour !== undefined ? el.dataset.hour : 13,
-        minute: el.dataset.minute !== undefined ? el.dataset.minute : 30
+        hour: el.dataset.hour !== undefined ? el.dataset.hour : 14,
+        minute: el.dataset.minute !== undefined ? el.dataset.minute : 0
       });
       const pad = n => String(n).padStart(2, '0');
       el.textContent = value.status === 'awaiting' ? el.dataset.awaiting

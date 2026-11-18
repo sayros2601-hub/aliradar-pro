@@ -1,10 +1,11 @@
 name: FLUXIXO daily SEO telemetry & Bing/Yandex sync
 
 on:
-  # Owner 2026-11-15: Cloudflare Worker (fluxixo-autopilot, cron 17 5 * * *) acts as transport/telemetry hub
-  # and can trigger this job via workflow_dispatch; fallback schedule runs at 05:25 UTC for encrypted GSC/Bing/Yandex telemetry.
+  # Owner 2026-11-18: SEO runs inside the daily publication window, right after the 14:00 Moscow drop, so Google,
+  # Bing and Yandex get the new pages at once. The Cloudflare Worker (fluxixo-autopilot, cron 20 11 * * *) dispatches
+  # this job; the fallback schedule runs at 11:30 UTC. It shares the daily lock, so it waits for a running drop.
   schedule:
-    - cron: '25 5 * * *'
+    - cron: '30 11 * * *'
   workflow_dispatch:
 
 permissions:

@@ -65,7 +65,7 @@ def countdown_metadata(state_path=None, now=None, prepared_day=None):
     mere prepared/reserved state entry does not prove a public release exists.
     """
     now = now or datetime.now(timezone.utc)
-    today = now.astimezone(ZoneInfo('Asia/Jerusalem')).date()
+    today = now.astimezone(ZoneInfo('Europe/Moscow')).date()
     published_days = []
     try:
         state = json.loads((state_path or ROOT.parent / 'data/fluxixo_publish_state.json').read_text(encoding='utf-8'))
@@ -492,7 +492,7 @@ class Site:
                 f' · <time data-day datetime="{LAST_DROP}">{LAST_DROP}</time></p>'
                 f'<p class="clock row" title="{e(u["countdown_schedule"])}">{e(u["countdown_label"])}'
                 f'<b data-countdown data-published-day="{clock["published_day"]}" data-due-day="{clock["due_day"]}" '
-                f'data-timezone="Asia/Jerusalem" data-hour="13" data-minute="30" data-awaiting="{e(u["countdown_awaiting"])}" '
+                f'data-timezone="Europe/Moscow" data-hour="14" data-minute="0" data-awaiting="{e(u["countdown_awaiting"])}" '
                 f'role="timer" aria-live="off">--:--:--</b></p></div>'
                 f'{self.rope(drop, eager=True, lead=True)}<div class="drop-copy">'
                 f'<h1>{e(u["hero_heading"])}</h1><div class="drop-summary">'
@@ -634,14 +634,11 @@ class Site:
                 L.editorial_image_caption(name, self.cat(key), self.lang), crumbs,
                 extra_images=p.get('views'), image_name=name, dist_root=DIST,
             )
-            faq_html, faq_schema = market_seo.faq_section_and_schema(name, key, self.lang, ov)
-            if faq_schema:
-                schema['@graph'].append(faq_schema)
             _, vid_schema = market_seo.video_block_and_schema(ORIGIN, DIST, p, name, desc, self.lang, p['image'])
             if vid_schema:
                 schema['@graph'].append(vid_schema)
             chk_html = market_seo.market_checklist_html(key, self.lang)
-            seo_notes_html = f'<div class="seo-notes">{chk_html}{faq_html}</div>' if (chk_html or faq_html) else ''
+            seo_notes_html = f'<div class="seo-notes">{chk_html}</div>' if chk_html else ''
             facts = ''.join(f'<li>{e(L.translate_fact(self.data, f["label"], self.lang))}: {e(L.translate_fact(self.data, f["value"], self.lang))}</li>'
                             for f in L.public_facts(p))
             crumb_html = ''.join(f'<li><a href="{href}">{e(label)}</a></li>' for label, href in crumbs[:-1])

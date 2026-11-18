@@ -1,4 +1,5 @@
-const ISRAEL_TZ = "Asia/Jerusalem";
+// Daily schedule (owner, 2026-11-18): prepare from 12:00 and publish at 14:00 Moscow time (UTC+3 all year).
+const DROP_TZ = "Europe/Moscow";
 const DAILY_MAX = 3;
 
 function corsHeaders(extra = {}) {
@@ -20,7 +21,7 @@ function jsonResponse(data, status = 200, extraHeaders = {}) {
   });
 }
 
-function getTzParts(date = new Date(), timeZone = ISRAEL_TZ) {
+function getTzParts(date = new Date(), timeZone = DROP_TZ) {
   const formatter = new Intl.DateTimeFormat("en-CA", {
     timeZone,
     year: "numeric",
@@ -40,7 +41,7 @@ function getTzParts(date = new Date(), timeZone = ISRAEL_TZ) {
   return map;
 }
 
-function localDay(date = new Date(), timeZone = ISRAEL_TZ) {
+function localDay(date = new Date(), timeZone = DROP_TZ) {
   const p = getTzParts(date, timeZone);
   return `${p.year}-${p.month}-${p.day}`;
 }
@@ -49,9 +50,9 @@ function computeIsraelDropCountdown({
   now = new Date(),
   publishedDay = "",
   dueDay = "",
-  timeZone = ISRAEL_TZ,
-  hour = 13,
-  minute = 30,
+  timeZone = DROP_TZ,
+  hour = 14,
+  minute = 0,
 } = {}) {
   const current = new Date(now);
   let targetDay = dueDay;
@@ -84,6 +85,7 @@ function computeIsraelDropCountdown({
     formatted: `${hh}:${mm}:${ss}`,
     due_day: targetDay,
     target_utc: new Date(target).toISOString(),
+    // israel_day / israel_time keep their old names for existing readers; the values are in `timezone`.
     israel_day: `${israelParts.year}-${israelParts.month}-${israelParts.day}`,
     israel_time: `${israelParts.hour}:${israelParts.minute}:${israelParts.second}`,
     timezone: timeZone,
@@ -742,6 +744,85 @@ function extractMessageText(content) {
   return "";
 }
 
+const COPY_GUARDRAIL_NOTE =
+  "SEO & Language Integrity Policy: preserve exact factual product meaning across every language without inventing specs or altering intent; write broad, unique multi-sentence descriptions with native orthography and zero alphabet mixing; NEVER emit faq, Quick buyer questions, or FAQPage boilerplate.";
+
+function parseCopyJsonObject(rawText) {
+  let text = String(rawText || "")
+    .replace(/<think>[\s\S]*?<\/think>/gi, "")
+    .trim();
+  if (text.startsWith("```")) {
+    text = text.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "");
+  }
+  try {
+    const direct = JSON.parse(text);
+    if (direct && typeof direct === "object" && !Array.isArray(direct)) return direct;
+  } catch {
+    const start = text.indexOf("{");
+    const end = text.lastIndexOf("}");
+    if (start !== -1 && end > start) {
+      const sliced = JSON.parse(text.slice(start, end + 1));
+      if (sliced && typeof sliced === "object" && !Array.isArray(sliced)) return sliced;
+    }
+  }
+  return null;
+}
+
+function validateAndSanitizeWorkerCopy(rawText, jsonOutput) {
+  if (!jsonOutput) return { ok: true, content: rawText };
+  const parsed = parseCopyJsonObject(rawText);
+  if (!parsed) return { ok: false, error: "Invalid JSON object" };
+
+  let mutated = false;
+  if ("faq" in parsed) {
+    delete parsed.faq;
+    mutated = true;
+  }
+
+  const localeKeys = ["ru", "en", "pt", "es", "fr", "he"];
+  if (localeKeys.every((k) => parsed[k] && typeof parsed[k] === "object")) {
+    const cyrRe = /[А-Яа-яЁё]/;
+    const hebRe = /[א-ת]/;
+    for (const lang of localeKeys) {
+      const entry = parsed[lang];
+      const name = String(entry.name || "").trim();
+      const headline = Array.isArray(entry.headline)
+        ? entry.headline.map((x) => String(x || "").trim()).join(" ")
+        : String(entry.headline || "").trim();
+      const desc = String(entry.description || "").trim();
+      const full = `${name} ${headline} ${desc}`.trim();
+      if (!name || !desc) {
+        return { ok: false, error: `${lang}: empty name or description` };
+      }
+      if (/Quick buyer questions|Частые вопросы перед покупкой|product-faq/i.test(full)) {
+        return { ok: false, error: `${lang}: forbidden FAQ boilerplate` };
+      }
+      if (lang === "ru") {
+        if (!cyrRe.test(full) || hebRe.test(full)) {
+          return { ok: false, error: "ru: script integrity failed" };
+        }
+      } else if (lang === "he") {
+        if (!hebRe.test(full) || cyrRe.test(full)) {
+          return { ok: false, error: "he: script integrity failed" };
+        }
+      } else if (cyrRe.test(full) || hebRe.test(full)) {
+        return { ok: false, error: `${lang}: cross-alphabet leak detected` };
+      }
+      if (lang === "es") {
+        const qOpen = (full.match(/¿/g) || []).length;
+        const qClose = (full.match(/\?/g) || []).length;
+        const eOpen = (full.match(/¡/g) || []).length;
+        const eClose = (full.match(/!/g) || []).length;
+        if (qOpen !== qClose || eOpen !== eClose) {
+          return { ok: false, error: "es: unbalanced ¿ or ¡ punctuation" };
+        }
+      }
+    }
+  }
+
+  return { ok: true, content: mutated ? JSON.stringify(parsed) : rawText };
+}
+
 async function generateCloudflareCopy(
   env,
   messages,
@@ -755,6 +836,13 @@ async function generateCloudflareCopy(
   const cleanMessages = messages
     .map((m) => ({ role: m?.role || "user", content: extractMessageText(m?.content) }))
     .filter((m) => Boolean(m.content));
+  if (jsonOutput && cleanMessages.length && !cleanMessages.some((m) => m.content.includes("Quick buyer questions"))) {
+    if (cleanMessages[0].role === "system") {
+      cleanMessages[0] = { role: "system", content: `${cleanMessages[0].content}\n${COPY_GUARDRAIL_NOTE}` };
+    } else {
+      cleanMessages.unshift({ role: "system", content: COPY_GUARDRAIL_NOTE });
+    }
+  }
   const models = resolveCfModelChain(
     [...preferredModels, env.DEFAULT_TEXT_MODEL],
     CF_COPY_MODELS
@@ -771,9 +859,14 @@ async function generateCloudflareCopy(
         params.response_format = { type: "json_object" };
       }
       const aiRes = await env.AI.run(modelName, params);
-      const content = extractAiChatText(aiRes);
-      if (content.trim()) {
-        return { content, model: modelName, raw: aiRes };
+      const rawContent = extractAiChatText(aiRes);
+      if (rawContent.trim()) {
+        const checked = validateAndSanitizeWorkerCopy(rawContent, jsonOutput);
+        if (checked.ok) {
+          return { content: checked.content, model: modelName, raw: aiRes };
+        }
+        lastErr = new Error(`Cloudflare copy rejected (${modelName}): ${checked.error}`);
+        continue;
       }
       lastErr = new Error(`Cloudflare copy returned empty content (${modelName})`);
     } catch (err) {
@@ -1475,10 +1568,11 @@ async function runScheduledAction(controller, env) {
   const cron = controller.cron || "manual";
   const ranAt = new Date().toISOString();
   const now = new Date();
-  const israelToday = localDay(now, ISRAEL_TZ);
+  const israelToday = localDay(now, DROP_TZ);
   const utcToday = now.toISOString().slice(0, 10);
 
-  if (cron === "17 5 * * *") {
+  // SEO sync runs inside the publication window, right after the 14:00 Moscow drop (14:20 Moscow = 11:20 UTC).
+  if (cron === "20 11 * * *") {
     let seoReport = null;
     let seoError = null;
     try {
@@ -1547,12 +1641,12 @@ async function runScheduledAction(controller, env) {
         reason: "GITHUB_DISPATCH_TOKEN not configured",
       };
 
-  const israelParts = getTzParts(now, ISRAEL_TZ);
-  const israelMinutes = Number(israelParts.hour || 0) * 60 + Number(israelParts.minute || 0);
+  const dropParts = getTzParts(now, DROP_TZ);
+  const dropMinutes = Number(dropParts.hour || 0) * 60 + Number(dropParts.minute || 0);
   const action =
-    cron === "30 9 * * *" || (israelMinutes >= 11 * 60 + 30 && israelMinutes < 13 * 60 + 30)
+    cron === "0 9 * * *" || cron === "0 10 * * *" || (dropMinutes >= 12 * 60 && dropMinutes < 14 * 60)
       ? "prepare_window_check"
-      : "drop_1330_check";
+      : "drop_1400_check";
   const status = !env.GITHUB_DISPATCH_TOKEN || dispatchRes.ok ? "ok" : "dispatch_error";
   const details = {
     israel_today: israelToday,

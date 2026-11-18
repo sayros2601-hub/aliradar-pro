@@ -14,26 +14,26 @@ const state = (...args) => {
   return sandbox.module.exports.getCountdownState(...args);
 };
 
-test('winter countdown targets 13:30 Israel, independent of visitor timezone', () => {
+test('countdown targets 14:00 Moscow, independent of visitor timezone', () => {
   const result = state('2026-11-13T10:00:00Z', { publishedDay: '2026-11-12' });
   assert.equal(result.status, 'countdown');
-  assert.equal(result.seconds, 5400);
+  assert.equal(result.seconds, 3600);
 });
 
-test('summer countdown uses daylight-saving offset', () => {
+test('summer keeps 14:00 Moscow (11:00 UTC): Moscow has no daylight saving time', () => {
   const result = state('2026-07-13T10:00:00Z', { publishedDay: '2026-07-12' });
   assert.equal(result.status, 'countdown');
-  assert.equal(result.seconds, 1800);
+  assert.equal(result.seconds, 3600);
 });
 
 test('reaching the scheduled start does not pretend publication succeeded', () => {
-  const result = state('2026-11-13T11:30:00Z', { publishedDay: '2026-11-12' });
+  const result = state('2026-11-13T11:00:00Z', { publishedDay: '2026-11-12' });
   assert.equal(result.status, 'awaiting');
   assert.equal(result.seconds, 0);
 });
 
 test('new publication metadata advances to the next day', () => {
-  const result = state('2026-11-13T11:40:00Z', { publishedDay: '2026-11-13' });
+  const result = state('2026-11-13T11:10:00Z', { publishedDay: '2026-11-13' });
   assert.equal(result.status, 'countdown');
   assert.equal(result.seconds, 85800);
 });
@@ -49,14 +49,14 @@ test('first scheduled day without published metadata also stays awaiting when st
   assert.equal(result.status, 'awaiting');
 });
 
-test('next publication crosses spring clock change in 23 hours', () => {
-  const result = state('2026-03-26T11:30:00Z', { publishedDay: '2026-03-26' });
-  assert.equal(result.seconds, 23 * 3600);
+test('Israel\'s spring clock change no longer moves the start: 24 hours', () => {
+  const result = state('2026-03-26T11:00:00Z', { publishedDay: '2026-03-26' });
+  assert.equal(result.seconds, 24 * 3600);
 });
 
-test('next publication crosses autumn clock change in 25 hours', () => {
-  const result = state('2026-10-24T10:30:00Z', { publishedDay: '2026-10-24' });
-  assert.equal(result.seconds, 25 * 3600);
+test('Israel\'s autumn clock change no longer moves the start: 24 hours', () => {
+  const result = state('2026-10-24T11:00:00Z', { publishedDay: '2026-10-24' });
+  assert.equal(result.seconds, 24 * 3600);
 });
 
 test('publication checks are limited to once a minute and accept new live metadata', async () => {

@@ -1,4 +1,5 @@
-"""One Jerusalem-evening batch, with durable image allowance and publish recovery.
+"""One daily batch on Moscow time (prepare from 12:00, publish from 14:00), with durable image allowance
+and publish recovery.
 
 All callers must hold the workflow's shared concurrency lock and use current
 main. Commit a reservation BEFORE generating images, and commit prepared state
@@ -17,8 +18,11 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from .daily_ledger import DAILY_MAX, LedgerError, read_ledger, remaining
 
-PREPARE_START_MINUTES = 11 * 60 + 30  # 11:30 Asia/Jerusalem
-PUBLISH_START_MINUTES = 13 * 60 + 30  # 13:30 Asia/Jerusalem
+# Owner, 2026-11-18: new products start at 12:00 Moscow time and go live at 14:00, which leaves two hours for
+# generation, copy and SEO checks and the trial build. Moscow keeps UTC+3 all year: 09:00 and 11:00 UTC.
+SCHEDULE_TZ = 'Europe/Moscow'
+PREPARE_START_MINUTES = 12 * 60  # 12:00 Europe/Moscow
+PUBLISH_START_MINUTES = 14 * 60  # 14:00 Europe/Moscow
 WINDOW_CLOSE_HOUR = 23
 
 
@@ -44,9 +48,9 @@ def _instant(now):
 
 def _local(instant):
     try:
-        return instant.astimezone(ZoneInfo('Asia/Jerusalem'))
+        return instant.astimezone(ZoneInfo(SCHEDULE_TZ))
     except ZoneInfoNotFoundError:
-        raise ScheduleError('jerusalem_timezone_data_missing') from None
+        raise ScheduleError('schedule_timezone_data_missing') from None
 
 
 def _validate_state(state):

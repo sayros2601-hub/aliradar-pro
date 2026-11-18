@@ -33,7 +33,7 @@ class CountdownMetadataTests(unittest.TestCase):
         self.assertEqual('2026-11-13', result['published_day'])
         self.assertEqual('2026-11-14', result['due_day'])
 
-    def test_initial_due_day_uses_israel_date_not_utc_date(self):
+    def test_initial_due_day_uses_moscow_date_not_utc_date(self):
         result = self.metadata({})
         self.assertEqual('', result['published_day'])
         self.assertEqual('2026-11-14', result['due_day'])

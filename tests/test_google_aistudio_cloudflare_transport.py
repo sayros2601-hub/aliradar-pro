@@ -74,9 +74,9 @@ class _FakeHttpResponse:
 
 
 class CloudflareWorkerContractTests(unittest.TestCase):
-    def test_worker_1330_schedule_and_5xx_retry_contract(self):
+    def test_worker_1400_moscow_schedule_and_5xx_retry_contract(self):
         wrangler_text = (ROOT / 'cloudflare_autopilot' / 'wrangler.toml').read_text(encoding='utf-8')
-        self.assertIn('30 11 * * *', wrangler_text)
+        self.assertIn('crons = ["0 9 * * *", "0 10 * * *", "0 11 * * *", "20 11 * * *"]', wrangler_text)
         cron_block = wrangler_text.split('crons = [', 1)[1].split(']', 1)[0]
         crons = [line.strip() for line in cron_block.splitlines() if '"' in line]
         self.assertLessEqual(len(crons), 4)
@@ -85,15 +85,17 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertIn('@cf/black-forest-labs/flux-2-klein-9b', index_text)
         self.assertIn('env.AI.run', index_text)
         self.assertNotIn('generativelanguage.googleapis.com', index_text)
-        self.assertIn('hour = 13', index_text)
-        self.assertIn('minute = 30', index_text)
-        self.assertIn('drop_1330_check', index_text)
+        self.assertIn('const DROP_TZ = "Europe/Moscow"', index_text)
+        self.assertIn('hour = 14', index_text)
+        self.assertIn('minute = 0', index_text)
+        self.assertIn('drop_1400_check', index_text)
+        self.assertIn('if (cron === "20 11 * * *")', index_text)
         self.assertIn('/Ultra-clean commercial industrial design studio product photograph/i.test(base)', index_text)
 
         rotate_wf = (ROOT / '.github' / 'workflows' / 'fluxixo_daily_rotate.yml').read_text(encoding='utf-8')
         self.assertIn("FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}", rotate_wf)
         self.assertIn("FLUXIXO_USE_VISION_SPEC: '1'", rotate_wf)
-        self.assertIn('32 11 * * *', rotate_wf)
+        self.assertIn("- cron: '5 11 * * *'", rotate_wf)
         self.assertIn('models: read', rotate_wf)
 
     def test_slot3_effect_prompt_and_white_enclosed_hole_cutout(self):
