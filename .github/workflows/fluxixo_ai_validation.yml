@@ -19,8 +19,9 @@ jobs:
     timeout-minutes: 25
     env:
       PYTHONDONTWRITEBYTECODE: '1'
-      FLUXIXO_IMAGE_MODE: hybrid
+      FLUXIXO_IMAGE_MODE: generate
       FLUXIXO_IMAGE_PROVIDER: cloudflare
+      FLUXIXO_DIRECT_STUDIO_BG: '1'
       FLUXIXO_USE_VISION_SPEC: '1'
       FLUXIXO_STRICT_COPY: '1'
       FLUXIXO_CF_TEXT_MODEL: ${{ vars.FLUXIXO_CF_TEXT_MODEL || '@cf/meta/llama-3.3-70b-instruct-fp8-fast' }}

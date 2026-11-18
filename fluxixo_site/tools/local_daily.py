@@ -39,7 +39,7 @@ def env_with_keys(*, image_mode: str = '', image_provider: str = ''):
     resolved_mode = (image_mode or env.get('FLUXIXO_IMAGE_MODE', '')).strip().lower()
     if resolved_mode in ('', 'auto'):
         has_cf = bool(env.get('CLOUDFLARE_AUTOPILOT_URL', '').strip() or env.get('CLOUDFLARE_API_TOKEN', '').strip())
-        resolved_mode = 'hybrid' if has_cf else 'cut'
+        resolved_mode = 'generate' if has_cf else 'cut'
 
     requested_provider = (image_provider or '').strip().lower()
     if requested_provider not in ('', 'auto', 'cloudflare'):
@@ -50,6 +50,7 @@ def env_with_keys(*, image_mode: str = '', image_provider: str = ''):
         'ALI_APP_SECRET': secret.strip(),
         'FLUXIXO_IMAGE_MODE': resolved_mode,
         'FLUXIXO_IMAGE_PROVIDER': 'cloudflare',
+        'FLUXIXO_DIRECT_STUDIO_BG': env.get('FLUXIXO_DIRECT_STUDIO_BG', '').strip() or '1',
         'FLUXIXO_USE_VISION_SPEC': env.get('FLUXIXO_USE_VISION_SPEC', '').strip() or '1',
         'FLUXIXO_STRICT_COPY': '1',
         'PYTHONUTF8': '1',

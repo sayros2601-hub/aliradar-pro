@@ -147,12 +147,13 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertNotIn('generativelanguage.googleapis.com', text)
         self.assertNotIn('GEMINI_', text)
 
-    def test_daily_rotate_workflow_configures_cloudflare_and_github_hybrid_without_gemini(self):
+    def test_daily_rotate_workflow_configures_cloudflare_and_github_direct_studio_without_gemini(self):
         wf_path = ROOT / '.github' / 'workflows' / 'fluxixo_daily_rotate.yml'
         text = wf_path.read_text(encoding='utf-8')
 
-        self.assertIn('FLUXIXO_IMAGE_MODE: hybrid', text)
+        self.assertIn('FLUXIXO_IMAGE_MODE: generate', text)
         self.assertIn('FLUXIXO_IMAGE_PROVIDER: cloudflare', text)
+        self.assertIn("FLUXIXO_DIRECT_STUDIO_BG: '1'", text)
         self.assertIn('GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}', text)
         self.assertIn('models: read', text)
         self.assertIn("env.FLUXIXO_IMAGE_MODE != 'generate'", text)

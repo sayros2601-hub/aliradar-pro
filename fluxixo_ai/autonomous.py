@@ -963,26 +963,46 @@ def _generate_cf_slot_view(
     category,
     visual_spec,
     provider,
+    slot_idx=0,
     perceptual_index=None,
     kept=(),
 ):
-    """Generate and validate one studio view via Cloudflare Workers AI."""
+    """Generate and validate one studio view via Cloudflare Workers AI directly on the product's world background."""
     from PIL import Image
+
+    direct_bg = os.environ.get('FLUXIXO_DIRECT_STUDIO_BG', '').strip().lower() in ('1', 'true', 'yes')
+    # Slot 0 (hero) and Slot 2 (active effect) use FLUX.2 Klein 9B; Slot 1 (45° side angle) uses FLUX.2 Klein 4B (~115 Neurons)
+    slot_model = '@cf/black-forest-labs/flux-2-klein-4b' if slot_idx == 1 else None
+    effective_bg = target_bg or image_studio.resolve_world_background(category) or '#F3F0E9'
 
     for angle in angle_choices:
         try:
-            canvas = image_studio.generate_studio_cutout(
-                title,
-                reference_image=slot_ref,
-                angle=angle,
-                background_hex=target_bg,
-                category=category or None,
-                visual_spec=visual_spec or None,
-                provider=provider,
-            )
-            if not isinstance(canvas, Image.Image) or not canvas.getbbox() or not mask_usable(canvas):
+            gen_kwargs = {
+                'reference_image': slot_ref,
+                'angle': angle,
+                'background_hex': effective_bg,
+                'category': category or None,
+                'visual_spec': visual_spec or None,
+                'provider': provider,
+            }
+            if slot_model:
+                gen_kwargs['model'] = slot_model
+            if direct_bg:
+                gen_kwargs['cutout_alpha'] = False
+            try:
+                canvas = image_studio.generate_studio_cutout(title, **gen_kwargs)
+            except TypeError:
+                gen_kwargs.pop('cutout_alpha', None)
+                gen_kwargs.pop('model', None)
+                canvas = image_studio.generate_studio_cutout(title, **gen_kwargs)
+            if not isinstance(canvas, Image.Image) or not canvas.getbbox():
                 continue
-            q_ok, q_metrics = image_studio.verify_studio_image(canvas, composed=canvas)
+            if direct_bg:
+                q_ok, q_metrics = image_studio.verify_direct_studio_image(canvas)
+            else:
+                if not mask_usable(canvas):
+                    continue
+                q_ok, q_metrics = image_studio.verify_studio_image(canvas, composed=canvas)
             if not q_ok:
                 continue
             cut_hashes = image_studio.compute_perceptual_hashes(canvas)
@@ -1056,6 +1076,7 @@ def _default_media_preparer():
                 category=category,
                 visual_spec=visual_spec,
                 provider=provider,
+                slot_idx=slot_idx,
                 perceptual_index=perceptual_index,
                 kept=kept,
             )

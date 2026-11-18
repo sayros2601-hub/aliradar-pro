@@ -32,11 +32,12 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       LEDGER: data/fluxixo_daily_ledger.json
       PUBLISH_STATE: data/fluxixo_publish_state.json
-      # Hybrid pipeline (zero Google/Gemini dependency):
-      # Slots 1-2 use local rembg cutouts on GitHub Actions (0 Neurons);
-      # Slot 3 (active working effect), vision inspection, and 6-language copy use Cloudflare Workers AI + GitHub Models.
-      FLUXIXO_IMAGE_MODE: hybrid
+      # Direct studio generation pipeline (zero Google/Gemini dependency, zero cutout destruction):
+      # All 3 views are generated directly on the product's automatic world background via Cloudflare FLUX.2
+      # (Slots 1 & 3 via Klein 9B, Slot 2 via Klein 4B); vision & 6-language copy run via Cloudflare / GitHub Models.
+      FLUXIXO_IMAGE_MODE: generate
       FLUXIXO_IMAGE_PROVIDER: cloudflare
+      FLUXIXO_DIRECT_STUDIO_BG: '1'
       FLUXIXO_USE_VISION_SPEC: '1'
       FLUXIXO_STRICT_COPY: '1'
       FLUXIXO_CF_TEXT_MODEL: ${{ vars.FLUXIXO_CF_TEXT_MODEL || '@cf/meta/llama-3.3-70b-instruct-fp8-fast' }}

@@ -40,7 +40,7 @@ ACCOUNT_ID = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "a4be28e05f73ad2b3939d364ea
 PROJECT_NAME = "dealvault"
 SITE_ORIGIN = "https://www.fluxixo.shop"
 BRAND_ACCENT = "#e4007c"
-DEFAULT_IMAGE_MODE = "hybrid"  # rembg cutouts on GitHub (Slots 1-2) + Cloudflare FLUX.2 Klein 9B/4B active effect (Slot 3)
+DEFAULT_IMAGE_MODE = "generate"  # Cloudflare FLUX.2 generates all 3 studio views directly on the product's world background (no cutout)
 DEFAULT_IMAGE_PROVIDER = "cloudflare"
 DEFAULT_CF_TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
 DEFAULT_CF_IMAGE_MODEL = "@cf/black-forest-labs/flux-2-klein-9b"
@@ -167,6 +167,7 @@ def _runtime_cloudflare_env(*, needs_token: bool = False):
     defaults = {
         "FLUXIXO_IMAGE_MODE": resolve_image_mode(),
         "FLUXIXO_IMAGE_PROVIDER": DEFAULT_IMAGE_PROVIDER,
+        "FLUXIXO_DIRECT_STUDIO_BG": os.environ.get("FLUXIXO_DIRECT_STUDIO_BG", "").strip() or "1",
         "CLOUDFLARE_AUTOPILOT_URL": os.environ.get("CLOUDFLARE_AUTOPILOT_URL", "").strip() or DEFAULT_AUTOPILOT_URL,
         "CLOUDFLARE_ACCOUNT_ID": os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip() or ACCOUNT_ID,
         "FLUXIXO_CF_TEXT_MODEL": os.environ.get("FLUXIXO_CF_TEXT_MODEL", "").strip() or DEFAULT_CF_TEXT_MODEL,

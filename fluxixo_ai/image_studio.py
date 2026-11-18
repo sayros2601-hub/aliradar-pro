@@ -741,7 +741,102 @@ WORLD_BACKGROUNDS: dict[str, str] = {
     'Спорт': '#D3EDF5',
     'На природе': '#DFEAC4',
     'Питомцы': '#E9DCF8',
+    'tech': '#DFE5FB',
+    'home': '#F1E3CF',
+    'kitchen': '#D9EEDE',
+    'auto-travel': '#FBE7A6',
+    'tools': '#FDD8C4',
+    'beauty-care': '#F8D9E6',
+    'sports': '#D3EDF5',
+    'outdoors': '#DFEAC4',
+    'pets': '#E9DCF8',
 }
+
+
+def compose_direct_studio_frame(
+    image: Image.Image,
+    *,
+    background_hex: str | None = None,
+    canvas_size: int = 1254,
+    apply_clarity: bool = True,
+) -> Image.Image:
+    """Master a studio render directly on its world background without cutting or punching holes."""
+    target_rgb = parse_hex_color(background_hex) or (243, 240, 233)
+    rgb = image.convert('RGB')
+    w, h = rgb.size
+    if w >= 8 and h >= 8:
+        px = bytearray(rgb.tobytes())
+        corners = [
+            rgb.getpixel((4, 4)),
+            rgb.getpixel((w - 5, 4)),
+            rgb.getpixel((4, h - 5)),
+            rgb.getpixel((w - 5, h - 5)),
+        ]
+        cur_r = sum(c[0] for c in corners) / 4.0
+        cur_g = sum(c[1] for c in corners) / 4.0
+        cur_b = sum(c[2] for c in corners) / 4.0
+        tr, tg, tb = target_rgb
+        tol = 44.0
+        for i in range(0, len(px), 3):
+            r, g, b = px[i], px[i + 1], px[i + 2]
+            dist = ((r - cur_r) ** 2 + (g - cur_g) ** 2 + (b - cur_b) ** 2) ** 0.5
+            if dist < tol:
+                w_blend = 1.0 if dist <= tol * 0.45 else max(0.0, 1.0 - (dist - tol * 0.45) / (tol * 0.55))
+                px[i] = max(0, min(255, round(r + (tr - cur_r) * w_blend)))
+                px[i + 1] = max(0, min(255, round(g + (tg - cur_g) * w_blend)))
+                px[i + 2] = max(0, min(255, round(b + (tb - cur_b) * w_blend)))
+        rgb = Image.frombytes('RGB', (w, h), bytes(px))
+
+    if rgb.size != (canvas_size, canvas_size):
+        rgb = rgb.resize((canvas_size, canvas_size), Image.Resampling.LANCZOS)
+    if apply_clarity:
+        rgb = rgb.filter(ImageFilter.UnsharpMask(radius=1.0, percent=32, threshold=4))
+    return rgb.convert('RGBA')
+
+
+def verify_direct_studio_image(
+    image: Image.Image,
+    *,
+    min_side: int = 640,
+    min_sharpness: float = 2.2,
+) -> tuple[bool, dict[str, Any]]:
+    """Verify resolution, dynamic range, and sharpness of a direct studio background render (no cutout)."""
+    w, h = image.size
+    small = image.convert('L').resize((256, 256), Image.Resampling.LANCZOS)
+    l_px = small.tobytes()
+    grad_sum = 0.0
+    grad_cnt = 0
+    for y in range(255):
+        row = y * 256
+        for x in range(255):
+            idx = row + x
+            grad_sum += abs(l_px[idx + 1] - l_px[idx]) + abs(l_px[idx + 256] - l_px[idx])
+            grad_cnt += 1
+    sharpness = round(grad_sum / max(1, grad_cnt), 3)
+    mean_luma = sum(l_px) / len(l_px)
+    luma_std = math.sqrt(sum((v - mean_luma) ** 2 for v in l_px) / len(l_px))
+    reasons: list[str] = []
+    if min(w, h) < min_side:
+        reasons.append('low_foreground_resolution')
+    if sharpness < min_sharpness:
+        reasons.append('blurry_foreground')
+    if luma_std < 6.0:
+        reasons.append('flat_blank_render')
+    metrics = {
+        'fg_width': w,
+        'fg_height': h,
+        'fg_max_side': max(w, h),
+        'fg_min_side': min(w, h),
+        'upscale_ratio': 1.0,
+        'sharpness': sharpness,
+        'fg_mean_luma': round(mean_luma, 2),
+        'fg_luma_std': round(luma_std, 2),
+        'max_border_clip': 0.0,
+        'clipped_edges': 0,
+        'halo_fringe_ratio': 0.0,
+        'reasons': reasons,
+    }
+    return not reasons, metrics
 
 
 def normalize_hex_color(raw_hex: str | None) -> str:
@@ -1758,8 +1853,9 @@ def generate_studio_cutout(
     gemini_api_key: str | None = None,
     aspect_ratio: str = '1:1',
     image_size: str | None = None,
+    cutout_alpha: bool | None = None,
 ) -> Image.Image:
-    """Generate an isolated studio product image via Cloudflare Workers AI (FLUX.2 Klein 9B/4B) and master to 1254x1254 RGBA."""
+    """Generate a studio product image via Cloudflare Workers AI (FLUX.2 Klein 9B/4B) and master to 1254x1254."""
     del provider, gemini_api_key, aspect_ratio, image_size
     ref_bytes = _encode_reference_image(reference_image, max_side=448) if reference_image is not None else None
     target_hex = resolve_world_background(category, background_hex)
@@ -1840,6 +1936,14 @@ def generate_studio_cutout(
     if raw_img is None:
         assert last_err is not None
         raise last_err
+
+    if cutout_alpha is False:
+        return compose_direct_studio_frame(
+            raw_img,
+            background_hex=target_hex or '#F3F0E9',
+            canvas_size=1254,
+            apply_clarity=True,
+        )
 
     cutout = extract_isolated_studio_alpha(raw_img, background_hex=target_hex)
     if tight_alpha_bbox(cutout) is None:
