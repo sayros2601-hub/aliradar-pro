@@ -1,15 +1,27 @@
 {
   "/": {
-    "sha256": "5e4d5c4237e242d6d17677046cb2b5b50d08880dcb520b16bdab812952ecd440",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "51fd29ef18b3298e00fc9479156100435873ed34b9455c8c0e5ff26a5744306c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/catalog/": {
-    "sha256": "ff49cfdcd9b5b5cbadd09151e20f4b49d3d4dd2ce360d0f1c1be1f06d722f95c",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "8c6a57f322aa158be3aac1b9f826cb4310017043c2a6feb9e38a2e3710baff11",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/products/auto-1005012473764350/": {
+    "sha256": "d56d4953d51dfef403600b96615dd9d97c3148718dcc62b93392c57acca7759e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/products/auto-1005012569530905/": {
+    "sha256": "1ce17b329378fc3834b7d67afbc13290362a20371615a5a26fefcfe6faf5160f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/products/auto-1005013037089570/": {
+    "sha256": "0d78b7cc40e61f681f26a7f2a3fd0e6230a43ed6833e7b7c244151347deb59e8",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/auto-1005013553805507/": {
-    "sha256": "1b558a46d2804d2b79b45c8b53db684e83273f4664378c578dd6f474086b6504",
-    "lastmod": "2026-11-16T10:38:39+00:00"
+    "sha256": "8928fbcd7098b65f1100e11a7dee073ac8dd3401166873683dde8fd074353315",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/auto-1005013158011754/": {
     "sha256": "f26d9adf28d6d4d45de93fbd2e9bcb23d16b07ee4ad071eddbd7ca627eecbfad",
@@ -36,20 +48,20 @@
     "lastmod": "2026-11-16T11:07:10+00:00"
   },
   "/en/products/auto-1005013145693095/": {
-    "sha256": "47a11d180fe4500c625b5b5c588c789c390300da3e1214214b196912e2570fe8",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "45f9f179c77e600a64c2abcf19f90f60cea3b35ff0716b22b2dae1a5adc5ba63",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/auto-3256804678707896/": {
     "sha256": "2b4a5231e5b896afe10286c3b092b0758cdd5547adbc1f2adbbe30a0e9a6c8a7",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/en/products/auto-1005012599444039/": {
-    "sha256": "caada4b91c88cda3d45dd4687d781d38354aa671b8c57f612889aac598fe5aff",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "79b382cce69ff9771ec9e8fb58f146735c769dd4ffae221dc01174fa3b262c35",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/auto-1005004679234788/": {
-    "sha256": "0b65db10b584373c8075219109e650201b29b5f92c3e7b2a0db67cf3711ef463",
-    "lastmod": "2026-11-16T10:44:52+00:00"
+    "sha256": "2f2e1a641b7639c5351484379840836606e58beebeac25f30df386b27d6b6a94",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/find-064-book-light/": {
     "sha256": "a7919e4e5479e2c82df7e6f92320b3ff9851a2f823608d6d42250d0dff8e7873",
@@ -252,16 +264,16 @@
     "lastmod": "2026-11-16T11:48:40+00:00"
   },
   "/en/products/find-035-cordless-scissors/": {
-    "sha256": "261f0f21c05e8df5a6d33c092c931dbb2cb0325cb3c8f928d2f83a43dd134817",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "b1e8ee49f4369af5d19819eaba1b6d688cd40253107ee7816836f65ac72a6b7d",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/find-036-stud-finder/": {
-    "sha256": "f34c84cd16cbab054d72dfb088592e628651c3733a035c64f93362f9383f01d8",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "38cb6afb7fe51aeea969958937f7dee5372493c44b1bf77d449765a306e86ecc",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/find-037-banneton/": {
-    "sha256": "dcf84e3eb70023f87ce5b0a1884311d48dc3713fc334ff8f1fdf57fbee1b502d",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "5010e5fd5b5fe29996feb00ede962f0e1478c49a572e321d96f86753c9c08b1a",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/find-038-bike-gps/": {
     "sha256": "51047852b9f5cd958ae7c27b3d6be16dd32396e00059ee5bc4cea4d6336dcb4d",
@@ -288,8 +300,8 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/en/products/find-044-crepe-maker/": {
-    "sha256": "54e3010fc67fadb8a5a434e43b7c79bb99bb24131eed27d9bb6140d6be9a26ba",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "0bb82cd00ef33d15a57dacf70c6e3b17adbb811715d4bc16fc4ab47a28129ce8",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/find-045-white-noise/": {
     "sha256": "740910be0d55bcb001ea31c1c4026a13739291dd99aa3693f5791e0defc79ec0",
@@ -308,12 +320,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/en/products/find-049-electric-scrubber/": {
-    "sha256": "efb7990a84595c42ea8b00a400246be47790ed035f4b8ed8aa805d4fe4c6ebd9",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "8e6024496780f7261b5c80cbac8649d682e0c7be25711c91f455a4fa34f484f6",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/find-050-wine-opener/": {
-    "sha256": "2566e721f9187ae075e37206074f27384f6fefe75196442f91caa190ed46704d",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "c513769f3b23829eccb332a88a15016644e0efd8df0482f537025aa78a446e62",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/import-0032/": {
     "sha256": "00210402fec91627efca98fe76543400a1855d370f9346fdadf2614b2acda62d",
@@ -352,8 +364,8 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/en/products/import-0057/": {
-    "sha256": "d9dbebdd36e79d605edfdac64fccee66f7518cf2211ee62e008d6fe040f710cc",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "c112ad4c94407e36d949f5fb89ac71af758516b4302bb61a0adfbcede2ecf897",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/import-0074/": {
     "sha256": "8b1a2084636338dc01b7469c61ddc6a14d3079964d3eb4cb079d45b71b6e5a38",
@@ -376,12 +388,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/en/products/import-0488/": {
-    "sha256": "b8b8165183d4a301e0e97b31d75efd5d18fe59a2442e9c3538a962efb8568da2",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "5eec4da343daf9b78be484d6296dfab37c5f2c44856ee05329d053e4be21112c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/import-0499/": {
-    "sha256": "8806cf9766bab5e755767b63e5db67a480305fb77e19b31120663ab6d1fe2359",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "f4a332cb8c87a0e3302ddb8cb4e07ec2f317a60c39f7a21b6ae52ab78554b9a1",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/products/import-0129/": {
     "sha256": "abf7b73146c9ab8705d77634d0afef1cc9aaade9baf62d9177156bd133d3ec02",
@@ -412,52 +424,64 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/en/products/katord-wifi-repeater/": {
-    "sha256": "ea4df50b2075bc04dc00fb599dad28a812d11147950d9842f23235ac3aa3f229",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/en/categories/home/": {
-    "sha256": "f7f2e9e46b3f65593cc850fe18713169a727b3451c7af32f70570dec756b7f8a",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/en/categories/sports/": {
-    "sha256": "016aadc96d51458b805cbacfa7a9372ccc7a41675b09977f88343a0f08572d10",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/en/categories/tools/": {
-    "sha256": "1b2be8d898e51414d1ec3d2e1703d3fbcafa5a4d144f59797830b161ddce3675",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/en/categories/pets/": {
-    "sha256": "5626cd2ddcf82de761dc48afb8d56f6c8f37cd3a87753e4f75a0afa06b720901",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/en/categories/kitchen/": {
-    "sha256": "d02c719188af2edf3d01036a9e4cfbdd26a6de1530207c2c79dbcb89fb070c1f",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/en/categories/outdoors/": {
-    "sha256": "57e81d1b55af31d307093f5e7d1954d2a5258eef78c226f06c32d280950e15c6",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/en/categories/auto-travel/": {
-    "sha256": "7f571393cda16da8f987541570336bd2d6cd2a6cb3dbbe5a5e05de67cadb040c",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/en/categories/beauty-care/": {
-    "sha256": "855c1f3503d677aa6fca6c3653e531eb2fc93ea9d2489d44361f412a56121bef",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "d91e7658487ee97e44e378f587e3c3931a647de57c506474d7147cb6320e13b6",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/categories/tech/": {
-    "sha256": "db5e65baaf6cde6197426daf3e9d2599d1491c122836e1887cb676329a18a43e",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "339067738844f820b9b2de37a0b8e191c9830df60729c95740d10625e728c4ca",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/categories/kitchen/": {
+    "sha256": "a62e90807e30661e3a88ed7dddc771ee35b8308c3b87f3b684ae997d93b7dfb8",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/categories/tools/": {
+    "sha256": "c596bd4634de0f502101aed507dead5a56b37f53c87a87682da4166ca4f6735f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/categories/home/": {
+    "sha256": "48c95538a29836923e52043c6395dcfbeaabded94bb350e9f885bdd4e0057a78",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/categories/sports/": {
+    "sha256": "87419a39da2bd253254a403ed04044d586726253963c5f225347f68b7d97dcf2",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/categories/pets/": {
+    "sha256": "3ec040122dc2c5e29532c5bc730e31a3e8017f00e2738d802f484c95f7b67257",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/categories/outdoors/": {
+    "sha256": "b213b0c3a782d4542fa9dcff7b74522fbfe5939fcbe8f8492bccbd8a60a68052",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/categories/auto-travel/": {
+    "sha256": "abc9242cc43d28021f8f3d23a0c154bea504a289d19a97e07bf0144565527ed1",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/en/categories/beauty-care/": {
+    "sha256": "47185217772f75351ce5476014769112ee96c112ce4bad22a6ba7028d2af1fa7",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/": {
-    "sha256": "06d793edb0f25cd68f090ef3130f503a16d74a722132ee55ea3f704b1036a2ec",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "96a89cde7f574801bc17586d3e08a1a1c3fb0a07fcffdc15c71c307779e1e250",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/products/auto-1005012473764350/": {
+    "sha256": "999caa32852704d60b477cac2b2769719b65ba36952d1a8c1150870fa1ad6ee5",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/products/auto-1005012569530905/": {
+    "sha256": "6598ff6e805218af2366c532acabf4663329426d172999ea09899464328170bb",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/products/auto-1005013037089570/": {
+    "sha256": "00498298fa1b753bb3bd3165f42cdab50ef9b0acc4952deb0a1bf04c5d9a572f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/auto-1005013553805507/": {
-    "sha256": "7898ea7964abb1e289358a3d518b1cd14e2506ffef7bd8381a454a46ca4a5753",
-    "lastmod": "2026-11-16T10:38:39+00:00"
+    "sha256": "a5d3d40ff08b7a54b72ce103219f36e4d23387741591e65c208eccffd9d999de",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/auto-1005013158011754/": {
     "sha256": "abce6d61bd0d7d2e7c6ea1d11cc810f62f361e8ccb07de6838352efa20282390",
@@ -484,8 +508,8 @@
     "lastmod": "2026-11-16T11:07:10+00:00"
   },
   "/pt/products/auto-1005013145693095/": {
-    "sha256": "6a19bae2b3c10600b47a91cd761a453872be71625d692470bfe869bd77b5d27a",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "8866e04dd780f38a984420f6fbe266c5cdc24837693c75841f7f78e716f6188f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/auto-3256804678707896/": {
     "sha256": "fe84bfefe87a63c151ca47e7ee9717ecb187c7634c93cf56596975f89ca731dd",
@@ -496,8 +520,8 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/pt/products/auto-1005004679234788/": {
-    "sha256": "d71c2d636823fac1b3b865b181a26fee6dea769f5f8a49653779586f994ed202",
-    "lastmod": "2026-11-16T10:44:52+00:00"
+    "sha256": "2089824b5e81e249a87a3d0d78deca5c186f0ee22b471aec99475b0c9760eba9",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/find-064-book-light/": {
     "sha256": "960a3fbe7e423c8787ef9fdc3a835ebdb3063e85d8957cec027324d30390a033",
@@ -700,16 +724,16 @@
     "lastmod": "2026-11-16T11:48:40+00:00"
   },
   "/pt/products/find-035-cordless-scissors/": {
-    "sha256": "c644e9a54e6411bc0d537a79a231e5dbf1defea36a711bc7ac1d6befb92c331f",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "7fd9a77d9dcc438bf6d9b4703cadc8b578e6173563993eaba0752ca7aeffef55",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/find-036-stud-finder/": {
-    "sha256": "f8a025535e3e4b2e96b9681e331cda34e67442dbeac16c79d59fa838b4de16e0",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "471a99a267a7ed8621d3e48e73af629a9b2c70ea3219795ced87c82358ea0a21",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/find-037-banneton/": {
-    "sha256": "e1c80845a8eebdcba58961dac6d5c1205855b151bd627a43e002d244feb887d2",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "b8f3d28799267c84f170e99b87b3475b389cae2847ba89a457a70818ab0a2770",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/find-038-bike-gps/": {
     "sha256": "09279af679edb2f9ff954a5b621d6e9bb3119aa6908df5402d187f43216ea776",
@@ -736,8 +760,8 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/pt/products/find-044-crepe-maker/": {
-    "sha256": "92f3d3df2ec3ef38dba45ec2181dc04619e494b5cc230ef5131422dd6a6e0cce",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "392a593aa4beea4d5f4af15d4b267dab558e73f45e89c58931b2d8127c62abb4",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/find-045-white-noise/": {
     "sha256": "1938e24b7fbdfc414b7f5c8e15470c300ae5193bbda2c0e01e9dfa06a03bfe67",
@@ -756,12 +780,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/pt/products/find-049-electric-scrubber/": {
-    "sha256": "64ca40cbf309f8c009838fdf60e8862037e3924db77feea89eeb9991af4493fe",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "1d07475ced4a521852dd8b94cf4693da1038436c1042c95f982f9abc1cffacd1",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/find-050-wine-opener/": {
-    "sha256": "c64af1df0a5450ba2776ff3ec3969104df2b24afeb1d487c9a831930c9f0a83c",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "9337285c16c79dddf4a00fdac9d8c8b32b4a8da8dfad737dad84ca8a2dc63ebb",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/import-0032/": {
     "sha256": "9ef6053b3f230e33099ad8ef86613fbf74665fd269d8ac03f6dff74d84dd7e14",
@@ -800,8 +824,8 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/pt/products/import-0057/": {
-    "sha256": "264a4d8c266df5fbcfa47ec10d94fbb271027d078fdbdce30d796657619d5022",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "61494392ebcf7693d0e57cccb68d307cbe4a13a3a4f2522ca2f32baac48e0230",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/import-0074/": {
     "sha256": "9f02cdf4d9ec58bb692ba1016ff7466be4c804ee6ecddfc41a378be29e66181b",
@@ -824,12 +848,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/pt/products/import-0488/": {
-    "sha256": "0d353c70be4f07e63289b1b3802ba9f2b1dc7139f4fe6a6a2a199106ae7afd2e",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "fe704a5b02bcb1b0b66d0749a03913b5f4c92866951cfc413cb664e71e613bd9",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/import-0499/": {
-    "sha256": "f96cb3f036d78cf34fec1fa8e0c91ba3bfaca230a10915cf9f289bd3c5e6771f",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "f32bab19294cd697540ef1638bebef2c7d3f0f45ec68fc26c849bc83f1a21769",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/products/import-0129/": {
     "sha256": "d9517d9b1aa09accd2c45e7caabfce40689b011839e6e6e3b982e3cca14564b1",
@@ -860,52 +884,64 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/pt/products/katord-wifi-repeater/": {
-    "sha256": "646c9a2fd732156f8a7f139576cf6811fcd0fb185b7f5ac853fa8e78837d4d15",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/pt/categories/casa/": {
-    "sha256": "a341c448041959d25b7e7caba693d7211734b5a3d39fa0c631f7ba17856c4fd6",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/pt/categories/esporte/": {
-    "sha256": "ced2f3edc15a5a4bb95d255a32276bf559c0065ed03f89703eefef4108f62cf2",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/pt/categories/ferramentas/": {
-    "sha256": "bbdb853d2f5337f85cf1868a03eaabaf70fd35264fa60c81d4e341c3328bec1f",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/pt/categories/pets/": {
-    "sha256": "3700d273036a4ec1ed4b8e6f7365a062ed10111be6df1f00355238217def1a7d",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/pt/categories/cozinha/": {
-    "sha256": "b4b796d41caccadafeec2e3076f01fc205b13e79c0c0e9fb75f329b6475220a1",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/pt/categories/ar-livre/": {
-    "sha256": "d134770c311252a056e293c1d8425436886edbd12f68ae353362e47a9ab9e5ae",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/pt/categories/automotivo-viagem/": {
-    "sha256": "074c619168bda012ede8a0a94dfac4a448ea0b011a002dc2d3db39905d0b64ae",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/pt/categories/cuidados-pessoais/": {
-    "sha256": "a2bb8d99a92edb3779317cbbc95799113bee18a8c7122eb8c35233c99eec140a",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "99b30bd477ec4021804ce5c3c870951510b0b02a7a24025b1ef87739380d686a",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/categories/tecnologia/": {
-    "sha256": "12ce6e113dfa1fe8b4f331c277462821b9daa44b989970c2d53dd9794424c347",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "e0c94a388a896ec721d854b8f5ff4ee364fad5c60c82e5860237b25ad49bbff1",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/categories/cozinha/": {
+    "sha256": "83d6882be7dae41836cb85c5f3b2af945214b294988bac2af017f9c8c961291c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/categories/ferramentas/": {
+    "sha256": "24736660e1363efcf193e9a6596e5d774b6816dbd2f64fc00087aa8d971af7f5",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/categories/casa/": {
+    "sha256": "85abea4e45ff8495a9c9875541e4d89f22d98df061e837f0402802cdc42d3ec8",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/categories/esporte/": {
+    "sha256": "d402f4237927986e8ed77934a41bb56bb771d112ca47fcf399966fe61c9dfed1",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/categories/pets/": {
+    "sha256": "8a14250e770f62be16e50e39b19b92acebc258de0d63f2c6c28577e2cae55239",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/categories/ar-livre/": {
+    "sha256": "7a84c793fe4bbcec8e755ba03404b560a4772b35ff034eac47a4bc86543f18dd",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/categories/automotivo-viagem/": {
+    "sha256": "82de7bccf17309141145dd6506dc666049695dca462b219d8a8eb080559c205d",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/pt/categories/cuidados-pessoais/": {
+    "sha256": "44d70d3647ba32b7930c77ed53a8482cba611b99c714717187ec2373492e9566",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/": {
-    "sha256": "cb7e93e0919cb10bec1706ebe1c9d024fae4f84a5bb6773ba8e88db8ca826fb1",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "afe9426ae87bb62686b2602f311bc5ec0bdb489b9df598bc830a99310faa8a2c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/products/auto-1005012473764350/": {
+    "sha256": "700d1ce7c8533b0ab9f311a8e08d695564e0fdbe942c4d2f5a017db1d644d5d5",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/products/auto-1005012569530905/": {
+    "sha256": "6cc590723de73d0267ac3913338af59dfd27ee97bd38c732ee9d8670bd585c30",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/products/auto-1005013037089570/": {
+    "sha256": "0f1e3740954a79a3d6687495f2283ffc4613feb88adbc3c45288e4b5850a75c2",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/auto-1005013553805507/": {
-    "sha256": "e915f5eb13b25e4743efda3f531b9948d06e357acdd32efd22703f581d7e4c04",
-    "lastmod": "2026-11-16T10:38:39+00:00"
+    "sha256": "0cd63c68d88ffae120efdd3733a2a58f689b2d5146e422a1b472349769c9a444",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/auto-1005013158011754/": {
     "sha256": "4031314c781fa0c756bb4e30b025d3eef2b181454b44e1006592db66b8e8be03",
@@ -932,16 +968,16 @@
     "lastmod": "2026-11-16T11:07:10+00:00"
   },
   "/es/products/auto-1005013145693095/": {
-    "sha256": "b43aa4998974607a523bbf6894056af36c343eebdd7d56544757178c000455fe",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "0bacff3b2a8bab763445310cf097ab689d7d4787bccedf4f3e2469eefe513408",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/auto-3256804678707896/": {
     "sha256": "c0d5a479eaff98e55e6256e4b067a36016f4cf3d6e6d2a22828976d094d8069d",
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/es/products/auto-1005012599444039/": {
-    "sha256": "43219ad44624df547ed1015175e5f5d90157b433ddb04a88abb677f5b553ed86",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "eeab3e670cf39e97b50a992c3f1def2d8f250bd94e4cbb283b5936f6c8652552",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/auto-1005004679234788/": {
     "sha256": "d458fd82cf926213fc30bfdc2ad795e475708b28312be48c693354e5909e8c80",
@@ -1072,8 +1108,8 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/es/products/find-016-mini-chainsaw/": {
-    "sha256": "a650c8d0cd2dd73f6ee7b55127798759257d2977f6ca4dc1f0eaf09f4d5792fb",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "b22b514c6dcf34f338bff950e75a3cd26005c282f5225e89b0c436d9bbed7177",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/find-017-star-projector/": {
     "sha256": "2d15722254257ba4301a34933c47da67c481706593939f47cba5d36447eb2810",
@@ -1148,16 +1184,16 @@
     "lastmod": "2026-11-16T11:48:40+00:00"
   },
   "/es/products/find-035-cordless-scissors/": {
-    "sha256": "d992c005f497bd5f9d3afde6ef848b12321739f8a61c81a21eed0e13b99263d9",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "3eedb6ba82f1c55db8be5b09488011838abb031f622198fd7c3b56410d03b462",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/find-036-stud-finder/": {
-    "sha256": "a24a0e4bc6dbc49eb02fa5743f07b97c31e1478dc15566af6d9c27d95098ab0f",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "b30ccc07ff7afbbf2e12b960f402c406af01ba8ba1cde31315915304a2d44bfa",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/find-037-banneton/": {
-    "sha256": "1912243571a14232061c422716cad5d274cf354441b7fa29080ec3c4cb17212e",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "dbf82c6efda98ca1c1f8bad4c13c00758e79e495d536c05fb212fd959ed075a9",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/find-038-bike-gps/": {
     "sha256": "18ac60070ad143a3e6e26b52d3603448c9ba59064fc2da422f3bdf71c9368223",
@@ -1184,8 +1220,8 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/es/products/find-044-crepe-maker/": {
-    "sha256": "a18a31690059d27715c7e8466a1de46710515fb3ce277ced26b5bd33801cec48",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "a6a50e47ec306eb36d664a9afc0d64ab15fb1859bac2417ce3da0f9eb31eba0d",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/find-045-white-noise/": {
     "sha256": "a9e94c7faea006d67b82032f912f15d38c7bc5af2989701f5078170d3efe1c02",
@@ -1204,12 +1240,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/es/products/find-049-electric-scrubber/": {
-    "sha256": "80e6e46817cdada448cd37660cd089d9bebcd6de44787e427780287404fa7a3a",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "a258a45e3960d358cf988131007c6ecb399ec0c2057d1a21f8bd2501fe0039cb",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/find-050-wine-opener/": {
-    "sha256": "505847a9def39eb08e853e3bb7f48313fa35b4825b462fcda534c4a9443cee3a",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "3c9ac54eb3e2c5f54078547edcc52eb55fdc8823a3397af95a47e550a9b3eed4",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/import-0032/": {
     "sha256": "53dac5e260662bba7a9671376ce9b805f0118ba2b0a50593a6dd5107fa5ccaba",
@@ -1248,8 +1284,8 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/es/products/import-0057/": {
-    "sha256": "ba2a0d193de04f27787fce71a22aa2f21585801a57ce0a291299f73c2d23aae8",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "51d2705898caf405536371a30079b82ca8dafa434ce356032f4e58428cbd00b1",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/import-0074/": {
     "sha256": "969e5d3479a5eb4138dfe2bf6af866554637e76840de1dac3661dc9eecf1c761",
@@ -1272,12 +1308,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/es/products/import-0488/": {
-    "sha256": "ef0d7ef18e7c221fafa6cc23b6e599a407a5019d87234cc86925d5db1f9afb09",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "9efbbeeb3c0dbd02c36ace8e36f7b7f3d343b8d5ec07802d418a076671d106e6",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/import-0499/": {
-    "sha256": "5f76ee8f84e61b4478bbfc345cebc41a14b42f645fcf273b6414492f82cb624b",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "1613638f3a740c9cad1d55a72bd256a14816d8c32baca2401b611d43af294581",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/products/import-0129/": {
     "sha256": "ebf46beb78dfd7e85a63c635b854ceb114b35b8f1d9376d8bda9d3df1b7dc781",
@@ -1308,52 +1344,64 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/es/products/katord-wifi-repeater/": {
-    "sha256": "db6ebd5be45f728fc1bdb9cf55bc59fa82ddd3345a90cebfe6c7fb67e65d433b",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/es/categories/hogar/": {
-    "sha256": "738a3e9fc289bf3a952eba6a86b3c7a92cf101387acdf00e323f3c47205a2d86",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/es/categories/deporte/": {
-    "sha256": "7b38a2456a30c07a5777ddbb89fe11bd1b6695d848afdae2482b93fa59163525",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/es/categories/herramientas/": {
-    "sha256": "6f1d27470b188bbd796a7278ac1ec6e1ed520411f14114d70067c3cdafa26625",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/es/categories/mascotas/": {
-    "sha256": "d668fc8ab8dca75c92ac2dc104e2bf69ae73150f8a7d054a1fad4bd3a0e8b6e1",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/es/categories/cocina/": {
-    "sha256": "c251a9c6948cabd915113f021eaf3dd48daacf53c221f70b15b86250114a1d4c",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/es/categories/aire-libre/": {
-    "sha256": "f32ae372661240a427d6c04d356c658f8fa7c975373a2fcdcc118c8544b64a96",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/es/categories/auto-viaje/": {
-    "sha256": "d87c3c793362f0aeb0b81478c277d8d95345ec8916cbaa27a2b3e701a6fd1bd6",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/es/categories/cuidado-personal/": {
-    "sha256": "c5eae6a8d327eb5227c97e7191070af9f271b15faab233e4d651ce0a2fae2a8d",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "b5eb5703524a979d2e9f80c0cf8d6a84d7b525c0c40682affe5f7affb406c30c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/categories/tecnologia/": {
-    "sha256": "af90c4abad9939dbf3df7ffe0de94d222c7670cf17c41bfd2ac8a99d021717f2",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "3803eb0c460902552f22e84fc77f60dae0ac1c486ddeb5c613428f33b89b664f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/categories/cocina/": {
+    "sha256": "98499e287535f821ce2f54284e1f287be5e74f2685711a9df173df4a1b3a4c6d",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/categories/herramientas/": {
+    "sha256": "c6ecfb7aaa7adf194cbecb1a57da45610db23c7e6f8133332b7b4abf01b540b2",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/categories/hogar/": {
+    "sha256": "3a34ea656b7b147c4934a0b76152958ff76e70bad5e4de345449918d7093ef6e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/categories/deporte/": {
+    "sha256": "31e240fa2ea5c3c8d5d9879027f116c5ad8fda46e531371aa50b5a0e40579be7",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/categories/mascotas/": {
+    "sha256": "f625d1d63d2b2b1b4ec53cf2a0689c3907286363395e015c26b3fb3ae0c40464",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/categories/aire-libre/": {
+    "sha256": "0a46828db8a7e782b0c90f38985ce3c3f1d07bb6563e10bd9ce3dca789842169",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/categories/auto-viaje/": {
+    "sha256": "d2bfd80d10ecfdaa2d7b05542759d091c6ca34dcd3716b343ad3ace4dc253c56",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/es/categories/cuidado-personal/": {
+    "sha256": "0c6545602b624176ab4f3da19a8a685c3745b4df366385813ff929bd3e4f1b07",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/": {
-    "sha256": "10df04471cc1c614af4fba34899173f848b066007de1f20eae04d8b9641ca628",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "858092f6d8b8a5719a09486e3e3d020ca716d69adc8809b3ed18302eae7a5c02",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/products/auto-1005012473764350/": {
+    "sha256": "a98880f6a7e73a16d8b5db5b6b3c36e358b47e5726c189fc3a3bcfa3681bbb7d",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/products/auto-1005012569530905/": {
+    "sha256": "8cc0a8ef2d9108a5da5351ccda273c70541ea39aebcbb03a0837b5bbb75dbe49",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/products/auto-1005013037089570/": {
+    "sha256": "87a9a75ce3363b3d439a513d7bd0ed9f40247e59a4da0b9317eca5cfae66e544",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/auto-1005013553805507/": {
-    "sha256": "73befda791c2ea4454222539a275f716a642c91e30941a76b5a990218ff8e68a",
-    "lastmod": "2026-11-16T10:38:39+00:00"
+    "sha256": "b897f9869c2279e5b9a42c22f2d1bbe009c2a54977f0991a1afd24d03f2f74d9",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/auto-1005013158011754/": {
     "sha256": "6d6aaee4a4b88285cf7c31b18d9668f7a5161fa505260f8af89effe996ce7c83",
@@ -1380,20 +1428,20 @@
     "lastmod": "2026-11-16T11:07:10+00:00"
   },
   "/fr/products/auto-1005013145693095/": {
-    "sha256": "5f2abe667922da023603bfb02f19dd404cb047292947749efcd8fc56f2190fe3",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "59f246a22666c88634606469d0a160cd8b781acd7777d834abcf18e275e443d5",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/auto-3256804678707896/": {
     "sha256": "7e6a6536ae84f1a7ee96e425c0796c63d8a420e84756a63990a359c409108ce0",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/fr/products/auto-1005012599444039/": {
-    "sha256": "69c43e375b77a22c6e48917ecdcc8d35fbd858540921244b5d81dfe452b0ba73",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "5f21f4e42e9a57013006fb6b3da0580795594599c0782f0a9b113bc7bf774b43",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/auto-1005004679234788/": {
-    "sha256": "1093f3a2622ac665af92629e160d47a7bc959fc2f0889109d5ba4292e6e6d800",
-    "lastmod": "2026-11-16T10:44:52+00:00"
+    "sha256": "0fdbd290648c79bdf40eee985812c21531663c588a0b8ff9715157d8c087c0b5",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/find-064-book-light/": {
     "sha256": "3fded9de590007e2ccf34b682faf00516174a8f9510c0f7b9e17daba85a36e53",
@@ -1596,16 +1644,16 @@
     "lastmod": "2026-11-16T11:48:40+00:00"
   },
   "/fr/products/find-035-cordless-scissors/": {
-    "sha256": "6b3b1854f6f5cd3e64562662c2f04facb2cd2e9102ab55f8fd0c33b09800e2e1",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "910763b64707131640852d4b44e72f89a03af0ffd88d6aa8cc29b842f3dbc8d2",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/find-036-stud-finder/": {
-    "sha256": "b72656545172782a5ef0c163bfbc4a9430224d447a862b8ae4dabf49e6670bb1",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "b64ff8837e223c39ee44a302f272cd7198dd3d3520f5defc3b68b87fc93a19d2",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/find-037-banneton/": {
-    "sha256": "736e150fb6eeabff89460b02d7cbf14a6fc4acaea52fa5b11e77719d818e601d",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "cc445f11faa003e70b6d01e918870c4de6b5cf8256924dbad237280a2c3eb22f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/find-038-bike-gps/": {
     "sha256": "233ceebeb28191be4a152dc1f4480b7d1602149c794125e7d4a874ab485e6585",
@@ -1632,8 +1680,8 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/fr/products/find-044-crepe-maker/": {
-    "sha256": "f2977741d37e0d8f97ba31374f544b0d6ce687c5c4a357ca249d30d759bc507e",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "ce71a59ae12830b4db95c554a969aa5d08c4dafc6ae9d6131c36e177af8f5a46",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/find-045-white-noise/": {
     "sha256": "4c021695e42ee0ed51034c6fc1c6aa38791b97dea2cbf2a05675b6a3bbbe1230",
@@ -1652,12 +1700,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/fr/products/find-049-electric-scrubber/": {
-    "sha256": "3a3b61e17d2464912b6a30f26111ed4437487ff7b658bfede004cb00610c83f3",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "8422e882e8f64eef7c615118b887a77799aa9f71241b6dc34c74b1129e6f2581",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/find-050-wine-opener/": {
-    "sha256": "b0cecb9137d84079e1ddc9d6fb643f0c98ed908922ab2e0c3a7b7491c59189f2",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "b4e4c6d1293e93ba2cf51744176f22037d31b09938ee9cc51255270318e2aebb",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/import-0032/": {
     "sha256": "67346bf36919675911027dfd03b3e2eb36f1e45e9ca6a7975a581745c4408727",
@@ -1696,8 +1744,8 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/fr/products/import-0057/": {
-    "sha256": "8ac5d5fe890b698b0ab1f41d50148e07e3ede8c4d95847378914edddbafe8e83",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "e91e0a15221d267b91efc0ad36daba6e3d167e2dbeef5026b734e985cb6e57c5",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/import-0074/": {
     "sha256": "931ba0b81c799b04fcf71d52e9a98a7b48f5c30d63fe4fe93a765fa820fd288c",
@@ -1720,12 +1768,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/fr/products/import-0488/": {
-    "sha256": "bb87d95184d8b88f255d76619c415f3f58ee59ae97ede06317630a7212b555de",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "2a846d0498c74269df3830a529a7aa486b6a2227557897294101a1512b30262a",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/import-0499/": {
-    "sha256": "c96671f7b5ebe0e8302ed9cca1af3776aa655b4d8c06fb7d77c7f63233effebb",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "8578780f450dd18ccf43865d4a3e1b574dfb128c4e4e11e4551968d296f9a3cf",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/products/import-0129/": {
     "sha256": "72bd89720330e7001a9b50473512432009404bfd26273a1893f2b410d005df76",
@@ -1756,52 +1804,64 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/fr/products/katord-wifi-repeater/": {
-    "sha256": "7b95268536e306499bb44a7a9d55680e0e2476cb0afa9084640f07542650501e",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/fr/categories/maison/": {
-    "sha256": "c4f71738c0319500733dcd01b96a2350d8cb9b1ba235856666195a09c619923d",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/fr/categories/sport/": {
-    "sha256": "4eec9b3ff9a8eb826d0d3f9cbccac94bb7c518d214bf8df52b167c75e4cf0cf8",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/fr/categories/outils/": {
-    "sha256": "edb56178d0465f2526e31fc4ccd85b94571385beac09a2e00865cb9d0444dfda",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/fr/categories/animaux/": {
-    "sha256": "88d19bdd00529020d3c9e2a7765c7f66538384b235e35768b65eb7342d2e3d08",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/fr/categories/cuisine/": {
-    "sha256": "99825211bfec4a99364dfe481ef593e0aa7f8a83bb6f0fdb01bfbd96c691311a",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/fr/categories/plein-air/": {
-    "sha256": "58db0b1a4712676aa4bad31b27a6f71c41392d7a98e13641c95fc6b9a1f91c00",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/fr/categories/auto-mobilite/": {
-    "sha256": "5ee39bff1955d0e47055f78413c220b72749dac5bef1da30d6664ae00a5f1e91",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/fr/categories/beaute-soin/": {
-    "sha256": "c359b467fd58f108c2e99b931e1b4231b70e12f6d4fe274b79ee01bebac22aed",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "6f4e0b1eab079568202330d276f0e06cab25fc12b8eb2104fc76b453de652161",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/categories/high-tech/": {
-    "sha256": "bb7219f1fe7d5a76265bafb87701f795266301547647dfc918ca372561d48409",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "793fcd6405b77808aee1774188ecdd4d3d868b381c8fc275a6cbd50223e5926f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/categories/cuisine/": {
+    "sha256": "15b01f55458bb7c33fca42504cb731c2994c462266f807ac49a9dc8afc1e7d3a",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/categories/outils/": {
+    "sha256": "5926972c8267eb191236f8aa9567c39676691e3bf54c7f0268be5896cf6337c8",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/categories/maison/": {
+    "sha256": "cabee321c8b3c5b21f2b2ada88ac7fce2fdda9d60c3594a91aeabf14c9367b6b",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/categories/sport/": {
+    "sha256": "b5b86a96899a6e1a1118e47a6d3e68fd3df3ac1d9d7e553b41731748ddb15281",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/categories/animaux/": {
+    "sha256": "c949a51cf3893d316c1a6e7e7face4f0ed7e4fbac164535673f3f1d1b4465d20",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/categories/plein-air/": {
+    "sha256": "7d4f5d63ab96190d041cb50bd02fa824b9e288453433f388dcfa89c5f74e40f5",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/categories/auto-mobilite/": {
+    "sha256": "1091d33309452001ff02d6d2ab322b11aff316beaaeacf9696beea74b56a6e8e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/fr/categories/beaute-soin/": {
+    "sha256": "5936761ef2ee8bd03c5a0dfecdbd42ae6a3cf50740089496402b9f0fb1fa3794",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/": {
-    "sha256": "ca635077999060d12af0d6b212d8b8f9b48c67da0f1d99e8778d3c83776b9f58",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "a43634766e68684d063837fb433a8199b1ca3eb8b067e63a922572d51aa63baa",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/products/auto-1005012473764350/": {
+    "sha256": "b8c555e32be734c993b6cddd0f94790fa35e28d2fa97e95d9879a1b04a1479fa",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/products/auto-1005012569530905/": {
+    "sha256": "098c2067d24e07630edbf7a7b1f99895449fa4d445bdecbe99b347d5217f1f09",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/products/auto-1005013037089570/": {
+    "sha256": "6c4f85f9b736ba321024194eb9519827d88ad474d7a1f987a788a9ca0d3fa2f3",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/auto-1005013553805507/": {
-    "sha256": "bf046ce0d9e5f9f2d0cb20a0a508064e551dba7372c62b1b21f3f8b7a5355cfa",
-    "lastmod": "2026-11-16T10:38:39+00:00"
+    "sha256": "63df4b550f67cd6132f490befc9edfcafea6410d9ce9ec72ef82d7e2393fced7",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/auto-1005013158011754/": {
     "sha256": "52078ffa818f2647c7d925eca7d1d49643dcddc34e1b74053252ea6ec2aef0e6",
@@ -1836,12 +1896,12 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/he/products/auto-1005012599444039/": {
-    "sha256": "58e760a83845279e03f3d2861d312a4771ee0ed503b3571fe84f8e8ff216d2f8",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "cf4e1b5909ea1b30d77fded590c4ccf393cedf778bca42e39b7ad3665c6b79f8",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/auto-1005004679234788/": {
-    "sha256": "ae65ede47a22ad78a5055033b70b241a134e159b17495da31a0a4364e130b922",
-    "lastmod": "2026-11-16T10:44:52+00:00"
+    "sha256": "ad10891906998985f45933d2aad2ed599f1f65ddc13a7d7ed2d79643a58e25c4",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/find-064-book-light/": {
     "sha256": "0bbcaab573b4d52702deb460da91b6c0630369aa6b2277c1603e7e32a882dbdc",
@@ -1968,8 +2028,8 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/he/products/find-016-mini-chainsaw/": {
-    "sha256": "10ea6e0573a57f5cd9b5fb0ef9365d81128bde2648f474769426de0f56a008c8",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "2f3131ff4018ca9725b556f1412c5425d83bd50225be8e1972d7fc39413a84e9",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/find-017-star-projector/": {
     "sha256": "f89766714a1e0b639208067da869d7a1ec28c9990604084fe0dfb44601145011",
@@ -2044,16 +2104,16 @@
     "lastmod": "2026-11-16T11:48:40+00:00"
   },
   "/he/products/find-035-cordless-scissors/": {
-    "sha256": "bd887bd165f13053890b859b35a390d598ec6e489cadd79cee8a8479c2ca07ff",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "4688b04240c29346a70e9d47feec4cca2e5a8a542eab1324b3027ede41320663",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/find-036-stud-finder/": {
-    "sha256": "33ace222f29d1e6f80296c35f4d03acfb4bceb19ffb643dbbf83ba517740b265",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "0412223b71c5262a84b9087c3e3feef302cbeb8f1cbb0ec86f5ac8389cb369bc",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/find-037-banneton/": {
-    "sha256": "8cf145788d821548525774d0d86d2d6e074e388c32a977fb725e1c7071d921b3",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "afd49d510d7e8e1d4c59d874913c41ff37aac4fca4defc15c23c766aad46bf65",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/find-038-bike-gps/": {
     "sha256": "7070ef4af29bafc94e7ad1d4eec292e0905b863958839ee7308c25bd200c05b4",
@@ -2080,8 +2140,8 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/he/products/find-044-crepe-maker/": {
-    "sha256": "bec8e1a5e226359fb532207141d367ec484f7f1bc5f916ae2aa3c3505b343baf",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "288f1f0b03666c1753c51072005a02168c24251065aea23c688a8e85383d12ec",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/find-045-white-noise/": {
     "sha256": "261e93b7c96c10838d9541ae561989e6c0d439ef06884eca6037e608ed1e545b",
@@ -2100,12 +2160,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/he/products/find-049-electric-scrubber/": {
-    "sha256": "e00e7af2be9181f1eb7366b29562b6aea9985f8bdf8595a8da3b975b0bb20f1d",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "cc893237842015172faed6d7b01975b38f7bc3b927b8519f313088d299b29444",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/find-050-wine-opener/": {
-    "sha256": "b8829a8619fc5fab5f8b65772ce18e9d837c6aa854f58e6f9b86a7379f72898f",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "1dc5af7b5e7385130f7ef25cd0f718d713dd6fcb74275b60d1ce58b512d3025f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/import-0032/": {
     "sha256": "96eb9c0bd2e54b23a58fdfbf943187c7e5c8d51575ec7a5929b0af07c3ab9ff1",
@@ -2144,8 +2204,8 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/he/products/import-0057/": {
-    "sha256": "2fb629e0cc5138b94318d947decf23371f0c1830d4159379ee55f7300982c012",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "4e2c04f72df4772ec78574c8f2c533e718e8b1b356d5a0fe118e6dd2d92a8f01",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/import-0074/": {
     "sha256": "3071bc4441d679933ffc0171f541604039971b7763d631dd4ab205224fc6e5c8",
@@ -2168,12 +2228,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/he/products/import-0488/": {
-    "sha256": "816ea2ee03a42d7514db76c285b7b5a38f92d0f265c00721a8a5078d65c929d8",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "39c5fb9866c475db5529980c98931fcd2ba4e97f054a0f1d36054b739ed85e0c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/import-0499/": {
-    "sha256": "45d51e3863989d8ade65bd7ef2a9a282b4570a820c59828edf35ec13c358ab9d",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "60d3a8e926c974b62a81771be2d067263bdb153b809f22dfcf72bbfe92e1c3ee",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/products/import-0129/": {
     "sha256": "19d5223af0808ca3751ceab00c19ebe41c55784f36a5f405bff5feef469934ba",
@@ -2204,72 +2264,72 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/he/products/katord-wifi-repeater/": {
-    "sha256": "d0e4bd8595f03ab185f8eed67086d3628bf2e847139d60360772c6ba0c0c50b8",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/he/categories/home/": {
-    "sha256": "783adee0ffee11a678a54c2d023f6b788d9556ff10a27cb62a63d8f10d81782e",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/he/categories/sports/": {
-    "sha256": "e829e7bb640c27ad43a0e5e0240c407a6dc9dac4701c5d270403923a43336379",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/he/categories/tools/": {
-    "sha256": "84000f2e0023f9788d77adde3fcdc80b8eb819f88170fc0a4af2a677a145a65d",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/he/categories/pets/": {
-    "sha256": "4f9e944a890a654294f573adbe91e8ec7e737cbc155db7f3b3a2d5ddca0716c1",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/he/categories/kitchen/": {
-    "sha256": "ceff14cc8241efbaac1a83c3ef16ca39aa0e30f11c127d42459afc339f8a6167",
-    "lastmod": "2026-11-15T21:53:40+00:00"
-  },
-  "/he/categories/outdoors/": {
-    "sha256": "4cd3906f038c1d1d5d5ee24481298480bed297ee2cf56156a2e8b530eb17ba9f",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/he/categories/auto-travel/": {
-    "sha256": "29fab4eb30e333e2f029374adc83ad6e4fe80f2d49fa49b4fdae1555f6abb493",
-    "lastmod": "2026-11-17T18:43:37+00:00"
-  },
-  "/he/categories/beauty-care/": {
-    "sha256": "ed6a4ede3d0282869cb8f92f4ae9d72defdd3f9baab199b4e298242bf6188d68",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "4b04047842437e4e141c2ff49c27058556846a84d431d13027a71ce546901a82",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/categories/tech/": {
-    "sha256": "6fd257e2b16de5cee4debba4da8b3d5529a64372c98107c7bb128920f49b310c",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "79d98fb9e5144d43af37b16d3544075419ac6dc8d21ee6f63fff09a62936fd59",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/categories/kitchen/": {
+    "sha256": "ca1792f1aa1238470e4edbe789d7a762d21481a9fe720ce31c6bc5a575945c1e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/categories/tools/": {
+    "sha256": "22a355daa36c2a9716cda25109e633a6c466f82258a1266aa42c3c10fa60a8b2",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/categories/home/": {
+    "sha256": "cc7e2d4eea1210302427635da38a97fe7416b173056bdafa2b3a6a6086eeb518",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/categories/sports/": {
+    "sha256": "f1060c8409e02f2898e3f0fa09d8369911881fd1f46825816df2b3b153b8cfb1",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/categories/pets/": {
+    "sha256": "fab711b697e61e510d4ed4f75fba1e85139be160e64682476ac6a24f653ebc1e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/categories/outdoors/": {
+    "sha256": "c354d0db7cc1909b43f7a15c892a968dcff2660278e50f4c8840183a4b7a9a84",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/categories/auto-travel/": {
+    "sha256": "c6cf275517c60cfd8e0fd8b8effe19663f1986410afe6a7fbde5efb271b1447c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/he/categories/beauty-care/": {
+    "sha256": "71a1f9f35a35e509f189c0cc39390c1a70028c340763c1c18c15126b5747dae0",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/": {
-    "sha256": "6794533ed5f5a663124211af8c318af4a221f9de2edfd30dd0f02446a00574f6",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "432cb5a0ae844703bb3f8d6735e693990fc60d9ed200bcfd5e743f86f7b17867",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/about/": {
-    "sha256": "5c851c5a2a3614980fefee220de9f4fe3bccbd9710a0f256fd4bce76f489a7af",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "1523f7cedc2d7c6fc74e3d3898e4fd591498fb05d66722f23df0e5f07f831ab6",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/about/": {
-    "sha256": "4191b72c9b482775fdf8c8a0b0204226a516bffc7f60af00fb613a902df4c173",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "4bc7e147c6627a59d7073975189e2f92db40eb505c846e7412087b5daddd4834",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/about/": {
-    "sha256": "c232141c37bd4a858ebbfa732a37ba687d0e4a36f4fb322c769091881f28b846",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "96333ee29e2f29ee84b4b970c35d91fb2236ec18c30496394cda3b1b29403a4b",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/about/": {
-    "sha256": "d89797bd2067199d6195a526f3a2e6205c1f72e5b25a77c32505003f2181bfa3",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "347a69555dcb58a1d593095e13d59871be5f10427dfd8f9d334435995512e4df",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/about/": {
-    "sha256": "4b57716868532f134c8790d58201266989733aa2c1efe2e2b17ebe082ca5f0a6",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "3fddaadd39abdf67205af91110edb4d424fdec180d294e13df090d691a0369e2",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/about/": {
-    "sha256": "726851fe9594eb3c2f3d36823a54b0d63faa63b17607d8ac5bfd434ab9affa0c",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "a77a6412dbc760fafcc6d14116605bfe99bf0a14236d75224f90e49d49d64acf",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/journal/compare-the-final-price/": {
     "sha256": "c183a270fd60bbfb576cfc55e1d6f7298621c9c9891742bc586c6bb989c31eee",
@@ -2300,8 +2360,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/journal/": {
-    "sha256": "454fbf68dfd99606f1a499c5c80cf72466faa2a92e3c86007c668dbff1ea0726",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "4a3fd34a6b2f3da325385bac2a7833af11a7832c95f63c537f0d67012849f19c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/en/journal/compare-the-final-price/": {
     "sha256": "936325ee875d08eab0052281a0e45d3ee6d6455a52e2828dd8b7408d88d8311b",
@@ -2316,8 +2376,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/en/journal/": {
-    "sha256": "41b2c2f00534c63fbd15a1267144cba77917ba6288bf85cad94d84de263470c8",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "545db12cd2a0289ee0d0d11b349949f57cd1983c43c5eb0f6897b600450ff12f",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/pt/journal/compare-the-final-price/": {
     "sha256": "ea8423de348f1104a1ac7e264f07d121877e4342d552898936b1536a75c38a2a",
@@ -2332,8 +2392,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/pt/journal/": {
-    "sha256": "52bd3db51378112960fbaa2b404d9d04804a7da67fc506fdd0c9c38fecbb32b1",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "0581ad2447ae3e1fadcd0a777c64f45a1613f343fe5ba7c9029617dbb5a0e31e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/es/journal/compare-the-final-price/": {
     "sha256": "dba20c8ed033f1d6a99a1b4b6bff8b6dc6ec0f85c51e5f0c8fc56f28a0df10c6",
@@ -2348,8 +2408,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/es/journal/": {
-    "sha256": "40caafa8da61ad0ae3d61ecee4774870fba2bafc03c8d0966ea91ca8df906ade",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "5d678d24f77dccb54a7aa7e164d3bdb736131b436cca4e6176c89ea641dd9e18",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/fr/journal/compare-the-final-price/": {
     "sha256": "29b94a9d13b7bd3b93b53ad01fb574fc848497e9f1b0f170dd648a968aef29c7",
@@ -2364,8 +2424,8 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/fr/journal/": {
-    "sha256": "75072077e0adee27ef37bf645588a79469edb250b78772f869ec1175bfc3f345",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "636b4f4c97f425042c5b9c1e0b2dcc1ea0ce185f7bee5f644d2d85b275836163",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/he/journal/compare-the-final-price/": {
     "sha256": "1c2f96316cdc321c7296e27d623766cfc44bc1d894d613e96ec272478b7ec10e",
@@ -2380,48 +2440,60 @@
     "lastmod": "2026-11-14T17:12:02+00:00"
   },
   "/he/journal/": {
-    "sha256": "04aefba83d07cf567ded3582a59d44c8116100c6332cda05e2ec8a7db2053560",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "2abd317987bcceaccb10c594ee5deaa291bbc95c2bd8d59ab022c0f5f2d1c21e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/dom/": {
-    "sha256": "e41fde7446b17fbbba275da9c110ae10ae092e95a12a79db6bbb3b0aaec7d2f2",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "c40e3c86077d8e8d36f294546ae6395f28bcff3ed5349d074ca63f2d003651c9",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/instrumenty/": {
-    "sha256": "f35d02e7e473467d164675668174b73c9847aae9e470e7ab74124773f1d55fb9",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "3ec769e12c666915d863acb4f6643c66be285cedfbc34b84c5e951bfe524dad0",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/kuhnya/": {
-    "sha256": "ae1887d2b28941dca37ead0a554a5040845cf1ccea045336f0ba73a168cacd98",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "b134cd6cfdf793380c11cb2c9e71361458ff01756502aba9afc4310b378e4692",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/na-prirode/": {
-    "sha256": "52d21561598d34afb42bbdb86f7f2fbfaaaa36afb9650dcc03cb83829155892a",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "4a916f6ad80ffe4a88b0e11db76db509b09b10baaa688c7113edf6353c420eea",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/pitomcy/": {
-    "sha256": "c0912f2c17434e2ad84dd8cd5d8430c3de1019b339d2316dc201a34415fa2696",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "a8589314c15372ba3b88ea1af02f7b750624d4e22cf533e55058fd218afda09e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/sport/": {
-    "sha256": "d16813e3f32fb3dd0cd459dfaa177310b8ba392eb58d9635815a1ee243c60259",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "bd86e3958a0c1da76c78649ec0f09175c8fa98ec562f917c304b084e8048b5ff",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/tehnika/": {
-    "sha256": "87f443f627ebdf6d645f880ceb2c090040e256bdc2653402ae3f2ea6681ae3db",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "f9ca3631e7e6f6034dc15334a75acd60cbe1dffbdfcaea4b31c6eb79ec24954c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/uhod/": {
-    "sha256": "2fc180e96f90f9879328ab17431ecae33eba638010a8566d5556ccdc9edbe1b1",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "e813f4c3d7dcd126e5d5db1117f33d50abd82724a2fac2cd730a3fef1e3643f0",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/categories/v-doroge/": {
-    "sha256": "c215b2dc4a0ba3543930ad7ff3744cdc9bb2b10949725b9c8609cb4e220880f6",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "0f336d352788d4fab324b1060f6dcdda2598fae98757d35e4404f5fb06c9b7bd",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/products/auto-1005012473764350/": {
+    "sha256": "6fc4475fe9b5fe2d71a59ee6b25fc590118c3ad20e7af61f615e2eb64b448ed9",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/products/auto-1005012569530905/": {
+    "sha256": "7a4aaebafb0c0167fa1bac6073d6fde7d8a2aff637c0961f6c780dbe145c0794",
+    "lastmod": "2026-11-18T11:18:57+00:00"
+  },
+  "/products/auto-1005013037089570/": {
+    "sha256": "df294254d5b88cd7273a471c81e69fa23830788d95528ebf630a7b99b9aebdde",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/auto-1005013553805507/": {
-    "sha256": "678a256a6389b62711703d41e15b135d94dfd97cfa63440a34f729c405815a78",
-    "lastmod": "2026-11-16T10:38:39+00:00"
+    "sha256": "5552148fd78c2b38f455f2c0d6c12d3cb75c5c47db01cb7da7988fc9430f8932",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/auto-1005013158011754/": {
     "sha256": "9f661a5cdfd81e9c633e0e838e1491185950631062cdf369ca1ec264f6275f4c",
@@ -2448,20 +2520,20 @@
     "lastmod": "2026-11-16T11:07:10+00:00"
   },
   "/products/auto-1005013145693095/": {
-    "sha256": "b002b403441966811cb5ac4d2ae0c8a71a7512fcbe70aec0b47ba58354ff34af",
-    "lastmod": "2026-11-15T21:53:40+00:00"
+    "sha256": "765fb47f88ee87c7dfd4ef07dfd42be628339c460192a96281cd206e97d97649",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/auto-3256804678707896/": {
     "sha256": "07394e81e7539dc97daefa27bf35c979c65d7228fa0c3f46ddee2a47491e0bb9",
     "lastmod": "2026-11-15T21:53:40+00:00"
   },
   "/products/auto-1005012599444039/": {
-    "sha256": "abebb86705bcc37e977d76cdf0297ec1e8b2a4a3647bae9a755971516d29d2b1",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "e30e15dc723b8fe6b2e90542570e402cf8ba8ed0af398da8dee49ee606bbb55b",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/auto-1005004679234788/": {
-    "sha256": "531a1303946627c1f8801b39f931a124657a5837f12ee9e715c43c74f439ac2e",
-    "lastmod": "2026-11-16T10:44:52+00:00"
+    "sha256": "4ca576da90085d03aa707b0d0e84a3ab1fc7e0069b4f5e98726cbc8fd5cf0244",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/find-064-book-light/": {
     "sha256": "6effd2211d6e20d47bea52e7f206052effcc33f8a99149ef2eb59b4f5c74ea56",
@@ -2664,16 +2736,16 @@
     "lastmod": "2026-11-16T11:48:40+00:00"
   },
   "/products/find-035-cordless-scissors/": {
-    "sha256": "77b06f4aea6c339047a9c6a88f0012e297e35bc17fe05cfad24adb1dd5aeba4f",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "78995dde36354e7a6c4e9c0b7d805b11b183726d1fe158090ee54911f3258e93",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/find-036-stud-finder/": {
-    "sha256": "2f2bf4d42b73cac7b63c3d517fe23eca3b9bbc46952a9e3e74a786de25dc6688",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "de2bb774c30b0d5f2aa67083a5de2dea2ca1ee3bed5ff8992f22cfb5c770585b",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/find-037-banneton/": {
-    "sha256": "6231e7f5ed5c59d27e0cf5a5c0858c3f62a937192176f3b57918c059a465a884",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "c629946a323a49cb25f61ea5c718c70f53706af0ce9e082eabde0dd866affa21",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/find-038-bike-gps/": {
     "sha256": "a7ca57915165ba8599a96b8307df9a6d835bedbc2a47a266526783aa29dafa76",
@@ -2700,8 +2772,8 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/products/find-044-crepe-maker/": {
-    "sha256": "40e7901cf4deb3d19522add8703d16ea00ff35f2c17bbba5281acb61402e8e94",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "f39a2fc3f27246a4fe87ed0a22cbd53b3517f08cd510b63ddeee72b6b916a3d3",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/find-045-white-noise/": {
     "sha256": "e9fdac0f2fdc0a30706992ceea48d30fa3e7a79f4e66737e68bf7b327b4139db",
@@ -2720,12 +2792,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/products/find-049-electric-scrubber/": {
-    "sha256": "466b11753dc299b82800f0fccfcb622ca794a014fc55fe9cd0d38b14c4cf7214",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "869f471df01f090397a863fb8f661da60547c04b067b8d8626f929c45f1caad5",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/find-050-wine-opener/": {
-    "sha256": "d4f329ed6e0ea25925ec35eb26dc03886045a1094542846557bef8959ac501c6",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "c59b975dec7f0a96d39aecf62ae2fcb967727744ee4ab77d95edb82fcc10c76c",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/import-0032/": {
     "sha256": "b9ae652696284529ec19215dac4f4ff3ae8f769b2bd8e0d7ade257bc564b49eb",
@@ -2764,8 +2836,8 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/products/import-0057/": {
-    "sha256": "bce25c500dd4be8b990ff97803e8f85f7986766685519eaf654fbc864549e021",
-    "lastmod": "2026-11-16T11:48:40+00:00"
+    "sha256": "de1be4bd12b07db42e6275eafa7e346ed478ab03526357b08aa10dad0c2e7b80",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/import-0074/": {
     "sha256": "b2529f1f0facfc1eabe76c10e335cd2a0bd89fda7d2b48d37cc76bde18863307",
@@ -2788,12 +2860,12 @@
     "lastmod": "2026-11-17T18:43:37+00:00"
   },
   "/products/import-0488/": {
-    "sha256": "86caa5bcea7f575086bc208c1815341083cedd351f2799b6fefb09390f236527",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "2ae0f6abae7277b75fe5c04c373d8d630c952eec2f48d9b3b512ae144c0577c7",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/import-0499/": {
-    "sha256": "e9270856d4f15cf8860742a09653e0cc5ed797d28b4c2ec99cd096bfde1032fc",
-    "lastmod": "2026-11-15T20:09:11+00:00"
+    "sha256": "556374979308d955c460d920634f4bcbd39f84846721cd557aabea316027209e",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   },
   "/products/import-0129/": {
     "sha256": "1bde612656ed1e3363071ec809a3b8e70313a6c0d322b7512035c248bbb5bca3",
@@ -2824,7 +2896,7 @@
     "lastmod": "2026-11-15T20:09:11+00:00"
   },
   "/products/katord-wifi-repeater/": {
-    "sha256": "0ff08e0005cb0e0fc9c59e6e9e186eb1e8c9ebcd2bcf31e546a2eb3954409b04",
-    "lastmod": "2026-11-17T18:43:37+00:00"
+    "sha256": "b8d95aa09da67cc8d48abd90fcfb9702ba6392f15e87bd96a927531f29c5a6e1",
+    "lastmod": "2026-11-18T11:18:57+00:00"
   }
 }

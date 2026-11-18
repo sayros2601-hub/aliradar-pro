@@ -9,7 +9,7 @@ const FluxixoCountdown = (() => {
     const p = parts(date, timeZone);
     return `${p.year}-${p.month}-${p.day}`;
   };
-  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 21 } = {}) {
+  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 13, minute = 30 } = {}) {
     now = new Date(now);
     if (publishedDay) {
       const next = new Date(publishedDay + 'T12:00:00Z');
@@ -18,9 +18,9 @@ const FluxixoCountdown = (() => {
     }
     dueDay = dueDay || localDay(now, timeZone);
     const [year, month, day] = dueDay.split('-').map(Number);
-    const wallClock = Date.UTC(year, month - 1, day, Number(hour));
+    const wallClock = Date.UTC(year, month - 1, day, Number(hour), Number(minute));
     let target = wallClock;
-    // Resolve the local 21:00 using the offset on that date, not today's offset.
+    // Resolve the local 13:30 using the offset on that date, not today's offset.
     // This also handles the 23/25-hour interval across Israel's DST changes.
     for (let pass = 0; pass < 2; pass++) {
       const p = parts(new Date(target), timeZone);
@@ -443,7 +443,9 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     clocks.forEach(el => {
       const value = FluxixoCountdown.getCountdownState(now, {
         publishedDay: el.dataset.publishedDay, dueDay: el.dataset.dueDay,
-        timeZone: el.dataset.timezone, hour: el.dataset.hour
+        timeZone: el.dataset.timezone,
+        hour: el.dataset.hour !== undefined ? el.dataset.hour : 13,
+        minute: el.dataset.minute !== undefined ? el.dataset.minute : 30
       });
       const pad = n => String(n).padStart(2, '0');
       el.textContent = value.status === 'awaiting' ? el.dataset.awaiting
