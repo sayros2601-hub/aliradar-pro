@@ -12,8 +12,13 @@ binding = "DB"
 database_name = "fluxixo-autopilot-db"
 database_id = "595a7f4e-7004-4925-b77c-9bb4d1a0f9fe"
 
+[[r2_buckets]]
+binding = "MEDIA_BUCKET"
+bucket_name = "fluxixo"
+
 [vars]
 SITE_ORIGIN = "https://www.fluxixo.shop"
+MEDIA_ORIGIN = "https://media.fluxixo.shop"
 INDEXNOW_KEY = "ededa82eb5716fb9ef71632b519559cb"
 AI_PROVIDER = "cloudflare-workers-ai"
 GITHUB_REPO = "sayros2601-hub/aliradar-pro"

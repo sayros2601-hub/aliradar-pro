@@ -5,8 +5,8 @@ const DAILY_MAX = 3;
 function corsHeaders(extra = {}) {
   return {
     "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Allow-Methods": "GET, POST, PUT, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization, X-Fluxixo-Sha256",
     ...extra,
   };
 }
@@ -203,6 +203,9 @@ async function queryStatusPayload(env) {
     ok: true,
     service: "fluxixo-autopilot",
     site_origin: env.SITE_ORIGIN || "https://www.fluxixo.shop",
+    media_origin: env.MEDIA_ORIGIN || "https://media.fluxixo.shop",
+    r2_media_bound: Boolean(env.MEDIA_BUCKET),
+    r2_media_bucket: "fluxixo",
     ai_provider: env.AI_PROVIDER || "cloudflare-workers-ai",
     workers_ai_bound: Boolean(env.AI),
     github_repo: env.GITHUB_REPO || "sayros2601-hub/aliradar-pro",
