@@ -495,6 +495,49 @@ def validate_search_engine_parity(release):
     return errors
 
 
+def validate_transparent_product_images(rel):
+    """Ensure every active catalog product image and gallery view is a transparent RGBA cutout (no opaque color boxes)."""
+    errors = []
+    cat_file = rel / 'js' / 'catalog.js'
+    if not cat_file.is_file():
+        return errors
+    try:
+        from PIL import Image
+        raw = cat_file.read_text(encoding='utf-8')
+        catalog = json.loads(raw.split('=', 1)[1].strip().rstrip(';'))
+    except Exception as exc:
+        return [f'could not parse catalog.js for image check: {exc}']
+    for product in catalog.get('products', []):
+        if product.get('demo'):
+            continue
+        pid = product.get('id', '?')
+        rels = [product.get('image')] + list(product.get('views') or [])
+        for img_rel in rels:
+            if not isinstance(img_rel, str) or not img_rel:
+                continue
+            target = rel / img_rel
+            if not target.is_file():
+                continue
+            try:
+                with Image.open(target) as im:
+                    if 'A' not in im.getbands():
+                        errors.append(f'{pid}: {img_rel} is opaque ({im.mode}) without transparency')
+                        continue
+                    alpha = im.getchannel('A')
+                    w, h = alpha.size
+                    corners = (
+                        alpha.getpixel((0, 0)),
+                        alpha.getpixel((max(0, w - 1), 0)),
+                        alpha.getpixel((0, max(0, h - 1))),
+                        alpha.getpixel((max(0, w - 1), max(0, h - 1))),
+                    )
+                    if alpha.getextrema()[0] > 24 or min(corners) > 24:
+                        errors.append(f'{pid}: {img_rel} has opaque background corners {corners}')
+            except Exception as exc:
+                errors.append(f'{pid}: {img_rel} unreadable ({exc})')
+    return errors
+
+
 def main():
     problems = collections.defaultdict(list)
     urls = [node.find(NS + 'loc').text for node in ET.parse(RELEASE / 'sitemap.xml').getroot().findall(NS + 'url')]
@@ -504,6 +547,8 @@ def main():
         problems['Yandex RU sitemap'].append(error)
     for error in validate_search_engine_parity(RELEASE):
         problems['Search engine parity'].append(error)
+    for error in validate_transparent_product_images(RELEASE):
+        problems['opaque product image'].append(error)
     pages = {}
     for url in urls:
         file = local_file(url)

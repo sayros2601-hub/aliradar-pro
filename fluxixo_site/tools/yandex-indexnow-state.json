@@ -237,6 +237,17 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {},
+  "pending": {
+    "https://www.fluxixo.shop/catalog/": "9f35d9e2fec4417a3b8cffc9783c5ab52cab15c06841d758e8c8be16b4f909d6",
+    "https://www.fluxixo.shop/categories/instrumenty/": "bfd4564029e4f5691202756e7a04342291bd3eafaef89e1e37de0741eb59cb6b",
+    "https://www.fluxixo.shop/products/auto-1005004266671702/": "5ef4f12f9e6c68873269a53270641607ddef5267bd80e1c244ee0382c54d559c",
+    "https://www.fluxixo.shop/products/auto-1005004679234788/": "06233d4574e5b009373ee0a5b2965981b8359d261edf156bbaaf583b34564353",
+    "https://www.fluxixo.shop/products/auto-1005005357943658/": "4d7d8f5bd786b8f5fd95a3dbd80504a3b9bdacab23e2010e49a4b606aef39abb",
+    "https://www.fluxixo.shop/products/auto-1005012599444039/": "880d32dabb717c098e065161a03f89e8137f02d0c3b5f21546534e28908a671a",
+    "https://www.fluxixo.shop/products/auto-1005013145693095/": "2438b6ea80f1532f2467190706589dee2b7a00606c6b7f3ea5df3b5b439b7127",
+    "https://www.fluxixo.shop/products/auto-1005013186843415/": "1f4072ea5f97e5a6cfe0abb87a3b76238970395214e86656579aec43725c83d1",
+    "https://www.fluxixo.shop/products/find-035-cordless-scissors/": "b7c4f8f6744d510df5de82b3623902a49755e70c3c60ad08a3006652ffb62688",
+    "https://www.fluxixo.shop/products/find-036-stud-finder/": "120c720732264e5b9942c2fc7ba02f67a60bde25ebcd2ca593cdf68a115f1313"
+  },
   "schema_version": 1
 }

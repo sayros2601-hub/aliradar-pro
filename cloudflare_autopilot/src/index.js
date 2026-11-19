@@ -508,11 +508,16 @@ function normalizeHexColor(rawHex) {
   return match ? `#${match[1].toUpperCase()}` : "";
 }
 
-function resolveTargetBackgroundHex(rawHex, category) {
+function resolveTargetBackgroundHex(rawHex, category, { allowWorldBg = false } = {}) {
   const normalized = normalizeHexColor(rawHex);
   if (normalized) return normalized;
-  const cat = String(category || "").trim();
-  return WORLD_BACKGROUNDS[cat] || "";
+  if (allowWorldBg) {
+    const cat = String(category || "").trim();
+    return WORLD_BACKGROUNDS[cat] || "#FFFFFF";
+  }
+  // Default to pure neutral studio white (#FFFFFF) so downstream transparent RGBA cutout extraction
+  // never suffers bright category-backdrop color cast or mismatched colored squares on the storefront.
+  return "#FFFFFF";
 }
 
 function uint8ArrayToBase64(bytes) {
@@ -630,14 +635,18 @@ function buildStudioPrompt(rawPrompt, { backgroundHex = "", visualSpec = "" } = 
 
   const subject = spec ? `${base} (${spec})` : base;
   const bgHex = targetHex || "#FFFFFF";
-  const bgDesc = targetHex
-    ? `completely flat uniform seamless solid color void matching hex ${bgHex}`
-    : "pure flat #FFFFFF solid white background with generous white margin on all sides";
+  const isNeutralWhite = !targetHex || bgHex === "#FFFFFF";
+  const bgDesc = isNeutralWhite
+    ? "pure flat #FFFFFF solid white background with generous white margin on all sides"
+    : `completely flat uniform seamless solid color void matching hex ${bgHex}`;
+  const lightingDesc = isNeutralWhite
+    ? "neutral color-accurate even shadowless studio lighting with zero colored backdrop cast on silver, metal, or white surfaces"
+    : "even shadowless lighting";
 
   return (
     `Ultra-clean commercial industrial design studio product photograph of ONLY the exact single standalone ${subject} from the reference photo, ` +
     `floating weightless in mid-air centered in full uncropped view against a ${bgDesc}, faithfully keeping its true real silhouette, carry strap/handle, knobs, and proportions without distortion, ` +
-    `zero floor plane, zero tabletop, zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, zero vignette, no frame borders, no edge lines, even shadowless lighting, crisp edge separation, ` +
+    `zero floor plane, zero tabletop, zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, zero vignette, no frame borders, no edge lines, ${lightingDesc}, crisp edge separation, ` +
     `strictly remove all external collage boxes, inset cards, promotional banners, seller badges, overlaid marketing text, Chinese characters, watermarks, hands, people, and pets.`
   );
 }
@@ -919,7 +928,10 @@ async function handleGenerateCutout(request, env, url) {
     );
   }
 
-  const targetHex = resolveTargetBackgroundHex(rawBackgroundHex, category);
+  const allowWorldBg =
+    String(fields.use_world_bg || url.searchParams.get("use_world_bg") || "").trim() === "1";
+  const targetHex = resolveTargetBackgroundHex(rawBackgroundHex, category, { allowWorldBg });
+  const outputMode = !targetHex || targetHex === "#FFFFFF" ? "transparent-cutout-source" : "custom-bg";
   if (refBlob && !visualSpec.trim() && url.searchParams.get("use_vision") === "1") {
     try {
       const desc = await describeProductFromImage(env, refBlob, rawPrompt);
@@ -966,6 +978,7 @@ async function handleGenerateCutout(request, env, url) {
         mime_type: mimeType,
         has_reference_image: Boolean(refBlob),
         background_hex: targetHex || "#FFFFFF",
+        output_mode: outputMode,
         visual_spec: visualSpec,
         prompt_used: studioPrompt,
         created_at: createdAt,
@@ -978,6 +991,7 @@ async function handleGenerateCutout(request, env, url) {
         "Content-Type": mimeType,
         "Cache-Control": "no-store",
         "X-Studio-Background-Hex": targetHex || "#FFFFFF",
+        "X-Studio-Output-Mode": outputMode,
         "X-Studio-Generation-Id": String(generationId || ""),
         "X-Studio-Product-Id": productId,
         "X-Studio-View-Name": viewName,

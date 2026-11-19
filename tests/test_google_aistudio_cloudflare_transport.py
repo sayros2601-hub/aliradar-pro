@@ -152,13 +152,14 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertNotIn('generativelanguage.googleapis.com', text)
         self.assertNotIn('GEMINI_', text)
 
-    def test_daily_rotate_workflow_configures_cloudflare_and_github_direct_studio_without_gemini(self):
+    def test_daily_rotate_workflow_configures_cloudflare_and_github_transparent_cutouts_without_gemini(self):
         wf_path = ROOT / '.github' / 'workflows' / 'fluxixo_daily_rotate.yml'
         text = wf_path.read_text(encoding='utf-8')
 
         self.assertIn('FLUXIXO_IMAGE_MODE: generate', text)
         self.assertIn('FLUXIXO_IMAGE_PROVIDER: cloudflare', text)
-        self.assertIn("FLUXIXO_DIRECT_STUDIO_BG: '1'", text)
+        self.assertIn("FLUXIXO_DIRECT_STUDIO_BG: '0'", text)
+        self.assertIn('rembg onnxruntime', text)
         self.assertIn('GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}', text)
         self.assertIn('models: read', text)
         self.assertIn("env.FLUXIXO_IMAGE_MODE != 'generate'", text)
@@ -166,6 +167,19 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertNotIn('GEMINI_IMAGE_API_KEY', text)
         self.assertNotIn('GEMINI_TEXT_API_KEY', text)
         self.assertNotIn('nano_banana', text)
+
+        val_wf = (ROOT / '.github' / 'workflows' / 'fluxixo_ai_validation.yml').read_text(encoding='utf-8')
+        self.assertIn("FLUXIXO_DIRECT_STUDIO_BG: '0'", val_wf)
+
+        worker_src = (ROOT / 'cloudflare_autopilot' / 'src' / 'index.js').read_text(encoding='utf-8')
+        self.assertIn('allowWorldBg = false', worker_src)
+        self.assertIn('transparent-cutout-source', worker_src)
+
+        opaque_box = Image.new('RGB', (800, 800), (253, 216, 196))
+        ImageDraw.Draw(opaque_box).rectangle((180, 180, 620, 620), fill=(40, 48, 56))
+        ok_opaque, metrics_opaque = ims.verify_studio_image(opaque_box, composed=opaque_box)
+        self.assertFalse(ok_opaque)
+        self.assertIn('opaque_background', metrics_opaque['reasons'])
 
 
 class CloudflareAndGitHubExclusiveRoutingTests(unittest.TestCase):

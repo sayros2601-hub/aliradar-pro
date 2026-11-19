@@ -671,7 +671,18 @@ def verify_studio_image(
 ) -> tuple[bool, dict[str, Any]]:
     """Verify foreground sharpness, resolution, framing, exposure, and halo freedom before publication."""
     metrics = measure_image_quality(cutout, raw_fg_size=raw_fg_size, composed=composed)
+    target_alpha = (composed or cutout).convert('RGBA').getchannel('A')
+    tw, th = target_alpha.size
+    corner_alphas = (
+        target_alpha.getpixel((0, 0)),
+        target_alpha.getpixel((max(0, tw - 1), 0)),
+        target_alpha.getpixel((0, max(0, th - 1))),
+        target_alpha.getpixel((max(0, tw - 1), max(0, th - 1))),
+    )
+    min_alpha = target_alpha.getextrema()[0]
     reasons: list[str] = []
+    if min_alpha > ALPHA_FLOOR or min(corner_alphas) > ALPHA_FLOOR:
+        reasons.append('opaque_background')
     if metrics['fg_max_side'] < min_fg_side:
         reasons.append('low_foreground_resolution')
     if metrics['upscale_ratio'] > max_upscale:
@@ -1205,9 +1216,9 @@ def extract_isolated_studio_alpha(
                 if bg_colored:
                     alpha_out = bytearray(
                         0 if (
-                            alpha_out[i] == 0
+                            (alpha_out[i] == 0 and (rem_a[i] < 220 or euc_dist_bytes[i] <= 26))
                             or (rem_a[i] < 24 and euc_dist_bytes[i] <= 98 and (raw_rgb[i * 3] + raw_rgb[i * 3 + 1] + raw_rgb[i * 3 + 2]) >= 280)
-                        ) else alpha_out[i]
+                        ) else (255 if rem_a[i] >= 220 and euc_dist_bytes[i] > 26 else alpha_out[i])
                         for i in range(total)
                     )
                 else:
@@ -1700,13 +1711,15 @@ def build_studio_prompt(
     is_secondary_slot = ('45-degree' in lower_angle or 'isometric' in lower_angle or 'side' in lower_angle or 'rear' in lower_angle)
 
     target_hex = normalize_hex_color(background_hex)
-    if target_hex:
+    if target_hex and target_hex != '#FFFFFF':
         bg_clause = (
             f'floating weightless in mid-air centered against a completely flat uniform seamless solid pastel color void matching hex {target_hex} '
             'with generous clean border on all sides'
         )
+        neutral_cast_clause = 'neutral color-accurate studio lighting with no color spill onto silver, metal, or white surfaces'
     else:
-        bg_clause = 'floating in mid-air centered on a pure flat #FFFFFF solid white background with generous white margin on all sides'
+        bg_clause = 'floating weightless in mid-air centered on a pure flat #FFFFFF solid white background with generous white margin on all sides'
+        neutral_cast_clause = 'neutral color-accurate even shadowless studio lighting with zero colored tint or ambient color cast on silver, metal, or white surfaces'
 
     if is_effect_slot:
         angle_directive = (
@@ -1719,10 +1732,10 @@ def build_studio_prompt(
         angle_directive = (
             f'{view_angle}, rotated 60-to-120 degrees to reveal the side profile, rear controls, charging port, straps, or underside mechanics rather than repeating the front view'
         )
-        lighting_clause = 'even shadowless studio lighting'
+        lighting_clause = neutral_cast_clause
     else:
         angle_directive = view_angle
-        lighting_clause = 'even shadowless studio lighting'
+        lighting_clause = neutral_cast_clause
 
     return (
         f'Ultra-clean commercial industrial design studio product photograph of ONLY the exact single standalone {item_clause} from the reference photo, '

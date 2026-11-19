@@ -6488,128 +6488,254 @@
   },
   "auto-1005012473764350": {
     "en": {
-      "name": "Electrostatic Lab Tool",
+      "name": "Wimshurst Electrostatic Generator Lab Model",
       "headline": [
-        "A must-have",
-        "for physics labs"
+        "Counter-rotating discs,",
+        "visible spark arc."
       ],
-      "description": "This electrostatic generator is designed for demonstrating physical phenomena in a laboratory setting, check specifications before purchasing."
+      "description": "Hand-cranked Wimshurst electrostatic influence machine featuring dual counter-rotating clear acrylic discs with radial aluminum foil sectors, neutralizer brush rods, and paired Leyden jar capacitors on an insulated base. Turning the drive handle builds high-voltage static charge across the adjustable spherical discharge electrodes for classroom demonstrations of electrostatic induction, corona glow, and spark gap breakdown; verify disc diameter and included spare drive belts on the seller listing before ordering."
     },
     "pt": {
-      "name": "Gerador Eletrostático",
+      "name": "Gerador Eletrostático de Wimshurst para Física",
       "headline": [
-        "Um equipamento",
-        "para laboratórios"
+        "Discos contrarrotativos,",
+        "arco de faísca visível."
       ],
-      "description": "O gerador eletrostático é utilizado para demonstrar fenômenos físicos em laboratórios, confira as características antes de comprar."
+      "description": "Máquina eletrostática de influência tipo Wimshurst com dois discos acrílicos contrarrotativos, setores radiais de alumínio, escovas coletoras e dois capacitores tipo garrafa de Leyden sobre base isolante com manivela. Acumula carga de alta tensão entre as esferas metálicas ajustáveis para demonstrar indução eletrostática e descarga elétrica em aulas e laboratórios de física; antes de pedir, confira o diâmetro dos discos e as correias inclusas no anúncio."
     },
     "es": {
-      "name": "Generador Electroestático",
+      "name": "Generador Electrostático Wimshurst de Laboratorio",
       "headline": [
-        "Un dispositivo",
-        "para laboratorios"
+        "Discos contrarrotatorios,",
+        "chispa de alto voltaje."
       ],
-      "description": "El generador electroestático se utiliza para demostrar fenómenos físicos en laboratorios, revise las características antes de comprar."
+      "description": "Máquina electrostática de influencia tipo Wimshurst equipada con dos discos acrílicos contrarrotatorios, sectores radiales de aluminio, escobillas colectoras y dos botellas de Leyden sobre una base aislante con manivela. Genera acumulaciones de alto voltaje entre las esferas descargadoras ajustables para demostrar inducción electrostática y arcos de chispa en clases de física; antes de comprar, revisa el diámetro del disco y los accesorios incluidos con el vendedor."
     },
     "fr": {
-      "name": "Générateur Électrostatique",
+      "name": "Machine Électrostatique de Wimshurst de Laboratoire",
       "headline": [
-        "Un outil",
-        "pour les laboratoires"
+        "Disques contrarotatifs,",
+        "arc d’étincelle visible."
       ],
-      "description": "Le générateur électrostatique est conçu pour démontrer des phénomènes physiques dans un environnement de laboratoire, vérifiez les caractéristiques avant l’achat."
+      "description": "Générateur électrostatique à influence de Wimshurst doté de deux disques acryliques contrarotatifs à secteurs radiaux en aluminium, de balais collecteurs et de deux bouteilles de Leyde montés sur un socle isolant à manivelle. Permet de produire une décharge haute tension entre les éclateurs sphériques réglables pour illustrer l’induction électrostatique en travaux pratiques de physique ; vérifiez le diamètre des disques et le contenu du kit chez le vendeur."
     },
     "he": {
-      "name": "מכונת אלקטרוסטטיקה",
+      "name": "מחולל אלקטרוסטטי ווימסהרסט למעבדת פיזיקה",
       "headline": [
-        "ציוד",
-        "למעבדות"
+        "שני דיסקים מנוגדים,",
+        "ניצוץ מתח גבוה."
       ],
-      "description": "מכונת האלקטרוסטטיקה משמשת להדגמת תופעות פיזיקליות במעבדה, בדקו את המפרט לפני הקנייה."
+      "description": "מכונה אלקטרוסטטית מסוג ווימסהרסט עם שני דיסקים שקופים המסתובבים בכיוונים מנוגדים, גזרות אלומיניום רדיאליות, מברשות איסוף וצמד קבלי צנצנת ליידן על בסיס מבודד עם ידית ארכובה. מאפשרת להדגים השראה אלקטרוסטטית ופריצת ניצוץ חשמלי בין כדורי הפריקה המתכווננים בשיעורי פיזיקה ובמעבדה; לפני ההזמנה בדקו את קוטר הדיסקים ותכולת הערכה בעמוד המוכר."
     }
   },
   "auto-1005012569530905": {
     "en": {
-      "name": "Rapid Thaw Tray",
+      "name": "Grooved Aluminum Rapid Defrosting Tray",
       "headline": [
-        "Thaw naturally,",
-        "no microwave needed."
+        "Thermal alloy plate,",
+        "thaw without microwave."
       ],
-      "description": "A specially designed aluminum tray for quick and even thawing of frozen foods, such as steaks, fillets, and more, at room temperature, without energy consumption."
+      "description": "Conductive grooved aluminum defrosting plate draws ambient room heat into frozen steaks, poultry breasts, fish fillets, and burger patties to speed up natural thawing without electricity, batteries, or microwave edge-cooking. Parallel drainage channels increase airflow contact and route melted frost water away from the food so meat stays firm and juicy; check the exact length, width, and thickness options on the seller listing before checkout."
     },
     "pt": {
-      "name": "Placa de Descongelamento Rápido",
+      "name": "Bandeja de Alumínio Canelada para Descongelar",
       "headline": [
-        "Descongele naturalmente,",
-        "sem micro-ondas."
+        "Liga térmica condutora,",
+        "descongela sem energia."
       ],
-      "description": "Placa de alumínio projetada para descongelar rapidamente carnes, peixes e outros alimentos congelados, em temperatura ambiente, sem consumo de energia."
+      "description": "Placa descongeladora em liga de alumínio de alta condutividade térmica que acelera o descongelamento natural de bifes, aves, peixes e hambúrgueres em temperatura ambiente, sem usar micro-ondas nem água quente. Os sulcos paralelos ampliam a troca de calor e escoam o líquido do gelo derretido para preservar a textura e a suculência dos alimentos; confira as medidas exatas e a espessura da bandeja na variação escolhida do vendedor."
     },
     "es": {
-      "name": "Bandeja de Descongelado Rápido",
+      "name": "Bandeja de Aluminio Ranurada para Descongelar",
       "headline": [
-        "Descongela de forma natural,",
-        "sin microondas."
+        "Aleación conductora,",
+        "descongela sin electricidad."
       ],
-      "description": "Bandeja de aluminio diseñada para descongelar rápidamente carnes, pescados y otros productos congelados, a temperatura ambiente, sin consumo de energía."
+      "description": "Placa descongeladora de aleación de aluminio termoconductora que acelera la descongelación natural de cortes de carne, pollo, pescado y mariscos a temperatura ambiente sin necesidad de microondas ni consumo eléctrico. Sus canales longitudinales mejoran la transferencia de calor y drenan el agua del hielo derretido para mantener la textura firme y jugosa; verifica las dimensiones exactas y el grosor en la publicación del vendedor antes de pedir."
     },
     "fr": {
-      "name": "Plateau de Décongélation Rapide",
+      "name": "Plateau de Décongélation Rainuré en Aluminium",
       "headline": [
-        "Décongélez naturellement,",
-        "sans micro-ondes."
+        "Alliage thermoconducteur,",
+        "décongélation sans micro-ondes."
       ],
-      "description": "Plateau en aluminium conçu pour décongeler rapidement les aliments congelés, tels que les steaks, les filets, etc., à température ambiante, sans consommation d'énergie."
+      "description": "Plaque de décongélation en alliage d’aluminium thermoconducteur conçue pour accélérer la décongélation naturelle des viandes, volailles et filets de poisson à température ambiante, sans électricité ni cuisson partielle au micro-ondes. Les rainures parallèles favorisent l’échange thermique et évacuent l’eau de fonte afin de préserver la tendreté des aliments ; vérifiez les dimensions exactes et l’épaisseur du plateau sur la fiche du vendeur."
     },
     "he": {
-      "name": "מגש הפשרה מהירה",
+      "name": "מגש הפשרה מחורץ מאלומיניום מוליך חום",
       "headline": [
-        "הפשרה טבעית,",
-        "בלי מיקרוגל."
+        "סגסוגת מוליכת חום,",
+        "הפשרה טבעית ללא חשמל."
       ],
-      "description": "מגש אלומיניום מיוחד להפשרה מהירה ואחידה של מוצרים קפואים, כגון בשר, דגים ועוד, בטמפרטורת החדר, בלי צריכת אנרגיה."
+      "description": "פלטת הפשרה מסגסוגת אלומיניום בעלת מוליכות תרמית גבוהה המאיצה הפשרה טבעית של נתחי בשר, עוף ודגים קפואים בטמפרטורת החדר ללא מיקרוגל וללא צריכת חשמל. חריצי הניקוז המקבילים מגדילים את שטח מעבר החום ומרחיקים את נוזלי הקרח הנמס כדי לשמור על מרקם הבשר ועסיסיותו; לפני ההזמנה בדקו את המידות והעובי המדויקים של המגש בעמוד המוכר."
     }
   },
   "auto-1005013037089570": {
     "en": {
-      "name": "Portable Plasma Cutter",
+      "name": "Portable Inverter Air Plasma Cutter Machine",
       "headline": [
-        "Heavy-duty tool",
-        "for metal cutting."
+        "Compressed plasma arc,",
+        "clean sheet metal cuts."
       ],
-      "description": "Enables high-precision cutting of metal parts with increased speed and efficiency."
+      "description": "Compact portable inverter air plasma cutting unit (CUT series) with adjustable amperage and post-flow air delay dials for straight and curved cutting across carbon steel, stainless steel, aluminum, and copper plate. Pairs with an external air compressor to project a concentrated high-temperature plasma jet with a narrow kerf and minimal heat distortion; verify input voltage requirements, rated cutting thickness, and included plasma cutting gun kit on the seller listing."
     },
     "pt": {
-      "name": "Cortadora de Plasma Portátil",
+      "name": "Máquina Inversora Portátil de Corte a Plasma",
       "headline": [
-        "Ferramenta profissional",
-        "para corte de metal."
+        "Arco de plasma a ar,",
+        "corte limpo em aço."
       ],
-      "description": "Permite cortar peças metálicas com alta precisão e velocidade, tornando o processo mais eficiente."
+      "description": "Fonte inversora portátil de corte a plasma a ar comprimido (linha CUT) com ajuste frontal de corrente e tempo de pós-fluxo de gás para cortar chapas de aço carbono, inox, alumínio e ligas metálicas com precisão e baixa deformação térmica. Trabalha conectada a um compressor de ar externo para formar um jato de plasma estável; antes de fechar o pedido, confira a tensão de rede, a espessura máxima de corte e se a tocha e o cabo obra acompanham o pacote."
     },
     "es": {
-      "name": "Cortadora de Plasma Portátil",
+      "name": "Cortadora de Plasma Inversora Portátil para Metal",
       "headline": [
-        "Herramienta pesada",
-        "para corte de metal."
+        "Arco de plasma por aire,",
+        "corte limpio en acero."
       ],
-      "description": "Permite realizar cortes precisos en piezas metálicas con mayor velocidad y eficiencia, ahorrando tiempo y esfuerzo."
+      "description": "Equipo inversor portátil de corte por plasma con aire comprimido (serie CUT) provisto de perillas para regular el amperaje de corte y el postflujo de enfriamiento en láminas de acero al carbono, acero inoxidable, aluminio y cobre. Utiliza aire de un compresor externo para proyectar un chorro de plasma concentrado con ranura angosta; antes de pedir, revisa el voltaje de entrada requerido, el espesor de corte y si incluye antorcha y pinza de tierra."
     },
     "fr": {
-      "name": "Découpeuse au Plasma Portative",
+      "name": "Découpeur Plasma Onduleur Portable pour Métal",
       "headline": [
-        "Outil professionnel",
-        "pour découpe de métal."
+        "Jet de plasma à air,",
+        "découpe nette de l’acier."
       ],
-      "description": "Permet de réaliser des découpes précises de pièces métalliques avec une grande vitesse et une efficacité accrue, ce qui améliore la productivité."
+      "description": "Poste de découpe plasma onduleur portable à air comprimé (série CUT) équipé de réglages d’intensité et de post-gaz pour la découpe droite ou chantournée de l’acier au carbone, de l’inox, de l’aluminium et du cuivre. Fonctionne avec un compresseur d’air externe pour produire un trait de coupe étroit à faible déformation thermique ; vérifiez la tension d’alimentation, l’épaisseur de coupe maximale et la présence de la torche plasma dans l’option choisie."
     },
     "he": {
-      "name": "מכונת קיצוע פלזמה ניידת",
+      "name": "מכונת חיתוך פלזמה אינוורטר ניידת למתכת",
       "headline": [
-        "כלי עבודה מקצועי",
-        "לחיתוך מתכת."
+        "קשת פלזמה באוויר דחוס,",
+        "חיתוך נקי של פלדה."
       ],
-      "description": "מאפשרת ביצוע חיתוך מדויק של חלקים מתכתיים עם רמת דיוק ומהירות גבוהה."
+      "description": "רתכת-חותכת פלזמה אינוורטר ניידת מסדרת CUT עם וסתים לכיוון זרם החיתוך וזמן קירור האוויר לחיתוך מדויק של פלדת פחמן, נירוסטה, אלומיניום ונחושת. פועלת בשילוב מדחס אוויר חיצוני ליצירת סילון פלזמה ממוקד עם חריץ חיתוך צר ועיוות חום מזערי; לפני ההזמנה ודאו את מתח הרשת הנדרש, עובי החיתוך המרבי והאם ידית הפלזמה וכבל ההארקה כלולים בערכה."
+    }
+  },
+  "auto-1005013186843415": {
+    "en": {
+      "name": "Ring Gauge",
+      "headline": [
+        "Precision measurement",
+        "for workshop"
+      ],
+      "description": "A ring gauge is a tool used for precise measurement of the internal diameter of parts. It is utilized to check the size and shape of holes in various materials, such as metal, plastic, and wood. Before purchasing a ring gauge, it is essential to verify its specifications, including the measurement range, accuracy, and material, to ensure it meets your requirements."
+    },
+    "pt": {
+      "name": "Calibrador de Anel",
+      "headline": [
+        "Medição precisa",
+        "para oficina"
+      ],
+      "description": "O calibrador de anel é uma ferramenta utilizada para medir com precisão o diâmetro interno de peças. Ele é usado para verificar o tamanho e a forma de furos em materiais variados, como metal, plástico e madeira. Antes de comprar um calibrador de anel, é fundamental verificar suas especificações, incluindo a faixa de medição, precisão e material, para garantir que atenda às suas necessidades."
+    },
+    "es": {
+      "name": "Calibrador de Anillo",
+      "headline": [
+        "Medición precisa",
+        "para taller"
+      ],
+      "description": "El calibrador de anillo es una herramienta utilizada para medir con precisión el diámetro interno de piezas. Se utiliza para verificar el tamaño y la forma de agujeros en materiales variados, como metal, plástico y madera. Antes de comprar un calibrador de anillo, es fundamental verificar sus especificaciones, incluyendo la gama de medición, precisión y material, para asegurarse de que cumpla con sus necesidades."
+    },
+    "fr": {
+      "name": "Calibre à Anneau",
+      "headline": [
+        "Mesure précise",
+        "pour atelier"
+      ],
+      "description": "Le calibre à anneau est un outil utilisé pour mesurer avec précision le diamètre interne des pièces. Il est utilisé pour vérifier la taille et la forme des trous dans divers matériaux, tels que le métal, le plastique et le bois. Avant d'acheter un calibre à anneau, il est essentiel de vérifier ses spécifications, y compris la plage de mesure, la précision et le matériau, pour vous assurer qu'il répond à vos besoins."
+    },
+    "he": {
+      "name": "מד קוטר",
+      "headline": [
+        "מדידה מדויקת",
+        "לסדנה"
+      ],
+      "description": "מד קוטר הוא כלי המשמש למדידה מדויקת של קוטר פנימי של חלקים. הוא משמש לבדיקת גודל וצורה של חורים בחומרים שונים, כגון מתכת, פלסטיק ועץ. לפני רכישת מד קוטר, יש לבדוק את המפרטים שלו, כולל טווח המדידה, דיוק וחומר, כדי לוודא שהוא עונה על צורכיכם."
+    }
+  },
+  "auto-1005005357943658": {
+    "en": {
+      "name": "Magnetic pickup tool",
+      "headline": [
+        "Dropped something?",
+        "Pick it up easily."
+      ],
+      "description": "For picking up objects attracted to a magnet. Check the size and stated lifting capacity with the seller to ensure you're getting the right tool for the job. This magnetic pickup tool can be handy in various situations where you need to retrieve an item from a hard-to-reach place."
+    },
+    "pt": {
+      "name": "Pegador magnético portátil",
+      "headline": [
+        "Caiu algo?",
+        "Pegue fácil."
+      ],
+      "description": "Para recolher objetos atraídos por ímã. Confira as dimensões e a capacidade de carga informada pelo vendedor para garantir a escolha correta do instrumento. Este pegador magnético pode ser útil em várias situações, quando for necessário pegar um objeto de um local de difícil acesso."
+    },
+    "es": {
+      "name": "Recogedor magnético",
+      "headline": [
+        "¿Se te cayó algo?",
+        "Recógelo fácilmente."
+      ],
+      "description": "Para recoger objetos atraídos por un imán. Consulta las dimensiones y la capacidad de carga indicada por el vendedor para asegurarte de elegir el instrumento adecuado. Este recogedor magnético puede ser útil en diversas situaciones, cuando necesites recuperar un objeto de un lugar de difícil acceso."
+    },
+    "fr": {
+      "name": "Outil de Ramassage Magnétique",
+      "headline": [
+        "Tombe quelque chose ?",
+        "Récupérez-le facilement."
+      ],
+      "description": "Pour ramasser les objets attirés par un aimant. Vérifiez les dimensions et la capacité de levage indiquées par le vendeur pour vous assurer de choisir l'outil approprié. Cet outil de ramassage magnétique peut être utile dans diverses situations, lorsque vous devez récupérer un objet dans un endroit difficile d'accès."
+    },
+    "he": {
+      "name": "כלי איסוף מגנטי",
+      "headline": [
+        "נפל לך משהו?",
+        "תאסף בקלות."
+      ],
+      "description": "לאיסוף פריטים הנמשכים למגנט. בדקו את המידות ואת כושר ההרמה המוצהר אצל המוכר, כדי לוודא בחירת כלי המתאים. כלי איסוף מגנטי זה יכול להיות שימושי במצבים שונים, כאשר יש צורך לאסוף פריט ממקום קשה לגישה."
+    }
+  },
+  "auto-1005004266671702": {
+    "en": {
+      "name": "EMF Detector",
+      "headline": [
+        "Measure radiation",
+        "and temperature."
+      ],
+      "description": "The EMF detector is designed to measure radiation and temperature levels. It can be used to check radiation levels in various environments, such as homes, offices, and industrial areas. Before purchasing, it is recommended to check the specifications and usage conditions of the detector to ensure its effectiveness and safety."
+    },
+    "pt": {
+      "name": "Detector EMF",
+      "headline": [
+        "Medir radiação",
+        "e temperatura."
+      ],
+      "description": "O detector EMF é projetado para medir níveis de radiação e temperatura. Ele pode ser usado para verificar níveis de radiação em ambientes variados, como residências, escritórios e áreas industriais. Antes de comprar, é recomendado verificar as especificações e condições de uso do detector para garantir sua eficácia e segurança."
+    },
+    "es": {
+      "name": "Detector EMF",
+      "headline": [
+        "Medir radiación",
+        "y temperatura."
+      ],
+      "description": "El detector EMF está diseñado para medir niveles de radiación y temperatura. Puede ser utilizado para comprobar niveles de radiación en entornos variados, como hogares, oficinas y zonas industriales. Antes de comprar, se recomienda verificar las especificaciones y condiciones de uso del detector para garantizar su eficacia y seguridad."
+    },
+    "fr": {
+      "name": "Détecteur EMF",
+      "headline": [
+        "Mesurer radiation",
+        "et température."
+      ],
+      "description": "Le détecteur EMF est conçu pour mesurer les niveaux de radiation et de température. Il peut être utilisé pour vérifier les niveaux de radiation dans différents environnements, tels que les maisons, les bureaux et les zones industrielles. Avant de procéder à l’achat, il est recommandé de vérifier les spécifications et les conditions d’utilisation du détecteur pour en assurer l’efficacité et la sécurité."
+    },
+    "he": {
+      "name": "מגלה EMF",
+      "headline": [
+        "למדוד קרינה",
+        "וטמפרטורה."
+      ],
+      "description": "מגלה ה-EMF מיועד למדוד רמות קרינה וטמפרטורה. הוא יכול לשמש לבדיקת רמות קרינה בסביבות שונות, כגון בתים, משרדים ואזורים תעשייתיים. לפני הרכישה, מומלץ לבדוק את המפרט הטכני ותנאי השימוש של המגלה, כדי להבטיח את יעילותו ובטיחותו."
     }
   }
 };

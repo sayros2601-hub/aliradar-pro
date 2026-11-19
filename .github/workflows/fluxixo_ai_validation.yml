@@ -21,7 +21,7 @@ jobs:
       PYTHONDONTWRITEBYTECODE: '1'
       FLUXIXO_IMAGE_MODE: generate
       FLUXIXO_IMAGE_PROVIDER: cloudflare
-      FLUXIXO_DIRECT_STUDIO_BG: '1'
+      FLUXIXO_DIRECT_STUDIO_BG: '0'
       FLUXIXO_USE_VISION_SPEC: '1'
       FLUXIXO_STRICT_COPY: '1'
       FLUXIXO_CF_TEXT_MODEL: ${{ vars.FLUXIXO_CF_TEXT_MODEL || '@cf/meta/llama-3.3-70b-instruct-fp8-fast' }}
@@ -51,9 +51,7 @@ jobs:
       - name: Install existing site and image-quality dependencies
         run: |
           python -m pip install --retries 5 --timeout 60 -r requirements.txt requests
-          if [ "${FLUXIXO_IMAGE_MODE,,}" != "generate" ]; then
-            python -m pip install --retries 5 --timeout 60 rembg onnxruntime
-          fi
+          python -m pip install --retries 5 --timeout 60 rembg onnxruntime
           npm ci --ignore-scripts
       - name: Prepare one source-grounded quality-checked product
         id: prepare

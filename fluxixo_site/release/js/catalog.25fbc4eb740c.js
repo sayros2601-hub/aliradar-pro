@@ -5,15 +5,219 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
-      "id": "auto-1005012473764350",
-      "name": "Электростатический Генератор",
+      "id": "auto-1005013186843415",
+      "name": "Калибр-кольцо",
       "headline": [
-        "Устройство",
-        "для лаборатории"
+        "Точное измерение",
+        "для мастерской"
       ],
-      "description": "Электростатический генератор используется для демонстрации физических явлений в лаборатории, проверьте характеристики перед покупкой.",
+      "description": "Калибр-кольцо представляет собой инструмент для точного измерения внутреннего диаметра деталей. Он используется для проверки размеров и формы отверстий в различных материалах, таких как металл, пластик и дерево. Перед покупкой калибр-кольца необходимо проверить его характеристики, такие как диапазон измерения, точность и материал изготовления, чтобы убедиться в его соответствии вашим потребностям.",
+      "category": "Инструменты",
+      "image": "assets/images/auto-1005013186843415.webp",
+      "original": "assets/originals/auto-1005013186843415.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3AaIrYd",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013186843415.html",
+      "sourceProductId": "1005013186843415",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013186843415.html",
+      "sourceTitle": "High Precision Ring Gauge Smooth Calibration Ring Gauge Calibration Ring Gauge Inner Diameter Smooth Surface Inspection Tool",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sb8931455a6a04289a97e873817e4dc5e8.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "MX",
+      "sourceTask": "ai_rare_surface",
+      "demo": false,
+      "theme": "coral",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Калибр-кольцо представляет собой инструмент для точного измерения внутреннего диаметра деталей. Он используется для проверки размеров и формы отверстий в различных материалах, таких как металл, пластик и дерево. Перед покупкой калибр-кольца необходимо проверить его характеристики, такие как диапазон измерения, точность и материал изготовления, чтобы убедиться в его соответствии вашим потребностям.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "presearchStatus": {
+        "checked": true,
+        "status": "ok",
+        "heading": "",
+        "saturated": false
+      },
+      "views": [
+        "assets/images/auto-1005013186843415-v2.webp",
+        "assets/images/auto-1005013186843415-v3.webp"
+      ],
+      "sourceImageSha256": "0db45ce8b66e7abf4bd938a1fc085dec9c082812f03a5a5e2d5efdb94a7ac966",
+      "sourcePixelSha256": "acd1c8a48f5b301e8c106b1c185b659de572f820ea97303005361402cb8c2b0d",
+      "imageDhash": "491c3c2d2d3a9c60",
+      "imageAhash": "ffcf9f87878fcfff",
+      "imageAspect": "1.00",
+      "sourceImageDhash": "b36f54d3d4663a84",
+      "sourceImageAhash": "01173f0f3f3f9fff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1254,
+        "fg_height": 1254,
+        "fg_max_side": 1254,
+        "fg_min_side": 1254,
+        "upscale_ratio": 1.0,
+        "sharpness": 7.215,
+        "fg_mean_luma": 202.09,
+        "fg_luma_std": 53.66,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      }
+    },
+    {
+      "id": "auto-1005005357943658",
+      "name": "Магнитный захватник",
+      "headline": [
+        "Упало что-то?",
+        "Достанем легко."
+      ],
+      "description": "Для извлечения предметов, притягивающихся магнитом. Сверьте размеры и заявленную грузоподъёмность у продавца, чтобы убедиться в правильном выборе инструмента. Этот магнитный захватник может быть полезен в различных ситуациях, когда необходимо достать предмет из труднодоступного места.",
+      "category": "Инструменты",
+      "image": "assets/images/auto-1005005357943658.webp",
+      "original": "assets/originals/auto-1005005357943658.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2zCYNpf",
+      "sourceUrl": "https://www.aliexpress.com/item/1005005357943658.html",
+      "sourceProductId": "1005005357943658",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005005357943658.html",
+      "sourceTitle": "Portable Telescopic Easy Magnetic Pick Up Rod Stick Capacity Magnet Pickup Pen Extending Strong Magnet Handheld Tool Handy Tools",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sfdc3cd8ce1904f0f9d1ba06ccb12850cj.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "BR",
+      "sourceTask": "magnetic_pickup",
+      "demo": false,
+      "theme": "lavender",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Для извлечения предметов, притягивающихся магнитом. Сверьте размеры и заявленную грузоподъёмность у продавца, чтобы убедиться в правильном выборе инструмента. Этот магнитный захватник может быть полезен в различных ситуациях, когда необходимо достать предмет из труднодоступного места.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "presearchStatus": {
+        "checked": true,
+        "status": "ok",
+        "heading": "",
+        "saturated": false
+      },
+      "views": [
+        "assets/images/auto-1005005357943658-v2.webp",
+        "assets/images/auto-1005005357943658-v3.webp"
+      ],
+      "sourceImageSha256": "1bc9c376268dd9059b2049c1e31e9764923dae9dd131d9a03da5466a812d79ce",
+      "sourcePixelSha256": "d2c3f048fcfa851d0543803af3ee7e1f8048341f15861f90b1a269f854c69f8f",
+      "imageDhash": "4020345b6432996d",
+      "imageAhash": "ff9fcfcff793c9ff",
+      "imageAspect": "1.00",
+      "sourceImageDhash": "0023331b65331965",
+      "sourceImageAhash": "ffb9d98df793c9ff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1254,
+        "fg_height": 1254,
+        "fg_max_side": 1254,
+        "fg_min_side": 1254,
+        "upscale_ratio": 1.0,
+        "sharpness": 6.595,
+        "fg_mean_luma": 217.19,
+        "fg_luma_std": 26.73,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      }
+    },
+    {
+      "id": "auto-1005004266671702",
+      "name": "Электромагнитный детектор",
+      "headline": [
+        "Измерение радиации",
+        "и температуры."
+      ],
+      "description": "Электромагнитный детектор предназначен для измерения радиации и температуры. Он может быть использован для проверки уровня радиации в различных средах, таких как дома, офисы и промышленные зоны. Перед покупкой рекомендуется проверить характеристики и условия использования детектора, чтобы đảmнить его эффективность и безопасность.",
       "category": "Техника",
-      "image": "assets/images/auto-1005012473764350.webp",
+      "image": "assets/images/auto-1005004266671702.webp",
+      "original": "assets/originals/auto-1005004266671702.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3XcYLlf",
+      "sourceUrl": "https://www.aliexpress.com/item/1005004266671702.html",
+      "sourceProductId": "1005004266671702",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005004266671702.html",
+      "sourceTitle": "Professional Digital Electromagnetic Field Radiation Tester Magnetic Electric Strength EMF Detector with Temperature Measurement",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/A40356448b1624ded87b9582670772c4fw.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "BR",
+      "sourceTask": "ai_rare_electromagnetic",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Электромагнитный детектор предназначен для измерения радиации и температуры. Он может быть использован для проверки уровня радиации в различных средах, таких как дома, офисы и промышленные зоны. Перед покупкой рекомендуется проверить характеристики и условия использования детектора, чтобы đảmнить его эффективность и безопасность.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "presearchStatus": {
+        "checked": true,
+        "status": "ok",
+        "heading": "",
+        "saturated": false
+      },
+      "views": [
+        "assets/images/auto-1005004266671702-v2.webp",
+        "assets/images/auto-1005004266671702-v3.webp"
+      ],
+      "sourceImageSha256": "1721d79dea235d88b6a2b326f61839712581057c2a7a2a3f8123c53184df913c",
+      "sourcePixelSha256": "c8ecdb03db19bdf17889c6e3b501947730d8c3489eaf09a1bcbc09013fe99df0",
+      "imageDhash": "8d8d8d8d8d8d8d8c",
+      "imageAhash": "e7c7c7c7c7c7c7ef",
+      "imageAspect": "1.00",
+      "sourceImageDhash": "9b8d8d8d8d8c8d89",
+      "sourceImageAhash": "e7c7c7c7c7c7c7ed",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1254,
+        "fg_height": 1254,
+        "fg_max_side": 1254,
+        "fg_min_side": 1254,
+        "upscale_ratio": 1.0,
+        "sharpness": 7.436,
+        "fg_mean_luma": 190.73,
+        "fg_luma_std": 69.63,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      }
+    },
+    {
+      "id": "auto-1005012473764350",
+      "name": "Электрофорная машина Уимсхёрста для опытов",
+      "headline": [
+        "Два встречных диска,",
+        "наглядный разряд."
+      ],
+      "description": "Демонстрационный электростатический генератор Уимсхёрста с двумя соосными прозрачными дисками, радиальными алюминиевыми секторами и парой лейденских банок для накопления высокого потенциала. При вращении рукоятки ремённый привод раскручивает диски в противоположных направлениях, а токосъёмные щётки и разрядные шаровые кондукторы позволяют наглядно демонстрировать электростатическую индукцию, коронное свечение и искровой пробой воздуха на уроках физики и в домашней лаборатории. Перед заказом сверьте диаметр дисков, материал станины и комплектацию запасных ремней у продавца.",
+      "category": "Техника",
+      "image": "assets/images/auto-1005012473764350-studio-20261118.webp",
       "original": "assets/originals/auto-1005012473764350.webp",
       "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4PtSWCv",
@@ -46,8 +250,8 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005012473764350-v2.webp",
-        "assets/images/auto-1005012473764350-v3.webp"
+        "assets/images/auto-1005012473764350-studio-20261118-v2.webp",
+        "assets/images/auto-1005012473764350-studio-20261118-v3.webp"
       ],
       "sourceImageSha256": "b8729ff99323f346ba9d54bfb5720fc283a2cca178e70ce272202178680a08c0",
       "sourcePixelSha256": "a63b82e921b28d59d436d455dcf301915a9a832ec0266ad9b126f989bffa914d",
@@ -74,14 +278,14 @@ window.MIRA_CATALOG = {
     },
     {
       "id": "auto-1005012569530905",
-      "name": "Поддон для разморозки",
+      "name": "Алюминиевый поддон для быстрой разморозки",
       "headline": [
-        "Ускоренная разморозка,",
-        "без микроволновки."
+        "Теплопроводный металл,",
+        "оттаивание без СВЧ."
       ],
-      "description": "Алюминиевый поддон для быстрой и равномерной разморозки мяса, рыбы и других продуктов при комнатной температуре, без потребления энергии.",
+      "description": "Рифлёная кухонная плита из теплопроводного алюминиевого сплава ускоряет естественную разморозку стейков, птицы, рыбного филе и полуфабрикатов при комнатной температуре без микроволновки, горячей воды и подключения к сети. Продольные дренажные канавки увеличивают площадь теплообмена с воздухом и отводят талую жидкость от продукта, сохраняя плотную текстуру волокон и естественную сочность мяса без подваривания краёв. Перед покупкой уточните точные габариты пластины, её толщину и наличие силиконовых уголков в выбранной опции.",
       "category": "Кухня",
-      "image": "assets/images/auto-1005012569530905.webp",
+      "image": "assets/images/auto-1005012569530905-studio-20261118.webp",
       "original": "assets/originals/auto-1005012569530905.webp",
       "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2RpvHZX",
@@ -114,8 +318,8 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005012569530905-v2.webp",
-        "assets/images/auto-1005012569530905-v3.webp"
+        "assets/images/auto-1005012569530905-studio-20261118-v2.webp",
+        "assets/images/auto-1005012569530905-studio-20261118-v3.webp"
       ],
       "sourceImageSha256": "8dbeb1a72e7f5a65fc61ed81c30f3fd9e993ec800d9c52d3111dc0d7a57eac6b",
       "sourcePixelSha256": "ad866f6200adcfa47c73ad6db4f5dc905f0f970c80562a56da6a84e824cad1fc",
@@ -142,14 +346,14 @@ window.MIRA_CATALOG = {
     },
     {
       "id": "auto-1005013037089570",
-      "name": "Портативный плазменный резак",
+      "name": "Инверторный аппарат воздушно-плазменной резки",
       "headline": [
-        "Профессиональный инструмент",
-        "для резки металла."
+        "Сжатая плазма,",
+        "чистый раскрой стали."
       ],
-      "description": "Позволяет выполнять качественную резку металлических деталей с высокой точностью и скоростью.",
+      "description": "Компактный переносной инвертор воздушно-плазменной резки серии CUT с плавной регулировкой рабочего тока и времени продувки воздуха предназначен для фигурного и прямолинейного раскроя углеродистой и нержавеющей стали, алюминия, меди и сплавов. Высокотемпературная плазменная дуга в потоке сжатого воздуха от внешнего компрессора прорезает листовой металл с узким резом и минимальной зоной термической деформации. До оформления заказа обязательно проверьте требуемое напряжение сети, рабочее давление компрессора, максимальную толщину реза и наличие рукава плазмотрона с клеммой массы в комплекте.",
       "category": "Инструменты",
-      "image": "assets/images/auto-1005013037089570.webp",
+      "image": "assets/images/auto-1005013037089570-studio-20261118.webp",
       "original": "assets/originals/auto-1005013037089570.webp",
       "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c4bF4fCH",
@@ -182,8 +386,8 @@ window.MIRA_CATALOG = {
         "saturated": false
       },
       "views": [
-        "assets/images/auto-1005013037089570-v2.webp",
-        "assets/images/auto-1005013037089570-v3.webp"
+        "assets/images/auto-1005013037089570-studio-20261118-v2.webp",
+        "assets/images/auto-1005013037089570-studio-20261118-v3.webp"
       ],
       "sourceImageSha256": "fd32eba24d4b252183fb426cc5c6961364fce404f89fc2f3b5bbe75d7d9bfb83",
       "sourcePixelSha256": "287e01422da09d730ccd9566f37bcab8efe0d3da6e8f2925e4d8ec86fa577c36",
@@ -344,12 +548,12 @@ window.MIRA_CATALOG = {
     },
     {
       "id": "auto-1005012367265501",
-      "name": "Профильный шаблон",
+      "name": "Контурный шаблон-дубликатор профиля с фиксатором",
       "headline": [
-        "Создайте слепок,",
-        "ровный край."
+        "Точный слепок изгиба,",
+        "фиксация одним рычагом."
       ],
-      "description": "Шаблон с набором пластин для переноса сложных изгибов на различные материалы, оснащен рычажной блокировкой формы, что позволяет точно повторить контур.",
+      "description": "Разметочный контурный калибр с плотным рядом подвижных пластиковых ламелей и прижимным замком копирует сложный профиль труб отопления, дверных наличников, порогов и угловых выступов для аккуратной подрезки ламината, керамической плитки, линолеума и ковролина. После прижатия к криволинейной детали фиксатор удерживает снятый контур без смещения ламелей при переносе линии реза карандашом на заготовку. Перед заказом проверьте рабочую длину гребёнки, глубину хода зубьев и тип зажимного механизма у продавца.",
       "category": "Инструменты",
       "image": "assets/images/auto-1005012367265501-chatgpt-20261115.webp",
       "original": "assets/originals/auto-1005012367265501-supplier-20261115.jpg",

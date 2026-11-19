@@ -982,13 +982,18 @@ def _generate_cf_slot_view(
     perceptual_index=None,
     kept=(),
 ):
-    """Generate and validate one studio view via Cloudflare Workers AI directly on the product's world background."""
+    """Generate and validate one transparent RGBA studio cutout via Cloudflare Workers AI."""
     from PIL import Image
 
     direct_bg = os.environ.get('FLUXIXO_DIRECT_STUDIO_BG', '').strip().lower() in ('1', 'true', 'yes')
     # Slot 0 (hero) and Slot 2 (active effect) use FLUX.2 Klein 9B; Slot 1 (45° side angle) uses FLUX.2 Klein 4B (~115 Neurons)
     slot_model = '@cf/black-forest-labs/flux-2-klein-4b' if slot_idx == 1 else None
-    effective_bg = target_bg or image_studio.resolve_world_background(category) or '#F3F0E9'
+    # Transparent RGBA cutout mode generates on neutral pure #FFFFFF to eliminate bright category color casts
+    # and ensure clean alpha extraction; only explicit direct_bg opt-in uses a category world backdrop.
+    if direct_bg:
+        effective_bg = target_bg or image_studio.resolve_world_background(category) or '#F3F0E9'
+    else:
+        effective_bg = '#FFFFFF'
 
     for angle in angle_choices:
         try:
@@ -1002,8 +1007,7 @@ def _generate_cf_slot_view(
             }
             if slot_model:
                 gen_kwargs['model'] = slot_model
-            if direct_bg:
-                gen_kwargs['cutout_alpha'] = False
+            gen_kwargs['cutout_alpha'] = not direct_bg
             try:
                 canvas = image_studio.generate_studio_cutout(title, **gen_kwargs)
             except TypeError:
