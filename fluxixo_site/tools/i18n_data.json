@@ -6483,6 +6483,132 @@
         ],
         "description": "רתכת-חותכת פלזמה אינוורטר ניידת מסדרת CUT עם וסתים לכיוון זרם החיתוך וזמן קירור האוויר לחיתוך מדויק של פלדת פחמן, נירוסטה, אלומיניום ונחושת. פועלת בשילוב מדחס אוויר חיצוני ליצירת סילון פלזמה ממוקד עם חריץ חיתוך צר ועיוות חום מזערי; לפני ההזמנה ודאו את מתח הרשת הנדרש, עובי החיתוך המרבי והאם ידית הפלזמה וכבל ההארקה כלולים בערכה."
       }
+    },
+    "auto-1005013186843415": {
+      "en": {
+        "name": "Ring Gauge",
+        "headline": [
+          "Precision measurement",
+          "for workshop"
+        ],
+        "description": "A ring gauge is a tool used for precise measurement of the internal diameter of parts. It is utilized to check the size and shape of holes in various materials, such as metal, plastic, and wood. Before purchasing a ring gauge, it is essential to verify its specifications, including the measurement range, accuracy, and material, to ensure it meets your requirements."
+      },
+      "pt": {
+        "name": "Calibrador de Anel",
+        "headline": [
+          "Medição precisa",
+          "para oficina"
+        ],
+        "description": "O calibrador de anel é uma ferramenta utilizada para medir com precisão o diâmetro interno de peças. Ele é usado para verificar o tamanho e a forma de furos em materiais variados, como metal, plástico e madeira. Antes de comprar um calibrador de anel, é fundamental verificar suas especificações, incluindo a faixa de medição, precisão e material, para garantir que atenda às suas necessidades."
+      },
+      "es": {
+        "name": "Calibrador de Anillo",
+        "headline": [
+          "Medición precisa",
+          "para taller"
+        ],
+        "description": "El calibrador de anillo es una herramienta utilizada para medir con precisión el diámetro interno de piezas. Se utiliza para verificar el tamaño y la forma de agujeros en materiales variados, como metal, plástico y madera. Antes de comprar un calibrador de anillo, es fundamental verificar sus especificaciones, incluyendo la gama de medición, precisión y material, para asegurarse de que cumpla con sus necesidades."
+      },
+      "fr": {
+        "name": "Calibre à Anneau",
+        "headline": [
+          "Mesure précise",
+          "pour atelier"
+        ],
+        "description": "Le calibre à anneau est un outil utilisé pour mesurer avec précision le diamètre interne des pièces. Il est utilisé pour vérifier la taille et la forme des trous dans divers matériaux, tels que le métal, le plastique et le bois. Avant d'acheter un calibre à anneau, il est essentiel de vérifier ses spécifications, y compris la plage de mesure, la précision et le matériau, pour vous assurer qu'il répond à vos besoins."
+      },
+      "he": {
+        "name": "מד קוטר",
+        "headline": [
+          "מדידה מדויקת",
+          "לסדנה"
+        ],
+        "description": "מד קוטר הוא כלי המשמש למדידה מדויקת של קוטר פנימי של חלקים. הוא משמש לבדיקת גודל וצורה של חורים בחומרים שונים, כגון מתכת, פלסטיק ועץ. לפני רכישת מד קוטר, יש לבדוק את המפרטים שלו, כולל טווח המדידה, דיוק וחומר, כדי לוודא שהוא עונה על צורכיכם."
+      }
+    },
+    "auto-1005005357943658": {
+      "en": {
+        "name": "Magnetic pickup tool",
+        "headline": [
+          "Dropped something?",
+          "Pick it up easily."
+        ],
+        "description": "For picking up objects attracted to a magnet. Check the size and stated lifting capacity with the seller to ensure you're getting the right tool for the job. This magnetic pickup tool can be handy in various situations where you need to retrieve an item from a hard-to-reach place."
+      },
+      "pt": {
+        "name": "Pegador magnético portátil",
+        "headline": [
+          "Caiu algo?",
+          "Pegue fácil."
+        ],
+        "description": "Para recolher objetos atraídos por ímã. Confira as dimensões e a capacidade de carga informada pelo vendedor para garantir a escolha correta do instrumento. Este pegador magnético pode ser útil em várias situações, quando for necessário pegar um objeto de um local de difícil acesso."
+      },
+      "es": {
+        "name": "Recogedor magnético",
+        "headline": [
+          "¿Se te cayó algo?",
+          "Recógelo fácilmente."
+        ],
+        "description": "Para recoger objetos atraídos por un imán. Consulta las dimensiones y la capacidad de carga indicada por el vendedor para asegurarte de elegir el instrumento adecuado. Este recogedor magnético puede ser útil en diversas situaciones, cuando necesites recuperar un objeto de un lugar de difícil acceso."
+      },
+      "fr": {
+        "name": "Outil de ramassage magnétique",
+        "headline": [
+          "Tombe quelque chose ?",
+          "Récupérez-le facilement."
+        ],
+        "description": "Pour ramasser les objets attirés par un aimant. Vérifiez les dimensions et la capacité de levage indiquées par le vendeur pour vous assurer de choisir l'outil approprié. Cet outil de ramassage magnétique peut être utile dans diverses situations, lorsque vous devez récupérer un objet dans un endroit difficile d'accès."
+      },
+      "he": {
+        "name": "כלי איסוף מגנטי",
+        "headline": [
+          "נפל לך משהו?",
+          "תאסף בקלות."
+        ],
+        "description": "לאיסוף פריטים הנמשכים למגנט. בדקו את המידות ואת כושר ההרמה המוצהר אצל המוכר, כדי לוודא בחירת כלי המתאים. כלי איסוף מגנטי זה יכול להיות שימושי במצבים שונים, כאשר יש צורך לאסוף פריט ממקום קשה לגישה."
+      }
+    },
+    "auto-1005004266671702": {
+      "en": {
+        "name": "EMF Detector",
+        "headline": [
+          "Measure radiation",
+          "and temperature."
+        ],
+        "description": "The EMF detector is designed to measure radiation and temperature levels. It can be used to check radiation levels in various environments, such as homes, offices, and industrial areas. Before purchasing, it is recommended to check the specifications and usage conditions of the detector to ensure its effectiveness and safety."
+      },
+      "pt": {
+        "name": "Detector EMF",
+        "headline": [
+          "Medir radiação",
+          "e temperatura."
+        ],
+        "description": "O detector EMF é projetado para medir níveis de radiação e temperatura. Ele pode ser usado para verificar níveis de radiação em ambientes variados, como residências, escritórios e áreas industriais. Antes de comprar, é recomendado verificar as especificações e condições de uso do detector para garantir sua eficácia e segurança."
+      },
+      "es": {
+        "name": "Detector EMF",
+        "headline": [
+          "Medir radiación",
+          "y temperatura."
+        ],
+        "description": "El detector EMF está diseñado para medir niveles de radiación y temperatura. Puede ser utilizado para comprobar niveles de radiación en entornos variados, como hogares, oficinas y zonas industriales. Antes de comprar, se recomienda verificar las especificaciones y condiciones de uso del detector para garantizar su eficacia y seguridad."
+      },
+      "fr": {
+        "name": "Détecteur EMF",
+        "headline": [
+          "Mesurer radiation",
+          "et température."
+        ],
+        "description": "Le détecteur EMF est conçu pour mesurer les niveaux de radiation et de température. Il peut être utilisé pour vérifier les niveaux de radiation dans différents environnements, tels que les maisons, les bureaux et les zones industrielles. Avant de procéder à l’achat, il est recommandé de vérifier les spécifications et les conditions d’utilisation du détecteur pour en assurer l’efficacité et la sécurité."
+      },
+      "he": {
+        "name": "מגלה EMF",
+        "headline": [
+          "למדוד קרינה",
+          "וטמפרטורה."
+        ],
+        "description": "מגלה ה-EMF מיועד למדוד רמות קרינה וטמפרטורה. הוא יכול לשמש לבדיקת רמות קרינה בסביבות שונות, כגון בתים, משרדים ואזורים תעשייתיים. לפני הרכישה, מומלץ לבדוק את המפרט הטכני ותנאי השימוש של המגלה, כדי להבטיח את יעילותו ובטיחותו."
+      }
     }
   }
 }

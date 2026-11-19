@@ -95,6 +95,23 @@
         "product_id": "1005013037089570",
         "source": "api"
       }
+    ],
+    "2026-11-19": [
+      {
+        "catalog_id": "auto-1005013186843415",
+        "product_id": "1005013186843415",
+        "source": "api"
+      },
+      {
+        "catalog_id": "auto-1005005357943658",
+        "product_id": "1005005357943658",
+        "source": "api"
+      },
+      {
+        "catalog_id": "auto-1005004266671702",
+        "product_id": "1005004266671702",
+        "source": "api"
+      }
     ]
   },
   "validation_runs": {
