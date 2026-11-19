@@ -296,19 +296,22 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                     reject_placeholders=True,
                 ):
                     if hasattr(ai_seo, 'enrich_ru_long_copy'):
-                        try:
-                            long_entry, _ = ai_seo.enrich_ru_long_copy(
-                                {
-                                    'category': record_item.get('category', ''),
-                                    'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
-                                },
-                                {'ru': enriched['ru'], 'en': enriched.get('en', {})},
-                                keys=keys,
-                            )
-                            if long_entry:
-                                cand_record['_ru_long'] = long_entry
-                        except Exception:
-                            pass
+                        for _lc_attempt in range(2):
+                            try:
+                                long_entry, lc_provider = ai_seo.enrich_ru_long_copy(
+                                    {
+                                        'category': record_item.get('category', ''),
+                                        'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
+                                    },
+                                    {'ru': enriched['ru'], 'en': enriched.get('en', {})},
+                                    keys=keys,
+                                )
+                                if long_entry:
+                                    cand_record['_ru_long'] = long_entry
+                                    break
+                                print(f'ru_long_copy empty ({record_item.get("id")}, attempt {_lc_attempt + 1}, {lc_provider})')
+                            except Exception as lc_exc:
+                                print(f'ru_long_copy warning ({record_item.get("id")}, attempt {_lc_attempt + 1}): {lc_exc}')
                     return cand_record, cand_trans
         except Exception:
             pass

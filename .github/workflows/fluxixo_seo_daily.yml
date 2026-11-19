@@ -23,6 +23,7 @@ jobs:
     timeout-minutes: 15
     env:
       PYTHONDONTWRITEBYTECODE: '1'
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
       FLUXIXO_CF_TEXT_MODEL: ${{ vars.FLUXIXO_CF_TEXT_MODEL || '@cf/meta/llama-3.3-70b-instruct-fp8-fast' }}
       FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}
       CLOUDFLARE_AUTOPILOT_URL: https://fluxixo-autopilot.sayros2601.workers.dev
@@ -81,7 +82,7 @@ jobs:
           else
             AUTH_HEADER="X-Fluxixo-Source: github-actions"
           fi
-          PAYLOAD="{\"source\":\"github-actions\",\"workflow\":\"fluxixo_seo_daily\",\"project\":\"dealvault\",\"site\":\"https://www.fluxixo.shop\",\"brandColor\":\"#e4007c\",\"sha\":\"$GITHUB_SHA\"}"
+          PAYLOAD="{\"source\":\"github-actions\",\"workflow\":\"fluxixo_seo_daily\",\"project\":\"dealvault\",\"site\":\"https://www.fluxixo.shop\",\"brandColor\":\"#e4007c\",\"skip_indexnow\":true,\"sha\":\"$GITHUB_SHA\"}"
           curl -fsS --max-time 15 -X POST "$TARGET_URL" \
             -H "Content-Type: application/json" \
             -H "$AUTH_HEADER" \

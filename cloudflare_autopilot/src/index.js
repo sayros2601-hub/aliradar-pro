@@ -209,7 +209,7 @@ async function queryStatusPayload(env) {
     default_image_model: env.DEFAULT_IMAGE_MODEL || "@cf/black-forest-labs/flux-2-klein-9b",
     fallback_image_model: env.FALLBACK_IMAGE_MODEL || "@cf/black-forest-labs/flux-2-klein-4b",
     default_text_model: env.DEFAULT_TEXT_MODEL || "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
-    default_vision_model: env.DEFAULT_VISION_MODEL || "@cf/qwen/qwen3.8-27b",
+    default_vision_model: env.DEFAULT_VISION_MODEL || "@cf/meta/llama-4-scout-17b-16e-instruct",
     now_utc: now.toISOString(),
     published_day: publishedDay || null,
     countdown,
@@ -792,6 +792,8 @@ function validateAndSanitizeWorkerCopy(rawText, jsonOutput) {
   if (localeKeys.every((k) => parsed[k] && typeof parsed[k] === "object")) {
     const cyrRe = /[А-Яа-яЁё]/;
     const hebRe = /[א-ת]/;
+    const mixedRe = /(?:[A-Za-zÀ-ÿ\u0100-\u024F\u1E00-\u1EFF][А-Яа-яЁё])|(?:[А-Яа-яЁё][A-Za-zÀ-ÿ\u0100-\u024F\u1E00-\u1EFF])/;
+    const foreignDiacRe = /[\u0110\u0111\u1E00-\u1EFF]/;
     for (const lang of localeKeys) {
       const entry = parsed[lang];
       const name = String(entry.name || "").trim();
@@ -805,6 +807,9 @@ function validateAndSanitizeWorkerCopy(rawText, jsonOutput) {
       }
       if (/Quick buyer questions|Частые вопросы перед покупкой|product-faq/i.test(full)) {
         return { ok: false, error: `${lang}: forbidden FAQ boilerplate` };
+      }
+      if (mixedRe.test(full) || foreignDiacRe.test(full)) {
+        return { ok: false, error: `${lang}: mixed-script or foreign diacritic artifact` };
       }
       if (lang === "ru") {
         if (!cyrRe.test(full) || hebRe.test(full)) {
@@ -1137,7 +1142,10 @@ async function fetchJsonSafe(url, headers = {}) {
       },
       signal: AbortSignal.timeout(8000),
     });
-    if (!resp.ok) return { ok: false, status: resp.status };
+    if (!resp.ok) {
+      const errText = await resp.text().catch(() => "");
+      return { ok: false, status: resp.status, error_preview: errText.slice(0, 200) };
+    }
     return { ok: true, status: resp.status, data: await resp.json() };
   } catch (err) {
     return { ok: false, error: err instanceof Error ? err.message : String(err) };
@@ -1181,44 +1189,105 @@ async function submitIndexNowBatch(endpoint, host, key, keyLocation, urls) {
   };
 }
 
-async function getPreviousFingerprint(env, engine) {
-  const row = await env.DB.prepare(
-    "SELECT payload_json, status, run_at FROM seo_telemetry WHERE engine = ? AND status IN ('accepted', 'key_validation_pending', 'unchanged') ORDER BY id DESC LIMIT 1"
-  )
-    .bind(engine)
-    .first();
-  if (!row) return null;
-  try {
-    const parsed = JSON.parse(row.payload_json);
-    return parsed?.fingerprint || null;
-  } catch {
-    return null;
+async function getPreviousSyncMeta(env, engine) {
+  const [okRow, rateRow] = await Promise.all([
+    env.DB.prepare(
+      "SELECT payload_json, status, run_at FROM seo_telemetry WHERE engine = ? AND status IN ('accepted', 'key_validation_pending', 'unchanged') ORDER BY id DESC LIMIT 1"
+    )
+      .bind(engine)
+      .first(),
+    env.DB.prepare(
+      "SELECT run_at FROM seo_telemetry WHERE engine = ? AND status = 'rate_limited' ORDER BY id DESC LIMIT 1"
+    )
+      .bind(engine)
+      .first(),
+  ]);
+  let fingerprint = null;
+  let lastAcceptedAt = null;
+  if (okRow) {
+    lastAcceptedAt = okRow.run_at || null;
+    try {
+      const parsed = JSON.parse(okRow.payload_json);
+      fingerprint = parsed?.fingerprint || null;
+    } catch {
+      fingerprint = null;
+    }
   }
+  return {
+    fingerprint,
+    lastAcceptedAt,
+    lastRateLimitedAt: rateRow?.run_at || null,
+  };
 }
 
-async function fetchExternalIndexedCounts(env, siteOrigin) {
+function selectChangedIndexNowUrls(entries, { lastAcceptedAt = null, maxUrls = 50 } = {}) {
+  const nowMs = Date.now();
+  const fallbackCutoffMs = nowMs - 48 * 3600 * 1000;
+  const parsedLastMs = lastAcceptedAt ? Date.parse(lastAcceptedAt) : NaN;
+  const cutoffMs = Number.isFinite(parsedLastMs) ? Math.max(parsedLastMs - 10 * 60 * 1000, nowMs - 7 * 86400 * 1000) : fallbackCutoffMs;
+
+  const scored = [];
+  for (const entry of entries) {
+    const modMs = entry.lastmod ? Date.parse(entry.lastmod) : NaN;
+    if (Number.isFinite(modMs) && modMs >= cutoffMs) {
+      scored.push({ url: entry.url, modMs });
+    }
+  }
+  scored.sort((a, b) => b.modMs - a.modMs);
+  if (scored.length > 0) {
+    return scored.slice(0, maxUrls).map((x) => x.url);
+  }
+  // If no explicit recent lastmod matched (e.g. first run), send only the top freshly updated subset.
+  const byMod = entries
+    .map((e) => ({ url: e.url, modMs: e.lastmod ? Date.parse(e.lastmod) || 0 : 0 }))
+    .sort((a, b) => b.modMs - a.modMs);
+  return byMod.slice(0, Math.min(25, maxUrls)).map((x) => x.url);
+}
+
+async function fetchExternalIndexedCounts(env, siteOrigin, { skipBingApi = false } = {}) {
   const result = {
     bing_quota: null,
     bing_status: null,
+    bing_error: null,
+    bing_in_index: 0,
+    bing_crawled_latest: null,
     yandex_searchable: null,
     yandex_status: null,
   };
-  if (env.BING_WEBMASTER_API_KEY) {
+  const bingKey = String(env.BING_WEBMASTER_API_KEY || "").trim();
+  if (bingKey && !skipBingApi) {
     const siteParam = encodeURIComponent(`${siteOrigin}/`);
-    const keyParam = encodeURIComponent(env.BING_WEBMASTER_API_KEY);
+    const keyParam = encodeURIComponent(bingKey);
+    // Call Bing Webmaster API sequentially (never in parallel) to respect Bing's strict ThrottleUser rate limit.
     const bingRes = await fetchJsonSafe(
       `https://ssl.bing.com/webmaster/api.svc/json/GetUrlSubmissionQuota?apikey=${keyParam}&siteUrl=${siteParam}`
     );
     result.bing_status = bingRes.status || (bingRes.ok ? 200 : "fetch_error");
+    if (!bingRes.ok && bingRes.error_preview) {
+      result.bing_error = bingRes.error_preview;
+    }
     if (bingRes.ok && bingRes.data?.d) {
       result.bing_quota = {
         daily_quota: bingRes.data.d.DailyQuota ?? null,
         monthly_quota: bingRes.data.d.MonthlyQuota ?? null,
       };
+      // Only fetch crawl stats after quota succeeds and after a polite pause so Bing never triggers ThrottleUser.
+      await new Promise((r) => setTimeout(r, 1200));
+      const crawlRes = await fetchJsonSafe(
+        `https://ssl.bing.com/webmaster/api.svc/json/GetCrawlStats?apikey=${keyParam}&siteUrl=${siteParam}`
+      );
+      if (crawlRes.ok && Array.isArray(crawlRes.data?.d) && crawlRes.data.d.length) {
+        const latest = crawlRes.data.d[crawlRes.data.d.length - 1];
+        result.bing_in_index = Number(latest?.InIndex || 0);
+        result.bing_crawled_latest = Number(latest?.CrawledPages || 0);
+      }
     }
+  } else if (skipBingApi) {
+    result.bing_status = "delegated_to_seo_daily";
   }
-  if (env.YANDEX_WEBMASTER_TOKEN) {
-    const auth = { Authorization: `OAuth ${env.YANDEX_WEBMASTER_TOKEN}` };
+  const yandexToken = String(env.YANDEX_WEBMASTER_TOKEN || "").trim();
+  if (yandexToken) {
+    const auth = { Authorization: `OAuth ${yandexToken}` };
     const userRes = await fetchJsonSafe("https://api.webmaster.yandex.net/v4/user", auth);
     result.yandex_status = userRes.status || (userRes.ok ? 200 : "fetch_error");
     const userId = userRes.ok ? userRes.data?.user_id : null;
@@ -1250,7 +1319,7 @@ async function fetchExternalIndexedCounts(env, siteOrigin) {
   return result;
 }
 
-async function runSeoSync(env, { source = "api", force = false } = {}) {
+async function runSeoSync(env, { source = "api", force = false, skipIndexNow = false } = {}) {
   const siteOrigin = env.SITE_ORIGIN || "https://www.fluxixo.shop";
   const host = new URL(siteOrigin).host;
   const key = env.INDEXNOW_KEY || "";
@@ -1264,7 +1333,7 @@ async function runSeoSync(env, { source = "api", force = false } = {}) {
     fetchText(`${siteOrigin}/sitemap.xml`),
     fetchText(`${siteOrigin}/sitemap-ru.xml`),
     fetchText(keyLocation).catch(() => ""),
-    fetchExternalIndexedCounts(env, siteOrigin),
+    fetchExternalIndexedCounts(env, siteOrigin, { skipBingApi: skipIndexNow }),
   ]);
 
   const keyVerified = keyCheckText.trim() === key;
@@ -1280,33 +1349,66 @@ async function runSeoSync(env, { source = "api", force = false } = {}) {
     ruEntries.map((e) => `${e.url}|${e.lastmod}`).join("\n")
   );
 
-  const [prevGlobalFp, prevRuFp] = await Promise.all([
-    getPreviousFingerprint(env, "indexnow_global"),
-    getPreviousFingerprint(env, "indexnow_yandex"),
+  const [prevGlobal, prevRu] = await Promise.all([
+    getPreviousSyncMeta(env, "indexnow_global"),
+    getPreviousSyncMeta(env, "indexnow_yandex"),
   ]);
 
+  const cooldownMs = 6 * 3600 * 1000;
+  const nowMs = Date.now();
+  const globalRateLimitedRecently =
+    !force &&
+    prevGlobal.lastRateLimitedAt &&
+    nowMs - Date.parse(prevGlobal.lastRateLimitedAt) < cooldownMs;
+  const ruRateLimitedRecently =
+    !force &&
+    prevRu.lastRateLimitedAt &&
+    nowMs - Date.parse(prevRu.lastRateLimitedAt) < cooldownMs;
+
   let globalResult;
-  if (!force && prevGlobalFp && prevGlobalFp === globalFingerprint) {
+  if (skipIndexNow || (!force && prevGlobal.fingerprint && prevGlobal.fingerprint === globalFingerprint)) {
     globalResult = {
       engine: "indexnow_global",
       endpoint: "https://api.indexnow.org/indexnow",
-      status: "unchanged",
+      status: skipIndexNow ? "telemetry_only" : "unchanged",
       total_urls: globalUrls.length,
       submitted_count: 0,
-      indexed_count: 0,
+      indexed_count: Number(externalStats.bing_in_index || 0),
       fingerprint: globalFingerprint,
       key_verified: keyVerified,
       source,
       bing_status: externalStats.bing_status,
+      bing_error: externalStats.bing_error || null,
       bing_quota: externalStats.bing_quota,
+      bing_crawled_latest: externalStats.bing_crawled_latest,
+    };
+  } else if (globalRateLimitedRecently) {
+    globalResult = {
+      engine: "indexnow_global",
+      endpoint: "https://api.indexnow.org/indexnow",
+      status: "cooldown_skip",
+      total_urls: globalUrls.length,
+      submitted_count: 0,
+      indexed_count: Number(externalStats.bing_in_index || 0),
+      fingerprint: globalFingerprint,
+      key_verified: keyVerified,
+      source,
+      bing_status: externalStats.bing_status,
+      bing_error: externalStats.bing_error || null,
+      bing_quota: externalStats.bing_quota,
+      bing_crawled_latest: externalStats.bing_crawled_latest,
     };
   } else {
+    const changedGlobalUrls = selectChangedIndexNowUrls(globalEntries, {
+      lastAcceptedAt: prevGlobal.lastAcceptedAt,
+      maxUrls: 50,
+    });
     const res = await submitIndexNowBatch(
       "https://api.indexnow.org/indexnow",
       host,
       key,
       keyLocation,
-      globalUrls
+      changedGlobalUrls
     );
     globalResult = {
       engine: "indexnow_global",
@@ -1314,22 +1416,37 @@ async function runSeoSync(env, { source = "api", force = false } = {}) {
       status: res.status,
       total_urls: globalUrls.length,
       submitted_count: res.submitted_count,
-      indexed_count: 0,
+      indexed_count: Number(externalStats.bing_in_index || 0),
       batches: res.batches,
       fingerprint: globalFingerprint,
       key_verified: keyVerified,
       source,
       bing_status: externalStats.bing_status,
+      bing_error: externalStats.bing_error || null,
       bing_quota: externalStats.bing_quota,
+      bing_crawled_latest: externalStats.bing_crawled_latest,
     };
   }
 
   let yandexResult;
-  if (!force && prevRuFp && prevRuFp === ruFingerprint) {
+  if (skipIndexNow || (!force && prevRu.fingerprint && prevRu.fingerprint === ruFingerprint)) {
     yandexResult = {
       engine: "indexnow_yandex",
       endpoint: "https://yandex.com/indexnow",
-      status: "unchanged",
+      status: skipIndexNow ? "telemetry_only" : "unchanged",
+      total_urls: ruUrls.length,
+      submitted_count: 0,
+      indexed_count: Number(externalStats.yandex_searchable || 0),
+      fingerprint: ruFingerprint,
+      key_verified: keyVerified,
+      source,
+      yandex_status: externalStats.yandex_status,
+    };
+  } else if (ruRateLimitedRecently) {
+    yandexResult = {
+      engine: "indexnow_yandex",
+      endpoint: "https://yandex.com/indexnow",
+      status: "cooldown_skip",
       total_urls: ruUrls.length,
       submitted_count: 0,
       indexed_count: Number(externalStats.yandex_searchable || 0),
@@ -1339,12 +1456,16 @@ async function runSeoSync(env, { source = "api", force = false } = {}) {
       yandex_status: externalStats.yandex_status,
     };
   } else {
+    const changedRuUrls = selectChangedIndexNowUrls(ruEntries, {
+      lastAcceptedAt: prevRu.lastAcceptedAt,
+      maxUrls: 50,
+    });
     const res = await submitIndexNowBatch(
       "https://yandex.com/indexnow",
       host,
       key,
       keyLocation,
-      ruUrls
+      changedRuUrls
     );
     yandexResult = {
       engine: "indexnow_yandex",
@@ -1400,18 +1521,20 @@ async function runSeoSync(env, { source = "api", force = false } = {}) {
 
 async function handleSeoSync(request, env, url) {
   let force = url.searchParams.get("force") === "1";
+  let skipIndexNow = url.searchParams.get("skip_indexnow") === "1";
   try {
     const text = await request.text();
     if (text.trim()) {
       const body = JSON.parse(text);
       if (body && body.force === true) force = true;
+      if (body && body.skip_indexnow === true) skipIndexNow = true;
     }
   } catch {
     // Empty or non-JSON body falls back to query param.
   }
 
   try {
-    const report = await runSeoSync(env, { source: "api", force });
+    const report = await runSeoSync(env, { source: "api", force, skipIndexNow });
     return jsonResponse(report, report.ok ? 200 : 502);
   } catch (err) {
     const runAt = new Date().toISOString();

@@ -128,6 +128,21 @@ class DailyScheduleTests(unittest.TestCase):
         with self.assertRaises(schedule.ScheduleError):
             schedule.reserve(self.ledger, reserved, DAY, 3, now=NOW)
 
+    def test_stale_interrupted_prepare_auto_recovers_after_45_minutes_up_to_cap(self):
+        reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
+        retry1 = schedule.plan(self.ledger, reserved, now=NOW + timedelta(minutes=50))
+        self.assertEqual((False, 3, 'prepare', 'retry_interrupted_prepare'),
+                         (retry1['skip'], retry1['add_count'], retry1['action'], retry1['reason']))
+        reserved2 = schedule.reserve(self.ledger, reserved, DAY, 3, now=NOW + timedelta(minutes=50))
+        self.assertEqual(1, reserved2['days'][DAY]['retries'])
+        retry2 = schedule.plan(self.ledger, reserved2, now=NOW + timedelta(minutes=110))
+        self.assertEqual((False, 3, 'prepare', 'retry_interrupted_prepare'),
+                         (retry2['skip'], retry2['add_count'], retry2['action'], retry2['reason']))
+        reserved3 = schedule.reserve(self.ledger, reserved2, DAY, 3, now=NOW + timedelta(minutes=110))
+        self.assertEqual(2, reserved3['days'][DAY]['retries'])
+        exhausted = schedule.plan(self.ledger, reserved3, now=NOW + timedelta(minutes=180))
+        self.assertEqual((True, 0, 'interrupted_prepare'), (exhausted['skip'], exhausted['add_count'], exhausted['reason']))
+
     def test_committed_catalog_recovers_even_before_prepared_marker_was_saved(self):
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
         ledger = added(self.ledger, 3)

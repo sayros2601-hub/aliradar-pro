@@ -15,7 +15,8 @@ exclude={'editor.html','js/editor.js','css/editor.css'}
 for file in SOURCE.rglob('*'):
     if not file.is_file():continue
     rel=file.relative_to(SOURCE).as_posix()
-    if rel in exclude or rel.startswith('assets/images/watch-layers/') and rel.endswith('.png'):continue
+    # Keep raw AliExpress source originals out of Cloudflare Pages deployments (never rendered on public pages).
+    if rel in exclude or rel.startswith('assets/originals/') or (rel.startswith('assets/images/watch-layers/') and rel.endswith('.png')):continue
     target=RELEASE/rel
     target.parent.mkdir(parents=True,exist_ok=True)
     shutil.copyfile(file,target)
@@ -38,8 +39,9 @@ headers=headers.replace('  Cache-Control: public, max-age=0, must-revalidate\n',
 for original,versioned in mapping.items():
     headers+='\n/'+versioned+'\n  Cache-Control: public, max-age=31536000, immutable\n'
 for route in ['/','/index.html','/catalog/*','/categories/*','/products/*','/en/*','/es/*','/pt/*','/fr/*','/he/*','/rss.xml','/pinterest-new.xml','/sitemap.xml']:
-    headers+='\n'+route+'\n  Cache-Control: public, max-age=0, must-revalidate\n'
+    headers+='\n'+route+'\n  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=60, must-revalidate\n'
 headers+='\n/drop-status.json\n  Cache-Control: no-store\n'
+headers+='\nhttps://*.dealvault.pages.dev/*\n  X-Robots-Tag: noindex, nofollow\n'
 (RELEASE/'_headers').write_text(headers,encoding='utf-8')
 _IMAGE_VERSION_PREFIXES = ('assets/thumbs/', 'assets/images/', 'assets/featured/')
 _image_versions = {}

@@ -86,6 +86,37 @@ CURATED_RARE_QUERIES: list[dict[str, Any]] = [
     {'key': 'rare_visual_ear_otoscope', 'query': 'wifi visual ear cleaner camera led otoscope', 'groups': (('camera', 'visual', 'otoscope'), ('ear',)), 'category': 'Уход', 'market': 'IL', 'theme': 'lavender'},
     {'key': 'rare_cordless_electric_scissors', 'query': 'rechargeable electric rotary fabric cardboard scissors', 'groups': (('electric', 'cordless'), ('scissors', 'cutter')), 'category': 'Инструменты', 'market': 'BR', 'theme': 'coral'},
     {'key': 'rare_leakproof_dog_flask', 'query': 'portable dog water bottle dispenser outdoor cup', 'groups': (('dog', 'pet'), ('bottle', 'water')), 'category': 'Питомцы', 'market': 'MX', 'theme': 'blue'},
+    # Expanded evergreen rare-gadget pool (weighted toward underrepresented worlds: Outdoors, Care, Sports, Pets)
+    {'key': 'rare_pocket_fire_bellows', 'query': 'collapsible stainless pocket fire bellows camping blowpipe', 'groups': (('bellows', 'blowpipe', 'blow'), ('fire', 'camping')), 'category': 'На природе', 'market': 'RU', 'theme': 'coral'},
+    {'key': 'rare_folding_titanium_stove', 'query': 'folding ultralight titanium wood burning camping stove', 'groups': (('folding', 'ultralight', 'portable'), ('stove', 'wood')), 'category': 'На природе', 'market': 'US', 'theme': 'sand'},
+    {'key': 'rare_magnetic_hand_warmer', 'query': 'magnetic split rechargeable electric hand warmer pocket', 'groups': (('hand',), ('warmer',)), 'category': 'На природе', 'market': 'FR', 'theme': 'coral'},
+    {'key': 'rare_folding_solar_panel', 'query': 'foldable portable waterproof solar power panel hiking', 'groups': (('solar',), ('panel', 'power')), 'category': 'На природе', 'market': 'IL', 'theme': 'blue'},
+    {'key': 'rare_hanging_tent_fan', 'query': 'rechargeable camping tent ceiling fan led lantern hook', 'groups': (('tent', 'camping'), ('fan',)), 'category': 'На природе', 'market': 'BR', 'theme': 'blue'},
+    {'key': 'rare_dry_bag_compression', 'query': 'waterproof roll top dry bag kayak hiking pack', 'groups': (('dry', 'waterproof'), ('bag', 'sack')), 'category': 'На природе', 'market': 'MX', 'theme': 'sand'},
+    {'key': 'rare_ultralight_camp_pillow', 'query': 'ultralight inflatable ergonomic camping travel air pillow', 'groups': (('inflatable', 'camping'), ('pillow',)), 'category': 'На природе', 'market': 'RU', 'theme': 'lavender'},
+    {'key': 'rare_flint_compass_whistle', 'query': 'titanium emergency survival whistle compass flint tool', 'groups': (('survival', 'emergency'), ('whistle', 'flint')), 'category': 'На природе', 'market': 'US', 'theme': 'coral'},
+    {'key': 'rare_cordless_water_flosser', 'query': 'portable cordless oral irrigator water flosser telescopic', 'groups': (('water', 'oral'), ('flosser', 'irrigator')), 'category': 'Уход', 'market': 'IL', 'theme': 'lavender'},
+    {'key': 'rare_cryo_ice_roller', 'query': 'stainless steel cryo facial ice roller cooling massager', 'groups': (('ice', 'cryo'), ('roller', 'globe')), 'category': 'Уход', 'market': 'FR', 'theme': 'rose'},
+    {'key': 'rare_heated_eyelash_curler', 'query': 'rechargeable heated electric eyelash curler temperature display', 'groups': (('heated', 'electric'), ('eyelash', 'lash')), 'category': 'Уход', 'market': 'BR', 'theme': 'rose'},
+    {'key': 'rare_scalp_oil_applicator', 'query': 'liquid scalp oil applicator comb rolling ball dispenser', 'groups': (('scalp', 'oil'), ('applicator', 'comb')), 'category': 'Уход', 'market': 'MX', 'theme': 'lavender'},
+    {'key': 'rare_electric_nasal_rinse', 'query': 'electric nasal irrigator sinus cleaner gentle mist', 'groups': (('nasal', 'sinus'), ('irrigator', 'cleaner')), 'category': 'Уход', 'market': 'RU', 'theme': 'blue'},
+    {'key': 'rare_grip_dynamometer', 'query': 'digital electronic hand grip strength dynamometer lcd', 'groups': (('grip', 'hand'), ('dynamometer', 'strength')), 'category': 'Спорт', 'market': 'US', 'theme': 'blue'},
+    {'key': 'rare_agility_reaction_ball', 'query': 'silicone hexagon agility reaction reflex training ball', 'groups': (('reaction', 'reflex', 'agility'), ('ball',)), 'category': 'Спорт', 'market': 'FR', 'theme': 'coral'},
+    {'key': 'rare_wooden_balance_board', 'query': 'wooden wobble balance board core stability trainer', 'groups': (('balance', 'wobble'), ('board',)), 'category': 'Спорт', 'market': 'IL', 'theme': 'sand'},
+    {'key': 'rare_forearm_wrist_roller', 'query': 'forearm wrist roller blaster weight strength trainer', 'groups': (('forearm', 'wrist'), ('roller', 'blaster')), 'category': 'Спорт', 'market': 'BR', 'theme': 'blue'},
+    {'key': 'rare_foldable_pushup_board', 'query': 'foldable color coded multi position push up board', 'groups': (('push', 'pushup'), ('board', 'stand')), 'category': 'Спорт', 'market': 'MX', 'theme': 'coral'},
+    {'key': 'rare_electrostatic_pet_roller', 'query': 'reusable electrostatic pet fur hair remover roller self cleaning', 'groups': (('pet', 'fur', 'hair'), ('roller', 'remover')), 'category': 'Питомцы', 'market': 'RU', 'theme': 'lavender'},
+    {'key': 'rare_dog_puzzle_feeder', 'query': 'interactive sliding dog treat puzzle slow feeder board', 'groups': (('puzzle', 'interactive'), ('feeder', 'dog')), 'category': 'Питомцы', 'market': 'US', 'theme': 'sand'},
+    {'key': 'rare_cat_window_hammock', 'query': 'suction cup cat window perch hammock seat', 'groups': (('cat',), ('hammock', 'perch')), 'category': 'Питомцы', 'market': 'FR', 'theme': 'rose'},
+    {'key': 'rare_led_dog_collar', 'query': 'rechargeable waterproof led glowing safety dog collar', 'groups': (('led', 'glowing'), ('collar',)), 'category': 'Питомцы', 'market': 'IL', 'theme': 'blue'},
+    {'key': 'rare_digital_torque_adapter', 'query': 'digital electronic torque wrench meter buzzer lcd', 'groups': (('digital', 'electronic'), ('torque',)), 'category': 'Инструменты', 'market': 'BR', 'theme': 'coral'},
+    {'key': 'rare_ratchet_finger_wrench', 'query': 'mini thumb finger ratchet socket wrench tight space', 'groups': (('finger', 'thumb', 'mini'), ('ratchet', 'wrench')), 'category': 'Инструменты', 'market': 'MX', 'theme': 'sand'},
+    {'key': 'rare_mezzaluna_herb_chopper', 'query': 'double blade stainless steel mezzaluna herb chopper rocking', 'groups': (('mezzaluna', 'rocking', 'herb'), ('chopper', 'knife')), 'category': 'Кухня', 'market': 'RU', 'theme': 'sand'},
+    {'key': 'rare_collapsible_sink_colander', 'query': 'expandable collapsible silicone over sink strainer colander', 'groups': (('collapsible', 'expandable'), ('colander', 'strainer')), 'category': 'Кухня', 'market': 'US', 'theme': 'coral'},
+    {'key': 'rare_flame_mist_diffuser', 'query': 'ultrasonic realistic flame effect essential oil air diffuser', 'groups': (('flame', 'fire'), ('diffuser', 'humidifier')), 'category': 'Дом', 'market': 'FR', 'theme': 'rose'},
+    {'key': 'rare_car_escape_hammer', 'query': 'tungsten car window breaker seatbelt cutter safety hammer', 'groups': (('window', 'seatbelt'), ('breaker', 'hammer')), 'category': 'В дороге', 'market': 'IL', 'theme': 'coral'},
+    {'key': 'rare_luggage_cup_holder', 'query': 'travel suitcase handle drink cup holder luggage caddy', 'groups': (('luggage', 'suitcase'), ('cup', 'drink')), 'category': 'В дороге', 'market': 'BR', 'theme': 'sand'},
+    {'key': 'rare_pocket_thermal_camera', 'query': 'handheld infrared thermal imaging camera screen pcb', 'groups': (('thermal', 'infrared'), ('imaging', 'camera')), 'category': 'Техника', 'market': 'MX', 'theme': 'blue'},
 ]
 
 
@@ -574,23 +605,54 @@ def generate_ai_discovery_queries(
     except Exception:
         return []
 
+    categories_order = ('Техника', 'Дом', 'Кухня', 'В дороге', 'Инструменты', 'Уход', 'Спорт', 'На природе', 'Питомцы')
+    cat_counts: dict[str, int] = {c: 0 for c in categories_order}
     seen_sample: set[str] = set()
-    sample_names: list[str] = []
+    recent_names: list[str] = []
+    catalog_texts: list[str] = []
+    used_task_keys: set[str] = set()
     for p in existing_items:
         if not isinstance(p, dict):
             continue
+        c = str(p.get('category') or '').strip()
+        if c in cat_counts:
+            cat_counts[c] += 1
+        tk = str(p.get('sourceTask') or '').strip()
+        if tk:
+            used_task_keys.add(tk)
+        for field in ('name_en', 'sourceTitle', 'name'):
+            val = str(p.get(field) or '').strip()
+            if val:
+                catalog_texts.append(val)
         label = str(p.get('name_en') or p.get('sourceTitle') or p.get('name') or '').strip()
         if label and label.casefold() not in seen_sample:
             seen_sample.add(label.casefold())
-            sample_names.append(label[:70])
+            recent_names.append(label[:65])
+
+    # Keep prompt bounded regardless of catalog size (works at 100 or 5,000+ products) and steer toward sparse worlds.
+    underrepresented = sorted(categories_order, key=lambda c: (cat_counts[c], c))[:4]
+    bounded_recent = recent_names[:35]
+    keyword_freq: dict[str, int] = {}
+    stop_kw = {'with', 'for', 'and', 'the', 'mini', 'smart', 'portable', 'electric', 'digital', 'wireless', 'usb', 'led', 'auto', 'tool', 'kit', 'set'}
+    for name in recent_names:
+        for tok in re.findall(r'[a-z]{4,}', name.casefold()):
+            if tok not in stop_kw:
+                keyword_freq[tok] = keyword_freq.get(tok, 0) + 1
+    top_existing_kw = [k for k, _ in sorted(keyword_freq.items(), key=lambda kv: (-kv[1], kv[0]))[:30]]
+
     sys_prompt = (
         'You curate unusual, genuinely clever non-everyday physical gadgets from AliExpress '
-        'that people do NOT already own at home (kinetic/physics items, optical borescopes, '
-        'ultrasonic cleaners, clever compact tools). Avoid common commodity cables, phone cases, '
-        'stickers, screws, or spare parts. Reply strictly with JSON: '
+        'that people do NOT already own at home (kinetic/physics items, outdoor survival gear, '
+        'clever compact tools, pet enrichment, specialty kitchen or care devices). Avoid common commodity cables, '
+        'phone cases, stickers, screws, or spare parts. Reply strictly with JSON: '
         '{"queries":[{"query":"english 4-6 word query","keyword_required":"single core word","category":"Техника|Дом|Кухня|В дороге|Инструменты|Уход|Спорт|На природе|Питомцы"}]}'
     )
-    user_prompt = f'Avoid ALL topics already in catalog ({len(sample_names)} items): {sample_names}. Propose {limit} distinct ideas.'
+    user_prompt = (
+        f'Catalog has {len(recent_names)} items. Prioritize these underrepresented categories: {underrepresented}. '
+        f'Recent items to avoid repeating: {bounded_recent}. '
+        f'Overused topics to skip: {top_existing_kw}. '
+        f'Propose {limit} completely distinct gadget ideas.'
+    )
     raw_obj = None
     try:
         raw_obj, _ = ai_seo.complete_json(sys_prompt, user_prompt)
@@ -599,28 +661,38 @@ def generate_ai_discovery_queries(
     if not isinstance(raw_obj, dict) or not isinstance(raw_obj.get('queries'), list):
         return []
 
-    categories = {'Техника', 'Дом', 'Кухня', 'В дороге', 'Инструменты', 'Уход', 'Спорт', 'На природе', 'Питомцы'}
+    categories = set(categories_order)
     themes = ('blue', 'coral', 'sand', 'lavender', 'rose')
     out: list[dict[str, Any]] = []
-    for idx, q in enumerate(raw_obj['queries'][:limit]):
+    seen_req: set[str] = set()
+    for idx, q in enumerate(raw_obj['queries'][: max(limit * 2, limit)]):
+        if len(out) >= limit:
+            break
         if not isinstance(q, dict):
             continue
         text = str(q.get('query') or '').strip()
         req = re.sub(r'[^a-z0-9]', '', str(q.get('keyword_required') or '').casefold())
         cat = str(q.get('category') or 'Техника').strip()
-        if not text or len(req) < 3 or cat not in categories:
+        if not text or len(req) < 3 or req in seen_req or cat not in categories:
             continue
         banned, _ = is_ordinary_or_banned_listing(text)
         if banned:
             continue
-        out.append({
+        cand_task = {
             'key': 'ai_rare_' + req,
             'query': text[:100],
             'groups': ((req,),),
             'category': cat,
-            'market': target_markets[idx % len(target_markets)],
-            'theme': themes[idx % len(themes)],
-        })
+            'market': target_markets[len(out) % len(target_markets)],
+            'theme': themes[len(out) % len(themes)],
+        }
+        # Programmatic dedup against 100% of existing catalog (never relies solely on LLM memory).
+        if type_already_listed(cand_task, catalog_texts, used_task_keys):
+            continue
+        if any(jaccard_similarity(text, prev) >= 0.45 for prev in recent_names):
+            continue
+        seen_req.add(req)
+        out.append(cand_task)
     return out
 
 

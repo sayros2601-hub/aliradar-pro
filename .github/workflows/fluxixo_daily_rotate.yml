@@ -30,6 +30,7 @@ jobs:
     timeout-minutes: 100
     env:
       PYTHONDONTWRITEBYTECODE: '1'
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
       LEDGER: data/fluxixo_daily_ledger.json
       PUBLISH_STATE: data/fluxixo_publish_state.json
       # Transparent RGBA studio cutout pipeline (zero Google/Gemini dependency, zero opaque colored boxes):
@@ -52,7 +53,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Resolve evening batch, reserved allowance and publication recovery
         id: today
@@ -147,7 +148,7 @@ jobs:
           if [ "$RECORD_PUBLICATION" = "true" ]; then
             python -B -m fluxixo_ai.daily_schedule mark-prepared --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
           fi
-          git add -f fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools "$LEDGER" "$PUBLISH_STATE"
+          git add -- fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools "$LEDGER" "$PUBLISH_STATE" ':!fluxixo_site/dist/assets/thumbs'
           if [ -f data/fluxixo_ai.sqlite3 ]; then git add -f data/fluxixo_ai.sqlite3; fi
           if ! git diff --cached --quiet; then
             git commit -m "chore(fluxixo): save prepared daily catalog [skip ci]"
@@ -196,7 +197,7 @@ jobs:
         run: |
           if [ "$RECORD_PUBLICATION" = "true" ]; then export FLUXIXO_PREPARED_PUBLISH_DAY="$DAY"; fi
           python -B fluxixo_daily_rotate.py --add 0 --refresh-clean-links
-          git add -f fluxixo_site/dist fluxixo_site/tools fluxixo_site/release-manifest.json fluxixo_site/asset-map.json
+          git add -- fluxixo_site/dist fluxixo_site/tools ':!fluxixo_site/dist/assets/thumbs'
           if ! git diff --cached --quiet; then
             git commit -m "chore(fluxixo): build evening release and countdown [skip ci]"
             git push origin HEAD:main

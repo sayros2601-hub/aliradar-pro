@@ -565,8 +565,9 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     if (cards.length < 2) return;
     const dots = document.createElement('div');
     dots.className = 'dots';
-    dots.setAttribute('aria-hidden', 'true');
-    dots.innerHTML = cards.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('');
+    dots.setAttribute('role', 'group');
+    dots.setAttribute('aria-label', 'Gallery views');
+    dots.innerHTML = cards.map((_, i) => `<button type="button"${i ? '' : ' class="on" aria-current="true"'} aria-label="${i + 1} / ${cards.length}"></button>`).join('');
     row.after(dots);
     let current = 0;
     const go = i => {
@@ -608,7 +609,11 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
         if (end < 8) best = 0;
         else if (end > row.scrollWidth - row.clientWidth - 8) best = cards.length - 1;
         current = best;
-        [...dots.children].forEach((dot, i) => dot.classList.toggle('on', i === best));
+        [...dots.children].forEach((dot, i) => {
+          dot.classList.toggle('on', i === best);
+          if (i === best) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
         if (arrows.length) { arrows[0].disabled = best === 0; arrows[1].disabled = best === cards.length - 1; }
       });
     }, { passive: true });

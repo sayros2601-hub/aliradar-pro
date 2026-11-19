@@ -49,6 +49,10 @@ README_ADAPTER_RU.txt
 
 !fluxixo_site/dist/
 !fluxixo_site/dist/**
+# Auto-regenerated binary thumbnails and release manifests stay out of Git history (rebuilt in ~2s by CI)
+fluxixo_site/dist/assets/thumbs/
+fluxixo_site/release-manifest.json
+fluxixo_site/asset-map.json
 
 # Local browser sessions and assistant tooling must never be published
 .browser_session_portals/

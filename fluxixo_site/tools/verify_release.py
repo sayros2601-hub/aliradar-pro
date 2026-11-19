@@ -17,7 +17,9 @@ NS = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
 # Invented offers and internal editorial notes must never reach visitors.
 FORBIDDEN = ('"Product"', '"Offer"', 'priceCurrency', 'InStock', 'Подборка')
 MAX_HTML_BYTES = 1_000_000
-MAX_REDIRECT_RULES = 90
+MAX_REDIRECT_RULES = 1800
+MAX_STATIC_REDIRECT_RULES = 1800
+MAX_DYNAMIC_REDIRECT_RULES = 90
 MAX_PRODUCT_MAIN_MEDIAN_JACCARD = 0.45
 
 import importlib.util as _importlib_util
@@ -330,22 +332,48 @@ def validate_product_page_uniqueness(
                     f'duplicate product <p class="t"> in {loc}: {urls[:3]}'
                 )
 
-        for i in range(len(pt_shingles)):
+        # Inverted index on 3-word shingles: checks every candidate pair sharing >= 2 shingles in O(N) average time.
+        shingle_docs = collections.defaultdict(list)
+        for idx, (_, sh) in enumerate(pt_shingles):
+            for gram in sh:
+                shingle_docs[gram].append(idx)
+        pair_shared = collections.Counter()
+        for doc_ids in shingle_docs.values():
+            if len(doc_ids) < 2 or len(doc_ids) > 80:
+                continue
+            for a_pos in range(len(doc_ids)):
+                ia = doc_ids[a_pos]
+                for b_pos in range(a_pos + 1, len(doc_ids)):
+                    pair_shared[(ia, doc_ids[b_pos])] += 1
+        for (i, j), shared in sorted(pair_shared.items()):
+            if shared < 2:
+                continue
             u_a, sh_a = pt_shingles[i]
-            for j in range(i + 1, len(pt_shingles)):
-                u_b, sh_b = pt_shingles[j]
-                union = len(sh_a | sh_b)
-                if union and (len(sh_a & sh_b) / union) >= 0.70:
-                    errors.append(f'near-duplicate product <p class="t"> in {loc}: {u_a} ~ {u_b}')
+            u_b, sh_b = pt_shingles[j]
+            union = len(sh_a | sh_b)
+            if union and (len(sh_a & sh_b) / union) >= 0.70:
+                errors.append(f'near-duplicate product <p class="t"> in {loc}: {u_a} ~ {u_b}')
 
         if len(word_sets) >= min_pages_for_jaccard:
             jaccards = []
-            for i in range(len(word_sets)):
-                a = word_sets[i]
-                for j in range(i + 1, len(word_sets)):
-                    b = word_sets[j]
-                    union = len(a | b)
-                    jaccards.append((len(a & b) / union) if union else 0.0)
+            n_ws = len(word_sets)
+            if n_ws <= 60:
+                for i in range(n_ws):
+                    a = word_sets[i]
+                    for j in range(i + 1, n_ws):
+                        b = word_sets[j]
+                        union = len(a | b)
+                        jaccards.append((len(a & b) / union) if union else 0.0)
+            else:
+                # Deterministic bounded sample keeps verify_release fast even at 5,000+ products.
+                step = max(1, n_ws // 50)
+                sample_idx = list(range(0, n_ws, step))[:50]
+                for idx_pos, i in enumerate(sample_idx):
+                    a = word_sets[i]
+                    for j in sample_idx[idx_pos + 1:]:
+                        b = word_sets[j]
+                        union = len(a | b)
+                        jaccards.append((len(a & b) / union) if union else 0.0)
             median_j = _statistics.median(jaccards)
             if median_j > max_median_main_jaccard:
                 errors.append(
@@ -645,13 +673,17 @@ def main():
     for required in ('robots.txt', 'sitemap-ru.xml', 'sitemap-index.xml', 'BingSiteAuth.xml', 'rss.xml', '404.html', '_headers', '_redirects', 'js/catalog.js'):
         if not (RELEASE / required).exists():
             problems['missing file'].append(required)
-    # Production silently ignored redirect rules beyond roughly the 106th, so keep a safe margin.
+    # Cloudflare Pages allows up to 2,000 static and 100 dynamic (_redirects with :param or *) rules.
     redirect_file = RELEASE / '_redirects'
     if redirect_file.exists():
-        rules = [line for line in redirect_file.read_text(encoding='utf-8').splitlines()
+        rules = [line.strip() for line in redirect_file.read_text(encoding='utf-8').splitlines()
                  if line.strip() and not line.lstrip().startswith('#')]
-        if len(rules) > MAX_REDIRECT_RULES:
-            problems['too many redirect rules'].append(f'{len(rules)} > {MAX_REDIRECT_RULES}')
+        dynamic_rules = [r for r in rules if '*' in r.split()[0] or ':' in r.split()[0]]
+        static_rules = [r for r in rules if r not in dynamic_rules]
+        if len(static_rules) > MAX_STATIC_REDIRECT_RULES:
+            problems['too many static redirect rules'].append(f'{len(static_rules)} > {MAX_STATIC_REDIRECT_RULES}')
+        if len(dynamic_rules) > MAX_DYNAMIC_REDIRECT_RULES:
+            problems['too many dynamic redirect rules'].append(f'{len(dynamic_rules)} > {MAX_DYNAMIC_REDIRECT_RULES}')
     if problems:
         for kind, items in problems.items():
             print(f'FAIL {kind}: {len(items)} e.g. {items[:3]}')

@@ -24,6 +24,8 @@ SCHEDULE_TZ = 'Europe/Moscow'
 PREPARE_START_MINUTES = 12 * 60  # 12:00 Europe/Moscow
 PUBLISH_START_MINUTES = 14 * 60  # 14:00 Europe/Moscow
 WINDOW_CLOSE_HOUR = 23
+STALE_PREPARE_MINUTES = 45
+MAX_PREPARE_RETRIES = 2
 
 
 class ScheduleError(Exception):
@@ -61,13 +63,29 @@ def _validate_state(state):
     for day, entry in state['days'].items():
         _date(day)
         required = {'status', 'reserved_count', 'baseline_count', 'utc_day'}
+        optional = {'published_day', 'reserved_at', 'retries'}
         if (not isinstance(entry, dict)
-                or set(entry) not in (required, required | {'published_day'})
+                or not required.issubset(entry)
+                or not set(entry).issubset(required | optional)
                 or entry['status'] not in ('preparing', 'prepared', 'published')):
             raise ScheduleError('publication_state_invalid')
         if 'published_day' in entry:
             _date(entry['published_day'])
             if entry['status'] != 'published' or entry['published_day'] < day:
+                raise ScheduleError('publication_state_invalid')
+        if 'reserved_at' in entry:
+            val = entry['reserved_at']
+            try:
+                if not isinstance(val, str) or not val.strip():
+                    raise ValueError()
+                parsed_ts = datetime.fromisoformat(val.replace('Z', '+00:00'))
+                if parsed_ts.tzinfo is None or parsed_ts.utcoffset() is None:
+                    raise ValueError()
+            except ValueError:
+                raise ScheduleError('publication_state_invalid') from None
+        if 'retries' in entry:
+            r = entry['retries']
+            if type(r) is not int or not 0 <= r <= MAX_PREPARE_RETRIES:
                 raise ScheduleError('publication_state_invalid')
         _date(entry['utc_day'])
         if (date.fromisoformat(day) - date.fromisoformat(entry['utc_day'])).days not in (0, 1):
@@ -154,6 +172,21 @@ def plan(ledger, state, *, now=None, manual_count=None):
     if entry:
         if entry['status'] == 'published':
             return answer('skip', 'published')
+        if entry['status'] == 'preparing':
+            reserved_at_raw = entry.get('reserved_at')
+            retries = int(entry.get('retries', 0))
+            if reserved_at_raw and retries < MAX_PREPARE_RETRIES:
+                reserved_at = datetime.fromisoformat(reserved_at_raw.replace('Z', '+00:00')).astimezone(timezone.utc)
+                elapsed_min = (instant - reserved_at).total_seconds() / 60.0
+                if elapsed_min >= STALE_PREPARE_MINUTES:
+                    remaining_count = max(
+                        0,
+                        min(DAILY_MAX - done, entry['baseline_count'] + entry['reserved_count'] - done),
+                    )
+                    if manual_count is not None:
+                        remaining_count = min(remaining_count, manual_count)
+                    if remaining_count > 0:
+                        return answer('prepare', 'retry_interrupted_prepare', remaining_count, track=True)
         return answer('skip', 'interrupted_prepare')
     # An uncertain image reservation still consumes its UTC day's allowance,
     # even if a manual run happens just after the local date changes.
@@ -186,8 +219,29 @@ def reserve(ledger, state, day, count, *, now=None):
         raise ScheduleError('reservation_not_allowed')
     result = deepcopy(state)
     utc_day = instant.date().isoformat()
-    result['days'][day] = {'status': 'preparing', 'reserved_count': count,
-                           'baseline_count': _done(ledger, utc_day), 'utc_day': utc_day}
+    existing = result['days'].get(day)
+    if existing and existing.get('status') == 'preparing' and planned.get('reason') == 'retry_interrupted_prepare':
+        retries = int(existing.get('retries', 0)) + 1
+        base = existing['baseline_count']
+        done_now = _done(ledger, existing['utc_day'])
+        new_reserved = min(DAILY_MAX - base, max(existing['reserved_count'], (done_now - base) + count))
+        result['days'][day] = {
+            'status': 'preparing',
+            'reserved_count': new_reserved,
+            'baseline_count': base,
+            'utc_day': existing['utc_day'],
+            'reserved_at': instant.isoformat(),
+            'retries': retries,
+        }
+    else:
+        result['days'][day] = {
+            'status': 'preparing',
+            'reserved_count': count,
+            'baseline_count': _done(ledger, utc_day),
+            'utc_day': utc_day,
+            'reserved_at': instant.isoformat(),
+            'retries': 0,
+        }
     return _validate_state(result)
 
 

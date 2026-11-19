@@ -16,7 +16,11 @@ FIELDS = ('name', 'headline', 'description')
 
 CYRILLIC = re.compile(r'[Ѐ-ӿ]')
 HEBREW = re.compile(r'[֐-׿]')
-LATIN_WORD = re.compile(r'[A-Za-zÀ-ÿ]{2,}')
+LATIN_WORD = re.compile(r'[A-Za-zÀ-ÿ\u0100-\u024F\u1E00-\u1EFF]{2,}')
+MIXED_SCRIPT_WORD = re.compile(
+    r'(?:[A-Za-zÀ-ÿ\u0100-\u024F\u1E00-\u1EFF][Ѐ-ӿ])|(?:[Ѐ-ӿ][A-Za-zÀ-ÿ\u0100-\u024F\u1E00-\u1EFF])'
+)
+FOREIGN_DIACRITIC = re.compile(r'[\u0110\u0111\u1E00-\u1EFF]')
 # Brand names, units and tech terms that legitimately stay in Latin letters inside Hebrew or Russian text.
 LATIN_OK = re.compile(r'^(AliExpress|FLUXIXO|KATORD|PETKIT|ATTACK|SHARK|CABLETIME|UGREEN|Logitech|Baseus|Vgate|XOSS|AGM|USB|LED|LCD|UV|GPS|TPMS|HUD|RGB|AI|NFC|RJ\d*|E\d+|Type|C|Bluetooth|Wi|Fi|WiFi|App|iOS|Android|'
                       r'mm|cm|ml|kg|mAh|W|V|Hz|Mbps|GHz|GaN|USPS|NBR|CE|IP\d*|IPX\d*|HD|FHD|K|D|in|pH|TDS|PD|AC|DC|OLED|IPS|SOS|PSI|BMS|MagSafe|CarPlay|OBD|DIY|Sous|Vide|'
@@ -61,6 +65,10 @@ def check_string(text, lang, where, problems):
         bad('Russian letters in a non-Russian text')
     if lang != 'he' and HEBREW.search(text):
         bad('Hebrew letters in a non-Hebrew text')
+    if MIXED_SCRIPT_WORD.search(text):
+        bad('mixed-script token (e.g. Latin/Cyrillic glued inside one word)')
+    if FOREIGN_DIACRITIC.search(text):
+        bad('unexpected foreign diacritic (Latin Extended-Additional / Vietnamese glyph)')
     if lang in ('he', 'ru'):
         odd = [w for w in LATIN_WORD.findall(text) if not LATIN_OK.match(w)]
         if odd:
