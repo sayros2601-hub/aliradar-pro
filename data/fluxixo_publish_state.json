@@ -22,10 +22,11 @@
       "published_day": "2026-11-18"
     },
     "2026-11-19": {
-      "status": "prepared",
+      "status": "published",
       "reserved_count": 3,
       "baseline_count": 0,
-      "utc_day": "2026-11-19"
+      "utc_day": "2026-11-19",
+      "published_day": "2026-11-19"
     }
   }
 }
