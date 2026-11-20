@@ -4,7 +4,7 @@ Usage: python verify_release.py [release_dir]. Exits non-zero and prints the pro
 """
 from html.parser import HTMLParser
 from pathlib import Path, PurePosixPath
-from urllib.parse import urlsplit
+from urllib.parse import urljoin, urlsplit
 import collections
 import hashlib
 import json
@@ -475,6 +475,72 @@ def validate_language_navigation(pages, catalog):
     return errors
 
 
+def validate_katord_aliases(rules, catalog, pages):
+    """Keep the historical deal URLs tied to the active original supplier item."""
+    active = [product for product in catalog['products'] if not product['demo']
+              and str(product.get('sourceProductId')) == '1005011800659333']
+    if not active:
+        return []
+    if [product['id'] for product in active] != ['katord-wifi-repeater']:
+        return ['KATORD supplier item must keep the canonical product slug katord-wifi-repeater']
+
+    # Pages matches the first applicable rule. Exact aliases must precede any matching fallback.
+    pattern_tokens = re.compile(r'(\*|:[A-Za-z][A-Za-z0-9_]*)')
+    matchers = []
+    dynamic_rules = 0
+    for rule in rules:
+        tokens = re.split(r'\s+#', rule, maxsplit=1)[0].split()
+        if len(tokens) not in (2, 3):
+            continue
+        source, target = tokens[:2]
+        if source.startswith('https://'):
+            continue
+        source = urlsplit(urljoin(ORIGIN, '/' + source.lstrip('/'))).path
+        # Once a dynamic rule appears, Pages counts all subsequent rules against its 100-rule dynamic limit.
+        if dynamic_rules or pattern_tokens.search(source):
+            dynamic_rules += 1
+            if dynamic_rules > 100:
+                break
+        status = tokens[2] if len(tokens) == 3 else '302'
+        if status not in {'200', '301', '302', '303', '307', '308'}:
+            continue
+        expression = []
+        for index, part in enumerate(pattern_tokens.split(source)):
+            if index % 2 == 0:
+                expression.append(re.escape(part))
+            elif part == '*':
+                expression.append('.*')
+            else:
+                expression.append('[^/]+')
+        matchers.append((re.compile(''.join(expression)), source, target, status))
+
+    def first_redirect(path):
+        return next(((source, target, status) for pattern, source, target, status in matchers
+                     if pattern.fullmatch(path)), None)
+
+    old_slug = 'katord-1200mbps-wireless-wifi-repeater-2-4g-5'
+    prefix_pairs = [('', '/en'), ('/ru', ''), *((prefix, prefix) for prefix in ('/en', '/es', '/fr', '/he', '/pt'))]
+    errors = []
+    checked_targets = set()
+    for old_prefix, new_prefix in prefix_pairs:
+        target = f'{new_prefix}/products/katord-wifi-repeater/'
+        canonical = ORIGIN + target
+        if target not in checked_targets:
+            checked_targets.add(target)
+            page = pages.get(canonical)
+            if page is None or page.canonical != canonical:
+                errors.append(f'{target} must exist as a self-canonical product page in the release sitemap')
+            if first_redirect(target) is not None:
+                errors.append(f'{target} is also redirected; KATORD aliases must reach the card in one hop')
+        for suffix in ('', '/', '.html'):
+            alias = f'{old_prefix}/deals/{old_slug}{suffix}'
+            match = first_redirect(alias)
+            if match not in {(alias, target, '301'), (alias, canonical, '301')}:
+                found = ' '.join(match) if match else 'no matching rule'
+                errors.append(f'{alias} must redirect directly to {target} 301; first match: {found}')
+    return errors
+
+
 def validate_ru_sitemap(release, all_urls):
     """Keep current Russian routes in Yandex's map, excluding the English landing."""
     try:
@@ -866,6 +932,7 @@ def main():
         catalog = json.loads(payload.strip().rstrip(';'))
         language_errors = validate_language_navigation(pages, catalog)
     except (OSError, ValueError, KeyError, TypeError) as exc:
+        catalog = None
         problems['language navigation'].append(f'could not read active product IDs: {exc}')
     else:
         for error in language_errors:
@@ -919,6 +986,9 @@ def main():
     if redirect_file.exists():
         rules = [line.strip() for line in redirect_file.read_text(encoding='utf-8').splitlines()
                  if line.strip() and not line.lstrip().startswith('#')]
+        if catalog is not None:
+            for error in validate_katord_aliases(rules, catalog, pages):
+                problems['KATORD deal URL migration'].append(error)
         dynamic_rules = [r for r in rules if '*' in r.split()[0] or ':' in r.split()[0]]
         static_rules = [r for r in rules if r not in dynamic_rules]
         if len(static_rules) > MAX_STATIC_REDIRECT_RULES:
