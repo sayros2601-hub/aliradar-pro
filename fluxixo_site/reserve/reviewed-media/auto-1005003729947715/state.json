@@ -147,31 +147,131 @@
     },
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-597f4287536a4fb42a441c73ca510932f9ee96b334c5e3e777ed92e4ca9836a6.png",
-        "source_sha256": "597f4287536a4fb42a441c73ca510932f9ee96b334c5e3e777ed92e4ca9836a6",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H0bb3a70e73f24d81b590a60d689228ebc.jpg",
-        "original_sha256": "ec9241650bbaea140bcc71fa9f767bdfa4bac0fff9624792ddbc6d6af1c3a292",
-        "output_file": "application-c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284.webp",
-        "image_sha256": "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284",
-        "metrics": {
-          "fg_width": 1476,
-          "fg_height": 905,
-          "fg_max_side": 1476,
-          "fg_min_side": 905,
-          "upscale_ratio": 0.603,
-          "sharpness": 9.506,
-          "fg_mean_luma": 132.1,
-          "fg_luma_std": 47.81,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.0,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image correctly demonstrates the use of the hexagonal reaction ball for agility and eye-hand coordination training.",
+          "The green color of the ball being tossed matches one of the valid variant options shown in the reference product image.",
+          "The product appearance, shape, and context of use accurately align with the product title and description."
+        ]
+      },
+      "source_file": "reference-597f4287536a4fb42a441c73ca510932f9ee96b334c5e3e777ed92e4ca9836a6.png",
+      "source_sha256": "597f4287536a4fb42a441c73ca510932f9ee96b334c5e3e777ed92e4ca9836a6",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H0bb3a70e73f24d81b590a60d689228ebc.jpg",
+      "original_sha256": "ec9241650bbaea140bcc71fa9f767bdfa4bac0fff9624792ddbc6d6af1c3a292",
+      "output_file": "application-c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284.webp",
+      "image_sha256": "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284",
+      "metrics": {
+        "fg_width": 1476,
+        "fg_height": 905,
+        "fg_max_side": 1476,
+        "fg_min_side": 905,
+        "upscale_ratio": 0.603,
+        "sharpness": 9.506,
+        "fg_mean_luma": 132.1,
+        "fg_luma_std": 47.81,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image correctly demonstrates the use of the hexagonal reaction ball for agility and eye-hand coordination training.",
+          "The green color of the ball being tossed matches one of the valid variant options shown in the reference product image.",
+          "The product appearance, shape, and context of use accurately align with the product title and description."
+        ]
+      },
+      "prior_image_sha256": [
+        "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f"
+      ],
+      "identity_source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+      "source_title_sha256": "9698e05ea1ee8fd9c34384102409bd1c887b2885ea204faccf8405cab00e0e5d",
+      "reviewed_at": 1795182281.7438235
     },
-    {}
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly demonstrates the product in use for agility and coordination training, matching the specified variant and fulfilling the result role."
+        ]
+      },
+      "source_file": "reference-3703d4963440ebeb6c9349078be9a453fa7c36b5094399c029492395708ca177.png",
+      "source_sha256": "3703d4963440ebeb6c9349078be9a453fa7c36b5094399c029492395708ca177",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H6b55d918568946a4898111869c603d54k.jpg",
+      "original_sha256": "425eb1ec274e2be130488b7f6b52659c2c81fe0a19d4b0f84c12c96a8e7bb9e7",
+      "output_file": "result-5a1a24edcfc0b9d0c3763dd0dd74a7c9ba6305d576b3f3ea127340b71f994ce7.webp",
+      "image_sha256": "5a1a24edcfc0b9d0c3763dd0dd74a7c9ba6305d576b3f3ea127340b71f994ce7",
+      "metrics": {
+        "fg_width": 1580,
+        "fg_height": 1372,
+        "fg_max_side": 1580,
+        "fg_min_side": 1372,
+        "upscale_ratio": 0.563,
+        "sharpness": 19.044,
+        "fg_mean_luma": 177.02,
+        "fg_luma_std": 49.44,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.07,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly demonstrates the product in use for agility and coordination training, matching the specified variant and fulfilling the result role."
+        ]
+      },
+      "prior_image_sha256": [
+        "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f",
+        "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284"
+      ],
+      "identity_source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+      "source_title_sha256": "9698e05ea1ee8fd9c34384102409bd1c887b2885ea204faccf8405cab00e0e5d",
+      "reviewed_at": 1795182296.6513057
+    }
   ],
   "created_at": 1795180788.7572677,
   "deferrals": 0,
@@ -208,8 +308,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "3703d4963440ebeb6c9349078be9a453fa7c36b5094399c029492395708ca177",
+            "at": 1795182281.7487168,
+            "code": "pending_review",
+            "image_sha256": "5a1a24edcfc0b9d0c3763dd0dd74a7c9ba6305d576b3f3ea127340b71f994ce7"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -237,7 +345,43 @@
     },
     "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image correctly demonstrates the use of the hexagonal reaction ball for agility and eye-hand coordination training.",
+          "The green color of the ball being tossed matches one of the valid variant options shown in the reference product image.",
+          "The product appearance, shape, and context of use accurately align with the product title and description."
+        ]
+      }
+    },
+    "5a1a24edcfc0b9d0c3763dd0dd74a7c9ba6305d576b3f3ea127340b71f994ce7": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly demonstrates the product in use for agility and coordination training, matching the specified variant and fulfilling the result role."
+        ]
+      }
     }
   },
   "identity_source": {
