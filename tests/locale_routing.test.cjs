@@ -7,7 +7,7 @@ const vm = require('node:vm');
 const script = fs.readFileSync(path.join(__dirname, '../fluxixo_site/redesign/static/app.js'), 'utf8');
 
 function loadLocaleExports({ withUrl = true } = {}) {
-  const ctx = { module: { exports: {} }, Intl, Date };
+  const ctx = { module: { exports: {} }, Intl, Date, URLSearchParams };
   if (withUrl) ctx.URL = URL;
   vm.runInNewContext(script, ctx);
   return ctx.module.exports;
@@ -60,6 +60,46 @@ test('resolveVisitorPath respects explicit saved language, internal referrers, a
     fx.resolveVisitorPath({ pathname: '/', search: '?utm_source=tt', hash: '#top', languages: ['es-ES'] }),
     '/es/?utm_source=tt#top',
   );
+});
+
+test('explicit legacy language links preserve catalog sections and other query parameters', () => {
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=ru&utm_source=share', hash: '#drop' }), '/catalog/?utm_source=share#drop');
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=es&tag=a&tag=b', hash: '#mundos' }), '/es/?tag=a&tag=b#mundos');
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?LANG=iw_IL', hash: '#find' }), '/he/#find');
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=en', hash: '#find' }), '/en/#find');
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=en', hash: '#drop', savedLang: 'he' }), null);
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=ja', hash: '#find-063-cable-tester', savedLang: 'he' }), null);
+  assert.equal(fx.resolveVisitorPath({ pathname: '/products/find-063-cable-tester/', search: '?lang=es' }), null);
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=fr', hash: '#spotlight-title-1' }), '/fr/#spotlight-title-1');
+});
+
+test('legacy showroom product links open the same item in its requested locale', () => {
+  const examples = [
+    ['en', 'find-063-cable-tester', '/en'],
+    ['ru', 'auto-1005013194588661', ''],
+    ['es-MX', 'import-0042', '/es'],
+    ['pt', 'find-064-book-light', '/pt'],
+    ['fr', 'find-063-cable-tester', '/fr'],
+    ['he', 'katord-wifi-repeater', '/he'],
+  ];
+  for (const [language, id, prefix] of examples) {
+    assert.equal(fx.resolveVisitorPath({
+      pathname: '/index.html',
+      search: `?utm_source=share&lang=${language}`,
+      hash: `#${id}`,
+      referrer: 'https://www.fluxixo.shop/catalog/',
+      origin: 'https://www.fluxixo.shop',
+      webdriver: true,
+      savedLang: 'he',
+    }), `${prefix}/products/${id}/?utm_source=share`);
+  }
+  assert.equal(fx.resolveVisitorPath({
+    pathname: '/',
+    search: '?utm_source=share',
+    hash: '#find-063-cable-tester',
+    savedLang: 'he',
+    webdriver: true,
+  }), '/en/products/find-063-cable-tester/?utm_source=share');
 });
 
 test('decorateAffiliateUrl appends AliExpress storefront _lang and afSmartRedirect idempotently', () => {

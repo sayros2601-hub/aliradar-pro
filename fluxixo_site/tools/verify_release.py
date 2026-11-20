@@ -212,14 +212,20 @@ class Page(HTMLParser):
         self.robots = ''
         self.h1 = 0
         self.hreflang = {}
+        self.language_links = {}
+        self.product_cards = []
+        self.anchors = set()
         self.links = []
         self.assets = []
         self.jsonld = []
         self._capture = None
         self._buffer = []
+        self._language_menu = False
 
     def handle_starttag(self, tag, attrs):
         a = {k: (v or '') for k, v in attrs}
+        if a.get('id'):
+            self.anchors.add(a['id'])
         if tag == 'html':
             self.language = a.get('lang', '')
         elif tag == 'meta' and a.get('name') == 'description':
@@ -232,8 +238,14 @@ class Page(HTMLParser):
             self.hreflang[a['hreflang']] = a.get('href')
         elif tag == 'h1':
             self.h1 += 1
+        elif tag == 'div' and 'langs' in a.get('class', '').split():
+            self._language_menu = True
         elif tag == 'a' and a.get('href'):
             self.links.append(a['href'])
+            if self._language_menu and a.get('hreflang'):
+                self.language_links[a['hreflang']] = a['href']
+            if 'data-w' in a and 'card' in a.get('class', '').split():
+                self.product_cards.append(a['href'])
         for key in ('src', 'href'):
             value = a.get(key, '')
             if tag in ('img', 'script', 'link', 'source', 'video') and re.match(r'/?(assets|css|js)/', value):
@@ -246,6 +258,8 @@ class Page(HTMLParser):
             self._buffer = []
 
     def handle_endtag(self, tag):
+        if tag == 'div':
+            self._language_menu = False
         if self._capture == tag:
             text = ''.join(self._buffer)
             if tag == 'title':
@@ -419,6 +433,45 @@ def validate_home_languages(pages):
                 errors.append('standalone /en/ catalog must not declare home hreflang')
         elif page.hreflang != expected:
             errors.append(f'wrong home hreflang cluster: {url}')
+    return errors
+
+
+def validate_language_navigation(pages, catalog):
+    catalogs = {'ru': '/catalog/', 'en': '/en/', 'pt-BR': '/pt/', 'es-MX': '/es/', 'fr': '/fr/', 'he-IL': '/he/'}
+    journals = {lang: f'{path.rstrip("/")}/journal/' for lang, path in catalogs.items()}
+    journals['ru'] = '/journal/'
+    active_ids = {product['id'] for product in catalog['products'] if not product['demo']}
+    errors = []
+    for lang, path in catalogs.items():
+        prefix = '' if lang == 'ru' else path.rstrip('/')
+        expected = {f'{prefix}/products/{product_id}/' for product_id in active_ids}
+        page = pages.get(ORIGIN + path)
+        if page and (set(page.product_cards) != expected or len(page.product_cards) != len(expected)):
+            errors.append(f'{path} catalog cards differ from the active product IDs')
+        product_pages = {urlsplit(url).path for url, page in pages.items()
+                         if page.language == lang and _PRODUCT_ROUTE_RE.fullmatch(urlsplit(url).path)}
+        if product_pages != expected:
+            errors.append(f'{path} sitemap product pages differ from the active product IDs')
+
+    for url, page in pages.items():
+        path = urlsplit(url).path
+        if path == '/':
+            expected_links = {lang: '/' if lang == 'en' else target + '#drop' for lang, target in catalogs.items()}
+        elif path in catalogs.values():
+            expected_links = {lang: target if path == target else target + '#todo' for lang, target in catalogs.items()}
+        else:
+            expected_links = {lang: urlsplit(page.hreflang.get(lang, '')).path for lang in catalogs}
+            if path.startswith('/journal/') and path != '/journal/' and set(page.hreflang) <= {'ru', 'ru-RU', 'x-default'}:
+                expected_links = {**journals, 'ru': path}
+        if page.language_links != expected_links:
+            errors.append(f'{path} language menu does not lead to the corresponding pages')
+        for lang, target in page.language_links.items():
+            parts = urlsplit(target)
+            target_page = pages.get(ORIGIN + parts.path)
+            if target_page is None or target_page.language != lang:
+                errors.append(f'{path} language menu target is missing or in the wrong language: {target}')
+            elif parts.fragment and parts.fragment not in target_page.anchors:
+                errors.append(f'{path} language menu target has no matching section: {target}')
     return errors
 
 
@@ -807,6 +860,16 @@ def main():
             problems['no language alternates'].append(url)
     for error in validate_home_languages(pages):
         problems['home language migration'].append(error)
+    try:
+        raw_catalog = (RELEASE / 'js/catalog.js').read_text(encoding='utf-8')
+        _, _, payload = raw_catalog.partition('=')
+        catalog = json.loads(payload.strip().rstrip(';'))
+        language_errors = validate_language_navigation(pages, catalog)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        problems['language navigation'].append(f'could not read active product IDs: {exc}')
+    else:
+        for error in language_errors:
+            problems['language navigation'].append(error)
     for url, page in pages.items():
         for language, target in page.hreflang.items():
             other = pages.get(target)

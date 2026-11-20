@@ -275,10 +275,13 @@ class Site:
         self.items = []
         self.rtl = lang in RTL
         self.fwd, self.back = ('←', '→') if self.rtl else ('→', '←')
+        fields = ('name', 'headline', 'description')
         for p in products:
-            t = p if lang == 'ru' else data['products'].get(p['id'], {}).get(lang)
-            if t and all(t.get(k) for k in ('name', 'headline', 'description')):
-                self.items.append({**p, **{k: t[k] for k in ('name', 'headline', 'description')}})
+            translation = p if lang == 'ru' else data['products'].get(p['id'], {}).get(lang) or {}
+            missing = [field for field in fields if not translation.get(field)]
+            if missing:
+                raise ValueError(f"Product {p['id']} is missing {lang} copy: {', '.join(missing)}")
+            self.items.append({**p, **{field: translation[field] for field in fields}})
         lang_market = {'ru': 'RU', 'en': 'US', 'pt': 'BR', 'es': 'MX', 'fr': 'FR', 'he': 'IL'}.get(lang)
         if lang_market:
             def _market_rank(item):
@@ -327,13 +330,16 @@ class Site:
         return (f'<a class="btn" href="{e(p["affiliateUrl"])}" target="_blank" rel="sponsored nofollow noopener" {attrs}>'
                 f'{e(self.ui["cta"])} <span aria-hidden="true">{self.fwd}</span></a>')
 
-    def page(self, title, desc, path, body, alt_paths, schema=None, image=None, colour=PAPER, hreflang=True, noindex=False, tab=None, buy=None):
+    def page(self, title, desc, path, body, alt_paths, schema=None, image=None, colour=PAPER, hreflang=True, noindex=False, tab=None, buy=None,
+             language_paths=None, shared_fragments=()):
         u = self.ui
         tag, og_locale = L.LANGUAGES[self.lang][:2]
+        language_paths = alt_paths if language_paths is None else language_paths
         lang_links = ''.join(
-            f'<a href="{alt_paths.get(l, L.catalog_path(l))}" hreflang="{L.LANGUAGES[l][0]}"{" aria-current=\"true\"" if l == self.lang else ""}>'
+            f'<a href="{e(language_paths.get(l, L.catalog_path(l)))}" hreflang="{L.LANGUAGES[l][0]}"{" aria-current=\"true\"" if l == self.lang else ""}>'
             f'<b>{l.upper()}</b><span lang="{L.LANGUAGES[l][0]}">{e(L.LANGUAGES[l][2])}</span></a>'
             for l in LANGS)
+        language_fragments = f' data-shared-fragments="{" ".join(shared_fragments)}"' if shared_fragments else ''
         lang_button = (f'<button type="button" class="lang-btn" aria-label="{e(u["language"])}" aria-expanded="false">{ICONS["globe"]}{self.lang.upper()}</button>')
         nav = ''.join(f'<a href="{self.anchor(anchor)}">{e(label)}</a>' for anchor, label in zip(('drop', 'mundos', 'todo'), u['nav']))
         metrika = METRIKA if PROD and self.lang == 'ru' else ''
@@ -369,7 +375,7 @@ class Site:
 {ld}
 </head>
 <body style="--page:{colour}">
-<header class="top"><a class="logo" href="{self.start()}">FLU<i>X</i>I<i>X</i>O</a><nav aria-label="Menu">{nav}</nav>{lang_button}<div class="langs">{lang_links}</div></header>
+<header class="top"><a class="logo" href="{self.start()}">FLU<i>X</i>I<i>X</i>O</a><nav aria-label="Menu">{nav}</nav>{lang_button}<div class="langs"{language_fragments}>{lang_links}</div></header>
 <main id="main">
 {body}
 </main>
@@ -560,8 +566,8 @@ class Site:
         listing = {'@type': 'ItemList', 'name': u['title'], 'numberOfItems': len(items),
                    'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(items)]}
         body = hero + cats + day + ''.join(bands) + everything
-        paths = {l: L.catalog_path(l) for l in LANGS}
-        paths['en'] = '/'
+        catalogs = {l: L.catalog_path(l) for l in LANGS}
+        entry_pages = {**catalogs, 'en': '/'}
         overrides = market_seo.load_overrides()
         if self.root:
             # The front page is not a second catalog: the newest finds, a few words about the site, and the way on.
@@ -583,8 +589,10 @@ class Site:
                  'publisher': {'@id': ORGANIZATION['@id']}},
                 ORGANIZATION, root_listing]}
             ov_root = market_seo.route_override(overrides, '/')
+            language_paths = {l: '/' if l == 'en' else f'{path}#drop' for l, path in entry_pages.items()}
             write('/', self.page(ov_root.get('title') or ROOT_TITLE, ov_root.get('description') or ROOT_DESC, '/', root_body,
-                                 paths, schema, tab='home'))
+                                 entry_pages, schema, tab='home', language_paths=language_paths,
+                                 shared_fragments=('drop', 'mundos', 'cats')))
             return
         # Titles and descriptions stay as search engines know them unless explicitly tuned in seo_overrides.json.
         ov_home = market_seo.route_override(overrides, self.home())
@@ -603,8 +611,11 @@ class Site:
                                                   lang=L.LANGUAGES[self.lang][0],
                                                   items=[(self.ppath(p), p['name']) for p in items],
                                                   crumbs=[(u['home'], self.home())])
-        write(self.home(), self.page(home_title, desc, self.home(), body, paths, hub_schema,
-                                     hreflang=self.lang != 'en', tab='home'))
+        language_paths = {l: f'{path}#todo' if l != self.lang else path for l, path in catalogs.items()}
+        fragments = ('todo', 'find', 'cats') if self.lang == 'en' else ('todo', 'find', 'cats', 'drop', 'mundos')
+        write(self.home(), self.page(home_title, desc, self.home(), body, entry_pages, hub_schema,
+                                     hreflang=self.lang != 'en', tab='home', language_paths=language_paths,
+                                     shared_fragments=fragments))
 
     def build_404(self):
         body = (f'<section class="c-hero"><p class="eye">404</p><h1 class="d">Page not found<span class="s">This link may have changed.</span></h1>'
@@ -694,7 +705,7 @@ class Site:
              'about': {'@id': ORGANIZATION['@id']}},
             ORGANIZATION]}
         write(path, self.page(copy['title'], copy['desc'], path, f'<article class="about"><h1 class="d">{e(copy["h1"])}</h1>{sections}</article>',
-                              {l: L.about_path(l) for l in LANGS}, schema))
+                              {l: L.about_path(l) for l in LANGS}, schema, shared_fragments=('privacy',)))
 
 
 def write(path, html):
@@ -804,7 +815,8 @@ def main():
     journal_pages.generate_journal_pages(
         ORIGIN, products, data,
         lambda title, desc, path, body, schema=None, image=None, language='ru', alternate_paths=None: sites[language].page(
-            title, desc, path, body, alternate_paths, schema=schema, image=image
+            title, desc, path, body, alternate_paths, schema=schema, image=image,
+            language_paths={l: alternate_paths.get(l, journal_pages.index_path(l)) for l in LANGS},
         ),
         lambda rel_html_path, html: write('/' + rel_html_path.removesuffix('/index.html').removesuffix('index.html'), html),
         L.alternates,
