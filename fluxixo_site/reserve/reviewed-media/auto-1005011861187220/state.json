@@ -88,38 +88,98 @@
   "slots": [
     {
       "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly presents the gold stainless steel cryo sticks with white handles and their clear case, matching the product title.",
+          "All visual attributes including shape, color, and completeness are accurate for a hero product shot."
+        ]
+      },
+      "source_file": "reference-80cea13aa1f4093a4940673282cca03f55f361ae2a8ac0e81a2ee79b68c3c1c4.png",
+      "source_sha256": "80cea13aa1f4093a4940673282cca03f55f361ae2a8ac0e81a2ee79b68c3c1c4",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sf1dcc41cc1fa4a7d8ac700f10bc7be0dm.jpg",
+      "original_sha256": "88a8d855a118ec147a36ddaf5a056a15b514dfd181680da81f722d07dd1f3d30",
+      "output_file": "hero-e2a247107e0670ba0914bb71e113d50574ae1dffb4bf1f43b095bba4d6106cec.webp",
+      "image_sha256": "e2a247107e0670ba0914bb71e113d50574ae1dffb4bf1f43b095bba4d6106cec",
+      "metrics": {
+        "fg_width": 818,
+        "fg_height": 911,
+        "fg_max_side": 911,
+        "fg_min_side": 818,
+        "upscale_ratio": 0.977,
+        "sharpness": 21.85,
+        "fg_mean_luma": 192.28,
+        "fg_luma_std": 51.12,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.238,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly presents the gold stainless steel cryo sticks with white handles and their clear case, matching the product title.",
+          "All visual attributes including shape, color, and completeness are accurate for a hero product shot."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "80cea13aa1f4093a4940673282cca03f55f361ae2a8ac0e81a2ee79b68c3c1c4",
+      "source_title_sha256": "371b9b88d1ac1a8e57e82b98664809ecd9cd429519f16d8ceec7a831bacf4ec2",
+      "reviewed_at": 1795182317.4471548
+    },
+    {
+      "generation_attempts": {},
       "pending": {
-        "source_file": "reference-80cea13aa1f4093a4940673282cca03f55f361ae2a8ac0e81a2ee79b68c3c1c4.png",
-        "source_sha256": "80cea13aa1f4093a4940673282cca03f55f361ae2a8ac0e81a2ee79b68c3c1c4",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sf1dcc41cc1fa4a7d8ac700f10bc7be0dm.jpg",
-        "original_sha256": "88a8d855a118ec147a36ddaf5a056a15b514dfd181680da81f722d07dd1f3d30",
-        "output_file": "hero-e2a247107e0670ba0914bb71e113d50574ae1dffb4bf1f43b095bba4d6106cec.webp",
-        "image_sha256": "e2a247107e0670ba0914bb71e113d50574ae1dffb4bf1f43b095bba4d6106cec",
+        "source_file": "reference-aa8678904fa4727aa0b609d306ba34359948cafc4f6c1b44b0ac2d18cb53bb1b.png",
+        "source_sha256": "aa8678904fa4727aa0b609d306ba34359948cafc4f6c1b44b0ac2d18cb53bb1b",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S9eb8dcb013434bab846ee7d0e330f52eM.jpg",
+        "original_sha256": "f8cba404c133d224024ae4a8e9b0821fea8acd99eabf38ecdebb2e44a6997f75",
+        "output_file": "application-a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f.webp",
+        "image_sha256": "a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f",
         "metrics": {
-          "fg_width": 818,
-          "fg_height": 911,
-          "fg_max_side": 911,
-          "fg_min_side": 818,
-          "upscale_ratio": 0.977,
-          "sharpness": 21.85,
-          "fg_mean_luma": 192.28,
-          "fg_luma_std": 51.12,
+          "fg_width": 732,
+          "fg_height": 788,
+          "fg_max_side": 788,
+          "fg_min_side": 732,
+          "upscale_ratio": 1.129,
+          "sharpness": 18.252,
+          "fg_mean_luma": 175.81,
+          "fg_luma_std": 57.48,
           "max_border_clip": 0.0,
           "clipped_edges": 0,
-          "halo_fringe_ratio": 0.238,
+          "halo_fringe_ratio": 0.015,
           "reasons": []
         },
         "generated": false
       }
     },
-    {},
     {}
   ],
   "created_at": 1795181081.9197834,
   "deferrals": 0,
-  "lease_owner": "bd731b3966d243ef842ca7420df34224",
-  "lease_until": 0,
-  "status": "waiting",
+  "lease_owner": "989a75190b78439b864ed375c2e773e0",
+  "lease_until": 1795184107.074665,
+  "status": "processing",
   "next_attempt": 0,
   "source_refresh_after": 1795267483.7227576,
   "source_version": "9a72fababd8e88d8b5b3ccee65bfb4d4dfd901875824aa438078aa70b690184b",
@@ -138,8 +198,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "aa8678904fa4727aa0b609d306ba34359948cafc4f6c1b44b0ac2d18cb53bb1b",
+            "at": 1795182317.448922,
+            "code": "pending_review",
+            "image_sha256": "a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -149,10 +217,30 @@
   },
   "review_attempts": {
     "e2a247107e0670ba0914bb71e113d50574ae1dffb4bf1f43b095bba4d6106cec": {
-      "opportunities": 0,
-      "last_code": "gemini_http_503",
+      "opportunities": 1,
+      "last_code": "accepted",
       "provider_attempted": null,
-      "transient_retries": 1
+      "transient_retries": 1,
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly presents the gold stainless steel cryo sticks with white handles and their clear case, matching the product title.",
+          "All visual attributes including shape, color, and completeness are accurate for a hero product shot."
+        ]
+      }
+    },
+    "a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
     }
   },
   "identity_source": {
