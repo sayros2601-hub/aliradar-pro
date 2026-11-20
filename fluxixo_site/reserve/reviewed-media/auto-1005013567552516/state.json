@@ -152,9 +152,134 @@
       "rejected_sources": [
         "2ccecd8d76145b392190d148afa3e0022114593c6560ff64ef1668605452341a"
       ],
-      "feedback": "Preserve the complete product and provide a clean, distinct frame."
+      "feedback": "Preserve the complete product and provide a clean, distinct frame.",
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the reverse side of the wooden balance board with its three hemispherical attachments, perfectly matching the product variant and maintaining accurate shape, color, and high quality."
+        ]
+      },
+      "source_file": "reference-54eecad5bc382b2383f5c373be51b6c01b416f13356779f00e1efb57f5daae2e.png",
+      "source_sha256": "54eecad5bc382b2383f5c373be51b6c01b416f13356779f00e1efb57f5daae2e",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S64fbc4a09df84b77ac70576fec34d149c.jpg",
+      "original_sha256": "56ba0450ebeb8ca18ac7900e17f93a5da14a97e9941b1fd5ba4cd1e265eafc18",
+      "output_file": "application-c6230821c4c07d0a06e65bed56ef967c0e62e40c3df652deda1c72a232f7ab14.webp",
+      "image_sha256": "c6230821c4c07d0a06e65bed56ef967c0e62e40c3df652deda1c72a232f7ab14",
+      "metrics": {
+        "fg_width": 650,
+        "fg_height": 534,
+        "fg_max_side": 650,
+        "fg_min_side": 534,
+        "upscale_ratio": 1.369,
+        "sharpness": 13.333,
+        "fg_mean_luma": 107.81,
+        "fg_luma_std": 56.47,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.014,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the reverse side of the wooden balance board with its three hemispherical attachments, perfectly matching the product variant and maintaining accurate shape, color, and high quality."
+        ]
+      },
+      "prior_image_sha256": [
+        "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d"
+      ],
+      "identity_source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+      "source_title_sha256": "9e210a0fe4622d6e73ed16c6a14230eb38aa4fb4a31aed36ff0e636bdddc92c3",
+      "reviewed_at": 1795182700.2854238
     },
-    {}
+    {
+      "generation_attempts": {},
+      "rejected_sources": [
+        "2ccecd8d76145b392190d148afa3e0022114593c6560ff64ef1668605452341a"
+      ],
+      "feedback": "Preserve the complete product and provide a clean, distinct frame.",
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the requested wooden balance board with all correct features, including the black grip tape and wooden hemispheres.",
+          "The multi-angle presentation clearly shows the product's design and structure."
+        ]
+      },
+      "source_file": "reference-c98411e11c652dda326e7ecb204d294e1b0dae7d2124fca7d55683763f1cb134.png",
+      "source_sha256": "c98411e11c652dda326e7ecb204d294e1b0dae7d2124fca7d55683763f1cb134",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7204b26b69a14d529a4436bb6d7f34e9Z.jpg",
+      "original_sha256": "0651bfba7657326f4fd2a06544d49bcf98e02b22027a60360deb1c81cb70c461",
+      "output_file": "result-4f4da11be8fab64ea1555b3c588a76c279d5f8b9d93e2c513d107d61ac52a07a.webp",
+      "image_sha256": "4f4da11be8fab64ea1555b3c588a76c279d5f8b9d93e2c513d107d61ac52a07a",
+      "metrics": {
+        "fg_width": 690,
+        "fg_height": 723,
+        "fg_max_side": 723,
+        "fg_min_side": 690,
+        "upscale_ratio": 1.231,
+        "sharpness": 11.135,
+        "fg_mean_luma": 74.86,
+        "fg_luma_std": 43.75,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.004,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the requested wooden balance board with all correct features, including the black grip tape and wooden hemispheres.",
+          "The multi-angle presentation clearly shows the product's design and structure."
+        ]
+      },
+      "prior_image_sha256": [
+        "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d",
+        "c6230821c4c07d0a06e65bed56ef967c0e62e40c3df652deda1c72a232f7ab14"
+      ],
+      "identity_source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+      "source_title_sha256": "9e210a0fe4622d6e73ed16c6a14230eb38aa4fb4a31aed36ff0e636bdddc92c3",
+      "reviewed_at": 1795182718.0654683
+    }
   ],
   "created_at": 1795181567.444309,
   "deferrals": 0,
@@ -189,14 +314,28 @@
           {
             "source_sha256": "54eecad5bc382b2383f5c373be51b6c01b416f13356779f00e1efb57f5daae2e",
             "at": 1795182685.1829727,
-            "code": "reserved"
+            "code": "pending_review",
+            "image_sha256": "c6230821c4c07d0a06e65bed56ef967c0e62e40c3df652deda1c72a232f7ab14"
           }
         ],
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 2,
+        "events": [
+          {
+            "source_sha256": "2ccecd8d76145b392190d148afa3e0022114593c6560ff64ef1668605452341a",
+            "at": 1795182700.2874007,
+            "code": "technical_quality"
+          },
+          {
+            "source_sha256": "c98411e11c652dda326e7ecb204d294e1b0dae7d2124fca7d55683763f1cb134",
+            "at": 1795182702.679168,
+            "code": "pending_review",
+            "image_sha256": "4f4da11be8fab64ea1555b3c588a76c279d5f8b9d93e2c513d107d61ac52a07a"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -219,6 +358,45 @@
         "reasons": [
           "The product image accurately shows the wooden balance board with black grip tape matching the title and reference images.",
           "The hero shot clearly displays the item and its variant without any material defects or missing parts."
+        ]
+      }
+    },
+    "c6230821c4c07d0a06e65bed56ef967c0e62e40c3df652deda1c72a232f7ab14": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the reverse side of the wooden balance board with its three hemispherical attachments, perfectly matching the product variant and maintaining accurate shape, color, and high quality."
+        ]
+      }
+    },
+    "4f4da11be8fab64ea1555b3c588a76c279d5f8b9d93e2c513d107d61ac52a07a": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the requested wooden balance board with all correct features, including the black grip tape and wooden hemispheres.",
+          "The multi-angle presentation clearly shows the product's design and structure."
         ]
       }
     }
