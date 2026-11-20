@@ -5,6 +5,556 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005003729947715",
+      "name": "Тренировочный мяч для развития координации и реакции",
+      "headline": [
+        "Развитие ловкости",
+        "Тренажер рефлексов"
+      ],
+      "description": "Силиконовый мяч необычной многогранной формы создан для отработки быстроты реакции, координации движений и зрительно-моторного контроля во время активных занятий. Непредсказуемый отскок от твердых покрытий помогает эффективно улучшать спортивные показатели, поэтому перед оформлением заказа обязательно сопоставьте параметры изделия с вашими тренировочными целями.",
+      "category": "Спорт",
+      "image": "assets/images/auto-1005003729947715.webp",
+      "original": "assets/originals/auto-1005003729947715.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4SLnAnT",
+      "sourceUrl": "https://www.aliexpress.com/item/1005003729947715.html",
+      "sourceProductId": "1005003729947715",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005003729947715.html",
+      "sourceTitle": "Hexagonal Reaction Ball Speed Agility Training Silicone Ball Coordination Reflex Sports Fitness Training Ball for Child Adult",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/H0561654c44614d448689ea95534c30fez.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "RU",
+      "sourceTask": "seller_title",
+      "demo": false,
+      "theme": "lavender",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Силиконовый мяч необычной многогранной формы создан для отработки быстроты реакции, координации движений и зрительно-моторного контроля во время активных занятий. Непредсказуемый отскок от твердых покрытий помогает эффективно улучшать спортивные показатели, поэтому перед оформлением заказа обязательно сопоставьте параметры изделия с вашими тренировочными целями.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "85184d38f51e62b2453d178e49d49d60bcef0bf2015b1afcf6cb796897c50454",
+            "checked_at": 1795180749.7872486
+          },
+          "en": {
+            "sha256": "1c29ee6ea715a62e61173ee672aef604cf89f1665bd41c718d507a41951f8cef",
+            "checked_at": 1795180752.3566263
+          },
+          "pt": {
+            "sha256": "79177ff4ffecc977d833116ab861a9882df8c028760bf655744e98e9c79412f3",
+            "checked_at": 1795180758.2805495
+          },
+          "es": {
+            "sha256": "81951748448debfb1b1257fb7e295241b0ac6bc968e61ac2103cc3226a28d7e2",
+            "checked_at": 1795180760.2542708
+          },
+          "fr": {
+            "sha256": "972950a1191b6bb872decfa6525545c30e11ff2ec4e5ff80349c0fb09609d11b",
+            "checked_at": 1795180763.4130304
+          },
+          "he": {
+            "sha256": "3e5d7c5cfae7d04c6102b12f25d4c4e99267b62ffd719102fb7ec34d2a554320",
+            "checked_at": 1795180768.454626
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005003729947715",
+        "source_title_sha256": "9698e05ea1ee8fd9c34384102409bd1c887b2885ea204faccf8405cab00e0e5d",
+        "identity_source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+        "identity_source_asset": "assets/originals/auto-1005003729947715-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+            "image_sha256": "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H0561654c44614d448689ea95534c30fez.jpg",
+            "source_asset": "assets/originals/auto-1005003729947715-review-1.png",
+            "output_asset": "assets/images/auto-1005003729947715.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The hero image clearly presents the green hexagonal reaction ball in use, demonstrating its intended agility training function accurately."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "597f4287536a4fb42a441c73ca510932f9ee96b334c5e3e777ed92e4ca9836a6",
+            "image_sha256": "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284",
+            "prior_image_sha256": [
+              "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f"
+            ],
+            "identity_source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H0bb3a70e73f24d81b590a60d689228ebc.jpg",
+            "source_asset": "assets/originals/auto-1005003729947715-review-2.png",
+            "output_asset": "assets/images/auto-1005003729947715-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The application image correctly demonstrates the use of the hexagonal reaction ball for agility and eye-hand coordination training.",
+                "The green color of the ball being tossed matches one of the valid variant options shown in the reference product image.",
+                "The product appearance, shape, and context of use accurately align with the product title and description."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "3703d4963440ebeb6c9349078be9a453fa7c36b5094399c029492395708ca177",
+            "image_sha256": "5a1a24edcfc0b9d0c3763dd0dd74a7c9ba6305d576b3f3ea127340b71f994ce7",
+            "prior_image_sha256": [
+              "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f",
+              "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284"
+            ],
+            "identity_source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H6b55d918568946a4898111869c603d54k.jpg",
+            "source_asset": "assets/originals/auto-1005003729947715-review-3.png",
+            "output_asset": "assets/images/auto-1005003729947715-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image correctly demonstrates the product in use for agility and coordination training, matching the specified variant and fulfilling the result role."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005003729947715-v2.webp",
+        "assets/images/auto-1005003729947715-v3.webp"
+      ],
+      "sourceImageSha256": "e9dd9ef453343fcfaf8a07d145de5b254037a4609bb765fb36fefcb12fed7c90",
+      "sourcePixelSha256": "a96fb1947dd07b8f85ffe2ba4bbf96f7dd8437d1e7038373e718021b91e046f6",
+      "imageDhash": "6951c174f3e96362",
+      "imageAhash": "bd3dfcfc383d39bb",
+      "imageAspect": "1.13",
+      "sourceImageDhash": "42c9b470e3627216",
+      "sourceImageAhash": "007cfcf83d3fbbc3",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1500,
+        "fg_height": 1322,
+        "fg_max_side": 1500,
+        "fg_min_side": 1322,
+        "upscale_ratio": 0.593,
+        "sharpness": 21.983,
+        "fg_mean_luma": 151.11,
+        "fg_luma_std": 57.2,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.005,
+        "reasons": []
+      }
+    },
+    {
+      "id": "auto-1005013194588661",
+      "name": "Расческа-массажер для кожи головы",
+      "headline": [
+        "Аппликатор для сывороток",
+        "Массаж кожи головы"
+      ],
+      "description": "Аксессуар оснащен подвижными роликовыми шариками для точечного распределения косметических жидкостей и масел по кожному покрову головы. Приспособление помогает равномерно наносить питательные составы и сыворотки, одновременно стимулируя корни волос во время расчесывания. Перед покупкой убедитесь в совместимости устройства с вашими привычными средствами ухода и проверьте объем резервуара.",
+      "category": "Уход",
+      "image": "assets/images/auto-1005013194588661.webp",
+      "original": "assets/originals/auto-1005013194588661.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c2yDzHZF",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013194588661.html",
+      "sourceProductId": "1005013194588661",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013194588661.html",
+      "sourceTitle": "Rolling Ball Scalp Massager Comb, Liquid Dispensing Hair Comb, Essential Oil & Hair Growth Serum Applicator, Anti Hair Loss Tool",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S2499d2e7734e45de938ac642949e1de5H.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "US",
+      "sourceTask": "seller_title",
+      "demo": false,
+      "theme": "lavender",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Аксессуар оснащен подвижными роликовыми шариками для точечного распределения косметических жидкостей и масел по кожному покрову головы. Приспособление помогает равномерно наносить питательные составы и сыворотки, одновременно стимулируя корни волос во время расчесывания. Перед покупкой убедитесь в совместимости устройства с вашими привычными средствами ухода и проверьте объем резервуара.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "a85cbd6fa0b7541c1513fefa8c32ae5d21aa7118a1aa220c46750b3b3b0be2ab",
+            "checked_at": 1795181377.8703568
+          },
+          "en": {
+            "sha256": "6e567b24e614083be64b764ab06abe29ca0331272e44b14de92ee7443fcc6c6d",
+            "checked_at": 1795181379.675994
+          },
+          "pt": {
+            "sha256": "968a8cf48e9a130bb258f07e900217c367608237eb20445709192d40b836d8a7",
+            "checked_at": 1795181387.0217566
+          },
+          "es": {
+            "sha256": "c1c12bcec51d2d520e7ff13bf6582689ac7c2b56aadc4ef635136aa9bc80f5ae",
+            "checked_at": 1795181390.1526372
+          },
+          "fr": {
+            "sha256": "53db0e892b149ffa5ef7a3e47dd033013d9b5b24daa71e81a22f74e1c3b7aeaf",
+            "checked_at": 1795181397.0780203
+          },
+          "he": {
+            "sha256": "af7a156b9fc67619910a4f8fceeaf2cc21c5f7821552eb865808871c3a272450",
+            "checked_at": 1795181398.2594771
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005013194588661",
+        "source_title_sha256": "542a653ec0bf723c318b65ae1c465b7662c3d76cd0a862d74da4d64546973a4a",
+        "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+        "identity_source_asset": "assets/originals/auto-1005013194588661-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+            "image_sha256": "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S2499d2e7734e45de938ac642949e1de5H.jpg",
+            "source_asset": "assets/originals/auto-1005013194588661-review-1.png",
+            "output_asset": "assets/images/auto-1005013194588661.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image clearly displays the rolling ball scalp massager comb and its color variants, along with the included accessories and usage context, successfully fulfilling the requirements for a hero product listing image."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "c877b002c0541013d13b68b54f9e1fde878c75964aa03bf02c3ca83a9e43c829",
+            "image_sha256": "26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3",
+            "prior_image_sha256": [
+              "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90"
+            ],
+            "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sf518e6eeca794389a85b5c7235ea91241.jpg",
+            "source_asset": "assets/originals/auto-1005013194588661-review-2.png",
+            "output_asset": "assets/images/auto-1005013194588661-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image correctly shows the clear variant of the rolling ball scalp massager comb in an appropriate application and lifestyle context (bathroom setting with hair nutrient oil).",
+                "Product features, shape, roller balls, and handle design accurately match the reference product from Image 1.",
+                "The image fulfills the application role clearly with relevant contextual tags ('Root Application', 'Hair Nutrient Oil').",
+                "No material defects, distortions, or missing parts are present."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06",
+            "image_sha256": "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6",
+            "prior_image_sha256": [
+              "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90",
+              "26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3"
+            ],
+            "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S74b30832b984484f8189502d7915c16f3.jpg",
+            "source_asset": "assets/originals/auto-1005013194588661-review-3.png",
+            "output_asset": "assets/images/auto-1005013194588661-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The product image clearly shows the scalp massager comb in an authentic lifestyle and functional setting, fulfilling the result role correctly without any defects."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005013194588661-v2.webp",
+        "assets/images/auto-1005013194588661-v3.webp"
+      ],
+      "sourceImageSha256": "448f98fee570844d82c26318f40ac2b84d45fce4441d48ed856f98b0944295e0",
+      "sourcePixelSha256": "5ad1c28b83547693a895c78a84a6bbfbdad57dc5b2b21dd3c990531852ac3226",
+      "imageDhash": "706677d5d556c6c6",
+      "imageAhash": "3f1f1f7f37e36277",
+      "imageAspect": "0.99",
+      "sourceImageDhash": "f46276d5d556c6c6",
+      "sourceImageAhash": "3e1f1b7737e36277",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1486,
+        "fg_height": 1500,
+        "fg_max_side": 1500,
+        "fg_min_side": 1486,
+        "upscale_ratio": 0.593,
+        "sharpness": 26.525,
+        "fg_mean_luma": 205.4,
+        "fg_luma_std": 47.32,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.206,
+        "reasons": []
+      }
+    },
+    {
+      "id": "auto-1005013567552516",
+      "name": "Деревянная платформа для тренировки баланса",
+      "headline": [
+        "Тренажер для равновесия",
+        "Упражнения для кора"
+      ],
+      "description": "Эта деревянная доска создана для развития координации, укрепления мышц кора и отработки навыков владения доской для серфинга или сноуборда дома. Перед оформлением заказа убедитесь, что размеры площадки соответствуют вашему свободному пространству и уровню подготовки.",
+      "category": "Спорт",
+      "image": "assets/images/auto-1005013567552516.webp",
+      "original": "assets/originals/auto-1005013567552516.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4VMgzwH",
+      "sourceUrl": "https://www.aliexpress.com/item/1005013567552516.html",
+      "sourceProductId": "1005013567552516",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005013567552516.html",
+      "sourceTitle": "Wooden Balance Board Core Strength Trainer Surf Snowboard Practice Wobble Cushion Stability Fitness Equipment Home Gym",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sdda9f8d592ed4a27b464f72114d959c3q.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "RU",
+      "sourceTask": "seller_title",
+      "demo": false,
+      "theme": "lavender",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Эта деревянная доска создана для развития координации, укрепления мышц кора и отработки навыков владения доской для серфинга или сноуборда дома. Перед оформлением заказа убедитесь, что размеры площадки соответствуют вашему свободному пространству и уровню подготовки.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "79009774c9d154ebc2ddbfe99fe1a554eff8993abab1bc55aa12918001b29bf6",
+            "checked_at": 1795181540.6794772
+          },
+          "en": {
+            "sha256": "3bfe19a25bb6ce370c373543e3cdedbc910db7801f6dc233ae101ed3dcd4d9f8",
+            "checked_at": 1795181543.390806
+          },
+          "pt": {
+            "sha256": "f4397e18f2031fca6832921fbe42f363bccaddf4f6278bbf072bebb3dd6b7208",
+            "checked_at": 1795181548.4920313
+          },
+          "es": {
+            "sha256": "5fd0590846dcfdd705120b7de35cd4cc63dc97973913100ef633336879acdfff",
+            "checked_at": 1795181550.524007
+          },
+          "fr": {
+            "sha256": "1628c522dc8edcf498457752045e36f82c2ec93f40822caf88e9a5318deb9b48",
+            "checked_at": 1795181551.6130025
+          },
+          "he": {
+            "sha256": "847005623a649462631709582eb51d328ce1a3590f5e7672f812aa8e5aa5a576",
+            "checked_at": 1795181557.7942295
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005013567552516",
+        "source_title_sha256": "9e210a0fe4622d6e73ed16c6a14230eb38aa4fb4a31aed36ff0e636bdddc92c3",
+        "identity_source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+        "identity_source_asset": "assets/originals/auto-1005013567552516-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+            "image_sha256": "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sdda9f8d592ed4a27b464f72114d959c3q.jpg",
+            "source_asset": "assets/originals/auto-1005013567552516-review-1.png",
+            "output_asset": "assets/images/auto-1005013567552516.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The product image accurately shows the wooden balance board with black grip tape matching the title and reference images.",
+                "The hero shot clearly displays the item and its variant without any material defects or missing parts."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "54eecad5bc382b2383f5c373be51b6c01b416f13356779f00e1efb57f5daae2e",
+            "image_sha256": "c6230821c4c07d0a06e65bed56ef967c0e62e40c3df652deda1c72a232f7ab14",
+            "prior_image_sha256": [
+              "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d"
+            ],
+            "identity_source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S64fbc4a09df84b77ac70576fec34d149c.jpg",
+            "source_asset": "assets/originals/auto-1005013567552516-review-2.png",
+            "output_asset": "assets/images/auto-1005013567552516-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image clearly shows the reverse side of the wooden balance board with its three hemispherical attachments, perfectly matching the product variant and maintaining accurate shape, color, and high quality."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "c98411e11c652dda326e7ecb204d294e1b0dae7d2124fca7d55683763f1cb134",
+            "image_sha256": "4f4da11be8fab64ea1555b3c588a76c279d5f8b9d93e2c513d107d61ac52a07a",
+            "prior_image_sha256": [
+              "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d",
+              "c6230821c4c07d0a06e65bed56ef967c0e62e40c3df652deda1c72a232f7ab14"
+            ],
+            "identity_source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7204b26b69a14d529a4436bb6d7f34e9Z.jpg",
+            "source_asset": "assets/originals/auto-1005013567552516-review-3.png",
+            "output_asset": "assets/images/auto-1005013567552516-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately depicts the requested wooden balance board with all correct features, including the black grip tape and wooden hemispheres.",
+                "The multi-angle presentation clearly shows the product's design and structure."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005013567552516-v2.webp",
+        "assets/images/auto-1005013567552516-v3.webp"
+      ],
+      "sourceImageSha256": "2b7e53cd0b98b48c59b0f549e3790e50ce99921baf51116170858fbb95a9d73a",
+      "sourcePixelSha256": "d2dc5180190a3e096b3b78e49fbf154ab2fd0f24b8e24426e4f86aceb5077b92",
+      "imageDhash": "03139785830e3d72",
+      "imageAhash": "fbfbc1c0c1830f3f",
+      "imageAspect": "3.61",
+      "sourceImageDhash": "000b40071f780128",
+      "sourceImageAhash": "ffffffe1818fffff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 660,
+        "fg_height": 183,
+        "fg_max_side": 660,
+        "fg_min_side": 183,
+        "upscale_ratio": 1.348,
+        "sharpness": 22.183,
+        "fg_mean_luma": 104.16,
+        "fg_luma_std": 57.44,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.01,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005013186843415",
       "name": "Калибр-кольцо",
       "headline": [
