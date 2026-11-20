@@ -137,9 +137,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ADD_COUNT: ${{ steps.today.outputs.add_count }}
           MARKETS: ${{ steps.today.outputs.markets }}
-          # Explicitly free keyless web search; no paid search credential is provided.
+          # Free-tier Tavily API key (1,000 free searches/month, strictly capped at 30/day in SQLite).
           FLUXIXO_WEB_CHECK: '1'
-          FLUXIXO_WEB_CHECK_PROVIDER: tavily_keyless
+          FLUXIXO_WEB_CHECK_PROVIDER: tavily_free
+          TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           # Batch frequent mid-run checkpoints to avoid git push storms; the always() step flushes final state.
           FLUXIXO_CHECKPOINT_MIN_INTERVAL: '20'
         run: |

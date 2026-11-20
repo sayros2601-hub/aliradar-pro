@@ -79,7 +79,7 @@ _BUYER_CHECK_START = re.compile(
 
 def free_web_check_enabled() -> bool:
     return (os.environ.get('FLUXIXO_WEB_CHECK', '').strip().lower() in ('1', 'true', 'yes')
-            and os.environ.get('FLUXIXO_WEB_CHECK_PROVIDER', '').strip().lower() == 'tavily_keyless')
+            and os.environ.get('FLUXIXO_WEB_CHECK_PROVIDER', '').strip().lower() in ('tavily_keyless', 'tavily_free'))
 
 
 def _distinctive_tokens(tokens, lang):

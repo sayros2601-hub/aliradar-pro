@@ -1702,7 +1702,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         problems = _copy_validation_problems(record_item, translated, site_root,
                                                              catalog_corpus=catalog_corpus, reject_placeholders=True)
                         reason = 'copy_validation_failed'
-                        if not problems and os.environ.get('FLUXIXO_WEB_CHECK_PROVIDER', '').strip().lower() == 'tavily_keyless':
+                        if not problems and os.environ.get('FLUXIXO_WEB_CHECK_PROVIDER', '').strip().lower() in ('tavily_keyless', 'tavily_free'):
                             problems = _bind_external_originality(record_item, translated, site_root)
                             reason = 'copy_external_overlap'
                         if problems:

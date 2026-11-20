@@ -259,6 +259,18 @@ class FreeSearchTests(unittest.TestCase):
         self.assertTrue(result['passed'])
         self.assertEqual(result['evidence_urls'], ['https://example.org/item'])
 
+    def test_tavily_free_mode_uses_bearer_key_with_strict_30_daily_cap(self):
+        with patch.dict('os.environ', {'FLUXIXO_WEB_CHECK_PROVIDER': 'tavily_free', 'TAVILY_API_KEY': 'tvly-free-test-key'}):
+            for i in range(30):
+                res = self.check(f'Unique tavily free key description number {i}')
+                self.assertTrue(res['passed'])
+            with self.assertRaises(SearchDeferred) as cm:
+                self.check('Thirty-first description exceeds 30/day free cap')
+            self.assertEqual('search_daily_budget', cm.exception.code)
+        _, _, headers, _ = self.calls[0]
+        self.assertEqual(headers, {'Content-Type': 'application/json', 'Authorization': 'Bearer tvly-free-test-key'})
+        self.assertNotIn(b'tvly-free-test-key', self.path.read_bytes())
+
 
 if __name__ == '__main__':
     unittest.main()

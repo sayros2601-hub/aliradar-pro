@@ -99,9 +99,9 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertIn("- cron: '35 13 * * *'", rotate_wf)
         prepare_step = rotate_wf.split('- name: Prepare one bounded batch', 1)[1].split('- name: ', 1)[0]
         self.assertIn("FLUXIXO_WEB_CHECK: '1'", prepare_step)
-        self.assertIn('FLUXIXO_WEB_CHECK_PROVIDER: tavily_keyless', prepare_step)
+        self.assertIn('FLUXIXO_WEB_CHECK_PROVIDER: tavily_free', prepare_step)
+        self.assertIn('TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}', prepare_step)
         self.assertNotIn('SERPER_API_KEY', prepare_step)
-        self.assertNotIn('TAVILY_API_KEY', prepare_step)
         self.assertIn('models: read', rotate_wf)
 
     def test_slot3_effect_prompt_and_white_enclosed_hole_cutout(self):

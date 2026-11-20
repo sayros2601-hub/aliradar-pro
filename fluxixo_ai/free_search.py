@@ -26,10 +26,23 @@ ENDPOINT = 'https://api.tavily.com/search'
 DEFAULT_BUDGET_PATH = Path(__file__).resolve().parents[1] / 'data/fluxixo_free_search.sqlite3'
 ADAPTER_VERSION = 'tavily-keyless-basic-v1'
 DAILY_ATTEMPTS = 36
+FREE_KEY_DAILY_ATTEMPTS = 30  # 30/day <= 900/mo, strictly inside Tavily's 1,000 free credits/month
 CACHE_TTL = 30 * 86400
 NETWORK_TIMEOUT = 30
 LEASE_SECONDS = 600
 MAX_RESPONSE_BYTES = 1_000_000
+
+
+def _free_api_key(explicit_key=None):
+    if explicit_key is not None:
+        return str(explicit_key).strip()
+    if os.environ.get('FLUXIXO_WEB_CHECK_PROVIDER', '').strip().lower() == 'tavily_free':
+        return os.environ.get('TAVILY_API_KEY', '').strip()
+    return ''
+
+
+def _daily_cap(api_key=''):
+    return FREE_KEY_DAILY_ATTEMPTS if api_key else DAILY_ATTEMPTS
 
 
 class SearchDeferred(RuntimeError):
@@ -142,7 +155,7 @@ def _valid_receipt(value):
             and type(value.get('checked_at')) in (int, float) and math.isfinite(value['checked_at']))
 
 
-def _reserve(path, key, owner, now):
+def _reserve(path, key, owner, now, *, daily_limit=DAILY_ATTEMPTS):
     with _db(path) as db:
         db.execute('BEGIN IMMEDIATE')
         row = db.execute('SELECT verdict,expires,lease_until FROM checks WHERE cache_key=?', (key,)).fetchone()
@@ -159,7 +172,7 @@ def _reserve(path, key, owner, now):
         db.execute('DELETE FROM requests WHERE at<=?', (now - 86400,))
         db.execute('DELETE FROM checks WHERE expires<=? AND lease_until<=?', (now, now))
         count, first = db.execute('SELECT count(*),min(at) FROM requests').fetchone()
-        if count >= DAILY_ATTEMPTS:
+        if count >= daily_limit:
             raise SearchDeferred('search_daily_budget', first + 86400.01)
         db.execute('INSERT INTO requests(at) VALUES(?)', (now,))
         db.execute('''INSERT INTO checks(cache_key,lease_until,owner) VALUES(?,?,?)
@@ -168,7 +181,7 @@ def _reserve(path, key, owner, now):
     return None
 
 
-def require_search_capacity(*, db_path=None, now=None):
+def require_search_capacity(*, db_path=None, now=None, api_key=None):
     """Read-only advisory check that at least one new search can be attempted.
 
     This neither reserves a slot nor guarantees capacity for all six locales.
@@ -177,6 +190,7 @@ def require_search_capacity(*, db_path=None, now=None):
     """
     at = time.time() if now is None else float(now)
     path = Path(DEFAULT_BUDGET_PATH if db_path is None else db_path)
+    daily_limit = _daily_cap(_free_api_key(api_key))
     try:
         if path.is_symlink():
             raise OSError('unsafe_search_state')
@@ -192,7 +206,7 @@ def require_search_capacity(*, db_path=None, now=None):
                 raise SearchDeferred(blocked[1], blocked[0])
             count, first = db.execute('SELECT count(*),min(at) FROM requests WHERE at>?',
                                       (at - 86400,)).fetchone()
-            if count >= DAILY_ATTEMPTS:
+            if count >= daily_limit:
                 raise SearchDeferred('search_daily_budget', first + 86400.01)
         finally:
             db.close()
@@ -249,7 +263,7 @@ def _post_json(url, payload, headers, timeout):
 
 
 def check_external_text(text, lang, *, compare, policy_version, query=None,
-                        db_path=None, transport=None, now=None):
+                        db_path=None, transport=None, now=None, api_key=None):
     """Compare fresh external hits once; reuse an exact-text verdict for 30 days.
 
     ``compare([{url,title,snippet}, ...])`` returns ``(passed, issues)``. It may
@@ -271,12 +285,14 @@ def check_external_text(text, lang, *, compare, policy_version, query=None,
         raise SearchDeferred('search_query_invalid', at + 3600)
     if transport is None and os.environ.get('FLUXIXO_OFFLINE') == '1':
         raise SearchDeferred('search_offline', at + 3600)
+    resolved_key = _free_api_key(api_key)
+    daily_limit = _daily_cap(resolved_key)
     key = hashlib.sha256(json.dumps([ADAPTER_VERSION, policy_version, lang, clean, query],
                                    ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
     path = db_path if db_path is not None else DEFAULT_BUDGET_PATH
     owner = uuid.uuid4().hex
     try:
-        cached = _reserve(path, key, owner, at)
+        cached = _reserve(path, key, owner, at, daily_limit=daily_limit)
         if cached is not None:
             return cached
     except (sqlite3.Error, OSError, ValueError, TypeError):
@@ -284,7 +300,11 @@ def check_external_text(text, lang, *, compare, policy_version, query=None,
     payload = {'query': query, 'search_depth': 'basic', 'topic': 'general', 'max_results': 5,
                'auto_parameters': False, 'include_answer': False, 'include_raw_content': False,
                'include_images': False, 'include_usage': True, 'exclude_domains': ['fluxixo.shop'], 'language': lang}
-    headers = {'Content-Type': 'application/json', 'X-Tavily-Access-Mode': 'keyless'}
+    headers = (
+        {'Content-Type': 'application/json', 'Authorization': f'Bearer {resolved_key}'}
+        if resolved_key
+        else {'Content-Type': 'application/json', 'X-Tavily-Access-Mode': 'keyless'}
+    )
     try:
         _checkpoint(clock())
         response = (transport or _post_json)(ENDPOINT, payload, headers, NETWORK_TIMEOUT)
