@@ -145,7 +145,32 @@
       "source_title_sha256": "542a653ec0bf723c318b65ae1c465b7662c3d76cd0a862d74da4d64546973a4a",
       "reviewed_at": 1795182391.1270366
     },
-    {},
+    {
+      "generation_attempts": {},
+      "pending": {
+        "source_file": "reference-4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06.png",
+        "source_sha256": "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S74b30832b984484f8189502d7915c16f3.jpg",
+        "original_sha256": "e8b04cca8d211d9e5f88a0d585754832242c23e953d94fca2a7eb73f8e774cd7",
+        "output_file": "application-8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6.webp",
+        "image_sha256": "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6",
+        "metrics": {
+          "fg_width": 521,
+          "fg_height": 650,
+          "fg_max_side": 650,
+          "fg_min_side": 521,
+          "upscale_ratio": 1.369,
+          "sharpness": 30.241,
+          "fg_mean_luma": 178.98,
+          "fg_luma_std": 53.08,
+          "max_border_clip": 0.0,
+          "clipped_edges": 0,
+          "halo_fringe_ratio": 0.198,
+          "reasons": []
+        },
+        "generated": false
+      }
+    },
     {}
   ],
   "created_at": 1795181398.376432,
@@ -171,8 +196,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06",
+            "at": 1795182392.7010198,
+            "code": "pending_review",
+            "image_sha256": "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -201,6 +234,10 @@
           "The image clearly displays the rolling ball scalp massager comb and its color variants, along with the included accessories and usage context, successfully fulfilling the requirements for a hero product listing image."
         ]
       }
+    },
+    "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
     }
   },
   "identity_source": {
