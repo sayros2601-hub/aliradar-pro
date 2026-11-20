@@ -646,40 +646,18 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     }, { passive: true });
   });
 
-  // Phone: the language list is a sheet that slides up.
-  const langButton = document.querySelector('.lang-btn');
-  const sheet = document.querySelector('.langs');
-  if (langButton && sheet) {
-    const toggle = open => { sheet.classList.toggle('open', open); langButton.setAttribute('aria-expanded', String(open)); };
-    langButton.addEventListener('click', event => { event.stopPropagation(); toggle(!sheet.classList.contains('open')); });
-    document.addEventListener('click', event => { if (!sheet.contains(event.target)) toggle(false); });
-    document.addEventListener('keydown', event => { if (event.key === 'Escape') toggle(false); });
-    const sharedFragments = sheet.dataset.sharedFragments?.split(' ') || [];
-    if (sharedFragments.length) {
-      const targets = [...sheet.querySelectorAll('a[hreflang]')].map(link => [link, link.getAttribute('href')]);
-      const syncLanguageLinks = () => {
-        const fragment = location.hash.slice(1);
-        for (const [link, href] of targets) {
-          const path = href.split('#')[0];
-          if (sharedFragments.includes(fragment)) {
-            const englishLanding = path === '/en/' && ['drop', 'mundos'].includes(fragment);
-            link.setAttribute('href', `${englishLanding ? '/' : path}#${fragment}`);
-          } else {
-            link.setAttribute('href', href);
-          }
-        }
-      };
-      syncLanguageLinks();
-      addEventListener('hashchange', syncLanguageLinks);
-    }
-  }
-
   // Catalog: filter by world and by words in the name.
   const cards = [...document.querySelectorAll('.grid [data-w]')];
+  const filters = [...document.querySelectorAll('[data-filter]')];
   const find = document.querySelector('.find');
   const none = document.querySelector('.none');
   const plain = text => text.toLowerCase().normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g, '');
-  let world = '*';
+  const categoryParameter = 'category';
+  const readWorld = () => {
+    const requested = new URLSearchParams(location.search).get(categoryParameter);
+    return filters.some(button => button.dataset.filter === requested) ? requested : '*';
+  };
+  let world = readWorld();
   const names = cards.map(card => plain(card.textContent));
   const apply = () => {
     const words = find ? plain(find.value).split(/\s+/).filter(Boolean) : [];
@@ -691,12 +669,65 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     });
     if (none) none.hidden = shown > 0;
   };
-  document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
-    world = button.dataset.filter;
-    document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+  const showWorld = () => {
+    for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.filter === world));
     apply();
-  }));
+  };
+  if (filters.length) showWorld();
   if (find) find.addEventListener('input', apply);
+
+  // Phone: the language list is a sheet that slides up.
+  const langButton = document.querySelector('.lang-btn');
+  const sheet = document.querySelector('.langs');
+  if (langButton && sheet) {
+    const toggle = open => { sheet.classList.toggle('open', open); langButton.setAttribute('aria-expanded', String(open)); };
+    langButton.addEventListener('click', event => { event.stopPropagation(); toggle(!sheet.classList.contains('open')); });
+    document.addEventListener('click', event => { if (!sheet.contains(event.target)) toggle(false); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') toggle(false); });
+  }
+
+  const sharedFragments = sheet?.dataset.sharedFragments?.split(' ') || [];
+  const targets = sharedFragments.length ? [...sheet.querySelectorAll('a[hreflang]')].map(link => [link, link.getAttribute('href')]) : [];
+  const syncLanguageLinks = () => {
+    const currentFragment = location.hash.slice(1);
+    const fragment = world !== '*' && currentFragment !== 'find' ? 'todo' : currentFragment;
+    for (const [link, href] of targets) {
+      const target = new URL(href, location.href);
+      if (sharedFragments.includes(fragment)) {
+        if (target.pathname === '/en/' && ['drop', 'mundos'].includes(fragment)) target.pathname = '/';
+        target.hash = fragment;
+      }
+      if (world !== '*') target.searchParams.set(categoryParameter, world);
+      link.setAttribute('href', target.pathname + target.search + target.hash);
+    }
+  };
+  if (targets.length) {
+    syncLanguageLinks();
+    addEventListener('hashchange', syncLanguageLinks);
+  }
+  for (const button of filters) {
+    button.addEventListener('click', () => {
+      world = button.dataset.filter;
+      const url = new URL(location.href);
+      if (world === '*') {
+        url.searchParams.delete(categoryParameter);
+      } else {
+        url.searchParams.set(categoryParameter, world);
+        if (url.hash !== '#find') url.hash = 'todo';
+      }
+      if (url.href !== location.href) history.replaceState(history.state, '', url);
+      showWorld();
+      syncLanguageLinks();
+    });
+  }
+  if (filters.length) addEventListener('popstate', () => {
+    const restored = readWorld();
+    if (restored !== world) {
+      world = restored;
+      showWorld();
+      syncLanguageLinks();
+    }
+  });
 
   // Bottom bar: same-page tabs act at once, and the bar shows where you are.
   const tabs = [...document.querySelectorAll('.tabs [data-tab]')];
@@ -706,7 +737,11 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     const url = new URL(tab.href);
     if (url.pathname !== location.pathname) return;
     if (tab.dataset.tab === 'home' && !location.hash) { event.preventDefault(); scrollTo(0, 0); }
-    if (tab.dataset.tab === 'find' && find && location.hash === '#find') { event.preventDefault(); openSearch(); }
+    if (tab.dataset.tab === 'find' && find) {
+      event.preventDefault();
+      if (location.hash === '#find') openSearch();
+      else location.hash = 'find';
+    }
   }));
   if (find) {
     const focusSearchSection = () => { if (location.hash === '#find') openSearch(); };
