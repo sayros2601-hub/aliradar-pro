@@ -1,54 +1,55 @@
 {
   "text": {
-    "input_key": "3abdee6ad6541668937bf25d3a8d3d83e9ff1ee24243d9ebca3a521ab1a4949b",
+    "input_key": "fd74c4bc0544b2e265bebaafd9d31967903d5c8285dd300cdbc4e22c6e7201c8",
+    "policy": "seller-title-claims-v2",
     "copy": {
       "ru": {
-        "name": "Портативная поилка-бутылка для собак",
+        "name": "Портативная поилка для собак 285 мл",
         "headline": [
-          "Освежите питомца в дороге,",
-          "без лишних капель в сумке."
+          "Удобный дорожный аксессуар",
+          "Свежая вода для вашего питомца"
         ],
-        "description": "Дорожный резервуар со встроенной откидной чашей и кнопкой подачи воды позволяет напоить животное во время прогулки, а неиспользованную жидкость можно вернуть обратно в колбу. Перед заказом уточните общий объём резервуара, материал изготовления и наличие ремешка для запястья."
+        "description": "Компактный дорожный аксессуар совмещает резервуар для жидкости и чашу для питья домашних животных во время прогулок. Конструкция предотвращает проливание и позволяет легко напоить собаку в любом месте. Перед покупкой проверьте объем емкости и убедитесь, что размер соответствует потребностям вашей поездки."
       },
       "en": {
-        "name": "Travel Pet Water Bottle with Foldable Bowl",
+        "name": "Portable Pet Travel Water Dispenser",
         "headline": [
-          "Hydrate your dog outside,",
-          "lock valve prevents spills."
+          "Handy outdoor hydration cup",
+          "Integrated bowl for dogs"
         ],
-        "description": "Outdoor hydration flask featuring an attached drinking trough and a push-button release mechanism that lets you dispense fresh liquid on walks and return unused portions back into the reservoir. Verify container capacity, carrying loop options, and cleaning instructions before ordering."
+        "description": "This convenient dual-purpose travel accessory combines a compact container with an attached drinking basin for pets on the go. The leak-resistant design ensures mess-free operation during walks, hikes, or car rides. Verify the fluid capacity and dimensions against your pet's daily requirements before placing an order."
       },
       "pt": {
-        "name": "Garrafa Portátil com Concha para Cães",
+        "name": "Garrafa com Tigela Portátil para Cães",
         "headline": [
-          "Água fresca na caminhada,",
-          "sistema antivazamento."
+          "Hidratação prática em passeios",
+          "Acessório leve para viagens"
         ],
-        "description": "Recipiente de passeio equipado com tigela dobrável acoplada e botão de liberação que facilita dar água ao pet ao ar livre, permitindo retornar o líquido excedente para o corpo principal. Confira a capacidade volumétrica total, a presença de alça de pulso e o tipo de vedação antes de concluir a compra."
+        "description": "Este prático acessório de viagem combina um reservatório de líquido com um recipiente integrado para cães durante caminhadas e passeios ao ar livre. O sistema projetado evita vazamentos indesejados e facilita fornecer água fresca em qualquer lugar. Confira a capacidade volumétrica e as dimensões gerais para garantir que atendam às necessidades do seu pet."
       },
       "es": {
-        "name": "Termo Bebedero Portátil para Mascotas",
+        "name": "Botella Portátil con Taza para Perros",
         "headline": [
-          "Hidratación rápida al caminar,",
-          "cierre seguro sin goteos."
+          "Hidratación práctica en paseos",
+          "Accesorio ligero de viaje"
         ],
-        "description": "Contenedor de viaje dotado de una charola desplegable y un botón dosificador que facilita dar agua al perro en parques o trayectos, regresando el sobrante al compartimento principal. Revisa la capacidad en mililitros, el material del cuerpo y la correa de sujeción antes de realizar tu pedido."
+        "description": "Este práctico accesorio integra un recipiente de líquido y una pequeña taza para ofrecer agua a mascotas durante caminatas y excursiones al aire libre. Su construcción evita derrames accidentales mientras transporta líquido de manera cómoda fuera de casa. Verifique la capacidad y las dimensiones del producto para asegurarse de que se adapte perfectamente a sus necesidades de viaje."
       },
       "fr": {
-        "name": "Gourde de Voyage Étanche pour Chien",
+        "name": "Gourde de Voyage Portable pour Chien",
         "headline": [
-          "Désaltérez votre animal dehors,",
-          "bouton de verrouillage anti-fuite."
+          "Hydratation pratique en promenade",
+          "Accessoire léger anti-fuite"
         ],
-        "description": "Récipient nomade muni d’une coupelle rabattable et d’un bouton poussoir pour distribuer de l’eau fraîche en balade tout en récupérant le surplus dans le réservoir principal. Vérifiez la contenance totale, la présence d’une lanière et la facilité d’entretien avant de valider votre commande."
+        "description": "Cet accessoire de voyage ingénieux combine un réservoir d'eau et une coupelle intégrée pour désaltérer les animaux lors des sorties en plein air. La conception étanche évite les écoulements indésirables pendant les déplacements et les randonnées. Pensez à vérifier la contenance volumétrique et les dimensions pour vous assurer qu'elles conviennent parfaitement à vos sorties."
       },
       "he": {
-        "name": "בקבוק שתייה נייד לכלבים עם קערית",
+        "name": "בקבוק מים נייד לטיולים עם כלבים",
         "headline": [
-          "מים צלולים לכלב בטיול,",
-          "כפתור מזיגה ונעילה."
+          "מתקן שתייה נוח לטיולים",
+          "שילוב בקבוק וקערית"
         ],
-        "description": "מיכל טיולים המשלב קערית מתקפלת ומנגנון לחצן לשחרור מים המאפשר להשקות את חיית המחמד בפארק ולהחזיר את הנוזל הנותר פנימה. בדקו מראש את נפח המיכל הכולל, את איכות האטמים ואת הימצאותה של רצועת נשיאה לפני ביצוע ההזמנה."
+        "description": "אביזר נסיעות מעשי זה משלב מיכל נוזלים וקערית שתייה מחוברת לכלבים במהלך פעילות מחוץ לבית. המבנה המונע דליפות מאפשר לספק לחיות המחמד מים נקיים בקלות רבה בכל מקום שתרצו לבקר בו. בדקו היטב את קיבולת הנוזלים ואת מידות המוצר בעמוד כדי לוודא שהן מתאימות לצרכי הטיול שלכם לפני השלמת ההזמנה."
       }
     },
     "model": "gemini-3.5-flash-lite",
