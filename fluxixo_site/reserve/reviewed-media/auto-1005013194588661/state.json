@@ -147,31 +147,140 @@
     },
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06.png",
-        "source_sha256": "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S74b30832b984484f8189502d7915c16f3.jpg",
-        "original_sha256": "e8b04cca8d211d9e5f88a0d585754832242c23e953d94fca2a7eb73f8e774cd7",
-        "output_file": "application-8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6.webp",
-        "image_sha256": "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6",
-        "metrics": {
-          "fg_width": 521,
-          "fg_height": 650,
-          "fg_max_side": 650,
-          "fg_min_side": 521,
-          "upscale_ratio": 1.369,
-          "sharpness": 30.241,
-          "fg_mean_luma": 178.98,
-          "fg_luma_std": 53.08,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.198,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly shows the clear variant of the rolling ball scalp massager comb in an appropriate application and lifestyle context (bathroom setting with hair nutrient oil).",
+          "Product features, shape, roller balls, and handle design accurately match the reference product from Image 1.",
+          "The image fulfills the application role clearly with relevant contextual tags ('Root Application', 'Hair Nutrient Oil').",
+          "No material defects, distortions, or missing parts are present."
+        ]
+      },
+      "rejected_images": [
+        "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6"
+      ],
+      "rejected_sources": [
+        "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06"
+      ],
+      "feedback": "Show the documented use or result; if unsupported, show a truthful functional detail. Keep the full product with clean edges and no background artifacts.",
+      "source_file": "reference-c877b002c0541013d13b68b54f9e1fde878c75964aa03bf02c3ca83a9e43c829.png",
+      "source_sha256": "c877b002c0541013d13b68b54f9e1fde878c75964aa03bf02c3ca83a9e43c829",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sf518e6eeca794389a85b5c7235ea91241.jpg",
+      "original_sha256": "cf51a450e98b637676bb4fc6ab2f4e1b3acddb7d5576dfd41ccd1d4f2ca1767a",
+      "output_file": "application-26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3.webp",
+      "image_sha256": "26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3",
+      "metrics": {
+        "fg_width": 407,
+        "fg_height": 630,
+        "fg_max_side": 630,
+        "fg_min_side": 407,
+        "upscale_ratio": 1.413,
+        "sharpness": 22.393,
+        "fg_mean_luma": 217.16,
+        "fg_luma_std": 43.71,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly shows the clear variant of the rolling ball scalp massager comb in an appropriate application and lifestyle context (bathroom setting with hair nutrient oil).",
+          "Product features, shape, roller balls, and handle design accurately match the reference product from Image 1.",
+          "The image fulfills the application role clearly with relevant contextual tags ('Root Application', 'Hair Nutrient Oil').",
+          "No material defects, distortions, or missing parts are present."
+        ]
+      },
+      "prior_image_sha256": [
+        "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90"
+      ],
+      "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+      "source_title_sha256": "542a653ec0bf723c318b65ae1c465b7662c3d76cd0a862d74da4d64546973a4a",
+      "reviewed_at": 1795182653.691183
     },
-    {}
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product image clearly shows the scalp massager comb in an authentic lifestyle and functional setting, fulfilling the result role correctly without any defects."
+        ]
+      },
+      "source_file": "reference-4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06.png",
+      "source_sha256": "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S74b30832b984484f8189502d7915c16f3.jpg",
+      "original_sha256": "e8b04cca8d211d9e5f88a0d585754832242c23e953d94fca2a7eb73f8e774cd7",
+      "output_file": "result-8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6.webp",
+      "image_sha256": "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6",
+      "metrics": {
+        "fg_width": 521,
+        "fg_height": 650,
+        "fg_max_side": 650,
+        "fg_min_side": 521,
+        "upscale_ratio": 1.369,
+        "sharpness": 30.241,
+        "fg_mean_luma": 178.98,
+        "fg_luma_std": 53.08,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.198,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product image clearly shows the scalp massager comb in an authentic lifestyle and functional setting, fulfilling the result role correctly without any defects."
+        ]
+      },
+      "prior_image_sha256": [
+        "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90",
+        "26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3"
+      ],
+      "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+      "source_title_sha256": "542a653ec0bf723c318b65ae1c465b7662c3d76cd0a862d74da4d64546973a4a",
+      "reviewed_at": 1795182662.9559846
+    }
   ],
   "created_at": 1795181398.376432,
   "deferrals": 0,
@@ -196,20 +305,34 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 1,
+        "materializations": 2,
         "events": [
           {
             "source_sha256": "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06",
             "at": 1795182392.7010198,
             "code": "pending_review",
             "image_sha256": "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6"
+          },
+          {
+            "source_sha256": "c877b002c0541013d13b68b54f9e1fde878c75964aa03bf02c3ca83a9e43c829",
+            "at": 1795182646.0482638,
+            "code": "pending_review",
+            "image_sha256": "26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3"
           }
         ],
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06",
+            "at": 1795182653.6947596,
+            "code": "pending_review",
+            "image_sha256": "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -236,8 +359,45 @@
       }
     },
     "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6": {
+      "opportunities": 2,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product image clearly shows the scalp massager comb in an authentic lifestyle and functional setting, fulfilling the result role correctly without any defects."
+        ]
+      }
+    },
+    "26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly shows the clear variant of the rolling ball scalp massager comb in an appropriate application and lifestyle context (bathroom setting with hair nutrient oil).",
+          "Product features, shape, roller balls, and handle design accurately match the reference product from Image 1.",
+          "The image fulfills the application role clearly with relevant contextual tags ('Root Application', 'Hair Nutrient Oil').",
+          "No material defects, distortions, or missing parts are present."
+        ]
+      }
     }
   },
   "identity_source": {
