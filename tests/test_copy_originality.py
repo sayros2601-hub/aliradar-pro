@@ -348,6 +348,20 @@ class CopyOriginalityTests(unittest.TestCase):
             self.assertFalse(ok_closed)
             self.assertTrue(issues_closed)
 
+    def test_cyrillic_short_i_preserved_and_external_headline_checked(self):
+        ru_text = 'Компактный дозатор для жидких жидкостей с удобной крышкой помогает аккуратно наливать соусы на домашней кухне.'
+        query = co.distinctive_excerpt_query(ru_text, 'ru')
+        self.assertIn('жидкостей', query)
+        self.assertNotIn('жидкостеи', query)
+        passed, issues = co.compare_external_prose(
+            'Compact stoneware dish holds daily desk clips cleanly.',
+            'en',
+            [{'url': 'https://competitor.example/dish', 'title': 'Quiet stoneware tray keeps cluttered desks calm', 'snippet': 'Different prose body here.'}],
+            headline_text='Quiet stoneware tray keeps cluttered desks calm',
+        )
+        self.assertFalse(passed)
+        self.assertTrue(any('external_headline_overlap' in item for item in issues), issues)
+
 
 if __name__ == '__main__':
     unittest.main()

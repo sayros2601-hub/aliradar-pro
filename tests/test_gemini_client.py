@@ -179,6 +179,22 @@ class GeminiClientTests(unittest.TestCase):
             self.call(transport)
         self.assertEqual(['checkpoint', 'request'], sequence)
 
+    def test_http_503_retries_transiently_before_short_backoff(self):
+        attempts = []
+        def flaky(*args):
+            attempts.append(1)
+            if len(attempts) < 3:
+                raise urllib.error.HTTPError('https://invalid', 503, 'overloaded', {}, None)
+            return self.good()
+        self.assertEqual({'approved': True}, self.call(flaky, model='gemini-3.5-flash-lite'))
+        self.assertEqual(3, len(attempts))
+        always_503 = lambda *args: (_ for _ in ()).throw(urllib.error.HTTPError('https://invalid', 503, 'overloaded', {}, None))
+        self.advance(5)
+        with self.assertRaises(self.client.GeminiDeferred) as err:
+            self.call(always_503, model='gemini-3.5-flash-lite')
+        self.assertEqual('gemini_http_503', err.exception.code)
+        self.assertAlmostEqual(self.clock + 90, err.exception.retry_at, delta=1)
+
 
 if __name__ == '__main__':
     unittest.main()

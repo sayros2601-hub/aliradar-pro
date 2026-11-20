@@ -65,7 +65,7 @@ def countdown_metadata(state_path=None, now=None, prepared_day=None):
     mere prepared/reserved state entry does not prove a public release exists.
     """
     now = now or datetime.now(timezone.utc)
-    today = now.astimezone(ZoneInfo('Europe/Moscow')).date()
+    today = now.astimezone(ZoneInfo('Asia/Jerusalem')).date()
     published_days = []
     try:
         state = json.loads((state_path or ROOT.parent / 'data/fluxixo_publish_state.json').read_text(encoding='utf-8'))
@@ -492,7 +492,7 @@ class Site:
                 f' · <time data-day datetime="{LAST_DROP}">{LAST_DROP}</time></p>'
                 f'<p class="clock row" title="{e(u["countdown_schedule"])}">{e(u["countdown_label"])}'
                 f'<b data-countdown data-published-day="{clock["published_day"]}" data-due-day="{clock["due_day"]}" '
-                f'data-timezone="Europe/Moscow" data-hour="14" data-minute="0" data-awaiting="{e(u["countdown_awaiting"])}" '
+                f'data-timezone="Asia/Jerusalem" data-hour="15" data-minute="30" data-awaiting="{e(u["countdown_awaiting"])}" '
                 f'role="timer" aria-live="off">--:--:--</b></p></div>'
                 f'{self.rope(drop, eager=True, lead=True)}<div class="drop-copy">'
                 f'<h1>{e(u["hero_heading"])}</h1><div class="drop-summary">'

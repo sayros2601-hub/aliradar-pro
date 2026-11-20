@@ -46,6 +46,16 @@ def flat(value):
     return ' '.join(value) if isinstance(value, list) else value
 
 
+# Mexican Spanish uses "móvil/móviles" naturally as an adjective ("aplicación móvil", "cabezal móvil",
+# "dispositivo móvil"), whereas Spain uses standalone "móvil" as a noun for "celular".
+_MX_MOVIL_ADJECTIVE = re.compile(
+    r'\b(?:aplicaci[oó]n|app|dispositivos?|tel[eé]fonos?|soportes?|bases?|cabezas?|cabezales?|'
+    r'partes?|piezas?|juegos?|pantallas?|bater[ií]as?|cargas?|luces?|l[aá]mparas?|mesas?|'
+    r'carritos?|ruedas?|brazos?|ejes?|unidades?|sistemas?|uso|acceso|energ[ií]a)\s+m[oó]vil(?:es)?\b'
+)
+_MX_MOVIL_PRE_ADJECTIVE = re.compile(r'\bm[oó]vil(?:es)?\s+(?:ajustable|plegable|port[aá]til|giratori[oa]|desmontable)\b')
+
+
 def check_string(text, lang, where, problems):
     def bad(message):
         problems.append(f'{where}: {message} -> {text[:90]!r}')
@@ -76,11 +86,13 @@ def check_string(text, lang, where, problems):
         if lang == 'he' and not HEBREW.search(text):
             bad('no Hebrew letters at all')
     low = ' ' + re.sub(r'[^\w\s-]', ' ', text.lower()) + ' '
+    low_es = _MX_MOVIL_PRE_ADJECTIVE.sub(' ', _MX_MOVIL_ADJECTIVE.sub(' ', low)) if lang == 'es' else low
     for words, target, tag in ((SPAIN, 'es', 'Spain word (site is for Mexico)'), (PORTUGAL, 'pt', 'Portugal word (site is for Brazil)'),
                                (BRITISH, 'en', 'British spelling (site uses US English)')):
         if lang == target:
+            haystack = low_es if target == 'es' else low
             for word in words:
-                if f' {word} ' in low or (word == 'electr' and ' electr' in low):
+                if f' {word} ' in haystack or (word == 'electr' and ' electr' in haystack):
                     bad(f'{tag}: "{word}"')
     if lang == 'es':
         if text.count('!') != text.count('¡') or text.count('?') != text.count('¿'):

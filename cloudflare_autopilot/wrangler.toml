@@ -27,6 +27,12 @@ FALLBACK_IMAGE_MODEL = "@cf/black-forest-labs/flux-2-klein-4b"
 DEFAULT_TEXT_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast"
 DEFAULT_VISION_MODEL = "@cf/meta/llama-4-scout-17b-16e-instruct"
 
+[observability]
+enabled = true
+
 [triggers]
-# Moscow time (UTC+3 all year): 12:00 prepare, 13:00 prepare retry, 14:00 publish; 05:17 UTC = the morning SEO sync.
-crons = ["0 9 * * *", "0 10 * * *", "0 11 * * *", "17 5 * * *"]
+# Israel time (Asia/Jerusalem, UTC+2 winter / UTC+3 summer):
+# - 30 10-18 * * *: 13:30 prepare, 15:30 exact publish (winter 13:30 UTC & summer 12:30 UTC), plus hourly recovery.
+# - 0 11-18 * * *: half-hour retry slots for deferred candidates; smart-skipped once published.
+# - 17 5 * * *: morning SEO sync & Bing/Yandex IndexNow.
+crons = ["30 10-18 * * *", "0 11-18 * * *", "17 5 * * *"]

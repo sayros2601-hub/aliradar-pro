@@ -493,6 +493,37 @@ class GeminiTextTests(unittest.TestCase):
                 self.assertEqual(bundle, result)
         self.assertEqual(2, len(model_calls))
 
+    def test_transient_503_and_checkpoint_failure_do_not_burn_lifetime_drafts(self):
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        bundle = mirror_bundle()
+        state = {}
+        calls = []
+        def flaky(system, prompt, **kwargs):
+            request = json.loads(prompt)
+            calls.append(request)
+            if len(calls) <= 2:
+                raise GeminiDeferred('gemini_http_503')
+            return (claim_verdict(bundle) if request.get('task') == 'verify_source_claims' else bundle), 'test'
+        with patch.object(ai_seo, 'complete_json', side_effect=flaky):
+            for _ in range(2):
+                with self.assertRaises(GeminiDeferred) as caught:
+                    ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
+                                              snippet_fetcher=lambda *a: [], copy_state=state)
+                self.assertEqual('gemini_http_503', caught.exception.code)
+                self.assertNotIsInstance(caught.exception, ai_seo.GeminiCopyStopped)
+            result, _ = ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
+                                                  snippet_fetcher=lambda *a: [], copy_state=state)
+            self.assertEqual(bundle, result)
+
+    def test_mexican_spanish_aplicacion_movil_allowed_while_spain_noun_blocked(self):
+        import check_texts
+        ok_probs = []
+        check_texts.check_string('Compatible con aplicación móvil y soporte móvil ajustable.', 'es', 'es.desc', ok_probs)
+        self.assertEqual([], ok_probs)
+        bad_probs = []
+        check_texts.check_string('Conecta el aparato directamente a tu móvil cada día.', 'es', 'es.desc', bad_probs)
+        self.assertTrue(any('móvil' in p for p in bad_probs), bad_probs)
+
 
 if __name__ == '__main__':
     unittest.main()

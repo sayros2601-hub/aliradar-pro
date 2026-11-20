@@ -1,14 +1,14 @@
-name: FLUXIXO daily update (14:00 Moscow, max 3 products)
+name: FLUXIXO daily update (15:30 Israel, max 3 products)
 
 on:
   schedule:
-    # Moscow schedule (UTC+3 all year): prepare from 12:00, publish at 14:00. These UTC crons are fallbacks;
-    # the primary triggers run on the Cloudflare Worker (fluxixo-autopilot) at 09:00, 10:00 and 11:00 UTC.
-    - cron: '5 9 * * *'
-    - cron: '5 10 * * *'
-    - cron: '5 11 * * *'
+    # Israel schedule (Asia/Jerusalem, UTC+2 winter / UTC+3 summer): prepare from 13:30, publish at 15:30.
+    # These UTC crons are fallbacks; primary triggers run on the Cloudflare Worker (fluxixo-autopilot).
+    - cron: '35 10 * * *'
     - cron: '35 11 * * *'
-    - cron: '5 12-19 * * *'
+    - cron: '35 12 * * *'
+    - cron: '35 13 * * *'
+    - cron: '5 14-20 * * *'
   workflow_dispatch:
     inputs:
       add_count:
@@ -140,6 +140,8 @@ jobs:
           # Explicitly free keyless web search; no paid search credential is provided.
           FLUXIXO_WEB_CHECK: '1'
           FLUXIXO_WEB_CHECK_PROVIDER: tavily_keyless
+          # Batch frequent mid-run checkpoints to avoid git push storms; the always() step flushes final state.
+          FLUXIXO_CHECKPOINT_MIN_INTERVAL: '20'
         run: |
           # Text: Gemini 3.5 Flash-Lite HIGH. Review: Gemini 3.8 Flash HIGH.
           # Both use only the dedicated Free Tier secret; no alternate paid provider.
@@ -165,7 +167,7 @@ jobs:
           references=(fluxixo_site/dist/assets/originals/*-review-*.png fluxixo_site/dist/assets/originals/*-identity.png)
           if (( ${#references[@]} )); then git add -f -- "${references[@]}"; fi
           if [ -f data/fluxixo_ai.sqlite3 ]; then git add -f data/fluxixo_ai.sqlite3; fi
-          for state in data/fluxixo_pending.sqlite3 "$FLUXIXO_GEMINI_BUDGET_PATH"; do
+          for state in data/fluxixo_pending.sqlite3 "$FLUXIXO_GEMINI_BUDGET_PATH" data/fluxixo_free_search.sqlite3; do
             if [ -e "$state" ]; then git add -f -- "$state"; fi
           done
           if ! git diff --cached --quiet; then

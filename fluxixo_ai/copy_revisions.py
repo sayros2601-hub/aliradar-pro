@@ -78,6 +78,13 @@ def reject_cached_copy(title, copy_state, checkpoint=None, reason='copy_outer_va
         raise GeminiCopyStopped(reason, version)
 
 
+TRANSIENT_PROVIDER_CODES = frozenset({
+    'gemini_http_500', 'gemini_http_502', 'gemini_http_503', 'gemini_http_504',
+    'gemini_http_429', 'gemini_rate_wait', 'gemini_daily_budget', 'checkpoint_unavailable',
+})
+MAX_TRANSIENT_RETRIES = 4
+
+
 def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, validate, review,
                      verify_external=None, before_generate=None):
     """Return one accepted draft; callbacks never gain additional retry loops here."""
@@ -108,10 +115,25 @@ def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, valida
             problems = (draft or {}).get('problems', [])
             draft = {'status': 'reserved', 'review_attempts': 0}
             drafts.append(draft)
-            persist()
+            try:
+                persist()
+            except GeminiDeferred:
+                # Failed to checkpoint BEFORE calling the provider: undo phantom reservation.
+                drafts.pop()
+                raise
             try:
                 candidate, provider = generate(problems)
             except GeminiDeferred as error:
+                transient_count = int(journal.get('transient_retries', 0))
+                if error.code in TRANSIENT_PROVIDER_CODES and transient_count < MAX_TRANSIENT_RETRIES:
+                    # Transient provider overload/rate-limit/checkpoint blip must not burn a lifetime draft.
+                    drafts.pop()
+                    journal['transient_retries'] = transient_count + 1
+                    try:
+                        persist()
+                    except GeminiDeferred:
+                        pass
+                    raise
                 draft.update(status='failed', reason='copy_generation_' + error.code)
                 persist()
                 if len(drafts) >= 2:
@@ -135,10 +157,24 @@ def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, valida
                 stop(draft.get('reason', 'copy_claim_review_response_lost'))
             draft['review_attempts'] = attempts + 1
             draft['status'] = 'draft'
-            persist()
+            try:
+                persist()
+            except GeminiDeferred:
+                draft['review_attempts'] = attempts
+                raise
             try:
                 problems = review(candidate)
             except GeminiDeferred as error:
+                transient_count = int(journal.get('transient_review_retries', 0))
+                if error.code in TRANSIENT_PROVIDER_CODES and transient_count < MAX_TRANSIENT_RETRIES:
+                    draft['review_attempts'] = attempts
+                    draft['reason'] = 'copy_claim_review_' + error.code
+                    journal['transient_review_retries'] = transient_count + 1
+                    try:
+                        persist()
+                    except GeminiDeferred:
+                        pass
+                    raise
                 draft['reason'] = 'copy_claim_review_' + error.code
                 persist()
                 if draft['review_attempts'] >= 2:

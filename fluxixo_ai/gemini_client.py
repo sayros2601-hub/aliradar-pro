@@ -180,21 +180,25 @@ def call_json(system_prompt, user_prompt, *, model, api_key=None, images=(), tra
             checkpoint()
         except Exception:
             raise GeminiDeferred('checkpoint_unavailable') from None
+    endpoint = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent'
     try:
-        response = (transport or _post_json)(
-            f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent',
-            payload, {'x-goog-api-key': key},
-        )
-        return _response_json(response)
-    except urllib.error.HTTPError as exc:
-        now = time.time()
-        code = f'gemini_http_{exc.code}'
-        until = _retry_after(exc.headers, now, default=3600 if exc.code == 429 else 300)
-        try:
-            _block(path, model, code, until)
-        except (sqlite3.Error, OSError):
-            raise GeminiDeferred('gemini_budget_unavailable', until) from None
-        raise GeminiDeferred(code, until) from None
+        for transient_try in range(3):
+            try:
+                response = (transport or _post_json)(endpoint, payload, {'x-goog-api-key': key})
+                return _response_json(response)
+            except urllib.error.HTTPError as exc:
+                if exc.code in (500, 502, 503, 504) and transient_try < 2:
+                    time.sleep(4.0 * (transient_try + 1))
+                    continue
+                now = time.time()
+                code = f'gemini_http_{exc.code}'
+                default_wait = 3600 if exc.code == 429 else (90 if exc.code in (500, 502, 503, 504) else 300)
+                until = _retry_after(exc.headers, now, default=default_wait)
+                try:
+                    _block(path, model, code, until)
+                except (sqlite3.Error, OSError):
+                    raise GeminiDeferred('gemini_budget_unavailable', until) from None
+                raise GeminiDeferred(code, until) from None
     except GeminiDeferred:
         raise
     except TimeoutError:

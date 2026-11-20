@@ -1,5 +1,5 @@
-// Daily schedule (owner, 2026-11-18): prepare from 12:00 and publish at 14:00 Moscow time (UTC+3 all year).
-const DROP_TZ = "Europe/Moscow";
+// Daily schedule (owner, 2026-11-20): prepare from 13:30 and publish at 15:30 Israel time (Asia/Jerusalem).
+const DROP_TZ = "Asia/Jerusalem";
 const DAILY_MAX = 3;
 
 function corsHeaders(extra = {}) {
@@ -51,8 +51,8 @@ function computeIsraelDropCountdown({
   publishedDay = "",
   dueDay = "",
   timeZone = DROP_TZ,
-  hour = 14,
-  minute = 0,
+  hour = 15,
+  minute = 30,
 } = {}) {
   const current = new Date(now);
   let targetDay = dueDay;
@@ -648,9 +648,10 @@ function buildStudioPrompt(rawPrompt, { backgroundHex = "", visualSpec = "" } = 
 
   return (
     `Ultra-clean commercial industrial design studio product photograph of ONLY the exact single standalone ${subject} from the reference photo, ` +
-    `floating weightless in mid-air centered in full uncropped view against a ${bgDesc}, faithfully keeping its true real silhouette, carry strap/handle, knobs, and proportions without distortion, ` +
+    `floating weightless in mid-air centered in full uncropped view against a ${bgDesc}, faithfully keeping its true real silhouette, parts, colors, and proportions without distortion, ` +
     `zero floor plane, zero tabletop, zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, zero vignette, no frame borders, no edge lines, ${lightingDesc}, crisp edge separation, ` +
-    `strictly remove all external collage boxes, inset cards, promotional banners, seller badges, overlaid marketing text, Chinese characters, watermarks, hands, people, and pets.`
+    `unbranded label-free clean surfaces that keep only the real button symbols, ` +
+    `strictly remove all external collage boxes, inset cards, promotional banners, seller badges, overlaid marketing captions, watermarks, hands, people, and pets.`
   );
 }
 
@@ -667,8 +668,10 @@ async function describeProductFromImage(
   const hint = String(productHint || "").replace(/\s+/g, " ").trim().slice(0, 160);
   const promptText =
     `Describe ONLY the standalone physical product in this e-commerce image${hint ? ` ("${hint}")` : ""} ` +
-    `in 2-3 concise visual sentences for a studio product photographer: overall silhouette, carry handle/strap or antenna if present, casing materials, colors, screen/controls, ` +
-    `and what active working effect it shows when powered on (if LED/glow/beam/mist/rotor/heat is present). ` +
+    `in 2-3 concise visual sentences for a studio product photographer: overall silhouette, casing materials, colors, ` +
+    `and any handle, strap, antenna, screen, or controls it really has. ` +
+    `Mention a switched-on effect (built-in light, laser beam, lit screen, or mist) ONLY if this exact product clearly has that light source, screen, or mist outlet; ` +
+    `never invent lights, glow, or effects, and leave out features it does not have. ` +
     `CRITICAL: Describe ONLY the object floating alone; NEVER mention rocks, tables, surfaces, backgrounds, collage insets, promotional badges, overlaid text, digits, price tags, or hands.`;
   const dataUri = `data:${detectImageMime(rawBytes)};base64,${uint8ArrayToBase64(rawBytes)}`;
   const models = resolveCfModelChain([preferredModel, env.DEFAULT_VISION_MODEL], CF_VISION_MODELS);
@@ -1768,24 +1771,47 @@ async function runScheduledAction(controller, env) {
   const doneToday = Number(utcLedgerCount.results?.[0]?.count || 0);
   const remainingAllowance = Math.max(0, DAILY_MAX - doneToday);
   const stateRow = todayState.results?.[0] || null;
-
-  const dispatchRes = env.GITHUB_DISPATCH_TOKEN
-    ? await dispatchGitHubWorkflow(env, "fluxixo_daily_rotate.yml", { add_count: "auto" })
-    : {
-        ok: false,
-        skipped: true,
-        http_status: null,
-        workflow: "fluxixo_daily_rotate.yml",
-        inputs: { add_count: "auto" },
-        reason: "GITHUB_DISPATCH_TOKEN not configured",
-      };
-
   const dropParts = getTzParts(now, DROP_TZ);
   const dropMinutes = Number(dropParts.hour || 0) * 60 + Number(dropParts.minute || 0);
+  const alreadyPublishedToday =
+    stateRow?.status === "published" || publishedDay === israelToday;
+  const beforePrepareWindow = dropMinutes < 13 * 60 + 30;
+  const afterDailyWindow = dropMinutes >= 23 * 60;
+
+  let dispatchRes;
+  if (alreadyPublishedToday) {
+    dispatchRes = {
+      ok: true,
+      skipped: true,
+      http_status: null,
+      workflow: "fluxixo_daily_rotate.yml",
+      reason: "already_published_today",
+    };
+  } else if (beforePrepareWindow || afterDailyWindow) {
+    dispatchRes = {
+      ok: true,
+      skipped: true,
+      http_status: null,
+      workflow: "fluxixo_daily_rotate.yml",
+      reason: beforePrepareWindow ? "before_prepare_window" : "after_daily_window",
+    };
+  } else if (env.GITHUB_DISPATCH_TOKEN) {
+    dispatchRes = await dispatchGitHubWorkflow(env, "fluxixo_daily_rotate.yml", { add_count: "auto" });
+  } else {
+    dispatchRes = {
+      ok: false,
+      skipped: true,
+      http_status: null,
+      workflow: "fluxixo_daily_rotate.yml",
+      inputs: { add_count: "auto" },
+      reason: "GITHUB_DISPATCH_TOKEN not configured",
+    };
+  }
+
   const action =
-    cron === "0 9 * * *" || cron === "0 10 * * *" || (dropMinutes >= 12 * 60 && dropMinutes < 14 * 60)
+    dropMinutes >= 13 * 60 + 30 && dropMinutes < 15 * 60 + 30
       ? "prepare_window_check"
-      : "drop_1400_check";
+      : "drop_1530_check";
   const status = !env.GITHUB_DISPATCH_TOKEN || dispatchRes.ok ? "ok" : "dispatch_error";
   const details = {
     israel_today: israelToday,

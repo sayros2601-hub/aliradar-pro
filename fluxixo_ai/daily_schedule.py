@@ -1,4 +1,4 @@
-"""One daily batch on Moscow time (prepare from 12:00, publish from 14:00), with durable image allowance
+"""One daily batch on Israel time (prepare from 13:30, publish from 15:30), with durable image allowance
 and publish recovery.
 
 All callers must hold the workflow's shared concurrency lock and use current
@@ -18,14 +18,15 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from .daily_ledger import DAILY_MAX, LedgerError, read_ledger, remaining
 
-# Owner, 2026-11-18: new products start at 12:00 Moscow time and go live at 14:00, which leaves two hours for
-# generation, copy and SEO checks and the trial build. Moscow keeps UTC+3 all year: 09:00 and 11:00 UTC.
-SCHEDULE_TZ = 'Europe/Moscow'
-PREPARE_START_MINUTES = 12 * 60  # 12:00 Europe/Moscow
-PUBLISH_START_MINUTES = 14 * 60  # 14:00 Europe/Moscow
+# Owner, 2026-11-20: new products prepare from 13:30 Israel time and publish live at 15:30 Israel time
+# (Asia/Jerusalem: 13:30 UTC in winter IST / 12:30 UTC in summer IDT), leaving two hours for copy, web uniqueness and media review.
+SCHEDULE_TZ = 'Asia/Jerusalem'
+PREPARE_START_MINUTES = 13 * 60 + 30  # 13:30 Asia/Jerusalem
+PUBLISH_START_MINUTES = 15 * 60 + 30  # 15:30 Asia/Jerusalem
 WINDOW_CLOSE_HOUR = 23
 STALE_PREPARE_MINUTES = 45
 MAX_PREPARE_RETRIES = 2
+WAITING_RETRY_MINUTES = 20
 
 
 class ScheduleError(Exception):
@@ -284,7 +285,7 @@ def mark_prepared(ledger, state, day, *, now=None, allow_partial=False):
             entry.update(status='prepared', reserved_count=accepted)
             entry.pop('next_attempt', None)
         else:
-            entry.update(status='waiting', next_attempt=(_instant(now) + timedelta(hours=1)).isoformat())
+            entry.update(status='waiting', next_attempt=(_instant(now) + timedelta(minutes=WAITING_RETRY_MINUTES)).isoformat())
     elif not _covered(ledger, entry):
         raise ScheduleError('prepared_catalog_incomplete')
     elif entry['status'] != 'published':

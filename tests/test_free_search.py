@@ -250,6 +250,15 @@ class FreeSearchTests(unittest.TestCase):
         self.assertEqual(cm.exception.code, 'search_budget_unavailable')
         self.assertEqual(self.path.read_bytes(), b'broken existing budget')
 
+    def test_tavily_stripped_outer_quotes_query_is_accepted(self):
+        result = self.check(
+            text='Full original product description for quote normalization check.',
+            query='"exact quoted phrase query"',
+            transport=lambda url, body, *args: {'query': 'exact quoted phrase query', 'results': [self.hit], 'request_id': 'live-shape'},
+        )
+        self.assertTrue(result['passed'])
+        self.assertEqual(result['evidence_urls'], ['https://example.org/item'])
+
 
 if __name__ == '__main__':
     unittest.main()

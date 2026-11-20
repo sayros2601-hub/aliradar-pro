@@ -7,19 +7,29 @@ environment variables are logged. A lost response still consumes its reservation
 import os
 from pathlib import Path
 import subprocess
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
+_LAST_CHECKPOINT_AT = 0.0
 
 
 class CheckpointUnavailable(RuntimeError):
     pass
 
 
-def checkpoint(*, root=ROOT):
+def checkpoint(*, root=ROOT, force=False):
+    global _LAST_CHECKPOINT_AT
     if os.environ.get('FLUXIXO_DURABLE_CHECKPOINT') != 'git':
         return
     if os.environ.get('GITHUB_ACTIONS') != 'true' or os.environ.get('GITHUB_REF') != 'refs/heads/main':
         raise CheckpointUnavailable('checkpoint_requires_trusted_main_job')
+    try:
+        min_interval = float(os.environ.get('FLUXIXO_CHECKPOINT_MIN_INTERVAL', '0') or '0')
+    except ValueError:
+        min_interval = 0.0
+    now_mono = time.monotonic()
+    if not force and min_interval > 0 and _LAST_CHECKPOINT_AT and (now_mono - _LAST_CHECKPOINT_AT) < min_interval:
+        return
     root = Path(root).resolve()
     paths = []
     for relative in ('data/fluxixo_pending.sqlite3', 'data/fluxixo_gemini_usage.sqlite3', 'data/fluxixo_free_search.sqlite3'):
@@ -52,9 +62,17 @@ def checkpoint(*, root=ROOT):
     if changed:
         git('commit', '--only', '-m', 'chore(fluxixo): checkpoint AI retry state [skip ci]',
             '--pathspec-from-file=-', '--pathspec-file-nul', data=payload)
-    # Also retries a previous ambiguous push even when there are no new file changes.
-    git('push', 'origin', 'HEAD:main')
+    # Retry transient git push errors cleanly (still closes the path if remote truly fails).
+    for attempt in range(3):
+        try:
+            git('push', 'origin', 'HEAD:main')
+            _LAST_CHECKPOINT_AT = time.monotonic()
+            return
+        except CheckpointUnavailable:
+            if attempt == 2:
+                raise
+            time.sleep(1.5 * (attempt + 1))
 
 
 if __name__ == '__main__':
-    checkpoint()
+    checkpoint(force=True)

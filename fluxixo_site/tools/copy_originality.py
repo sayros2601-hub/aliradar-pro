@@ -88,20 +88,21 @@ def _distinctive_tokens(tokens, lang):
             and not any(char.isdigit() for char in token)}
 
 
-def _prose_segments(text, lang):
+def _prose_segments(text, lang, *, fold_accents: bool = True):
     segments = []
     for sentence in re.split(r'[.!?;…\n]+', str(text or '')):
         if _BUYER_CHECK_START.search(sentence.strip()):
             continue
-        tokens = _strip_accents(normalize_copy_text(sentence)).split()
+        norm = normalize_copy_text(sentence)
+        tokens = (_strip_accents(norm) if fold_accents else norm).split()
         if len(tokens) >= 8 and len(' '.join(tokens)) >= 45 and len(_distinctive_tokens(tokens, lang)) >= 5:
             segments.append(tokens)
     return segments
 
 
 def distinctive_excerpt_query(text, lang):
-    """Choose one prose window; generic-only copy still receives one external query."""
-    segments = _prose_segments(text, lang) or [normalize_copy_text(text).split()]
+    """Choose one prose window with authentic native diacritics; generic-only copy still gets one query."""
+    segments = _prose_segments(text, lang, fold_accents=False) or [normalize_copy_text(text).split()]
     windows = [tokens[index:index + 16] for tokens in segments for index in range(max(1, len(tokens) - 15))]
     chosen = max(windows, key=lambda tokens: (len(_distinctive_tokens(tokens, lang)), len(tokens)), default=[])
     excerpt = ' '.join(chosen)
@@ -110,9 +111,12 @@ def distinctive_excerpt_query(text, lang):
     return '"' + excerpt + '"'
 
 
-def compare_external_prose(text, lang, results):
-    """Reject distinctive contiguous prose, without copying provider snippets into evidence."""
+def compare_external_prose(text, lang, results, *, headline_text=''):
+    """Reject distinctive contiguous prose or verbatim multi-word headline slogans, without copying snippets."""
     segments = _prose_segments(text, lang)
+    headline_tokens = _strip_accents(normalize_copy_text(headline_text)).split() if headline_text else []
+    check_headline = (len(headline_tokens) >= 5 and len(' '.join(headline_tokens)) >= 28
+                      and len(_distinctive_tokens(headline_tokens, lang)) >= 3)
     for hit in results:
         if not isinstance(hit, dict):
             continue
@@ -135,11 +139,18 @@ def compare_external_prose(text, lang, results):
                     if (len(' '.join(phrase)) >= 45 and len(_distinctive_tokens(phrase, lang)) >= 5
                             and tuple(phrase) in hit_phrases):
                         return False, [f'external_prose_overlap [words={length}] {url}']
+        if check_headline:
+            hit_title_and_snip = _strip_accents(
+                normalize_copy_text(f"{hit.get('title') or ''} {hit.get('snippet') or ''}")
+            ).split()
+            if len(hit_title_and_snip) >= len(headline_tokens):
+                if tuple(headline_tokens) in word_shingles(hit_title_and_snip, k=len(headline_tokens)):
+                    return False, [f'external_headline_overlap [words={len(headline_tokens)}] {url}']
     return True, []
 
 
 def verify_external_bundle_uniqueness(bundle, *, checker=None):
-    """Six independent description searches through the explicit free-only adapter."""
+    """Six independent description + headline searches through the explicit free-only adapter."""
     from fluxixo_ai.gemini_client import GeminiDeferred
     if checker is None:
         from fluxixo_ai.free_search import check_external_text
@@ -153,9 +164,14 @@ def verify_external_bundle_uniqueness(bundle, *, checker=None):
             return False, [f'{lang}.description: external_check_missing_description'], {'locales': locales}
         from unicodedata import normalize
         text = ' '.join(normalize('NFC', text).split())
-        result = checker(text, lang, query=distinctive_excerpt_query(text, lang),
-                         policy_version=EXTERNAL_PROSE_POLICY,
-                         compare=lambda hits, value=text, language=lang: compare_external_prose(value, language, hits))
+        headline_text = ' '.join(normalize('NFC', _flatten(entry.get('headline'))).split()) if isinstance(entry, dict) else ''
+        result = checker(
+            text, lang, query=distinctive_excerpt_query(text, lang),
+            policy_version=EXTERNAL_PROSE_POLICY,
+            compare=lambda hits, value=text, language=lang, hl=headline_text: compare_external_prose(
+                value, language, hits, headline_text=hl
+            ),
+        )
         if (not isinstance(result, dict) or type(result.get('passed')) is not bool
                 or not isinstance(result.get('issues'), list) or not all(isinstance(x, str) for x in result['issues'])
                 or type(result.get('checked_at')) not in (int, float)
@@ -194,10 +210,16 @@ def normalize_copy_text(text: str) -> str:
 def _strip_accents(text: str) -> str:
     import unicodedata
 
-    return ''.join(
-        ch for ch in unicodedata.normalize('NFKD', text)
-        if not unicodedata.combining(ch)
-    )
+    out = []
+    for ch in text:
+        # Preserve Cyrillic 'й'/'Й' — NFKD decomposes it into 'и' + breve, corrupting Russian words.
+        if ch in ('й', 'Й'):
+            out.append(ch)
+            continue
+        for part in unicodedata.normalize('NFKD', ch):
+            if not unicodedata.combining(part):
+                out.append(part)
+    return ''.join(out)
 
 
 def tokenize_meaningful(

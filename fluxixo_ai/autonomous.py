@@ -1612,8 +1612,9 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         if not stage.is_relative_to(reserve_dir.resolve()):
             raise DailyError('staging_invalid')
         deadline = time.monotonic() + SEARCH_BUDGET_SECONDS
+        now_ts = (lambda: time.time()) if now is None else (lambda: instant.timestamp())
         while len(prepared) < needed and attempts < MAX_ATTEMPTS and media_attempts < media_budget and time.monotonic() < deadline:
-            resumed = pending.claim(now=instant.timestamp()) if pending else None
+            resumed = pending.claim(now=now_ts()) if pending else None
             if resumed:
                 resumed['_pending_retry'] = True
                 batch = [resumed]
@@ -1632,6 +1633,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 if len(prepared) >= needed or attempts >= MAX_ATTEMPTS or media_attempts >= media_budget or time.monotonic() >= deadline:
                     break
                 attempts += 1
+                pid = str(candidate.get('product_id', ''))
                 queue_claim = candidate.get('_queue_claim')
                 if pending:
                     parked = pending.terminal_info(candidate['product_id'])
@@ -1641,13 +1643,13 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         if not queue_claim:
                             continue
                         try:
-                            reopened = _reconsider_source(pending, candidate, parked, reserve_dir, now=instant.timestamp())
+                            reopened = _reconsider_source(pending, candidate, parked, reserve_dir, now=now_ts())
                         except (MediaDeferred, ValueError, OSError):
                             reopened = False
                         if not reopened:
                             queue_store.fail(queue_claim['claim_id'], owner, 'source_review_stopped', now=instant)
                             continue
-                    if not candidate.get('_pending_retry') and not pending.is_due(candidate['product_id'], now=instant.timestamp()):
+                    if not candidate.get('_pending_retry') and not pending.is_due(candidate['product_id'], now=now_ts()):
                         if queue_claim:
                             queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                         continue
@@ -1655,9 +1657,9 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         try:
                             candidate = refresh_fn({**candidate, 'markets': {m: {} for m in (candidate.get('availableMarkets') or must_sell_in)}}, instant)
                         except Exception:
-                            pending.defer(candidate['product_id'], 'source_refresh_unavailable', now=instant.timestamp())
+                            pending.defer(candidate['product_id'], 'source_refresh_unavailable', now=now_ts())
                             continue
-                    pending.put(candidate, now=instant.timestamp())
+                    pending.put(candidate, now=now_ts())
                 record_item, translated = build_record(candidate)
                 if any(p.get('id') == record_item['id'] or p.get('sourceProductId') == record_item['sourceProductId']
                        or (record_item.get('sourceModelKey') and p.get('sourceModelKey') == record_item['sourceModelKey'])
@@ -1670,7 +1672,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     continue
                 exclusions.append({'id': record_item['id'], 'sourceProductId': record_item['sourceProductId'], 'sourceTitle': record_item['sourceTitle']})
                 if pending:
-                    pending.hold(candidate['product_id'], now=instant.timestamp())
+                    pending.hold(candidate['product_id'], now=now_ts())
                 if must_sell_in and not set(must_sell_in) <= set(candidate.get('availableMarkets') or ()):
                     # A queued candidate was found before this rule: check every country now, before any image work.
                     try:
@@ -1682,9 +1684,11 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         if queue_claim:
                             queue_store.fail(queue_claim['claim_id'], owner, 'markets_incomplete', now=instant)
                         if pending:
-                            pending.defer(candidate['product_id'], 'markets_incomplete', now=instant.timestamp())
+                            pending.defer(candidate['product_id'], 'markets_incomplete', now=now_ts())
                         continue
                     record_item['availableMarkets'] = list(candidate['availableMarkets'])
+                if review_required:
+                    print(f'[prepare] candidate={pid} attempt={attempts}/{MAX_ATTEMPTS} prepared={len(prepared)}/{needed}', flush=True)
                 try:
                     if strict_copy:
                         # Reject untranslated or duplicated copy before spending
@@ -1702,6 +1706,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                             problems = _bind_external_originality(record_item, translated, site_root)
                             reason = 'copy_external_overlap'
                         if problems:
+                            if review_required:
+                                print(f'[prepare] candidate={pid} copy_rejected reason={reason} count={len(problems)}', flush=True)
                             if pending:
                                 pid = candidate['product_id']
                                 pending.save_text(pid, None)
@@ -1710,7 +1716,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                                     journal = pending.copy_state(pid)
                                     reject_cached_copy(candidate['title'], journal,
                                                        lambda: pending.save_copy_state(pid, journal), reason=reason, problems=problems)
-                                pending.defer(pid, reason, now=instant.timestamp())
+                                pending.defer(pid, reason, now=now_ts())
                             if queue_claim:
                                 queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                             continue
@@ -1720,6 +1726,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                                 'record': {k: record_item[k] for k in ('name', 'headline', 'description', 'details', '_ru_long') if k in record_item},
                                 'translated': translated,
                             })
+                        if review_required:
+                            print(f'[prepare] candidate={pid} copy_verified -> media_review', flush=True)
                     media_attempts += 1
                     media = (
                         media_fn(candidate, record_item['id'], stage, perceptual_index=perceptual_index)
@@ -1791,17 +1799,21 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         except Exception:
                             pass
                     prepared.append((record_item, translated, media))
+                    if review_required:
+                        print(f'[prepare] candidate={pid} ACCEPTED ({len(prepared)}/{needed})', flush=True)
                     progress = True
                 except Exception as error:
                     if pending and isinstance(error, (GeminiCopyStopped, MediaStopped)):
                         kind = 'copy' if isinstance(error, GeminiCopyStopped) else 'media'
+                        print(f'[prepare] candidate={pid} PARKED kind={kind} reason={error.reason}', flush=True)
                         pending.park(candidate['product_id'], error.reason, kind=kind,
-                                     source_version=error.source_version, now=instant.timestamp())
+                                     source_version=error.source_version, now=now_ts())
                         if queue_claim:
                             queue_store.fail(queue_claim['claim_id'], owner, 'source_review_stopped', now=instant)
                         continue
                     if pending and isinstance(error, (GeminiDeferred, MediaDeferred)):
-                        pending.defer(candidate['product_id'], error.code, retry_at=error.retry_at, now=instant.timestamp())
+                        print(f'[prepare] candidate={pid} DEFERRED code={error.code}', flush=True)
+                        pending.defer(candidate['product_id'], error.code, retry_at=error.retry_at, now=now_ts())
                         if queue_claim:
                             queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                         continue

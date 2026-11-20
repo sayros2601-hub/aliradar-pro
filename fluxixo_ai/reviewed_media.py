@@ -19,7 +19,7 @@ import time
 import uuid
 from urllib.parse import urlsplit
 
-from PIL import Image, ImageChops, ImageStat
+from PIL import Image, ImageChops, ImageFilter, ImageStat
 
 from . import image_studio
 
@@ -27,6 +27,8 @@ POLICY_VERSION = 'fluxixo-reference-review-v2'
 ROLES = ('hero', 'application', 'result')
 CHECKS = ('identity', 'shape', 'completeness', 'color', 'markings', 'role', 'quality', 'distinct')
 LEASE_SECONDS = 1800
+_REMBG_SESSION = None
+_TRANSIENT_REVIEW_CODES = frozenset({'gemini_http_500', 'gemini_http_502', 'gemini_http_503', 'gemini_http_504'})
 
 
 class MediaDeferred(Exception):
@@ -240,13 +242,45 @@ def verified_media_source_version(candidate, source_loader=None, *, state_path=N
     return _extend_material(history, references)[0]
 
 
+def _get_rembg_session():
+    global _REMBG_SESSION
+    if _REMBG_SESSION is not None:
+        return _REMBG_SESSION
+    try:
+        from rembg import new_session
+        _REMBG_SESSION = new_session('isnet-general-use')
+    except Exception:
+        _REMBG_SESSION = False
+    return _REMBG_SESSION
+
+
+def _clean_cutout_alpha(alpha):
+    """Trim wispy rembg haze and 1px semi-transparent color-fringe halos without altering solid RGB."""
+    cleaned = alpha.point(lambda a: 0 if a < 24 else (255 if a > 235 else a))
+    eroded = cleaned.filter(ImageFilter.MinFilter(3))
+    # Only shave semi-transparent outer fringe (alpha < 210); keep solid product interior untouched.
+    return Image.composite(cleaned, eroded, cleaned.point(lambda a: 255 if a >= 210 else 0))
+
+
 def _compose_authentic(source):
     """Retain RGB samples and real geometry; mask alpha only, no invented angle."""
     image = Image.open(BytesIO(source)).convert('RGBA')
     if image.getchannel('A').getextrema()[0] >= 250:
         try:
             from rembg import remove
-            alpha = remove(image).convert('RGBA').getchannel('A')
+            session = _get_rembg_session()
+            if session:
+                cut = remove(image, session=session, post_process_mask=True).convert('RGBA')
+            else:
+                cut = remove(image, post_process_mask=True).convert('RGBA')
+            alpha = _clean_cutout_alpha(cut.getchannel('A'))
+            try:
+                from .autonomous import _drop_specks
+                tmp = image.copy()
+                tmp.putalpha(alpha)
+                alpha = _drop_specks(tmp).getchannel('A')
+            except Exception:
+                pass
         except ImportError:
             # Deterministic extraction from an existing clean studio backdrop.
             # Only reuse the alpha: never its RGB edge decontamination/recoloring.
@@ -616,6 +650,12 @@ class ReviewedMediaPreparer:
                         code = MediaDeferred(getattr(exc, 'code', 'review_unavailable')).code
                         review['last_code'] = code
                         review['provider_attempted'] = getattr(exc, 'provider_attempted', None)
+                        transient_seen = int(review.get('transient_retries', 0))
+                        if code in _TRANSIENT_REVIEW_CODES and transient_seen < 4:
+                            review['opportunities'] = max(0, review['opportunities'] - 1)
+                            review['transient_retries'] = transient_seen + 1
+                            self._save(path, state)
+                            raise MediaDeferred(code, getattr(exc, 'retry_at', self.clock() + 120)) from None
                         if review['opportunities'] >= 2:
                             self._stop(state, role, code, review_opportunities=review['opportunities'],
                                        image_sha256=pending['image_sha256'], provider_attempted=review['provider_attempted'])

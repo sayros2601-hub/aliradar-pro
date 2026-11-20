@@ -92,8 +92,21 @@ def _safe_url(value):
     return urllib.parse.urlunsplit((parsed.scheme.lower(), authority, parsed.path or '/', parsed.query, ''))
 
 
+def _normalize_echoed_query(value):
+    if not isinstance(value, str):
+        return ''
+    text = ' '.join(unicodedata.normalize('NFC', value).split())
+    while len(text) >= 2 and text[0] == text[-1] and text[0] in ('"', "'"):
+        text = text[1:-1].strip()
+    return text
+
+
 def _results(payload, query):
-    if not isinstance(payload, dict) or payload.get('query') != query:
+    if not isinstance(payload, dict):
+        raise ValueError('search_schema_invalid')
+    echoed = _normalize_echoed_query(payload.get('query'))
+    expected = _normalize_echoed_query(query)
+    if not echoed or echoed != expected:
         raise ValueError('search_schema_invalid')
     supported = {'query', 'results', 'answer', 'images', 'response_time', 'auto_parameters',
                  'usage', 'request_id', 'follow_up_questions', 'status'}
@@ -214,7 +227,16 @@ class _NoRedirect(urllib.request.HTTPRedirectHandler):
         return None
 
 
+_LAST_LIVE_REQUEST = 0.0
+LIVE_MIN_INTERVAL = 1.2
+
+
 def _post_json(url, payload, headers, timeout):
+    global _LAST_LIVE_REQUEST
+    wait = LIVE_MIN_INTERVAL - (time.monotonic() - _LAST_LIVE_REQUEST)
+    if _LAST_LIVE_REQUEST and wait > 0:
+        time.sleep(wait)
+    _LAST_LIVE_REQUEST = time.monotonic()
     request = urllib.request.Request(url, data=json.dumps(payload, ensure_ascii=False).encode(),
                                      headers=headers, method='POST')
     with urllib.request.build_opener(_NoRedirect()).open(request, timeout=timeout) as response:
@@ -284,11 +306,11 @@ def check_external_text(text, lang, *, compare, policy_version, query=None,
         return {**receipt, 'cache_hit': False}
     except urllib.error.HTTPError as exc:
         code = f'search_http_{exc.code}'
-        until = _retry_after(exc.headers, clock(), 86400 if exc.code in (429, 432, 433) else 3600)
+        until = _retry_after(exc.headers, clock(), 86400 if exc.code in (432, 433) else 300)
     except SearchDeferred as exc:
         code, until = exc.code, exc.retry_at
     except (ValueError, TypeError, KeyError, UnicodeError):
-        code, until = 'search_response_unverified', clock() + 3600
+        code, until = 'search_response_unverified', clock() + 300
     except Exception:
         code, until = 'search_unavailable', clock() + 300
     try:

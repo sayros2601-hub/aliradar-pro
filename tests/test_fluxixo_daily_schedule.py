@@ -12,7 +12,7 @@ from fluxixo_ai import daily_schedule as schedule
 from fluxixo_ai.daily_ledger import record
 
 ROOT = Path(__file__).resolve().parents[1]
-NOW = datetime(2026, 11, 14, 11, 0, tzinfo=timezone.utc)  # 14:00 Moscow
+NOW = datetime(2026, 11, 14, 13, 30, tzinfo=timezone.utc)  # 15:30 Israel (winter IST = UTC+2)
 DAY = '2026-11-14'
 
 
@@ -41,7 +41,7 @@ class DailyScheduleTests(unittest.TestCase):
         waiting = schedule.mark_prepared(self.ledger, reserved, DAY, now=NOW, allow_partial=True)
         self.assertEqual(waiting['days'][DAY]['status'], 'waiting')
         self.assertFalse(schedule.plan(self.ledger, waiting, now=NOW)['publish'])
-        later = NOW + timedelta(hours=1)
+        later = NOW + timedelta(minutes=20)
         planned = schedule.plan(self.ledger, waiting, now=later)
         self.assertEqual(planned['action'], 'prepare')
         renewed = schedule.reserve(self.ledger, waiting, DAY, 3, now=later)
@@ -51,18 +51,18 @@ class DailyScheduleTests(unittest.TestCase):
         self.ledger = seed_ledger()
         self.state = {'version': 1, 'days': {}}
 
-    def test_prepares_at_1200_and_publishes_at_1400_moscow_all_year(self):
-        # Moscow has no daylight saving time: the same UTC instants hold in winter and summer.
+    def test_prepares_at_1330_and_publishes_at_1530_israel_winter_and_summer(self):
+        # Israel observes DST: winter IST = UTC+2 (11:30/13:30 UTC), summer IDT = UTC+3 (10:30/12:30 UTC).
         cases = [
-            ('2026-11-14T08:59:59+00:00', True, False),
-            ('2026-11-14T09:00:00+00:00', False, False),
-            ('2026-11-14T10:59:59+00:00', False, False),
-            ('2026-11-14T11:00:00+00:00', False, True),
-            ('2026-07-14T08:59:59+00:00', True, False),
-            ('2026-07-14T09:00:00+00:00', False, False),
-            ('2026-07-14T10:59:59+00:00', False, False),
-            ('2026-07-14T11:00:00+00:00', False, True),
-            ('2026-11-14T20:00:00+00:00', True, False),
+            ('2026-11-14T11:29:59+00:00', True, False),
+            ('2026-11-14T11:30:00+00:00', False, False),
+            ('2026-11-14T13:29:59+00:00', False, False),
+            ('2026-11-14T13:30:00+00:00', False, True),
+            ('2026-07-14T10:29:59+00:00', True, False),
+            ('2026-07-14T10:30:00+00:00', False, False),
+            ('2026-07-14T12:29:59+00:00', False, False),
+            ('2026-07-14T12:30:00+00:00', False, True),
+            ('2026-11-14T21:00:00+00:00', True, False),
             ('2026-07-14T20:00:00+00:00', True, False),
         ]
         for instant, skip, publish in cases:
@@ -72,7 +72,7 @@ class DailyScheduleTests(unittest.TestCase):
                 self.assertEqual(0 if skip else 3, result['add_count'])
                 self.assertEqual(publish, result['publish'])
 
-    def test_prepared_batch_waits_until_21_without_generating_again(self):
+    def test_prepared_batch_waits_until_1530_without_generating_again(self):
         early = NOW - timedelta(minutes=90)
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=early)
         ledger = added(self.ledger, 3)
@@ -84,11 +84,11 @@ class DailyScheduleTests(unittest.TestCase):
         self.assertEqual((False, True, 0, 'recover'),
                          (due['skip'], due['publish'], due['add_count'], due['action']))
 
-    def test_tracked_publication_closes_at_23_moscow_all_year(self):
+    def test_tracked_publication_closes_at_23_israel_winter_and_summer(self):
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
         ledger = added(self.ledger, 3)
         prepared = schedule.mark_prepared(ledger, reserved, DAY, now=NOW)
-        for instant in ('2026-11-14T20:00:00+00:00', '2027-07-14T20:00:00+00:00'):
+        for instant in ('2026-11-14T21:00:00+00:00', '2027-07-14T20:00:00+00:00'):
             with self.subTest(instant=instant):
                 at = datetime.fromisoformat(instant)
                 self.assertFalse(schedule.plan(ledger, prepared, now=at)['publish'])
@@ -97,7 +97,7 @@ class DailyScheduleTests(unittest.TestCase):
 
     def test_late_generation_does_not_start_after_local_23(self):
         result = schedule.plan(self.ledger, self.state,
-                               now=datetime.fromisoformat('2026-11-14T20:00:00+00:00'))
+                               now=datetime.fromisoformat('2026-11-14T21:00:00+00:00'))
         self.assertTrue(result['skip'])
         self.assertEqual(0, result['add_count'])
 
@@ -107,7 +107,7 @@ class DailyScheduleTests(unittest.TestCase):
         ledger = added(self.ledger, 3)
         prepared = schedule.mark_prepared(ledger, reserved, DAY, now=NOW)
         schedule.guard_publication(ledger, prepared, DAY, now=NOW)
-        for instant in ('2026-11-14T20:00:00+00:00', '2026-11-15T18:00:00+00:00'):
+        for instant in ('2026-11-14T21:00:00+00:00', '2026-11-15T18:00:00+00:00'):
             with self.subTest(instant=instant), self.assertRaises(schedule.ScheduleError):
                 schedule.guard_publication(ledger, prepared, DAY,
                     now=datetime.fromisoformat(instant))
