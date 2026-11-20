@@ -19,6 +19,7 @@ import urllib.error
 import urllib.request
 
 TEXT_MODEL = 'gemini-3.5-flash-lite'
+COPY_POLICY = 'seller-title-claims-v2'
 REVIEW_MODEL = 'gemini-3.8-flash'
 # Rolling 24 hours is deliberately more conservative than a provider's day reset.
 LIMITS = {TEXT_MODEL: (480, 4.1), REVIEW_MODEL: (18, 12.1)}

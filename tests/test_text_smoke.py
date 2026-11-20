@@ -58,6 +58,11 @@ class TextSmokeTests(unittest.TestCase):
             calls.append(url)
             if 'gemini-3.8-flash' in url:
                 return reply(self.accepted())
+            request = json.loads(body['contents'][0]['parts'][0]['text'])
+            if request.get('task') == 'verify_source_claims':
+                checks = {locale: dict.fromkeys(request['required_fields'], True)
+                          for locale in request['proposed_copy']}
+                return reply({'accepted': True, 'checks': checks, 'unsupported_claims': []})
             if 'старший редактор' in body['systemInstruction']['parts'][0]['text']:
                 return reply({'who': 'Зеркало пригодится для осмотра крепежа за шкафом и под капотом, когда к детали трудно подойти напрямую. Подвижная головка помогает подобрать направление отражения без разборки соседних деталей.',
                               'check': ['Сверьте длину ручки и размер зеркала с доступным пространством.',
@@ -124,6 +129,16 @@ class TextSmokeTests(unittest.TestCase):
         self.assertEqual('gemini_http_429', result['frames'][0]['reason'])
         self.assertEqual(2_000_000_300, result['frames'][0]['retry_at'])
         self.assertFalse(result['published'])
+
+    def test_new_copy_policy_revalidates_only_text_on_an_identical_gallery(self):
+        first = self.run_with_reviewer(lambda *args, **kwargs: self.accepted())
+        self.assertTrue(first['success'])
+        with patch.object(self.smoke, 'COPY_POLICY', 'new-claims-policy'):
+            second = self.run_with_reviewer(lambda *args, **kwargs: self.fail('image review should be reused'))
+        self.assertFalse(second['text_reused'])
+        self.assertTrue(second['success'])
+        self.assertEqual(0, second['reviews_requested'])
+        self.assertTrue(all(frame['reused'] for frame in second['frames']))
 
     def test_unknown_card_and_missing_key_fail_without_requests(self):
         with patch.object(self.client, '_post_json', side_effect=AssertionError('must not request')):
