@@ -6737,6 +6737,132 @@
       ],
       "description": "מגלה ה-EMF מיועד למדוד רמות קרינה וטמפרטורה. הוא יכול לשמש לבדיקת רמות קרינה בסביבות שונות, כגון בתים, משרדים ואזורים תעשייתיים. לפני הרכישה, מומלץ לבדוק את המפרט הטכני ותנאי השימוש של המגלה, כדי להבטיח את יעילותו ובטיחותו."
     }
+  },
+  "auto-1005003729947715": {
+    "en": {
+      "name": "Multi-sided Reflex Coordination Training Ball",
+      "headline": [
+        "Agility and focus",
+        "Quick reflex drills"
+      ],
+      "description": "This silicone training accessory features a multi-faceted design that creates unpredictable bounces to challenge hand-eye coordination and reaction speed during workouts. It is widely used by athletes of all ages to enhance agility drills, so verify your intended training surface and review dimensions before finalizing your purchase."
+    },
+    "pt": {
+      "name": "Bola de Silicone para Treino de Agilidade e Reflexo",
+      "headline": [
+        "Agilidade e foco",
+        "Treino de reflexos"
+      ],
+      "description": "Este acessório esportivo em silicone possui um formato facetado exclusivo que gera saltos imprevisíveis para aprimorar a coordenação motora e o tempo de reação. Ideal para praticantes de diferentes idades realizarem exercícios dinâmicos, recomenda-se verificar a compatibilidade da superfície de uso antes de concluir o pedido."
+    },
+    "es": {
+      "name": "Pelota de Silicona para Reflejos y Agilidad",
+      "headline": [
+        "Reflejos y destreza",
+        "Control y velocidad"
+      ],
+      "description": "Este accesorio deportivo de silicona cuenta con un diseño multifacetado que genera rebotes impredecibles para estimular la coordinación visual y la velocidad de reacción. Es apta tanto para jóvenes como para adultos en rutinas dinámicas, por lo que conviene verificar el espacio disponible y las dimensiones antes de confirmar su compra."
+    },
+    "fr": {
+      "name": "Balle en Silicone pour Agilité et Réflexes",
+      "headline": [
+        "Vitesse et réflexes",
+        "Entraînement actif"
+      ],
+      "description": "Cet accessoire de sport en silicone présente une structure géométrique spécifique qui provoque des rebonds aléatoires afin de stimuler la coordination et la réactivité. Adapté aux exercices de fitness pour tous les âges, il est conseillé de vérifier la dureté de la surface d'entraînement ainsi que les dimensions avant toute commande."
+    },
+    "he": {
+      "name": "כדור סיליקון לאימון זריזות ורפלקסים",
+      "headline": [
+        "זריזות וקואורדינציה",
+        "אימון תגובה מהיר"
+      ],
+      "description": "אביזר אימון העשוי סיליקון וכולל מבנה רב-צלעות יוצר ניתורים בלתי צפויים המשפרים את קואורדינציית עין-יד ומהירות התגובה במהלך פעילות גופנית. הוא מתאים למתאמנים בכל גיל לתרגילי זריזות מגוונים, ולכן מומלץ לוודא את התאמת משטח האימונים ולבדוק את מידות המוצר טרם השלמת הרכישה."
+    }
+  },
+  "auto-1005013194588661": {
+    "en": {
+      "name": "Scalp Massager Liquid Applicator Comb",
+      "headline": [
+        "Serum and oil applicator",
+        "Scalp massage tool"
+      ],
+      "description": "This specialized comb features rolling balls designed to distribute liquid hair treatments and essential oils directly to the scalp during use. The device helps apply growth serums smoothly while providing a stimulating massage action for daily hair care routines. Prior to ordering, check the fluid capacity and ensure your preferred liquid formulas match the dispensing mechanism."
+    },
+    "pt": {
+      "name": "Pente Massageador Capilar com Aplicador",
+      "headline": [
+        "Aplicador de sérum",
+        "Massageador capilar"
+      ],
+      "description": "O acessório conta com esferas rolantes projetadas para distribuir óleos essenciais e loções capilares diretamente no couro cabeludo. O mecanismo permite espalhar fluidos de tratamento de forma uniforme enquanto realiza uma massagem relaxante na raiz dos fios. Antes de finalizar o pedido, verifique se a viscosidade dos seus produtos favoritos é compatível com o sistema de dispensação."
+    },
+    "es": {
+      "name": "Peine Masajeador Capilar con Dispensador",
+      "headline": [
+        "Aplicador de sérum",
+        "Masaje capilar diario"
+      ],
+      "description": "Este dispositivo cuenta con esferas rodantes diseñadas para distribuir aceites esenciales y lociones directamente sobre el cuero cabelludo. El diseño permite aplicar tratamientos líquidos de manera uniforme mientras estimula la zona con un suave masaje durante el peinado. Antes de realizar su pedido, verifique las dimensiones del depósito y asegúrese de que sus productos sean compatibles con el mecanismo."
+    },
+    "fr": {
+      "name": "Peigne Masseur de Cuir Chevelu Applicateur",
+      "headline": [
+        "Distributeur de sérum",
+        "Masseur capillaire"
+      ],
+      "description": "Cet accessoire intègre des billes roulantes conçues pour répartir des huiles essentielles et des sérums capillaires directement sur le cuir chevelu. Le mécanisme permet d’appliquer les soins liquides de façon homogène tout en massant délicatement la zone ciblée. Avant de commander, vérifiez la capacité du réservoir et assurez-vous que la texture de vos produits s'adapte bien à cet outil."
+    },
+    "he": {
+      "name": "מסרק עיסוי קרקפת עם פיית פיזור נוזלים",
+      "headline": [
+        "מוליך סרום ושמנים",
+        "כלי לעיסוי קרקפת"
+      ],
+      "description": "האביזר מצויד בכדוריות גלגול המיועדות לפיזור מדויק של שמנים אתריים ותכשירי טיפוח ישירות על עור הקרקפת. המנגנון מאפשר להחיל סרומים לצמיחת שיער בצורה אחידה תוך כדי פעולת עיסוי ממריצה בזמן הסירוק. בטרם ההזמנה, בדקו את נפח המכל וודאו שהנוזלים שברשותכם מתאימים למבנה מנגנון ההזנה של האביזר."
+    }
+  },
+  "auto-1005013567552516": {
+    "en": {
+      "name": "Wooden Stability Wobble Trainer",
+      "headline": [
+        "Board for core workout",
+        "Practice balance at home"
+      ],
+      "description": "A platform built for core workouts, stability routines, and board sport training right inside your living space while challenging physical equilibrium through dynamic rocking movements. Always check available floor space and personal usage requirements prior to purchase."
+    },
+    "pt": {
+      "name": "Prancha de equilíbrio em madeira",
+      "headline": [
+        "Treino de estabilidade",
+        "Pratique em casa"
+      ],
+      "description": "Esta plataforma de madeira foi desenvolvida para fortalecer o core, aprimorar o equilíbrio e simular manobras de surf ou snowboard no conforto do lar. Antes de finalizar a compra, verifique as dimensões do produto e confirme se o espaço disponível atende às suas necessidades."
+    },
+    "es": {
+      "name": "Plataforma de equilibrio de madera",
+      "headline": [
+        "Entrenamiento de core",
+        "Mejora tu estabilidad"
+      ],
+      "description": "Este accesorio de madera está diseñado para fortalecer el centro del cuerpo, mejorar la coordinación y practicar movimientos de surf o snowboard en casa. Antes de realizar el pedido, confirme las medidas del artículo y asegúrese de contar con el espacio adecuado para entrenar."
+    },
+    "fr": {
+      "name": "Planche d'Équilibre en Bois",
+      "headline": [
+        "Renforcement musculaire",
+        "Entrainement sportif"
+      ],
+      "description": "Cet équipement de fitness en bois est conçu pour développer la force centrale, améliorer la stabilité et simuler la pratique du surf ou du snowboard à la maison. Avant de passer commande, vérifiez les dimensions du produit ainsi que l'espace disponible pour votre entraînement."
+    },
+    "he": {
+      "name": "קרש שיווי משקל מעץ",
+      "headline": [
+        "אימון שרירי ליבה",
+        "שיפור יציבות בבית"
+      ],
+      "description": "פלטפורמת עץ זו מיועדת לחיזוק שרירי הליבה, שיפור הקואורדינציה האישית ותרגול תנועות גלישה במסגרת האימונים הביתיים באמצעות מנגנון תנועה דינמי המאתגר את שיווי המשקל. לפני ביצוע ההזמנה, בדקו היטב את מידות המוצר וודאו שיש לכם מספיק מרחב פנוי בבית לתרגול בטוח."
+    }
   }
 };
 

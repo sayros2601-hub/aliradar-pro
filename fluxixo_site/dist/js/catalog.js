@@ -3346,7 +3346,7 @@ window.MIRA_CATALOG = {
       "image": "assets/images/find-041-heated-gloves.webp",
       "original": "assets/originals/find-041-heated-gloves.webp",
       "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
-      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3D0Xc3v",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3S5oCVn",
       "sourceUrl": "https://www.aliexpress.com/item/1005013424643680.html",
       "demo": false,
       "theme": "blue",
