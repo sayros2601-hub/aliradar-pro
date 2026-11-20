@@ -116,11 +116,11 @@
     {}
   ],
   "created_at": 1795181567.444309,
-  "deferrals": 1,
+  "deferrals": 0,
   "lease_owner": "19c3a1658dab4f0182597340f768177c",
   "lease_until": 0,
   "status": "waiting",
-  "next_attempt": 1795182120.2855933,
+  "next_attempt": 0,
   "source_refresh_after": 1795267968.743999,
   "source_version": "49cf33e04e05af944bc199b0510ff1ab994f38a534dfa7fee9b04acaec0485b3",
   "effort_versions": {
@@ -149,7 +149,7 @@
   },
   "review_attempts": {
     "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d": {
-      "opportunities": 1,
+      "opportunities": 0,
       "last_code": "gemini_transport_timeout",
       "provider_attempted": null
     }
@@ -160,5 +160,5 @@
     "sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
     "original_sha256": "2b7e53cd0b98b48c59b0f549e3790e50ce99921baf51116170858fbb95a9d73a"
   },
-  "reason": "gemini_transport_timeout"
+  "reason": ""
 }

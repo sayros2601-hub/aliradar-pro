@@ -554,6 +554,19 @@ class ReviewedMediaTests(unittest.TestCase):
         self.assertEqual(0, state['effort_versions'][state['source_version']][0]['materializations'])
         self.assertFalse(self.reviews)
 
+    def test_default_reviewer_falls_back_to_flash_lite_on_503_or_timeout(self):
+        from fluxixo_ai.gemini_client import GeminiDeferred, REVIEW_MODEL, TEXT_MODEL
+        seen_models = []
+        def fake_call(system, payload, *, model, images):
+            seen_models.append(model)
+            if model == REVIEW_MODEL:
+                raise GeminiDeferred('gemini_http_503')
+            return approved()
+        with patch('fluxixo_ai.gemini_client.call_json', side_effect=fake_call):
+            result = reviewed_media._default_reviewer(b'ref', b'out', title='Tool', role='hero', identity_source=b'id')
+        self.assertEqual([REVIEW_MODEL, TEXT_MODEL], seen_models)
+        self.assertTrue(reviewed_media._valid_review(result))
+
 
 if __name__ == '__main__':
     unittest.main()

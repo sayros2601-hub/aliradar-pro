@@ -72,7 +72,7 @@ class PendingProducts:
             row = db.execute('''SELECT p.product_id,p.payload FROM pending p
                 WHERE p.next_attempt<=? AND p.lease_until<=?
                 AND NOT EXISTS (SELECT 1 FROM pending_terminals t WHERE t.product_id=p.product_id)
-                ORDER BY p.next_attempt, p.created, p.product_id LIMIT 1''', (now, now)).fetchone()
+                ORDER BY CASE WHEN p.copy IS NOT NULL THEN 0 ELSE 1 END, p.next_attempt, p.created, p.product_id LIMIT 1''', (now, now)).fetchone()
             if not row:
                 return None
             db.execute("UPDATE pending SET lease_until=?,updated=?,attempts=attempts+1,reason='working' WHERE product_id=?",

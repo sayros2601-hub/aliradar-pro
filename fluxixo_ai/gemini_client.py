@@ -192,7 +192,12 @@ def call_json(system_prompt, user_prompt, *, model, api_key=None, images=(), tra
                     continue
                 now = time.time()
                 code = f'gemini_http_{exc.code}'
-                default_wait = 3600 if exc.code == 429 else (90 if exc.code in (500, 502, 503, 504) else 300)
+                if exc.code == 429:
+                    default_wait = 3600
+                elif exc.code in (500, 502, 503, 504):
+                    default_wait = 300 if model == REVIEW_MODEL else 90
+                else:
+                    default_wait = 300
                 until = _retry_after(exc.headers, now, default=default_wait)
                 try:
                     _block(path, model, code, until)
@@ -202,6 +207,11 @@ def call_json(system_prompt, user_prompt, *, model, api_key=None, images=(), tra
     except GeminiDeferred:
         raise
     except TimeoutError:
+        if model == REVIEW_MODEL:
+            try:
+                _block(path, model, 'gemini_transport_timeout', time.time() + 300)
+            except (sqlite3.Error, OSError):
+                pass
         raise GeminiDeferred('gemini_transport_timeout') from None
     except urllib.error.URLError as exc:
         code = 'gemini_transport_timeout' if isinstance(exc.reason, TimeoutError) else 'gemini_transport_unavailable'

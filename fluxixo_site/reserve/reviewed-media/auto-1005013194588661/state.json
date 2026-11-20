@@ -116,11 +116,11 @@
     {}
   ],
   "created_at": 1795181398.376432,
-  "deferrals": 1,
+  "deferrals": 0,
   "lease_owner": "2faed27dcc07442d9a6a558aeca6775a",
   "lease_until": 0,
   "status": "waiting",
-  "next_attempt": 1795181564.5041916,
+  "next_attempt": 0,
   "source_refresh_after": 1795267801.0728612,
   "source_version": "8a8cc00a1d41d1a44c41493a14b92df2d873b6e0c7e6cf66ac40717a9800e390",
   "effort_versions": {
@@ -161,5 +161,5 @@
     "sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
     "original_sha256": "448f98fee570844d82c26318f40ac2b84d45fce4441d48ed856f98b0944295e0"
   },
-  "reason": "gemini_http_503"
+  "reason": ""
 }

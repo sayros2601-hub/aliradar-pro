@@ -295,8 +295,14 @@ def _compose_authentic(source):
     return canvas
 
 
+_REVIEW_FALLBACK_CODES = frozenset({
+    'gemini_http_500', 'gemini_http_502', 'gemini_http_503', 'gemini_http_504',
+    'gemini_transport_timeout', 'gemini_daily_budget',
+})
+
+
 def _default_reviewer(source, output, *, title, role, identity_source, prior_outputs=(), feedback=''):
-    from .gemini_client import call_json
+    from .gemini_client import call_json, GeminiDeferred, REVIEW_MODEL, TEXT_MODEL
     system = (
         'Review this FLUXIXO product photo for a shopper at normal product-card display size. '
         'Image 1 fixes the seller product and variant. Image 2 is its supporting pose reference. '
@@ -318,7 +324,14 @@ def _default_reviewer(source, output, *, title, role, identity_source, prior_out
         'is empty. Keep harmless photographic differences out of material_defects.'
     )
     payload = json.dumps({'product_title': title, 'requested_role': role, 'previous_issues': feedback}, ensure_ascii=False)
-    return call_json(system, payload, model='gemini-3.8-flash', images=(identity_source, source, output, *prior_outputs))
+    images = (identity_source, source, output, *prior_outputs)
+    try:
+        return call_json(system, payload, model=REVIEW_MODEL, images=images)
+    except GeminiDeferred as exc:
+        if exc.code in _REVIEW_FALLBACK_CODES:
+            # Same dedicated Free Tier Gemini key & HIGH reasoning; avoids stalling on overloaded review model.
+            return call_json(system, payload, model=TEXT_MODEL, images=images)
+        raise
 
 
 class ReviewedMediaPreparer:
