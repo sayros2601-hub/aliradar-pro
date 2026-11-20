@@ -116,11 +116,11 @@
     {}
   ],
   "created_at": 1795180788.7572677,
-  "deferrals": 0,
+  "deferrals": 1,
   "lease_owner": "94936090c43a45e5ad05b80e3176b9af",
-  "lease_until": 1795182588.7572837,
-  "status": "processing",
-  "next_attempt": 0,
+  "lease_until": 0,
+  "status": "waiting",
+  "next_attempt": 1795181063.7884994,
   "source_refresh_after": 1795267191.0417385,
   "source_version": "0c825f4c12b94892673fb5a0ac0f92da307ab365e9e6e1d68791d7590bfbf9df",
   "effort_versions": {
@@ -149,8 +149,10 @@
   },
   "review_attempts": {
     "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f": {
-      "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "opportunities": 0,
+      "last_code": "gemini_http_503",
+      "provider_attempted": null,
+      "transient_retries": 1
     }
   },
   "identity_source": {
@@ -158,5 +160,6 @@
     "file": "reference-8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e.png",
     "sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
     "original_sha256": "e9dd9ef453343fcfaf8a07d145de5b254037a4609bb765fb36fefcb12fed7c90"
-  }
+  },
+  "reason": "gemini_http_503"
 }
