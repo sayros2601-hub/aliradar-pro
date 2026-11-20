@@ -140,6 +140,8 @@ const FluxixoLocale = (() => {
     he: '/he/',
   };
   const STORAGE_KEY = 'fluxixo.lang.v2';
+  // Legacy showroom links used the product ID as the root fragment, alongside ?lang=.
+  const LEGACY_PRODUCT_ID = /^(?:auto-\d+|find-\d+-[a-z0-9]+(?:-[a-z0-9]+)*|import-\d+|katord-wifi-repeater)$/;
 
   function normalizeLocaleCode(raw) {
     if (!raw || typeof raw !== 'string') return '';
@@ -162,14 +164,36 @@ const FluxixoLocale = (() => {
 
   function resolveVisitorPath(opts) {
     const options = opts || {};
+    const pathname = options.pathname || '/';
+    if (pathname !== '/' && pathname !== '/index.html') return null;
+    const search = options.search || '';
+    const hash = options.hash || '';
+    const productId = hash.slice(1);
+    const productLink = hash.startsWith('#') && LEGACY_PRODUCT_ID.test(productId);
+    const params = new URLSearchParams(search);
+    const localeKeys = [...params.keys()].filter(key => key.toLowerCase() === 'lang');
+    if (localeKeys.length) {
+      const locale = normalizeLocaleCode(params.get(localeKeys[0]));
+      if (!locale) return null;
+      const englishCatalog = locale === 'en' && (hash === '#find' || hash === '#todo');
+      if (locale === 'en' && !productLink && !englishCatalog) return null;
+      for (const key of localeKeys) params.delete(key);
+      const remaining = params.toString();
+      const query = remaining ? `?${remaining}` : '';
+      if (productLink) {
+        const prefix = locale === 'ru' ? '' : `/${locale}`;
+        return `${prefix}/products/${productId}/${query}`;
+      }
+      const target = englishCatalog ? '/en/' : LOCALE_PATHS[locale];
+      return target + query + hash;
+    }
+    // The English showroom's share URL omitted ?lang= when it was not already set.
+    if (productLink) return `/en/products/${productId}/${search}`;
+
     if (options.webdriver) return null;
     if (options.userAgent && /bot|crawl|spider|slurp|mediapartners|lighthouse/i.test(options.userAgent)) {
       return null;
     }
-    const pathname = options.pathname || '/';
-    if (pathname !== '/' && pathname !== '/index.html') return null;
-    const search = options.search || '';
-    if (/[?&]lang=/i.test(search)) return null;
     if (sameOriginReferrer(options.referrer, options.origin)) return null;
 
     let preferred = normalizeLocaleCode(options.savedLang);
@@ -185,7 +209,7 @@ const FluxixoLocale = (() => {
     if (!preferred || preferred === 'en') return null;
     const target = LOCALE_PATHS[preferred];
     if (!target || target === '/') return null;
-    return target + search + (options.hash || '');
+    return target + search + hash;
   }
 
   function decorateAffiliateUrl(href, pageLang) {
@@ -248,8 +272,11 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
   if (typeof document === 'undefined') return;
   const root = document.documentElement;
   const lang = root.lang || 'en';
+  let savedLang = null;
   try {
-    const savedLang = typeof localStorage !== 'undefined' ? localStorage.getItem(FluxixoLocale.STORAGE_KEY) : null;
+    savedLang = typeof localStorage !== 'undefined' ? localStorage.getItem(FluxixoLocale.STORAGE_KEY) : null;
+  } catch { /* a blocked storage API should not prevent legacy URL navigation */ }
+  try {
     const navLangs = typeof navigator !== 'undefined'
       ? ((Array.isArray(navigator.languages) && navigator.languages.length && navigator.languages)
         || (navigator.language ? [navigator.language] : []))
@@ -627,6 +654,24 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     langButton.addEventListener('click', event => { event.stopPropagation(); toggle(!sheet.classList.contains('open')); });
     document.addEventListener('click', event => { if (!sheet.contains(event.target)) toggle(false); });
     document.addEventListener('keydown', event => { if (event.key === 'Escape') toggle(false); });
+    const sharedFragments = sheet.dataset.sharedFragments?.split(' ') || [];
+    if (sharedFragments.length) {
+      const targets = [...sheet.querySelectorAll('a[hreflang]')].map(link => [link, link.getAttribute('href')]);
+      const syncLanguageLinks = () => {
+        const fragment = location.hash.slice(1);
+        for (const [link, href] of targets) {
+          const path = href.split('#')[0];
+          if (sharedFragments.includes(fragment)) {
+            const englishLanding = path === '/en/' && ['drop', 'mundos'].includes(fragment);
+            link.setAttribute('href', `${englishLanding ? '/' : path}#${fragment}`);
+          } else {
+            link.setAttribute('href', href);
+          }
+        }
+      };
+      syncLanguageLinks();
+      addEventListener('hashchange', syncLanguageLinks);
+    }
   }
 
   // Catalog: filter by world and by words in the name.
@@ -660,10 +705,14 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
   tabs.forEach(tab => tab.addEventListener('click', event => {
     const url = new URL(tab.href);
     if (url.pathname !== location.pathname) return;
-    if (tab.dataset.tab === 'home') { event.preventDefault(); scrollTo(0, 0); }
-    if (tab.dataset.tab === 'find' && find) { event.preventDefault(); openSearch(); }
+    if (tab.dataset.tab === 'home' && !location.hash) { event.preventDefault(); scrollTo(0, 0); }
+    if (tab.dataset.tab === 'find' && find && location.hash === '#find') { event.preventDefault(); openSearch(); }
   }));
-  if (find && location.hash === '#find') openSearch();
+  if (find) {
+    const focusSearchSection = () => { if (location.hash === '#find') openSearch(); };
+    focusSearchSection();
+    addEventListener('hashchange', focusSearchSection);
+  }
   const catalog = document.getElementById('todo');
   const worlds = document.getElementById('cats');
   if (tabs.length && catalog && worlds) {
