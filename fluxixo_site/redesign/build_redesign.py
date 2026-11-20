@@ -688,6 +688,14 @@ class Site:
             if long_text:
                 heading = CATEGORY_LONG_HEADING[self.lang].format(name=name)
                 body += f'<section class="c-about"><h2>{e(heading)}</h2><p>{e(long_text)}</p></section>'
+            if self.lang == 'en' and slug(key) == 'tech':
+                guide_links = ''.join(
+                    f'<li><a class="guide-link" href="{journal_pages.article_path(self.lang, article["slug"])}">'
+                    f'{e(article["translations"][self.lang][2])}</a></li>'
+                    for article in GUIDES if article['slug'] in ('usb-c-buying-checklist', 'wifi-repeater-buying-guide')
+                    and self.lang in article['translations']
+                )
+                body += f'<section class="c-about"><h2>Buying guides</h2><ul>{guide_links}</ul></section>'
             ov = market_seo.route_override(overrides, path)
             title = ov.get('title') or L.CATEGORY_TITLE[self.lang].format(cat=name)
             desc = ov.get('description') or (self.copy(key) + ' ' + L.CATEGORY_COUNT[self.lang].format(n=len(group)))

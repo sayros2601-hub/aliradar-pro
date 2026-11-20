@@ -156,7 +156,7 @@ CURATED_TASK_COPY: dict[str, dict[str, dict[str, object]]] = {
     'rare_vacuum_wine_preserver': _pack(
         _e('Электрическая вакуумная пробка для вина', 'Откачка воздуха,', 'вкус дольше.',
            'Компактный вакуумный стоппер садится на горлышко открытой бутылки и удаляет лишний воздух, замедляя окисление напитка при хранении. Проверьте совместимый диаметр горлышка, число пробок в наборе и питание.'),
-        _e('Motorized Bottle Air Sealer', 'Seals opened bottles,', 'simple storage.',
+        _e('Electric Wine Vacuum Stopper', 'Seals opened bottles,', 'simple storage.',
            'Compact motorized wine cap sits atop an opened bottle and draws out air to help slow oxidation between pours. Verify neck-size compatibility, number of stoppers included, and battery or USB requirements before purchasing.'),
         _e('Tampa a Vácuo Elétrica para Garrafas', 'Fecha sem ar,', 'conserva melhor.',
            'Vedador motorizado compacto que se encaixa no gargalo da garrafa aberta para extrair o ar após servir. Confira os diâmetros compatíveis, a quantidade de tampas no kit e o padrão de carregamento ou pilhas.'),

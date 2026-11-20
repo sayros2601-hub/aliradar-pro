@@ -6192,7 +6192,7 @@
     },
     "auto-1005012687234522": {
       "en": {
-        "name": "Motorized Bottle Air Sealer",
+        "name": "Electric Wine Vacuum Stopper",
         "headline": [
           "Seals opened bottles,",
           "simple storage."
@@ -6318,7 +6318,7 @@
     },
     "auto-1005012367265501": {
       "en": {
-        "name": "Shape Duplicator Tool",
+        "name": "Locking Contour Gauge",
         "headline": [
           "Copy complex shapes,",
           "cut with ease."
@@ -6486,44 +6486,44 @@
     },
     "auto-1005013186843415": {
       "en": {
-        "name": "Ring Gauge",
+        "name": "Setting Ring for Bore Gauges",
         "headline": [
-          "Precision measurement",
-          "for workshop"
+          "Set the zero",
+          "before measuring"
         ],
-        "description": "A ring gauge is a tool used for precise measurement of the internal diameter of parts. It is utilized to check the size and shape of holes in various materials, such as metal, plastic, and wood. Before purchasing a ring gauge, it is essential to verify its specifications, including the measurement range, accuracy, and material, to ensure it meets your requirements."
+        "description": "The ring provides a known internal diameter for zeroing a bore gauge. Move the gauge from the ring to the workpiece to check how the bore differs from that reference size."
       },
       "pt": {
-        "name": "Calibrador de Anel",
+        "name": "Anel padrão para súbito",
         "headline": [
-          "Medição precisa",
-          "para oficina"
+          "Ajuste o zero",
+          "antes de medir"
         ],
-        "description": "O calibrador de anel é uma ferramenta utilizada para medir com precisão o diâmetro interno de peças. Ele é usado para verificar o tamanho e a forma de furos em materiais variados, como metal, plástico e madeira. Antes de comprar um calibrador de anel, é fundamental verificar suas especificações, incluindo a faixa de medição, precisão e material, para garantir que atenda às suas necessidades."
+        "description": "O diâmetro interno conhecido do anel serve de referência para zerar o súbito, um medidor de diâmetros internos. Depois, use o súbito no furo da peça para verificar a diferença em relação à referência."
       },
       "es": {
-        "name": "Calibrador de Anillo",
+        "name": "Anillo patrón para alesómetro",
         "headline": [
-          "Medición precisa",
-          "para taller"
+          "Ajusta el cero",
+          "antes de medir"
         ],
-        "description": "El calibrador de anillo es una herramienta utilizada para medir con precisión el diámetro interno de piezas. Se utiliza para verificar el tamaño y la forma de agujeros en materiales variados, como metal, plástico y madera. Antes de comprar un calibrador de anillo, es fundamental verificar sus especificaciones, incluyendo la gama de medición, precisión y material, para asegurarse de que cumpla con sus necesidades."
+        "description": "El diámetro interior conocido del anillo sirve de referencia para ajustar el cero del alesómetro. Después, introduce el alesómetro en el orificio de la pieza para comprobar la diferencia respecto a esa medida."
       },
       "fr": {
-        "name": "Calibre à Anneau",
+        "name": "Bague étalon pour alésomètre",
         "headline": [
-          "Mesure précise",
-          "pour atelier"
+          "Réglez le zéro",
+          "avant la mesure"
         ],
-        "description": "Le calibre à anneau est un outil utilisé pour mesurer avec précision le diamètre interne des pièces. Il est utilisé pour vérifier la taille et la forme des trous dans divers matériaux, tels que le métal, le plastique et le bois. Avant d'acheter un calibre à anneau, il est essentiel de vérifier ses spécifications, y compris la plage de mesure, la précision et le matériau, pour vous assurer qu'il répond à vos besoins."
+        "description": "Le diamètre intérieur connu de la bague permet de régler le zéro de l’alésomètre. Placez ensuite l’alésomètre dans l’alésage de la pièce pour lire l’écart par rapport à ce diamètre de référence."
       },
       "he": {
-        "name": "מד קוטר",
+        "name": "טבעת כיול למד קדחים",
         "headline": [
-          "מדידה מדויקת",
-          "לסדנה"
+          "מאפסים את המד",
+          "לפני המדידה"
         ],
-        "description": "מד קוטר הוא כלי המשמש למדידה מדויקת של קוטר פנימי של חלקים. הוא משמש לבדיקת גודל וצורה של חורים בחומרים שונים, כגון מתכת, פלסטיק ועץ. לפני רכישת מד קוטר, יש לבדוק את המפרטים שלו, כולל טווח המדידה, דיוק וחומר, כדי לוודא שהוא עונה על צורכיכם."
+        "description": "הקוטר הפנימי הידוע של הטבעת משמש לאיפוס מד הקדחים. לאחר האיפוס מעבירים את המד לקדח שבחלק ובודקים את הסטייה מקוטר הייחוס."
       }
     },
     "auto-1005005357943658": {

@@ -94,6 +94,7 @@ ARTICLES = [
     {
         'slug': 'compare-the-final-price',
         'preferred_product': 'katord-wifi-repeater',
+        'modified_dates': {'en': '2026-11-20'},
         'translations': {
             'ru': (
                 'Почему цена в карточке и при оформлении отличается | FLUXIXO',
@@ -111,11 +112,11 @@ ARTICLES = [
             ),
             'en': (
                 'Why the price changes between a listing and checkout | FLUXIXO',
-                'How to compare exact SKU options, US shipping, and the delivered total on AliExpress before paying.',
+                'Compare the same AliExpress variant across listings, including shipping to your destination and any charges shown at checkout.',
                 'Why the price changes between a listing and checkout',
                 [
                     ('Start with the exact variant', 'A headline number is not enough to compare two listings. Match the exact model, size, color, quantity, and included accessories on both pages first.'),
-                    ('Compare the delivered total', 'Set your actual US delivery address and currency before comparing. Record the item subtotal, shipping, and any checkout charges together.'),
+                    ('Compare the delivered total', 'Set the delivery destination where you will receive the order and use the same currency for both listings. Record the item subtotal, shipping, and any checkout charges together.'),
                     ('Separate conditional discounts', 'Check whether an offer requires a new account coupon or minimum spend. Save your selected option so you can tell when an offer changes.'),
                     ('Use a simple comparison note', 'Write down variant, destination, item subtotal, shipping, and final total. FLUXIXO does not publish live pricing; confirm current terms directly on AliExpress.'),
                 ],
@@ -169,6 +170,7 @@ ARTICLES = [
     {
         'slug': 'usb-c-buying-checklist',
         'preferred_product': 'import-0010',
+        'modified_dates': {'en': '2026-11-20'},
         'translations': {
             'ru': (
                 'Перед покупкой USB-C: проверка зарядки и кабеля | FLUXIXO',
@@ -186,13 +188,13 @@ ARTICLES = [
             ),
             'en': (
                 'Before buying a USB-C charger: compatibility checklist | FLUXIXO',
-                'Verify device USB PD profiles, port power sharing, and US Type A/B plug details on AliExpress.',
+                'Check USB Power Delivery profiles, how the charger shares power across ports, and which plug fits your wall outlet before ordering.',
                 'Before buying a USB-C charger: check the whole connection',
                 [
                     ('Identify the job first', 'Charging a phone, powering a laptop, and sending video over USB Type-C rely on different specifications even though the connector shape looks the same.'),
                     ('Read your device requirements', 'Compare your laptop or phone power input specs against the stated USB PD output table in the listing instead of relying only on a headline wattage number.'),
-                    ('Check the cable separately', 'Confirm that your USB-C cable handles the required wattage and measure the real distance from your US wall outlet to your desk.'),
-                    ('Verify multi-port sharing', 'When several devices plug in at once, check how wattage splits across ports and verify the US plug option with the seller before checkout.'),
+                    ('Check the cable separately', 'Confirm that your USB-C cable supports the wattage your device needs. Measure the cable route from the outlet to your device so you can choose a suitable length.'),
+                    ('Verify multi-port sharing', 'Check the output available on each port when you charge several devices at once. Before checkout, match the plug on the selected charger variant to your local wall outlet.'),
                 ],
             ),
             'pt': (
@@ -243,7 +245,8 @@ ARTICLES = [
     },
     {
         'slug': 'desk-cable-management',
-        'preferred_product': 'find-063-cable-tester',
+        'preferred_product': None,
+        'modified': '2026-11-20',
         'translations': {
             'ru': (
                 'Порядок в проводах: сначала измерьте, потом покупайте | FLUXIXO',
@@ -408,7 +411,6 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
     """Render multilingual journal index and guide pages; returns generated route paths."""
     routes = []
     by_id = {p['id']: p for p in products}
-    fallback_prod = products[0] if products else None
     index_alternates = {lang: index_path(lang) for lang in JOURNAL_UI}
 
     for lang, ui in JOURNAL_UI.items():
@@ -421,20 +423,24 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                 continue
             slug = article['slug']
             published = article.get('published_dates', {}).get(lang) or article.get('date') or ui['date']
+            modified = article.get('modified_dates', {}).get(lang) or article.get('modified') or published
             meta_title, meta_desc, h1, sections = article['translations'][lang]
-            rel_prod = by_id.get(article['preferred_product']) or fallback_prod
-            img_path = rel_prod['image'] if rel_prod else 'assets/images/import-0010.webp'
-            thumb_rel = 'assets/thumbs/' + img_path.rsplit('/', 1)[-1].rsplit('.', 1)[0] + '-480.webp'
+            rel_prod = by_id.get(article['preferred_product'])
             art_url = article_path(lang, slug)
             art_alternates = {l: article_path(l, slug) for l in JOURNAL_UI if l in article['translations']}
             routes.append(art_url)
 
-            prod_href = f'{prefix_ru}/products/{rel_prod["id"]}/' if rel_prod else catalog_href
+            related_link = card_visual = ''
+            img_path = 'icon-512.png'
             if rel_prod:
+                img_path = rel_prod['image']
+                thumb_rel = 'assets/thumbs/' + img_path.rsplit('/', 1)[-1].rsplit('.', 1)[0] + '-480.webp'
+                card_visual = f'<div class="card-visual"><img src="/{e(thumb_rel)}" alt="{e(h1)}" width="400" height="300" loading="lazy"></div>'
+                prod_href = f'{prefix_ru}/products/{rel_prod["id"]}/'
                 prod_name = (rel_prod['name'] if lang == 'ru'
                              else (i18n_data.get('products', {}).get(rel_prod['id'], {}).get(lang, {}) or {}).get('name', rel_prod['name']))
-            else:
-                prod_name = ui['catalog']
+                colon = ' : ' if lang == 'fr' else ': '
+                related_link = f'<a class="button secondary" href="{prod_href}">{e(ui["related_product_label"])}{colon}{e(prod_name)}</a>'
 
             sec_html = ''.join(f'<section><h2>{e(h2)}</h2><p>{e(body)}</p></section>' for h2, body in sections)
             crumbs = [(ui['home'], home_href), (ui['eyebrow'], index_path(lang)), (h1, art_url)]
@@ -450,9 +456,9 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                         '@type': 'Article',
                         'headline': h1,
                         'description': meta_desc,
-                        'image': origin + '/' + img_path,
+                        **({'image': origin + '/' + img_path} if rel_prod else {}),
                         'datePublished': published,
-                        'dateModified': published,
+                        'dateModified': modified,
                         'inLanguage': lang,
                         'author': {'@type': 'Organization', 'name': 'FLUXIXO', 'url': origin + '/'},
                         'publisher': {'@type': 'Organization', 'name': 'FLUXIXO', 'url': origin + '/'},
@@ -467,13 +473,12 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                     },
                 ],
             }
-            colon = ' : ' if lang == 'fr' else ': '
             art_body = (
                 f'{crumb_nav}'
                 f'<article class="about-page journal-article">'
                 f'<p class="eyebrow">{e(ui["eyebrow"])}</p>'
                 f'<h1>{e(h1)}</h1>'
-                f'<div class="cta-row"><a class="button secondary" href="{prod_href}">{e(ui["related_product_label"])}{colon}{e(prod_name)}</a>'
+                f'<div class="cta-row">{related_link}'
                 f'<a class="button" href="{catalog_href}">{e(ui["catalog_cta"])}</a></div>'
                 f'{sec_html}'
                 f'</article>'
@@ -484,7 +489,7 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
             )
             cards_html.append(
                 f'<li><a class="card" href="{art_url}">'
-                f'<div class="card-visual"><img src="/{e(thumb_rel)}" alt="{e(h1)}" width="400" height="300" loading="lazy"></div>'
+                f'{card_visual}'
                 f'<p class="eyebrow">{e(ui["eyebrow"])}</p><h2>{e(h1)}</h2><p>{e(meta_desc)}</p></a></li>'
             )
 
