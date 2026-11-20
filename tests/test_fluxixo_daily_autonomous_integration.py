@@ -66,22 +66,7 @@ class DailyIntegrationTests(unittest.TestCase):
         def reviewed_media(item, internal_id, stage):
             if item['product_id'] == selected(0)['product_id']:
                 raise MediaDeferred('review_quota', NOW.timestamp() + 3600)
-            media = self.media(item, internal_id, stage)
-            media['views'] = []
-            media['review_sources'] = []
-            frames = []
-            for n in range(3):
-                source = stage / f'{internal_id}-review-{n}.png'
-                source.write_bytes(b'reference' + str(n).encode())
-                media['review_sources'].append(source)
-                frames.append({'source_asset': f'assets/originals/{source.name}'})
-                if n:
-                    view = stage / f'{internal_id}-v{n+1}.webp'
-                    view.write_bytes(b'view' + str(n).encode())
-                    media['views'].append(view)
-            media['identity_source'] = media['review_sources'][0]
-            media['media_review'] = {'frames': frames, 'identity_source_asset': f'assets/originals/{internal_id}-review-identity.png'}
-            return media
+            return self.reviewed_media(item, internal_id, stage)
         with patch.dict('os.environ', {'FLUXIXO_REVIEW_REQUIRED': '1', 'FLUXIXO_AI_TRANSPORT': 'disabled',
                                       'AUTOPILOT_SYNC_TOKEN': 'offline-placeholder'}), \
              patch('fluxixo_ai.reviewed_media.verify_review_bindings', return_value=True), \
@@ -122,6 +107,58 @@ class DailyIntegrationTests(unittest.TestCase):
             replacement.start()
             self.addCleanup(replacement.stop)
 
+    def test_cached_descriptions_need_full_current_receipt_before_media_and_catalog(self):
+        from fluxixo_ai import autonomous
+        from fluxixo_ai.gemini_client import COPY_POLICY, GeminiDeferred
+        from fluxixo_ai.originality_receipt import ORIGINALITY_LANGUAGES, description_hash, receipt_hashes
+        from fluxixo_ai.pending_products import PendingProducts
+
+        queue = PendingProducts(self.root / 'data/fluxixo_pending.sqlite3')
+        candidates = [selected(index) for index in range(3)]
+        for item in candidates:
+            record, translated = autonomous.build_record(item)
+            translated['he']['description'] += ' נורת לד.'
+            queue.put(item, now=NOW.timestamp())
+            queue.save_text(item['product_id'], {'policy': COPY_POLICY, 'record': record, 'translated': translated})
+
+        checked = []
+        def check(bundle, *, receipt):
+            pid = bundle['ru']['sourceProductId']
+            checked.append(pid)
+            self.assertTrue(bundle['he']['description'].endswith(' נורת LED.'))
+            if pid == candidates[0]['product_id']:
+                raise GeminiDeferred('search_daily_budget', NOW.timestamp() + 86400)
+            for lang in ORIGINALITY_LANGUAGES:
+                receipt[lang] = {'sha256': description_hash(bundle[lang]['description']), 'checked_at': NOW.timestamp()}
+            if pid == candidates[1]['product_id']:
+                receipt['fr']['sha256'] = description_hash('an older version')
+            return []
+
+        real_site = Path(daily.__file__).resolve().parent / 'fluxixo_site'
+        ai_seo, _ = autonomous._import_tools_modules(real_site)
+        with patch.dict('os.environ', {'FLUXIXO_REVIEW_REQUIRED': '1', 'FLUXIXO_TEXT_PROVIDER': 'gemini',
+                                       'FLUXIXO_WEB_CHECK': '1', 'FLUXIXO_WEB_CHECK_PROVIDER': 'tavily_keyless'}), \
+             patch.object(autonomous, '_copy_validation_problems', return_value=[]), \
+             patch.object(autonomous, '_maybe_ai_enrich', side_effect=AssertionError('cached text must be reused')), \
+             patch.object(ai_seo, 'external_copy_problems', side_effect=check), \
+             patch('fluxixo_ai.reviewed_media.verify_review_bindings', return_value=True), \
+             patch.object(self, 'reviewed_media', wraps=self.reviewed_media) as media:
+            result = autonomous.accumulate(count=3, site_root=self.site, dist=self.dist, reserve_dir=self.reserve,
+                ledger_path=self.root/'data/fluxixo_daily_ledger.json', now=NOW, enforce_unique_copy=True,
+                discover_fn=lambda *_: [], media_fn=media)
+        self.assertCountEqual([item['product_id'] for item in candidates], checked)
+        self.assertEqual(1, result['added'])
+        self.assertEqual([candidates[2]['product_id']], [call.args[0]['product_id'] for call in media.call_args_list])
+        published = self.catalog()['products'][0]
+        self.assertEqual(candidates[2]['product_id'], published['sourceProductId'])
+        hashes = receipt_hashes(published['externalOriginality'])
+        self.assertEqual(description_hash(published['description']), hashes['ru'])
+        translations = json.loads((self.site/'tools/i18n_data.json').read_text(encoding='utf-8'))['products']
+        for lang, entry in translations[published['id']].items():
+            self.assertEqual(description_hash(entry['description']), hashes[lang])
+        self.assertTrue(translations[published['id']]['he']['description'].endswith(' נורת LED.'))
+        self.assertIsNotNone(queue.text(candidates[0]['product_id']))
+
     def media(self, item, internal_id, stage):
         import hashlib
         image = stage / (internal_id + '-prepared.webp')
@@ -131,6 +168,24 @@ class DailyIntegrationTests(unittest.TestCase):
         return {'image': image, 'original': original,
                 'source_sha256': hashlib.sha256(('source'+internal_id).encode()).hexdigest(),
                 'pixel_sha256': hashlib.sha256(('pixel'+internal_id).encode()).hexdigest()}
+
+    def reviewed_media(self, item, internal_id, stage, *, perceptual_index=None):
+        media = self.media(item, internal_id, stage)
+        media['views'] = []
+        media['review_sources'] = []
+        frames = []
+        for n in range(3):
+            source = stage / f'{internal_id}-review-{n}.png'
+            source.write_bytes(b'reference' + str(n).encode())
+            media['review_sources'].append(source)
+            frames.append({'source_asset': f'assets/originals/{source.name}'})
+            if n:
+                view = stage / f'{internal_id}-v{n+1}.webp'
+                view.write_bytes(b'view' + str(n).encode())
+                media['views'].append(view)
+        media['identity_source'] = media['review_sources'][0]
+        media['media_review'] = {'frames': frames, 'identity_source_asset': f'assets/originals/{internal_id}-review-identity.png'}
+        return media
 
     def catalog(self):
         return json.loads((self.dist / 'js/catalog.js').read_text(encoding='utf-8').split('=', 1)[1].strip().removesuffix(';'))

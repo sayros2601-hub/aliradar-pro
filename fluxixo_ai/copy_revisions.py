@@ -78,7 +78,8 @@ def reject_cached_copy(title, copy_state, checkpoint=None, reason='copy_outer_va
         raise GeminiCopyStopped(reason, version)
 
 
-def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, validate, review):
+def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, validate, review,
+                     verify_external=None, before_generate=None):
     """Return one accepted draft; callbacks never gain additional retry loops here."""
     version, journal = _journal(source_title, state, scope)
 
@@ -102,6 +103,8 @@ def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, valida
         if draft is None or draft.get('status') in ('failed', 'rejected'):
             if len(drafts) >= 2:
                 stop(draft.get('reason', 'copy_generation_reservations_exhausted'))
+            if before_generate is not None:
+                before_generate()
             problems = (draft or {}).get('problems', [])
             draft = {'status': 'reserved', 'review_attempts': 0}
             drafts.append(draft)
@@ -124,36 +127,42 @@ def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, valida
             draft.update(status='rejected', problems=problems[:24], reason='copy_lint_failed')
             persist()
             continue
-        if draft.get('status') == 'accepted' and draft.get('policy') == COPY_POLICY:
+        if draft.get('status') != 'accepted' or draft.get('policy') != COPY_POLICY:
+            attempts = draft.get('review_attempts', 0)
+            if type(attempts) is not int or attempts < 0:
+                stop('copy_state_invalid')
+            if attempts >= 2:
+                stop(draft.get('reason', 'copy_claim_review_response_lost'))
+            draft['review_attempts'] = attempts + 1
+            draft['status'] = 'draft'
             persist()
-            return candidate, draft['provider']
-        attempts = draft.get('review_attempts', 0)
-        if type(attempts) is not int or attempts < 0:
-            stop('copy_state_invalid')
-        if attempts >= 2:
-            stop(draft.get('reason', 'copy_claim_review_response_lost'))
-        draft['review_attempts'] = attempts + 1
-        draft['status'] = 'draft'
-        persist()
-        try:
-            problems = review(candidate)
-        except GeminiDeferred as error:
-            draft['reason'] = 'copy_claim_review_' + error.code
+            try:
+                problems = review(candidate)
+            except GeminiDeferred as error:
+                draft['reason'] = 'copy_claim_review_' + error.code
+                persist()
+                if draft['review_attempts'] >= 2:
+                    stop(draft['reason'])
+                raise
+            if problems and problems[0].startswith('source_claims: incomplete'):
+                # A malformed checker response says nothing about the existing draft.
+                draft['reason'] = 'copy_claim_review_invalid'
+                persist()
+                if draft['review_attempts'] >= 2:
+                    stop(draft['reason'])
+                raise GeminiDeferred('gemini_claim_review_invalid')
+            if problems:
+                draft.update(status='rejected', problems=problems[:24], reason='copy_source_claims_failed')
+                persist()
+                continue
+            draft.update(status='accepted', policy=COPY_POLICY)
             persist()
-            if draft['review_attempts'] >= 2:
-                stop(draft['reason'])
-            raise
-        if problems and problems[0].startswith('source_claims: incomplete'):
-            # A malformed checker response says nothing about the existing draft.
-            draft['reason'] = 'copy_claim_review_invalid'
-            persist()
-            if draft['review_attempts'] >= 2:
-                stop(draft['reason'])
-            raise GeminiDeferred('gemini_claim_review_invalid')
-        if problems:
-            draft.update(status='rejected', problems=problems[:24], reason='copy_source_claims_failed')
-            persist()
-            continue
-        draft.update(status='accepted', policy=COPY_POLICY)
-        persist()
+        if verify_external is not None:
+            # May defer here. The accepted fact review and the draft bytes are durable.
+            # The search cache decides which locales still need fresh online evidence.
+            problems = verify_external(candidate)
+            if problems:
+                draft.update(status='rejected', problems=problems[:24], reason='copy_external_overlap')
+                persist()
+                continue
         return candidate, draft['provider']

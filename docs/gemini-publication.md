@@ -96,6 +96,21 @@ If a seller has no truthful distinct application/result references, the item can
 wait for a bounded source refresh and then stop with its reason. Publication cannot be guaranteed without suitable
 sources and available review quota.
 
+## Free external description check
+
+Before preparing images for a new card, the daily job sends one quoted phrase
+from each of its six main descriptions to Tavily in [keyless mode](https://docs.tavily.com/documentation/keyless).
+It compares the returned snippets with the description and ignores the shop's
+own domain. This screens for substantial verbatim matches in indexed results.
+A match uses the existing single rewrite allowance. An unavailable search
+leaves the draft queued with its completed language checks.
+
+The job reserves at most 36 search attempts per rolling 24 hours. Three cards
+use up to 18 attempts on their first pass. The provider can impose an earlier
+limit. Exact-text decisions are cached for 30 days. Before publication the
+release verifier compares the six rendered descriptions against their checked
+versions. The existing catalog does not need a retrospective check.
+
 ## Isolated validation
 
 The manually dispatched `fluxixo_text_smoke.yml` accepts an existing catalog

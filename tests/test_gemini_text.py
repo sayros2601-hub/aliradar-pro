@@ -388,6 +388,111 @@ class GeminiTextTests(unittest.TestCase):
                                           snippet_fetcher=lambda *a: [], copy_state=state)
             self.assertEqual(1, complete.call_count)
 
+    def test_free_search_outage_resumes_saved_copy_without_another_gemini_call(self):
+        from fluxixo_ai.free_search import SearchDeferred
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        bundle = mirror_bundle()
+        state = {}
+        model_calls = []
+        def model(system, prompt, **kwargs):
+            request = json.loads(prompt)
+            model_calls.append(request)
+            return (claim_verdict(bundle) if request.get('task') == 'verify_source_claims' else bundle), 'test'
+        with patch.dict(os.environ, {'FLUXIXO_WEB_CHECK': '1', 'FLUXIXO_WEB_CHECK_PROVIDER': 'tavily_keyless'}), \
+             patch.object(ai_seo, 'complete_json', side_effect=model), \
+             patch.object(ai_seo, 'require_free_search_capacity', return_value=None), \
+             patch.object(ai_seo.copy_originality, 'verify_snippet_uniqueness', side_effect=AssertionError('old/paid check forbidden')), \
+             patch.object(ai_seo.copy_originality, 'verify_external_bundle_uniqueness',
+                          side_effect=[SearchDeferred('free_search_unavailable', 2000000123), (True, [], {'locales': {}})]):
+            with self.assertRaises(GeminiDeferred) as caught:
+                ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle, copy_state=state)
+            self.assertEqual(2000000123, caught.exception.retry_at)
+            restored = json.loads(json.dumps(state))
+            result, _ = ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle, copy_state=restored)
+            self.assertEqual(bundle, result)
+        self.assertEqual(2, len(model_calls))
+
+    def test_external_overlap_uses_only_two_existing_draft_slots(self):
+        bundle = mirror_bundle()
+        state = {}
+        calls = []
+        def model(system, prompt, **kwargs):
+            request = json.loads(prompt)
+            calls.append(request)
+            return (claim_verdict(bundle) if request.get('task') == 'verify_source_claims' else bundle), 'test'
+        with patch.dict(os.environ, {'FLUXIXO_WEB_CHECK': '1', 'FLUXIXO_WEB_CHECK_PROVIDER': 'tavily_keyless'}), \
+             patch.object(ai_seo, 'complete_json', side_effect=model), \
+             patch.object(ai_seo, 'require_free_search_capacity', return_value=None), \
+             patch.object(ai_seo.copy_originality, 'verify_external_bundle_uniqueness',
+                          return_value=(False, ['en.description: external_prose_overlap https://example.com/item'], {'locales': {}})):
+            for _ in range(2):
+                with self.assertRaises(ai_seo.GeminiCopyStopped) as caught:
+                    ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle, copy_state=state)
+                self.assertEqual('copy_external_overlap', caught.exception.reason)
+        self.assertEqual(4, len(calls))
+        self.assertTrue(any('external_prose_overlap' in issue for issue in calls[2]['previous_validation_errors']))
+
+    def test_external_receipt_binds_published_hebrew_and_requires_all_six_successes(self):
+        from fluxixo_ai import free_search
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        from fluxixo_ai.originality_receipt import description_hash
+        bundle = mirror_bundle()
+        bundle['he']['description'] += ' תאורת לד.'
+        seen = {}
+        def checker(text, lang, **kwargs):
+            seen[lang] = text
+            return {'passed': True, 'issues': [], 'evidence_urls': [], 'checked_at': 2000000000.0, 'cache_hit': True}
+        receipt = {}
+        with patch.object(free_search, 'check_external_text', side_effect=checker):
+            self.assertEqual([], ai_seo.external_copy_problems(bundle, receipt=receipt))
+        self.assertEqual(set(ai_seo.LANGS), set(receipt))
+        self.assertIn('LED', seen['he'])
+        self.assertNotIn(' לד.', seen['he'])
+        self.assertEqual(description_hash(seen['he']), receipt['he']['sha256'])
+        self.assertNotEqual(description_hash(bundle['he']['description']), receipt['he']['sha256'])
+        self.assertTrue(all(value['checked_at'] == 2000000000 for value in receipt.values()))
+        partial = {}
+        def outage(text, lang, **kwargs):
+            if lang == 'he':
+                raise free_search.SearchDeferred('search_http_429', 2000000500)
+            return checker(text, lang, **kwargs)
+        with patch.object(free_search, 'check_external_text', side_effect=outage):
+            with self.assertRaises(GeminiDeferred):
+                ai_seo.external_copy_problems(bundle, receipt=partial)
+        self.assertEqual({}, partial)
+
+    def test_known_search_backoff_does_not_spend_new_copy_and_existing_draft_can_resume(self):
+        from fluxixo_ai import free_search
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        bundle = mirror_bundle()
+        state = {}
+        model_calls = []
+        def model(system, prompt, **kwargs):
+            request = json.loads(prompt)
+            model_calls.append(request)
+            return (claim_verdict(bundle) if request.get('task') == 'verify_source_claims' else bundle), 'test'
+        enabled = {'FLUXIXO_WEB_CHECK': '1', 'FLUXIXO_WEB_CHECK_PROVIDER': 'tavily_keyless'}
+        with patch.object(ai_seo, 'complete_json', side_effect=model), \
+             patch.object(ai_seo.copy_originality, 'verify_external_bundle_uniqueness', return_value=(True, [], {'locales': {}})):
+            with patch.dict(os.environ, enabled), \
+                 patch.object(free_search, 'require_search_capacity', create=True,
+                              side_effect=free_search.SearchDeferred('search_http_429', 2000000999)):
+                with self.assertRaises(GeminiDeferred) as caught:
+                    ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle, copy_state=state)
+                self.assertEqual(2000000999, caught.exception.retry_at)
+                self.assertEqual([], model_calls)
+                journal = state['versions'][ai_seo.copy_source_version('Handheld mirror with swivel head')]['bundle']
+                self.assertEqual([], journal['drafts'])
+            # A pre-existing approved draft needs no generation reservation/preflight.
+            with patch.dict(os.environ, {'FLUXIXO_WEB_CHECK': '0'}):
+                ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle, copy_state=state)
+            with patch.dict(os.environ, enabled), \
+                 patch.object(free_search, 'require_search_capacity', create=True,
+                              side_effect=AssertionError('saved draft must not regenerate')):
+                result, _ = ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle, copy_state=state)
+                self.assertEqual(bundle, result)
+        self.assertEqual(2, len(model_calls))
+
 
 if __name__ == '__main__':
     unittest.main()

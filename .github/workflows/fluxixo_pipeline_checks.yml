@@ -11,6 +11,9 @@ on:
       - 'fluxixo_ai/daily_schedule.py'
       - 'fluxixo_ai/gemini_client.py'
       - 'fluxixo_ai/copy_revisions.py'
+      - 'fluxixo_ai/free_search.py'
+      - 'fluxixo_ai/originality_receipt.py'
+      - 'fluxixo_site/tools/apply_text_fixes.py'
       - 'fluxixo_ai/image_studio.py'
       - 'fluxixo_ai/pending_products.py'
       - 'fluxixo_ai/reviewed_media.py'
@@ -23,6 +26,9 @@ on:
       - 'requirements.txt'
       - 'tests/test_gemini_client.py'
       - 'tests/test_gemini_text.py'
+      - 'tests/test_free_search.py'
+      - 'tests/test_originality_receipt.py'
+      - 'tests/test_copy_originality.py'
       - 'tests/test_pending_products.py'
       - 'tests/test_reviewed_media.py'
       - 'tests/test_state_checkpoint.py'
@@ -87,6 +93,7 @@ jobs:
           socket.getaddrinfo = no_network
           patterns = (
               'test_gemini_client.py', 'test_gemini_text.py',
+              'test_free_search.py', 'test_copy_originality.py', 'test_originality_receipt.py',
               'test_pending_products.py', 'test_reviewed_media.py',
               'test_state_checkpoint.py', 'test_text_smoke.py',
               'test_release_media_baseline.py',

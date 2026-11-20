@@ -38,6 +38,12 @@ def fr_title(name):
     return ' '.join('-'.join(cap(piece, i == 0 and j == 0) for j, piece in enumerate(word.split('-'))) for i, word in enumerate(name.split(' ')))
 
 
+def publication_description(language, text):
+    if language == 'he':
+        return re.sub(r'(?<![\u0590-\u05ff])\u05dc\u05d3(?![\u0590-\u05ff])', 'LED', text)
+    return text
+
+
 def main():
     fixes = json.loads((ROOT / 'tools/text_fixes.json').read_text(encoding='utf-8'))
     raw = I18N.read_text(encoding='utf-8')
@@ -57,7 +63,7 @@ def main():
             fr['name'], changed = fr_title(fr['name']), changed + 1
         if he:
             for field in ('name', 'description'):
-                fixed = re.sub(r'(?<![֐-׿])לד(?![֐-׿])', 'LED', he.get(field, ''))
+                fixed = publication_description('he', he.get(field, ''))
                 if fixed != he.get(field, ''):
                     he[field], changed = fixed, changed + 1
     indent = 2 if raw.startswith('{\n  "') else (1 if raw.startswith('{\n "') else None)

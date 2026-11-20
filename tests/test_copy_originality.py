@@ -53,6 +53,73 @@ def _clean_bundle() -> dict[str, dict]:
 
 
 class CopyOriginalityTests(unittest.TestCase):
+    def test_external_prose_check_ignores_generic_specs_and_exact_self_only(self):
+        text = ('Fold the hinged handle beneath a crowded sink to inspect a screw hidden behind the copper water pipe. '
+                'Check the product size and material details on the seller page before placing your order.')
+        hits = [{'url': 'https://competitor.example/mirror', 'title': 'Mirror', 'snippet': text}]
+        passed, issues = co.compare_external_prose(text, 'en', hits)
+        self.assertFalse(passed)
+        self.assertIn('https://competitor.example/mirror', issues[0])
+        self.assertNotIn('Fold the hinged', issues[0])
+        generic = 'Check the product size and material details on the seller page before placing your order.'
+        specs = 'Material stainless steel. Color black. Size 10 x 20 cm. Weight 50 g.'
+        for candidate in (generic, specs):
+            self.assertEqual((True, []), co.compare_external_prose(candidate, 'en',
+                [{'url': 'https://competitor.example/specs', 'snippet': candidate}]))
+        self.assertEqual((True, []), co.compare_external_prose(text, 'en',
+            [{'url': 'https://competitor.example/footer', 'snippet': generic}]))
+        self.assertNotIn('check', co.distinctive_excerpt_query(generic + ' ' + text, 'en'))
+        self.assertEqual((True, []), co.compare_external_prose(text, 'en',
+            [{'url': 'https://www.fluxixo.shop/en/product/', 'snippet': text}]))
+        self.assertFalse(co.compare_external_prose(text, 'en',
+            [{'url': 'https://fluxixo.competitor.example/product/', 'snippet': text}])[0])
+
+    def test_six_locale_external_checks_use_one_query_each_and_return_receipts(self):
+        bundle = _clean_bundle()
+        calls = []
+        def checker(text, lang, **kwargs):
+            calls.append((text, lang, kwargs['query']))
+            passed, issues = kwargs['compare']([])
+            return {'passed': passed, 'issues': issues, 'evidence_urls': [], 'checked_at': 2000000000.0, 'cache_hit': False}
+        ok, issues, meta = co.verify_external_bundle_uniqueness(bundle, checker=checker)
+        self.assertTrue(ok)
+        self.assertEqual([], issues)
+        self.assertEqual(list(co.LANGS), [call[1] for call in calls])
+        self.assertTrue(all(call[2].startswith('"') and len(call[2]) < 230 for call in calls))
+        self.assertEqual(set(co.LANGS), set(meta['locales']))
+
+    def test_keyless_mode_cannot_resolve_paid_search_fallback(self):
+        with patch.dict(os.environ, {'FLUXIXO_OFFLINE': '', 'FLUXIXO_WEB_CHECK': '1',
+                'FLUXIXO_WEB_CHECK_PROVIDER': 'tavily_keyless', 'SERPER_API_KEY': 'must-not-use'}), \
+             patch.object(co, '_serper_fetcher', side_effect=AssertionError('paid search forbidden')):
+            self.assertIsNone(co._resolve_env_snippet_fetcher())
+            ok, issues, metadata = co.verify_snippet_uniqueness([('description', 'test copy')])
+            self.assertFalse(ok)
+            self.assertEqual('keyless_bundle_gate_required', metadata['skipped'])
+
+    def test_external_collisions_are_checked_in_all_six_languages(self):
+        checked = []
+        def checker(text, lang, **kwargs):
+            checked.append(lang)
+            passed, issues = kwargs['compare']([{'url': 'https://competitor.example/' + lang, 'snippet': text}])
+            return {'passed': passed, 'issues': issues, 'checked_at': 2000000000,
+                    'evidence_urls': ['https://competitor.example/' + lang], 'cache_hit': False}
+        ok, issues, _ = co.verify_external_bundle_uniqueness(_clean_bundle(), checker=checker)
+        self.assertFalse(ok)
+        self.assertEqual(6, len(issues))
+        self.assertEqual(list(co.LANGS), checked)
+
+    def test_unavailable_or_incomplete_external_verdict_never_passes(self):
+        from fluxixo_ai.free_search import SearchDeferred
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        def unavailable(*args, **kwargs):
+            raise SearchDeferred('search_http_429', 2000000300)
+        with self.assertRaises(SearchDeferred):
+            co.verify_external_bundle_uniqueness(_clean_bundle(), checker=unavailable)
+        with self.assertRaises(GeminiDeferred):
+            co.verify_external_bundle_uniqueness(_clean_bundle(), checker=lambda *a, **k: {
+                'passed': True, 'issues': [], 'evidence_urls': [], 'checked_at': 0})
+
     def test_source_title_mirroring_blocks_english_mirror_and_latin_leak_in_ru_he(self):
         src_title = 'New Telescoping Magnetic Inspection Mirror Tool 360 Swivel Mechanic'
         bundle = _clean_bundle()

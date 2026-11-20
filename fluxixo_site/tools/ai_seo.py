@@ -526,6 +526,44 @@ def _numeric_units(text):
     return set(re.findall(r'\b\d+(?:[.,]\d+)?\s?(?:w|v|a|mah|wh|gb|tb|mbps|ghz|mhz|ml|l|mm|cm|m|kg|g|oz|db|lm|k)\b', text.lower()))
 
 
+def free_web_check_enabled():
+    return copy_originality.free_web_check_enabled()
+
+
+def require_free_search_capacity():
+    """Avoid generating another draft while the free search service is known blocked."""
+    from fluxixo_ai.free_search import SearchDeferred, require_search_capacity
+    from fluxixo_ai.gemini_client import GeminiDeferred
+    try:
+        require_search_capacity()
+    except SearchDeferred as error:
+        raise GeminiDeferred(error.code, error.retry_at) from None
+
+
+def external_copy_problems(bundle, *, receipt=None):
+    """Check the exact descriptions published by the site, with no paid fallback."""
+    from apply_text_fixes import publication_description
+    from fluxixo_ai.free_search import SearchDeferred
+    from fluxixo_ai.gemini_client import GeminiDeferred
+    published = {
+        lang: {'description': publication_description(lang, bundle.get(lang, {}).get('description', ''))}
+        for lang in LANGS
+    }
+    try:
+        passed, issues, metadata = copy_originality.verify_external_bundle_uniqueness(published)
+    except SearchDeferred as error:
+        raise GeminiDeferred(error.code, error.retry_at) from None
+    if not passed:
+        return issues or ['external_check_rejected']
+    if receipt is not None:
+        from fluxixo_ai.originality_receipt import description_hash
+        receipt.update({lang: {
+            'sha256': description_hash(published[lang]['description']),
+            'checked_at': metadata['locales'][lang]['checked_at'],
+        } for lang in LANGS})
+    return []
+
+
 def validate_text_field(
     text,
     lang,
@@ -606,7 +644,8 @@ def validate_product_bundle(
         problems.extend(copy_originality.check_source_title_mirroring(bundle, source_title))
     if catalog_corpus:
         problems.extend(copy_originality.check_catalog_similarity(bundle, catalog_corpus))
-    for check_lang in ('en', 'ru'):
+    # Keyless mode has a separate durable six-locale stage after fact review.
+    for check_lang in (() if free_web_check_enabled() else ('en', 'ru')):
         loc = bundle.get(check_lang)
         if isinstance(loc, dict) and loc.get('name') and loc.get('description'):
             _, snip_issues, _ = copy_originality.verify_snippet_uniqueness(
@@ -899,7 +938,9 @@ def enrich_product_copy(
                 candidate, source_text=source_title, source_title=source_title, catalog_corpus=catalog_corpus,
                 snippet_fetcher=snippet_fetcher, min_desc_len=min_desc_len),
             review=lambda candidate: _gemini_claim_problems(source_title, candidate, ('name', 'headline', 'description'),
-                                                           keys=resolved, transport=transport))
+                                                           keys=resolved, transport=transport),
+            verify_external=external_copy_problems if free_web_check_enabled() else None,
+            before_generate=require_free_search_capacity if free_web_check_enabled() else None)
         return {lang: {'name': ' '.join(candidate[lang]['name'].split()),
                        'headline': [' '.join(line.split()) for line in candidate[lang]['headline']],
                        'description': ' '.join(candidate[lang]['description'].split())}

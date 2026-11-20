@@ -39,7 +39,8 @@ CHECK = {
 
 
 def _seed(key, query, groups, category, market, theme, names):
-    return {'key': key, 'query': query, 'groups': groups, 'category': category,
+    # Pending-product JSON round trips must retain equality with the trusted seed.
+    return {'key': key, 'query': query, 'groups': [list(group) for group in groups], 'category': category,
             'market': market, 'theme': theme, 'names': dict(zip(LANGS, names))}
 
 
@@ -90,6 +91,27 @@ def _import_tools_modules(site_root):
     import ai_seo
     import copy_originality
     return ai_seo, copy_originality
+
+
+def _bind_external_originality(record_item, translated, site_root):
+    from .gemini_client import GeminiDeferred
+    from .originality_receipt import ORIGINALITY_POLICY, description_hash, receipt_hashes
+    ai_seo, _ = _import_tools_modules(site_root)
+    if not ai_seo.free_web_check_enabled():
+        return []
+    from apply_text_fixes import publication_description
+    translated['he'] = {**translated['he'], 'description':
+                        publication_description('he', translated['he']['description'])}
+    bundle = {'ru': record_item, **translated}
+    locales = {}
+    problems = ai_seo.external_copy_problems(bundle, receipt=locales)
+    if problems:
+        return problems
+    receipt = {'policy': ORIGINALITY_POLICY, 'locales': locales}
+    if receipt_hashes(receipt) != {lang: description_hash(entry['description']) for lang, entry in bundle.items()}:
+        raise GeminiDeferred('search_receipt_incomplete')
+    record_item['externalOriginality'] = receipt
+    return []
 
 
 def _load_catalog_copy_corpus(products, translations, site_root):
@@ -1675,6 +1697,10 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                             record_item, translated = enrich_candidate(record_item, translated, candidate)
                         problems = _copy_validation_problems(record_item, translated, site_root,
                                                              catalog_corpus=catalog_corpus, reject_placeholders=True)
+                        reason = 'copy_validation_failed'
+                        if not problems and os.environ.get('FLUXIXO_WEB_CHECK_PROVIDER', '').strip().lower() == 'tavily_keyless':
+                            problems = _bind_external_originality(record_item, translated, site_root)
+                            reason = 'copy_external_overlap'
                         if problems:
                             if pending:
                                 pid = candidate['product_id']
@@ -1683,8 +1709,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                                     from .copy_revisions import reject_cached_copy
                                     journal = pending.copy_state(pid)
                                     reject_cached_copy(candidate['title'], journal,
-                                                       lambda: pending.save_copy_state(pid, journal), problems=problems)
-                                pending.defer(pid, 'copy_validation_failed', now=instant.timestamp())
+                                                       lambda: pending.save_copy_state(pid, journal), reason=reason, problems=problems)
+                                pending.defer(pid, reason, now=instant.timestamp())
                             if queue_claim:
                                 queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                             continue

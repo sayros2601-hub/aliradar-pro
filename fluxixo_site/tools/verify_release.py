@@ -540,6 +540,112 @@ def _load_legacy_media_baseline():
     return baseline['products']
 
 
+class _ProductDescription(HTMLParser):
+    """Read only the canonical direct-child description, not recommendations."""
+    _VOID = frozenset(('area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input',
+                       'link', 'meta', 'param', 'source', 'track', 'wbr'))
+
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.stack = []
+        self.paragraphs = []
+        self.parts = []
+        self.depth = None
+        self.invalid = False
+
+    def handle_starttag(self, tag, attrs):
+        classes = set(dict(attrs).get('class', '').split())
+        if tag == 'p' and 't' in classes and self.stack and 'p-text' in self.stack[-1][1]:
+            if self.depth is not None:
+                self.invalid = True
+            self.depth, self.parts = len(self.stack) + 1, []
+        if self.depth is not None and tag in ('script', 'style', 'template'):
+            self.invalid = True
+        if tag in self._VOID:
+            if tag == 'br' and self.depth is not None:
+                self.parts.append(' ')
+            return
+        self.stack.append((tag, classes))
+
+    def handle_startendtag(self, tag, attrs):
+        self.handle_starttag(tag, attrs)
+        if tag not in self._VOID:
+            self.handle_endtag(tag)
+
+    def handle_endtag(self, tag):
+        if not self.stack or self.stack[-1][0] != tag:
+            if self.depth is not None:
+                self.invalid = True
+            return
+        if self.depth == len(self.stack):
+            self.paragraphs.append(''.join(self.parts))
+            self.depth, self.parts = None, []
+        self.stack.pop()
+
+    def handle_data(self, text):
+        if self.depth is not None:
+            self.parts.append(text)
+
+
+def validate_external_originality(rel):
+    """Bind new/explicitly tagged copy to all six final rendered descriptions."""
+    repo = Path(__file__).resolve().parents[2]
+    if str(repo) not in sys.path:
+        sys.path.insert(0, str(repo))
+    from fluxixo_ai.originality_receipt import ORIGINALITY_LANGUAGES, description_hash, receipt_hashes
+
+    rel = Path(rel).resolve()
+    errors = []
+    try:
+        raw = (rel / 'js/catalog.js').read_text(encoding='utf-8')
+        products = json.loads(raw.split('=', 1)[1].strip().rstrip(';'))['products']
+        if not isinstance(products, list) or not all(isinstance(product, dict) for product in products):
+            raise ValueError('invalid products')
+    except (OSError, ValueError, IndexError, KeyError, TypeError):
+        return ['external originality: catalog is missing or invalid']
+    try:
+        legacy = _load_legacy_media_baseline()
+    except (OSError, ValueError, TypeError):
+        errors.append('external originality: pinned legacy baseline is missing or invalid')
+        legacy = {}
+    for product in products:
+        if product.get('demo') is True:
+            continue
+        pid = product.get('id')
+        # This is a text migration exception. Image/gallery changes do not
+        # invalidate it; an explicit copy receipt always activates the gate.
+        if isinstance(pid, str) and pid in legacy and 'externalOriginality' not in product:
+            continue
+        if not isinstance(pid, str) or not re.fullmatch(r'[A-Za-z0-9_-]{1,160}', pid):
+            errors.append('external originality: invalid product ID')
+            continue
+        hashes = receipt_hashes(product.get('externalOriginality'))
+        if hashes is None:
+            errors.append(f'{pid}: external originality receipt needs valid evidence for all six locales')
+            continue
+        ru = product.get('description')
+        if not isinstance(ru, str) or not ru.strip() or description_hash(ru) != hashes['ru']:
+            errors.append(f'{pid}/ru: catalog description differs from external originality receipt')
+        for language in ORIGINALITY_LANGUAGES:
+            # Same routing as locales.product_path; independent of sitemap
+            # presence so omitted translations cannot escape this gate.
+            page = rel / ('' if language == 'ru' else language) / 'products' / pid / 'index.html'
+            try:
+                if page.is_symlink() or not page.resolve().is_relative_to(rel):
+                    raise ValueError('invalid path')
+                parsed = _ProductDescription()
+                parsed.feed(page.read_text(encoding='utf-8'))
+                parsed.close()
+                if (parsed.invalid or parsed.depth is not None or len(parsed.paragraphs) != 1
+                        or not parsed.paragraphs[0].strip()):
+                    raise ValueError('canonical description missing')
+                if description_hash(parsed.paragraphs[0]) != hashes[language]:
+                    errors.append(f'{pid}/{language}: rendered description differs from external originality receipt')
+            except (OSError, ValueError, TypeError):
+                errors.append(f'{pid}/{language}: canonical rendered description is missing or invalid')
+    return errors
+
+
 def _release_image_file(root, relative):
     if (not isinstance(relative, str) or not relative.startswith('assets/images/')
             or '\\' in relative or PurePosixPath(relative).as_posix() != relative
@@ -647,6 +753,8 @@ def main():
         problems['Search engine parity'].append(error)
     for error in validate_transparent_product_images(RELEASE):
         problems['opaque product image'].append(error)
+    for error in validate_external_originality(RELEASE):
+        problems['external originality binding'].append(error)
     pages = {}
     for url in urls:
         file = local_file(url)

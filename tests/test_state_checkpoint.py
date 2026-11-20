@@ -24,6 +24,7 @@ class StateCheckpointTests(unittest.TestCase):
             root = Path(folder)
             (root/'data').mkdir()
             (root/'data/fluxixo_pending.sqlite3').write_bytes(b'pending')
+            (root/'data/fluxixo_free_search.sqlite3').write_bytes(b'bounded free search')
             (root/'data/unrelated.txt').write_text('do not publish')
             images = root/'fluxixo_site/reserve/reviewed-media/item'
             images.mkdir(parents=True)
@@ -39,6 +40,7 @@ class StateCheckpointTests(unittest.TestCase):
                 checkpoint(root=root)
             staged = next(kw['input'] for args, kw in calls if 'add' in args)
             self.assertIn(b'data/fluxixo_pending.sqlite3', staged)
+            self.assertIn(b'data/fluxixo_free_search.sqlite3', staged)
             self.assertIn(b'state.json', staged)
             self.assertNotIn(b'.lock', staged)
             self.assertNotIn(b'unrelated', staged)

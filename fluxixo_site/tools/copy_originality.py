@@ -59,6 +59,117 @@ DEFAULT_CATALOG_THRESHOLDS: dict[str, tuple[float, float, int]] = {
 }
 
 SnippetFetcher = Callable[[str, str, float], list[dict[str, str]]]
+EXTERNAL_PROSE_POLICY = 'external-prose-v1'
+
+# Shared commerce boilerplate and specification labels are not distinctive prose.
+_GENERIC_PROSE = frozenset('''product products item items quality high premium easy use everyday perfect
+material materials size sizes dimensions length width height weight capacity color colour black white
+steel stainless plastic portable lightweight compact model features details seller listing order before
+товар товара размер размеры материал материалы цвет вес длина ширина высота объём продавца заказом
+produto produtos tamanho material cor peso vendedor pedido antes leve compacto
+producto productos tamaño material color peso vendedor pedido antes ligero compacto
+produit produits taille matériau couleur poids vendeur commande avant léger compact
+מוצר המוצר גודל חומר צבע משקל מידות המוכר הזמנה קל קומפקטי
+mm cm kg ml usb led type wifi mah watts voltage inches inch'''.split())
+_BUYER_CHECK_START = re.compile(
+    r'^(?:check|verify|confirm|before\b|please\b|сверьте|проверьте|уточните|перед\b|'
+    r'confira|verifique|antes\b|revisa|revise|comprueba|verifica|vérifiez|verifiez|avant\b|'
+    r'בדקו|ודאו|לפני)\b', re.IGNORECASE)
+
+
+def free_web_check_enabled() -> bool:
+    return (os.environ.get('FLUXIXO_WEB_CHECK', '').strip().lower() in ('1', 'true', 'yes')
+            and os.environ.get('FLUXIXO_WEB_CHECK_PROVIDER', '').strip().lower() == 'tavily_keyless')
+
+
+def _distinctive_tokens(tokens, lang):
+    stops = STOPWORDS.get(lang, _ALL_STOPWORDS) | _GENERIC_PROSE
+    return {token for token in tokens if len(token) >= 3 and token not in stops
+            and not any(char.isdigit() for char in token)}
+
+
+def _prose_segments(text, lang):
+    segments = []
+    for sentence in re.split(r'[.!?;…\n]+', str(text or '')):
+        if _BUYER_CHECK_START.search(sentence.strip()):
+            continue
+        tokens = _strip_accents(normalize_copy_text(sentence)).split()
+        if len(tokens) >= 8 and len(' '.join(tokens)) >= 45 and len(_distinctive_tokens(tokens, lang)) >= 5:
+            segments.append(tokens)
+    return segments
+
+
+def distinctive_excerpt_query(text, lang):
+    """Choose one prose window; generic-only copy still receives one external query."""
+    segments = _prose_segments(text, lang) or [normalize_copy_text(text).split()]
+    windows = [tokens[index:index + 16] for tokens in segments for index in range(max(1, len(tokens) - 15))]
+    chosen = max(windows, key=lambda tokens: (len(_distinctive_tokens(tokens, lang)), len(tokens)), default=[])
+    excerpt = ' '.join(chosen)
+    if len(excerpt) > 220:
+        excerpt = excerpt[:220].rsplit(' ', 1)[0]
+    return '"' + excerpt + '"'
+
+
+def compare_external_prose(text, lang, results):
+    """Reject distinctive contiguous prose, without copying provider snippets into evidence."""
+    segments = _prose_segments(text, lang)
+    for hit in results:
+        if not isinstance(hit, dict):
+            continue
+        raw_url = str(hit.get('url') or '')
+        try:
+            parsed = urllib.parse.urlsplit(raw_url)
+            host = (parsed.hostname or '').lower().rstrip('.')
+        except ValueError:
+            continue
+        if (parsed.scheme not in ('http', 'https') or not host or parsed.username or parsed.password
+                or host == 'fluxixo.shop' or host.endswith('.fluxixo.shop')):
+            continue
+        url = urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, parsed.path, '', ''))[:400]
+        hit_tokens = _strip_accents(normalize_copy_text(str(hit.get('snippet') or ''))).split()
+        for tokens in segments:
+            for length in range(min(18, len(tokens), len(hit_tokens)), 7, -1):
+                hit_phrases = word_shingles(hit_tokens, k=length)
+                for index in range(len(tokens) - length + 1):
+                    phrase = tokens[index:index + length]
+                    if (len(' '.join(phrase)) >= 45 and len(_distinctive_tokens(phrase, lang)) >= 5
+                            and tuple(phrase) in hit_phrases):
+                        return False, [f'external_prose_overlap [words={length}] {url}']
+    return True, []
+
+
+def verify_external_bundle_uniqueness(bundle, *, checker=None):
+    """Six independent description searches through the explicit free-only adapter."""
+    from fluxixo_ai.gemini_client import GeminiDeferred
+    if checker is None:
+        from fluxixo_ai.free_search import check_external_text
+        checker = check_external_text
+    locales = {}
+    issues = []
+    for lang in LANGS:
+        entry = bundle.get(lang) if isinstance(bundle, dict) else None
+        text = entry.get('description') if isinstance(entry, dict) else None
+        if not isinstance(text, str) or not text.strip():
+            return False, [f'{lang}.description: external_check_missing_description'], {'locales': locales}
+        from unicodedata import normalize
+        text = ' '.join(normalize('NFC', text).split())
+        result = checker(text, lang, query=distinctive_excerpt_query(text, lang),
+                         policy_version=EXTERNAL_PROSE_POLICY,
+                         compare=lambda hits, value=text, language=lang: compare_external_prose(value, language, hits))
+        if (not isinstance(result, dict) or type(result.get('passed')) is not bool
+                or not isinstance(result.get('issues'), list) or not all(isinstance(x, str) for x in result['issues'])
+                or type(result.get('checked_at')) not in (int, float)
+                or not math.isfinite(result['checked_at']) or result['checked_at'] <= 0
+                or not isinstance(result.get('evidence_urls'), list)
+                or not all(isinstance(url, str) for url in result['evidence_urls'])
+                or result['passed'] and result['issues']
+                or not result['passed'] and (not result['issues'] or not result['evidence_urls'])):
+            raise GeminiDeferred('external_search_invalid_verdict')
+        locales[lang] = result
+        if not result['passed']:
+            evidence = ', '.join(result['evidence_urls'][:3])[:1200]
+            issues.append(f'{lang}.description: external_prose_overlap {evidence}'.strip())
+    return not issues, issues, {'locales': locales}
 
 
 def _flatten(val: Any) -> str:
@@ -487,6 +598,8 @@ def _google_cse_fetcher(api_key: str, cx: str) -> SnippetFetcher:
 def _resolve_env_snippet_fetcher() -> SnippetFetcher | None:
     if str(os.environ.get('FLUXIXO_WEB_CHECK', '')).strip().lower() not in ('1', 'true', 'yes'):
         return None
+    if free_web_check_enabled():
+        return None  # The complete six-locale gate owns this mode; never use paid fallback keys.
     serper_key = (os.environ.get('SERPER_API_KEY') or '').strip()
     if serper_key:
         return _serper_fetcher(serper_key)
@@ -512,6 +625,9 @@ def verify_snippet_uniqueness(
     """Optionally verify copy against external public search snippets without breaking offline CI."""
     if str(os.environ.get('FLUXIXO_OFFLINE', '')).strip().lower() in ('1', 'true', 'yes'):
         return True, [], {'skipped': 'offline'}
+
+    if free_web_check_enabled() and snippet_fetcher is None:
+        return False, ['external six-locale bundle gate required'], {'skipped': 'keyless_bundle_gate_required'}
 
     fetcher = snippet_fetcher if snippet_fetcher is not None else _resolve_env_snippet_fetcher()
     if fetcher is None:
