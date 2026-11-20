@@ -20,6 +20,8 @@ if str(TOOLS) not in sys.path:
     sys.path.insert(0, str(TOOLS))
 
 import ai_seo  # noqa: E402
+import check_search_connections as seo_health  # noqa: E402
+import fluxixo_daily_rotate as daily_rotate  # noqa: E402
 from fluxixo_ai import image_studio as ims  # noqa: E402
 
 
@@ -55,6 +57,28 @@ def _png_bytes(img: Image.Image) -> bytes:
     buf = BytesIO()
     img.save(buf, format='PNG')
     return buf.getvalue()
+
+
+class AutopilotCredentialTests(unittest.TestCase):
+    def test_status_bearer_is_limited_to_production_origin_and_not_redirected(self):
+        payload = (200, b'{"ok":true,"service":"fluxixo-autopilot"}', {}, 12.0, None)
+        with patch.dict(os.environ, {'AUTOPILOT_SYNC_TOKEN': 'test-worker-credential'}), \
+                patch.object(seo_health, 'http_get', return_value=payload) as get:
+            self.assertTrue(seo_health.check_autopilot_worker(seo_health.CF_AUTOPILOT_URL)['reachable'])
+            get.assert_called_once_with(seo_health.CF_AUTOPILOT_URL + '/api/status',
+                                        headers={'Authorization': 'Bearer test-worker-credential'},
+                                        timeout=10.0, follow_redirects=False)
+            get.reset_mock()
+            self.assertTrue(seo_health.check_autopilot_worker('https://preview.invalid')['reachable'])
+            get.assert_called_once_with('https://preview.invalid/api/status', headers=None,
+                                        timeout=10.0, follow_redirects=True)
+
+    def test_catalog_sync_without_a_credential_skips_transport(self):
+        with patch.dict(os.environ, {'AUTOPILOT_SYNC_TOKEN': ''}), \
+                patch.object(daily_rotate, '_load_dpapi_secret', return_value=None), \
+                patch.object(daily_rotate.urllib.request, 'urlopen') as send:
+            self.assertFalse(daily_rotate.report_autopilot_sync('test'))
+            send.assert_not_called()
 
 
 class _FakeHttpResponse:
@@ -149,10 +173,10 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertIn('env.AI.run', text)
         self.assertIn('@cf/black-forest-labs/flux-2-klein-9b', text)
         self.assertIn('async function dispatchGitHubWorkflow(', text)
-        self.assertIn('path === "/api/dispatch"', text)
-        self.assertIn('path === "/api/generate-cutout"', text)
-        self.assertIn('path === "/api/generate-copy"', text)
-        self.assertIn('path === "/api/describe-product"', text)
+        self.assertIn('["/api/dispatch", handleDispatch]', text)
+        self.assertIn('["/api/generate-cutout", handleGenerateCutout]', text)
+        self.assertIn('["/api/generate-copy", handleGenerateCopy]', text)
+        self.assertIn('["/api/describe-product", handleDescribeProduct]', text)
         self.assertNotIn('generativelanguage.googleapis.com', text)
         self.assertNotIn('GEMINI_', text)
 

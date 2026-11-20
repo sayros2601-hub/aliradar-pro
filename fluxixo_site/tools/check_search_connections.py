@@ -339,7 +339,14 @@ def check_autopilot_worker(autopilot_url: str | None = None) -> dict:
     """Non-intrusive read-only Cloudflare Worker `/api/status` transport diagnostic."""
     base = (autopilot_url or _resolve_autopilot_url()).rstrip("/")
     status_url = f"{base}/api/status"
-    st, body, _, ms, err = http_get(status_url, timeout=10.0)
+    headers = None
+    if base == CF_AUTOPILOT_URL:
+        token = os.environ.get("AUTOPILOT_SYNC_TOKEN", "").strip()
+        if not token and os.name == "nt":
+            token = load_credential("autopilot_sync")
+        if token:
+            headers = {"Authorization": f"Bearer {token}"}
+    st, body, _, ms, err = http_get(status_url, headers=headers, timeout=10.0, follow_redirects=headers is None)
     payload = None
     parse_err = err
     if st == 200 and not err:

@@ -12,6 +12,10 @@ The homepage shows a live countdown to the next planned evening publication. Onc
 
 Manual workflow dispatch defaults to `add_count=0`, rebuilding and deploying the existing catalog without new images. No paid runner or service tier was introduced, and no artifact uploads were added.
 
+### Autopilot Worker health
+
+The Worker exposes `GET /healthz` for a public liveness check. It returns only service identity and health without reading the database. Public countdown responses show the publication date and countdown. Detailed diagnostics and internal operations use the existing Worker bearer credential. Confirm the active version through Wrangler's deployment status when verifying a Worker release.
+
 Production: https://www.fluxixo.shop/
 
 Production: https://www.fluxixo.shop

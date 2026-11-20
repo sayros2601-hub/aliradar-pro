@@ -218,6 +218,13 @@ def report_autopilot_sync(event: str, details: dict | None = None) -> bool:
         print(f"Autopilot sync warning ({event}): invalid CLOUDFLARE_AUTOPILOT_URL")
         return False
     target_url = f"{base_url}/api/catalog-sync" if parsed.path in ("", "/") else base_url
+    sync_token = (
+        os.environ.get("AUTOPILOT_SYNC_TOKEN", "").strip()
+        or _load_dpapi_secret("autopilot-sync-token.dpapi")
+    )
+    if not sync_token:
+        print(f"Autopilot sync skipped ({event}): no configured sync credential")
+        return False
     text_model = (
         os.environ.get("FLUXIXO_CF_TEXT_MODEL", "").strip()
         or DEFAULT_CF_TEXT_MODEL
@@ -264,13 +271,8 @@ def report_autopilot_sync(event: str, details: dict | None = None) -> bool:
     headers = {
         "Content-Type": "application/json; charset=utf-8",
         "User-Agent": "FLUXIXO-Daily-Rotate/2.0",
+        "Authorization": f"Bearer {sync_token}",
     }
-    sync_token = (
-        os.environ.get("AUTOPILOT_SYNC_TOKEN", "").strip()
-        or _load_dpapi_secret("autopilot-sync-token.dpapi")
-    )
-    if sync_token:
-        headers["Authorization"] = f"Bearer {sync_token}"
     try:
         req = urllib.request.Request(
             target_url,

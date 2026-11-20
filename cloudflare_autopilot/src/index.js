@@ -1,6 +1,10 @@
 // Daily schedule (owner, 2026-11-20): prepare from 13:30 and publish at 15:30 Israel time (Asia/Jerusalem).
 const DROP_TZ = "Asia/Jerusalem";
 const DAILY_MAX = 3;
+const SERVICE_HEALTH = { ok: true, service: "fluxixo-autopilot" };
+const NO_STORE = { "Cache-Control": "no-store" };
+const LATEST_PUBLISHED_DAY_SQL =
+  "SELECT COALESCE(published_day, day) AS published_day FROM daily_publish_state WHERE status = 'published' ORDER BY day DESC LIMIT 1";
 
 function corsHeaders(extra = {}) {
   return {
@@ -154,6 +158,16 @@ function parseSitemapEntries(xmlText, siteOrigin) {
   return entries;
 }
 
+async function queryPublicStatusPayload(env, now = new Date()) {
+  const row = await env.DB.prepare(LATEST_PUBLISHED_DAY_SQL).first();
+  const publishedDay = row?.published_day || null;
+  return {
+    ...SERVICE_HEALTH,
+    published_day: publishedDay,
+    countdown: computeIsraelDropCountdown({ now, publishedDay }),
+  };
+}
+
 async function queryStatusPayload(env) {
   const now = new Date();
   const [
@@ -173,9 +187,7 @@ async function queryStatusPayload(env) {
     env.DB.prepare(
       "SELECT day, status, reserved_count, baseline_count, utc_day, published_day, updated_at FROM daily_publish_state ORDER BY day DESC LIMIT 14"
     ),
-    env.DB.prepare(
-      "SELECT COALESCE(published_day, day) AS published_day FROM daily_publish_state WHERE status = 'published' ORDER BY day DESC LIMIT 1"
-    ),
+    env.DB.prepare(LATEST_PUBLISHED_DAY_SQL),
     env.DB.prepare(
       "SELECT id, day, catalog_id, product_id, source, created_at FROM daily_ledger ORDER BY id DESC LIMIT 20"
     ),
@@ -200,8 +212,7 @@ async function queryStatusPayload(env) {
   const countdown = computeIsraelDropCountdown({ now, publishedDay });
 
   return {
-    ok: true,
-    service: "fluxixo-autopilot",
+    ...SERVICE_HEALTH,
     site_origin: env.SITE_ORIGIN || "https://www.fluxixo.shop",
     media_origin: env.MEDIA_ORIGIN || "https://media.fluxixo.shop",
     r2_media_bound: Boolean(env.MEDIA_BUCKET),
@@ -1565,6 +1576,7 @@ const ALLOWED_DISPATCH_WORKFLOWS = new Map([
 ]);
 
 function hasValidSyncAuth(request, expectedToken) {
+  if (!expectedToken) return false;
   const auth = String(request.headers.get("Authorization") || "").trim();
   if (!auth.toLowerCase().startsWith("bearer ")) return false;
   const provided = auth.slice(7).trim();
@@ -1647,10 +1659,6 @@ async function dispatchGitHubWorkflow(env, workflowFile, inputs = {}) {
 }
 
 async function handleDispatch(request, env, url) {
-  const syncToken = String(env.AUTOPILOT_SYNC_TOKEN || "").trim();
-  if (syncToken && !hasValidSyncAuth(request, syncToken)) {
-    return jsonResponse({ ok: false, error: "Unauthorized" }, 401);
-  }
   if (!String(env.GITHUB_DISPATCH_TOKEN || "").trim()) {
     return jsonResponse({ ok: false, error: "GITHUB_DISPATCH_TOKEN not configured" }, 503);
   }
@@ -1705,6 +1713,68 @@ async function handleDispatch(request, env, url) {
     .catch(() => {});
 
   return jsonResponse({ ...result, dispatched_at: ranAt }, result.ok ? 200 : 502);
+}
+
+async function handleCatalogSync(request, env) {
+  let body = {};
+  try {
+    const text = await request.text();
+    if (text.trim()) body = JSON.parse(text);
+  } catch {
+    return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
+  }
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
+  }
+  const event = String(body.event || "catalog_sync").slice(0, 120);
+  const ranAt = new Date().toISOString();
+  const dbOps = [
+    env.DB.prepare(
+      "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
+    ).bind("external-sync", event, "ok", JSON.stringify(body), ranAt),
+  ];
+  if (body.publish_state && typeof body.publish_state === "object") {
+    const psDays = body.publish_state.days && typeof body.publish_state.days === "object"
+      ? body.publish_state.days
+      : body.publish_state;
+    for (const [day, row] of Object.entries(psDays)) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !row || typeof row !== "object") continue;
+      dbOps.push(
+        env.DB.prepare(
+          "INSERT OR REPLACE INTO daily_publish_state (day, status, reserved_count, baseline_count, utc_day, published_day, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
+        ).bind(
+          day,
+          String(row.status || "published"),
+          Number(row.reserved_count || 0),
+          Number(row.baseline_count || 0),
+          String(row.utc_day || day),
+          row.published_day ? String(row.published_day) : null,
+          ranAt
+        )
+      );
+    }
+  }
+  if (body.ledger_days && typeof body.ledger_days === "object") {
+    for (const [day, rows] of Object.entries(body.ledger_days)) {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !Array.isArray(rows)) continue;
+      for (const row of rows) {
+        if (!row || typeof row !== "object" || !row.catalog_id) continue;
+        dbOps.push(
+          env.DB.prepare(
+            "INSERT OR IGNORE INTO daily_ledger (day, catalog_id, product_id, source, created_at) VALUES (?, ?, ?, ?, ?)"
+          ).bind(
+            day,
+            String(row.catalog_id),
+            row.product_id ? String(row.product_id) : null,
+            String(row.source || "api"),
+            ranAt
+          )
+        );
+      }
+    }
+  }
+  await env.DB.batch(dbOps);
+  return jsonResponse({ ok: true, synced: true, event, recorded_at: ranAt });
 }
 
 async function runScheduledAction(controller, env) {
@@ -1832,6 +1902,15 @@ async function runScheduledAction(controller, env) {
     .run();
 }
 
+const PROTECTED_POST_HANDLERS = new Map([
+  ["/api/generate-cutout", handleGenerateCutout],
+  ["/api/describe-product", handleDescribeProduct],
+  ["/api/generate-copy", handleGenerateCopy],
+  ["/api/dispatch", handleDispatch],
+  ["/api/seo-sync", handleSeoSync],
+  ["/api/catalog-sync", handleCatalogSync],
+]);
+
 export default {
   async fetch(request, env) {
     if (request.method === "OPTIONS") {
@@ -1841,13 +1920,21 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname;
 
+    if (request.method === "GET" && path === "/healthz") {
+      return jsonResponse(SERVICE_HEALTH, 200, NO_STORE);
+    }
+
+    const syncToken = String(env.AUTOPILOT_SYNC_TOKEN || "").trim();
     if (request.method === "GET" && (path === "/" || path === "/api/status")) {
-      const payload = await queryStatusPayload(env);
-      return jsonResponse(payload);
+      const payload = hasValidSyncAuth(request, syncToken)
+        ? await queryStatusPayload(env)
+        : await queryPublicStatusPayload(env);
+      return jsonResponse(payload, 200, { ...NO_STORE, Vary: "Authorization" });
     }
 
     if (request.method === "GET" && path === "/drop-status.json") {
-      const payload = await queryStatusPayload(env);
+      const now = new Date();
+      const payload = await queryPublicStatusPayload(env, now);
       return jsonResponse(
         {
           published_day: payload.published_day,
@@ -1856,11 +1943,10 @@ export default {
           seconds_remaining: payload.countdown.seconds,
           countdown: payload.countdown,
           israel_day: payload.countdown.israel_day,
-          utc_day: payload.now_utc.slice(0, 10),
-          latest_state: payload.publish_state[0] || null,
+          utc_day: now.toISOString().slice(0, 10),
         },
         200,
-        { "Cache-Control": "no-store" }
+        NO_STORE
       );
     }
 
@@ -1868,106 +1954,18 @@ export default {
       return handleRedirects(request, env, url);
     }
 
-    if (request.method === "POST" && path === "/api/generate-cutout") {
-      return handleGenerateCutout(request, env, url);
-    }
-
-    if (request.method === "POST" && path === "/api/describe-product") {
-      return handleDescribeProduct(request, env);
-    }
-
-    if (request.method === "POST" && path === "/api/generate-copy") {
-      return handleGenerateCopy(request, env);
-    }
-
-    if (request.method === "POST" && path === "/api/dispatch") {
-      return handleDispatch(request, env, url);
-    }
-
-    if (request.method === "POST" && path === "/api/seo-sync") {
-      return handleSeoSync(request, env, url);
-    }
-
-    if (request.method === "POST" && path === "/api/catalog-sync") {
-      let body = {};
-      try {
-        const text = await request.text();
-        if (text.trim()) body = JSON.parse(text);
-      } catch {
-        return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
+    const handler = request.method === "POST" && PROTECTED_POST_HANDLERS.get(path);
+    if (handler) {
+      if (!hasValidSyncAuth(request, syncToken)) {
+        return jsonResponse({ ok: false, error: "Unauthorized" }, 401, {
+          ...NO_STORE,
+          "WWW-Authenticate": "Bearer",
+        });
       }
-      const event = String(body.event || "catalog_sync").slice(0, 120);
-      const ranAt = new Date().toISOString();
-      const syncToken = String(env.AUTOPILOT_SYNC_TOKEN || "").trim();
-      const isAuthed = !syncToken || hasValidSyncAuth(request, syncToken);
-      const dbOps = [
-        env.DB.prepare(
-          "INSERT INTO cron_runs (cron, action, status, details_json, ran_at) VALUES (?, ?, ?, ?, ?)"
-        ).bind("external-sync", event, "ok", JSON.stringify(body), ranAt),
-      ];
-      if (isAuthed && body.publish_state && typeof body.publish_state === "object") {
-        const psDays = body.publish_state.days && typeof body.publish_state.days === "object"
-          ? body.publish_state.days
-          : body.publish_state;
-        for (const [day, row] of Object.entries(psDays)) {
-          if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !row || typeof row !== "object") continue;
-          dbOps.push(
-            env.DB.prepare(
-              "INSERT OR REPLACE INTO daily_publish_state (day, status, reserved_count, baseline_count, utc_day, published_day, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)"
-            ).bind(
-              day,
-              String(row.status || "published"),
-              Number(row.reserved_count || 0),
-              Number(row.baseline_count || 0),
-              String(row.utc_day || day),
-              row.published_day ? String(row.published_day) : null,
-              ranAt
-            )
-          );
-        }
-      }
-      if (isAuthed && body.ledger_days && typeof body.ledger_days === "object") {
-        for (const [day, rows] of Object.entries(body.ledger_days)) {
-          if (!/^\d{4}-\d{2}-\d{2}$/.test(day) || !Array.isArray(rows)) continue;
-          for (const row of rows) {
-            if (!row || typeof row !== "object" || !row.catalog_id) continue;
-            dbOps.push(
-              env.DB.prepare(
-                "INSERT OR IGNORE INTO daily_ledger (day, catalog_id, product_id, source, created_at) VALUES (?, ?, ?, ?, ?)"
-              ).bind(
-                day,
-                String(row.catalog_id),
-                row.product_id ? String(row.product_id) : null,
-                String(row.source || "api"),
-                ranAt
-              )
-            );
-          }
-        }
-      }
-      await env.DB.batch(dbOps);
-      return jsonResponse({ ok: true, synced: true, event, recorded_at: ranAt });
+      return handler(request, env, url);
     }
 
-    return jsonResponse(
-      {
-        ok: false,
-        error: "Not Found",
-        routes: [
-          "GET /",
-          "GET /api/status",
-          "GET /drop-status.json",
-          "GET /api/redirects",
-          "POST /api/describe-product",
-          "POST /api/generate-cutout",
-          "POST /api/generate-copy",
-          "POST /api/dispatch",
-          "POST /api/seo-sync",
-          "POST /api/catalog-sync",
-        ],
-      },
-      404
-    );
+    return jsonResponse({ ok: false, error: "Not Found" }, 404);
   },
 
   async scheduled(controller, env, ctx) {
