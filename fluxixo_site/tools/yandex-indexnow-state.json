@@ -240,6 +240,9 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {},
+  "pending": {
+    "https://www.fluxixo.shop/about/": "09baed8dc126dd66cf5837d0bcf622cfaa685657b55cf60f5a24c09120a4f401",
+    "https://www.fluxixo.shop/journal/wifi-repeater-buying-guide/": "fe282b7e4eb8376bc9f8f119e62814c64032067073b8a8691a2759313c39d9ef"
+  },
   "schema_version": 1
 }

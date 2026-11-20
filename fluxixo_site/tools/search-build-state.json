@@ -1,7 +1,7 @@
 {
   "/": {
-    "sha256": "86e8806d04185a21ced208a9e4175b943a60d134b59e24475005684bcf5903f8",
-    "lastmod": "2026-11-20T21:05:15+00:00"
+    "sha256": "3a675eccfb6eb463fdda446d2dd831ca3e5abdec75dfe334beaf0047f19397db",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/catalog/": {
     "sha256": "754e61d7da2907dadeb84398b87b36fe0347745a87cefcdd5c47d09d331a538c",
@@ -448,8 +448,8 @@
     "lastmod": "2026-11-19T13:11:24+00:00"
   },
   "/en/products/katord-wifi-repeater/": {
-    "sha256": "6bd7e68c3cd362b4eb555561d66b408905c32d91a522a2e1f59d72075279597c",
-    "lastmod": "2026-11-19T13:11:24+00:00"
+    "sha256": "5caa5f8c4ce4090969598a1a0fef4ea8252f1cdfd353550056cebfa8635d8750",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/en/categories/sports/": {
     "sha256": "718be3b2419f0f496a36a670255e868189379584f292ee9510225c776ed99277",
@@ -2428,28 +2428,28 @@
     "lastmod": "2026-11-20T21:05:15+00:00"
   },
   "/about/": {
-    "sha256": "287296f1380bd04313416d300c3a04fbf1cfd98bebe4e960139256863636d9a9",
-    "lastmod": "2026-11-20T21:05:15+00:00"
+    "sha256": "09baed8dc126dd66cf5837d0bcf622cfaa685657b55cf60f5a24c09120a4f401",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/en/about/": {
-    "sha256": "a30e5ec5e48ffc7c39fb0dc7dc3f5b3c996090cc9da466f145adf25e73465866",
-    "lastmod": "2026-11-20T21:05:15+00:00"
+    "sha256": "cee5505ce0b09d4953bf4df1111bf053d2931f99841a8ba92a2db0d77b422661",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/pt/about/": {
-    "sha256": "c444ba2fc7a43999e395005254f8b89a6943f4c2a89aa9efb4b301618e36d865",
-    "lastmod": "2026-11-20T21:05:15+00:00"
+    "sha256": "24de09e0893f8ce7df2397b516f2c7418e5d0e393188d62ee2e34c4667ecb0f9",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/es/about/": {
-    "sha256": "6008428dc0b1507dcb4ee37aa9580ed32538cf8ab6884cf65dd9fd74ef0cefb9",
-    "lastmod": "2026-11-20T21:05:15+00:00"
+    "sha256": "8b083ce8480ab8ee64ff2dac87c768d52aec8ae649aa456f7b38a385bb0d6cd1",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/fr/about/": {
-    "sha256": "420d104d7a656c0f5a3118c4f4d95ad55b107221ca9e4d239e2f456356fa67d8",
-    "lastmod": "2026-11-20T21:05:15+00:00"
+    "sha256": "ede5f49e5ac39254c68dea21f512abe1f18f04f7009372661e83a713dbb9faa1",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/he/about/": {
-    "sha256": "7be75afb1319bc518fe1cb525342304cf4c8037364134651d38947382987a3db",
-    "lastmod": "2026-11-20T21:05:15+00:00"
+    "sha256": "fd958bb6f8e3cb3f0837cff98e0f0c649cb2d7dafb4831a977c6334f8616428e",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/journal/compare-the-final-price/": {
     "sha256": "090b7496339bddf36e685baea3ff110f85c8029c7ddce0df7d08e1ed71a48556",
@@ -2464,8 +2464,8 @@
     "lastmod": "2026-11-19T13:11:24+00:00"
   },
   "/journal/wifi-repeater-buying-guide/": {
-    "sha256": "40f14f16005cd6ff0efd1d28dfbdaa25a393e9bf9a4c74851fe8f8c196408b1f",
-    "lastmod": "2026-11-20T21:05:15+00:00"
+    "sha256": "fe282b7e4eb8376bc9f8f119e62814c64032067073b8a8691a2759313c39d9ef",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/journal/car-tire-inflator-guide/": {
     "sha256": "0fffaca4c39e4ce78cc286793b88540ee3d6cbcd308aaf36683670604db048ce",
@@ -2495,9 +2495,13 @@
     "sha256": "ff174ca71a62b34e8073ca268d33867be20a71e2f48131971afb41bc35968b3c",
     "lastmod": "2026-11-19T13:11:24+00:00"
   },
+  "/en/journal/wifi-repeater-buying-guide/": {
+    "sha256": "36fd6f2816f6facf9fa5450fd2f37538eb93d31d6ac985a7891f3d07721704b2",
+    "lastmod": "2026-11-20T22:04:27+00:00"
+  },
   "/en/journal/": {
-    "sha256": "ed92fea4cd4a1a6066167cac26539b38767c4aa94a06a80e67a24370a238c3b9",
-    "lastmod": "2026-11-20T13:59:51+00:00"
+    "sha256": "daf201885fe67a271b081dc273eedc82b5f37c14426043219221325f40474ce8",
+    "lastmod": "2026-11-20T22:04:27+00:00"
   },
   "/pt/journal/compare-the-final-price/": {
     "sha256": "9cd36b50650acb91daa11c5164e1be87706b8a8e9299ab33d172104a66f255a1",
