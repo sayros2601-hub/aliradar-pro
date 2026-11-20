@@ -1,8 +1,8 @@
 {
   "acknowledged": {
     "https://www.fluxixo.shop/": "9012fcda0125d497cdd7820716b4dbaccaea8fa6683604a007bc91bdb7387496",
-    "https://www.fluxixo.shop/about/": "f64c0d1022af45c983d4e16d4a0996cd9486f375288f7a439d642708529f6e4b",
-    "https://www.fluxixo.shop/catalog/": "5cf3939cbde847cb2d67815655d3f230a73f2c1f808f3ad7387a88f351e6d3f3",
+    "https://www.fluxixo.shop/about/": "287296f1380bd04313416d300c3a04fbf1cfd98bebe4e960139256863636d9a9",
+    "https://www.fluxixo.shop/catalog/": "754e61d7da2907dadeb84398b87b36fe0347745a87cefcdd5c47d09d331a538c",
     "https://www.fluxixo.shop/categories/dom/": "2df58ae2cf2218a856f819a3ed58cb5ca93990138a1ada0bfc49b98b2b615e31",
     "https://www.fluxixo.shop/categories/instrumenty/": "3e07f0fa652f90375e6423f004cb771318ac455eb1d225c15247ba78029d222a",
     "https://www.fluxixo.shop/categories/kuhnya/": "c0647ea6d7a4960337508fe7911e61bed7859da20338a226587960fe610caedb",
@@ -13,13 +13,13 @@
     "https://www.fluxixo.shop/categories/uhod/": "5954edf6d8ceec35d5eacccceea89b513f5303063a7d2f92676131028c3d4250",
     "https://www.fluxixo.shop/categories/v-doroge/": "d09f79f4e40166a3e83b0e9aaa497fd0ec1cea059b3e896b512abcb7542e1621",
     "https://www.fluxixo.shop/journal/": "afd0ebe2968b52e4dcdc9bd81865f34af3105ee18da82a8865655e0abeae641c",
-    "https://www.fluxixo.shop/journal/car-tire-inflator-guide/": "cfe821b7ba26a3162457270312c4fb2daaab281e10f66015f77ab96d1724f0aa",
+    "https://www.fluxixo.shop/journal/car-tire-inflator-guide/": "0fffaca4c39e4ce78cc286793b88540ee3d6cbcd308aaf36683670604db048ce",
     "https://www.fluxixo.shop/journal/compare-the-final-price/": "090b7496339bddf36e685baea3ff110f85c8029c7ddce0df7d08e1ed71a48556",
     "https://www.fluxixo.shop/journal/desk-cable-management/": "7ea2f930bb9e747dcc371ce42297bebe86b5ea9c79894ea810ee3ef8c2b23235",
-    "https://www.fluxixo.shop/journal/jump-starter-winter-guide/": "5a23c63efc2387bf36215e196cc981da2da14ca2b83e73529aa03401f07cc622",
-    "https://www.fluxixo.shop/journal/pre-order-checklist-aliexpress/": "88f87911398d026092e454503def6abb7346d02b06aa764a1e89536c709be2ee",
+    "https://www.fluxixo.shop/journal/jump-starter-winter-guide/": "33942c28a1696023d5284e5a5bc15de10941a396f44909d89ecc9550d95f234b",
+    "https://www.fluxixo.shop/journal/pre-order-checklist-aliexpress/": "7a89c55379c350c6c3bb849c0128bc95557e9fd015d42889d5f54735eaaea384",
     "https://www.fluxixo.shop/journal/usb-c-buying-checklist/": "1d6ad6488d5055b7d6b2b344e76f53eadd32ad733de3f600374ca51fadec6916",
-    "https://www.fluxixo.shop/journal/wifi-repeater-buying-guide/": "8b138fc1fe69009d83e9cd96d6fdffa32ba7f5a0155b18e777012a27e5eadd49",
+    "https://www.fluxixo.shop/journal/wifi-repeater-buying-guide/": "40f14f16005cd6ff0efd1d28dfbdaa25a393e9bf9a4c74851fe8f8c196408b1f",
     "https://www.fluxixo.shop/products/auto-1005003729947715/": "fbd18aa90894225d53ccb5386e29b4c9eeb1aea4a5ec5bfd3b4b080020620b78",
     "https://www.fluxixo.shop/products/auto-1005004266671702/": "6c202974ec5a3214efa10188a1d08eb7ca74192e5dd5952caaa1c180504a6c82",
     "https://www.fluxixo.shop/products/auto-1005004679234788/": "f8582652f1dfbc069a0cb0c78fc3aa0bbe4f98308f841cca013696a1661fbd5e",
@@ -240,13 +240,6 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {
-    "https://www.fluxixo.shop/about/": "287296f1380bd04313416d300c3a04fbf1cfd98bebe4e960139256863636d9a9",
-    "https://www.fluxixo.shop/catalog/": "754e61d7da2907dadeb84398b87b36fe0347745a87cefcdd5c47d09d331a538c",
-    "https://www.fluxixo.shop/journal/car-tire-inflator-guide/": "0fffaca4c39e4ce78cc286793b88540ee3d6cbcd308aaf36683670604db048ce",
-    "https://www.fluxixo.shop/journal/jump-starter-winter-guide/": "33942c28a1696023d5284e5a5bc15de10941a396f44909d89ecc9550d95f234b",
-    "https://www.fluxixo.shop/journal/pre-order-checklist-aliexpress/": "7a89c55379c350c6c3bb849c0128bc95557e9fd015d42889d5f54735eaaea384",
-    "https://www.fluxixo.shop/journal/wifi-repeater-buying-guide/": "40f14f16005cd6ff0efd1d28dfbdaa25a393e9bf9a4c74851fe8f8c196408b1f"
-  },
+  "pending": {},
   "schema_version": 1
 }
