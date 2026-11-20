@@ -96,6 +96,9 @@ def _load_catalog_copy_corpus(products, translations, site_root):
     try:
         _, copy_originality = _import_tools_modules(site_root)
     except Exception:
+        if os.environ.get('FLUXIXO_TEXT_PROVIDER') == 'gemini':
+            from .gemini_client import GeminiDeferred
+            raise GeminiDeferred('catalog_originality_unavailable') from None
         return None
     overrides = {}
     ov_path = Path(site_root) / 'tools/seo_overrides.json'
@@ -192,6 +195,8 @@ def _sanitize_deterministic_copy(record_item, translated, candidate, site_root, 
 
 
 _AI_STUDIO_KEY_NAMES = (
+    'FLUXIXO_TEXT_PROVIDER',
+    'FLUXIXO_TEXT_GEMINI_API_KEY',
     'CLOUDFLARE_AUTOPILOT_URL',
     'CLOUDFLARE_ACCOUNT_ID',
     'CLOUDFLARE_API_TOKEN',
@@ -212,7 +217,7 @@ def _strict_copy_enabled():
 
 
 def _load_ai_studio_keys(ai_seo):
-    """Load Cloudflare Worker, Workers AI, and GitHub Models keys without Google/Gemini."""
+    """Select only provider settings explicitly supported by the studio."""
     if not hasattr(ai_seo, 'load_ai_keys'):
         return {}
     raw_keys = ai_seo.load_ai_keys(local=False) or {}
@@ -249,7 +254,9 @@ def _copy_validation_problems(
         problems.extend(copy_originality.check_source_title_mirroring(full_bundle, record_item.get('sourceTitle', '')) or ())
         problems.extend(copy_originality.check_catalog_similarity(full_bundle, catalog_corpus) or ())
     except Exception:
-        pass
+        if os.environ.get('FLUXIXO_TEXT_PROVIDER') == 'gemini':
+            from .gemini_client import GeminiDeferred
+            raise GeminiDeferred('copy_checks_unavailable') from None
     return problems
 
 
@@ -259,6 +266,9 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
     try:
         ai_seo, copy_originality = _import_tools_modules(site_root)
     except Exception:
+        if os.environ.get('FLUXIXO_TEXT_PROVIDER') == 'gemini':
+            from .gemini_client import GeminiDeferred
+            raise GeminiDeferred('copy_checks_unavailable') from None
         return record_item, translated
 
     base = {
@@ -313,9 +323,17 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                             except Exception as lc_exc:
                                 print(f'ru_long_copy warning ({record_item.get("id")}, attempt {_lc_attempt + 1}): {lc_exc}')
                     return cand_record, cand_trans
-        except Exception:
+        except Exception as error:
+            if os.environ.get('FLUXIXO_TEXT_PROVIDER') == 'gemini':
+                from .gemini_client import GeminiDeferred
+                if isinstance(error, GeminiDeferred):
+                    raise
+                raise GeminiDeferred('text_validation_unavailable') from None
             pass
 
+    if os.environ.get('FLUXIXO_TEXT_PROVIDER') == 'gemini':
+        from .gemini_client import GeminiDeferred
+        raise GeminiDeferred('text_validation_failed')
     return _sanitize_deterministic_copy(record_item, translated, candidate, site_root, catalog_corpus, copy_originality)
 
 
@@ -606,7 +624,7 @@ def refresh_queued(call, candidate, now):
                 if not item['image_urls']:
                     continue
                 item['affiliate_url'] = generate_affiliate(call, item)
-                item['category'] = candidate.get('category')
+                item['category'] = candidate.get('category') or (candidate.get('task') or {}).get('category')
                 item['market'] = market
                 item['task'] = next((task for task in SEEDS if task['category'] == item['category'] and _matches(task, item['title'])), None)
                 return item
@@ -1042,6 +1060,12 @@ def _generate_cf_slot_view(
 
 
 def _default_media_preparer():
+    if os.environ.get('FLUXIXO_REVIEW_REQUIRED') == '1':
+        from .reviewed_media import ReviewedMediaPreparer
+        root = Path(os.environ.get('FLUXIXO_REVIEW_STATE_DIR', 'fluxixo_site/reserve/reviewed-media'))
+        # Shared Workers Paid usage cannot be bounded from delayed analytics.
+        # No FLUX transport is supplied: use authenticated seller imagery and review it.
+        return ReviewedMediaPreparer(root).prepare
     # Studio image preparation modes (strictly Google/Gemini-free):
     # - 'hybrid': rembg cutouts on GitHub for Slots 1-2 + Cloudflare FLUX.2 active-effect generation for Slot 3 (0 Google quota).
     # - 'generate': Cloudflare Workers AI (FLUX.2 Klein 9B/4B) for all 3 slots without rembg/OCR.
@@ -1510,6 +1534,14 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
         if enforce_unique_copy is None else bool(enforce_unique_copy)
     )
     old = catalog['products']
+    review_required = os.environ.get('FLUXIXO_REVIEW_REQUIRED') == '1'
+    pending = None
+    if review_required:
+        from .pending_products import PendingProducts
+        from .gemini_client import GeminiDeferred
+        from .reviewed_media import MediaDeferred, verify_review_bindings
+        pending = PendingProducts(ledger_path.parent / 'fluxixo_pending.sqlite3')
+        pending.reconcile(old)
     used_hashes = _old_image_hashes(old, dist)
     perceptual_index = image_studio.load_catalog_perceptual_index(
         old, dist, cache_path=site_root / 'tools' / '.image_hash_cache.json',
@@ -1542,13 +1574,18 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             raise DailyError('staging_invalid')
         deadline = time.monotonic() + SEARCH_BUDGET_SECONDS
         while len(prepared) < needed and attempts < MAX_ATTEMPTS and media_attempts < media_budget and time.monotonic() < deadline:
-            if queue_batch:
+            resumed = pending.claim(now=instant.timestamp()) if pending else None
+            if resumed:
+                resumed['_pending_retry'] = True
+                batch = [resumed]
+            elif queue_batch:
                 batch, queue_batch = queue_batch, []
             else:
                 # English names let discovery recognise a product type that is already on the site.
                 known = [{**p, 'name_en': translations.get('products', {}).get(p.get('id'), {}).get('en', {}).get('name', '')}
                          if isinstance(p, dict) else p for p in old]
-                batch = discover_fn(known + exclusions + [x[0] for x in prepared], needed - len(prepared), instant)
+                waiting = pending.exclusions() if pending else []
+                batch = discover_fn(known + exclusions + waiting + [x[0] for x in prepared], needed - len(prepared), instant)
             if not batch:
                 break
             progress = False
@@ -1557,6 +1594,18 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     break
                 attempts += 1
                 queue_claim = candidate.get('_queue_claim')
+                if pending:
+                    if not candidate.get('_pending_retry') and not pending.is_due(candidate['product_id'], now=instant.timestamp()):
+                        if queue_claim:
+                            queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
+                        continue
+                    if candidate.get('_pending_retry') and using_default_discover:
+                        try:
+                            candidate = refresh_fn({**candidate, 'markets': {m: {} for m in (candidate.get('availableMarkets') or must_sell_in)}}, instant)
+                        except Exception:
+                            pending.defer(candidate['product_id'], 'source_refresh_unavailable', now=instant.timestamp())
+                            continue
+                    pending.put(candidate, now=instant.timestamp())
                 record_item, translated = build_record(candidate)
                 if any(p.get('id') == record_item['id'] or p.get('sourceProductId') == record_item['sourceProductId']
                        or (record_item.get('sourceModelKey') and p.get('sourceModelKey') == record_item['sourceModelKey'])
@@ -1564,8 +1613,12 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                        for p in old + exclusions + [x[0] for x in prepared]):
                     if queue_claim:
                         queue_store.fail(queue_claim['claim_id'], owner, 'duplicate_existing', now=instant)
+                    if pending and any(p.get('sourceProductId') == record_item['sourceProductId'] for p in old):
+                        pending.complete(candidate['product_id'])
                     continue
                 exclusions.append({'id': record_item['id'], 'sourceProductId': record_item['sourceProductId'], 'sourceTitle': record_item['sourceTitle']})
+                if pending:
+                    pending.hold(candidate['product_id'], now=instant.timestamp())
                 if must_sell_in and not set(must_sell_in) <= set(candidate.get('availableMarkets') or ()):
                     # A queued candidate was found before this rule: check every country now, before any image work.
                     try:
@@ -1576,28 +1629,48 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     if not set(must_sell_in) <= set(candidate.get('availableMarkets') or ()):
                         if queue_claim:
                             queue_store.fail(queue_claim['claim_id'], owner, 'markets_incomplete', now=instant)
+                        if pending:
+                            pending.defer(candidate['product_id'], 'markets_incomplete', now=instant.timestamp())
                         continue
                     record_item['availableMarkets'] = list(candidate['availableMarkets'])
                 try:
                     if strict_copy:
                         # Reject untranslated or duplicated copy before spending
                         # one of the day's limited image-product attempts.
-                        record_item, translated = _maybe_ai_enrich(
-                            record_item, translated, candidate, site_root,
-                            catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
-                        )
+                        cached_copy = pending.text(candidate['product_id']) if pending else None
+                        if cached_copy:
+                            record_item.update(cached_copy['record'])
+                            translated = cached_copy['translated']
+                        else:
+                            record_item, translated = _maybe_ai_enrich(
+                                record_item, translated, candidate, site_root,
+                                catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
+                            )
                         if _copy_validation_problems(
                             record_item, translated, site_root,
                             catalog_corpus=catalog_corpus, reject_placeholders=True,
                         ):
                             if queue_claim:
                                 queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
+                            if pending:
+                                pending.save_text(candidate['product_id'], None)
+                                pending.defer(candidate['product_id'], 'copy_validation_failed', now=instant.timestamp())
                             continue
+                        if pending:
+                            pending.save_text(candidate['product_id'], {
+                                'record': {k: record_item[k] for k in ('name', 'headline', 'description', 'details', '_ru_long') if k in record_item},
+                                'translated': translated,
+                            })
                     media_attempts += 1
                     media = (
                         media_fn(candidate, record_item['id'], stage, perceptual_index=perceptual_index)
                         if pass_perceptual else media_fn(candidate, record_item['id'], stage)
                     )
+                    if review_required:
+                        if not verify_review_bindings(media):
+                            raise MediaDeferred('review_binding_invalid')
+                        record_item['mediaReview'] = media['media_review']
+                        record_item['mediaReviewRequired'] = True
                     if (not isinstance(media, dict) or not all(isinstance(media.get(k), str) and re.fullmatch(r'[0-9a-f]{64}', media[k]) for k in ('source_sha256', 'pixel_sha256'))
                             or media['source_sha256'] in used_hashes or media['pixel_sha256'] in used_hashes):
                         if queue_claim:
@@ -1606,9 +1679,13 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     views = media.get('views') or []
                     if not isinstance(views, list) or len(views) > PHOTOS_PER_PRODUCT - 1:
                         raise DailyError('staging_invalid')
-                    for path in [media['image'], media['original'], *views]:
+                    media_paths = [media['image'], media['original'], *views]
+                    if review_required:
+                        media_paths.extend([media['identity_source'], *media['review_sources']])
+                    for path in media_paths:
                         path = Path(path).resolve()
-                        if not path.is_relative_to(stage) or not path.is_file():
+                        allowed = path.is_relative_to(stage) or (review_required and path.is_relative_to((reserve_dir / 'reviewed-media').resolve()))
+                        if not allowed or not path.is_file():
                             raise DailyError('staging_invalid')
                     cand_perceptual = _extract_media_perceptual(media)
                     if any(
@@ -1659,15 +1736,26 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                             pass
                     prepared.append((record_item, translated, media))
                     progress = True
-                except DailyError as error:
+                except Exception as error:
+                    if pending and isinstance(error, (GeminiDeferred, MediaDeferred)):
+                        pending.defer(candidate['product_id'], error.code, retry_at=error.retry_at, now=instant.timestamp())
+                        if queue_claim:
+                            queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
+                        continue
+                    if not isinstance(error, DailyError):
+                        raise
                     if str(error) in ('ocr_unavailable', 'image_processor_unavailable'):
                         raise
+                    if pending:
+                        pending.defer(candidate['product_id'], str(error), now=instant.timestamp())
                     if queue_claim:
                         queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                     continue
             if not progress and attempts >= MAX_ATTEMPTS:
                 break
-        if len(prepared) < needed:
+        if review_required and not prepared:
+            return {'added': 0, 'ids': [], 'deferred': True}
+        if len(prepared) < needed and not review_required:
             if raw_media_budget is not None and media_attempts >= media_budget:
                 raise DailyError('media_budget_exhausted')
             raise DailyError('underfilled_no_publication')
@@ -1712,6 +1800,12 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 copies = [(media['image'], dist / 'assets/images' / (product['id'] + '.webp')),
                           (media['original'], dist / 'assets/originals' / (product['id'] + '.webp'))]
                 copies += [(view, dist / relative) for view, relative in zip(media.get('views') or [], product.get('views', []))]
+                if review_required:
+                    if not verify_review_bindings(media):
+                        raise DailyError('review_binding_changed_before_commit')
+                    copies.append((media['identity_source'], dist / media['media_review']['identity_source_asset']))
+                    copies += [(source, dist / frame['source_asset']) for source, frame in
+                               zip(media['review_sources'], media['media_review']['frames'])]
                 for source_path, target in copies:
                     target = target.resolve()
                     if not target.is_relative_to(dist.resolve()):

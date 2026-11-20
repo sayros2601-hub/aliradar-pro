@@ -1,0 +1,73 @@
+name: FLUXIXO isolated Gemini copy and photo review (no publication)
+
+on:
+  workflow_dispatch:
+    inputs:
+      catalog_id:
+        description: 'One existing catalog ID with three images; validate copy and photos without publishing'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: fluxixo-daily-accumulation
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  isolated-card:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      FLUXIXO_GEMINI_BUDGET_PATH: data/fluxixo_gemini_usage.sqlite3
+      FLUXIXO_DURABLE_CHECKPOINT: git
+    steps:
+      - name: Checkout current main under shared publication lock
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Configure quota-ledger writer
+        id: writer
+        run: |
+          git config user.name "FLUXIXO Cloud Autopilot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install existing Python imports
+        run: python -m pip install -r requirements.txt requests
+
+      - name: Validate one copied card and its three existing photos with Gemini HIGH
+        env:
+          CATALOG_ID: ${{ inputs.catalog_id }}
+          FLUXIXO_TEXT_PROVIDER: gemini
+          FLUXIXO_TEXT_GEMINI_API_KEY: ${{ secrets.FLUXIXO_TEXT_GEMINI_API_KEY }}
+          FLUXIXO_AI_TRANSPORT: disabled
+          FLUXIXO_STRICT_COPY: '1'
+          FLUXIXO_WEB_CHECK: '0'
+        run: |
+          test -n "$FLUXIXO_TEXT_GEMINI_API_KEY" || { echo 'Missing FLUXIXO_TEXT_GEMINI_API_KEY'; exit 1; }
+          python -B -m fluxixo_ai.text_smoke --catalog-id "$CATALOG_ID" --output "$RUNNER_TEMP/fluxixo-text-smoke.json"
+
+      - name: Persist internal quota and exact-version review state after a failed smoke
+        if: always() && steps.writer.outcome == 'success'
+        run: |
+          python -B -m fluxixo_ai.state_checkpoint
+
+      - name: Save isolated validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fluxixo-text-smoke
+          path: ${{ runner.temp }}/fluxixo-text-smoke.json
+          if-no-files-found: ignore
+          retention-days: 7

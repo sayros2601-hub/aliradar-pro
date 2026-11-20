@@ -3,9 +3,10 @@
 Usage: python verify_release.py [release_dir]. Exits non-zero and prints the problems when a check fails.
 """
 from html.parser import HTMLParser
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from urllib.parse import urlsplit
 import collections
+import hashlib
 import json
 import re
 import sys
@@ -21,6 +22,11 @@ MAX_REDIRECT_RULES = 1800
 MAX_STATIC_REDIRECT_RULES = 1800
 MAX_DYNAMIC_REDIRECT_RULES = 90
 MAX_PRODUCT_MAIN_MEDIAN_JACCARD = 0.45
+# One-time migration exception, derived from Git blobs at the original main.
+# Never rebuild this from the current catalog: doing so would approve changes.
+LEGACY_MEDIA_SOURCE_COMMIT = '8a4caaf152ae7b382e8577a535091876ee15ff34'
+LEGACY_MEDIA_BASELINE_PATH = Path(__file__).with_name('legacy_media_baseline.json')
+LEGACY_MEDIA_BASELINE_SHA256 = '957b152f44ce8d52523cdf936b3730c9ff37f08f0eb912246a1287c85117b710'
 
 import importlib.util as _importlib_util
 import statistics as _statistics
@@ -523,6 +529,55 @@ def validate_search_engine_parity(release):
     return errors
 
 
+def _load_legacy_media_baseline():
+    raw = LEGACY_MEDIA_BASELINE_PATH.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != LEGACY_MEDIA_BASELINE_SHA256:
+        raise ValueError('legacy media baseline digest mismatch')
+    baseline = json.loads(raw)
+    if (baseline.get('version') != 1 or baseline.get('source_commit') != LEGACY_MEDIA_SOURCE_COMMIT
+            or not isinstance(baseline.get('products'), dict)):
+        raise ValueError('legacy media baseline provenance mismatch')
+    return baseline['products']
+
+
+def _release_image_file(root, relative):
+    if (not isinstance(relative, str) or not relative.startswith('assets/images/')
+            or '\\' in relative or PurePosixPath(relative).as_posix() != relative
+            or '..' in PurePosixPath(relative).parts):
+        return None
+    root = Path(root).resolve()
+    target = root / relative
+    if target.is_symlink() or not target.resolve().is_relative_to(root) or not target.is_file():
+        return None
+    return target
+
+
+def _unchanged_legacy_gallery(product, rel, baseline):
+    # Explicit tags always demand review, including empty/false tags. Removing
+    # them cannot exempt a new ID, changed identity, gallery order or file bytes.
+    if 'mediaReviewRequired' in product or 'mediaReview' in product:
+        return False
+    original = baseline.get(product.get('id'))
+    if not isinstance(original, dict) or not isinstance(product.get('views', []), list):
+        return False
+    identity = [product.get(key) for key in
+                ('id', 'sourceProductId', 'sourceTitle', 'sourceImageUrl', 'sourceDetailUrl')]
+    digest = hashlib.sha256(json.dumps(identity, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest()
+    paths = [product.get('image'), *product.get('views', [])]
+    gallery = original.get('gallery')
+    if (digest != original.get('identity_sha256') or not isinstance(gallery, list)
+            or paths != [entry[0] for entry in gallery]):
+        return False
+    for relative, expected in gallery:
+        target = _release_image_file(rel, relative)
+        try:
+            if target is None or hashlib.sha256(target.read_bytes()).hexdigest() != expected:
+                return False
+        except OSError:
+            return False
+    return True
+
+
 def validate_transparent_product_images(rel):
     """Ensure every active catalog product image and gallery view is a transparent RGBA cutout (no opaque color boxes)."""
     errors = []
@@ -535,16 +590,31 @@ def validate_transparent_product_images(rel):
         catalog = json.loads(raw.split('=', 1)[1].strip().rstrip(';'))
     except Exception as exc:
         return [f'could not parse catalog.js for image check: {exc}']
+    try:
+        legacy = _load_legacy_media_baseline()
+    except (OSError, ValueError, TypeError):
+        errors.append('legacy media baseline is missing or invalid')
+        legacy = {}
     for product in catalog.get('products', []):
         if product.get('demo'):
             continue
         pid = product.get('id', '?')
+        if not _unchanged_legacy_gallery(product, rel, legacy):
+            repo = Path(__file__).resolve().parents[2]
+            if str(repo) not in sys.path:
+                sys.path.insert(0, str(repo))
+            from fluxixo_ai.reviewed_media import verify_product_review
+            # Seller originals stay in the source checkout, never in public release.
+            references = repo / 'fluxixo_site' / 'dist'
+            if not verify_product_review(product, rel, reference_root=references):
+                errors.append(f'{pid}: current source/output review is missing or invalid')
         rels = [product.get('image')] + list(product.get('views') or [])
         for img_rel in rels:
             if not isinstance(img_rel, str) or not img_rel:
                 continue
-            target = rel / img_rel
-            if not target.is_file():
+            target = _release_image_file(rel, img_rel)
+            if target is None:
+                errors.append(f'{pid}: {img_rel} is missing or outside the release image directory')
                 continue
             try:
                 with Image.open(target) as im:

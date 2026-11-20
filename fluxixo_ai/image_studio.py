@@ -1701,14 +1701,14 @@ def build_studio_prompt(
     background_hex: str | None = None,
     visual_spec: str = '',
 ) -> str:
-    """Compose a reference-guided, text-free, zero-shadow Google AI Studio prompt for the target site backdrop."""
+    """Specify a grounded product story without invented angles or powered effects."""
     subject = ' '.join(str(prompt or '').split())[:220] or 'compact precision product'
     view_angle = ' '.join(str(angle or 'hero front three-quarter studio view').split())[:140]
     spec = ' '.join(str(visual_spec or '').split())[:460]
     item_clause = f'{subject} ({spec})' if spec else subject
     lower_angle = view_angle.lower()
-    is_effect_slot = any(k in lower_angle for k in ('close-up', 'detail', 'effect', 'action'))
-    is_secondary_slot = ('45-degree' in lower_angle or 'isometric' in lower_angle or 'side' in lower_angle or 'rear' in lower_angle)
+    is_application_slot = any(k in lower_angle for k in ('application', 'action', 'usage'))
+    is_result_slot = any(k in lower_angle for k in ('close-up', 'detail', 'effect', 'result'))
 
     target_hex = normalize_hex_color(background_hex)
     if target_hex and target_hex != '#FFFFFF':
@@ -1721,28 +1721,29 @@ def build_studio_prompt(
         bg_clause = 'floating weightless in mid-air centered on a pure flat #FFFFFF solid white background with generous white margin on all sides'
         neutral_cast_clause = 'neutral color-accurate even shadowless studio lighting with zero colored tint or ambient color cast on silver, metal, or white surfaces'
 
-    if is_effect_slot:
+    if is_application_slot:
         angle_directive = (
-            f'{view_angle}, active powered-on functional demonstration macro showcasing the working effect in operation '
-            '(vibrant illuminated LED/light/mask glow, laser beam, indicator readout, steam/airflow blades, or active working mechanism clearly visible and turned ON, '
-            'noticeably different from the static turned-off front hero shot)'
+            f'{view_angle}, demonstrate only the real use supported by the reference; '
+            'hands or people may appear only when needed for that documented use, '
+            'with the exact product visible and unchanged'
         )
-        lighting_clause = 'crisp dimensional studio rim lighting that accentuates active glowing lights, optical effects, and micro-details cleanly'
-    elif is_secondary_slot:
+    elif is_result_slot:
         angle_directive = (
-            f'{view_angle}, rotated 60-to-120 degrees to reveal the side profile, rear controls, charging port, straps, or underside mechanics rather than repeating the front view'
+            f'{view_angle}, show a real outcome supported by the reference, or a truthful informative '
+            'functional detail if no visible outcome can be verified; do not invent a result, '
+            'medical improvement, light, glow, beam, mist, motion, heat or electrical function'
         )
-        lighting_clause = neutral_cast_clause
     else:
-        angle_directive = view_angle
-        lighting_clause = neutral_cast_clause
+        angle_directive = f'{view_angle}, retain the documented reference viewpoint; do not invent unseen sides, ports or parts'
 
     return (
-        f'Ultra-clean commercial industrial design studio product photograph of ONLY the exact single standalone {item_clause} from the reference photo, '
+        f'Ultra-clean commercial industrial design studio product photograph of the exact {item_clause} from the reference photo, '
         f'{angle_directive}, {bg_clause}, faithfully keeping its true real silhouette, carry strap/handle, knobs, and proportions without distortion, '
         'zero floor plane, zero tabletop, zero floor shadow, zero drop shadow, zero ground reflection, zero surface, zero pedestal, zero vignette, no frame borders, no edge lines, '
-        f'{lighting_clause}, full uncropped object, crisp edge separation, '
-        'strictly remove all external collage boxes, inset cards, promotional banners, seller badges, overlaid marketing text, Chinese characters, watermarks, hands, people, and pets'
+        f'{neutral_cast_clause}, full uncropped product, crisp edge separation, '
+        'preserve real product colors and authentic brand/model markings exactly; do not invent text or accessories. '
+        'Remove only external promotional overlays, collage borders, seller badges and watermarks. '
+        'Use an isolated composition appropriate to the documented product; keep any necessary interaction grounded in the source.'
     )
 
 

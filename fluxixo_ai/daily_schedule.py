@@ -9,7 +9,7 @@ from __future__ import annotations
 
 import argparse
 from copy import deepcopy
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timezone, timedelta
 import json
 import os
 from pathlib import Path
@@ -63,11 +63,11 @@ def _validate_state(state):
     for day, entry in state['days'].items():
         _date(day)
         required = {'status', 'reserved_count', 'baseline_count', 'utc_day'}
-        optional = {'published_day', 'reserved_at', 'retries'}
+        optional = {'published_day', 'reserved_at', 'retries', 'next_attempt'}
         if (not isinstance(entry, dict)
                 or not required.issubset(entry)
                 or not set(entry).issubset(required | optional)
-                or entry['status'] not in ('preparing', 'prepared', 'published')):
+                or entry['status'] not in ('preparing', 'prepared', 'published', 'waiting')):
             raise ScheduleError('publication_state_invalid')
         if 'published_day' in entry:
             _date(entry['published_day'])
@@ -87,6 +87,13 @@ def _validate_state(state):
             r = entry['retries']
             if type(r) is not int or not 0 <= r <= MAX_PREPARE_RETRIES:
                 raise ScheduleError('publication_state_invalid')
+        if 'next_attempt' in entry:
+            try:
+                retry = datetime.fromisoformat(entry['next_attempt'])
+                if retry.tzinfo is None:
+                    raise ValueError()
+            except (ValueError, TypeError):
+                raise ScheduleError('publication_state_invalid') from None
         _date(entry['utc_day'])
         if (date.fromisoformat(day) - date.fromisoformat(entry['utc_day'])).days not in (0, 1):
             raise ScheduleError('publication_state_invalid')
@@ -172,6 +179,16 @@ def plan(ledger, state, *, now=None, manual_count=None):
     if entry:
         if entry['status'] == 'published':
             return answer('skip', 'published')
+        if entry['status'] == 'waiting':
+            due = datetime.fromisoformat(entry['next_attempt'])
+            if instant < due:
+                return answer('skip', 'waiting_review_retry')
+            count = min(DAILY_MAX - done, entry['reserved_count'])
+            if manual_count is not None:
+                count = min(count, manual_count)
+            if count > 0:
+                return answer('prepare', 'resume_review_queue', count, track=True)
+            return answer('skip', 'waiting_review_retry')
         if entry['status'] == 'preparing':
             reserved_at_raw = entry.get('reserved_at')
             retries = int(entry.get('retries', 0))
@@ -245,7 +262,7 @@ def reserve(ledger, state, day, count, *, now=None):
     return _validate_state(result)
 
 
-def mark_prepared(ledger, state, day, *, now=None):
+def mark_prepared(ledger, state, day, *, now=None, allow_partial=False):
     _validate_state(state)
     _date(day)
     result = deepcopy(state)
@@ -260,6 +277,14 @@ def mark_prepared(ledger, state, day, *, now=None):
         entry = {'status': 'prepared', 'reserved_count': 0,
                  'baseline_count': DAILY_MAX, 'utc_day': utc_day}
         result['days'][day] = entry
+    elif allow_partial and entry['status'] in ('preparing', 'waiting'):
+        # Only verified catalog additions can turn into a publishable partial batch.
+        accepted = _done(ledger, entry['utc_day']) - entry['baseline_count']
+        if accepted > 0:
+            entry.update(status='prepared', reserved_count=accepted)
+            entry.pop('next_attempt', None)
+        else:
+            entry.update(status='waiting', next_attempt=(_instant(now) + timedelta(hours=1)).isoformat())
     elif not _covered(ledger, entry):
         raise ScheduleError('prepared_catalog_incomplete')
     elif entry['status'] != 'published':
@@ -358,6 +383,7 @@ def main():
     )
     parser.add_argument('--day')
     parser.add_argument('--count', type=int)
+    parser.add_argument('--allow-partial', action='store_true', help='Settle only verified additions; retain empty batches for automatic retry')
     args = parser.parse_args()
     try:
         now = datetime.fromisoformat(args.now) if args.now else None
@@ -380,7 +406,7 @@ def main():
             if args.command == 'reserve':
                 updated = reserve(ledger, state, args.day, args.count, now=now)
             elif args.command == 'mark-prepared':
-                updated = mark_prepared(ledger, state, args.day, now=now)
+                updated = mark_prepared(ledger, state, args.day, now=now, allow_partial=args.allow_partial)
             else:
                 updated = mark_published(ledger, state, args.day, now=now)
             write_state(args.state, updated)

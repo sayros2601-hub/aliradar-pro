@@ -29,6 +29,24 @@ def added(ledger, count, day=DAY):
 
 
 class DailyScheduleTests(unittest.TestCase):
+    def test_reviewed_partial_batch_publishes_without_waiting_for_rejected_item(self):
+        reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
+        ledger = added(self.ledger, 1)
+        prepared = schedule.mark_prepared(ledger, reserved, DAY, now=NOW, allow_partial=True)
+        self.assertEqual(prepared['days'][DAY]['reserved_count'], 1)
+        self.assertTrue(schedule.plan(ledger, prepared, now=NOW)['publish'])
+
+    def test_empty_reviewed_batch_waits_with_next_attempt_then_resumes(self):
+        reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
+        waiting = schedule.mark_prepared(self.ledger, reserved, DAY, now=NOW, allow_partial=True)
+        self.assertEqual(waiting['days'][DAY]['status'], 'waiting')
+        self.assertFalse(schedule.plan(self.ledger, waiting, now=NOW)['publish'])
+        later = NOW + timedelta(hours=1)
+        planned = schedule.plan(self.ledger, waiting, now=later)
+        self.assertEqual(planned['action'], 'prepare')
+        renewed = schedule.reserve(self.ledger, waiting, DAY, 3, now=later)
+        self.assertEqual(renewed['days'][DAY]['status'], 'preparing')
+
     def setUp(self):
         self.ledger = seed_ledger()
         self.state = {'version': 1, 'days': {}}

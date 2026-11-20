@@ -110,9 +110,10 @@ class CloudflareWorkerContractTests(unittest.TestCase):
             angle='close-up detail studio view',
             background_hex='#F8D9E6',
         )
-        self.assertIn('active powered-on functional demonstration', slot3_prompt)
-        self.assertIn('illuminated LED', slot3_prompt)
-        self.assertNotIn('even shadowless studio lighting', slot3_prompt)
+        self.assertIn('supported by the reference', slot3_prompt)
+        self.assertIn('do not invent', slot3_prompt)
+        self.assertNotIn('active powered-on functional demonstration', slot3_prompt)
+        self.assertNotIn('rotated 60-to-120', slot3_prompt)
 
         img = Image.new('RGB', (160, 160), (223, 229, 251))
         draw = ImageDraw.Draw(img)
@@ -152,7 +153,7 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertNotIn('generativelanguage.googleapis.com', text)
         self.assertNotIn('GEMINI_', text)
 
-    def test_daily_rotate_workflow_configures_cloudflare_and_github_transparent_cutouts_without_gemini(self):
+    def test_daily_workflow_adds_scoped_gemini_text_review_and_preserves_legacy_image_configuration(self):
         wf_path = ROOT / '.github' / 'workflows' / 'fluxixo_daily_rotate.yml'
         text = wf_path.read_text(encoding='utf-8')
 
@@ -163,7 +164,18 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertIn('GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}', text)
         self.assertIn('models: read', text)
         self.assertIn("env.FLUXIXO_IMAGE_MODE != 'generate'", text)
-        self.assertNotIn('GEMINI_API_KEY', text)
+        self.assertIn('FLUXIXO_TEXT_PROVIDER: gemini', text)
+        self.assertIn('FLUXIXO_TEXT_GEMINI_API_KEY: ${{ secrets.FLUXIXO_TEXT_GEMINI_API_KEY }}', text)
+        self.assertIn("FLUXIXO_REVIEW_REQUIRED: '1'", text)
+        self.assertIn('FLUXIXO_DURABLE_CHECKPOINT: git', text)
+        prepare_step = text.split('      - name: Persist prepared products', 1)[1].split('      - name:', 1)[0]
+        self.assertIn("success() && steps.prepare.outcome == 'success'", prepare_step)
+        retry_step = text.split('      - name: Checkpoint internal retry state', 1)[1].split('      - name:', 1)[0]
+        self.assertIn('always()', retry_step)
+        self.assertNotIn('git add', retry_step)
+        after_prepare = text.split('      - name: Refresh publication date', 1)[1]
+        self.assertNotIn('workflow_dispatch:1', after_prepare)
+        self.assertIn("steps.publication.outputs.action == 'recover'", after_prepare)
         self.assertNotIn('GEMINI_IMAGE_API_KEY', text)
         self.assertNotIn('GEMINI_TEXT_API_KEY', text)
         self.assertNotIn('nano_banana', text)
