@@ -75,9 +75,23 @@
     },
     "application": {
       "input_key": "5917c9fe167920d7738064e4db75069e4b5ea7ff8ec78cadecabd0456e53fbd9",
-      "status": "deferred",
-      "reason": "gemini_transport_unavailable",
-      "retry_at": 1795143827.7598033
+      "status": "rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": false,
+        "distinct": true,
+        "reasons": [
+          "Clean up the noticeable red matte fringing and jagged cutout artifacts along the edge of the hand",
+          "Show active use, such as dispensing water or a dog drinking from the bowl, to fulfill the application role"
+        ]
+      },
+      "reviewed_at": 1795144169.9861994
     }
   }
 }
