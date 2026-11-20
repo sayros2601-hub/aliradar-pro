@@ -1,7 +1,7 @@
 {
   "acknowledged": {
     "https://www.fluxixo.shop/": "9012fcda0125d497cdd7820716b4dbaccaea8fa6683604a007bc91bdb7387496",
-    "https://www.fluxixo.shop/about/": "287296f1380bd04313416d300c3a04fbf1cfd98bebe4e960139256863636d9a9",
+    "https://www.fluxixo.shop/about/": "09baed8dc126dd66cf5837d0bcf622cfaa685657b55cf60f5a24c09120a4f401",
     "https://www.fluxixo.shop/catalog/": "754e61d7da2907dadeb84398b87b36fe0347745a87cefcdd5c47d09d331a538c",
     "https://www.fluxixo.shop/categories/dom/": "2df58ae2cf2218a856f819a3ed58cb5ca93990138a1ada0bfc49b98b2b615e31",
     "https://www.fluxixo.shop/categories/instrumenty/": "3e07f0fa652f90375e6423f004cb771318ac455eb1d225c15247ba78029d222a",
@@ -19,7 +19,7 @@
     "https://www.fluxixo.shop/journal/jump-starter-winter-guide/": "33942c28a1696023d5284e5a5bc15de10941a396f44909d89ecc9550d95f234b",
     "https://www.fluxixo.shop/journal/pre-order-checklist-aliexpress/": "7a89c55379c350c6c3bb849c0128bc95557e9fd015d42889d5f54735eaaea384",
     "https://www.fluxixo.shop/journal/usb-c-buying-checklist/": "1d6ad6488d5055b7d6b2b344e76f53eadd32ad733de3f600374ca51fadec6916",
-    "https://www.fluxixo.shop/journal/wifi-repeater-buying-guide/": "40f14f16005cd6ff0efd1d28dfbdaa25a393e9bf9a4c74851fe8f8c196408b1f",
+    "https://www.fluxixo.shop/journal/wifi-repeater-buying-guide/": "fe282b7e4eb8376bc9f8f119e62814c64032067073b8a8691a2759313c39d9ef",
     "https://www.fluxixo.shop/products/auto-1005003729947715/": "fbd18aa90894225d53ccb5386e29b4c9eeb1aea4a5ec5bfd3b4b080020620b78",
     "https://www.fluxixo.shop/products/auto-1005004266671702/": "6c202974ec5a3214efa10188a1d08eb7ca74192e5dd5952caaa1c180504a6c82",
     "https://www.fluxixo.shop/products/auto-1005004679234788/": "f8582652f1dfbc069a0cb0c78fc3aa0bbe4f98308f841cca013696a1661fbd5e",
@@ -240,9 +240,6 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {
-    "https://www.fluxixo.shop/about/": "09baed8dc126dd66cf5837d0bcf622cfaa685657b55cf60f5a24c09120a4f401",
-    "https://www.fluxixo.shop/journal/wifi-repeater-buying-guide/": "fe282b7e4eb8376bc9f8f119e62814c64032067073b8a8691a2759313c39d9ef"
-  },
+  "pending": {},
   "schema_version": 1
 }
