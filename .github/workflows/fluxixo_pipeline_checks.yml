@@ -10,6 +10,7 @@ on:
       - 'fluxixo_ai/autonomous.py'
       - 'fluxixo_ai/daily_schedule.py'
       - 'fluxixo_ai/gemini_client.py'
+      - 'fluxixo_ai/copy_revisions.py'
       - 'fluxixo_ai/image_studio.py'
       - 'fluxixo_ai/pending_products.py'
       - 'fluxixo_ai/reviewed_media.py'

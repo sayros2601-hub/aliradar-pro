@@ -185,15 +185,17 @@ class GeminiTextTests(unittest.TestCase):
         non_boolean['checks']['pt']['name'] = 'true'
         for bad in (missing_locale, missing_headline, non_boolean, {'accepted': True}):
             calls = []
+            state = {}
             def fake(url, body, headers):
                 request = json.loads(body['contents'][0]['parts'][0]['text'])
                 calls.append(request)
                 return reply(bad if request.get('task') == 'verify_source_claims' else bundle)
-            with self.subTest(verdict=bad), self.assertRaises(GeminiDeferred) as caught:
-                ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
-                                          transport=fake, snippet_fetcher=lambda *a: [])
-            self.assertEqual('gemini_copy_validation_failed', caught.exception.code)
-            self.assertEqual(4, len(calls))
+            with self.subTest(verdict=bad):
+                for _ in range(2):
+                    with self.assertRaises(GeminiDeferred):
+                        ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
+                            transport=fake, snippet_fetcher=lambda *a: [], copy_state=state)
+                self.assertEqual(3, len(calls))  # One draft, two reviews; no replacement for malformed reviews.
 
     def test_numbers_in_legacy_copy_are_not_source_evidence(self):
         from fluxixo_ai.gemini_client import GeminiDeferred
@@ -233,6 +235,158 @@ class GeminiTextTests(unittest.TestCase):
         self.assertEqual(source, validate.call_args.kwargs['grounding_text'])
         self.assertEqual({'ru': candidate}, seen[1]['proposed_copy'])
         self.assertEqual(['who', 'check'], seen[1]['required_fields'])
+
+    def test_rejected_copy_has_only_two_lifetime_drafts_for_same_seller_facts(self):
+        bundle = mirror_bundle()
+        state = {}
+        calls = []
+        saved = []
+        def fake(url, body, headers):
+            request = json.loads(body['contents'][0]['parts'][0]['text'])
+            calls.append(request)
+            self.assertTrue(saved, 'reservation must be checkpointed before requests')
+            if request.get('task') == 'verify_source_claims':
+                verdict = claim_verdict(bundle)
+                verdict['accepted'] = False
+                verdict['checks']['en']['headline'] = False
+                return reply(verdict)
+            return reply(bundle)
+        def run(title, current):
+            return ai_seo.enrich_product_copy({'source_title': title}, bundle, transport=fake,
+                snippet_fetcher=lambda *a: [], copy_state=current,
+                checkpoint=lambda: saved.append(json.dumps(current)))
+        with self.assertRaises(ai_seo.GeminiCopyStopped) as caught:
+            run('Handheld mirror with swivel head', state)
+        self.assertEqual('copy_source_claims_failed', caught.exception.reason)
+        self.assertEqual(ai_seo.copy_source_version('Handheld mirror with swivel head'), caught.exception.source_version)
+        self.assertEqual(4, len(calls))
+        restored = json.loads(json.dumps(state))
+        with self.assertRaises(ai_seo.GeminiCopyStopped):
+            run(' HANDHELD mirror-with SWIVEL head! ', restored)
+        self.assertEqual(4, len(calls))
+        self.assertEqual(ai_seo.copy_source_version(' 285 ml bowl '), ai_seo.copy_source_version('285ml BOWL.'))
+        self.assertNotEqual(ai_seo.copy_source_version('1.5ml bowl'), ai_seo.copy_source_version('15ml bowl'))
+        for before, after in (('1/2 inch', '12 inch'), ('10-15 kg', '1015 kg'),
+                              ('-10 C', '+10 C'), ('50% power', '50 power')):
+            with self.subTest(before=before):
+                self.assertNotEqual(ai_seo.copy_source_version(before), ai_seo.copy_source_version(after))
+        with self.assertRaises(ai_seo.GeminiCopyStopped):
+            run('Handheld mirror with swivel head and light', restored)
+        self.assertEqual(8, len(calls))
+        with self.assertRaises(ai_seo.GeminiCopyStopped):
+            run('Handheld mirror with swivel head', restored)
+        self.assertEqual(8, len(calls))
+
+    def test_retry_reviews_saved_draft_without_another_generation(self):
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        state = {}
+        bundle = mirror_bundle()
+        calls = []
+        def fake_complete(system, prompt, **kwargs):
+            request = json.loads(prompt)
+            calls.append(request)
+            if request.get('task') == 'verify_source_claims':
+                if len(calls) == 2:
+                    raise GeminiDeferred('gemini_http_429')
+                return claim_verdict(bundle), 'test-provider'
+            return bundle, 'test-provider'
+        with patch.object(ai_seo, 'complete_json', side_effect=fake_complete):
+            with self.assertRaises(GeminiDeferred):
+                ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
+                    snippet_fetcher=lambda *a: [], copy_state=state)
+            restored = json.loads(json.dumps(state))
+            result, _ = ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
+                snippet_fetcher=lambda *a: [], copy_state=restored)
+            self.assertEqual(bundle, result)
+            ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
+                snippet_fetcher=lambda *a: [], copy_state=restored)
+        self.assertEqual(3, len(calls))
+        self.assertEqual(1, sum(request.get('task') != 'verify_source_claims' for request in calls))
+
+    def test_review_transport_failures_stop_without_regenerating(self):
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        state = {}
+        calls = []
+        def fake_complete(system, prompt, **kwargs):
+            request = json.loads(prompt)
+            calls.append(request)
+            if request.get('task') == 'verify_source_claims':
+                raise GeminiDeferred('gemini_transport_unavailable')
+            return mirror_bundle(), 'test-provider'
+        with patch.object(ai_seo, 'complete_json', side_effect=fake_complete):
+            for _ in range(3):
+                with self.assertRaises(GeminiDeferred) as caught:
+                    ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, mirror_bundle(),
+                        snippet_fetcher=lambda *a: [], copy_state=state)
+            self.assertIsInstance(caught.exception, ai_seo.GeminiCopyStopped)
+            self.assertEqual('copy_claim_review_gemini_transport_unavailable', caught.exception.reason)
+        self.assertEqual(3, len(calls))
+
+    def test_checkpoint_failure_prevents_request_and_lost_generations_are_bounded(self):
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        state = {}
+        with patch.object(ai_seo, 'complete_json') as complete:
+            with self.assertRaises(GeminiDeferred) as caught:
+                ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, mirror_bundle(),
+                    copy_state=state, checkpoint=lambda: (_ for _ in ()).throw(OSError('private details')))
+            self.assertEqual('checkpoint_unavailable', caught.exception.code)
+            complete.assert_not_called()
+        state = {}
+        with patch.object(ai_seo, 'complete_json', side_effect=KeyboardInterrupt) as complete:
+            for _ in range(2):
+                with self.assertRaises(KeyboardInterrupt):
+                    ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, mirror_bundle(),
+                                              copy_state=state)
+                state = json.loads(json.dumps(state))
+            with self.assertRaises(ai_seo.GeminiCopyStopped):
+                ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, mirror_bundle(),
+                                          copy_state=state)
+            self.assertEqual(2, complete.call_count)
+
+    def test_optional_long_copy_rejections_do_not_restart_after_reloading_state(self):
+        state = {}
+        with patch.object(ai_seo, 'complete_json', return_value=({'who': 'too short', 'check': []}, 'test')) as complete:
+            for _ in range(3):
+                result, mode = ai_seo.enrich_ru_long_copy({'source_title': 'Handheld mirror'}, mirror_bundle(),
+                                                         copy_state=state)
+                self.assertIsNone(result)
+                self.assertEqual('rejected', mode)
+                state = json.loads(json.dumps(state))
+            self.assertEqual(2, complete.call_count)
+
+    def test_outer_rejection_consumes_existing_draft_and_permits_only_one_correction(self):
+        title = 'Handheld mirror with swivel head'
+        state = {}
+        bundle = mirror_bundle()
+        calls = []
+        def fake_complete(system, prompt, **kwargs):
+            request = json.loads(prompt)
+            calls.append(request)
+            return (claim_verdict(bundle) if request.get('task') == 'verify_source_claims' else bundle), 'test'
+        def run():
+            return ai_seo.enrich_product_copy({'source_title': title}, bundle,
+                                              snippet_fetcher=lambda *a: [], copy_state=state)
+        with patch.object(ai_seo, 'complete_json', side_effect=fake_complete):
+            run()
+            ai_seo.reject_cached_copy(title, state, problems=['Outer gate found duplicate product wording.'])
+            run()
+            self.assertTrue(any('Outer gate' in error for error in calls[2]['previous_validation_errors']))
+            with self.assertRaises(ai_seo.GeminiCopyStopped) as caught:
+                ai_seo.reject_cached_copy(title, state)
+            self.assertEqual('copy_outer_validation_failed', caught.exception.reason)
+            with self.assertRaises(ai_seo.GeminiCopyStopped):
+                run()
+        self.assertEqual(4, len(calls))
+
+    def test_rejected_legacy_cached_copy_counts_as_first_draft(self):
+        title = 'Handheld mirror with swivel head'
+        state = {}
+        ai_seo.reject_cached_copy(title, state)
+        with patch.object(ai_seo, 'complete_json', return_value=({'ru': {}}, 'test')) as complete:
+            with self.assertRaises(ai_seo.GeminiCopyStopped):
+                ai_seo.enrich_product_copy({'source_title': title}, mirror_bundle(),
+                                          snippet_fetcher=lambda *a: [], copy_state=state)
+            self.assertEqual(1, complete.call_count)
 
 
 if __name__ == '__main__':

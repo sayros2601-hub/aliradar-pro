@@ -85,31 +85,44 @@ def _review_frames(record, assets, state, state_path, root):
         key = _hash(json.dumps(binding, sort_keys=True).encode())
         previous = cached.get(asset['role']) or {}
         reused = previous.get('input_key') == key and (
-            previous.get('status') in ('accepted', 'rejected', 'uncertain')
+            previous.get('status') in ('accepted', 'rejected', 'uncertain', 'stopped')
             or previous.get('status') == 'deferred' and previous.get('retry_at', 0) > time.time())
         if reused:
             outcome = dict(previous)
             if outcome['status'] == 'accepted' and not reviewed_media._valid_review(outcome.get('assessment')):
                 reused = False
         if not reused:
-            try:
-                requested += 1
-                assessment = reviewed_media._default_reviewer(
-                    asset['source_bytes'], asset['output_bytes'], title=record['sourceTitle'],
-                    role=asset['role'], identity_source=asset['identity_source_bytes'], prior_outputs=tuple(prior),
-                )
-                if reviewed_media._valid_review(assessment):
-                    status = 'accepted'
-                elif (isinstance(assessment, dict)
-                      and all(type(assessment.get(key)) is bool for key in ('accepted', *reviewed_media.CHECKS))):
-                    status = 'rejected'
-                else:
-                    status = 'uncertain'
-                outcome = {'input_key': key, 'status': status, 'assessment': assessment, 'reviewed_at': time.time()}
-            except GeminiDeferred as error:
-                outcome = {'input_key': key, 'status': 'deferred', 'reason': error.code, 'retry_at': error.retry_at}
-            except Exception:
-                outcome = {'input_key': key, 'status': 'deferred', 'reason': 'review_unavailable', 'retry_at': time.time() + 300}
+            # A policy or path change does not buy another call on identical image material.
+            identity = _hash(json.dumps([asset['role'], binding['identity_source_sha256'],
+                                        binding['source_sha256'], binding['image_sha256']]).encode())
+            counts = state.setdefault('review_opportunities', {})
+            count = counts.get(identity, int(previous.get('input_key') == key))
+            if count >= 2:
+                outcome = {'input_key': key, 'status': 'stopped',
+                           'reason': previous.get('reason') or 'review_attempts_exhausted'}
+            else:
+                counts[identity] = count + 1
+                _save_state(state_path, state, root)
+                try:
+                    requested += 1
+                    assessment = reviewed_media._default_reviewer(
+                        asset['source_bytes'], asset['output_bytes'], title=record['sourceTitle'],
+                        role=asset['role'], identity_source=asset['identity_source_bytes'], prior_outputs=tuple(prior),
+                    )
+                    if reviewed_media._valid_review(assessment):
+                        status = 'accepted'
+                    elif (isinstance(assessment, dict)
+                          and all(type(assessment.get(key)) is bool for key in ('accepted', *reviewed_media.CHECKS))):
+                        status = 'rejected'
+                    else:
+                        status = 'uncertain'
+                    outcome = {'input_key': key, 'status': status, 'assessment': assessment, 'reviewed_at': time.time()}
+                except GeminiDeferred as error:
+                    outcome = {'input_key': key, 'status': 'deferred', 'reason': error.code, 'retry_at': error.retry_at}
+                except Exception:
+                    outcome = {'input_key': key, 'status': 'deferred', 'reason': 'review_unavailable', 'retry_at': time.time() + 300}
+                if outcome['status'] == 'deferred' and counts[identity] == 2:
+                    outcome['status'] = 'stopped'
             cached[asset['role']] = outcome
             _save_state(state_path, state, root)
         frame = {**binding, **outcome, 'reused': reused}
@@ -172,6 +185,7 @@ def run_smoke(catalog_id, *, repo_root=REPO_ROOT):
     else:
         updated, locales = autonomous._maybe_ai_enrich(
             record, translated, {'title': source}, site, catalog_corpus=corpus,
+            copy_state=state.setdefault('copy_revisions', {}), checkpoint=lambda: _save_state(state_path, state, root),
         )
     # Apply both daily and detailed field validators. No baseline fallback can masquerade as success.
     bundle = {'ru': {key: updated[key] for key in ('name', 'headline', 'description')},
@@ -183,6 +197,8 @@ def run_smoke(catalog_id, *, repo_root=REPO_ROOT):
     )
     if errors:
         state.pop('text', None)
+        ai_seo.reject_cached_copy(source, state.setdefault('copy_revisions', {}),
+                                  lambda: _save_state(state_path, state, root), problems=errors)
         _save_state(state_path, state, root)
         raise GeminiDeferred('smoke_copy_validation_failed')
     state['text'] = {'input_key': text_key, 'policy': COPY_POLICY, 'copy': bundle, 'model': TEXT_MODEL, 'thinking_level': 'HIGH'}

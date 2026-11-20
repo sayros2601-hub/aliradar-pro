@@ -14,6 +14,7 @@ from PIL import Image, ImageDraw
 from fluxixo_ai.reviewed_media import (
     ReviewedMediaPreparer, MediaDeferred, verify_review_bindings, verify_product_review,
 )
+from fluxixo_ai import reviewed_media
 
 
 def picture(seed):
@@ -59,6 +60,24 @@ class ReviewedMediaTests(unittest.TestCase):
         stage.mkdir(exist_ok=True)
         return engine.prepare(candidate or self.candidate, internal_id, stage)
 
+    def test_buyer_visible_defects_and_cosmetic_variation_are_distinguished(self):
+        from fluxixo_ai import reviewed_media as media
+        cosmetic = {**approved(), 'material_defects': [],
+                    'reasons': ['Slightly different framing and a softer shadow.']}
+        with patch('fluxixo_ai.gemini_client.call_json', return_value=cosmetic) as call:
+            output = media._default_reviewer(b'reference', b'final', title='Travel bottle',
+                                             role='application', identity_source=b'canonical')
+        rubric = call.call_args.args[0]
+        self.assertIn('Accept harmless differences in background, soft shadow, framing', rubric)
+        self.assertIn('opening the drinking bowl', rubric)
+        self.assertTrue(media._valid_review(output))
+        self.assertFalse(media._valid_review({**cosmetic, 'markings': False}))
+        self.assertFalse(media._valid_review({**cosmetic, 'material_defects': ['Wrong units on the dial.']}))
+        engine = self.engine(review=lambda *args, **kwargs: cosmetic)
+        self.prepare(engine)
+        self.prepare(engine)
+        self.assertEqual(3, len(self.reviews))
+
     def test_accepted_images_resume_without_new_reviews_or_generation(self):
         engine = self.engine(generator=lambda **kw: self.fail('no verified free budget'))
         media = self.prepare(engine)
@@ -83,7 +102,7 @@ class ReviewedMediaTests(unittest.TestCase):
         self.assertEqual(['hero', 'application', 'application', 'result'], [x[2]['role'] for x in self.reviews])
         self.assertNotEqual(self.reviews[1][0], self.reviews[2][0])
 
-    def test_twice_rejected_frame_defers_and_does_not_repeat_failed_references(self):
+    def test_twice_rejected_frame_stops_and_does_not_repeat_failed_references(self):
         def review(source, output, **ctx):
             result = approved()
             if ctx['role'] == 'application':
@@ -92,9 +111,9 @@ class ReviewedMediaTests(unittest.TestCase):
         engine = self.engine(review)
         with self.assertRaises(MediaDeferred) as cm:
             self.prepare(engine)
-        self.assertGreater(cm.exception.retry_at, self.now)
+        self.assertEqual('MediaStopped', type(cm.exception).__name__)
         first_sources = [x[0] for x in self.reviews if x[2]['role'] == 'application']
-        self.now = cm.exception.retry_at + 1
+        self.now += 86401
         with self.assertRaises(MediaDeferred):
             self.prepare(engine)
         later_sources = [x[0] for x in self.reviews if x[2]['role'] == 'application'][2:]
@@ -193,7 +212,8 @@ class ReviewedMediaTests(unittest.TestCase):
 
     def test_failed_durable_checkpoint_blocks_ready_and_preserves_accepted_frame(self):
         def fail_checkpoint():
-            raise RuntimeError('remote unavailable')
+            if self.reviews:
+                raise RuntimeError('remote unavailable')
         engine = self.engine()
         with patch.dict('os.environ', {'FLUXIXO_DURABLE_CHECKPOINT': 'git'}), \
                 patch.dict('sys.modules', {'fluxixo_ai.state_checkpoint': SimpleNamespace(checkpoint=fail_checkpoint)}):
@@ -218,9 +238,9 @@ class ReviewedMediaTests(unittest.TestCase):
                 patch.dict('sys.modules', {'fluxixo_ai.state_checkpoint': SimpleNamespace(checkpoint=checkpoint)}):
             with self.assertRaises(MediaDeferred):
                 self.prepare(self.engine(review))
-        self.assertEqual(1, len(observed))
-        self.assertEqual(('waiting', 'review_quota'), (observed[0]['status'], observed[0]['reason']))
-        pending = observed[0]['slots'][0]['pending']
+        self.assertEqual(3, len(observed))
+        self.assertEqual(('waiting', 'review_quota'), (observed[-1]['status'], observed[-1]['reason']))
+        pending = observed[-1]['slots'][0]['pending']
         self.assertTrue((self.root / 'cache/auto-12345' / pending['output_file']).is_file())
 
     def test_generated_defect_retries_same_source_with_trusted_feedback_once(self):
@@ -292,6 +312,247 @@ class ReviewedMediaTests(unittest.TestCase):
         self.assertNotEqual(old_identity, second['media_review']['identity_source_sha256'])
         self.assertEqual(6, len(self.reviews))
         self.assertTrue(verify_review_bindings(second))
+
+    def test_two_compositions_are_a_permanent_role_limit_across_metadata_and_days(self):
+        renders = []
+        def compose(source):
+            renders.append(hashlib.sha256(source).hexdigest())
+            return reviewed_media._compose_authentic(source)
+        def reject(*args, **kwargs):
+            return {**approved(), 'accepted': False, 'role': False, 'reasons': ['Wrong role.']}
+        engine = self.engine(reject, compositor=compose)
+        with self.assertRaises(MediaDeferred) as cm:
+            self.prepare(engine)
+        self.assertEqual('MediaStopped', type(cm.exception).__name__)
+        self.assertEqual(2, len(renders))
+        version = cm.exception.source_version
+        self.assertRegex(version, r'^[0-9a-f]{64}$')
+        alias = 'https://ae01.alicdn.com/kf/alias.png'
+        self.assets[alias] = self.assets[self.candidate['image_url']]
+        changed = {**self.candidate, 'title': 'Renamed inspection mirror', 'image_url': alias,
+                   'image_urls': list(reversed(self.candidate['image_urls']))}
+        self.now += 200000
+        with patch.object(reviewed_media, 'POLICY_VERSION', 'new-policy'):
+            with self.assertRaises(MediaDeferred) as again:
+                self.prepare(engine, changed)
+        self.assertEqual('MediaStopped', type(again.exception).__name__)
+        self.assertEqual(version, again.exception.source_version)
+        self.assertEqual(2, len(renders))
+        state = json.loads((self.root / 'cache/auto-12345/state.json').read_text())
+        self.assertEqual('stopped', state['status'])
+        self.assertEqual(version, state['terminal']['source_version'])
+
+    def test_two_technical_review_failures_stop_without_regenerating_pending(self):
+        renders = []
+        def compose(source):
+            renders.append(source)
+            return reviewed_media._compose_authentic(source)
+        def unavailable(*args, **kwargs):
+            raise MediaDeferred('gemini_daily_budget', self.now + 100)
+        engine = self.engine(unavailable, compositor=compose)
+        with self.assertRaises(MediaDeferred) as first:
+            self.prepare(engine)
+        self.assertEqual('MediaDeferred', type(first.exception).__name__)
+        with self.assertRaises(MediaDeferred):
+            self.prepare(engine)
+        self.assertEqual(1, len(self.reviews))
+        self.now = first.exception.retry_at + 1
+        with self.assertRaises(MediaDeferred) as second:
+            self.prepare(engine)
+        self.assertEqual('MediaStopped', type(second.exception).__name__)
+        self.assertEqual('gemini_daily_budget', second.exception.code)
+        self.now += 200000
+        with self.assertRaises(MediaDeferred):
+            self.prepare(engine)
+        self.assertEqual(1, len(renders))
+        self.assertEqual(2, len(self.reviews))
+        self.assertEqual(self.reviews[0][1], self.reviews[1][1])
+
+    def test_materialization_failures_and_interrupted_reservations_consume_the_same_limit(self):
+        calls = []
+        def broken(source):
+            calls.append(source)
+            if len(calls) == 1:
+                raise KeyboardInterrupt('simulated process interruption')
+            raise ValueError('invalid output')
+        engine = self.engine(compositor=broken)
+        with self.assertRaises(KeyboardInterrupt):
+            self.prepare(engine)
+        self.now += reviewed_media.LEASE_SECONDS + 1
+        with self.assertRaises(MediaDeferred) as stopped:
+            self.prepare(engine)
+        self.assertEqual('MediaStopped', type(stopped.exception).__name__)
+        self.now += 200000
+        with self.assertRaises(MediaDeferred):
+            self.prepare(engine)
+        self.assertEqual(2, len(calls))
+        self.assertFalse(self.reviews)
+
+    def test_only_new_seller_pixels_reopen_and_old_material_cannot_toggle_budget(self):
+        def reject(*args, **kwargs):
+            return {**approved(), 'accepted': False, 'quality': False}
+        engine = self.engine(reject)
+        with self.assertRaises(MediaDeferred) as initial:
+            self.prepare(engine)
+        old_version = getattr(initial.exception, 'source_version', '')
+        self.assertTrue(old_version, 'terminal errors expose a verified source version')
+        path = self.root / 'cache/auto-12345/state.json'
+        resolver = reviewed_media.verified_media_source_version
+        subset = {**self.candidate, 'image_urls': [self.candidate['image_url']]}
+        self.assertEqual(old_version, resolver(subset, self.assets.__getitem__, state_path=path))
+        missing = {**self.candidate, 'image_urls': [*self.candidate['image_urls'], 'https://ae01.alicdn.com/kf/missing.png']}
+        with self.assertRaises(MediaDeferred):
+            resolver(missing, self.assets.__getitem__, state_path=path)
+        new_url = 'https://ae01.alicdn.com/kf/new.png'
+        self.assets[new_url] = picture(31)
+        changed = {**self.candidate, 'image_url': new_url,
+                   'image_urls': [new_url, *self.candidate['image_urls']]}
+        new_version = resolver(changed, self.assets.__getitem__, state_path=path)
+        self.assertNotEqual(old_version, new_version)
+        self.now += 86401
+        with self.assertRaises(MediaDeferred) as reopened:
+            self.prepare(engine, changed)
+        self.assertEqual('MediaStopped', type(reopened.exception).__name__)
+        self.assertEqual(new_version, reopened.exception.source_version)
+        reviews_after_new = len(self.reviews)
+        self.now += 86401
+        with self.assertRaises(MediaDeferred) as toggled:
+            self.prepare(engine)
+        self.assertEqual(new_version, toggled.exception.source_version)
+        self.assertEqual(reviews_after_new, len(self.reviews))
+
+    def test_title_and_policy_changes_recheck_existing_bytes_with_finite_frame_reviews(self):
+        renders = []
+        def compose(source):
+            renders.append(source)
+            return reviewed_media._compose_authentic(source)
+        engine = self.engine(compositor=compose)
+        self.prepare(engine)
+        changed = {**self.candidate, 'title': 'Inspection mirror with handle'}
+        with patch.object(reviewed_media, 'POLICY_VERSION', 'new-policy'):
+            media = self.prepare(engine, changed)
+            self.assertTrue(verify_review_bindings(media))
+        self.assertEqual(3, len(renders))
+        self.assertEqual(6, len(self.reviews))
+        with self.assertRaises(MediaDeferred) as stopped:
+            self.prepare(engine, {**changed, 'title': 'Another title'})
+        self.assertEqual('MediaStopped', type(stopped.exception).__name__)
+        self.assertEqual(3, len(renders))
+        self.assertEqual(6, len(self.reviews))
+
+    def test_new_material_retires_exhausted_pending_without_erasing_its_ledger(self):
+        unavailable = [True]
+        def review(*args, **kwargs):
+            if unavailable[0]:
+                raise MediaDeferred('review_transport_timeout', self.now + 100)
+            return approved()
+        engine = self.engine(review)
+        with self.assertRaises(MediaDeferred) as first:
+            self.prepare(engine)
+        self.now = first.exception.retry_at + 1
+        with self.assertRaises(MediaDeferred):
+            self.prepare(engine)
+        old_hash = self.reviews[-1][1]
+        unavailable[0] = False
+        new_url = 'https://ae01.alicdn.com/kf/new.png'
+        self.assets[new_url] = picture(31)
+        changed = {**self.candidate, 'image_url': new_url,
+                   'image_urls': [new_url, *self.candidate['image_urls']]}
+        self.now += 86401
+        self.assertTrue(verify_review_bindings(self.prepare(engine, changed)))
+        state = json.loads((self.root / 'cache/auto-12345/state.json').read_text())
+        self.assertEqual(2, state['review_attempts'][old_hash]['opportunities'])
+        self.assertEqual(2, sum(row[1] == old_hash for row in self.reviews))
+
+    def test_interrupted_assessments_are_finite_and_reuse_the_same_pending_bytes(self):
+        def crash(*args, **kwargs):
+            raise KeyboardInterrupt('interrupted outbound request')
+        engine = self.engine(crash)
+        for _ in range(2):
+            with self.assertRaises(KeyboardInterrupt):
+                self.prepare(engine)
+            self.now += reviewed_media.LEASE_SECONDS + 1
+        with self.assertRaises(MediaDeferred) as terminal:
+            self.prepare(engine)
+        self.assertEqual('MediaStopped', type(terminal.exception).__name__)
+        self.assertEqual('assessment_interrupted', terminal.exception.code)
+        self.assertEqual(2, len(self.reviews))
+        self.assertEqual(self.reviews[0][1], self.reviews[1][1])
+
+    def test_unavailable_sources_stop_after_two_opportunities_and_can_be_verified_later(self):
+        original = self.assets.copy()
+        self.assets.clear()
+        engine = self.engine()
+        with self.assertRaises(MediaDeferred) as first:
+            self.prepare(engine)
+        self.now = first.exception.retry_at + 1
+        with self.assertRaises(MediaDeferred) as second:
+            self.prepare(engine)
+        self.assertEqual('MediaStopped', type(second.exception).__name__)
+        self.assertRegex(second.exception.source_version, r'^[0-9a-f]{64}$')
+        self.assets.update(original)
+        path = self.root / 'cache/auto-12345/state.json'
+        version = reviewed_media.verified_media_source_version(self.candidate, self.assets.__getitem__, state_path=path)
+        self.assertNotEqual(second.exception.source_version, version)
+        self.assertTrue(verify_review_bindings(self.prepare(engine)))
+
+    def test_legacy_rejections_and_accepted_assets_do_not_gain_fresh_attempts(self):
+        def reject_application(*args, **kwargs):
+            return {**approved(), 'accepted': kwargs['role'] != 'application', 'role': kwargs['role'] != 'application'}
+        engine = self.engine(reject_application)
+        with self.assertRaises(MediaDeferred):
+            self.prepare(engine)
+        path = self.root / 'cache/auto-12345/state.json'
+        state = json.loads(path.read_text())
+        accepted_hash = state['slots'][0]['image_sha256']
+        for key in ('source_history', 'source_version', 'effort_versions', 'review_attempts', 'terminal'):
+            state.pop(key, None)
+        state.update(status='waiting', next_attempt=0)
+        path.write_text(json.dumps(state))
+        self.now += 86401
+        before = len(self.reviews)
+        with self.assertRaises(MediaDeferred) as terminal:
+            self.prepare(engine, {**self.candidate, 'image_urls': list(reversed(self.candidate['image_urls']))})
+        self.assertEqual('MediaStopped', type(terminal.exception).__name__)
+        self.assertEqual(before, len(self.reviews))
+        updated = json.loads(path.read_text())
+        self.assertEqual(accepted_hash, updated['slots'][0]['image_sha256'])
+        self.assertTrue((path.parent / updated['slots'][0]['output_file']).is_file())
+
+    def test_harmless_reencoding_or_minor_pixel_change_is_not_new_seller_material(self):
+        self.prepare(self.engine())
+        path = self.root / 'cache/auto-12345/state.json'
+        state = json.loads(path.read_text())
+        version = state['source_version']
+        image = Image.open(BytesIO(self.assets[self.candidate['image_url']])).convert('RGBA')
+        image.putpixel((0, 0), (4, 4, 4, 1))
+        out = BytesIO()
+        image.save(out, 'PNG', compress_level=0)
+        self.assets[self.candidate['image_url']] = out.getvalue()
+        self.assertEqual(version, reviewed_media.verified_media_source_version(self.candidate, self.assets.__getitem__, state_path=path))
+
+    def test_duplicate_correction_preserves_last_concrete_rejection_in_terminal_details(self):
+        def generate(**context):
+            return reviewed_media._compose_authentic(context['source'])
+        def reject(*args, **kwargs):
+            return {**approved(), 'accepted': False, 'markings': False,
+                    'reasons': ['Control units changed from Celsius to Fahrenheit.']}
+        with self.assertRaises(MediaDeferred) as terminal:
+            self.prepare(self.engine(reject, generator=generate, generation_budget=lambda *a: True))
+        self.assertEqual('MediaStopped', type(terminal.exception).__name__)
+        self.assertEqual('unchanged_rejected_frame', terminal.exception.code)
+        self.assertIn('markings', terminal.exception.details.get('failed_checks', []))
+        self.assertIn('Control units changed from Celsius to Fahrenheit.', terminal.exception.details.get('reasons', []))
+        self.assertEqual(1, len(self.reviews))
+
+    def test_failed_preflight_checkpoint_does_not_consume_work_or_review_attempt(self):
+        with patch.dict('os.environ', {'FLUXIXO_DURABLE_CHECKPOINT': 'git'}), \
+                patch.dict('sys.modules', {'fluxixo_ai.state_checkpoint': SimpleNamespace(checkpoint=lambda: (_ for _ in ()).throw(RuntimeError()))}):
+            with self.assertRaises(MediaDeferred):
+                self.prepare(self.engine())
+        state = json.loads((self.root / 'cache/auto-12345/state.json').read_text())
+        self.assertEqual(0, state['effort_versions'][state['source_version']][0]['materializations'])
+        self.assertFalse(self.reviews)
 
 
 if __name__ == '__main__':

@@ -32,6 +32,9 @@ for candidate in (str(TOOLS_DIR), str(SITE_DIR), str(REPO_DIR)):
 
 import check_texts  # noqa: E402
 import copy_originality  # noqa: E402
+from fluxixo_ai.copy_revisions import (  # noqa: E402
+    GeminiCopyStopped, copy_source_version, reject_cached_copy, run_bounded_copy,
+)
 
 LANGS = ('ru', 'en', 'pt', 'es', 'fr', 'he')
 POWERED_CATEGORIES = frozenset(('Техника', 'Дом', 'Кухня', 'Инструменты', 'Уход'))
@@ -753,7 +756,8 @@ def _gemini_claim_problems(source_title, proposed_copy, fields, *, keys, transpo
     return problems
 
 
-def enrich_ru_long_copy(product_context, bundle_ru_and_en, keys=None, transport=_post_json):
+def enrich_ru_long_copy(product_context, bundle_ru_and_en, keys=None, transport=_post_json, *,
+                        copy_state=None, checkpoint=None):
     """Generate unique extended Russian buyer guidance (who + check) for future daily drops, strictly gated."""
     resolved = keys if keys is not None else load_ai_keys(local=False)
     if not has_ai_provider(resolved):
@@ -790,6 +794,20 @@ def enrich_ru_long_copy(product_context, bundle_ru_and_en, keys=None, transport=
         payload = {'source_title': source_title,
                    'category_for_classification': _sanitize_for_prompt(product_context.get('category'))}
     prompt = json.dumps(payload, ensure_ascii=False)
+    if is_gemini:
+        def generate(problems):
+            request = {**payload, 'validation_errors': problems[:6]} if problems else payload
+            return complete_json(system_prompt, json.dumps(request, ensure_ascii=False), keys=resolved, transport=transport)
+        try:
+            cand, provider = run_bounded_copy(
+                source_title, scope='ru_long', state=copy_state, checkpoint=checkpoint, generate=generate,
+                validate=lambda candidate: validate_ru_long_entry(candidate, grounding_text=source_title),
+                review=lambda candidate: _gemini_claim_problems(source_title, {'ru': candidate}, ('who', 'check'),
+                                                               keys=resolved, transport=transport))
+        except GeminiCopyStopped:
+            return None, 'rejected'
+        return {'who': ' '.join(str(cand['who']).split()),
+                'check': [' '.join(str(value).split()) for value in cand['check'][:3]]}, provider
     for _ in range(2):
         cand, provider = complete_json(system_prompt, prompt, keys=resolved, transport=transport)
         if not cand:
@@ -816,6 +834,8 @@ def enrich_product_copy(
     catalog_corpus=None,
     snippet_fetcher=None,
     min_desc_len=70,
+    copy_state=None,
+    checkpoint=None,
 ):
     """Use free AI (when configured) to craft original, broad 6-language native editorial copy, gated strictly."""
     resolved = keys if keys is not None else load_ai_keys(local=False)
@@ -866,6 +886,24 @@ def enrich_product_copy(
         user_payload['avoid_existing_descriptions'] = nearby_descs
     grounding = source_title if is_gemini else f"{source_title} {json.dumps(base_bundle, ensure_ascii=False)}"
     prompt = json.dumps(user_payload, ensure_ascii=False)
+
+    if is_gemini:
+        def generate(problems):
+            request = ({**user_payload, 'previous_validation_errors': problems[:8],
+                        'instruction': 'Rewrite every unsupported claim and validation error using only seller facts; return all six languages.'}
+                       if problems else user_payload)
+            return complete_json(system_prompt, json.dumps(request, ensure_ascii=False), keys=resolved, transport=transport)
+        candidate, provider = run_bounded_copy(
+            source_title, scope='bundle', state=copy_state, checkpoint=checkpoint, generate=generate,
+            validate=lambda candidate: validate_product_bundle(
+                candidate, source_text=source_title, source_title=source_title, catalog_corpus=catalog_corpus,
+                snippet_fetcher=snippet_fetcher, min_desc_len=min_desc_len),
+            review=lambda candidate: _gemini_claim_problems(source_title, candidate, ('name', 'headline', 'description'),
+                                                           keys=resolved, transport=transport))
+        return {lang: {'name': ' '.join(candidate[lang]['name'].split()),
+                       'headline': [' '.join(line.split()) for line in candidate[lang]['headline']],
+                       'description': ' '.join(candidate[lang]['description'].split())}
+                for lang in LANGS}, provider
 
     for _ in range(2):
         candidate, provider = complete_json(system_prompt, prompt, keys=resolved, transport=transport)
