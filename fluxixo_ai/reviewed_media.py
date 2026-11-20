@@ -452,6 +452,7 @@ class ReviewedMediaPreparer:
                     # pending frame, but never resets that immutable frame's ledger.
                     slot.setdefault('retired_pending', []).append(pending)
                     slot.setdefault('rejected_sources', []).append(pending['source_sha256'])
+                    state.setdefault('retired_source_sha256', []).append(pending['source_sha256'])
                     slot.pop('pending', None)
             state['new_material_sources'] = [s['sha256'] for s in additions]
         elif state.get('terminal') and state['terminal'].get('source_version') != version:
@@ -522,7 +523,8 @@ class ReviewedMediaPreparer:
                             self._stop(state, role, effort.get('last_code', 'materialization_limit'),
                                        materializations=effort['materializations'])
                         preferred_retry = slot.get('retry_source_sha256')
-                        eligible = [s for s in state['sources'] if s['sha256'] not in used_sources | rejected]
+                        excluded = used_sources | rejected | set(state.get('retired_source_sha256', []))
+                        eligible = [s for s in state['sources'] if s['sha256'] not in excluded]
                         eligible.sort(key=lambda s: s['sha256'] not in state.get('new_material_sources', []))
                         source = next((s for s in eligible if s['sha256'] == preferred_retry), None) or next(iter(eligible), None)
                         if source is None:
