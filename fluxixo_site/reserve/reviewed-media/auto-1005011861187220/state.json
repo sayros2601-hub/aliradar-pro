@@ -149,37 +149,38 @@
     },
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-aa8678904fa4727aa0b609d306ba34359948cafc4f6c1b44b0ac2d18cb53bb1b.png",
-        "source_sha256": "aa8678904fa4727aa0b609d306ba34359948cafc4f6c1b44b0ac2d18cb53bb1b",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S9eb8dcb013434bab846ee7d0e330f52eM.jpg",
-        "original_sha256": "f8cba404c133d224024ae4a8e9b0821fea8acd99eabf38ecdebb2e44a6997f75",
-        "output_file": "application-a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f.webp",
-        "image_sha256": "a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f",
-        "metrics": {
-          "fg_width": 732,
-          "fg_height": 788,
-          "fg_max_side": 788,
-          "fg_min_side": 732,
-          "upscale_ratio": 1.129,
-          "sharpness": 18.252,
-          "fg_mean_luma": 175.81,
-          "fg_luma_std": 57.48,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.015,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": true,
+        "distinct": false,
+        "material_defects": [],
+        "reasons": [
+          "The image is a duplicate of the hero shot (Image 1) and fails to fulfill the requested application role."
+        ]
+      },
+      "rejected_images": [
+        "a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f",
+        "9c97e8fcef15b09eb4dd61a16290d3143e0036a82b0d302a988aeff54c54f366"
+      ],
+      "rejected_sources": [
+        "8563e15430776bd771640d252dcc571a4b7c9b6ec75414262ba3994a7b66e0bc",
+        "aa8678904fa4727aa0b609d306ba34359948cafc4f6c1b44b0ac2d18cb53bb1b"
+      ],
+      "feedback": "Show the documented use or result; if unsupported, show a truthful functional detail. Use a genuinely different documented product story, not another crop or hand pose."
     },
     {}
   ],
   "created_at": 1795181081.9197834,
   "deferrals": 0,
   "lease_owner": "989a75190b78439b864ed375c2e773e0",
-  "lease_until": 1795184107.074665,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "stopped",
   "next_attempt": 0,
   "source_refresh_after": 1795267483.7227576,
   "source_version": "9a72fababd8e88d8b5b3ccee65bfb4d4dfd901875824aa438078aa70b690184b",
@@ -198,16 +199,22 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 1,
+        "materializations": 2,
         "events": [
           {
             "source_sha256": "aa8678904fa4727aa0b609d306ba34359948cafc4f6c1b44b0ac2d18cb53bb1b",
             "at": 1795182317.448922,
             "code": "pending_review",
             "image_sha256": "a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f"
+          },
+          {
+            "source_sha256": "8563e15430776bd771640d252dcc571a4b7c9b6ec75414262ba3994a7b66e0bc",
+            "at": 1795182334.019487,
+            "code": "pending_review",
+            "image_sha256": "9c97e8fcef15b09eb4dd61a16290d3143e0036a82b0d302a988aeff54c54f366"
           }
         ],
-        "last_code": "materialization_interrupted"
+        "last_code": "review_rejected"
       },
       {
         "materializations": 0,
@@ -240,7 +247,43 @@
     },
     "a11c6a51f476be9221d88c21702472b1e5edf9c2101a8d4f7268afaf0848333f": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": false,
+        "shape": true,
+        "completeness": true,
+        "color": false,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [
+          "wrong variant shown in the application image featuring a silver globe instead of matching the gold variant"
+        ],
+        "reasons": [
+          "Image 1 establishes the gold variant of the product, but Image 2 (the supporting pose reference/application shot) incorrectly includes a silver globe alongside a gold one, resulting in a variant mismatch."
+        ]
+      }
+    },
+    "9c97e8fcef15b09eb4dd61a16290d3143e0036a82b0d302a988aeff54c54f366": {
+      "opportunities": 1,
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": true,
+        "distinct": false,
+        "material_defects": [],
+        "reasons": [
+          "The image is a duplicate of the hero shot (Image 1) and fails to fulfill the requested application role."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -249,5 +292,21 @@
     "sha256": "80cea13aa1f4093a4940673282cca03f55f361ae2a8ac0e81a2ee79b68c3c1c4",
     "original_sha256": "88a8d855a118ec147a36ddaf5a056a15b514dfd181680da81f722d07dd1f3d30"
   },
-  "reason": ""
+  "reason": "review_rejected",
+  "terminal": {
+    "code": "review_rejected",
+    "source_version": "9a72fababd8e88d8b5b3ccee65bfb4d4dfd901875824aa438078aa70b690184b",
+    "details": {
+      "role": "application",
+      "failed_checks": [
+        "role",
+        "distinct"
+      ],
+      "reasons": [
+        "The image is a duplicate of the hero shot (Image 1) and fails to fulfill the requested application role."
+      ],
+      "materializations": 2
+    },
+    "at": 1795182366.7550576
+  }
 }
