@@ -6510,7 +6510,7 @@
         "description": "El diámetro interior conocido del anillo sirve de referencia para ajustar el cero del alesómetro. Después, introduce el alesómetro en el orificio de la pieza para comprobar la diferencia respecto a esa medida."
       },
       "fr": {
-        "name": "Bague étalon pour alésomètre",
+        "name": "Bague Étalon pour Alésomètre",
         "headline": [
           "Réglez le zéro",
           "avant la mesure"

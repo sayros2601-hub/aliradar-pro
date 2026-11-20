@@ -240,6 +240,19 @@
     "https://www.fluxixo.shop/products/import-0530/": "316b79838843046d9d0543d102df936827cb57ec702b77db02c18a22b0d95a15",
     "https://www.fluxixo.shop/products/import-0545/": "0891caf4b3cb205b1361236a4a34b2d06df535b8271383054bca4d4f1832cbd6"
   },
-  "pending": {},
+  "pending": {
+    "https://www.fluxixo.shop/catalog/": "26af00a0ec815a80a1ee0fea8585767b5e92998fe05885535e276793aff7a1b7",
+    "https://www.fluxixo.shop/categories/instrumenty/": "c41fa0fbcb9a39a400c768733d9260b37b83b47b94f042d1489b508a1136e52d",
+    "https://www.fluxixo.shop/journal/": "6dcd73a76be330aae2715cd3a80efc68923c3d6beeb48bf60a66cf9af80d3ede",
+    "https://www.fluxixo.shop/journal/desk-cable-management/": "0d51d2fbce5ad74b3e63cf676c0316921558e6dc0b1e8748b2155a60e7a38aaf",
+    "https://www.fluxixo.shop/products/auto-1005004679234788/": "8b87de1eceb9c0f2e5d1e5d9edaf7807efc131f6e9e1db207e61d22ad6a0d0b9",
+    "https://www.fluxixo.shop/products/auto-1005005357943658/": "641268893891210d70064852f36fefffe92675db185511c2319e892b8f9333b5",
+    "https://www.fluxixo.shop/products/auto-1005013145693095/": "a04ffc8e871e9fc672846c5b50b17f17eaa1a1de63afcb139fe388cf6bac9dc4",
+    "https://www.fluxixo.shop/products/auto-1005013186843415/": "1560c855181655460816c38d716a7a8041c70958d72889ad61b8da7fac03326f",
+    "https://www.fluxixo.shop/products/auto-1005013567552516/": "2ca1576306044c492b96431a83975d7e78b21b7aecd5a1c62c9d2f8fb23995ab",
+    "https://www.fluxixo.shop/products/find-035-cordless-scissors/": "8c69e434b21fb2bde257a3c2cad10b14e36099b8434d5b07ce465a94525782a3",
+    "https://www.fluxixo.shop/products/find-036-stud-finder/": "cdd8f315603f66d0074a8a241cdb310542ef05f918e7a9600e1fda7db894a974",
+    "https://www.fluxixo.shop/products/find-063-cable-tester/": "f0fd93e51055236f9bcbdb0370ff4a8e39134e88c94e03cb4fb8619bffc78bb9"
+  },
   "schema_version": 1
 }
