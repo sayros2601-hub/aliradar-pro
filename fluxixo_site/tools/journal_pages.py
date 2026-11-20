@@ -8,6 +8,7 @@ from pathlib import Path
 # Guides that exist in Russian only (written for readers who come from Yandex). Each row:
 # {"slug", "preferred_product", "title", "description", "h1", "sections": [[heading, paragraph], ...], "date"}.
 EXTRA_RU_FILE = Path(__file__).resolve().parent / 'journal_ru_extra.json'
+DIST = Path(__file__).resolve().parents[1] / 'dist'
 
 JOURNAL_UI = {
     'ru': {
@@ -246,6 +247,7 @@ ARTICLES = [
     {
         'slug': 'desk-cable-management',
         'preferred_product': None,
+        'image': 'assets/journal/desk-cable-routing.png',
         'modified': '2026-11-20',
         'translations': {
             'ru': (
@@ -393,6 +395,7 @@ def all_articles():
         for row in json.loads(EXTRA_RU_FILE.read_text(encoding='utf-8')):
             extra.append({
                 'slug': row['slug'], 'preferred_product': row['preferred_product'], 'date': row.get('date'),
+                'image': row.get('image'),
                 'translations': {'ru': (row['title'], row['description'], row['h1'], [tuple(pair) for pair in row['sections']])},
             })
     return ARTICLES + extra
@@ -430,17 +433,24 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
             art_alternates = {l: article_path(l, slug) for l in JOURNAL_UI if l in article['translations']}
             routes.append(art_url)
 
-            related_link = card_visual = ''
-            img_path = 'icon-512.png'
+            related_link = ''
             if rel_prod:
-                img_path = rel_prod['image']
-                thumb_rel = 'assets/thumbs/' + img_path.rsplit('/', 1)[-1].rsplit('.', 1)[0] + '-480.webp'
-                card_visual = f'<div class="card-visual"><img src="/{e(thumb_rel)}" alt="{e(h1)}" width="400" height="300" loading="lazy"></div>'
                 prod_href = f'{prefix_ru}/products/{rel_prod["id"]}/'
                 prod_name = (rel_prod['name'] if lang == 'ru'
                              else (i18n_data.get('products', {}).get(rel_prod['id'], {}).get(lang, {}) or {}).get('name', rel_prod['name']))
                 colon = ' : ' if lang == 'fr' else ': '
                 related_link = f'<a class="button secondary" href="{prod_href}">{e(ui["related_product_label"])}{colon}{e(prod_name)}</a>'
+
+            if article.get('image'):
+                img_path = thumb_rel = article['image']
+            elif rel_prod:
+                img_path = rel_prod['image']
+                thumb_rel = 'assets/thumbs/' + img_path.rsplit('/', 1)[-1].rsplit('.', 1)[0] + '-480.webp'
+            else:
+                # Keep the original example's image after retirement when it is still public.
+                img_path = thumb_rel = f'assets/images/{article["preferred_product"]}.webp'
+                if not (DIST / img_path).is_file():
+                    img_path = thumb_rel = 'assets/journal/buying-checklist.png'
 
             sec_html = ''.join(f'<section><h2>{e(h2)}</h2><p>{e(body)}</p></section>' for h2, body in sections)
             crumbs = [(ui['home'], home_href), (ui['eyebrow'], index_path(lang)), (h1, art_url)]
@@ -456,7 +466,7 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                         '@type': 'Article',
                         'headline': h1,
                         'description': meta_desc,
-                        **({'image': origin + '/' + img_path} if rel_prod else {}),
+                        'image': origin + '/' + img_path,
                         'datePublished': published,
                         'dateModified': modified,
                         'inLanguage': lang,
@@ -489,7 +499,7 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
             )
             cards_html.append(
                 f'<li><a class="card" href="{art_url}">'
-                f'{card_visual}'
+                f'<div class="card-visual"><img src="/{e(thumb_rel)}" alt="{e(h1)}" width="400" height="300" loading="lazy"></div>'
                 f'<p class="eyebrow">{e(ui["eyebrow"])}</p><h2>{e(h1)}</h2><p>{e(meta_desc)}</p></a></li>'
             )
 
