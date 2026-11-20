@@ -17,6 +17,11 @@ The owner has confirmed that its Gemini project has billing disabled.
 - Existing language, source-title, numerical-claim and catalog similarity gates
   remain in place. These checks are not proof that every product claim is true.
 
+Gemini treats the seller title as the factual source for product copy. A separate
+text-model call checks the claims in each locale's name, headline and description.
+Unsupported claims trigger a bounded rewrite. The same rule covers optional
+Russian buyer guidance. The policy version invalidates older cached drafts.
+
 The local durable ledger limits this pipeline to 480 text and 18 photo requests
 per rolling 24 hours, spaced by at least 4.1 / 12.1 seconds respectively.
 It includes failed or response-lost requests. Other clients can consume the

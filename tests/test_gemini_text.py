@@ -1,5 +1,6 @@
 """Offline contract tests: explicitly selected Gemini never spends another provider's quota."""
 import json
+from copy import deepcopy
 import os
 from pathlib import Path
 import sys
@@ -35,6 +36,11 @@ def mirror_bundle():
     }
 
 
+def claim_verdict(bundle, fields=('name', 'headline', 'description')):
+    return {'accepted': True, 'checks': {lang: dict.fromkeys(fields, True) for lang in bundle},
+            'unsupported_claims': []}
+
+
 class GeminiTextTests(unittest.TestCase):
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
@@ -46,6 +52,12 @@ class GeminiTextTests(unittest.TestCase):
         }, clear=True)
         self.env.start()
         self.addCleanup(self.env.stop)
+        from fluxixo_ai import gemini_client
+        clock = [2_000_000_000.0]
+        for patcher in (patch.object(gemini_client.time, 'time', side_effect=lambda: clock[0]),
+                        patch.object(gemini_client.time, 'sleep', side_effect=lambda delay: clock.__setitem__(0, clock[0]+delay))):
+            patcher.start()
+            self.addCleanup(patcher.stop)
 
     def test_scoped_key_and_provider_are_loaded_without_other_credentials(self):
         keys = ai_seo.load_ai_keys()
@@ -87,7 +99,10 @@ class GeminiTextTests(unittest.TestCase):
         source = 'New Telescoping Magnetic Inspection Mirror Tool 360 Swivel Mechanic'
         seen = []
         def fake(url, payload, headers):
-            seen.append(json.loads(payload['contents'][0]['parts'][0]['text']))
+            request = json.loads(payload['contents'][0]['parts'][0]['text'])
+            seen.append(request)
+            if request.get('task') == 'verify_source_claims':
+                return reply(claim_verdict(request['proposed_copy'], request['required_fields']))
             return reply(bundle)
         result, provider = ai_seo.enrich_product_copy(
             {'source_title': source, 'category': 'Инструменты', 'market': 'US'}, bundle,
@@ -97,6 +112,9 @@ class GeminiTextTests(unittest.TestCase):
         self.assertEqual(bundle, result)
         self.assertEqual('gemini:gemini-3.5-flash-lite:HIGH', provider)
         self.assertEqual(source, seen[0]['source_title'])
+        self.assertEqual(2, len(seen))
+        self.assertNotIn('baseline_6_languages', seen[0])
+        self.assertEqual(bundle, seen[1]['proposed_copy'])
         self.assertEqual([], ai_seo.validate_product_bundle(result, source_title=source, min_desc_len=160,
                                                             snippet_fetcher=lambda *args: []))
 
@@ -121,6 +139,100 @@ class GeminiTextTests(unittest.TestCase):
         self.assertEqual('gemini_copy_validation_failed', error.exception.code)
         self.assertEqual(2, len(seen))
         self.assertTrue(any('duplicate' in message for message in seen[1]['previous_validation_errors']))
+
+    def test_gemini_ignores_legacy_claims_and_rewrites_unsupported_headline(self):
+        bundle = mirror_bundle()
+        legacy = deepcopy(bundle)
+        legacy['en']['description'] = 'LEGACY_DRAFT_ONLY_LOCKING_VALVE 999ml'
+        unsupported = deepcopy(bundle)
+        unsupported['en']['headline'] = ['Push-button', 'water return.']
+        seen = []
+        generation_count = [0]
+        def fake(url, body, headers):
+            request = json.loads(body['contents'][0]['parts'][0]['text'])
+            seen.append(request)
+            if request.get('task') == 'verify_source_claims':
+                verdict = claim_verdict(request['proposed_copy'])
+                if request['proposed_copy'] == unsupported:
+                    verdict['accepted'] = False
+                    verdict['checks']['en']['headline'] = False
+                    verdict['unsupported_claims'] = [{'locale': 'en', 'field': 'headline',
+                        'claim': 'Push-button water return', 'reason': 'The seller title does not state this mechanism.'}]
+                return reply(verdict)
+            generation_count[0] += 1
+            return reply(unsupported if generation_count[0] == 1 else bundle)
+        with patch.object(ai_seo, 'validate_product_bundle', wraps=ai_seo.validate_product_bundle) as validate:
+            result, _ = ai_seo.enrich_product_copy(
+                {'source_title': 'Handheld inspection mirror with pivoting head', 'category': 'Tools'},
+                legacy, transport=fake, snippet_fetcher=lambda *a: [])
+        self.assertEqual(bundle, result)
+        self.assertEqual(4, len(seen))
+        self.assertNotIn('LEGACY_DRAFT_ONLY', json.dumps(seen))
+        self.assertEqual(['Handheld inspection mirror with pivoting head'] * 2,
+                         [call.kwargs['source_text'] for call in validate.call_args_list])
+        self.assertTrue(any('Push-button water return' in value for value in seen[2]['previous_validation_errors']))
+        self.assertEqual(['name', 'headline', 'description'], seen[1]['required_fields'])
+
+    def test_incomplete_claim_checks_fail_closed_after_two_attempts(self):
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        bundle = mirror_bundle()
+        valid = claim_verdict(bundle)
+        missing_locale = deepcopy(valid)
+        del missing_locale['checks']['he']
+        missing_headline = deepcopy(valid)
+        del missing_headline['checks']['fr']['headline']
+        non_boolean = deepcopy(valid)
+        non_boolean['checks']['pt']['name'] = 'true'
+        for bad in (missing_locale, missing_headline, non_boolean, {'accepted': True}):
+            calls = []
+            def fake(url, body, headers):
+                request = json.loads(body['contents'][0]['parts'][0]['text'])
+                calls.append(request)
+                return reply(bad if request.get('task') == 'verify_source_claims' else bundle)
+            with self.subTest(verdict=bad), self.assertRaises(GeminiDeferred) as caught:
+                ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
+                                          transport=fake, snippet_fetcher=lambda *a: [])
+            self.assertEqual('gemini_copy_validation_failed', caught.exception.code)
+            self.assertEqual(4, len(calls))
+
+    def test_numbers_in_legacy_copy_are_not_source_evidence(self):
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        bundle = mirror_bundle()
+        bundle['en']['description'] += ' The mirror weighs 999g.'
+        seen = []
+        def fake(url, body, headers):
+            seen.append(json.loads(body['contents'][0]['parts'][0]['text']))
+            return reply(bundle)
+        with self.assertRaises(GeminiDeferred):
+            ai_seo.enrich_product_copy({'source_title': 'Handheld mirror with swivel head'}, bundle,
+                                      transport=fake, snippet_fetcher=lambda *a: [])
+        self.assertEqual(2, len(seen))
+        self.assertTrue(any('ungrounded specs' in issue for issue in seen[1]['previous_validation_errors']))
+
+    def test_optional_russian_copy_uses_only_source_and_checks_every_field(self):
+        source = 'Handheld mirror with swivel head'
+        baseline = mirror_bundle()
+        baseline['ru']['description'] = 'LEGACY_DRAFT_ONLY_LOCKING_VALVE 999ml'
+        candidate = {'who': 'Зеркало пригодится для осмотра крепежа за шкафом и под капотом, когда к детали трудно подойти напрямую. Подвижная головка помогает подобрать направление отражения.',
+                     'check': ['Сверьте длину ручки и размер зеркала с доступным пространством.',
+                               'Уточните диапазон поворота головки и способ фиксации шарнира.',
+                               'Проверьте комплектацию выбранного варианта на странице продавца.']}
+        seen = []
+        def fake(url, body, headers):
+            request = json.loads(body['contents'][0]['parts'][0]['text'])
+            seen.append(request)
+            if request.get('task') == 'verify_source_claims':
+                return reply(claim_verdict(request['proposed_copy'], request['required_fields']))
+            return reply(candidate)
+        with patch.object(ai_seo, 'validate_ru_long_entry', wraps=ai_seo.validate_ru_long_entry) as validate:
+            result, _ = ai_seo.enrich_ru_long_copy({'source_title': source, 'category': 'Tools'}, baseline, transport=fake)
+        self.assertEqual(candidate, result)
+        self.assertEqual(2, len(seen))
+        self.assertNotIn('LEGACY_DRAFT_ONLY', json.dumps(seen))
+        self.assertNotIn('ru_description', seen[0])
+        self.assertEqual(source, validate.call_args.kwargs['grounding_text'])
+        self.assertEqual({'ru': candidate}, seen[1]['proposed_copy'])
+        self.assertEqual(['who', 'check'], seen[1]['required_fields'])
 
 
 if __name__ == '__main__':

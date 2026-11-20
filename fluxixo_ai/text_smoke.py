@@ -11,7 +11,7 @@ import re
 import time
 
 from . import autonomous
-from .gemini_client import GeminiDeferred, TEXT_MODEL, REVIEW_MODEL
+from .gemini_client import COPY_POLICY, GeminiDeferred, TEXT_MODEL, REVIEW_MODEL
 from . import reviewed_media
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
@@ -161,7 +161,7 @@ def run_smoke(catalog_id, *, repo_root=REPO_ROOT):
                  if f'/products/{catalog_id}/' not in route}
     corpus = originality.build_catalog_copy_corpus(catalog['products'], i18n,
                                                   extra_routes=overrides, exclude_ids={catalog_id})
-    text_key = _hash(json.dumps([SMOKE_POLICY, TEXT_MODEL, 'HIGH', catalog, i18n, overrides],
+    text_key = _hash(json.dumps([SMOKE_POLICY, COPY_POLICY, TEXT_MODEL, 'HIGH', catalog, i18n, overrides],
                                 sort_keys=True, ensure_ascii=False).encode())
     text_state = state.get('text') or {}
     text_reused = text_state.get('input_key') == text_key and isinstance(text_state.get('copy'), dict)
@@ -178,21 +178,21 @@ def run_smoke(catalog_id, *, repo_root=REPO_ROOT):
               **{lang: locales[lang] for lang in autonomous.LANGS if lang != 'ru'}}
     errors = autonomous._copy_validation_problems(updated, locales, site, catalog_corpus=corpus)
     errors += ai_seo.validate_product_bundle(
-        bundle, source_text=f'{source} {json.dumps({"ru": record, **translated}, ensure_ascii=False)}',
+        bundle, source_text=source,
         source_title=source, catalog_corpus=corpus, min_desc_len=160,
     )
     if errors:
         state.pop('text', None)
         _save_state(state_path, state, root)
         raise GeminiDeferred('smoke_copy_validation_failed')
-    state['text'] = {'input_key': text_key, 'copy': bundle, 'model': TEXT_MODEL, 'thinking_level': 'HIGH'}
+    state['text'] = {'input_key': text_key, 'policy': COPY_POLICY, 'copy': bundle, 'model': TEXT_MODEL, 'thinking_level': 'HIGH'}
     _save_state(state_path, state, root)
     frames, status, requested = _review_frames(record, assets, state, state_path, root)
     return {
         'success': status == 'accepted', 'status': status, 'catalog_id': catalog_id, 'provider': 'gemini', 'model': TEXT_MODEL,
         'thinking_level': 'HIGH', 'validated_locales': len(bundle), 'published': False,
         'all_frames_accepted': status == 'accepted', 'photo_review_model': REVIEW_MODEL,
-        'text_reused': text_reused, 'reviews_requested': requested, 'frames': frames,
+        'copy_policy': COPY_POLICY, 'text_reused': text_reused, 'reviews_requested': requested, 'frames': frames,
         'validation': 'daily copy, six-language field, source-title and catalog originality checks passed',
         'external_snippet_check_enabled': os.environ.get('FLUXIXO_WEB_CHECK', '') == '1',
         'copy': bundle,

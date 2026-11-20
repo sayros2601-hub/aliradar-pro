@@ -306,7 +306,9 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                     reject_placeholders=True,
                 ):
                     if hasattr(ai_seo, 'enrich_ru_long_copy'):
-                        for _lc_attempt in range(2):
+                        # Gemini's long-copy helper already makes its bounded correction attempt.
+                        attempts = 1 if keys.get('FLUXIXO_TEXT_PROVIDER') == 'gemini' else 2
+                        for _lc_attempt in range(attempts):
                             try:
                                 long_entry, lc_provider = ai_seo.enrich_ru_long_copy(
                                     {
@@ -1538,7 +1540,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
     pending = None
     if review_required:
         from .pending_products import PendingProducts
-        from .gemini_client import GeminiDeferred
+        from .gemini_client import COPY_POLICY, GeminiDeferred
         from .reviewed_media import MediaDeferred, verify_review_bindings
         pending = PendingProducts(ledger_path.parent / 'fluxixo_pending.sqlite3')
         pending.reconcile(old)
@@ -1638,7 +1640,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         # Reject untranslated or duplicated copy before spending
                         # one of the day's limited image-product attempts.
                         cached_copy = pending.text(candidate['product_id']) if pending else None
-                        if cached_copy:
+                        if cached_copy and cached_copy.get('policy') == COPY_POLICY:
                             record_item.update(cached_copy['record'])
                             translated = cached_copy['translated']
                         else:
@@ -1658,6 +1660,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                             continue
                         if pending:
                             pending.save_text(candidate['product_id'], {
+                                'policy': COPY_POLICY,
                                 'record': {k: record_item[k] for k in ('name', 'headline', 'description', 'details', '_ru_long') if k in record_item},
                                 'translated': translated,
                             })
