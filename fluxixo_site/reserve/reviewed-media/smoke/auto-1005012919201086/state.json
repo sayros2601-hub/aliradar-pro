@@ -71,6 +71,12 @@
         "reasons": []
       },
       "reviewed_at": 1795143435.0209846
+    },
+    "application": {
+      "input_key": "5917c9fe167920d7738064e4db75069e4b5ea7ff8ec78cadecabd0456e53fbd9",
+      "status": "deferred",
+      "reason": "gemini_transport_unavailable",
+      "retry_at": 1795143827.7598033
     }
   }
 }
