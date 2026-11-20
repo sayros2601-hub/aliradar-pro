@@ -23,6 +23,43 @@ def selected(index):
 
 
 class DailyIntegrationTests(unittest.TestCase):
+    def test_review_deferred_candidate_does_not_block_other_verified_card(self):
+        from fluxixo_ai import autonomous
+        from fluxixo_ai.reviewed_media import MediaDeferred
+        from fluxixo_ai.pending_products import PendingProducts
+        def reviewed_media(item, internal_id, stage):
+            if item['product_id'] == selected(0)['product_id']:
+                raise MediaDeferred('review_quota', NOW.timestamp() + 3600)
+            media = self.media(item, internal_id, stage)
+            media['views'] = []
+            media['review_sources'] = []
+            frames = []
+            for n in range(3):
+                source = stage / f'{internal_id}-review-{n}.png'
+                source.write_bytes(b'reference' + str(n).encode())
+                media['review_sources'].append(source)
+                frames.append({'source_asset': f'assets/originals/{source.name}'})
+                if n:
+                    view = stage / f'{internal_id}-v{n+1}.webp'
+                    view.write_bytes(b'view' + str(n).encode())
+                    media['views'].append(view)
+            media['identity_source'] = media['review_sources'][0]
+            media['media_review'] = {'frames': frames, 'identity_source_asset': f'assets/originals/{internal_id}-review-identity.png'}
+            return media
+        with patch.dict('os.environ', {'FLUXIXO_REVIEW_REQUIRED': '1', 'FLUXIXO_AI_TRANSPORT': 'disabled',
+                                      'AUTOPILOT_SYNC_TOKEN': 'offline-placeholder'}), \
+             patch('fluxixo_ai.reviewed_media.verify_review_bindings', return_value=True), \
+             patch.object(autonomous, '_maybe_ai_enrich', side_effect=lambda r, t, *a, **kw: (r, t)):
+            result = autonomous.accumulate(count=3, site_root=self.site, dist=self.dist, reserve_dir=self.reserve,
+                                          ledger_path=self.root/'data/fluxixo_daily_ledger.json', now=NOW,
+                                          discover_fn=lambda *_: [selected(0), selected(1)], media_fn=reviewed_media)
+        self.assertEqual(result['added'], 1)
+        self.assertEqual(self.catalog()['products'][0]['sourceProductId'], selected(1)['product_id'])
+        q = PendingProducts(self.root/'data/fluxixo_pending.sqlite3')
+        q.reconcile(self.catalog()['products'])
+        self.assertIsNone(q.claim(now=NOW.timestamp()+1))
+        self.assertEqual(q.claim(now=NOW.timestamp()+3601)['product_id'], selected(0)['product_id'])
+
     def setUp(self):
         self.tmp = tempfile.TemporaryDirectory()
         self.addCleanup(self.tmp.cleanup)

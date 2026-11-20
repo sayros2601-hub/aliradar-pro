@@ -1,6 +1,7 @@
-"""Cloudflare Workers AI + GitHub Models SEO orchestrator with strict verification & deterministic fallback.
+"""Explicit Gemini or legacy Cloudflare/GitHub SEO, with unchanged copy validators.
 
-Routes cloud text, SEO, and 6-language product copy strictly without Google/Gemini:
+FLUXIXO_TEXT_PROVIDER=gemini uses only the dedicated Gemini text key and model.
+Other callers retain the existing legacy route:
 1. Primary: Cloudflare Worker (`CLOUDFLARE_AUTOPILOT_URL`/api/generate-copy -> Cloudflare Workers AI `env.AI`)
 2. Fallback 1: Direct Cloudflare Workers AI REST (`CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID`)
 3. Fallback 2: GitHub Models (`GITHUB_TOKEN` -> `https://models.github.ai/inference/chat/completions`)
@@ -25,7 +26,7 @@ TOOLS_DIR = Path(__file__).resolve().parent
 SITE_DIR = TOOLS_DIR.parent
 REPO_DIR = SITE_DIR.parent
 
-for candidate in (str(TOOLS_DIR), str(SITE_DIR)):
+for candidate in (str(TOOLS_DIR), str(SITE_DIR), str(REPO_DIR)):
     if candidate not in sys.path:
         sys.path.insert(0, candidate)
 
@@ -186,12 +187,17 @@ def _autopilot_url_from_keys(keys):
 
 
 def load_ai_keys(local=False, explicit=None):
-    """Read Cloudflare Worker / Workers AI / GitHub Models credentials without Google/Gemini."""
+    """Load scoped text credentials; Gemini never reads local credential files."""
     mapping = {
         'CLOUDFLARE_API_TOKEN': 'cloudflare-token.dpapi',
         'AUTOPILOT_SYNC_TOKEN': 'autopilot-sync-token.dpapi',
     }
     found = {}
+    for name in ('FLUXIXO_TEXT_PROVIDER', 'FLUXIXO_TEXT_GEMINI_API_KEY'):
+        value = explicit.get(name, '') if explicit is not None else os.environ.get(name, '')
+        found[name] = str(value or '').strip()
+    if found['FLUXIXO_TEXT_PROVIDER'].lower() == 'gemini':
+        return found
     for env_name in mapping:
         val = (explicit or {}).get(env_name) or (os.environ.get(env_name) if explicit is None else '') or ''
         found[env_name] = str(val).strip()
@@ -247,6 +253,9 @@ def load_ai_keys(local=False, explicit=None):
 
 def has_ai_provider(keys=None):
     k = keys if keys is not None else load_ai_keys(local=False)
+    if str(k.get('FLUXIXO_TEXT_PROVIDER', '')).lower() == 'gemini':
+        # Configured-but-missing credentials must fail closed, not select a legacy provider.
+        return True
     if _autopilot_url_from_keys(k) or k.get('CLOUDFLARE_API_TOKEN') or k.get('GITHUB_TOKEN'):
         return True
     if keys is not None:
@@ -424,8 +433,18 @@ def _call_autopilot_copy(worker_base_url, system_prompt, user_prompt, transport=
 
 
 def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
-    """Query Cloudflare Workers AI first, falling back to GitHub Models (never Google/Gemini)."""
+    """Gemini is exclusive when selected; otherwise preserve the legacy provider chain."""
     resolved = keys if keys is not None else load_ai_keys(local=False)
+    if str(resolved.get('FLUXIXO_TEXT_PROVIDER', '')).lower() == 'gemini':
+        from fluxixo_ai import gemini_client
+        result = gemini_client.call_json(
+            system_prompt, user_prompt, model=gemini_client.TEXT_MODEL,
+            api_key=resolved.get('FLUXIXO_TEXT_GEMINI_API_KEY', ''),
+            # The legacy transport retries requests and exposes provider error bodies.
+            # Gemini uses its own single-request transport; retain injection for offline tests.
+            transport=None if transport is _post_json else transport,
+        )
+        return result, f'gemini:{gemini_client.TEXT_MODEL}:HIGH'
     errors = []
     autopilot_url = _autopilot_url_from_keys(resolved)
     sync_token = str(resolved.get('AUTOPILOT_SYNC_TOKEN') or '').strip()
@@ -798,6 +817,9 @@ def enrich_product_copy(
             'instruction': 'Fix every validation error strictly, rewrite any phrase overlapping source_title or catalog, keep name 4..58 chars, preserve exact meaning and orthography in all 6 languages, and return valid JSON.',
         }, ensure_ascii=False)
 
+    if str(resolved.get('FLUXIXO_TEXT_PROVIDER', '')).lower() == 'gemini':
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        raise GeminiDeferred('gemini_copy_validation_failed')
     return base_bundle, 'deterministic-after-lint'
 
 

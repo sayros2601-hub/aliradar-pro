@@ -8,6 +8,7 @@ on:
     - cron: '5 10 * * *'
     - cron: '5 11 * * *'
     - cron: '35 11 * * *'
+    - cron: '5 12-19 * * *'
   workflow_dispatch:
     inputs:
       add_count:
@@ -26,6 +27,7 @@ concurrency:
 
 jobs:
   accumulate-and-deploy:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     timeout-minutes: 100
     env:
@@ -33,10 +35,13 @@ jobs:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
       LEDGER: data/fluxixo_daily_ledger.json
       PUBLISH_STATE: data/fluxixo_publish_state.json
-      # Transparent RGBA studio cutout pipeline (zero Google/Gemini dependency, zero opaque colored boxes):
-      # All 3 views are generated via Cloudflare FLUX.2 on a neutral #FFFFFF studio backdrop (Slots 1 & 3 via
-      # Klein 9B, Slot 2 via Klein 4B), then extracted to transparent RGBA cutouts with rembg refinement so
-      # products float seamlessly on the #f3f0e9 rope, pastel world cards, and product pages without color clash.
+      # New cards require exact-version Gemini review. Shared Paid Workers AI usage
+      # has no enforceable free cap, so reviewed media uses authentic seller cutouts
+      # until an account-wide no-overage reservation can be established.
+      FLUXIXO_REVIEW_REQUIRED: '1'
+      FLUXIXO_REVIEW_STATE_DIR: fluxixo_site/reserve/reviewed-media
+      FLUXIXO_GEMINI_BUDGET_PATH: data/fluxixo_gemini_usage.sqlite3
+      FLUXIXO_DURABLE_CHECKPOINT: git
       FLUXIXO_IMAGE_MODE: generate
       FLUXIXO_IMAGE_PROVIDER: cloudflare
       FLUXIXO_DIRECT_STUDIO_BG: '0'
@@ -101,6 +106,7 @@ jobs:
           npm ci --ignore-scripts
 
       - name: Configure catalog writer
+        id: writer
         if: steps.today.outputs.skip != 'true'
         run: |
           git config user.name "FLUXIXO Cloud Autopilot"
@@ -122,6 +128,8 @@ jobs:
         if: steps.today.outputs.action == 'prepare'
         timeout-minutes: 55
         env:
+          FLUXIXO_TEXT_PROVIDER: gemini
+          FLUXIXO_TEXT_GEMINI_API_KEY: ${{ secrets.FLUXIXO_TEXT_GEMINI_API_KEY }}
           ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
           ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
           AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
@@ -135,21 +143,33 @@ jobs:
           FLUXIXO_WEB_CHECK: '1'
           SERPER_API_KEY: ${{ secrets.SERPER_API_KEY }}
         run: |
-          # 2-hour pre-publish preparation (from 12:00 Moscow): generates studio visuals directly on world backgrounds,
-          # unique broad 6-language SEO copy (zero FAQ blocks), and requires availability in all 6 target countries.
+          # Text: Gemini 3.5 Flash-Lite HIGH. Review: Gemini 3.8 Flash HIGH.
+          # Both use only the dedicated Free Tier secret; no alternate paid provider.
+          test -n "$FLUXIXO_TEXT_GEMINI_API_KEY" || { echo 'Missing FLUXIXO_TEXT_GEMINI_API_KEY'; exit 1; }
           python -B fluxixo_daily_rotate.py --add "$ADD_COUNT" --markets "$MARKETS" --prepare-only
 
+      - name: Checkpoint internal retry state even if preparation failed
+        if: always() && steps.today.outputs.action == 'prepare' && steps.writer.outcome == 'success'
+        run: python -B -m fluxixo_ai.state_checkpoint
+
       - name: Persist prepared products and their images before building pages
-        if: steps.today.outputs.skip != 'true'
+        if: success() && steps.prepare.outcome == 'success'
         env:
           DAY: ${{ steps.today.outputs.day }}
           RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
         run: |
           if [ "$RECORD_PUBLICATION" = "true" ]; then
-            python -B -m fluxixo_ai.daily_schedule mark-prepared --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
+            python -B -m fluxixo_ai.daily_schedule mark-prepared --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY" --allow-partial
           fi
           git add -- fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools "$LEDGER" "$PUBLISH_STATE" ':!fluxixo_site/dist/assets/thumbs'
+          # Per-frame seller references and canonical identity are private source assets.
+          shopt -s nullglob
+          references=(fluxixo_site/dist/assets/originals/*-review-*.png fluxixo_site/dist/assets/originals/*-identity.png)
+          if (( ${#references[@]} )); then git add -f -- "${references[@]}"; fi
           if [ -f data/fluxixo_ai.sqlite3 ]; then git add -f data/fluxixo_ai.sqlite3; fi
+          for state in data/fluxixo_pending.sqlite3 "$FLUXIXO_GEMINI_BUDGET_PATH"; do
+            if [ -e "$state" ]; then git add -f -- "$state"; fi
+          done
           if ! git diff --cached --quiet; then
             git commit -m "chore(fluxixo): save prepared daily catalog [skip ci]"
             git push origin HEAD:main
@@ -176,7 +196,7 @@ jobs:
         run: |
           INPUT_COUNT="${INPUT_COUNT//[[:space:]]/}"
           case "${EVENT_NAME}:${INPUT_COUNT}" in
-            workflow_dispatch:0|workflow_dispatch:1|workflow_dispatch:2|workflow_dispatch:3)
+            workflow_dispatch:0)
               python -B -m fluxixo_ai.daily_schedule plan --ledger "$LEDGER" --state "$PUBLISH_STATE" --output "$GITHUB_OUTPUT" --manual-count 0
               ;;
             *)
@@ -185,7 +205,7 @@ jobs:
           esac
 
       - name: Build and verify all six languages without new images
-        if: steps.today.outputs.skip != 'true'
+        if: steps.publication.outputs.action == 'recover'
         env:
           DAY: ${{ steps.publication.outputs.publication_day }}
           RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
@@ -204,7 +224,7 @@ jobs:
           fi
 
       - name: Publish prepared release at the evening window
-        if: steps.today.outputs.skip != 'true' && steps.publication.outputs.publish == 'true'
+        if: steps.publication.outputs.action == 'recover' && steps.publication.outputs.publish == 'true'
         timeout-minutes: 15
         env:
           EVENT_NAME: ${{ github.event_name }}
@@ -216,7 +236,7 @@ jobs:
         run: |
           INPUT_COUNT="${INPUT_COUNT//[[:space:]]/}"
           case "${EVENT_NAME}:${INPUT_COUNT}" in
-            workflow_dispatch:0|workflow_dispatch:1|workflow_dispatch:2|workflow_dispatch:3)
+            workflow_dispatch:0)
               python -B -m fluxixo_ai.daily_schedule guard-publication --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY" --manual-count 0
               ;;
             *)
@@ -226,7 +246,7 @@ jobs:
           python -B fluxixo_daily_rotate.py --add 0 --deploy --deploy-existing
 
       - name: Record success only after deployment completes
-        if: steps.today.outputs.skip != 'true' && steps.publication.outputs.publish == 'true'
+        if: steps.publication.outputs.action == 'recover' && steps.publication.outputs.publish == 'true'
         env:
           DAY: ${{ steps.today.outputs.day }}
           RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
@@ -243,8 +263,7 @@ jobs:
           fi
           python -B -c "import fluxixo_daily_rotate as d; d.report_autopilot_sync('published', {'day': '$DAY'})" || true
 
-      - name: Report a blocked preparation without spending another allowance
+      - name: Report waiting preparation
         if: steps.today.outputs.reason == 'interrupted_prepare'
         run: |
-          echo "::error::The daily image allowance was already reserved, but the batch is incomplete. No new images were generated by this retry."
-          exit 1
+          echo "::notice::Preparation is waiting for its bounded retry window. Pending candidates and reviewed assets are retained."
