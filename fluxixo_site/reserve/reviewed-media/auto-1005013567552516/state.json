@@ -88,38 +88,79 @@
   "slots": [
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b.png",
-        "source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sdda9f8d592ed4a27b464f72114d959c3q.jpg",
-        "original_sha256": "2b7e53cd0b98b48c59b0f549e3790e50ce99921baf51116170858fbb95a9d73a",
-        "output_file": "hero-7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d.webp",
-        "image_sha256": "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d",
-        "metrics": {
-          "fg_width": 660,
-          "fg_height": 183,
-          "fg_max_side": 660,
-          "fg_min_side": 183,
-          "upscale_ratio": 1.348,
-          "sharpness": 22.183,
-          "fg_mean_luma": 104.16,
-          "fg_luma_std": 57.44,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.01,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product image accurately shows the wooden balance board with black grip tape matching the title and reference images.",
+          "The hero shot clearly displays the item and its variant without any material defects or missing parts."
+        ]
+      },
+      "source_file": "reference-e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b.png",
+      "source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sdda9f8d592ed4a27b464f72114d959c3q.jpg",
+      "original_sha256": "2b7e53cd0b98b48c59b0f549e3790e50ce99921baf51116170858fbb95a9d73a",
+      "output_file": "hero-7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d.webp",
+      "image_sha256": "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d",
+      "metrics": {
+        "fg_width": 660,
+        "fg_height": 183,
+        "fg_max_side": 660,
+        "fg_min_side": 183,
+        "upscale_ratio": 1.348,
+        "sharpness": 22.183,
+        "fg_mean_luma": 104.16,
+        "fg_luma_std": 57.44,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.01,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product image accurately shows the wooden balance board with black grip tape matching the title and reference images.",
+          "The hero shot clearly displays the item and its variant without any material defects or missing parts."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "e1e8e18c3d91e7780d1b04d8ad1e843e67694e4d799c45129ed0e9c637e9cb5b",
+      "source_title_sha256": "9e210a0fe4622d6e73ed16c6a14230eb38aa4fb4a31aed36ff0e636bdddc92c3",
+      "reviewed_at": 1795182682.7963448
     },
-    {},
+    {
+      "generation_attempts": {},
+      "rejected_sources": [
+        "2ccecd8d76145b392190d148afa3e0022114593c6560ff64ef1668605452341a"
+      ],
+      "feedback": "Preserve the complete product and provide a clean, distinct frame."
+    },
     {}
   ],
   "created_at": 1795181567.444309,
   "deferrals": 0,
-  "lease_owner": "19c3a1658dab4f0182597340f768177c",
-  "lease_until": 0,
-  "status": "waiting",
+  "lease_owner": "ccb2e427fd6c43448f67137b238012a5",
+  "lease_until": 1795184473.4903328,
+  "status": "processing",
   "next_attempt": 0,
   "source_refresh_after": 1795267968.743999,
   "source_version": "49cf33e04e05af944bc199b0510ff1ab994f38a534dfa7fee9b04acaec0485b3",
@@ -138,8 +179,20 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 2,
+        "events": [
+          {
+            "source_sha256": "2ccecd8d76145b392190d148afa3e0022114593c6560ff64ef1668605452341a",
+            "at": 1795182682.797875,
+            "code": "technical_quality"
+          },
+          {
+            "source_sha256": "54eecad5bc382b2383f5c373be51b6c01b416f13356779f00e1efb57f5daae2e",
+            "at": 1795182685.1829727,
+            "code": "reserved"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -149,9 +202,25 @@
   },
   "review_attempts": {
     "7931f3057e3d091fe7ab4a922f2442932cc2de570b53f9ed29a2a4ac71ae892d": {
-      "opportunities": 0,
-      "last_code": "gemini_transport_timeout",
-      "provider_attempted": null
+      "opportunities": 1,
+      "last_code": "accepted",
+      "provider_attempted": null,
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product image accurately shows the wooden balance board with black grip tape matching the title and reference images.",
+          "The hero shot clearly displays the item and its variant without any material defects or missing parts."
+        ]
+      }
     }
   },
   "identity_source": {
