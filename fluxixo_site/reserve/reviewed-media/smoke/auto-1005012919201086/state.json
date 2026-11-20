@@ -53,5 +53,24 @@
     },
     "model": "gemini-3.5-flash-lite",
     "thinking_level": "HIGH"
+  },
+  "reviews": {
+    "hero": {
+      "input_key": "98ee0b11d8a46998fc6e936541f650af170bd84c0735978c36d7b79e80a08b3a",
+      "status": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "reasons": []
+      },
+      "reviewed_at": 1795143435.0209846
+    }
   }
 }
