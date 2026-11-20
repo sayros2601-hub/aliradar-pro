@@ -13,6 +13,32 @@ TODAY = date(2026, 11, 12)
 
 
 class SeoDailyTest(unittest.TestCase):
+    def test_sitemap_urls_collects_pages_and_excludes_sitemap_index_locations(self):
+        root = 'https://www.fluxixo.shop/'
+        russian_page = f'{root}catalog/'
+        english_page = f'{root}en/journal/wifi-repeater-buying-guide/'
+        namespace = 'http://www.sitemaps.org/schemas/sitemap/0.9'
+        with tempfile.TemporaryDirectory() as folder:
+            dist = Path(folder)
+            (dist / 'sitemap.xml').write_text(
+                f'<urlset xmlns="{namespace}"><url><loc>{root}</loc></url>'
+                f'<url><loc>{russian_page}</loc></url></urlset>',
+                encoding='utf-8',
+            )
+            (dist / 'sitemap-index.xml').write_text(
+                f'<sitemapindex xmlns="{namespace}">'
+                f'<sitemap><loc>{root}sitemap-ru.xml</loc></sitemap>'
+                f'<sitemap><loc>{root}sitemap-en.xml</loc></sitemap></sitemapindex>',
+                encoding='utf-8',
+            )
+            (dist / 'sitemap-en.xml').write_text(
+                f'<urlset xmlns="{namespace}"><url><loc> {root} </loc></url>'
+                f'<url><loc>{english_page}</loc></url></urlset>',
+                encoding='utf-8',
+            )
+            with mock.patch.object(seo, 'DIST', dist):
+                self.assertEqual([root, russian_page, english_page], seo.sitemap_urls())
+
     def test_totals_weight_position_by_impressions(self):
         rows = [{'clicks': 1, 'impressions': 100, 'position': 4.0}, {'clicks': 0, 'impressions': 300, 'position': 12.0}]
         self.assertEqual(seo.totals(rows), {'clicks': 1, 'impressions': 400, 'ctr': 0.25, 'position': 10.0, 'queries': 2})

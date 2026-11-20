@@ -580,6 +580,8 @@ class Site:
                              for l in LANGS if l != self.lang)
             intro = (f'<section class="about home-about"><h2>{e(r["about_h"])}</h2>{"".join(f"<p>{e(t)}</p>" for t in r["about"])}'
                      f'<h2>{e(r["how_h"])}</h2><p>{e(r["how"])}</p>'
+                     f'<p><a class="guide-link" href="{journal_pages.article_path("en", "wifi-repeater-buying-guide")}">'
+                     'How to choose and place a Wi-Fi range extender</a></p>'
                      f'<h2>{e(r["langs_h"])}</h2><div class="lang-bar">{others}</div></section>')
             root_body = hero + cats + day + ''.join(bands) + fresh + intro
             root_listing = {'@type': 'ItemList', 'name': r['title'], 'numberOfItems': len(newest),

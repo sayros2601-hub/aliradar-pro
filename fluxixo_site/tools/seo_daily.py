@@ -106,15 +106,20 @@ def secrets(local):
 
 
 def sitemap_urls():
-    urls = []
+    urls = {}
+    ns = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
     for name in SITEMAPS:
         path = DIST / name
         if not path.exists():
             continue
-        for loc in ET.parse(path).getroot().iter('{http://www.sitemaps.org/schemas/sitemap/0.9}loc'):
-            if loc.text and loc.text not in urls:
-                urls.append(loc.text.strip())
-    return urls
+        root = ET.parse(path).getroot()
+        if root.tag != f'{ns}urlset':
+            continue
+        for loc in root.findall(f'{ns}url/{ns}loc'):
+            url = (loc.text or '').strip()
+            if url:
+                urls[url] = None
+    return list(urls)
 
 
 def ru_url(url):

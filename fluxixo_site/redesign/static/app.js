@@ -139,7 +139,6 @@ const FluxixoLocale = (() => {
     fr: '/fr/',
     he: '/he/',
   };
-  const STORAGE_KEY = 'fluxixo.lang.v2';
   // Legacy showroom links used the product ID as the root fragment, alongside ?lang=.
   const LEGACY_PRODUCT_ID = /^(?:auto-\d+|find-\d+-[a-z0-9]+(?:-[a-z0-9]+)*|import-\d+|katord-wifi-repeater)$/;
 
@@ -148,18 +147,6 @@ const FluxixoLocale = (() => {
     const base = raw.trim().toLowerCase().split(/[-_]/)[0];
     if (base === 'iw') return 'he';
     return Object.prototype.hasOwnProperty.call(LOCALE_PATHS, base) ? base : '';
-  }
-
-  function sameOriginReferrer(referrer, origin) {
-    if (!referrer || !origin) return false;
-    if (typeof URL === 'function') {
-      try {
-        return new URL(referrer).origin === origin;
-      } catch {
-        return false;
-      }
-    }
-    return referrer.indexOf(origin + '/') === 0 || referrer === origin;
   }
 
   function resolveVisitorPath(opts) {
@@ -189,27 +176,7 @@ const FluxixoLocale = (() => {
     }
     // The English showroom's share URL omitted ?lang= when it was not already set.
     if (productLink) return `/en/products/${productId}/${search}`;
-
-    if (options.webdriver) return null;
-    if (options.userAgent && /bot|crawl|spider|slurp|mediapartners|lighthouse/i.test(options.userAgent)) {
-      return null;
-    }
-    if (sameOriginReferrer(options.referrer, options.origin)) return null;
-
-    let preferred = normalizeLocaleCode(options.savedLang);
-    if (!preferred && Array.isArray(options.languages)) {
-      for (const candidate of options.languages) {
-        const normalized = normalizeLocaleCode(candidate);
-        if (normalized) {
-          preferred = normalized;
-          break;
-        }
-      }
-    }
-    if (!preferred || preferred === 'en') return null;
-    const target = LOCALE_PATHS[preferred];
-    if (!target || target === '/') return null;
-    return target + search + hash;
+    return null;
   }
 
   function decorateAffiliateUrl(href, pageLang) {
@@ -259,7 +226,6 @@ const FluxixoLocale = (() => {
   return {
     ALI_LANG_BY_LOCALE,
     LOCALE_PATHS,
-    STORAGE_KEY,
     normalizeLocaleCode,
     resolveVisitorPath,
     decorateAffiliateUrl,
@@ -272,31 +238,17 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
   if (typeof document === 'undefined') return;
   const root = document.documentElement;
   const lang = root.lang || 'en';
-  let savedLang = null;
   try {
-    savedLang = typeof localStorage !== 'undefined' ? localStorage.getItem(FluxixoLocale.STORAGE_KEY) : null;
-  } catch { /* a blocked storage API should not prevent legacy URL navigation */ }
-  try {
-    const navLangs = typeof navigator !== 'undefined'
-      ? ((Array.isArray(navigator.languages) && navigator.languages.length && navigator.languages)
-        || (navigator.language ? [navigator.language] : []))
-      : [];
     const redirectTarget = FluxixoLocale.resolveVisitorPath({
       pathname: location.pathname,
       search: location.search,
       hash: location.hash,
-      referrer: document.referrer,
-      origin: location.origin,
-      savedLang,
-      languages: navLangs,
-      webdriver: typeof navigator !== 'undefined' && Boolean(navigator.webdriver),
-      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
     });
     if (redirectTarget) {
       location.replace(redirectTarget);
       return;
     }
-  } catch { /* ignore restricted storage/location contexts */ }
+  } catch { /* ignore restricted location contexts */ }
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Phones and small tablets get the app layout: no pinned scene, no repainting; the rope swings there too.
   const phone = matchMedia('(max-width: 860px)');
@@ -831,17 +783,7 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     }, { threshold: 0.4 }).observe(frame);
   }
 
-  // Remember explicit language choice and adapt outbound AliExpress links to storefront language.
-  document.addEventListener('click', event => {
-    const langLink = event.target && event.target.closest ? event.target.closest('.langs a[hreflang]') : null;
-    if (!langLink) return;
-    const picked = FluxixoLocale.normalizeLocaleCode(langLink.getAttribute('hreflang'));
-    if (!picked) return;
-    try {
-      if (typeof localStorage !== 'undefined') localStorage.setItem(FluxixoLocale.STORAGE_KEY, picked);
-    } catch { /* ignore */ }
-  }, true);
-
+  // Adapt outbound AliExpress links to the current storefront language.
   const adaptAffiliateHref = event => {
     const link = event.target && event.target.closest ? event.target.closest('a[href*="s.click.aliexpress.com"]') : null;
     if (!link) return;

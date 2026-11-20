@@ -160,6 +160,50 @@ class MarketSeoAndSitemapsTests(unittest.TestCase):
         for tag in ('ru', 'ru-RU', 'en', 'en-US', 'pt-BR', 'pt', 'es-MX', 'es', 'fr', 'fr-FR', 'he-IL', 'he', 'x-default'):
             self.assertIn(f'hreflang="{tag}"', html)
 
+    def test_wifi_guide_retains_russian_article_and_renders_english_counterpart(self):
+        origin = 'https://www.fluxixo.shop'
+        slug = 'wifi-repeater-buying-guide'
+        product_id = 'katord-wifi-repeater'
+        guide_paths = {'ru': f'/journal/{slug}/', 'en': f'/en/journal/{slug}/'}
+        product_paths = {'ru': f'/products/{product_id}/', 'en': f'/en/products/{product_id}/'}
+        journal_indexes = {'ru': '/journal/', 'en': '/en/journal/'}
+        products = [
+            {'id': 'fallback-example', 'name': 'Fallback example', 'image': 'assets/images/fallback.webp'},
+            {'id': product_id, 'name': 'KATORD RU', 'image': 'assets/images/katord.webp'},
+        ]
+        translations = {'products': {product_id: {'en': {'name': 'KATORD EN'}}}}
+        pages = {}
+
+        def page(title, description, path, body, *, schema, language, alternate_paths, image=None):
+            pages[path] = (body, schema, language, alternate_paths)
+            return body
+
+        routes = journal_pages.generate_journal_pages(
+            origin, products, translations, page, lambda *_: None, market_seo.full_alternates,
+        )
+        guide_routes = [path for path in routes if path.endswith(f'/{slug}/')]
+        self.assertCountEqual(guide_paths.values(), guide_routes)
+        dates = {}
+        for language, path in guide_paths.items():
+            with self.subTest(language=language):
+                body, schema, html_language, alternatives = pages[path]
+                self.assertEqual(language, html_language)
+                self.assertEqual(guide_paths, alternatives)
+                self.assertIn(f'href="{product_paths[language]}"', body)
+                self.assertIn(f'href="{path}"', pages[journal_indexes[language]][0])
+                article_schema = next(node for node in schema['@graph'] if node['@type'] == 'Article')
+                self.assertEqual(origin + path, article_schema['mainEntityOfPage'])
+                dates[language] = date.fromisoformat(article_schema['datePublished'])
+
+        russian_body = pages[guide_paths['ru']][0]
+        self.assertIn('<h1>Как выбрать усилитель Wi-Fi сигнала для квартиры и дачи</h1>', russian_body)
+        for heading in ('Сколько антенн и диапазонов нужно на практике',
+                        'Где ставить повторитель, чтобы он усиливал, а не тормозил',
+                        'Порт RJ45 и режим точки доступа', 'Вилка, нагрев и способ настройки'):
+            self.assertIn(f'<h2>{heading}</h2>', russian_body)
+        self.assertEqual(date(2026, 11, 13), dates['ru'])
+        self.assertGreater(dates['en'], dates['ru'])
+
     def test_write_sitemaps_creates_country_maps_and_index(self):
         with tempfile.TemporaryDirectory() as tmp:
             dist = Path(tmp)

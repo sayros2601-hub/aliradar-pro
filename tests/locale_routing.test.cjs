@@ -15,61 +15,42 @@ function loadLocaleExports({ withUrl = true } = {}) {
 
 const fx = loadLocaleExports();
 
-test('resolveVisitorPath routes first-time root visitors by browser language', () => {
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['ru-RU', 'en-US'] }), '/catalog/');
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['es-MX'] }), '/es/');
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['pt-BR'] }), '/pt/');
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['fr-FR'] }), '/fr/');
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['he-IL'] }), '/he/');
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['iw'] }), '/he/');
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['en-US'] }), null);
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['de-DE', 'en-US'] }), null);
+test('ordinary visits keep the English homepage for every browser language', () => {
+  for (const language of ['en-US', 'ru-RU', 'es-MX', 'pt-BR', 'fr-FR', 'he-IL', 'iw', 'ja-JP']) {
+    assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: [language, 'ru-RU'] }), null, language);
+  }
 });
 
-test('resolveVisitorPath respects explicit saved language, internal referrers, and automation guards', () => {
-  assert.equal(
-    fx.resolveVisitorPath({ pathname: '/', savedLang: 'en', languages: ['he-IL', 'ru-RU'] }),
-    null,
-  );
-  assert.equal(
-    fx.resolveVisitorPath({ pathname: '/', savedLang: 'pt-BR', languages: ['en-US'] }),
-    '/pt/',
-  );
+test('old saved preferences and inbound referrers leave the homepage URL intact', () => {
   assert.equal(
     fx.resolveVisitorPath({
       pathname: '/',
-      referrer: 'https://www.fluxixo.shop/catalog/',
-      origin: 'https://www.fluxixo.shop',
-      languages: ['ru-RU'],
-    }),
-    null,
-  );
-  assert.equal(
-    fx.resolveVisitorPath({
-      pathname: '/',
+      search: '?utm_source=tt',
+      hash: '#drop',
+      savedLang: 'pt-BR',
       referrer: 'https://www.google.com/',
       origin: 'https://www.fluxixo.shop',
       languages: ['ru-RU'],
     }),
-    '/catalog/',
+    null,
   );
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', languages: ['ru-RU'], webdriver: true }), null);
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=en', languages: ['ru-RU'] }), null);
-  assert.equal(fx.resolveVisitorPath({ pathname: '/products/test/', languages: ['ru-RU'] }), null);
-  assert.equal(
-    fx.resolveVisitorPath({ pathname: '/', search: '?utm_source=tt', hash: '#top', languages: ['es-ES'] }),
-    '/es/?utm_source=tt#top',
-  );
+});
+
+test('normal storefront and deep links keep their selected locale', () => {
+  for (const pathname of ['/en/', '/catalog/', '/es/', '/pt/', '/fr/', '/he/', '/en/journal/wifi-repeater-buying-guide/', '/products/katord-wifi-repeater/']) {
+    assert.equal(fx.resolveVisitorPath({ pathname, search: '?lang=es&category=tech', hash: '#todo' }), null, pathname);
+  }
 });
 
 test('explicit legacy language links preserve catalog sections and other query parameters', () => {
   assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=ru&utm_source=share', hash: '#drop' }), '/catalog/?utm_source=share#drop');
   assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=es&tag=a&tag=b', hash: '#mundos' }), '/es/?tag=a&tag=b#mundos');
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=pt-BR&category=tech', hash: '#todo' }), '/pt/?category=tech#todo');
   assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?LANG=iw_IL', hash: '#find' }), '/he/#find');
   assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=en', hash: '#find' }), '/en/#find');
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=en', hash: '#drop', savedLang: 'he' }), null);
-  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=ja', hash: '#find-063-cable-tester', savedLang: 'he' }), null);
-  assert.equal(fx.resolveVisitorPath({ pathname: '/products/find-063-cable-tester/', search: '?lang=es' }), null);
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=en&category=tech', hash: '#todo' }), '/en/?category=tech#todo');
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=en', hash: '#drop' }), null);
+  assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=ja', hash: '#find-063-cable-tester' }), null);
   assert.equal(fx.resolveVisitorPath({ pathname: '/', search: '?lang=fr', hash: '#spotlight-title-1' }), '/fr/#spotlight-title-1');
 });
 
@@ -87,18 +68,12 @@ test('legacy showroom product links open the same item in its requested locale',
       pathname: '/index.html',
       search: `?utm_source=share&lang=${language}`,
       hash: `#${id}`,
-      referrer: 'https://www.fluxixo.shop/catalog/',
-      origin: 'https://www.fluxixo.shop',
-      webdriver: true,
-      savedLang: 'he',
     }), `${prefix}/products/${id}/?utm_source=share`);
   }
   assert.equal(fx.resolveVisitorPath({
     pathname: '/',
     search: '?utm_source=share',
     hash: '#find-063-cable-tester',
-    savedLang: 'he',
-    webdriver: true,
   }), '/en/products/find-063-cable-tester/?utm_source=share');
 });
 

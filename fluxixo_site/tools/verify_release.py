@@ -461,8 +461,8 @@ def validate_language_navigation(pages, catalog):
             expected_links = {lang: target if path == target else target + '#todo' for lang, target in catalogs.items()}
         else:
             expected_links = {lang: urlsplit(page.hreflang.get(lang, '')).path for lang in catalogs}
-            if path.startswith('/journal/') and path != '/journal/' and set(page.hreflang) <= {'ru', 'ru-RU', 'x-default'}:
-                expected_links = {**journals, 'ru': path}
+            if any(path != index and path.startswith(index) for index in journals.values()):
+                expected_links = {lang: target or journals[lang] for lang, target in expected_links.items()}
         if page.language_links != expected_links:
             errors.append(f'{path} language menu does not lead to the corresponding pages')
         for lang, target in page.language_links.items():

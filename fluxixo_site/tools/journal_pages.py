@@ -27,9 +27,9 @@ JOURNAL_UI = {
         'slug_prefix': '/en/journal/',
         'eyebrow': 'FLUXIXO Journal',
         'h1': 'Practical AliExpress buying checklists',
-        'intro': 'Short, practical buyer checklists on comparing delivered totals, USB-C compatibility, and measuring desk space for cable organizers before you order.',
-        'title': 'AliExpress Buying Checklists: USB-C, Prices & Desk Gear | FLUXIXO',
-        'desc': 'Clean FLUXIXO buying guides on checking final checkout pricing, USB-C specs, and measuring desk cable organizers.',
+        'intro': 'Practical checklists for choosing a Wi-Fi range extender, checking USB-C compatibility, organizing desk cables, and comparing prices with shipping.',
+        'title': 'AliExpress Buying Guides for Wi-Fi, USB-C & More | FLUXIXO',
+        'desc': 'Check Wi-Fi range extenders, USB-C chargers, and desk cable organizers, and compare the full price with shipping before you order.',
         'catalog_cta': 'Browse the catalog',
         'home': 'Home',
         'catalog': 'Catalog',
@@ -316,11 +316,75 @@ ARTICLES = [
             ),
         },
     },
+    {
+        'slug': 'wifi-repeater-buying-guide',
+        'preferred_product': 'katord-wifi-repeater',
+        'published_dates': {'ru': '2026-11-13', 'en': '2026-11-20'},
+        'translations': {
+            'ru': (
+                'Как выбрать усилитель Wi-Fi для квартиры и дачи | FLUXIXO',
+                'Два диапазона, пропускная способность, розетка на полпути и режим точки доступа: что проверить перед покупкой репитера Wi-Fi.',
+                'Как выбрать усилитель Wi-Fi сигнала для квартиры и дачи',
+                [
+                    ('Сколько антенн и диапазонов нужно на практике', 'Простой усилитель только на 2.4 GHz цепляется за перегруженные соседские каналы и редко даёт стабильный поток для видеозвонков и смарт-телевизора. Двухдиапазонная модель с поддержкой 2.4 GHz и 5 GHz принимает сигнал от основного роутера на одной частоте и раздаёт дальше без сильной просадки. Сравнивайте не суммарную цифру на коробке вроде 1200 Mbps, а реальную поддержку 5 GHz вашим домашним роутером — иначе второй диапазон останется пустым.'),
+                    ('Где ставить повторитель, чтобы он усиливал, а не тормозил', 'Репитер бесполезен в самом дальнем углу спальни, где телефон уже еле ловит одну полоску. Повторитель усиливает тот сигнал, который сумел поймать сам, поэтому для него нужна розетка примерно на полпути между роутером и слабой комнатой — в зоне уверенного приёма. Заранее проверьте толщину несущих бетонных стен и посмотрите, есть ли у прибора индикатор уровня сигнала на корпусе: по нему проще найти рабочую точку.'),
+                    ('Порт RJ45 и режим точки доступа', 'Наличие сетевого разъёма RJ45 часто недооценивают, а зря: к нему можно подключить стационарный компьютер, приставку или рабочий ноутбук коротким патч-кордом, даже если у самого ПК слабый приёмник. Во многих моделях тот же порт работает и на вход — кабель из щитка превращает устройство в компактную точку доступа на втором этаже или в мансарде, без двойных потерь скорости по воздуху.'),
+                    ('Вилка, нагрев и способ настройки', 'При заказе сетевой техники проверьте тип вилки — для российских розеток нужен стандарт EU без громоздкого переходника, который перевешивает корпус и болтается в вертикальной розетке. Также загляните в описание настройки: удобнее модели с быстрым сопряжением кнопкой WPS и простым веб-интерфейсом на понятном языке, а вентиляционные прорези по бокам спасают плату от троттлинга при круглосуточной работе.'),
+                ],
+            ),
+            'en': (
+                'How to Choose and Place a Wi-Fi Range Extender | FLUXIXO',
+                'Find an outlet with a strong router signal, compare 2.4 and 5 GHz, and check Ethernet modes before buying a Wi-Fi range extender.',
+                'How to choose and place a Wi-Fi range extender',
+                [
+                    (
+                        'Check where the connection gets weak',
+                        'Try the same device near the router and in the room where you want better Wi-Fi. '
+                        'If the connection is poor in both places, check the router and internet connection first. '
+                        'A plug-in extender is worth considering when the router works well nearby and a single room has weak reception. '
+                        'If you can run Ethernet to that room, compare a wired access point before you buy.',
+                    ),
+                    (
+                        'Match the bands your router and devices use',
+                        'Check whether the router, extender and devices you use support 2.4 GHz and 5 GHz. '
+                        'The 2.4 GHz band often reaches farther through walls. The 5 GHz band can offer more capacity at shorter distances. '
+                        'Dual-band ratings can add the theoretical link rates of both bands. The speed a device actually gets depends on '
+                        'the signal back to the router, interference and how the extender shares airtime between receiving and forwarding traffic.',
+                    ),
+                    (
+                        'Start with an outlet between the router and the weak room',
+                        'Try an outlet roughly halfway to the room, where the router signal is still strong. '
+                        'Move one outlet closer to the router if a concrete wall or floor leaves the extender with a weak connection. '
+                        'Use the signal indicator if the model has one. Once connected to the extender, try a call or stream in the room '
+                        'you want to cover, then compare it with a second outlet if the connection still drops.',
+                    ),
+                    (
+                        'Check what the Ethernet port supports',
+                        'A port that connects a desktop or TV to the extender can be useful even when the extender itself connects to the router over Wi-Fi. '
+                        'Access point mode is a separate feature. It lets a supported model take an Ethernet connection from the router and provide '
+                        'Wi-Fi in the room, avoiding the extra wireless hop. If you plan to use that setup, check for explicit access point mode and the port speed.',
+                    ),
+                    (
+                        'Check the plug and setup for the exact variant',
+                        'Match the seller’s plug option to your outlet and check that the extender has clearance around it. '
+                        'Look for setup instructions for the exact model, including the Wi-Fi security modes it supports and whether setup uses a browser or an app. '
+                        'If you plan to use WPS, check that the router and extender both support it.',
+                    ),
+                    (
+                        'KATORD 1200 Mbps as a listing example',
+                        'The KATORD Wi-Fi range extender in our catalog is listed as a 1200 Mbps dual-band model with 2.4 GHz and 5 GHz support. '
+                        'Use the listing rating to identify the model and use the checks above to judge whether it suits your room. '
+                        'Confirm the plug, Ethernet mode and setup method for the variant you select.',
+                    ),
+                ],
+            ),
+        },
+    },
 ]
 
 
 def all_articles():
-    """The six-language guides, then the Russian-only ones. A guide appears only in the languages it is written in."""
+    """List translated guides followed by Russian-only guides."""
     extra = []
     if EXTRA_RU_FILE.exists():
         for row in json.loads(EXTRA_RU_FILE.read_text(encoding='utf-8')):
@@ -356,7 +420,7 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
             if lang not in article['translations']:
                 continue
             slug = article['slug']
-            published = article.get('date') or ui['date']
+            published = article.get('published_dates', {}).get(lang) or article.get('date') or ui['date']
             meta_title, meta_desc, h1, sections = article['translations'][lang]
             rel_prod = by_id.get(article['preferred_product']) or fallback_prod
             img_path = rel_prod['image'] if rel_prod else 'assets/images/import-0010.webp'

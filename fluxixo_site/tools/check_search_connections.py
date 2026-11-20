@@ -38,6 +38,8 @@ from urllib.parse import urlencode, urlsplit
 from urllib.request import HTTPRedirectHandler, HTTPSHandler, Request, build_opener, urlopen
 import xml.etree.ElementTree as ET
 
+from journal_pages import all_articles, article_path
+
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
@@ -958,6 +960,12 @@ def audit_live_seo(sitemap_urls: list[str], max_workers: int = 24) -> dict:
     by_lang_counts: dict[str, int] = collections.defaultdict(int)
     internal_assets_to_check: set[str] = set()
     internal_links_to_check: set[str] = set()
+    journal_hreflang = {}
+    for article in all_articles():
+        translations = article['translations']
+        keys = {key for key in EXPECTED_HREFLANG_KEYS if key == 'x-default' or key.split('-', 1)[0] in translations}
+        for locale in translations:
+            journal_hreflang[article_path(locale, article['slug'])] = keys
 
     def classify_lang(url: str) -> str:
         path = urlsplit(url).path
@@ -1038,16 +1046,16 @@ def audit_live_seo(sitemap_urls: list[str], max_workers: int = 24) -> dict:
                 except ValueError as exc:
                     problems["invalid_jsonld_syntax"].append(f"{url}: {exc}")
 
-            # Check hreflang presence: standalone /en/ catalog has none; root '/' and all other pages match the cluster
+            # Journal articles declare only published translations. The standalone English catalog has no cluster.
             keys = set(inspector.hreflang.keys())
             if path == "/en/":
                 if keys:
                     problems["standalone_en_has_hreflang"].append(f"{url} has {sorted(keys)}")
             else:
-                ru_only_journal = path.startswith("/journal/") and keys == {"ru", "ru-RU", "x-default"}
-                if keys != EXPECTED_HREFLANG_KEYS and not ru_only_journal:
+                expected_keys = journal_hreflang.get(path, EXPECTED_HREFLANG_KEYS)
+                if keys != expected_keys:
                     problems["hreflang_incomplete"].append(
-                        f"{url} has {sorted(keys)}"
+                        f"{url} has {sorted(keys)}, expected {sorted(expected_keys)}"
                     )
 
             # Collect internal links & assets
