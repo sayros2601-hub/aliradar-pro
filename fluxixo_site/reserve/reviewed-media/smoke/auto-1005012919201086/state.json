@@ -1,0 +1,57 @@
+{
+  "text": {
+    "input_key": "3abdee6ad6541668937bf25d3a8d3d83e9ff1ee24243d9ebca3a521ab1a4949b",
+    "copy": {
+      "ru": {
+        "name": "Портативная поилка-бутылка для собак",
+        "headline": [
+          "Освежите питомца в дороге,",
+          "без лишних капель в сумке."
+        ],
+        "description": "Дорожный резервуар со встроенной откидной чашей и кнопкой подачи воды позволяет напоить животное во время прогулки, а неиспользованную жидкость можно вернуть обратно в колбу. Перед заказом уточните общий объём резервуара, материал изготовления и наличие ремешка для запястья."
+      },
+      "en": {
+        "name": "Travel Pet Water Bottle with Foldable Bowl",
+        "headline": [
+          "Hydrate your dog outside,",
+          "lock valve prevents spills."
+        ],
+        "description": "Outdoor hydration flask featuring an attached drinking trough and a push-button release mechanism that lets you dispense fresh liquid on walks and return unused portions back into the reservoir. Verify container capacity, carrying loop options, and cleaning instructions before ordering."
+      },
+      "pt": {
+        "name": "Garrafa Portátil com Concha para Cães",
+        "headline": [
+          "Água fresca na caminhada,",
+          "sistema antivazamento."
+        ],
+        "description": "Recipiente de passeio equipado com tigela dobrável acoplada e botão de liberação que facilita dar água ao pet ao ar livre, permitindo retornar o líquido excedente para o corpo principal. Confira a capacidade volumétrica total, a presença de alça de pulso e o tipo de vedação antes de concluir a compra."
+      },
+      "es": {
+        "name": "Termo Bebedero Portátil para Mascotas",
+        "headline": [
+          "Hidratación rápida al caminar,",
+          "cierre seguro sin goteos."
+        ],
+        "description": "Contenedor de viaje dotado de una charola desplegable y un botón dosificador que facilita dar agua al perro en parques o trayectos, regresando el sobrante al compartimento principal. Revisa la capacidad en mililitros, el material del cuerpo y la correa de sujeción antes de realizar tu pedido."
+      },
+      "fr": {
+        "name": "Gourde de Voyage Étanche pour Chien",
+        "headline": [
+          "Désaltérez votre animal dehors,",
+          "bouton de verrouillage anti-fuite."
+        ],
+        "description": "Récipient nomade muni d’une coupelle rabattable et d’un bouton poussoir pour distribuer de l’eau fraîche en balade tout en récupérant le surplus dans le réservoir principal. Vérifiez la contenance totale, la présence d’une lanière et la facilité d’entretien avant de valider votre commande."
+      },
+      "he": {
+        "name": "בקבוק שתייה נייד לכלבים עם קערית",
+        "headline": [
+          "מים צלולים לכלב בטיול,",
+          "כפתור מזיגה ונעילה."
+        ],
+        "description": "מיכל טיולים המשלב קערית מתקפלת ומנגנון לחצן לשחרור מים המאפשר להשקות את חיית המחמד בפארק ולהחזיר את הנוזל הנותר פנימה. בדקו מראש את נפח המיכל הכולל, את איכות האטמים ואת הימצאותה של רצועת נשיאה לפני ביצוע ההזמנה."
+      }
+    },
+    "model": "gemini-3.5-flash-lite",
+    "thinking_level": "HIGH"
+  }
+}
