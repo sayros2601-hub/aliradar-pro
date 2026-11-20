@@ -89,7 +89,9 @@ def _retry_after(headers, now, default=3600):
 def _post_json(url, body, headers):
     request = urllib.request.Request(url, data=json.dumps(body, ensure_ascii=False).encode('utf-8'),
                                      headers={'Content-Type': 'application/json', **headers}, method='POST')
-    with urllib.request.urlopen(request, timeout=90) as response:
+    # Several exact images and HIGH reasoning can take longer than text-only copy.
+    timeout = 240 if url.endswith(f'/{REVIEW_MODEL}:generateContent') else 90
+    with urllib.request.urlopen(request, timeout=timeout) as response:
         return json.loads(response.read(5_000_001).decode('utf-8'))
 
 
@@ -194,6 +196,11 @@ def call_json(system_prompt, user_prompt, *, model, api_key=None, images=(), tra
         raise GeminiDeferred(code, until) from None
     except GeminiDeferred:
         raise
+    except TimeoutError:
+        raise GeminiDeferred('gemini_transport_timeout') from None
+    except urllib.error.URLError as exc:
+        code = 'gemini_transport_timeout' if isinstance(exc.reason, TimeoutError) else 'gemini_transport_unavailable'
+        raise GeminiDeferred(code) from None
     except Exception:
         # Never propagate provider bodies, raw exceptions, request headers or credentials.
         raise GeminiDeferred('gemini_transport_unavailable') from None

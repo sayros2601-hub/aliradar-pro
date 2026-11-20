@@ -120,9 +120,17 @@ class GeminiClientTests(unittest.TestCase):
             raise TimeoutError('private prompt fake-test-key')
         with self.assertRaises(self.client.GeminiDeferred) as error:
             self.call(fail)
-        self.assertEqual('gemini_transport_unavailable', error.exception.code)
+        self.assertEqual('gemini_transport_timeout', error.exception.code)
         self.assertNotIn('fake-test-key', str(error.exception))
         self.assertIsNone(error.exception.__cause__)
+
+    def test_http_timeout_allows_longer_for_multiframe_vision(self):
+        import io
+        for model, expected in ((self.client.TEXT_MODEL, 90), (self.client.REVIEW_MODEL, 240)):
+            endpoint = f'https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent'
+            with self.subTest(model=model), patch('urllib.request.urlopen', return_value=io.BytesIO(b'{}')) as send:
+                self.client._post_json(endpoint, {}, {})
+                self.assertEqual(expected, send.call_args.kwargs['timeout'])
 
     def test_unsupported_model_is_rejected_before_transport(self):
         with self.assertRaises(self.client.GeminiDeferred) as error:
