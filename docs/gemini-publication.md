@@ -62,11 +62,26 @@ a request but before its response was saved may require a new review; the old
 request remains charged against the conservative local quota, and its output is
 never treated as approved.
 
-Leases expire; due candidates are selected oldest-first and excluded from new
-discovery. A rejected frame gets at most one alternate-reference/correction
-attempt per invocation. Already accepted unchanged frames survive retries.
-Unchanged rejected sources are not repeatedly rematted; unavailable/changed
-sources are refreshed on the delayed retry. Status and next attempt are internal.
+A gallery role gets at most two frame preparations from the same seller material
+across runs, including seller-photo cutouts and generated corrections. A photo
+awaiting review is kept byte-for-byte. The reviewer gets at most two opportunities
+on that file. After the second failed opportunity the product is parked with the
+reason. The next candidate can proceed. A job restart, new day, seed or prompt
+does not renew the allowance.
+
+A shopper should be able to recognize the item and understand its use. Harmless
+shadow, margin or perspective differences are acceptable. Missing controls,
+incorrect units, unsupported effects and repetitions of the same story fail review.
+
+For each seller-text version the six-language bundle gets two drafts at most.
+Claim checks can resume on the same saved draft once. The optional extended
+Russian guidance has its own bounded draft and review history.
+
+Stopped products are excluded from scheduled discovery and preparation. After
+a seller supplies new material, an operator can check that one listing in the
+same checkout with `python -m fluxixo_ai.autonomous --reconsider-product SELLER_ID`.
+This only compares seller evidence and updates the ordinary queue. Previously
+exhausted versions retain their history.
 
 New catalog entries carry review policy version, exact output/source SHA256,
 source-title hash and prior-frame hashes. The release gate checks the same bytes
@@ -77,9 +92,8 @@ window; unfinished candidates remain queued for later runs/days.
 
 The existing preparation cron is supplemented with hourly recovery through the
 existing daily window. GitHub scheduling/service outages can delay execution.
-If a seller has no truthful distinct application/result references, the item waits
-with `awaiting_distinct_source` and a scheduled refresh rather than publishing
-invented or duplicate imagery. Publication cannot be guaranteed without suitable
+If a seller has no truthful distinct application/result references, the item can
+wait for a bounded source refresh and then stop with its reason. Publication cannot be guaranteed without suitable
 sources and available review quota.
 
 ## Isolated validation

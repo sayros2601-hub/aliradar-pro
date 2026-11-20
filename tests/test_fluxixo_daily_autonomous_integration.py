@@ -23,6 +23,42 @@ def selected(index):
 
 
 class DailyIntegrationTests(unittest.TestCase):
+    def test_permanently_stopped_card_is_skipped_on_the_next_run(self):
+        from fluxixo_ai import autonomous
+        from fluxixo_ai.pending_products import PendingProducts
+        from fluxixo_ai.reviewed_media import MediaStopped
+        from fluxixo_ai.copy_revisions import copy_source_version, GeminiCopyStopped
+        stalled, next_card = selected(0), selected(1)
+        queue = PendingProducts(self.root/'data/fluxixo_pending.sqlite3')
+        checked = []
+
+        def prepare(item, *args):
+            checked.append(item['product_id'])
+            raise MediaStopped('wrong_control', 'a' * 64)
+
+        def enrich(record, translated, item, *args, **kwargs):
+            if item['product_id'] == next_card['product_id']:
+                raise GeminiCopyStopped('copy_source_claims_failed', copy_source_version(item['title']))
+            return record, translated
+
+        with patch.dict('os.environ', {'FLUXIXO_REVIEW_REQUIRED': '1', 'FLUXIXO_AI_TRANSPORT': 'disabled'}), \
+             patch.object(autonomous, '_copy_validation_problems', return_value=[]), \
+             patch.object(autonomous, '_maybe_ai_enrich', side_effect=enrich):
+            for _ in range(2):
+                outcome = autonomous.accumulate(count=3, site_root=self.site, dist=self.dist, reserve_dir=self.reserve,
+                    ledger_path=self.root/'data/fluxixo_daily_ledger.json', now=NOW, enforce_unique_copy=True,
+                    discover_fn=lambda *_: [stalled, next_card], media_fn=prepare)
+                self.assertEqual(0, outcome['added'])
+        self.assertEqual([stalled['product_id']], checked)
+        self.assertEqual('wrong_control', queue.terminal_info(stalled['product_id'])['reason'])
+        terminal = queue.terminal_info(next_card['product_id'])
+        self.assertEqual('copy', terminal['kind'])
+        self.assertIsNone(queue.claim(now=NOW.timestamp()+86400*90))
+        self.assertFalse(autonomous._reconsider_source(queue, next_card, terminal, self.reserve))
+        fresh = {**next_card, 'title': next_card['title'] + ' with a calibrated dial'}
+        self.assertTrue(autonomous._reconsider_source(queue, fresh, terminal, self.reserve))
+        self.assertIsNone(queue.terminal_info(next_card['product_id']))
+
     def test_review_deferred_candidate_does_not_block_other_verified_card(self):
         from fluxixo_ai import autonomous
         from fluxixo_ai.reviewed_media import MediaDeferred

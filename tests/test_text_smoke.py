@@ -140,6 +140,25 @@ class TextSmokeTests(unittest.TestCase):
         self.assertEqual(0, second['reviews_requested'])
         self.assertTrue(all(frame['reused'] for frame in second['frames']))
 
+    def test_same_image_timeout_waits_then_stops_without_another_call(self):
+        calls = []
+        def unavailable(source, frame, **kw):
+            calls.append(hashlib.sha256(frame).hexdigest())
+            raise self.client.GeminiDeferred('gemini_transport_timeout', self.smoke.time.time() + 60)
+        clock = [2_000_000_000.]
+        with patch.object(self.smoke.time, 'time', side_effect=lambda: clock[0]):
+            first = self.run_with_reviewer(unavailable)
+            self.assertEqual('deferred', first['status'])
+            self.assertEqual(0, self.run_with_reviewer(unavailable)['reviews_requested'])
+            clock[0] += 86400
+            stopped = self.run_with_reviewer(unavailable)
+            self.assertEqual('stopped', stopped['status'])
+            self.assertEqual('gemini_transport_timeout', stopped['frames'][0]['reason'])
+            clock[0] += 86400
+            self.assertEqual(0, self.run_with_reviewer(unavailable)['reviews_requested'])
+        self.assertEqual(2, len(calls))
+        self.assertEqual(calls[0], calls[1])
+
     def test_unknown_card_and_missing_key_fail_without_requests(self):
         with patch.object(self.client, '_post_json', side_effect=AssertionError('must not request')):
             with self.assertRaises(ValueError):

@@ -260,7 +260,8 @@ def _copy_validation_problems(
     return problems
 
 
-def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_corpus=None, snippet_fetcher=None):
+def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_corpus=None, snippet_fetcher=None,
+                     copy_state=None, checkpoint=None):
     """Optionally enhance 6-language copy with Google AI Studio when configured, strictly gated by check_texts."""
     ai_seo = copy_originality = None
     try:
@@ -276,6 +277,8 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
         **translated,
     }
     keys = _load_ai_studio_keys(ai_seo)
+    revisions = ({'copy_state': copy_state, 'checkpoint': checkpoint}
+                 if copy_state is not None and keys.get('FLUXIXO_TEXT_PROVIDER') == 'gemini' else {})
     if ai_seo.has_ai_provider(keys):
         try:
             enriched, provider = ai_seo.enrich_product_copy(
@@ -288,7 +291,7 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                 keys=keys,
                 catalog_corpus=catalog_corpus,
                 snippet_fetcher=snippet_fetcher,
-                min_desc_len=160,
+                min_desc_len=160, **revisions,
             )
             if (
                 isinstance(enriched, dict)
@@ -299,12 +302,14 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
             ):
                 cand_record = {**record_item, **enriched['ru'], 'details': enriched['ru']['description']}
                 cand_trans = {lang: enriched[lang] for lang in LANGS if lang != 'ru' and lang in enriched}
-                if not _copy_validation_problems(
-                    cand_record, cand_trans, site_root,
-                    catalog_corpus=catalog_corpus,
-                    copy_originality=copy_originality,
-                    reject_placeholders=True,
-                ):
+                problems = _copy_validation_problems(
+                    cand_record, cand_trans, site_root, catalog_corpus=catalog_corpus,
+                    copy_originality=copy_originality, reject_placeholders=True,
+                )
+                if problems and revisions:
+                    ai_seo.reject_cached_copy(candidate.get('title') or record_item.get('sourceTitle', ''),
+                                              copy_state, checkpoint, problems=problems)
+                if not problems:
                     if hasattr(ai_seo, 'enrich_ru_long_copy'):
                         # Gemini's long-copy helper already makes its bounded correction attempt.
                         attempts = 1 if keys.get('FLUXIXO_TEXT_PROVIDER') == 'gemini' else 2
@@ -316,7 +321,7 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                                         'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
                                     },
                                     {'ru': enriched['ru'], 'en': enriched.get('en', {})},
-                                    keys=keys,
+                                    keys=keys, **revisions,
                                 )
                                 if long_entry:
                                     cand_record['_ru_long'] = long_entry
@@ -1541,9 +1546,19 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
     if review_required:
         from .pending_products import PendingProducts
         from .gemini_client import COPY_POLICY, GeminiDeferred
-        from .reviewed_media import MediaDeferred, verify_review_bindings
+        from .reviewed_media import MediaDeferred, MediaStopped, verify_review_bindings
+        from .copy_revisions import GeminiCopyStopped
         pending = PendingProducts(ledger_path.parent / 'fluxixo_pending.sqlite3')
         pending.reconcile(old)
+    def enrich_candidate(record_item, translated, candidate):
+        revisions = {}
+        if pending and os.environ.get('FLUXIXO_TEXT_PROVIDER') == 'gemini':
+            pid = candidate['product_id']
+            journal = pending.copy_state(pid)
+            revisions = {'copy_state': journal, 'checkpoint': lambda: pending.save_copy_state(pid, journal)}
+        return _maybe_ai_enrich(record_item, translated, candidate, site_root, catalog_corpus=catalog_corpus,
+                                snippet_fetcher=snippet_fetcher, **revisions)
+
     used_hashes = _old_image_hashes(old, dist)
     perceptual_index = image_studio.load_catalog_perceptual_index(
         old, dist, cache_path=site_root / 'tools' / '.image_hash_cache.json',
@@ -1597,6 +1612,19 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 attempts += 1
                 queue_claim = candidate.get('_queue_claim')
                 if pending:
+                    parked = pending.terminal_info(candidate['product_id'])
+                    if parked:
+                        # Natural discovery excludes parked IDs. Only an explicit fresh submission
+                        # can compare new seller evidence and reopen a previously stopped candidate.
+                        if not queue_claim:
+                            continue
+                        try:
+                            reopened = _reconsider_source(pending, candidate, parked, reserve_dir, now=instant.timestamp())
+                        except (MediaDeferred, ValueError, OSError):
+                            reopened = False
+                        if not reopened:
+                            queue_store.fail(queue_claim['claim_id'], owner, 'source_review_stopped', now=instant)
+                            continue
                     if not candidate.get('_pending_retry') and not pending.is_due(candidate['product_id'], now=instant.timestamp()):
                         if queue_claim:
                             queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
@@ -1644,19 +1672,21 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                             record_item.update(cached_copy['record'])
                             translated = cached_copy['translated']
                         else:
-                            record_item, translated = _maybe_ai_enrich(
-                                record_item, translated, candidate, site_root,
-                                catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
-                            )
-                        if _copy_validation_problems(
-                            record_item, translated, site_root,
-                            catalog_corpus=catalog_corpus, reject_placeholders=True,
-                        ):
+                            record_item, translated = enrich_candidate(record_item, translated, candidate)
+                        problems = _copy_validation_problems(record_item, translated, site_root,
+                                                             catalog_corpus=catalog_corpus, reject_placeholders=True)
+                        if problems:
+                            if pending:
+                                pid = candidate['product_id']
+                                pending.save_text(pid, None)
+                                if os.environ.get('FLUXIXO_TEXT_PROVIDER') == 'gemini':
+                                    from .copy_revisions import reject_cached_copy
+                                    journal = pending.copy_state(pid)
+                                    reject_cached_copy(candidate['title'], journal,
+                                                       lambda: pending.save_copy_state(pid, journal), problems=problems)
+                                pending.defer(pid, 'copy_validation_failed', now=instant.timestamp())
                             if queue_claim:
                                 queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
-                            if pending:
-                                pending.save_text(candidate['product_id'], None)
-                                pending.defer(candidate['product_id'], 'copy_validation_failed', now=instant.timestamp())
                             continue
                         if pending:
                             pending.save_text(candidate['product_id'], {
@@ -1720,10 +1750,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         record_item['sourceQueueClaimId'] = queue_claim['claim_id']
                         record_item['sourceQueueOwner'] = owner
                     if not strict_copy:
-                        record_item, translated = _maybe_ai_enrich(
-                            record_item, translated, candidate, site_root,
-                            catalog_corpus=catalog_corpus, snippet_fetcher=snippet_fetcher,
-                        )
+                        record_item, translated = enrich_candidate(record_item, translated, candidate)
                     used_hashes.update((media['source_sha256'], media['pixel_sha256']))
                     for kind_name, cand_hashes in cand_perceptual.items():
                         perceptual_index.append({'id': record_item['id'], 'path': kind_name, 'kind': kind_name, **cand_hashes})
@@ -1740,6 +1767,13 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                     prepared.append((record_item, translated, media))
                     progress = True
                 except Exception as error:
+                    if pending and isinstance(error, (GeminiCopyStopped, MediaStopped)):
+                        kind = 'copy' if isinstance(error, GeminiCopyStopped) else 'media'
+                        pending.park(candidate['product_id'], error.reason, kind=kind,
+                                     source_version=error.source_version, now=instant.timestamp())
+                        if queue_claim:
+                            queue_store.fail(queue_claim['claim_id'], owner, 'source_review_stopped', now=instant)
+                        continue
                     if pending and isinstance(error, (GeminiDeferred, MediaDeferred)):
                         pending.defer(candidate['product_id'], error.code, retry_at=error.retry_at, now=instant.timestamp())
                         if queue_claim:
@@ -1879,14 +1913,45 @@ def _verify_remote_head(commit_sha):
         return False
 
 
+def _reconsider_source(pending, candidate, parked, reserve_dir, *, now=None):
+    from .copy_revisions import copy_source_version
+    from .reviewed_media import verified_media_source_version
+
+    pid = candidate['product_id']
+    if not re.fullmatch(r'[1-9][0-9]{0,31}', pid):
+        raise ValueError('invalid_product_id')
+    if parked['kind'] == 'copy':
+        version = copy_source_version(candidate['title'])
+    else:
+        path = Path(reserve_dir) / 'reviewed-media' / ('auto-' + pid) / 'state.json'
+        version = verified_media_source_version(candidate, state_path=path)
+    return pending.reconsider(pid, source_version=version, now=now)
+
+
 def main():
     import argparse
     from .store import Store
-    parser = argparse.ArgumentParser(description='Record queued items after verified Git push')
-    parser.add_argument('--mark-committed', required=True)
+    parser = argparse.ArgumentParser(description='Manage daily product queue state')
+    action = parser.add_mutually_exclusive_group(required=True)
+    action.add_argument('--mark-committed')
+    action.add_argument('--reconsider-product', metavar='SELLER_ID', help='Compare fresh seller evidence for one stopped product')
     parser.add_argument('--ids', default='')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    if args.reconsider_product:
+        from .pending_products import PendingProducts
+        from .search import AliClient
+        pending = PendingProducts(root / 'data/fluxixo_pending.sqlite3')
+        pid = args.reconsider_product
+        stored = pending.parked_candidate(pid)
+        if not stored:
+            print('No stopped product with that ID.')
+            return
+        markets = stored.get('availableMarkets') or [stored.get('market') or 'US']
+        fresh = refresh_queued(AliClient(), {**stored, 'markets': dict.fromkeys(markets)}, datetime.now(timezone.utc))
+        reopened = _reconsider_source(pending, fresh, pending.terminal_info(pid), root / 'fluxixo_site/reserve')
+        print('Queued for ordinary preparation.' if reopened else 'Already considered this seller material.')
+        return
     db_path = root / 'data/fluxixo_ai.sqlite3'
     ids = [item for item in args.ids.split(',') if item]
     if not ids or not db_path.is_file():
