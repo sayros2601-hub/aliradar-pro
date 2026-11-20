@@ -11,6 +11,6 @@
   },
   "devDependencies": {
     "surge": "0.46.0",
-    "wrangler": "4.151.3"
+    "wrangler": "4.153.0"
   }
 }
