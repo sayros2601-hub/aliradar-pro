@@ -88,38 +88,96 @@
   "slots": [
     {
       "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image clearly presents the green hexagonal reaction ball in use, demonstrating its intended agility training function accurately."
+        ]
+      },
+      "source_file": "reference-8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e.png",
+      "source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H0561654c44614d448689ea95534c30fez.jpg",
+      "original_sha256": "e9dd9ef453343fcfaf8a07d145de5b254037a4609bb765fb36fefcb12fed7c90",
+      "output_file": "hero-cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f.webp",
+      "image_sha256": "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f",
+      "metrics": {
+        "fg_width": 1500,
+        "fg_height": 1322,
+        "fg_max_side": 1500,
+        "fg_min_side": 1322,
+        "upscale_ratio": 0.593,
+        "sharpness": 21.983,
+        "fg_mean_luma": 151.11,
+        "fg_luma_std": 57.2,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.005,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image clearly presents the green hexagonal reaction ball in use, demonstrating its intended agility training function accurately."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
+      "source_title_sha256": "9698e05ea1ee8fd9c34384102409bd1c887b2885ea204faccf8405cab00e0e5d",
+      "reviewed_at": 1795182214.7971916
+    },
+    {
+      "generation_attempts": {},
       "pending": {
-        "source_file": "reference-8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e.png",
-        "source_sha256": "8d8522dc189d83684188d0c16635fce1d6f578b31fa250d2fd163212f700e20e",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H0561654c44614d448689ea95534c30fez.jpg",
-        "original_sha256": "e9dd9ef453343fcfaf8a07d145de5b254037a4609bb765fb36fefcb12fed7c90",
-        "output_file": "hero-cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f.webp",
-        "image_sha256": "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f",
+        "source_file": "reference-597f4287536a4fb42a441c73ca510932f9ee96b334c5e3e777ed92e4ca9836a6.png",
+        "source_sha256": "597f4287536a4fb42a441c73ca510932f9ee96b334c5e3e777ed92e4ca9836a6",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H0bb3a70e73f24d81b590a60d689228ebc.jpg",
+        "original_sha256": "ec9241650bbaea140bcc71fa9f767bdfa4bac0fff9624792ddbc6d6af1c3a292",
+        "output_file": "application-c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284.webp",
+        "image_sha256": "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284",
         "metrics": {
-          "fg_width": 1500,
-          "fg_height": 1322,
-          "fg_max_side": 1500,
-          "fg_min_side": 1322,
-          "upscale_ratio": 0.593,
-          "sharpness": 21.983,
-          "fg_mean_luma": 151.11,
-          "fg_luma_std": 57.2,
+          "fg_width": 1476,
+          "fg_height": 905,
+          "fg_max_side": 1476,
+          "fg_min_side": 905,
+          "upscale_ratio": 0.603,
+          "sharpness": 9.506,
+          "fg_mean_luma": 132.1,
+          "fg_luma_std": 47.81,
           "max_border_clip": 0.0,
           "clipped_edges": 0,
-          "halo_fringe_ratio": 0.005,
+          "halo_fringe_ratio": 0.0,
           "reasons": []
         },
         "generated": false
       }
     },
-    {},
     {}
   ],
   "created_at": 1795180788.7572677,
   "deferrals": 0,
-  "lease_owner": "94936090c43a45e5ad05b80e3176b9af",
-  "lease_until": 0,
-  "status": "waiting",
+  "lease_owner": "ad1000cad16e47c5a24c9c720987816f",
+  "lease_until": 1795184002.5482755,
+  "status": "processing",
   "next_attempt": 0,
   "source_refresh_after": 1795267191.0417385,
   "source_version": "0c825f4c12b94892673fb5a0ac0f92da307ab365e9e6e1d68791d7590bfbf9df",
@@ -138,8 +196,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "597f4287536a4fb42a441c73ca510932f9ee96b334c5e3e777ed92e4ca9836a6",
+            "at": 1795182214.801582,
+            "code": "pending_review",
+            "image_sha256": "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -149,10 +215,29 @@
   },
   "review_attempts": {
     "cb866867e61fd3742f04520e5128d4fe831255cf763613fa994121cb8d91a74f": {
-      "opportunities": 0,
-      "last_code": "gemini_http_503",
+      "opportunities": 1,
+      "last_code": "accepted",
       "provider_attempted": null,
-      "transient_retries": 1
+      "transient_retries": 1,
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image clearly presents the green hexagonal reaction ball in use, demonstrating its intended agility training function accurately."
+        ]
+      }
+    },
+    "c06adafa05ee0a25608f381660f347e5ec8334efeadc336d5fa9edf2a4291284": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
     }
   },
   "identity_source": {
