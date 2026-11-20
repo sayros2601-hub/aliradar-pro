@@ -162,7 +162,8 @@ jobs:
           if [ "$RECORD_PUBLICATION" = "true" ]; then
             python -B -m fluxixo_ai.daily_schedule mark-prepared --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY" --allow-partial
           fi
-          git add -- fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools "$LEDGER" "$PUBLISH_STATE" ':!fluxixo_site/dist/assets/thumbs'
+          git add -- fluxixo_site/dist fluxixo_site/reserve fluxixo_site/tools "$LEDGER" "$PUBLISH_STATE"
+          git reset -q HEAD -- fluxixo_site/dist/assets/thumbs 2>/dev/null || true
           # Per-frame seller references and canonical identity are private source assets.
           shopt -s nullglob
           references=(fluxixo_site/dist/assets/originals/*-review-*.png fluxixo_site/dist/assets/originals/*-identity.png)
@@ -218,7 +219,8 @@ jobs:
         run: |
           if [ "$RECORD_PUBLICATION" = "true" ]; then export FLUXIXO_PREPARED_PUBLISH_DAY="$DAY"; fi
           python -B fluxixo_daily_rotate.py --add 0 --refresh-clean-links
-          git add -- fluxixo_site/dist fluxixo_site/tools ':!fluxixo_site/dist/assets/thumbs'
+          git add -- fluxixo_site/dist fluxixo_site/tools
+          git reset -q HEAD -- fluxixo_site/dist/assets/thumbs 2>/dev/null || true
           if ! git diff --cached --quiet; then
             git commit -m "chore(fluxixo): build evening release and countdown [skip ci]"
             git push origin HEAD:main
