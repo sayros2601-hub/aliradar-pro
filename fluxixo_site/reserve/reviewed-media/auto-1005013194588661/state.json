@@ -88,38 +88,71 @@
   "slots": [
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a.png",
-        "source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S2499d2e7734e45de938ac642949e1de5H.jpg",
-        "original_sha256": "448f98fee570844d82c26318f40ac2b84d45fce4441d48ed856f98b0944295e0",
-        "output_file": "hero-542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90.webp",
-        "image_sha256": "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90",
-        "metrics": {
-          "fg_width": 1486,
-          "fg_height": 1500,
-          "fg_max_side": 1500,
-          "fg_min_side": 1486,
-          "upscale_ratio": 0.593,
-          "sharpness": 26.525,
-          "fg_mean_luma": 205.4,
-          "fg_luma_std": 47.32,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.206,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly displays the rolling ball scalp massager comb and its color variants, along with the included accessories and usage context, successfully fulfilling the requirements for a hero product listing image."
+        ]
+      },
+      "source_file": "reference-7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a.png",
+      "source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S2499d2e7734e45de938ac642949e1de5H.jpg",
+      "original_sha256": "448f98fee570844d82c26318f40ac2b84d45fce4441d48ed856f98b0944295e0",
+      "output_file": "hero-542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90.webp",
+      "image_sha256": "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90",
+      "metrics": {
+        "fg_width": 1486,
+        "fg_height": 1500,
+        "fg_max_side": 1500,
+        "fg_min_side": 1486,
+        "upscale_ratio": 0.593,
+        "sharpness": 26.525,
+        "fg_mean_luma": 205.4,
+        "fg_luma_std": 47.32,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.206,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly displays the rolling ball scalp massager comb and its color variants, along with the included accessories and usage context, successfully fulfilling the requirements for a hero product listing image."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
+      "source_title_sha256": "542a653ec0bf723c318b65ae1c465b7662c3d76cd0a862d74da4d64546973a4a",
+      "reviewed_at": 1795182391.1270366
     },
     {},
     {}
   ],
   "created_at": 1795181398.376432,
   "deferrals": 0,
-  "lease_owner": "2faed27dcc07442d9a6a558aeca6775a",
-  "lease_until": 0,
-  "status": "waiting",
+  "lease_owner": "beb7f107fdfe4845afb82b136df8501b",
+  "lease_until": 1795184177.6305485,
+  "status": "processing",
   "next_attempt": 0,
   "source_refresh_after": 1795267801.0728612,
   "source_version": "8a8cc00a1d41d1a44c41493a14b92df2d873b6e0c7e6cf66ac40717a9800e390",
@@ -149,10 +182,25 @@
   },
   "review_attempts": {
     "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90": {
-      "opportunities": 0,
-      "last_code": "gemini_http_503",
+      "opportunities": 1,
+      "last_code": "accepted",
       "provider_attempted": null,
-      "transient_retries": 1
+      "transient_retries": 1,
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly displays the rolling ball scalp massager comb and its color variants, along with the included accessories and usage context, successfully fulfilling the requirements for a hero product listing image."
+        ]
+      }
     }
   },
   "identity_source": {
