@@ -5,6 +5,372 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005006728238948",
+      "name": "Металлический таймер-сейф для смартфона",
+      "headline": [
+        "Таймер пошёл,",
+        "соблазн подождёт."
+      ],
+      "description": "Прочный бокс с электронным замком закрывается на выбранное время, помогая убрать смартфон, ключи или гаджеты на период глубокой работы и учёбы. Проверьте внутренние габариты под размер телефона и тип зарядки.",
+      "category": "Дом",
+      "image": "assets/images/auto-1005006728238948.webp",
+      "original": "assets/originals/auto-1005006728238948.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4rAQMYN",
+      "sourceUrl": "https://www.aliexpress.com/item/1005006728238948.html",
+      "sourceProductId": "1005006728238948",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005006728238948.html",
+      "sourceTitle": "Metal Timed Lock Box,Mobile Phone Lock Box with Timer, Lock Container Self-Controlled Time Release Safety Locker",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sfe48b503804c4fcbbb4da3f82c903150O.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "IL",
+      "sourceTask": "rare_timed_lock_vault",
+      "demo": false,
+      "theme": "rose",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Прочный бокс с электронным замком закрывается на выбранное время, помогая убрать смартфон, ключи или гаджеты на период глубокой работы и учёбы. Проверьте внутренние габариты под размер телефона и тип зарядки.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL"
+      ],
+      "sourceShopId": "2882039",
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "8ced27e1bb430875fa5fb6b1b548d17648fc32df8b677cdccc68a58f869e529f",
+            "checked_at": 1795280216.498885
+          },
+          "en": {
+            "sha256": "a40e5650359a6ab37a283499c4adb9e4ebd83fe9c8cb2c0144022da810924f50",
+            "checked_at": 1795280217.8133132
+          },
+          "pt": {
+            "sha256": "5f2c3184abeca37d7589059ab09723e16618c589fec5732e6d1afbea6661882b",
+            "checked_at": 1795280219.9040136
+          },
+          "es": {
+            "sha256": "d59d6154f66806b6c686dd1593954abd8014fd1f12b30dd118147fb70694f104",
+            "checked_at": 1795280221.5959635
+          },
+          "fr": {
+            "sha256": "7555c6c8430b8d0dd5c88ccb288c73baa0f0e61856be9e63b7a4d90e93809ddb",
+            "checked_at": 1795280226.471926
+          },
+          "he": {
+            "sha256": "6da1b3b62ac0fe7f91a09a0b1d6a00623f64da7e98a862162ba5ef1d0b64a60f",
+            "checked_at": 1795280227.8350027
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005006728238948",
+        "source_title_sha256": "a02c9eded5cbcc890edf5361b7d9137771207d2f399cf17a7069f1d1b16d44fb",
+        "identity_source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+        "identity_source_asset": "assets/originals/auto-1005006728238948-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+            "image_sha256": "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sfe48b503804c4fcbbb4da3f82c903150O.jpg",
+            "source_asset": "assets/originals/auto-1005006728238948-review-1.png",
+            "output_asset": "assets/images/auto-1005006728238948.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The product accurately matches the reference image in identity, shape, color, and variant with no material defects."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "dcf8ecb5e42d7763386a2cb5a0b6c772fdd0bc412b6c112b235f0335530e0109",
+            "image_sha256": "80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132",
+            "prior_image_sha256": [
+              "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c"
+            ],
+            "identity_source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa4adab962c8f4ba0bbd01df088dc0bd8V.jpg",
+            "source_asset": "assets/originals/auto-1005006728238948-review-2.png",
+            "output_asset": "assets/images/auto-1005006728238948-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image correctly shows the product in use as a mobile phone lock box with a phone inside, fulfilling the application role accurately."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "487f7b373715ee3e92748599ecba44074a94915605446963089481788e93f94c",
+            "image_sha256": "b81940983607fde7f53231cc6dc785a2e2fd570fb65b044eb9b469951f51b533",
+            "prior_image_sha256": [
+              "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c",
+              "80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132"
+            ],
+            "identity_source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa623593d1cfc4c88b37030776387f44di.jpg",
+            "source_asset": "assets/originals/auto-1005006728238948-review-3.png",
+            "output_asset": "assets/images/auto-1005006728238948-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image clearly shows the metal timed lock box open with a smartphone placed inside, successfully demonstrating the product's intended function and result.",
+                "Identity, shape, color, and features match the product specification accurately without any defects."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005006728238948-v2.webp",
+        "assets/images/auto-1005006728238948-v3.webp"
+      ],
+      "sourceImageSha256": "18ebebde8d2e9b183fae1db71af053579c9f957bb5e8e7e1802be4dd9b224225",
+      "sourcePixelSha256": "865354f5e658b1fc7f7fc15a5ccc9f04536016c32c35226fc1c775468be1b1ca",
+      "imageDhash": "43181f27310d0630",
+      "imageAhash": "ffff838180c7ffff",
+      "imageAspect": "1.00",
+      "sourceImageDhash": "43181f27310d0630",
+      "sourceImageAhash": "ffff838180c7ffff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1200,
+        "fg_height": 1200,
+        "fg_max_side": 1200,
+        "fg_min_side": 1200,
+        "upscale_ratio": 0.742,
+        "sharpness": 5.139,
+        "fg_mean_luma": 200.52,
+        "fg_luma_std": 82.63,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      }
+    },
+    {
+      "id": "auto-1005012668954574",
+      "name": "Автомобильный аварийный молоток со стропорезом",
+      "headline": [
+        "Скрытое лезвие,",
+        "на крайний случай."
+      ],
+      "description": "Компактный спасательный инструмент с вольфрамовым бойком и утопленным резаком ремня хранится в бардачке или подлокотнике авто. Уточните крепёж в салон, пружинный механизм и размеры.",
+      "category": "В дороге",
+      "image": "assets/images/auto-1005012668954574.webp",
+      "original": "assets/originals/auto-1005012668954574.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3a5fuGN",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012668954574.html",
+      "sourceProductId": "1005012668954574",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012668954574.html",
+      "sourceTitle": "Baseus GoTrip DT2 Car Safety Hammer Tungsten Steel Window Breaker for Laminated Glass Emergency Escape Tool with SeatBelt Cutter",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "IL",
+      "sourceTask": "rare_car_escape_hammer",
+      "demo": false,
+      "theme": "coral",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Компактный спасательный инструмент с вольфрамовым бойком и утопленным резаком ремня хранится в бардачке или подлокотнике авто. Уточните крепёж в салон, пружинный механизм и размеры.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "sourceShopId": "4594035",
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "40a091087d64cdc6e739e0629b394963cdeb3afff3a59959c6dd494abf445852",
+            "checked_at": 1795280448.067387
+          },
+          "en": {
+            "sha256": "b2bd51889dfee3d8d79b033ab0e689d773b8a547310b545c33413fe5263cb53d",
+            "checked_at": 1795280449.4802039
+          },
+          "pt": {
+            "sha256": "3b665086ffebe4ad798af77814bb9d30a4c762a645f52136c804015984ae829f",
+            "checked_at": 1795280455.6674988
+          },
+          "es": {
+            "sha256": "512d394d9c42e2da4ba289c7dcedc47a8639f46871052fc78b503f04f01ba21c",
+            "checked_at": 1795280458.3921688
+          },
+          "fr": {
+            "sha256": "133eb6bc930c62dd0104685c342a7ef1b9a0d82f65d473c787eeb405d335a9f9",
+            "checked_at": 1795280459.2542398
+          },
+          "he": {
+            "sha256": "2106f5f3e5b044652b84f7378abd9934175f965d4ef168fb0d5a9640333f966d",
+            "checked_at": 1795280463.5438445
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005012668954574",
+        "source_title_sha256": "9416ee8f43f8e22329b8b86d6d8cc3d7c26ba39be598160fd309a814e4779602",
+        "identity_source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+        "identity_source_asset": "assets/originals/auto-1005012668954574-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+            "image_sha256": "582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
+            "source_asset": "assets/originals/auto-1005012668954574-review-1.png",
+            "output_asset": "assets/images/auto-1005012668954574.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately depicts the Baseus GoTrip DT2 car safety hammer with its correct shape, color, and tungsten steel tip.",
+                "The contextual action shot clearly communicates the primary function and utility of the emergency escape tool."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "405d3b7180590a55e935948b7db17eff37813ed46a68a6a08625494be2f0e9e1",
+            "image_sha256": "2f6818d7dba4291fdd60afcc0134c3da9a0f1e4873061c6c3d8de4db88c342bf",
+            "prior_image_sha256": [
+              "582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812"
+            ],
+            "identity_source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sfc36d24e4f5649e1882fd4e611a9f8f4t.jpg",
+            "source_asset": "assets/originals/auto-1005012668954574-review-2.png",
+            "output_asset": "assets/images/auto-1005012668954574-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image clearly demonstrates the application of the Baseus GoTrip DT2 car safety hammer breaking through a car window in an emergency scenario."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "2ba6cf423d0f7e68bd11744430f43d6067b527a9aca857900ee0269504074d33",
+            "image_sha256": "d784f9e34b24854d510f77fc6177e7368ac91b165e774a746b41ff294f323ab7",
+            "prior_image_sha256": [
+              "582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812",
+              "2f6818d7dba4291fdd60afcc0134c3da9a0f1e4873061c6c3d8de4db88c342bf"
+            ],
+            "identity_source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sbe48cc8a641e4515aba13b929bbd05ab9.jpg",
+            "source_asset": "assets/originals/auto-1005012668954574-review-3.png",
+            "output_asset": "assets/images/auto-1005012668954574-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The result shot accurately demonstrates the safety hammer breaking double-layer laminated glass, aligning correctly with the product's intended function and specifications.",
+                "Product identity, color, shape, and features are consistent with the reference images."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005012668954574-v2.webp",
+        "assets/images/auto-1005012668954574-v3.webp"
+      ],
+      "sourceImageSha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa",
+      "sourcePixelSha256": "af826f8fdfec8d73f18b309c40b783a9740373956c5cccc55dae660a26a9e9dd",
+      "imageDhash": "1336363f1e0d26e6",
+      "imageAhash": "fbda1383c7e7f3f3",
+      "imageAspect": "1.21",
+      "sourceImageDhash": "b376b79e8d66e719",
+      "sourceImageAhash": "00020307c7337fff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 800,
+        "fg_height": 659,
+        "fg_max_side": 800,
+        "fg_min_side": 659,
+        "upscale_ratio": 1.113,
+        "sharpness": 35.77,
+        "fg_mean_luma": 68.05,
+        "fg_luma_std": 47.7,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.025,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005008721169426",
       "name": "Левитирующий кашпо-горшок для бонсай",
       "headline": [
