@@ -88,29 +88,30 @@
   "slots": [
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8.png",
-        "source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sae87f5bfb6f24699a9a0559e166650003.jpg",
-        "original_sha256": "5f336512df87f9670b86b8b8d76aac8ed1fa7c1571c7a7f4e6341639fbc2c7b5",
-        "output_file": "hero-aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5.webp",
-        "image_sha256": "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5",
-        "metrics": {
-          "fg_width": 1586,
-          "fg_height": 1318,
-          "fg_max_side": 1586,
-          "fg_min_side": 1318,
-          "upscale_ratio": 0.561,
-          "sharpness": 8.132,
-          "fg_mean_luma": 43.92,
-          "fg_luma_std": 19.72,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.002,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "thick black border framing the entire image"
+        ],
+        "reasons": [
+          "The image is enclosed by a prominent black border clearly visible at normal product-card display size rather than an incidental edge visible only on zoom."
+        ]
+      },
+      "rejected_images": [
+        "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5"
+      ],
+      "rejected_sources": [
+        "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8"
+      ],
+      "feedback": "Keep the full product with clean edges and no background artifacts."
     },
     {},
     {}
@@ -126,13 +127,18 @@
   "effort_versions": {
     "ac50ef64849e6315f0bb5efc8d73d365e928185dfcbc9906972f7cb7f7ae1afa": [
       {
-        "materializations": 1,
+        "materializations": 2,
         "events": [
           {
             "source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
             "at": 1795273274.6362119,
             "code": "pending_review",
             "image_sha256": "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5"
+          },
+          {
+            "source_sha256": "93ace040bbb376ecbcf084a6a62bddc3eeedb3e00e9c42eb66ae47cc41a6cb33",
+            "at": 1795273520.5836098,
+            "code": "reserved"
           }
         ],
         "last_code": "materialization_interrupted"
@@ -150,7 +156,24 @@
   "review_attempts": {
     "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "thick black border framing the entire image"
+        ],
+        "reasons": [
+          "The image is enclosed by a prominent black border clearly visible at normal product-card display size rather than an incidental edge visible only on zoom."
+        ]
+      }
     }
   },
   "identity_source": {
