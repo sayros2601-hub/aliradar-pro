@@ -198,7 +198,7 @@ window.MIRA_CATALOG = {
       "category": "Уход",
       "image": "assets/images/auto-1005013194588661.webp",
       "original": "assets/originals/auto-1005013194588661.webp",
-      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "imageNote": "Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.",
       "affiliateUrl": "https://s.click.aliexpress.com/e/_c2yDzHZF",
       "sourceUrl": "https://www.aliexpress.com/item/1005013194588661.html",
       "sourceProductId": "1005013194588661",
@@ -261,7 +261,7 @@ window.MIRA_CATALOG = {
           {
             "role": "hero",
             "source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
-            "image_sha256": "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90",
+            "image_sha256": "994775890e79c5326ac7b0631998360aa458be1ae0a27b5caf16a358e6cad2cf",
             "prior_image_sha256": [],
             "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
             "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S2499d2e7734e45de938ac642949e1de5H.jpg",
@@ -279,16 +279,16 @@ window.MIRA_CATALOG = {
               "distinct": true,
               "material_defects": [],
               "reasons": [
-                "The image clearly displays the rolling ball scalp massager comb and its color variants, along with the included accessories and usage context, successfully fulfilling the requirements for a hero product listing image."
+                "Clean transparent studio cutout of the single translucent lavender-purple rolling-ball scalp massager comb (6 metallic roller teeth, intact curved handle with open hanging loop, top white silicone stopper) matching the primary seller reference without collage clutter or text."
               ]
             }
           },
           {
             "role": "application",
             "source_sha256": "c877b002c0541013d13b68b54f9e1fde878c75964aa03bf02c3ca83a9e43c829",
-            "image_sha256": "26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3",
+            "image_sha256": "49d2b50bea2c5a36b6d08ec063a535631d71258e16c4abebb89405c950094322",
             "prior_image_sha256": [
-              "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90"
+              "994775890e79c5326ac7b0631998360aa458be1ae0a27b5caf16a358e6cad2cf"
             ],
             "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
             "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sf518e6eeca794389a85b5c7235ea91241.jpg",
@@ -306,20 +306,17 @@ window.MIRA_CATALOG = {
               "distinct": true,
               "material_defects": [],
               "reasons": [
-                "The image correctly shows the clear variant of the rolling ball scalp massager comb in an appropriate application and lifestyle context (bathroom setting with hair nutrient oil).",
-                "Product features, shape, roller balls, and handle design accurately match the reference product from Image 1.",
-                "The image fulfills the application role clearly with relevant contextual tags ('Root Application', 'Hair Nutrient Oil').",
-                "No material defects, distortions, or missing parts are present."
+                "Clean transparent studio application composition showing the same translucent lavender-purple rolling-ball comb with an open top reservoir receiving a golden hair-serum drop from a glass dropper pipette beside a matching serum bottle, with zero text badges or hand artifacts."
               ]
             }
           },
           {
             "role": "result",
             "source_sha256": "4f19ea0cf07ed9cb0cb19e3a59c62269b4f1e0d5c336eb1f953ce059a4efce06",
-            "image_sha256": "8db720f4ba53077f902907cdad338cbfda95df76c9c72b979b84ac4c87f898b6",
+            "image_sha256": "e7462be529f4400ebb54defc82ba6eabbb68b7e9478db9526d0c5ed61b02142e",
             "prior_image_sha256": [
-              "542ef8bdac063d61f51eae43e4ba284cfe759b68be73dfb4580c32bca7d3fb90",
-              "26c4c0654922227e97f2a930e02476592214d7db0374f4f6c5889ad42c4c3ba3"
+              "994775890e79c5326ac7b0631998360aa458be1ae0a27b5caf16a358e6cad2cf",
+              "49d2b50bea2c5a36b6d08ec063a535631d71258e16c4abebb89405c950094322"
             ],
             "identity_source_sha256": "7548da43d17cf9b5ea0d1f1b07126edfb95c48726a75e31213b3ce9bba942a9a",
             "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S74b30832b984484f8189502d7915c16f3.jpg",
@@ -337,7 +334,7 @@ window.MIRA_CATALOG = {
               "distinct": true,
               "material_defects": [],
               "reasons": [
-                "The product image clearly shows the scalp massager comb in an authentic lifestyle and functional setting, fulfilling the result role correctly without any defects."
+                "Clean transparent studio close-up showing the translucent lavender-purple rolling-ball comb tilted dynamically with golden serum visible in the spine reservoir alongside its smooth white snap-on protective cap, with crisp metallic roller tips and zero text overlays."
               ]
             }
           }
@@ -350,24 +347,24 @@ window.MIRA_CATALOG = {
       ],
       "sourceImageSha256": "448f98fee570844d82c26318f40ac2b84d45fce4441d48ed856f98b0944295e0",
       "sourcePixelSha256": "5ad1c28b83547693a895c78a84a6bbfbdad57dc5b2b21dd3c990531852ac3226",
-      "imageDhash": "706677d5d556c6c6",
-      "imageAhash": "3f1f1f7f37e36277",
-      "imageAspect": "0.99",
+      "imageDhash": "27262f2c5b53d377",
+      "imageAhash": "c3c7978f8909031b",
+      "imageAspect": "0.29",
       "sourceImageDhash": "f46276d5d556c6c6",
       "sourceImageAhash": "3e1f1b7737e36277",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 1486,
-        "fg_height": 1500,
-        "fg_max_side": 1500,
-        "fg_min_side": 1486,
-        "upscale_ratio": 0.593,
-        "sharpness": 26.525,
-        "fg_mean_luma": 205.4,
-        "fg_luma_std": 47.32,
+        "fg_width": 282,
+        "fg_height": 960,
+        "fg_max_side": 960,
+        "fg_min_side": 282,
+        "upscale_ratio": 0.927,
+        "sharpness": 27.281,
+        "fg_mean_luma": 195.39,
+        "fg_luma_std": 37.27,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
-        "halo_fringe_ratio": 0.206,
+        "halo_fringe_ratio": 0.042,
         "reasons": []
       }
     },
