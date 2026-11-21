@@ -88,31 +88,91 @@
   "slots": [
     {
       "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image clearly presents the silicone slow feeder insert in high detail in the foreground.",
+          "Includes helpful context showing the insert inside a bowl with kibble and a dog, accurately representing the product and its use."
+        ]
+      },
+      "source_file": "reference-4ca5faaf644c6b3ad7aaa7b93dbe8a6c59286a3173d34c1884c623bb5878db13.png",
+      "source_sha256": "4ca5faaf644c6b3ad7aaa7b93dbe8a6c59286a3173d34c1884c623bb5878db13",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S012674b996e74ddfabd0b3db2e10c43dV.jpeg",
+      "original_sha256": "b7df8f45f0b139f215bc9c1108ada6d7479da554cb1074ca62234656402d7354",
+      "output_file": "hero-23a4ac0423b411d091dfe9c40456e42a6a8d7604e0b6b77691738259d09050f0.webp",
+      "image_sha256": "23a4ac0423b411d091dfe9c40456e42a6a8d7604e0b6b77691738259d09050f0",
+      "metrics": {
+        "fg_width": 1037,
+        "fg_height": 1198,
+        "fg_max_side": 1198,
+        "fg_min_side": 1037,
+        "upscale_ratio": 0.743,
+        "sharpness": 13.095,
+        "fg_mean_luma": 107.31,
+        "fg_luma_std": 45.37,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.031,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image clearly presents the silicone slow feeder insert in high detail in the foreground.",
+          "Includes helpful context showing the insert inside a bowl with kibble and a dog, accurately representing the product and its use."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "4ca5faaf644c6b3ad7aaa7b93dbe8a6c59286a3173d34c1884c623bb5878db13",
+      "source_title_sha256": "1a46c5e85f71c4564960cf1cab4d52d0c4bca374a7f3e2d4d8e1c0c09ed8b9b7",
+      "reviewed_at": 1795268811.3705478
+    },
+    {
+      "generation_attempts": {},
       "pending": {
-        "source_file": "reference-4ca5faaf644c6b3ad7aaa7b93dbe8a6c59286a3173d34c1884c623bb5878db13.png",
-        "source_sha256": "4ca5faaf644c6b3ad7aaa7b93dbe8a6c59286a3173d34c1884c623bb5878db13",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S012674b996e74ddfabd0b3db2e10c43dV.jpeg",
-        "original_sha256": "b7df8f45f0b139f215bc9c1108ada6d7479da554cb1074ca62234656402d7354",
-        "output_file": "hero-23a4ac0423b411d091dfe9c40456e42a6a8d7604e0b6b77691738259d09050f0.webp",
-        "image_sha256": "23a4ac0423b411d091dfe9c40456e42a6a8d7604e0b6b77691738259d09050f0",
+        "source_file": "reference-ad2453c8a406c5a86babbbd251b6d897a35b8f158970680e8172f979e6ac47cc.png",
+        "source_sha256": "ad2453c8a406c5a86babbbd251b6d897a35b8f158970680e8172f979e6ac47cc",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sda898c750a1041feb1be4aa5793d1714i.jpg",
+        "original_sha256": "2a74077533334249e306fc0f9916078950424727e65007a311f9f316dbe9485d",
+        "output_file": "application-d9d73f9abe54b51376a11b3095726a9b96fb7a55a9b08ef0fd1b79014ca8d6e0.webp",
+        "image_sha256": "d9d73f9abe54b51376a11b3095726a9b96fb7a55a9b08ef0fd1b79014ca8d6e0",
         "metrics": {
-          "fg_width": 1037,
-          "fg_height": 1198,
-          "fg_max_side": 1198,
-          "fg_min_side": 1037,
-          "upscale_ratio": 0.743,
-          "sharpness": 13.095,
-          "fg_mean_luma": 107.31,
-          "fg_luma_std": 45.37,
+          "fg_width": 1063,
+          "fg_height": 933,
+          "fg_max_side": 1063,
+          "fg_min_side": 933,
+          "upscale_ratio": 0.837,
+          "sharpness": 17.295,
+          "fg_mean_luma": 103.45,
+          "fg_luma_std": 51.01,
           "max_border_clip": 0.0,
           "clipped_edges": 0,
-          "halo_fringe_ratio": 0.031,
+          "halo_fringe_ratio": 0.004,
           "reasons": []
         },
         "generated": false
       }
     },
-    {},
     {}
   ],
   "created_at": 1795268409.0223172,
@@ -138,8 +198,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "ad2453c8a406c5a86babbbd251b6d897a35b8f158970680e8172f979e6ac47cc",
+            "at": 1795268811.3725002,
+            "code": "pending_review",
+            "image_sha256": "d9d73f9abe54b51376a11b3095726a9b96fb7a55a9b08ef0fd1b79014ca8d6e0"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -149,6 +217,26 @@
   },
   "review_attempts": {
     "23a4ac0423b411d091dfe9c40456e42a6a8d7604e0b6b77691738259d09050f0": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image clearly presents the silicone slow feeder insert in high detail in the foreground.",
+          "Includes helpful context showing the insert inside a bowl with kibble and a dog, accurately representing the product and its use."
+        ]
+      }
+    },
+    "d9d73f9abe54b51376a11b3095726a9b96fb7a55a9b08ef0fd1b79014ca8d6e0": {
       "opportunities": 1,
       "last_code": "assessment_interrupted"
     }
