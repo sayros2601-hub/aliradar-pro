@@ -87,95 +87,201 @@
   ],
   "slots": [
     {
-      "pending": {
-        "source_file": "reference-7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a.png",
-        "source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S971faf38967a473bb4644c81720b190aF.jpg",
-        "original_sha256": "d48757bb1e7c50669816975811004a967f88c5dfc73ac2df10f6b92fbecd2dea",
-        "output_file": "hero-ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f.webp",
-        "image_sha256": "ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f",
-        "metrics": {
-          "fg_width": 1020,
-          "fg_height": 961,
-          "fg_max_side": 1020,
-          "fg_min_side": 961,
-          "upscale_ratio": 0.873,
-          "sharpness": 17.589,
-          "fg_mean_luma": 110.43,
-          "fg_luma_std": 68.92,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.0,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image accurately presents the portable electric camping shower with its correct shape, color, and components including the pump, hoses, shower head, and attachments.",
+          "Includes the brand logo and relevant lifestyle usage insets appropriate for a product-card hero display."
+        ]
+      },
+      "source_file": "reference-7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a.png",
+      "source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S971faf38967a473bb4644c81720b190aF.jpg",
+      "original_sha256": "d48757bb1e7c50669816975811004a967f88c5dfc73ac2df10f6b92fbecd2dea",
+      "output_file": "hero-ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f.webp",
+      "image_sha256": "ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f",
+      "metrics": {
+        "fg_width": 1020,
+        "fg_height": 961,
+        "fg_max_side": 1020,
+        "fg_min_side": 961,
+        "upscale_ratio": 0.873,
+        "sharpness": 17.589,
+        "fg_mean_luma": 110.43,
+        "fg_luma_std": 68.92,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image accurately presents the portable electric camping shower with its correct shape, color, and components including the pump, hoses, shower head, and attachments.",
+          "Includes the brand logo and relevant lifestyle usage insets appropriate for a product-card hero display."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+      "source_title_sha256": "6337be300a9889f41724f43cc1295076f6e2b4dd5b8af01394a8a0883147677f",
+      "reviewed_at": 1795281546.8488042
     },
     {
-      "pending": {
-        "source_file": "reference-0d91475e1c428bfa5c8134f2a46d8ec11c416c0cf6c6f2917a163fce72fb3e79.png",
-        "source_sha256": "0d91475e1c428bfa5c8134f2a46d8ec11c416c0cf6c6f2917a163fce72fb3e79",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa4b8ccde6c584ac7acddb40e573854a6w.jpg",
-        "original_sha256": "201e4b72e6f48b7aeb8726ecb1a7ed1f8822672f6bebe0f01d0f7072905e29a3",
-        "output_file": "application-26fa541635817f31ca307da0351df0a961042735621d3e505ebd9be4cdca8082.webp",
-        "image_sha256": "26fa541635817f31ca307da0351df0a961042735621d3e505ebd9be4cdca8082",
-        "metrics": {
-          "fg_width": 1020,
-          "fg_height": 844,
-          "fg_max_side": 1020,
-          "fg_min_side": 844,
-          "upscale_ratio": 0.873,
-          "sharpness": 13.61,
-          "fg_mean_luma": 116.35,
-          "fg_luma_std": 48.89,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.0,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "0d91475e1c428bfa5c8134f2a46d8ec11c416c0cf6c6f2917a163fce72fb3e79": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image clearly demonstrates the setup and usage of the portable camping shower pump with a water bucket and filter suction port."
+        ]
+      },
+      "source_file": "reference-0d91475e1c428bfa5c8134f2a46d8ec11c416c0cf6c6f2917a163fce72fb3e79.png",
+      "source_sha256": "0d91475e1c428bfa5c8134f2a46d8ec11c416c0cf6c6f2917a163fce72fb3e79",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa4b8ccde6c584ac7acddb40e573854a6w.jpg",
+      "original_sha256": "201e4b72e6f48b7aeb8726ecb1a7ed1f8822672f6bebe0f01d0f7072905e29a3",
+      "output_file": "application-26fa541635817f31ca307da0351df0a961042735621d3e505ebd9be4cdca8082.webp",
+      "image_sha256": "26fa541635817f31ca307da0351df0a961042735621d3e505ebd9be4cdca8082",
+      "metrics": {
+        "fg_width": 1020,
+        "fg_height": 844,
+        "fg_max_side": 1020,
+        "fg_min_side": 844,
+        "upscale_ratio": 0.873,
+        "sharpness": 13.61,
+        "fg_mean_luma": 116.35,
+        "fg_luma_std": 48.89,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image clearly demonstrates the setup and usage of the portable camping shower pump with a water bucket and filter suction port."
+        ]
+      },
+      "prior_image_sha256": [
+        "ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f"
+      ],
+      "identity_source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+      "source_title_sha256": "6337be300a9889f41724f43cc1295076f6e2b4dd5b8af01394a8a0883147677f",
+      "reviewed_at": 1795281550.7633584
     },
     {
-      "pending": {
-        "source_file": "reference-0da5067b5df7bfcf2d52daede164316edf8c8b1c3945b38156e6239bf1436ec0.png",
-        "source_sha256": "0da5067b5df7bfcf2d52daede164316edf8c8b1c3945b38156e6239bf1436ec0",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S8dd9c34b0e54481aa344039c449da3e2z.jpg",
-        "original_sha256": "090fa9f18f6b9d6d4b2c61da1dd00c44c7f2f0c33acae2aa0e4309ff97e210bf",
-        "output_file": "result-68842fa6012c603d6f105df8de9d5192c29ad69d094d460f46933d902a0065d7.webp",
-        "image_sha256": "68842fa6012c603d6f105df8de9d5192c29ad69d094d460f46933d902a0065d7",
-        "metrics": {
-          "fg_width": 1020,
-          "fg_height": 955,
-          "fg_max_side": 1020,
-          "fg_min_side": 955,
-          "upscale_ratio": 0.873,
-          "sharpness": 8.318,
-          "fg_mean_luma": 33.06,
-          "fg_luma_std": 19.52,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.0,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "0da5067b5df7bfcf2d52daede164316edf8c8b1c3945b38156e6239bf1436ec0": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The result image accurately demonstrates the portable electric camping shower pump operating inside a bucket of water, clearly showing its intended functional outcome and setup."
+        ]
+      },
+      "source_file": "reference-0da5067b5df7bfcf2d52daede164316edf8c8b1c3945b38156e6239bf1436ec0.png",
+      "source_sha256": "0da5067b5df7bfcf2d52daede164316edf8c8b1c3945b38156e6239bf1436ec0",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S8dd9c34b0e54481aa344039c449da3e2z.jpg",
+      "original_sha256": "090fa9f18f6b9d6d4b2c61da1dd00c44c7f2f0c33acae2aa0e4309ff97e210bf",
+      "output_file": "result-68842fa6012c603d6f105df8de9d5192c29ad69d094d460f46933d902a0065d7.webp",
+      "image_sha256": "68842fa6012c603d6f105df8de9d5192c29ad69d094d460f46933d902a0065d7",
+      "metrics": {
+        "fg_width": 1020,
+        "fg_height": 955,
+        "fg_max_side": 1020,
+        "fg_min_side": 955,
+        "upscale_ratio": 0.873,
+        "sharpness": 8.318,
+        "fg_mean_luma": 33.06,
+        "fg_luma_std": 19.52,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The result image accurately demonstrates the portable electric camping shower pump operating inside a bucket of water, clearly showing its intended functional outcome and setup."
+        ]
+      },
+      "prior_image_sha256": [
+        "ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f",
+        "26fa541635817f31ca307da0351df0a961042735621d3e505ebd9be4cdca8082"
+      ],
+      "identity_source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+      "source_title_sha256": "6337be300a9889f41724f43cc1295076f6e2b4dd5b8af01394a8a0883147677f",
+      "reviewed_at": 1795281556.2684646
     }
   ],
   "created_at": 1795278722.3545415,
   "deferrals": 0,
   "lease_owner": "ba07a97fd601403080fad73e6780bdee",
-  "lease_until": 1795283268.5700593,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795365123,
   "source_version": "09f0dacfff5767bdd4cadf7154ba1e0652e809b29298786635aa14fdc02959fe",
@@ -222,15 +328,61 @@
   "review_attempts": {
     "ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image accurately presents the portable electric camping shower with its correct shape, color, and components including the pump, hoses, shower head, and attachments.",
+          "Includes the brand logo and relevant lifestyle usage insets appropriate for a product-card hero display."
+        ]
+      }
     },
     "26fa541635817f31ca307da0351df0a961042735621d3e505ebd9be4cdca8082": {
-      "opportunities": 0,
-      "last_code": "pending_review"
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image clearly demonstrates the setup and usage of the portable camping shower pump with a water bucket and filter suction port."
+        ]
+      }
     },
     "68842fa6012c603d6f105df8de9d5192c29ad69d094d460f46933d902a0065d7": {
-      "opportunities": 0,
-      "last_code": "pending_review"
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The result image accurately demonstrates the portable electric camping shower pump operating inside a bucket of water, clearly showing its intended functional outcome and setup."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -239,5 +391,5 @@
     "sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
     "original_sha256": "d48757bb1e7c50669816975811004a967f88c5dfc73ac2df10f6b92fbecd2dea"
   },
-  "reason": "pending_review"
+  "reason": ""
 }
