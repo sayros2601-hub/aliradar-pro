@@ -154,67 +154,140 @@
       "reviewed_at": 1795280428.394022
     },
     {
-      "pending": {
-        "source_file": "reference-dcf8ecb5e42d7763386a2cb5a0b6c772fdd0bc412b6c112b235f0335530e0109.png",
-        "source_sha256": "dcf8ecb5e42d7763386a2cb5a0b6c772fdd0bc412b6c112b235f0335530e0109",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa4adab962c8f4ba0bbd01df088dc0bd8V.jpg",
-        "original_sha256": "7cbc4c9cb408809f6ef453af65cf6329d94ffa4832a1b58e4a9f6fe9eda98380",
-        "output_file": "application-80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132.webp",
-        "image_sha256": "80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132",
-        "metrics": {
-          "fg_width": 970,
-          "fg_height": 1026,
-          "fg_max_side": 1026,
-          "fg_min_side": 970,
-          "upscale_ratio": 0.867,
-          "sharpness": 12.865,
-          "fg_mean_luma": 67.1,
-          "fg_luma_std": 50.02,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.001,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "dcf8ecb5e42d7763386a2cb5a0b6c772fdd0bc412b6c112b235f0335530e0109": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly shows the product in use as a mobile phone lock box with a phone inside, fulfilling the application role accurately."
+        ]
+      },
+      "source_file": "reference-dcf8ecb5e42d7763386a2cb5a0b6c772fdd0bc412b6c112b235f0335530e0109.png",
+      "source_sha256": "dcf8ecb5e42d7763386a2cb5a0b6c772fdd0bc412b6c112b235f0335530e0109",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa4adab962c8f4ba0bbd01df088dc0bd8V.jpg",
+      "original_sha256": "7cbc4c9cb408809f6ef453af65cf6329d94ffa4832a1b58e4a9f6fe9eda98380",
+      "output_file": "application-80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132.webp",
+      "image_sha256": "80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132",
+      "metrics": {
+        "fg_width": 970,
+        "fg_height": 1026,
+        "fg_max_side": 1026,
+        "fg_min_side": 970,
+        "upscale_ratio": 0.867,
+        "sharpness": 12.865,
+        "fg_mean_luma": 67.1,
+        "fg_luma_std": 50.02,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.001,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly shows the product in use as a mobile phone lock box with a phone inside, fulfilling the application role accurately."
+        ]
+      },
+      "prior_image_sha256": [
+        "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c"
+      ],
+      "identity_source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+      "source_title_sha256": "a02c9eded5cbcc890edf5361b7d9137771207d2f399cf17a7069f1d1b16d44fb",
+      "reviewed_at": 1795280432.943446
     },
     {
-      "pending": {
-        "source_file": "reference-487f7b373715ee3e92748599ecba44074a94915605446963089481788e93f94c.png",
-        "source_sha256": "487f7b373715ee3e92748599ecba44074a94915605446963089481788e93f94c",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa623593d1cfc4c88b37030776387f44di.jpg",
-        "original_sha256": "9c3d4b9924b4708d5a2f5733bd83bd7b30e6e97d079d8245b45aceac6c868c73",
-        "output_file": "result-b81940983607fde7f53231cc6dc785a2e2fd570fb65b044eb9b469951f51b533.webp",
-        "image_sha256": "b81940983607fde7f53231cc6dc785a2e2fd570fb65b044eb9b469951f51b533",
-        "metrics": {
-          "fg_width": 1100,
-          "fg_height": 965,
-          "fg_max_side": 1100,
-          "fg_min_side": 965,
-          "upscale_ratio": 0.809,
-          "sharpness": 13.757,
-          "fg_mean_luma": 90.77,
-          "fg_luma_std": 55.17,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.001,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "487f7b373715ee3e92748599ecba44074a94915605446963089481788e93f94c": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the metal timed lock box open with a smartphone placed inside, successfully demonstrating the product's intended function and result.",
+          "Identity, shape, color, and features match the product specification accurately without any defects."
+        ]
+      },
+      "source_file": "reference-487f7b373715ee3e92748599ecba44074a94915605446963089481788e93f94c.png",
+      "source_sha256": "487f7b373715ee3e92748599ecba44074a94915605446963089481788e93f94c",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa623593d1cfc4c88b37030776387f44di.jpg",
+      "original_sha256": "9c3d4b9924b4708d5a2f5733bd83bd7b30e6e97d079d8245b45aceac6c868c73",
+      "output_file": "result-b81940983607fde7f53231cc6dc785a2e2fd570fb65b044eb9b469951f51b533.webp",
+      "image_sha256": "b81940983607fde7f53231cc6dc785a2e2fd570fb65b044eb9b469951f51b533",
+      "metrics": {
+        "fg_width": 1100,
+        "fg_height": 965,
+        "fg_max_side": 1100,
+        "fg_min_side": 965,
+        "upscale_ratio": 0.809,
+        "sharpness": 13.757,
+        "fg_mean_luma": 90.77,
+        "fg_luma_std": 55.17,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.001,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the metal timed lock box open with a smartphone placed inside, successfully demonstrating the product's intended function and result.",
+          "Identity, shape, color, and features match the product specification accurately without any defects."
+        ]
+      },
+      "prior_image_sha256": [
+        "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c",
+        "80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132"
+      ],
+      "identity_source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+      "source_title_sha256": "a02c9eded5cbcc890edf5361b7d9137771207d2f399cf17a7069f1d1b16d44fb",
+      "reviewed_at": 1795280438.6117263
     }
   ],
   "created_at": 1795278723.9019947,
   "deferrals": 0,
   "lease_owner": "72ad21ac528f4ae5b2761fdb1b372ea5",
-  "lease_until": 1795282027.8450692,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795365125,
   "source_version": "e0cac4d96afc316453f08f6116c9eb52db0dd7478cd1513afe6d2aa82599e160",
@@ -287,12 +360,43 @@
       }
     },
     "80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132": {
-      "opportunities": 0,
-      "last_code": "pending_review"
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly shows the product in use as a mobile phone lock box with a phone inside, fulfilling the application role accurately."
+        ]
+      }
     },
     "b81940983607fde7f53231cc6dc785a2e2fd570fb65b044eb9b469951f51b533": {
-      "opportunities": 0,
-      "last_code": "pending_review"
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the metal timed lock box open with a smartphone placed inside, successfully demonstrating the product's intended function and result.",
+          "Identity, shape, color, and features match the product specification accurately without any defects."
+        ]
+      }
     },
     "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c": {
       "opportunities": 1,
@@ -320,5 +424,5 @@
     "sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
     "original_sha256": "18ebebde8d2e9b183fae1db71af053579c9f957bb5e8e7e1802be4dd9b224225"
   },
-  "reason": "pending_review"
+  "reason": ""
 }
