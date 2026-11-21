@@ -173,9 +173,9 @@
   ],
   "created_at": 1795278721.0638213,
   "deferrals": 0,
-  "lease_owner": "ef8181f63b9f4351abbed3f99391a959",
-  "lease_until": 0,
-  "status": "waiting",
+  "lease_owner": "7b92e45a5979419fae21f04bef5bdfb7",
+  "lease_until": 1795281037.5472848,
+  "status": "processing",
   "next_attempt": 0,
   "source_refresh_after": 1795365121,
   "source_version": "7d77849e75d2c7361a7c39f315ad8702558ea6a2da1771097d02823dfe7dc54c",
@@ -221,8 +221,8 @@
   },
   "review_attempts": {
     "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803": {
-      "opportunities": 0,
-      "last_code": "pending_review"
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
     },
     "5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd": {
       "opportunities": 0,
