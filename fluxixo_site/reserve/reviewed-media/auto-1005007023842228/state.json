@@ -88,29 +88,32 @@
   "slots": [
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-965030e8f643a329ca8aee00b847dd823b6e915e62894933f2fdc7fd0cd2ceaa.png",
-        "source_sha256": "965030e8f643a329ca8aee00b847dd823b6e915e62894933f2fdc7fd0cd2ceaa",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S4839873d2d7b4eb89a4453b87188cd88o.jpg",
-        "original_sha256": "7eb902b5c1a8af7e4da42ee988cd25dd1f052677c02a8aa70c8915a2e0d83f0c",
-        "output_file": "hero-88f5bd13fa11cdae4479a746a5bcf085cbe1162d9b711bd35c2c1d1ca2a15312.webp",
-        "image_sha256": "88f5bd13fa11cdae4479a746a5bcf085cbe1162d9b711bd35c2c1d1ca2a15312",
-        "metrics": {
-          "fg_width": 625,
-          "fg_height": 334,
-          "fg_max_side": 625,
-          "fg_min_side": 334,
-          "upscale_ratio": 1.424,
-          "sharpness": 22.92,
-          "fg_mean_luma": 99.55,
-          "fg_luma_std": 50.13,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.022,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "The image features an unnecessary black letterbox border surrounding the product photo, introducing framing artifacts."
+        ],
+        "reasons": [
+          "The image has an improper black border framing artifact which compromises the clean presentation required for a hero product card."
+        ]
+      },
+      "rejected_images": [
+        "88f5bd13fa11cdae4479a746a5bcf085cbe1162d9b711bd35c2c1d1ca2a15312",
+        "c20d6b1eca26288e008cdfe32532c27b754b0fbccc3cc0ec5623b10c2f81677a"
+      ],
+      "rejected_sources": [
+        "101c07b8b529b75de66e90e9fb431f6e94180ea9ec9c23f14e918a8596c3e8c5",
+        "965030e8f643a329ca8aee00b847dd823b6e915e62894933f2fdc7fd0cd2ceaa"
+      ],
+      "feedback": "Show the documented use or result; if unsupported, show a truthful functional detail. Keep the full product with clean edges and no background artifacts."
     },
     {},
     {}
@@ -118,24 +121,30 @@
   "created_at": 1795268027.5472114,
   "deferrals": 0,
   "lease_owner": "b5f4b7d9f25d479ea5e5dc8af9f68390",
-  "lease_until": 1795269827.5472295,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "stopped",
   "next_attempt": 0,
   "source_refresh_after": 1795354429.32282,
   "source_version": "23a5dfa3dbae99a7c3a289cf592daaa8acee7472e03eaf7279bfbe68d4681a0b",
   "effort_versions": {
     "23a5dfa3dbae99a7c3a289cf592daaa8acee7472e03eaf7279bfbe68d4681a0b": [
       {
-        "materializations": 1,
+        "materializations": 2,
         "events": [
           {
             "source_sha256": "965030e8f643a329ca8aee00b847dd823b6e915e62894933f2fdc7fd0cd2ceaa",
             "at": 1795268029.4939628,
             "code": "pending_review",
             "image_sha256": "88f5bd13fa11cdae4479a746a5bcf085cbe1162d9b711bd35c2c1d1ca2a15312"
+          },
+          {
+            "source_sha256": "101c07b8b529b75de66e90e9fb431f6e94180ea9ec9c23f14e918a8596c3e8c5",
+            "at": 1795268111.5854793,
+            "code": "pending_review",
+            "image_sha256": "c20d6b1eca26288e008cdfe32532c27b754b0fbccc3cc0ec5623b10c2f81677a"
           }
         ],
-        "last_code": "materialization_interrupted"
+        "last_code": "review_rejected"
       },
       {
         "materializations": 0,
@@ -150,7 +159,45 @@
   "review_attempts": {
     "88f5bd13fa11cdae4479a746a5bcf085cbe1162d9b711bd35c2c1d1ca2a15312": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "The image features large black letterboxing and pillarboxing borders, making the product appear unnecessarily small."
+        ],
+        "reasons": [
+          "The hero image fails quality and role criteria due to improper framing and black padding that significantly reduces the product's display size on a product card."
+        ]
+      }
+    },
+    "c20d6b1eca26288e008cdfe32532c27b754b0fbccc3cc0ec5623b10c2f81677a": {
+      "opportunities": 1,
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "The image features an unnecessary black letterbox border surrounding the product photo, introducing framing artifacts."
+        ],
+        "reasons": [
+          "The image has an improper black border framing artifact which compromises the clean presentation required for a hero product card."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -158,5 +205,22 @@
     "file": "reference-965030e8f643a329ca8aee00b847dd823b6e915e62894933f2fdc7fd0cd2ceaa.png",
     "sha256": "965030e8f643a329ca8aee00b847dd823b6e915e62894933f2fdc7fd0cd2ceaa",
     "original_sha256": "7eb902b5c1a8af7e4da42ee988cd25dd1f052677c02a8aa70c8915a2e0d83f0c"
+  },
+  "reason": "review_rejected",
+  "terminal": {
+    "code": "review_rejected",
+    "source_version": "23a5dfa3dbae99a7c3a289cf592daaa8acee7472e03eaf7279bfbe68d4681a0b",
+    "details": {
+      "role": "hero",
+      "failed_checks": [
+        "role",
+        "quality"
+      ],
+      "reasons": [
+        "The image has an improper black border framing artifact which compromises the clean presentation required for a hero product card."
+      ],
+      "materializations": 2
+    },
+    "at": 1795268118.3892176
   }
 }
