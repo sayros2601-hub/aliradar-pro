@@ -86,7 +86,32 @@
     }
   ],
   "slots": [
-    {},
+    {
+      "generation_attempts": {},
+      "pending": {
+        "source_file": "reference-90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8.png",
+        "source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sae87f5bfb6f24699a9a0559e166650003.jpg",
+        "original_sha256": "5f336512df87f9670b86b8b8d76aac8ed1fa7c1571c7a7f4e6341639fbc2c7b5",
+        "output_file": "hero-aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5.webp",
+        "image_sha256": "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5",
+        "metrics": {
+          "fg_width": 1586,
+          "fg_height": 1318,
+          "fg_max_side": 1586,
+          "fg_min_side": 1318,
+          "upscale_ratio": 0.561,
+          "sharpness": 8.132,
+          "fg_mean_luma": 43.92,
+          "fg_luma_std": 19.72,
+          "max_border_clip": 0.0,
+          "clipped_edges": 0,
+          "halo_fringe_ratio": 0.002,
+          "reasons": []
+        },
+        "generated": false
+      }
+    },
     {},
     {}
   ],
@@ -106,7 +131,8 @@
           {
             "source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
             "at": 1795273274.6362119,
-            "code": "reserved"
+            "code": "pending_review",
+            "image_sha256": "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5"
           }
         ],
         "last_code": "materialization_interrupted"
@@ -121,7 +147,12 @@
       }
     ]
   },
-  "review_attempts": {},
+  "review_attempts": {
+    "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
+    }
+  },
   "identity_source": {
     "url": "https://ae-pic-a1.aliexpress-media.com/kf/Sae87f5bfb6f24699a9a0559e166650003.jpg",
     "file": "reference-90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8.png",
