@@ -8,6 +8,8 @@ import tempfile
 import unittest
 import xml.etree.ElementTree as ET
 
+from PIL import Image
+
 
 ROOT = Path(__file__).resolve().parents[1]
 SPEC = importlib.util.spec_from_file_location(
@@ -23,7 +25,7 @@ class PinterestFeedTests(unittest.TestCase):
         self.dist = Path(self.temp.name) / 'dist'
         image = self.dist / 'assets/images/new-product.webp'
         image.parent.mkdir(parents=True)
-        image.write_bytes(b'RIFF\x08\x00\x00\x00WEBPtest')
+        Image.new('RGBA', (64, 64), (20, 120, 220, 255)).save(image, format='WEBP')
         self.state = Path(self.temp.name) / 'pinterest-feed-state.json'
         self.state.write_text(json.dumps({
             'version': 1, 'baseline_ids': ['old-product'], 'first_seen': {}
@@ -50,17 +52,36 @@ class PinterestFeedTests(unittest.TestCase):
         self.assertEqual(before, self.state.read_bytes())
 
     def test_new_product_has_canonical_guid_real_image_length_and_disclosures(self):
-        item = ET.fromstring(self.render([self.product])).find('channel/item')
+        xml = self.render([self.product])
+        root = ET.fromstring(xml)
+        channel = root.find('channel')
+        atom_link = channel.find(f'{{{feed.ATOM_NS}}}link')
+        self.assertIsNotNone(atom_link)
+        self.assertEqual(feed.FEED_URL, atom_link.get('href'))
+        item = channel.find('item')
         self.assertEqual('Coffee scale & timer', item.findtext('title'))
         self.assertEqual('https://www.fluxixo.shop/en/products/new-product/',
                          item.findtext('guid'))
         self.assertEqual(item.findtext('guid'), item.findtext('link'))
         self.assertEqual('true', item.find('guid').get('isPermaLink'))
         self.assertEqual(self.first, parsedate_to_datetime(item.findtext('pubDate')))
+        pin_jpg = self.dist / 'assets/pinterest/new-product.jpg'
+        self.assertTrue(pin_jpg.is_file())
+        with Image.open(pin_jpg) as rendered:
+            self.assertEqual(('JPEG', 'RGB', (1000, 1500)), (rendered.format, rendered.mode, rendered.size))
+        expected_size = str(pin_jpg.stat().st_size)
+        expected_url = 'https://www.fluxixo.shop/assets/pinterest/new-product.jpg'
         self.assertEqual({
-            'url': 'https://www.fluxixo.shop/assets/images/new-product.webp',
-            'type': 'image/webp', 'length': '16'
+            'url': expected_url,
+            'type': 'image/jpeg', 'length': expected_size,
         }, item.find('enclosure').attrib)
+        media = item.find(f'{{{feed.MEDIA_NS}}}content')
+        self.assertIsNotNone(media)
+        self.assertEqual({
+            'url': expected_url,
+            'type': 'image/jpeg', 'medium': 'image',
+            'width': '1000', 'height': '1500', 'fileSize': expected_size,
+        }, media.attrib)
         self.assertIn('AI-assisted', item.findtext('description'))
         self.assertIn('Affiliate disclosure:', item.findtext('description'))
         self.assertIn('may earn a commission', item.findtext('description'))
@@ -110,11 +131,15 @@ class PinterestFeedTests(unittest.TestCase):
                 self.assertNotIn("seller's photo", description)
 
     def test_long_copy_keeps_image_ai_and_affiliate_disclosures_within_500_characters(self):
-        self.translations['products']['new-product']['en']['description'] = 'Check compatibility. ' * 40
+        self.translations['products']['new-product']['en']['description'] = (
+            'Verify compatibility and waterproof sealing carefully. '
+            + 'wordboundarycheck ' * 30
+        )
         product = {**self.product, 'imageNote':
                    'Студийная ИИ-визуализация по фотографии продавца. Исходное фото доступно для сравнения; состав заказа уточняйте на AliExpress.'}
         description = ET.fromstring(self.render([product])).findtext('channel/item/description')
         self.assertLessEqual(len(description), 500)
+        self.assertNotRegex(description, r'\bword\w{1,12}…')
         self.assertIn("AI-generated studio illustration based on the seller's photo.", description)
         self.assertIn('AI-assisted product summary.', description)
         self.assertIn('Affiliate disclosure:', description)
@@ -129,7 +154,7 @@ class PinterestFeedTests(unittest.TestCase):
         xml = self.render([second, self.product], later)
         self.assertEqual(xml, self.render([self.product, second], later))
         items = ET.fromstring(xml).findall('channel/item')
-        self.assertEqual([self.first, later],
+        self.assertEqual([later, self.first],
                          [parsedate_to_datetime(p.findtext('pubDate')) for p in items])
 
     def test_missing_or_invalid_state_cannot_backfill_the_catalog(self):

@@ -1,138 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" version="2.0">
   <channel>
+    <atom:link href="https://www.fluxixo.shop/pinterest-new.xml" rel="self" type="application/rss+xml" />
     <title>FLUXIXO — New product finds</title>
     <link>https://www.fluxixo.shop/en/</link>
     <description>Curated everyday product finds from AliExpress, updated daily with studio photos and direct seller links.</description>
     <language>en</language>
     <lastBuildDate>Sat, 21 Nov 2026 17:21:32 +0000</lastBuildDate>
     <item>
-      <title>Smart Self-Rolling Interactive Pet Ball</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005009410831317/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005009410831317/</guid>
-      <pubDate>Sun, 15 Nov 2026 09:49:29 +0000</pubDate>
-      <description>Motorized rolling ball shifts direction when nudged against furniture, encouraging indoor cats or small dogs to stay active. Check ball diameter, outer shell texture, and charging port setup on the product listing. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005009410831317-chatgpt-20261115.webp" type="image/webp" length="141222" />
-    </item>
-    <item>
-      <title>Locking Contour Gauge</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005012367265501/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012367265501/</guid>
-      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
-      <description>A contour gauge with adjustable locking mechanism, designed to accurately transfer profiles onto various surfaces, ensuring precise cuts and clean edges. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005012367265501-chatgpt-20261115.webp" type="image/webp" length="166222" />
-    </item>
-    <item>
-      <title>Electric Wine Vacuum Stopper</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005012687234522/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012687234522/</guid>
-      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
-      <description>Compact motorized wine cap sits atop an opened bottle and draws out air to help slow oxidation between pours. Verify neck-size compatibility, number of stoppers included, and battery or USB requirements before purchasing. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005012687234522-chatgpt-20261115.webp" type="image/webp" length="84910" />
-    </item>
-    <item>
-      <title>Leakproof Travel Dog Water Dispenser Cup</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005012919201086/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012919201086/</guid>
-      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
-      <description>Portable pet water flask with an attached trough bowl, single-press release valve, and lock switch for park walks without spills in your bag. Verify capacity, detachable food cup, and wrist strap options before buying. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005012919201086-chatgpt-20261115.webp" type="image/webp" length="214540" />
-    </item>
-    <item>
-      <title>GyroFit Trainer</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005013158011754/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013158011754/</guid>
-      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
-      <description>A compact, mechanical gyro ball that generates progressive resistance to strengthen the wrist and forearm, perfect for office or home use, check the listing for included accessories and features. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005013158011754-chatgpt-20261115.webp" type="image/webp" length="431378" />
-    </item>
-    <item>
-      <title>Wood Stove Air Circulator</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005013553805507/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013553805507/</guid>
-      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
-      <description>This thermoelectric fan is designed to sit on top of a wood stove, circulating warm air throughout the room using thermal energy, making it a great addition to any home. Check the product details before ordering. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005013553805507-chatgpt-20261115.webp" type="image/webp" length="164260" />
-    </item>
-    <item>
-      <title>Wimshurst Electrostatic Generator Lab Model</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005012473764350/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012473764350/</guid>
-      <pubDate>Wed, 18 Nov 2026 11:18:55 +0000</pubDate>
-      <description>Hand-cranked Wimshurst electrostatic influence machine featuring dual counter-rotating clear acrylic discs with radial aluminum foil sectors, neutralizer brush rods, and paired Leyden jar capacitors on an insulated base. Turning the drive handle builds high-voltage static charge across the adjustable spherical discharge electrodes for c Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005012473764350-studio-20261118.webp" type="image/webp" length="114922" />
-    </item>
-    <item>
-      <title>Grooved Aluminum Rapid Defrosting Tray</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005012569530905/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012569530905/</guid>
-      <pubDate>Wed, 18 Nov 2026 11:18:55 +0000</pubDate>
-      <description>Conductive grooved aluminum defrosting plate draws ambient room heat into frozen steaks, poultry breasts, fish fillets, and burger patties to speed up natural thawing without electricity, batteries, or microwave edge-cooking. Parallel drainage channels increase airflow contact and route melted frost water away from the food so meat stay Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005012569530905-studio-20261118.webp" type="image/webp" length="72300" />
-    </item>
-    <item>
-      <title>Portable Inverter Air Plasma Cutter Machine</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005013037089570/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013037089570/</guid>
-      <pubDate>Wed, 18 Nov 2026 11:18:55 +0000</pubDate>
-      <description>Compact portable inverter air plasma cutting unit (CUT series) with adjustable amperage and post-flow air delay dials for straight and curved cutting across carbon steel, stainless steel, aluminum, and copper plate. Pairs with an external air compressor to project a concentrated high-temperature plasma jet with a narrow kerf and minimal Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005013037089570-studio-20261118.webp" type="image/webp" length="73030" />
-    </item>
-    <item>
-      <title>EMF Detector</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005004266671702/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005004266671702/</guid>
-      <pubDate>Thu, 19 Nov 2026 09:34:39 +0000</pubDate>
-      <description>The EMF detector is designed to measure radiation and temperature levels. It can be used to check radiation levels in various environments, such as homes, offices, and industrial areas. Before purchasing, it is recommended to check the specifications and usage conditions of the detector to ensure its effectiveness and safety. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005004266671702.webp" type="image/webp" length="71300" />
-    </item>
-    <item>
-      <title>Magnetic pickup tool</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005005357943658/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005005357943658/</guid>
-      <pubDate>Thu, 19 Nov 2026 09:34:39 +0000</pubDate>
-      <description>For picking up objects attracted to a magnet. Check the size and stated lifting capacity with the seller to ensure you're getting the right tool for the job. This magnetic pickup tool can be handy in various situations where you need to retrieve an item from a hard-to-reach place. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005005357943658.webp" type="image/webp" length="67142" />
-    </item>
-    <item>
-      <title>Setting Ring for Bore Gauges</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005013186843415/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013186843415/</guid>
-      <pubDate>Thu, 19 Nov 2026 09:34:39 +0000</pubDate>
-      <description>The ring provides a known internal diameter for zeroing a bore gauge. Move the gauge from the ring to the workpiece to check how the bore differs from that reference size. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005013186843415.webp" type="image/webp" length="108896" />
-    </item>
-    <item>
-      <title>Multi-sided Reflex Coordination Training Ball</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005003729947715/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005003729947715/</guid>
-      <pubDate>Fri, 20 Nov 2026 13:59:49 +0000</pubDate>
-      <description>This silicone training accessory features a multi-faceted design that creates unpredictable bounces to challenge hand-eye coordination and reaction speed during workouts. It is widely used by athletes of all ages to enhance agility drills, so verify your intended training surface and review dimensions before finalizing your purchase. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005003729947715.webp" type="image/webp" length="1281252" />
-    </item>
-    <item>
-      <title>Scalp Massager Liquid Applicator Comb</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005013194588661/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013194588661/</guid>
-      <pubDate>Fri, 20 Nov 2026 13:59:49 +0000</pubDate>
-      <description>This specialized comb features rolling balls designed to distribute liquid hair treatments and essential oils directly to the scalp during use. The device helps apply growth serums smoothly while providing a stimulating massage action for daily hair care routines. Prior to ordering, check the fluid capacity and ens AI-generated studio illustration based on the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005013194588661.webp" type="image/webp" length="62014" />
-    </item>
-    <item>
-      <title>Wooden Stability Wobble Trainer</title>
-      <link>https://www.fluxixo.shop/en/products/auto-1005013567552516/</link>
-      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013567552516/</guid>
-      <pubDate>Fri, 20 Nov 2026 13:59:49 +0000</pubDate>
-      <description>A platform built for core workouts, stability routines, and board sport training right inside your living space while challenging physical equilibrium through dynamic rocking movements. Always check available floor space and personal usage requirements prior to purchase. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005013567552516.webp" type="image/webp" length="85864" />
-    </item>
-    <item>
       <title>Metal Timed Phone Lock Box Vault</title>
       <link>https://www.fluxixo.shop/en/products/auto-1005006728238948/</link>
       <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005006728238948/</guid>
       <pubDate>Sat, 21 Nov 2026 17:21:32 +0000</pubDate>
       <description>Sturdy locking box seals inside a timer-controlled latch for phones or keys until your focus countdown ends. Verify inner dimensions against your phone size and check backup unlock or charging notes on the listing. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005006728238948.webp" type="image/webp" length="161422" />
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005006728238948.jpg" type="image/jpeg" length="50964" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005006728238948.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="50964" />
     </item>
     <item>
       <title>Magnetic Floating Bonsai Planter</title>
@@ -140,7 +22,8 @@
       <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005008721169426/</guid>
       <pubDate>Sat, 21 Nov 2026 17:21:32 +0000</pubDate>
       <description>Electromagnetic walnut-tone pedestal suspends a lightweight planter pot in mid-air while rotating smoothly for even light exposure. Confirm payload weight limit and adapter. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005008721169426.webp" type="image/webp" length="313888" />
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005008721169426.jpg" type="image/jpeg" length="62408" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005008721169426.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="62408" />
     </item>
     <item>
       <title>Cordless Bucket Wash Pump</title>
@@ -148,7 +31,143 @@
       <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005011808254244/</guid>
       <pubDate>Sat, 21 Nov 2026 17:21:32 +0000</pubDate>
       <description>Submersible cordless pump feeds water from any bucket or jug into a handheld shower nozzle for beach trips, camping, and washing pets outdoors. Verify hose length, battery pack sealing, and bracket accessories before ordering. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
-      <enclosure url="https://www.fluxixo.shop/assets/images/auto-1005011808254244.webp" type="image/webp" length="206362" />
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005011808254244.jpg" type="image/jpeg" length="58300" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005011808254244.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="58300" />
+    </item>
+    <item>
+      <title>Multi-sided Reflex Coordination Training Ball</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005003729947715/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005003729947715/</guid>
+      <pubDate>Fri, 20 Nov 2026 13:59:49 +0000</pubDate>
+      <description>This silicone training accessory features a multi-faceted design that creates unpredictable bounces to challenge hand-eye coordination and reaction speed during workouts. It is widely used by athletes of all ages to enhance agility drills, so verify your intended training surface and review dimensions before finalizing your purchase. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005003729947715.jpg" type="image/jpeg" length="72647" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005003729947715.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="72647" />
+    </item>
+    <item>
+      <title>Scalp Massager Liquid Applicator Comb</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005013194588661/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013194588661/</guid>
+      <pubDate>Fri, 20 Nov 2026 13:59:49 +0000</pubDate>
+      <description>This specialized comb features rolling balls designed to distribute liquid hair treatments and essential oils directly to the scalp during use. The device helps apply growth serums smoothly while providing a stimulating massage action for daily hair care routines. AI-generated studio illustration based on the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005013194588661.jpg" type="image/jpeg" length="66504" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005013194588661.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="66504" />
+    </item>
+    <item>
+      <title>Wooden Stability Wobble Trainer</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005013567552516/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013567552516/</guid>
+      <pubDate>Fri, 20 Nov 2026 13:59:49 +0000</pubDate>
+      <description>A platform built for core workouts, stability routines, and board sport training right inside your living space while challenging physical equilibrium through dynamic rocking movements. Always check available floor space and personal usage requirements prior to purchase. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005013567552516.jpg" type="image/jpeg" length="40499" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005013567552516.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="40499" />
+    </item>
+    <item>
+      <title>EMF Detector</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005004266671702/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005004266671702/</guid>
+      <pubDate>Thu, 19 Nov 2026 09:34:39 +0000</pubDate>
+      <description>The EMF detector is designed to measure radiation and temperature levels. It can be used to check radiation levels in various environments, such as homes, offices, and industrial areas. Before purchasing, it is recommended to check the specifications and usage conditions of the detector to ensure its effectiveness and safety. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005004266671702.jpg" type="image/jpeg" length="87735" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005004266671702.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="87735" />
+    </item>
+    <item>
+      <title>Magnetic pickup tool</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005005357943658/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005005357943658/</guid>
+      <pubDate>Thu, 19 Nov 2026 09:34:39 +0000</pubDate>
+      <description>For picking up objects attracted to a magnet. Check the size and stated lifting capacity with the seller to ensure you're getting the right tool for the job. This magnetic pickup tool can be handy in various situations where you need to retrieve an item from a hard-to-reach place. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005005357943658.jpg" type="image/jpeg" length="52823" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005005357943658.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="52823" />
+    </item>
+    <item>
+      <title>Setting Ring for Bore Gauges</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005013186843415/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013186843415/</guid>
+      <pubDate>Thu, 19 Nov 2026 09:34:39 +0000</pubDate>
+      <description>The ring provides a known internal diameter for zeroing a bore gauge. Move the gauge from the ring to the workpiece to check how the bore differs from that reference size. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005013186843415.jpg" type="image/jpeg" length="119766" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005013186843415.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="119766" />
+    </item>
+    <item>
+      <title>Wimshurst Electrostatic Generator Lab Model</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005012473764350/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012473764350/</guid>
+      <pubDate>Wed, 18 Nov 2026 11:18:55 +0000</pubDate>
+      <description>Hand-cranked Wimshurst electrostatic influence machine featuring dual counter-rotating clear acrylic discs with radial aluminum foil sectors, neutralizer brush rods, and paired Leyden jar capacitors on an insulated base. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005012473764350.jpg" type="image/jpeg" length="91144" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005012473764350.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="91144" />
+    </item>
+    <item>
+      <title>Grooved Aluminum Rapid Defrosting Tray</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005012569530905/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012569530905/</guid>
+      <pubDate>Wed, 18 Nov 2026 11:18:55 +0000</pubDate>
+      <description>Conductive grooved aluminum defrosting plate draws ambient room heat into frozen steaks, poultry breasts, fish fillets, and burger patties to speed up natural thawing without electricity, batteries, or microwave edge-cooking. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005012569530905.jpg" type="image/jpeg" length="64797" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005012569530905.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="64797" />
+    </item>
+    <item>
+      <title>Portable Inverter Air Plasma Cutter Machine</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005013037089570/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013037089570/</guid>
+      <pubDate>Wed, 18 Nov 2026 11:18:55 +0000</pubDate>
+      <description>Compact portable inverter air plasma cutting unit (CUT series) with adjustable amperage and post-flow air delay dials for straight and curved cutting across carbon steel, stainless steel, aluminum, and copper plate. Image prepared from the seller's photo. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005013037089570.jpg" type="image/jpeg" length="100052" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005013037089570.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="100052" />
+    </item>
+    <item>
+      <title>Locking Contour Gauge</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005012367265501/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012367265501/</guid>
+      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
+      <description>A contour gauge with adjustable locking mechanism, designed to accurately transfer profiles onto various surfaces, ensuring precise cuts and clean edges. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005012367265501.jpg" type="image/jpeg" length="64735" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005012367265501.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="64735" />
+    </item>
+    <item>
+      <title>Electric Wine Vacuum Stopper</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005012687234522/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012687234522/</guid>
+      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
+      <description>Compact motorized wine cap sits atop an opened bottle and draws out air to help slow oxidation between pours. Verify neck-size compatibility, number of stoppers included, and battery or USB requirements before purchasing. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005012687234522.jpg" type="image/jpeg" length="42997" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005012687234522.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="42997" />
+    </item>
+    <item>
+      <title>Leakproof Travel Dog Water Dispenser Cup</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005012919201086/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005012919201086/</guid>
+      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
+      <description>Portable pet water flask with an attached trough bowl, single-press release valve, and lock switch for park walks without spills in your bag. Verify capacity, detachable food cup, and wrist strap options before buying. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005012919201086.jpg" type="image/jpeg" length="68776" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005012919201086.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="68776" />
+    </item>
+    <item>
+      <title>GyroFit Trainer</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005013158011754/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013158011754/</guid>
+      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
+      <description>A compact, mechanical gyro ball that generates progressive resistance to strengthen the wrist and forearm, perfect for office or home use, check the listing for included accessories and features. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005013158011754.jpg" type="image/jpeg" length="150504" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005013158011754.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="150504" />
+    </item>
+    <item>
+      <title>Wood Stove Air Circulator</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005013553805507/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005013553805507/</guid>
+      <pubDate>Sun, 15 Nov 2026 12:39:34 +0000</pubDate>
+      <description>This thermoelectric fan is designed to sit on top of a wood stove, circulating warm air throughout the room using thermal energy, making it a great addition to any home. Check the product details before ordering. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005013553805507.jpg" type="image/jpeg" length="64294" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005013553805507.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="64294" />
+    </item>
+    <item>
+      <title>Smart Self-Rolling Interactive Pet Ball</title>
+      <link>https://www.fluxixo.shop/en/products/auto-1005009410831317/</link>
+      <guid isPermaLink="true">https://www.fluxixo.shop/en/products/auto-1005009410831317/</guid>
+      <pubDate>Sun, 15 Nov 2026 09:49:29 +0000</pubDate>
+      <description>Motorized rolling ball shifts direction when nudged against furniture, encouraging indoor cats or small dogs to stay active. Check ball diameter, outer shell texture, and charging port setup on the product listing. Image preparation details are not confirmed. AI-assisted product summary. Affiliate disclosure: FLUXIXO uses affiliate links and may earn a commission from purchases.</description>
+      <enclosure url="https://www.fluxixo.shop/assets/pinterest/auto-1005009410831317.jpg" type="image/jpeg" length="48914" />
+      <media:content url="https://www.fluxixo.shop/assets/pinterest/auto-1005009410831317.jpg" type="image/jpeg" medium="image" width="1000" height="1500" fileSize="48914" />
     </item>
   </channel>
 </rss>

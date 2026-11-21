@@ -28,6 +28,9 @@
 /assets/video/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
+/assets/pinterest/*
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
 /assets/featured/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -62,7 +65,7 @@
 /rss.xml
   Content-Type: application/rss+xml; charset=utf-8
 /pinterest-new.xml
-  Content-Type: application/xml; charset=utf-8
+  Content-Type: application/rss+xml; charset=utf-8
 /pinterest-feed.csv
   Content-Type: text/csv; charset=utf-8
 /social-feed.json

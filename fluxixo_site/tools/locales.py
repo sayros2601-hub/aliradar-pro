@@ -212,8 +212,9 @@ ABOUT = {
             ('what', 'Что такое FLUXIXO', 'FLUXIXO — независимая подборка полезных товаров с AliExpress. Мы не магазин и не представляем AliExpress: заказ, оплата, доставка и возврат оформляются на AliExpress у выбранного продавца.'),
             ('images', 'Как готовятся карточки', 'Студийные изображения мы выделяем с помощью ИИ из фотографий продавца: только сам товар, без фона и надписей. Все фото и комплектацию продавца смотрите на AliExpress. Мы не тестируем каждый товар лично и не публикуем цены и рейтинги: они часто меняются, актуальные условия смотрите у продавца.'),
             ('affiliate', 'Партнёрские ссылки', 'Ссылки на AliExpress партнёрские. Если вы совершите покупку, FLUXIXO может получить комиссию; цена для вас при этом не меняется.'),
-            ('privacy', 'Конфиденциальность', 'На сайте нет регистрации, форм и рекламных cookie. Посещаемость считается через Cloudflare Web Analytics в обезличенном агрегированном виде, без cookie. На русскоязычных страницах дополнительно работает Яндекс Метрика: она ставит собственные cookie и записывает обезличенные действия на странице (клики, прокрутку), эти данные обрабатывает Яндекс по своей политике конфиденциальности. Сайт сохраняет настройку анимации в вашем браузере. После перехода на AliExpress действует политика конфиденциальности AliExpress.'),
+            ('privacy', 'Конфиденциальность', 'На сайте нет регистрации, форм и рекламных cookie. Посещаемость считается через Cloudflare Web Analytics в обезличенном агрегированном виде, без cookie. Сайт сохраняет настройку анимации в вашем браузере. После перехода на AliExpress действует политика конфиденциальности AliExpress.'),
             ('orders', 'Вопросы по заказам', 'По вопросам заказа, доставки и возврата обращайтесь к продавцу через свой аккаунт AliExpress. FLUXIXO не обрабатывает заказы и платежи.'),
+            ('contact', 'Контакты редакции', 'По вопросам содержания сайта, исправлений описаний и партнёрства пишите на sayros2601@gmail.com.'),
         ],
     },
     'en': {
@@ -227,6 +228,7 @@ ABOUT = {
             ('affiliate', 'Affiliate links', 'Links to AliExpress are affiliate links. If you make a purchase, FLUXIXO may earn a commission at no extra cost to you.'),
             ('privacy', 'Privacy', 'The site has no sign-up, no forms and no advertising cookies. Visits are counted in aggregate with Cloudflare Web Analytics, without cookies. The site stores your motion preference in your browser. Once you open AliExpress, the AliExpress privacy policy applies.'),
             ('orders', 'Order questions', 'For orders, delivery and returns, contact the seller through your AliExpress account. FLUXIXO does not process orders or payments.'),
+            ('contact', 'Editorial contact', 'For questions about the site, listing corrections, or inquiries, email sayros2601@gmail.com.'),
         ],
     },
     'pt': {
@@ -240,6 +242,7 @@ ABOUT = {
             ('affiliate', 'Links de afiliados', 'Os links para o AliExpress são de afiliados. Se você fizer uma compra, a FLUXIXO pode receber uma comissão sem custo adicional para você.'),
             ('privacy', 'Privacidade', 'O site não tem cadastro, formulários nem cookies de publicidade. As visitas são contadas de forma agregada com o Cloudflare Web Analytics, sem cookies. O site salva sua preferência de animação no navegador. Ao abrir o AliExpress, vale a política de privacidade do AliExpress.'),
             ('orders', 'Dúvidas sobre pedidos', 'Para pedidos, entrega e devolução, fale com o vendedor pela sua conta do AliExpress. A FLUXIXO não processa pedidos nem pagamentos.'),
+            ('contact', 'Contato editorial', 'Para dúvidas sobre o site, correções de descrições ou contato editorial, escreva para sayros2601@gmail.com.'),
         ],
     },
     'es': {
@@ -253,6 +256,7 @@ ABOUT = {
             ('affiliate', 'Enlaces de afiliados', 'Los enlaces a AliExpress son de afiliados. Si realizas una compra, FLUXIXO puede recibir una comisión sin costo extra para ti.'),
             ('privacy', 'Privacidad', 'El sitio no tiene registro, formularios ni cookies publicitarias. Las visitas se cuentan de forma agregada con Cloudflare Web Analytics, sin cookies. El sitio guarda tu preferencia de animación en el navegador. Al abrir AliExpress, se aplica la política de privacidad de AliExpress.'),
             ('orders', 'Dudas sobre pedidos', 'Para pedidos, entregas y devoluciones, contacta al vendedor desde tu cuenta de AliExpress. FLUXIXO no procesa pedidos ni pagos.'),
+            ('contact', 'Contacto editorial', 'Para consultas sobre el sitio, correcciones de descripciones o contacto editorial, escribe a sayros2601@gmail.com.'),
         ],
     },
     'fr': {
@@ -266,6 +270,7 @@ ABOUT = {
             ('affiliate', 'Liens affiliés', 'Les liens vers AliExpress sont des liens affiliés. Si vous effectuez un achat, FLUXIXO peut percevoir une commission sans frais supplémentaires pour vous.'),
             ('privacy', 'Confidentialité', 'Le site n’a ni inscription, ni formulaire, ni cookie publicitaire. Les visites sont comptées de façon agrégée avec Cloudflare Web Analytics, sans cookie. Le site enregistre votre préférence d’animation dans votre navigateur. Une fois sur AliExpress, la politique de confidentialité d’AliExpress s’applique.'),
             ('orders', 'Questions sur les commandes', 'Pour les commandes, la livraison et les retours, contactez le vendeur depuis votre compte AliExpress. FLUXIXO ne traite ni commandes ni paiements.'),
+            ('contact', 'Contact éditorial', 'Pour toute question sur le site, correction de fiche ou demande éditoriale, écrivez à sayros2601@gmail.com.'),
         ],
     },
     'he': {
@@ -279,6 +284,7 @@ ABOUT = {
             ('affiliate', 'קישורי שותפים', 'הקישורים ל־AliExpress הם קישורי שותפים. אם תבצעו רכישה, FLUXIXO עשויה לקבל עמלה ללא תוספת תשלום עבורכם.'),
             ('privacy', 'פרטיות', 'באתר אין הרשמה, טפסים או עוגיות פרסום. נתוני הגלישה נאספים באופן אנונימי ומרוכז באמצעות Cloudflare Web Analytics, ללא עוגיות. האתר שומר בדפדפן את העדפת האנימציה שלכם. לאחר המעבר ל־AliExpress חלה מדיניות הפרטיות של AliExpress.'),
             ('orders', 'שאלות על הזמנות', 'בנושאי הזמנות, משלוחים והחזרות פנו למוכר דרך חשבון ה־AliExpress שלכם. FLUXIXO אינה מטפלת בהזמנות או בתשלומים.'),
+            ('contact', 'יצירת קשר עם המערכת', 'לשאלות על האתר, תיקון תיאורים או פניות למערכת ניתן לכתוב לכתובת sayros2601@gmail.com.'),
         ],
     },
 }

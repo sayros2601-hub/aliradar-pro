@@ -11,8 +11,18 @@ import re
 from urllib.parse import quote
 import xml.etree.ElementTree as ET
 
+from PIL import Image
+
 
 ORIGIN = 'https://www.fluxixo.shop'
+FEED_URL = ORIGIN + '/pinterest-new.xml'
+MEDIA_NS = 'http://search.yahoo.com/mrss/'
+ATOM_NS = 'http://www.w3.org/2005/Atom'
+ET.register_namespace('media', MEDIA_NS)
+ET.register_namespace('atom', ATOM_NS)
+
+PIN_WIDTH, PIN_HEIGHT = 1000, 1500
+PIN_BG = (243, 240, 233)
 DISCLOSURE = ('AI-assisted product summary. Affiliate disclosure: FLUXIXO uses '
               'affiliate links and may earn a commission from purchases.')
 IMAGE_TYPES = {'.webp': 'image/webp', '.png': 'image/png',
@@ -60,6 +70,59 @@ def _load_state(path):
         raise ValueError(f'Pinterest feed state is missing or invalid: {path}') from exc
 
 
+def _truncate_words(text, limit):
+    """Shorten text at a sentence or word boundary without leaving a clipped word fragment."""
+    clean = ' '.join(text.split())
+    if limit <= 0:
+        return ''
+    if len(clean) <= limit:
+        return clean
+    cut = clean[:limit - 1].rstrip()
+    for sep in ('. ', '! ', '? '):
+        idx = cut.rfind(sep)
+        if idx >= int(limit * 0.55):
+            return cut[:idx + 1].rstrip()
+    if ' ' in clean[:limit]:
+        word_cut = clean[:limit].rsplit(' ', 1)[0].rstrip(' ,;:-')
+        if word_cut:
+            return word_cut + '…'
+    return cut + '…'
+
+
+def _render_pinterest_jpeg(dist, source_image, product_id):
+    """Render a 2:3 (1000x1500) warm-paper RGB JPEG for reliable Pinterest RSS ingestion."""
+    target = (dist / 'assets/pinterest' / f'{product_id}.jpg').resolve()
+    if not target.is_relative_to(dist):
+        raise ValueError(f'Unsafe Pinterest feed image path: {product_id}')
+    if target.is_file() and target.stat().st_size > 0 and target.stat().st_mtime >= source_image.stat().st_mtime:
+        try:
+            with Image.open(target) as existing:
+                if existing.format == 'JPEG' and existing.size == (PIN_WIDTH, PIN_HEIGHT):
+                    return target
+        except OSError:
+            pass
+    try:
+        with Image.open(source_image) as opened:
+            rgba = opened.convert('RGBA')
+    except OSError as exc:
+        raise ValueError(f'Pinterest feed image is unreadable: {product_id}') from exc
+    bbox = rgba.getbbox()
+    subject = rgba.crop(bbox) if bbox else rgba
+    max_w, max_h = 840, 1180
+    scale = min(max_w / max(subject.width, 1), max_h / max(subject.height, 1))
+    resized = subject.resize(
+        (max(1, round(subject.width * scale)), max(1, round(subject.height * scale))),
+        Image.LANCZOS,
+    )
+    canvas = Image.new('RGB', (PIN_WIDTH, PIN_HEIGHT), PIN_BG)
+    canvas.paste(resized, ((PIN_WIDTH - resized.width) // 2, (PIN_HEIGHT - resized.height) // 2), resized.getchannel('A'))
+    target.parent.mkdir(parents=True, exist_ok=True)
+    tmp = target.with_suffix('.jpg.tmp')
+    canvas.save(tmp, format='JPEG', quality=88, optimize=True)
+    tmp.replace(target)
+    return target
+
+
 def build_pinterest_feed(dist, products, translations, state_path, *, now=None):
     """Return RSS and atomically persist first-seen dates, without generating assets."""
     dist, state_path = Path(dist).resolve(), Path(state_path)
@@ -90,6 +153,7 @@ def build_pinterest_feed(dist, products, translations, state_path, *, now=None):
         if (not image.is_relative_to(dist) or not image.is_file()
                 or image.suffix.lower() not in IMAGE_TYPES or image.stat().st_size == 0):
             raise ValueError(f'Pinterest feed image is missing or invalid: {product_id}')
+        pin_image = _render_pinterest_jpeg(dist, image, product_id)
         if product_id not in state['first_seen']:
             state['first_seen'][product_id] = timestamp
             changed = True
@@ -98,10 +162,15 @@ def build_pinterest_feed(dist, products, translations, state_path, *, now=None):
             image_note.strip() if isinstance(image_note, str) else '',
             'Image preparation details are not confirmed.')
         items.append((state['first_seen'][product_id], product_id, name.strip(),
-                      description.strip(), image, image_disclosure + ' ' + DISCLOSURE))
+                      description.strip(), pin_image, image_disclosure + ' ' + DISCLOSURE))
 
     rss = ET.Element('rss', {'version': '2.0'})
     channel = ET.SubElement(rss, 'channel')
+    ET.SubElement(channel, f'{{{ATOM_NS}}}link', {
+        'href': FEED_URL,
+        'rel': 'self',
+        'type': 'application/rss+xml',
+    })
     for tag, value in (
         ('title', 'FLUXIXO — New product finds'),
         ('link', ORIGIN + '/en/'),
@@ -112,20 +181,31 @@ def build_pinterest_feed(dist, products, translations, state_path, *, now=None):
     if items:
         ET.SubElement(channel, 'lastBuildDate').text = format_datetime(
             max(_instant(row[0]) for row in items))
-    for first_seen, product_id, name, description, image, disclosure in sorted(
-            items, key=lambda row: (_instant(row[0]), row[1])):
+    for first_seen, product_id, name, description, pin_image, disclosure in sorted(
+            items, key=lambda row: (-_instant(row[0]).timestamp(), row[1])):
         item = ET.SubElement(channel, 'item')
         url = f'{ORIGIN}/en/products/{product_id}/'
-        ET.SubElement(item, 'title').text = name[:100]
+        pin_url = ORIGIN + '/' + quote(pin_image.relative_to(dist).as_posix(), safe='/-._~')
+        pin_size = str(pin_image.stat().st_size)
+        ET.SubElement(item, 'title').text = _truncate_words(name, 100)
         ET.SubElement(item, 'link').text = url
         ET.SubElement(item, 'guid', {'isPermaLink': 'true'}).text = url
         ET.SubElement(item, 'pubDate').text = format_datetime(_instant(first_seen))
+        summary = _truncate_words(description, 499 - len(disclosure))
         ET.SubElement(item, 'description').text = (
-            description[:499 - len(disclosure)].rstrip() + ' ' + disclosure)
+            f'{summary} {disclosure}' if summary else disclosure)
         ET.SubElement(item, 'enclosure', {
-            'url': ORIGIN + '/' + quote(image.relative_to(dist).as_posix(), safe='/-._~'),
-            'type': IMAGE_TYPES[image.suffix.lower()],
-            'length': str(image.stat().st_size),
+            'url': pin_url,
+            'type': 'image/jpeg',
+            'length': pin_size,
+        })
+        ET.SubElement(item, f'{{{MEDIA_NS}}}content', {
+            'url': pin_url,
+            'type': 'image/jpeg',
+            'medium': 'image',
+            'width': str(PIN_WIDTH),
+            'height': str(PIN_HEIGHT),
+            'fileSize': pin_size,
         })
     ET.indent(rss, space='  ')
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n' + ET.tostring(rss, encoding='unicode') + '\n'
