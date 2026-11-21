@@ -5,6 +5,196 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005012560205420",
+      "name": "Складной каяк с поддержкой спины",
+      "headline": [
+        "Для воды",
+        "спорта"
+      ],
+      "description": "Этот складной каяк предназначен для использования на воде, обеспечивая поддержку спины и комфорт во время занятий спортом. Он подходит для каякинга, рыбалки и других водных активностей. Перед покупкой проверьте характеристики и условия по ссылке, чтобы убедиться в соответствии ваших потребностей.",
+      "category": "Спорт",
+      "image": "assets/images/auto-1005012560205420.webp",
+      "original": "assets/originals/auto-1005012560205420.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4pbuIn7",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012560205420.html",
+      "sourceProductId": "1005012560205420",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012560205420.html",
+      "sourceTitle": "Folding Kayak Seat With Back Support Portable SUPs Paddle Board Chair For Canoe Fishing Boat Yacht Poolside Maritime Use",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sba6169c04f194818b87fcce33e702924Q.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "MX",
+      "sourceTask": "ai_rare_kayak_paddle",
+      "demo": false,
+      "theme": "lavender",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Этот складной каяк предназначен для использования на воде, обеспечивая поддержку спины и комфорт во время занятий спортом. Он подходит для каякинга, рыбалки и других водных активностей. Перед покупкой проверьте характеристики и условия по ссылке, чтобы убедиться в соответствии ваших потребностей.",
+      "facts": [],
+      "availableMarkets": [
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "presearchStatus": {
+        "checked": false,
+        "status": "not_run",
+        "saturated": false
+      },
+      "sourceShopId": "1103744821",
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "b06e45a07faca96ead7671ac8b2066638fb1e278d1f127d918e20a57cb023e21",
+            "checked_at": 1795273254.6231916
+          },
+          "en": {
+            "sha256": "9d2dd0e1b42511989aeff12c570415796b75c9a5c6b29433af8b977da7fc0689",
+            "checked_at": 1795273258.0205655
+          },
+          "pt": {
+            "sha256": "42ac15953775c50a574951cd763263c8455a8916fbf05e9932ad61f8e80c5301",
+            "checked_at": 1795273259.7642608
+          },
+          "es": {
+            "sha256": "b26dabf7e03c957b83975349251e0089a222f9b9d41645a8d32686002d834f04",
+            "checked_at": 1795273261.9836826
+          },
+          "fr": {
+            "sha256": "b7c1d4c54f7eec72ed486c25ae26669e4b096a62378b0237d55954847d8ba264",
+            "checked_at": 1795273266.3017294
+          },
+          "he": {
+            "sha256": "b8b00ee7b1959f4c094c82f0715e23939c4ad1ee8cce0836d50fdd44d8f8705a",
+            "checked_at": 1795273267.5259585
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005012560205420",
+        "source_title_sha256": "1561eafd3f5168228ce9699fa64b8d43ab9fe2d8e7bf581116168db7c9edc90b",
+        "identity_source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
+        "identity_source_asset": "assets/originals/auto-1005012560205420-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "93ace040bbb376ecbcf084a6a62bddc3eeedb3e00e9c42eb66ae47cc41a6cb33",
+            "image_sha256": "7230e4cedb9c83c8c88530cac764deaf0307fb5f4b971ddb8063dbe06f296f04",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sba6169c04f194818b87fcce33e702924Q.jpg",
+            "source_asset": "assets/originals/auto-1005012560205420-review-1.png",
+            "output_asset": "assets/images/auto-1005012560205420.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The hero image clearly displays the folding kayak seat on a paddle board, matching the product title and variant.",
+                "All essential features, colors, and structural components align correctly with the reference image."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
+            "image_sha256": "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5",
+            "prior_image_sha256": [
+              "7230e4cedb9c83c8c88530cac764deaf0307fb5f4b971ddb8063dbe06f296f04"
+            ],
+            "identity_source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sae87f5bfb6f24699a9a0559e166650003.jpg",
+            "source_asset": "assets/originals/auto-1005012560205420-review-2.png",
+            "output_asset": "assets/images/auto-1005012560205420-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately depicts the folding kayak seat in its intended application context mounted on a paddleboard.",
+                "All physical features, color, and structure match the product specification without any defects or misleading elements."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "b3ae4a3ec8cada592fce59ebf85c74474257e6da891363c59aa39b7278e7b7a1",
+            "image_sha256": "86219265ff6bf02da19307e68d9c339171d638ba3ae46ba7d162cacd544e876b",
+            "prior_image_sha256": [
+              "7230e4cedb9c83c8c88530cac764deaf0307fb5f4b971ddb8063dbe06f296f04",
+              "aeb048b6adbf43c151582ddad470c61b76869767c454a3b9938fb36551ed80f5"
+            ],
+            "identity_source_sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7e448a0b489b4121bb152e737f20f48cK.jpg",
+            "source_asset": "assets/originals/auto-1005012560205420-review-3.png",
+            "output_asset": "assets/images/auto-1005012560205420-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The product correctly matches the black folding kayak seat variant shown in Image 1.",
+                "The shape, color, and structural features are fully consistent with the product specification.",
+                "The contextual presentation serves as an appropriate and valid result/lifestyle view."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005012560205420-v2.webp",
+        "assets/images/auto-1005012560205420-v3.webp"
+      ],
+      "sourceImageSha256": "e2ca467b9e9ed56d428881ea5675eeadbc1a92a0fd4e44c549593bdaefba83a4",
+      "sourcePixelSha256": "f4f61f1611120a689bcc0833b8d11a0aa65dd008787ccc29d1630178def65027",
+      "imageDhash": "43059f1818311706",
+      "imageAhash": "f1c0838f8f8df3f3",
+      "imageAspect": "1.03",
+      "sourceImageDhash": "43079f1819311706",
+      "sourceImageAhash": "f1c0838f8f8df3f3",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1573,
+        "fg_height": 1523,
+        "fg_max_side": 1573,
+        "fg_min_side": 1523,
+        "upscale_ratio": 0.566,
+        "sharpness": 12.685,
+        "fg_mean_luma": 65.29,
+        "fg_luma_std": 54.27,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.014,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005003729947715",
       "name": "Тренировочный мяч для развития координации и реакции",
       "headline": [
