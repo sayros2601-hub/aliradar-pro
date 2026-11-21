@@ -203,13 +203,74 @@
       "source_title_sha256": "29b4afc28811bf10ac28e19c2d6dd7f5ce099355d8000f803f7951b65f3c9a3e",
       "reviewed_at": 1795268308.6592653
     },
-    {}
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the fire blowing tube being used in its intended context by a campfire, correctly fulfilling the requested result role."
+        ]
+      },
+      "source_file": "reference-1106a6eb9ee2cad605cf6b25ba994b9b0000c4fd149a0bc58e93325ab63c2803.png",
+      "source_sha256": "1106a6eb9ee2cad605cf6b25ba994b9b0000c4fd149a0bc58e93325ab63c2803",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S70fcf66a925640539ae1ecb830573e77S.png",
+      "original_sha256": "ae0eb00ae5ac9da6e06e2e5fc875f5b4dbf6347429cc778ab7f2724954981b55",
+      "output_file": "result-a73989fad4914846e0dcf1838c85a392e4010495eaa53a6aaa851584f3d03d7f.webp",
+      "image_sha256": "a73989fad4914846e0dcf1838c85a392e4010495eaa53a6aaa851584f3d03d7f",
+      "metrics": {
+        "fg_width": 1000,
+        "fg_height": 1000,
+        "fg_max_side": 1000,
+        "fg_min_side": 1000,
+        "upscale_ratio": 0.89,
+        "sharpness": 15.262,
+        "fg_mean_luma": 209.28,
+        "fg_luma_std": 67.88,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the fire blowing tube being used in its intended context by a campfire, correctly fulfilling the requested result role."
+        ]
+      },
+      "prior_image_sha256": [
+        "1d7cca3d133c00b6134314bc5949ec619ac14ba9cf5787573121348d0c0ee666",
+        "f3ca66e228691c8e7190330b18a5c9453563b3c25f7b48d98013b05364a286f4"
+      ],
+      "identity_source_sha256": "e03d464d55eb0621c14d79463ab68becbdf1f99e0b647199ab0329867f23b55f",
+      "source_title_sha256": "29b4afc28811bf10ac28e19c2d6dd7f5ce099355d8000f803f7951b65f3c9a3e",
+      "reviewed_at": 1795268317.6417036
+    }
   ],
   "created_at": 1795268289.8527858,
   "deferrals": 0,
   "lease_owner": "74a045417104473d98ad51b5fdf4438e",
-  "lease_until": 1795270089.8528101,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795354691.9423509,
   "source_version": "7490605c926088633469dd8465e356d20840ee6977e62eb42027896c976518ff",
@@ -240,8 +301,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "1106a6eb9ee2cad605cf6b25ba994b9b0000c4fd149a0bc58e93325ab63c2803",
+            "at": 1795268311.0534627,
+            "code": "pending_review",
+            "image_sha256": "a73989fad4914846e0dcf1838c85a392e4010495eaa53a6aaa851584f3d03d7f"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -285,6 +354,25 @@
           "The application image clearly demonstrates the proper use of the telescopic fire blowing tube at a campfire, accurately matching the product identity, material, and intended function."
         ]
       }
+    },
+    "a73989fad4914846e0dcf1838c85a392e4010495eaa53a6aaa851584f3d03d7f": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the fire blowing tube being used in its intended context by a campfire, correctly fulfilling the requested result role."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -292,5 +380,6 @@
     "file": "reference-e03d464d55eb0621c14d79463ab68becbdf1f99e0b647199ab0329867f23b55f.png",
     "sha256": "e03d464d55eb0621c14d79463ab68becbdf1f99e0b647199ab0329867f23b55f",
     "original_sha256": "8717eaf4b0e0fe2935517b0bfd35f75635f927fcaf55c6a8aa76f0ef1ea73abf"
-  }
+  },
+  "reason": ""
 }
