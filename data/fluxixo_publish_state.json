@@ -36,14 +36,6 @@
       "reserved_at": "2026-11-20T13:42:41.267166+00:00",
       "retries": 0,
       "published_day": "2026-11-20"
-    },
-    "2026-11-21": {
-      "status": "prepared",
-      "reserved_count": 2,
-      "baseline_count": 1,
-      "utc_day": "2026-11-21",
-      "reserved_at": "2026-11-21T16:56:24.706056+00:00",
-      "retries": 0
     }
   }
 }
