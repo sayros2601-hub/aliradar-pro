@@ -5,6 +5,188 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005011808254244",
+      "name": "Аккумуляторный погружной душ-насос со шлангом",
+      "headline": [
+        "Лёгкий насос,",
+        "вода из канистры."
+      ],
+      "description": "Погружной насос со шлангом и душевой лейкой берёт воду из ведра или канистры на даче, пляже и в походе без подключения к водопроводу. Уточните длину шланга, время зарядки и влагозащиту блока питания.",
+      "category": "На природе",
+      "image": "assets/images/auto-1005011808254244.webp",
+      "original": "assets/originals/auto-1005011808254244.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c40jtZu1",
+      "sourceUrl": "https://www.aliexpress.com/item/1005011808254244.html",
+      "sourceProductId": "1005011808254244",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011808254244.html",
+      "sourceTitle": "Portable Electric Camping Shower Rechargeable Waterproof Shower Pump For Outdoor Hiking Swimming Climbing Pet Car Clean",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S971faf38967a473bb4644c81720b190aF.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "BR",
+      "sourceTask": "rare_folding_camping_shower",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Погружной насос со шлангом и душевой лейкой берёт воду из ведра или канистры на даче, пляже и в походе без подключения к водопроводу. Уточните длину шланга, время зарядки и влагозащиту блока питания.",
+      "facts": [],
+      "availableMarkets": [
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "sourceShopId": "1102984687",
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "fe99da77a2de0b9c75d1074839195c9c20da309b47e104152f18de9ffbcf1610",
+            "checked_at": 1795281453.339736
+          },
+          "en": {
+            "sha256": "b79a424de2db6130769618cba57dcf46484b5ff0f25a97b0d5c6497b8d712ec6",
+            "checked_at": 1795281455.4895964
+          },
+          "pt": {
+            "sha256": "501183de37e49caf9f357905a28ff311e16a8db5607d5645e16fc1abc93e7d6c",
+            "checked_at": 1795281459.506343
+          },
+          "es": {
+            "sha256": "8f1575183c689f4a218c6fd4a9f4af40574b52091899d98568b3b2d082cb3ca4",
+            "checked_at": 1795281460.4226146
+          },
+          "fr": {
+            "sha256": "997a4cf4a9ccc2dee82585998cd61bd679ac3838fd35ab3ade3489f2d7458812",
+            "checked_at": 1795281464.4946814
+          },
+          "he": {
+            "sha256": "6e4bcf9ae6df0ec437e8164ff7113ec4f848a87fd1b336286fcce0d0e2e0a991",
+            "checked_at": 1795281468.5668747
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005011808254244",
+        "source_title_sha256": "6337be300a9889f41724f43cc1295076f6e2b4dd5b8af01394a8a0883147677f",
+        "identity_source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+        "identity_source_asset": "assets/originals/auto-1005011808254244-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+            "image_sha256": "ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S971faf38967a473bb4644c81720b190aF.jpg",
+            "source_asset": "assets/originals/auto-1005011808254244-review-1.png",
+            "output_asset": "assets/images/auto-1005011808254244.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The hero image accurately presents the portable electric camping shower with its correct shape, color, and components including the pump, hoses, shower head, and attachments.",
+                "Includes the brand logo and relevant lifestyle usage insets appropriate for a product-card hero display."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "0d91475e1c428bfa5c8134f2a46d8ec11c416c0cf6c6f2917a163fce72fb3e79",
+            "image_sha256": "26fa541635817f31ca307da0351df0a961042735621d3e505ebd9be4cdca8082",
+            "prior_image_sha256": [
+              "ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f"
+            ],
+            "identity_source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa4b8ccde6c584ac7acddb40e573854a6w.jpg",
+            "source_asset": "assets/originals/auto-1005011808254244-review-2.png",
+            "output_asset": "assets/images/auto-1005011808254244-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The application image clearly demonstrates the setup and usage of the portable camping shower pump with a water bucket and filter suction port."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "0da5067b5df7bfcf2d52daede164316edf8c8b1c3945b38156e6239bf1436ec0",
+            "image_sha256": "68842fa6012c603d6f105df8de9d5192c29ad69d094d460f46933d902a0065d7",
+            "prior_image_sha256": [
+              "ccfd187081283c144c03cd7aa8587a6dd710256d6958f5e46b20faa9e25f389f",
+              "26fa541635817f31ca307da0351df0a961042735621d3e505ebd9be4cdca8082"
+            ],
+            "identity_source_sha256": "7fa7dd58d1107fd36945e569b87189a7e961a21b49d0589022c393821d9d088a",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S8dd9c34b0e54481aa344039c449da3e2z.jpg",
+            "source_asset": "assets/originals/auto-1005011808254244-review-3.png",
+            "output_asset": "assets/images/auto-1005011808254244-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The result image accurately demonstrates the portable electric camping shower pump operating inside a bucket of water, clearly showing its intended functional outcome and setup."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005011808254244-v2.webp",
+        "assets/images/auto-1005011808254244-v3.webp"
+      ],
+      "sourceImageSha256": "d48757bb1e7c50669816975811004a967f88c5dfc73ac2df10f6b92fbecd2dea",
+      "sourcePixelSha256": "b3a0b2d6d24437404a38d1a30e4e09a30ece05fbe285b4713e2365aabcb4fdfd",
+      "imageDhash": "6f4e4f6f685b6068",
+      "imageAhash": "03e3e3a3bfffbfff",
+      "imageAspect": "1.07",
+      "sourceImageDhash": "6f0e0f6d31536169",
+      "sourceImageAhash": "07c3e3e7f8f8fcff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1020,
+        "fg_height": 961,
+        "fg_max_side": 1020,
+        "fg_min_side": 961,
+        "upscale_ratio": 0.873,
+        "sharpness": 17.589,
+        "fg_mean_luma": 110.43,
+        "fg_luma_std": 68.92,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005006728238948",
       "name": "Металлический таймер-сейф для смартфона",
       "headline": [

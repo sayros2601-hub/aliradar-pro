@@ -140,6 +140,11 @@
         "catalog_id": "auto-1005006728238948",
         "product_id": "1005006728238948",
         "source": "api"
+      },
+      {
+        "catalog_id": "auto-1005011808254244",
+        "product_id": "1005011808254244",
+        "source": "api"
       }
     ]
   },

@@ -6819,6 +6819,48 @@
         ],
         "description": "קופסת מתכת עם מנגנון נעילה מבוסס טיימר דיגיטלי לאחסון הטלפון או מפתחות בזמן עבודה או לימודים מרוכזים. בדקו את המידות הפנימיות ביחס למכשיר ואת אופן הטעינה."
       }
+    },
+    "auto-1005011808254244": {
+      "en": {
+        "name": "Cordless Bucket Wash Pump",
+        "headline": [
+          "Drop the pump,",
+          "rinse anywhere."
+        ],
+        "description": "Submersible cordless pump feeds water from any bucket or jug into a handheld shower nozzle for beach trips, camping, and washing pets outdoors. Verify hose length, battery pack sealing, and bracket accessories before ordering."
+      },
+      "pt": {
+        "name": "Bomba Submersível Sem Fio com Ducha",
+        "headline": [
+          "Água do balde,",
+          "banho no campo."
+        ],
+        "description": "Bomba submersível portátil com mangueira e ducha para puxar água de galão ou balde em trilhas, praia e sítios. Confira o comprimento da mangueira, a vedação da bateria e os suportes inclusos no pacote."
+      },
+      "es": {
+        "name": "Bomba Sumergible Inalámbrica con Manguera",
+        "headline": [
+          "Agua donde estés,",
+          "fácil enjuague."
+        ],
+        "description": "Bomba sumergible con batería recargable, manguera y cabezal para tomar agua de una cubeta en campo, playa o lavado exterior. Revisa el largo de la manguera, el sellado de carga y los ganchos incluidos."
+      },
+      "fr": {
+        "name": "Pompe Immergée Sans Fil avec Douchette",
+        "headline": [
+          "Pompe immergée,",
+          "rinçage en plein air."
+        ],
+        "description": "Pompe portable immergeable avec tuyau et pommeau pour puiser dans un seau ou un bidon lors des bivouacs, plages ou lavages extérieurs. Vérifiez la longueur du tuyau, l’étanchéité de l’accu et le support fourni."
+      },
+      "he": {
+        "name": "משאבת מים טבולה אלחוטית עם ראש מקלחת",
+        "headline": [
+          "שאיבה מדלי,",
+          "נוחות בקמפינג."
+        ],
+        "description": "משאבה טבולה נטענת עם צינור וראש טוש להזרמת מים מג׳ריקן או דלי בטיולים, בים ובגינה. בדקו בעמוד המוצר את אורך הצינור, אטימות המנוע והמתלים המצורפים."
+      }
     }
   }
 }

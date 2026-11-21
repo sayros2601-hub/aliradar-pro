@@ -38,7 +38,7 @@
       "published_day": "2026-11-20"
     },
     "2026-11-21": {
-      "status": "preparing",
+      "status": "prepared",
       "reserved_count": 1,
       "baseline_count": 2,
       "utc_day": "2026-11-21",
