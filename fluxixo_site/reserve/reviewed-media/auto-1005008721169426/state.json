@@ -87,88 +87,162 @@
   ],
   "slots": [
     {
-      "pending": {
-        "source_file": "reference-ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9.png",
-        "source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Hdeb0ce48900c477c8392e59a3ed18513A.jpg",
-        "original_sha256": "dd4b3a331ddcda65d04247c6a502c062ec74b1835cdfa4bfbeb213a9a7a9752b",
-        "output_file": "hero-7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803.webp",
-        "image_sha256": "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803",
-        "metrics": {
-          "fg_width": 1020,
-          "fg_height": 937,
-          "fg_max_side": 1020,
-          "fg_min_side": 937,
-          "upscale_ratio": 0.873,
-          "sharpness": 7.532,
-          "fg_mean_luma": 162.16,
-          "fg_luma_std": 42.79,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.008,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the exact product and variant specified in the listing.",
+          "It serves effectively as a hero shot with a clean presentation of the levitating air bonsai pot and its base."
+        ]
+      },
+      "source_file": "reference-ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9.png",
+      "source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Hdeb0ce48900c477c8392e59a3ed18513A.jpg",
+      "original_sha256": "dd4b3a331ddcda65d04247c6a502c062ec74b1835cdfa4bfbeb213a9a7a9752b",
+      "output_file": "hero-7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803.webp",
+      "image_sha256": "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803",
+      "metrics": {
+        "fg_width": 1020,
+        "fg_height": 937,
+        "fg_max_side": 1020,
+        "fg_min_side": 937,
+        "upscale_ratio": 0.873,
+        "sharpness": 7.532,
+        "fg_mean_luma": 162.16,
+        "fg_luma_std": 42.79,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.008,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the exact product and variant specified in the listing.",
+          "It serves effectively as a hero shot with a clean presentation of the levitating air bonsai pot and its base."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+      "source_title_sha256": "9c0ebe322bbb8be1c31043812aad5575d6813bcbc16dc72d609e67e1ff94a3bd",
+      "reviewed_at": 1795279572.0992517
     },
     {
-      "pending": {
-        "source_file": "reference-38a4d4f780b926e24dd9582d061c214088082e4d2d8506cc53496756707c9c29.png",
-        "source_sha256": "38a4d4f780b926e24dd9582d061c214088082e4d2d8506cc53496756707c9c29",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H4db47babd2fe4b76bce17029f26b16d5a.jpg",
-        "original_sha256": "8a23ff43dca9dde08211127fe87cbc52577ccf9e82b5fd9ce6e8cec3fdaf2db3",
-        "output_file": "application-5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd.webp",
-        "image_sha256": "5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd",
-        "metrics": {
-          "fg_width": 867,
-          "fg_height": 1026,
-          "fg_max_side": 1026,
-          "fg_min_side": 867,
-          "upscale_ratio": 0.867,
-          "sharpness": 8.125,
-          "fg_mean_luma": 166.5,
-          "fg_luma_std": 45.56,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.011,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "38a4d4f780b926e24dd9582d061c214088082e4d2d8506cc53496756707c9c29": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the levitating air bonsai pot in its working application state with correct product identity, shape, color, and features."
+        ]
+      },
+      "source_file": "reference-38a4d4f780b926e24dd9582d061c214088082e4d2d8506cc53496756707c9c29.png",
+      "source_sha256": "38a4d4f780b926e24dd9582d061c214088082e4d2d8506cc53496756707c9c29",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H4db47babd2fe4b76bce17029f26b16d5a.jpg",
+      "original_sha256": "8a23ff43dca9dde08211127fe87cbc52577ccf9e82b5fd9ce6e8cec3fdaf2db3",
+      "output_file": "application-5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd.webp",
+      "image_sha256": "5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd",
+      "metrics": {
+        "fg_width": 867,
+        "fg_height": 1026,
+        "fg_max_side": 1026,
+        "fg_min_side": 867,
+        "upscale_ratio": 0.867,
+        "sharpness": 8.125,
+        "fg_mean_luma": 166.5,
+        "fg_luma_std": 45.56,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.011,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the levitating air bonsai pot in its working application state with correct product identity, shape, color, and features."
+        ]
+      },
+      "prior_image_sha256": [
+        "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803"
+      ],
+      "identity_source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+      "source_title_sha256": "9c0ebe322bbb8be1c31043812aad5575d6813bcbc16dc72d609e67e1ff94a3bd",
+      "reviewed_at": 1795279578.2642326
     },
     {
-      "pending": {
-        "source_file": "reference-b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8.png",
-        "source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S094204886f154c029961978a88c3bd24S.jpg",
-        "original_sha256": "2eb950eacdd988ca815c323eb20f814bf4999d9b223808e016210c8eb2e1962e",
-        "output_file": "result-3516b6e4c74d7547e54b0ffae8e8690daf77888cac0124bfccbcdb20e1642048.webp",
-        "image_sha256": "3516b6e4c74d7547e54b0ffae8e8690daf77888cac0124bfccbcdb20e1642048",
-        "metrics": {
-          "fg_width": 980,
-          "fg_height": 969,
-          "fg_max_side": 980,
-          "fg_min_side": 969,
-          "upscale_ratio": 0.908,
-          "sharpness": 7.323,
-          "fg_mean_luma": 145.47,
-          "fg_luma_std": 49.41,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.152,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": false,
+        "identity": false,
+        "shape": true,
+        "completeness": false,
+        "color": false,
+        "markings": false,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [
+          "watermark present in pose reference",
+          "variant mismatch between product image and pose reference",
+          "missing plant in final frame compared to product variant"
+        ],
+        "reasons": [
+          "Image 2 contains a third-party watermark in the top left corner.",
+          "Image 2 shows a different variant with a dark wood base, whereas Image 1 features a light wood base.",
+          "Image 3 (final frame) omits the plant and shows a top-down perspective inconsistent with the product definition in Image 1."
+        ]
+      },
+      "rejected_images": [
+        "3516b6e4c74d7547e54b0ffae8e8690daf77888cac0124bfccbcdb20e1642048"
+      ],
+      "retry_source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
+      "rejected_sources": [],
+      "feedback": "Restore the exact primary-reference product variant; do not substitute another product. Restore all reference product parts without adding accessories. Keep the original product color and materials without recoloring. Preserve only authentic reference markings; do not add or replace branding."
     }
   ],
   "created_at": 1795278721.0638213,
@@ -206,31 +280,88 @@
         "last_code": "pending_review"
       },
       {
-        "materializations": 1,
+        "materializations": 2,
         "events": [
           {
             "source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
             "at": 1795278721,
             "code": "pending_review",
             "image_sha256": "3516b6e4c74d7547e54b0ffae8e8690daf77888cac0124bfccbcdb20e1642048"
+          },
+          {
+            "source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
+            "at": 1795279592.7491472,
+            "code": "reserved"
           }
         ],
-        "last_code": "pending_review"
+        "last_code": "materialization_interrupted"
       }
     ]
   },
   "review_attempts": {
     "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the exact product and variant specified in the listing.",
+          "It serves effectively as a hero shot with a clean presentation of the levitating air bonsai pot and its base."
+        ]
+      }
     },
     "5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd": {
-      "opportunities": 0,
-      "last_code": "pending_review"
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the levitating air bonsai pot in its working application state with correct product identity, shape, color, and features."
+        ]
+      }
     },
     "3516b6e4c74d7547e54b0ffae8e8690daf77888cac0124bfccbcdb20e1642048": {
-      "opportunities": 0,
-      "last_code": "pending_review"
+      "opportunities": 1,
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": false,
+        "shape": true,
+        "completeness": false,
+        "color": false,
+        "markings": false,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [
+          "watermark present in pose reference",
+          "variant mismatch between product image and pose reference",
+          "missing plant in final frame compared to product variant"
+        ],
+        "reasons": [
+          "Image 2 contains a third-party watermark in the top left corner.",
+          "Image 2 shows a different variant with a dark wood base, whereas Image 1 features a light wood base.",
+          "Image 3 (final frame) omits the plant and shows a top-down perspective inconsistent with the product definition in Image 1."
+        ]
+      }
     }
   },
   "identity_source": {
