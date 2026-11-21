@@ -87,32 +87,71 @@
   ],
   "slots": [
     {
-      "pending": {
-        "source_file": "reference-806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9.png",
-        "source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sfe48b503804c4fcbbb4da3f82c903150O.jpg",
-        "original_sha256": "18ebebde8d2e9b183fae1db71af053579c9f957bb5e8e7e1802be4dd9b224225",
-        "output_file": "hero-4be2f7ea22023ed96f4f6e1e69233811a041b02144e840438e605f77f7cac6d3.webp",
-        "image_sha256": "4be2f7ea22023ed96f4f6e1e69233811a041b02144e840438e605f77f7cac6d3",
-        "metrics": {
-          "fg_width": 1020,
-          "fg_height": 694,
-          "fg_max_side": 1020,
-          "fg_min_side": 694,
-          "upscale_ratio": 0.873,
-          "sharpness": 8.577,
-          "fg_mean_luma": 128.84,
-          "fg_luma_std": 40.98,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.0,
-          "reasons": []
-        },
-        "generated": true
-      },
       "generation_attempts": {
         "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9": 1
-      }
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product accurately matches the reference image in identity, shape, color, and variant with no material defects."
+        ]
+      },
+      "rejected_images": [
+        "4be2f7ea22023ed96f4f6e1e69233811a041b02144e840438e605f77f7cac6d3"
+      ],
+      "retry_source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+      "rejected_sources": [],
+      "feedback": "Restore the exact primary-reference product variant; do not substitute another product. Keep the original product color and materials without recoloring.",
+      "source_file": "reference-806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9.png",
+      "source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sfe48b503804c4fcbbb4da3f82c903150O.jpg",
+      "original_sha256": "18ebebde8d2e9b183fae1db71af053579c9f957bb5e8e7e1802be4dd9b224225",
+      "output_file": "hero-ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c.webp",
+      "image_sha256": "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c",
+      "metrics": {
+        "fg_width": 1200,
+        "fg_height": 1200,
+        "fg_max_side": 1200,
+        "fg_min_side": 1200,
+        "upscale_ratio": 0.742,
+        "sharpness": 5.139,
+        "fg_mean_luma": 200.52,
+        "fg_luma_std": 82.63,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product accurately matches the reference image in identity, shape, color, and variant with no material defects."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+      "source_title_sha256": "a02c9eded5cbcc890edf5361b7d9137771207d2f399cf17a7069f1d1b16d44fb",
+      "reviewed_at": 1795280428.394022
     },
     {
       "pending": {
@@ -182,16 +221,22 @@
   "effort_versions": {
     "e0cac4d96afc316453f08f6116c9eb52db0dd7478cd1513afe6d2aa82599e160": [
       {
-        "materializations": 1,
+        "materializations": 2,
         "events": [
           {
             "source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
             "at": 1795278725,
             "code": "pending_review",
             "image_sha256": "4be2f7ea22023ed96f4f6e1e69233811a041b02144e840438e605f77f7cac6d3"
+          },
+          {
+            "source_sha256": "806a0f34273fbc78e8d67da37ac6cc4f89cfbe778ff60cae9f9a546ccf5aabe9",
+            "at": 1795280409.8623316,
+            "code": "pending_review",
+            "image_sha256": "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c"
           }
         ],
-        "last_code": "pending_review"
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 1,
@@ -222,7 +267,24 @@
   "review_attempts": {
     "4be2f7ea22023ed96f4f6e1e69233811a041b02144e840438e605f77f7cac6d3": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": false,
+        "shape": true,
+        "completeness": true,
+        "color": false,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [
+          "Incorrect product variant with a silver lower body instead of the black lower body shown in the reference image"
+        ],
+        "reasons": [
+          "The product in Image 3 has a silver-grey lower body, whereas the reference product in Image 1 features a black/dark grey lower body, representing a wrong variant."
+        ]
+      }
     },
     "80dd08d355e102983b6afa1a828c6a785a69f63e7ef12b8942cf235536965132": {
       "opportunities": 0,
@@ -231,6 +293,25 @@
     "b81940983607fde7f53231cc6dc785a2e2fd570fb65b044eb9b469951f51b533": {
       "opportunities": 0,
       "last_code": "pending_review"
+    },
+    "ff2e5b9b421b9dccd25ada60fec9214733e3a0bdafa8275e8340c484135ae77c": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product accurately matches the reference image in identity, shape, color, and variant with no material defects."
+        ]
+      }
     }
   },
   "identity_source": {
