@@ -88,31 +88,126 @@
   "slots": [
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad.png",
-        "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
-        "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa",
-        "output_file": "hero-582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812.webp",
-        "image_sha256": "582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812",
-        "metrics": {
-          "fg_width": 800,
-          "fg_height": 659,
-          "fg_max_side": 800,
-          "fg_min_side": 659,
-          "upscale_ratio": 1.113,
-          "sharpness": 35.77,
-          "fg_mean_luma": 68.05,
-          "fg_luma_std": 47.7,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.025,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the Baseus GoTrip DT2 car safety hammer with its correct shape, color, and tungsten steel tip.",
+          "The contextual action shot clearly communicates the primary function and utility of the emergency escape tool."
+        ]
+      },
+      "source_file": "reference-ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad.png",
+      "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
+      "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa",
+      "output_file": "hero-582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812.webp",
+      "image_sha256": "582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812",
+      "metrics": {
+        "fg_width": 800,
+        "fg_height": 659,
+        "fg_max_side": 800,
+        "fg_min_side": 659,
+        "upscale_ratio": 1.113,
+        "sharpness": 35.77,
+        "fg_mean_luma": 68.05,
+        "fg_luma_std": 47.7,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.025,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the Baseus GoTrip DT2 car safety hammer with its correct shape, color, and tungsten steel tip.",
+          "The contextual action shot clearly communicates the primary function and utility of the emergency escape tool."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+      "source_title_sha256": "9416ee8f43f8e22329b8b86d6d8cc3d7c26ba39be598160fd309a814e4779602",
+      "reviewed_at": 1795280521.505913
     },
-    {},
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly demonstrates the application of the Baseus GoTrip DT2 car safety hammer breaking through a car window in an emergency scenario."
+        ]
+      },
+      "source_file": "reference-405d3b7180590a55e935948b7db17eff37813ed46a68a6a08625494be2f0e9e1.png",
+      "source_sha256": "405d3b7180590a55e935948b7db17eff37813ed46a68a6a08625494be2f0e9e1",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sfc36d24e4f5649e1882fd4e611a9f8f4t.jpg",
+      "original_sha256": "7893c48b752268d24a7c96f6fee5f45f06131f5111a22de086ddef731f07a1a3",
+      "output_file": "application-2f6818d7dba4291fdd60afcc0134c3da9a0f1e4873061c6c3d8de4db88c342bf.webp",
+      "image_sha256": "2f6818d7dba4291fdd60afcc0134c3da9a0f1e4873061c6c3d8de4db88c342bf",
+      "metrics": {
+        "fg_width": 496,
+        "fg_height": 725,
+        "fg_max_side": 725,
+        "fg_min_side": 496,
+        "upscale_ratio": 1.228,
+        "sharpness": 18.269,
+        "fg_mean_luma": 73.73,
+        "fg_luma_std": 46.53,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.019,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly demonstrates the application of the Baseus GoTrip DT2 car safety hammer breaking through a car window in an emergency scenario."
+        ]
+      },
+      "prior_image_sha256": [
+        "582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812"
+      ],
+      "identity_source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+      "source_title_sha256": "9416ee8f43f8e22329b8b86d6d8cc3d7c26ba39be598160fd309a814e4779602",
+      "reviewed_at": 1795280530.764646
+    },
     {}
   ],
   "created_at": 1795280463.5479474,
@@ -138,8 +233,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "405d3b7180590a55e935948b7db17eff37813ed46a68a6a08625494be2f0e9e1",
+            "at": 1795280521.5078034,
+            "code": "pending_review",
+            "image_sha256": "2f6818d7dba4291fdd60afcc0134c3da9a0f1e4873061c6c3d8de4db88c342bf"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -150,7 +253,42 @@
   "review_attempts": {
     "582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the Baseus GoTrip DT2 car safety hammer with its correct shape, color, and tungsten steel tip.",
+          "The contextual action shot clearly communicates the primary function and utility of the emergency escape tool."
+        ]
+      }
+    },
+    "2f6818d7dba4291fdd60afcc0134c3da9a0f1e4873061c6c3d8de4db88c342bf": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly demonstrates the application of the Baseus GoTrip DT2 car safety hammer breaking through a car window in an emergency scenario."
+        ]
+      }
     }
   },
   "identity_source": {
