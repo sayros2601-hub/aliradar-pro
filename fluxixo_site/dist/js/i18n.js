@@ -6863,6 +6863,132 @@
       ],
       "description": "פלטפורמת עץ זו מיועדת לחיזוק שרירי הליבה, שיפור הקואורדינציה האישית ותרגול תנועות גלישה במסגרת האימונים הביתיים באמצעות מנגנון תנועה דינמי המאתגר את שיווי המשקל. לפני ביצוע ההזמנה, בדקו היטב את מידות המוצר וודאו שיש לכם מספיק מרחב פנוי בבית לתרגול בטוח."
     }
+  },
+  "auto-1005008721169426": {
+    "en": {
+      "name": "Magnetic Floating Bonsai Planter",
+      "headline": [
+        "Airborne bloom,",
+        "quietly spinning in space."
+      ],
+      "description": "Electromagnetic walnut-tone pedestal suspends a lightweight planter pot in mid-air while rotating smoothly for even light exposure. Confirm payload weight limit and adapter."
+    },
+    "pt": {
+      "name": "Vaso Suspenso Magnético Flutuante",
+      "headline": [
+        "Planta no ar,",
+        "giro suave e contínuo."
+      ],
+      "description": "Base magnética mantém o vaso leve flutuando sem contato e girando lentamente sobre a mesa com iluminação uniforme. Confira o peso suportado e o plugue."
+    },
+    "es": {
+      "name": "Maceta Flotante Magnética Giratoria",
+      "headline": [
+        "Planta suspendida,",
+        "giro limpio en el aire."
+      ],
+      "description": "Base electromagnética que mantiene la maceta en suspensión sin tocarla mientras gira suavemente sobre tu escritorio. Verifica el peso máximo soportado y el eliminador."
+    },
+    "fr": {
+      "name": "Pot de Fleur Lévitant Magnétique",
+      "headline": [
+        "Plante en apesanteur,",
+        "rotation silencieuse."
+      ],
+      "description": "Socle électromagnétique maintenant un petit pot en suspension stable tout en le faisant tourner doucement sur le bureau. Vérifiez la charge maximale et la prise fournie."
+    },
+    "he": {
+      "name": "עציץ מרחף מגנטי מסתובב",
+      "headline": [
+        "צמח באוויר,",
+        "סיבוב שקט על השולחן."
+      ],
+      "description": "בסיס אלקטרומגנטי המחזיק עציץ קל באוויר ומסובב אותו בעדינות לפיזור אור אחיד מסביב. בדקו את משקל הנשיאה המותר וסוג השנאי המצורף."
+    }
+  },
+  "auto-1005006728238948": {
+    "en": {
+      "name": "Metal Timed Phone Lock Box Vault",
+      "headline": [
+        "Set the timer,",
+        "focus uninterrupted."
+      ],
+      "description": "Sturdy locking box seals inside a timer-controlled latch for phones or keys until your focus countdown ends. Verify inner dimensions against your phone size and check backup unlock or charging notes on the listing."
+    },
+    "pt": {
+      "name": "Cofre Metálico com Trava por Temporizador",
+      "headline": [
+        "Tempo travado,",
+        "foco garantido."
+      ],
+      "description": "Caixa resistente com tampa bloqueada por cronômetro digital para guardar celular ou chaves durante estudos e trabalho focado. Confira as medidas internas úteis e o cabo de recarga exigido no anúncio."
+    },
+    "es": {
+      "name": "Cofre Metálico con Temporizador para Celular",
+      "headline": [
+        "Fija el tiempo,",
+        "menos distracciones."
+      ],
+      "description": "Contenedor metálico con cerradura digital programable para resguardar el teléfono hasta que concluya el conteo de concentración. Verifica el tamaño interior frente a tu equipo y los detalles de batería."
+    },
+    "fr": {
+      "name": "Coffret Métallique à Verrouillage Par Minuterie",
+      "headline": [
+        "Le compte tourne,",
+        "l’esprit reste libre."
+      ],
+      "description": "Boîtier robuste à couvercle verrouillé par minuterie numérique pour mettre de côté téléphone ou clés pendant vos séances de concentration. Vérifiez les dimensions intérieures utiles et la recharge."
+    },
+    "he": {
+      "name": "כספת מתכת עם נעילת טיימר לטלפון",
+      "headline": [
+        "זמן מוגדר,",
+        "פחות הסחות דעת."
+      ],
+      "description": "קופסת מתכת עם מנגנון נעילה מבוסס טיימר דיגיטלי לאחסון הטלפון או מפתחות בזמן עבודה או לימודים מרוכזים. בדקו את המידות הפנימיות ביחס למכשיר ואת אופן הטעינה."
+    }
+  },
+  "auto-1005011808254244": {
+    "en": {
+      "name": "Cordless Bucket Wash Pump",
+      "headline": [
+        "Drop the pump,",
+        "rinse anywhere."
+      ],
+      "description": "Submersible cordless pump feeds water from any bucket or jug into a handheld shower nozzle for beach trips, camping, and washing pets outdoors. Verify hose length, battery pack sealing, and bracket accessories before ordering."
+    },
+    "pt": {
+      "name": "Bomba Submersível Sem Fio com Ducha",
+      "headline": [
+        "Água do balde,",
+        "banho no campo."
+      ],
+      "description": "Bomba submersível portátil com mangueira e ducha para puxar água de galão ou balde em trilhas, praia e sítios. Confira o comprimento da mangueira, a vedação da bateria e os suportes inclusos no pacote."
+    },
+    "es": {
+      "name": "Bomba Sumergible Inalámbrica con Manguera",
+      "headline": [
+        "Agua donde estés,",
+        "fácil enjuague."
+      ],
+      "description": "Bomba sumergible con batería recargable, manguera y cabezal para tomar agua de una cubeta en campo, playa o lavado exterior. Revisa el largo de la manguera, el sellado de carga y los ganchos incluidos."
+    },
+    "fr": {
+      "name": "Pompe Immergée Sans Fil avec Douchette",
+      "headline": [
+        "Pompe immergée,",
+        "rinçage en plein air."
+      ],
+      "description": "Pompe portable immergeable avec tuyau et pommeau pour puiser dans un seau ou un bidon lors des bivouacs, plages ou lavages extérieurs. Vérifiez la longueur du tuyau, l’étanchéité de l’accu et le support fourni."
+    },
+    "he": {
+      "name": "משאבת מים טבולה אלחוטית עם ראש מקלחת",
+      "headline": [
+        "שאיבה מדלי,",
+        "נוחות בקמפינג."
+      ],
+      "description": "משאבה טבולה נטענת עם צינור וראש טוש להזרמת מים מג׳ריקן או דלי בטיולים, בים ובגינה. בדקו בעמוד המוצר את אורך הצינור, אטימות המנוע והמתלים המצורפים."
+    }
   }
 };
 
