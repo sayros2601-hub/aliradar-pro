@@ -1750,7 +1750,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         continue
                     if candidate.get('_pending_retry') and using_default_discover:
                         try:
-                            candidate = refresh_fn({**candidate, 'markets': {m: {} for m in (candidate.get('availableMarkets') or must_sell_in)}}, instant)
+                            refresh_mkts = candidate.get('availableMarkets') or must_sell_in or discovery_curator.ALL_MARKETS
+                            candidate = refresh_fn({**candidate, 'markets': {m: {} for m in refresh_mkts}}, instant)
                         except Exception:
                             pending.defer(candidate['product_id'], 'source_refresh_unavailable', now=now_ts())
                             continue
