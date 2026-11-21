@@ -734,7 +734,29 @@ def refresh_queued(call, candidate, now):
                 item['affiliate_url'] = generate_affiliate(call, item)
                 item['category'] = candidate.get('category') or (candidate.get('task') or {}).get('category')
                 item['market'] = market
-                item['task'] = next((task for task in SEEDS if task['category'] == item['category'] and _matches(task, item['title'])), None)
+                for extra_key in _EXTRA_API_FIELDS:
+                    if extra_key in raw and raw[extra_key] is not None:
+                        item[extra_key] = raw[extra_key]
+                    elif extra_key in candidate and candidate[extra_key] is not None:
+                        item[extra_key] = candidate[extra_key]
+                if isinstance(candidate.get('availableMarkets'), list) and candidate['availableMarkets']:
+                    item['availableMarkets'] = list(candidate['availableMarkets'])
+                from . import discovery_curator
+                old_task = candidate.get('task')
+                if (isinstance(old_task, dict) and str(old_task.get('key') or '').startswith(('rare_', 'ai_rare_'))
+                        and discovery_curator.matches_rare_query(old_task, item['title'])):
+                    item['task'] = old_task
+                else:
+                    item['task'] = (
+                        next((t for t in discovery_curator.CURATED_RARE_QUERIES
+                              if (not item['category'] or t['category'] == item['category'])
+                              and discovery_curator.matches_rare_query(t, item['title'])), None)
+                        or next((task for task in SEEDS
+                                 if (not item['category'] or task['category'] == item['category'])
+                                 and _matches(task, item['title'])), None)
+                    )
+                if item['task'] and not item.get('category'):
+                    item['category'] = item['task']['category']
                 return item
         except (ApiError, ValueError, KeyError, TypeError):
             continue

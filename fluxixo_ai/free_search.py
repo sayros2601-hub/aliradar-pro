@@ -42,6 +42,9 @@ def _free_api_key(explicit_key=None):
 
 
 def _daily_cap(api_key=''):
+    raw_override = os.environ.get('FLUXIXO_FREE_SEARCH_DAILY_LIMIT', '').strip()
+    if raw_override.isdigit() and 1 <= int(raw_override) <= 100:
+        return int(raw_override)
     return FREE_KEY_DAILY_ATTEMPTS if api_key else DAILY_ATTEMPTS
 
 
