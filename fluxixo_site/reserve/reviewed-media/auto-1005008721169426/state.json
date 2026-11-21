@@ -217,24 +217,18 @@
         "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8": 1
       },
       "last_assessment": {
-        "accepted": false,
-        "identity": false,
+        "accepted": true,
+        "identity": true,
         "shape": true,
-        "completeness": false,
-        "color": false,
-        "markings": false,
+        "completeness": true,
+        "color": true,
+        "markings": true,
         "role": true,
         "quality": true,
         "distinct": true,
-        "material_defects": [
-          "watermark present in pose reference",
-          "variant mismatch between product image and pose reference",
-          "missing plant in final frame compared to product variant"
-        ],
+        "material_defects": [],
         "reasons": [
-          "Image 2 contains a third-party watermark in the top left corner.",
-          "Image 2 shows a different variant with a dark wood base, whereas Image 1 features a light wood base.",
-          "Image 3 (final frame) omits the plant and shows a top-down perspective inconsistent with the product definition in Image 1."
+          "The product correctly matches the primary reference variant with the light wood grain base and leafy plant, maintaining accurate shape, color, and features without unauthorized modifications or branding."
         ]
       },
       "rejected_images": [
@@ -243,36 +237,57 @@
       "retry_source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
       "rejected_sources": [],
       "feedback": "Restore the exact primary-reference product variant; do not substitute another product. Restore all reference product parts without adding accessories. Keep the original product color and materials without recoloring. Preserve only authentic reference markings; do not add or replace branding.",
-      "pending": {
-        "source_file": "reference-b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8.png",
-        "source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S094204886f154c029961978a88c3bd24S.jpg",
-        "original_sha256": "2eb950eacdd988ca815c323eb20f814bf4999d9b223808e016210c8eb2e1962e",
-        "output_file": "result-f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be.webp",
-        "image_sha256": "f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be",
-        "metrics": {
-          "fg_width": 625,
-          "fg_height": 782,
-          "fg_max_side": 782,
-          "fg_min_side": 625,
-          "upscale_ratio": 1.138,
-          "sharpness": 14.754,
-          "fg_mean_luma": 181.49,
-          "fg_luma_std": 48.33,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.209,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "source_file": "reference-b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8.png",
+      "source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S094204886f154c029961978a88c3bd24S.jpg",
+      "original_sha256": "2eb950eacdd988ca815c323eb20f814bf4999d9b223808e016210c8eb2e1962e",
+      "output_file": "result-f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be.webp",
+      "image_sha256": "f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be",
+      "metrics": {
+        "fg_width": 625,
+        "fg_height": 782,
+        "fg_max_side": 782,
+        "fg_min_side": 625,
+        "upscale_ratio": 1.138,
+        "sharpness": 14.754,
+        "fg_mean_luma": 181.49,
+        "fg_luma_std": 48.33,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.209,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product correctly matches the primary reference variant with the light wood grain base and leafy plant, maintaining accurate shape, color, and features without unauthorized modifications or branding."
+        ]
+      },
+      "prior_image_sha256": [
+        "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803",
+        "5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd"
+      ],
+      "identity_source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+      "source_title_sha256": "9c0ebe322bbb8be1c31043812aad5575d6813bcbc16dc72d609e67e1ff94a3bd",
+      "reviewed_at": 1795279643.3106341
     }
   ],
   "created_at": 1795278721.0638213,
   "deferrals": 0,
   "lease_owner": "7b92e45a5979419fae21f04bef5bdfb7",
-  "lease_until": 1795281037.5472848,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795365121,
   "source_version": "7d77849e75d2c7361a7c39f315ad8702558ea6a2da1771097d02823dfe7dc54c",
@@ -389,7 +404,22 @@
     },
     "f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The product correctly matches the primary reference variant with the light wood grain base and leafy plant, maintaining accurate shape, color, and features without unauthorized modifications or branding."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -398,5 +428,5 @@
     "sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
     "original_sha256": "dd4b3a331ddcda65d04247c6a502c062ec74b1835cdfa4bfbeb213a9a7a9752b"
   },
-  "reason": "pending_review"
+  "reason": ""
 }
