@@ -6863,6 +6863,48 @@
       ],
       "description": "פלטפורמת עץ זו מיועדת לחיזוק שרירי הליבה, שיפור הקואורדינציה האישית ותרגול תנועות גלישה במסגרת האימונים הביתיים באמצעות מנגנון תנועה דינמי המאתגר את שיווי המשקל. לפני ביצוע ההזמנה, בדקו היטב את מידות המוצר וודאו שיש לכם מספיק מרחב פנוי בבית לתרגול בטוח."
     }
+  },
+  "auto-1005012560205420": {
+    "en": {
+      "name": "Folding Kayak Seat",
+      "headline": [
+        "Water sport",
+        "fun"
+      ],
+      "description": "This folding kayak seat is designed for water activities, providing back support and comfort during sports. It's suitable for kayaking, fishing, and other water activities. Check the specifications and terms before buying to ensure it meets your needs."
+    },
+    "pt": {
+      "name": "Assento de Caiaque Dobrável",
+      "headline": [
+        "Esporte aquático",
+        "diversão"
+      ],
+      "description": "Este assento de caiaque dobrável é projetado para atividades aquáticas, fornecendo suporte às costas e confort durante os esportes. É adequado para caiaque, pesca e outras atividades aquáticas. Verifique as características e condições antes de comprar para garantir que atenda às suas necessidades."
+    },
+    "es": {
+      "name": "Asiento de Kayak Plegable",
+      "headline": [
+        "Deporte acuático",
+        "diversión"
+      ],
+      "description": "Este asiento de kayak plegable está diseñado para actividades acuáticas, proporcionando soporte para la espalda y comodidad durante los deportes. Es adecuado para kayak, pesca y otras actividades acuáticas. Revisa las características y condiciones antes de comprar para asegurarte de que se ajuste a tus necesidades."
+    },
+    "fr": {
+      "name": "Siège de Kayak Pliable",
+      "headline": [
+        "Sport nautique",
+        "amusement"
+      ],
+      "description": "Ce siège de kayak pliable est conçu pour les activités nautiques, offrant un support pour le dos et un confort pendant les sports. Il est adapté pour le kayak, la pêche et d'autres activités nautiques. Vérifiez les caractéristiques et les conditions avant d'acheter pour vous assurer qu'il répond à vos besoins."
+    },
+    "he": {
+      "name": "מושב קיאק מתקפל",
+      "headline": [
+        "ספורט מים",
+        "כיף"
+      ],
+      "description": "מושב קיאק זה מתקפל ומיועד לפעילויות מים, מספק תמיכה לגב ונוחות במהלך פעילויות ספורט. הוא מתאים לקיאק, דיג ופעילויות מים אחרות. בדקו את המפרט והתנאים לפני הקנייה, כדי לוודא שהוא עונה על צורכיכם."
+    }
   }
 };
 
