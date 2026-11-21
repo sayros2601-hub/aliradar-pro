@@ -1770,6 +1770,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                         if queue_claim:
                             queue_store.release_claim(queue_claim['claim_id'], owner, catalog_unchanged=True, now=instant)
                         continue
+                    prior_title = candidate.get('title')
+                    prior_copy = pending.text(candidate['product_id'])
                     if candidate.get('_pending_retry') and using_default_discover:
                         try:
                             refresh_mkts = candidate.get('availableMarkets') or must_sell_in or discovery_curator.ALL_MARKETS
@@ -1778,6 +1780,10 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                             pending.defer(candidate['product_id'], 'source_refresh_unavailable', now=now_ts())
                             continue
                     pending.put(candidate, now=now_ts())
+                    if (prior_copy and prior_copy.get('policy') == COPY_POLICY
+                            and prior_title == candidate.get('title')
+                            and not pending.text(candidate['product_id'])):
+                        pending.save_text(candidate['product_id'], prior_copy, now=now_ts())
                 record_item, translated = build_record(candidate)
                 if any(p.get('id') == record_item['id'] or p.get('sourceProductId') == record_item['sourceProductId']
                        or (record_item.get('sourceModelKey') and p.get('sourceModelKey') == record_item['sourceModelKey'])
