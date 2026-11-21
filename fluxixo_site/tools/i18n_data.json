@@ -6735,6 +6735,48 @@
         ],
         "description": "פלטפורמת עץ זו מיועדת לחיזוק שרירי הליבה, שיפור הקואורדינציה האישית ותרגול תנועות גלישה במסגרת האימונים הביתיים באמצעות מנגנון תנועה דינמי המאתגר את שיווי המשקל. לפני ביצוע ההזמנה, בדקו היטב את מידות המוצר וודאו שיש לכם מספיק מרחב פנוי בבית לתרגול בטוח."
       }
+    },
+    "auto-1005008721169426": {
+      "en": {
+        "name": "Magnetic Floating Bonsai Planter",
+        "headline": [
+          "Airborne bloom,",
+          "quietly spinning in space."
+        ],
+        "description": "Electromagnetic walnut-tone pedestal suspends a lightweight planter pot in mid-air while rotating smoothly for even light exposure. Confirm payload weight limit and adapter."
+      },
+      "pt": {
+        "name": "Vaso Suspenso Magnético Flutuante",
+        "headline": [
+          "Planta no ar,",
+          "giro suave e contínuo."
+        ],
+        "description": "Base magnética mantém o vaso leve flutuando sem contato e girando lentamente sobre a mesa com iluminação uniforme. Confira o peso suportado e o plugue."
+      },
+      "es": {
+        "name": "Maceta Flotante Magnética Giratoria",
+        "headline": [
+          "Planta suspendida,",
+          "giro limpio en el aire."
+        ],
+        "description": "Base electromagnética que mantiene la maceta en suspensión sin tocarla mientras gira suavemente sobre tu escritorio. Verifica el peso máximo soportado y el eliminador."
+      },
+      "fr": {
+        "name": "Pot de Fleur Lévitant Magnétique",
+        "headline": [
+          "Plante en apesanteur,",
+          "rotation silencieuse."
+        ],
+        "description": "Socle électromagnétique maintenant un petit pot en suspension stable tout en le faisant tourner doucement sur le bureau. Vérifiez la charge maximale et la prise fournie."
+      },
+      "he": {
+        "name": "עציץ מרחף מגנטי מסתובב",
+        "headline": [
+          "צמח באוויר,",
+          "סיבוב שקט על השולחן."
+        ],
+        "description": "בסיס אלקטרומגנטי המחזיק עציץ קל באוויר ומסובב אותו בעדינות לפיזור אור אחיד מסביב. בדקו את משקל הנשיאה המותר וסוג השנאי המצורף."
+      }
     }
   }
 }

@@ -1,8 +1,191 @@
+/* FLUXIXO catalog: existing collection + daily accumulated finds. */
 window.MIRA_CATALOG = {
   "version": 1,
   "brand": "FLUXIXO",
   "tagline": "Находки с другой стороны",
   "products": [
+    {
+      "id": "auto-1005008721169426",
+      "name": "Левитирующий кашпо-горшок для бонсай",
+      "headline": [
+        "Растение в воздухе,",
+        "плавное вращение."
+      ],
+      "description": "Магнитная база удерживает лёгкий горшок в невесомости и медленно вращает цветок над столом, обеспечивая равномерный свет со всех сторон. Уточните допустимый вес.",
+      "category": "Дом",
+      "image": "assets/images/auto-1005008721169426.webp",
+      "original": "assets/originals/auto-1005008721169426.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4dmUQ1r",
+      "sourceUrl": "https://www.aliexpress.com/item/1005008721169426.html",
+      "sourceProductId": "1005008721169426",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005008721169426.html",
+      "sourceTitle": "Levitating Air Bonsai Pot Rotation Flower Pot Planters Magnetic  Suspension Floating Pot Potted Plant Home Desk Decor",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Hdeb0ce48900c477c8392e59a3ed18513A.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "FR",
+      "sourceTask": "rare_levitating_bonsai_pot",
+      "demo": false,
+      "theme": "sand",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Магнитная база удерживает лёгкий горшок в невесомости и медленно вращает цветок над столом, обеспечивая равномерный свет со всех сторон. Уточните допустимый вес.",
+      "facts": [],
+      "sourceShopId": "1103573332",
+      "hasVideo": true,
+      "availableMarkets": [
+        "US",
+        "BR",
+        "IL",
+        "FR"
+      ],
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "bfac4c56289b157a6118548c2580491963ae1b0bf61f05319a8a0e635e098c8a",
+            "checked_at": 1795279218.553217
+          },
+          "en": {
+            "sha256": "6cf7946f4e9fe48693139a0d2b22d79aee7eecc4eaeb2cfe4d9f616dabbde34d",
+            "checked_at": 1795279221.4107668
+          },
+          "pt": {
+            "sha256": "c96a37f7a1a250bf52c4eda6c51ff819f5c74f18d9345009ce241e98989ba06c",
+            "checked_at": 1795279228.8452258
+          },
+          "es": {
+            "sha256": "543fbd19f75da6ddf54fae80a1dcd5811866476cc6f2bacdbd5a15d4d533cefd",
+            "checked_at": 1795279231.377539
+          },
+          "fr": {
+            "sha256": "31298fab3de3d428e84af574a9884989f9e0975d0705d4728b4b0aaaefecee7b",
+            "checked_at": 1795279235.723808
+          },
+          "he": {
+            "sha256": "7851ca9f35f4af4d767dd3ad72e1ea5380b513f2a220c8add2c6d40a6a75c4ff",
+            "checked_at": 1795279237.544848
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005008721169426",
+        "source_title_sha256": "9c0ebe322bbb8be1c31043812aad5575d6813bcbc16dc72d609e67e1ff94a3bd",
+        "identity_source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+        "identity_source_asset": "assets/originals/auto-1005008721169426-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+            "image_sha256": "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Hdeb0ce48900c477c8392e59a3ed18513A.jpg",
+            "source_asset": "assets/originals/auto-1005008721169426-review-1.png",
+            "output_asset": "assets/images/auto-1005008721169426.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately depicts the exact product and variant specified in the listing.",
+                "It serves effectively as a hero shot with a clean presentation of the levitating air bonsai pot and its base."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "38a4d4f780b926e24dd9582d061c214088082e4d2d8506cc53496756707c9c29",
+            "image_sha256": "5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd",
+            "prior_image_sha256": [
+              "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803"
+            ],
+            "identity_source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/H4db47babd2fe4b76bce17029f26b16d5a.jpg",
+            "source_asset": "assets/originals/auto-1005008721169426-review-2.png",
+            "output_asset": "assets/images/auto-1005008721169426-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately depicts the levitating air bonsai pot in its working application state with correct product identity, shape, color, and features."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
+            "image_sha256": "f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be",
+            "prior_image_sha256": [
+              "7a144b9a976772fd76d59e0f7144870427e2239d324be7ccbbcfa02f4fcda803",
+              "5d3792fce39e027b1e76e74deda346bfe5691e23707e0fdc246826960e1bbccd"
+            ],
+            "identity_source_sha256": "ff6a0dfecd2caeb72c93bb15da9e87224fafd39fa03fb4d676ba463734a075d9",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S094204886f154c029961978a88c3bd24S.jpg",
+            "source_asset": "assets/originals/auto-1005008721169426-review-3.png",
+            "output_asset": "assets/images/auto-1005008721169426-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The product correctly matches the primary reference variant with the light wood grain base and leafy plant, maintaining accurate shape, color, and features without unauthorized modifications or branding."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005008721169426-v2.webp",
+        "assets/images/auto-1005008721169426-v3.webp"
+      ],
+      "sourceImageSha256": "dd4b3a331ddcda65d04247c6a502c062ec74b1835cdfa4bfbeb213a9a7a9752b",
+      "sourcePixelSha256": "9578eb66d717dd744dbbd828baf247e17986ed078d414b6deb34868e99c920d2",
+      "imageDhash": "0f790f0e920e870f",
+      "imageAhash": "810081f7ffe7e3e3",
+      "imageAspect": "1.09",
+      "sourceImageDhash": "881f5b9c0e8c1d60",
+      "sourceImageAhash": "fc0301ceffc7efff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 1020,
+        "fg_height": 937,
+        "fg_max_side": 1020,
+        "fg_min_side": 937,
+        "upscale_ratio": 0.873,
+        "sharpness": 7.532,
+        "fg_mean_luma": 162.16,
+        "fg_luma_std": 42.79,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.008,
+        "reasons": []
+      }
+    },
     {
       "id": "auto-1005003729947715",
       "name": "Тренировочный мяч для развития координации и реакции",

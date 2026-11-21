@@ -129,6 +129,13 @@
         "product_id": "1005013567552516",
         "source": "api"
       }
+    ],
+    "2026-11-21": [
+      {
+        "catalog_id": "auto-1005008721169426",
+        "product_id": "1005008721169426",
+        "source": "api"
+      }
     ]
   },
   "validation_runs": {
