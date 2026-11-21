@@ -208,13 +208,76 @@
       "source_title_sha256": "9416ee8f43f8e22329b8b86d6d8cc3d7c26ba39be598160fd309a814e4779602",
       "reviewed_at": 1795280530.764646
     },
-    {}
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The result shot accurately demonstrates the safety hammer breaking double-layer laminated glass, aligning correctly with the product's intended function and specifications.",
+          "Product identity, color, shape, and features are consistent with the reference images."
+        ]
+      },
+      "source_file": "reference-2ba6cf423d0f7e68bd11744430f43d6067b527a9aca857900ee0269504074d33.png",
+      "source_sha256": "2ba6cf423d0f7e68bd11744430f43d6067b527a9aca857900ee0269504074d33",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sbe48cc8a641e4515aba13b929bbd05ab9.jpg",
+      "original_sha256": "d4be9f532b9fb3675169b6bc7cd29a899aff37c0a284ca89c9f6900de56ee581",
+      "output_file": "result-d784f9e34b24854d510f77fc6177e7368ac91b165e774a746b41ff294f323ab7.webp",
+      "image_sha256": "d784f9e34b24854d510f77fc6177e7368ac91b165e774a746b41ff294f323ab7",
+      "metrics": {
+        "fg_width": 603,
+        "fg_height": 574,
+        "fg_max_side": 603,
+        "fg_min_side": 574,
+        "upscale_ratio": 1.476,
+        "sharpness": 12.429,
+        "fg_mean_luma": 108.11,
+        "fg_luma_std": 62.22,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.008,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The result shot accurately demonstrates the safety hammer breaking double-layer laminated glass, aligning correctly with the product's intended function and specifications.",
+          "Product identity, color, shape, and features are consistent with the reference images."
+        ]
+      },
+      "prior_image_sha256": [
+        "582d914364e2762a8e01fab249d4a4017a7eb51696ce90537d0ea38b3fc5a812",
+        "2f6818d7dba4291fdd60afcc0134c3da9a0f1e4873061c6c3d8de4db88c342bf"
+      ],
+      "identity_source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+      "source_title_sha256": "9416ee8f43f8e22329b8b86d6d8cc3d7c26ba39be598160fd309a814e4779602",
+      "reviewed_at": 1795280540.370799
+    }
   ],
   "created_at": 1795280463.5479474,
   "deferrals": 0,
   "lease_owner": "b1779ff65a2a4684bf9055a7ea305de2",
-  "lease_until": 1795282263.547971,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795366865.366109,
   "source_version": "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e",
@@ -245,8 +308,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "2ba6cf423d0f7e68bd11744430f43d6067b527a9aca857900ee0269504074d33",
+            "at": 1795280532.051368,
+            "code": "pending_review",
+            "image_sha256": "d784f9e34b24854d510f77fc6177e7368ac91b165e774a746b41ff294f323ab7"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -289,6 +360,26 @@
           "The image clearly demonstrates the application of the Baseus GoTrip DT2 car safety hammer breaking through a car window in an emergency scenario."
         ]
       }
+    },
+    "d784f9e34b24854d510f77fc6177e7368ac91b165e774a746b41ff294f323ab7": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The result shot accurately demonstrates the safety hammer breaking double-layer laminated glass, aligning correctly with the product's intended function and specifications.",
+          "Product identity, color, shape, and features are consistent with the reference images."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -296,5 +387,6 @@
     "file": "reference-ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad.png",
     "sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
     "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa"
-  }
+  },
+  "reason": ""
 }
