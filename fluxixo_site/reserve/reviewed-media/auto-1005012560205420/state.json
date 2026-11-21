@@ -111,7 +111,30 @@
       "rejected_sources": [
         "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8"
       ],
-      "feedback": "Keep the full product with clean edges and no background artifacts."
+      "feedback": "Keep the full product with clean edges and no background artifacts.",
+      "pending": {
+        "source_file": "reference-93ace040bbb376ecbcf084a6a62bddc3eeedb3e00e9c42eb66ae47cc41a6cb33.png",
+        "source_sha256": "93ace040bbb376ecbcf084a6a62bddc3eeedb3e00e9c42eb66ae47cc41a6cb33",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sba6169c04f194818b87fcce33e702924Q.jpg",
+        "original_sha256": "e2ca467b9e9ed56d428881ea5675eeadbc1a92a0fd4e44c549593bdaefba83a4",
+        "output_file": "hero-7230e4cedb9c83c8c88530cac764deaf0307fb5f4b971ddb8063dbe06f296f04.webp",
+        "image_sha256": "7230e4cedb9c83c8c88530cac764deaf0307fb5f4b971ddb8063dbe06f296f04",
+        "metrics": {
+          "fg_width": 1573,
+          "fg_height": 1523,
+          "fg_max_side": 1573,
+          "fg_min_side": 1523,
+          "upscale_ratio": 0.566,
+          "sharpness": 12.685,
+          "fg_mean_luma": 65.29,
+          "fg_luma_std": 54.27,
+          "max_border_clip": 0.0,
+          "clipped_edges": 0,
+          "halo_fringe_ratio": 0.014,
+          "reasons": []
+        },
+        "generated": false
+      }
     },
     {},
     {}
@@ -138,7 +161,8 @@
           {
             "source_sha256": "93ace040bbb376ecbcf084a6a62bddc3eeedb3e00e9c42eb66ae47cc41a6cb33",
             "at": 1795273520.5836098,
-            "code": "reserved"
+            "code": "pending_review",
+            "image_sha256": "7230e4cedb9c83c8c88530cac764deaf0307fb5f4b971ddb8063dbe06f296f04"
           }
         ],
         "last_code": "materialization_interrupted"
@@ -174,6 +198,10 @@
           "The image is enclosed by a prominent black border clearly visible at normal product-card display size rather than an incidental edge visible only on zoom."
         ]
       }
+    },
+    "7230e4cedb9c83c8c88530cac764deaf0307fb5f4b971ddb8063dbe06f296f04": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
     }
   },
   "identity_source": {
