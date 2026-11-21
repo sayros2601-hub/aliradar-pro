@@ -242,7 +242,30 @@
       ],
       "retry_source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
       "rejected_sources": [],
-      "feedback": "Restore the exact primary-reference product variant; do not substitute another product. Restore all reference product parts without adding accessories. Keep the original product color and materials without recoloring. Preserve only authentic reference markings; do not add or replace branding."
+      "feedback": "Restore the exact primary-reference product variant; do not substitute another product. Restore all reference product parts without adding accessories. Keep the original product color and materials without recoloring. Preserve only authentic reference markings; do not add or replace branding.",
+      "pending": {
+        "source_file": "reference-b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8.png",
+        "source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S094204886f154c029961978a88c3bd24S.jpg",
+        "original_sha256": "2eb950eacdd988ca815c323eb20f814bf4999d9b223808e016210c8eb2e1962e",
+        "output_file": "result-f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be.webp",
+        "image_sha256": "f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be",
+        "metrics": {
+          "fg_width": 625,
+          "fg_height": 782,
+          "fg_max_side": 782,
+          "fg_min_side": 625,
+          "upscale_ratio": 1.138,
+          "sharpness": 14.754,
+          "fg_mean_luma": 181.49,
+          "fg_luma_std": 48.33,
+          "max_border_clip": 0.0,
+          "clipped_edges": 0,
+          "halo_fringe_ratio": 0.209,
+          "reasons": []
+        },
+        "generated": false
+      }
     }
   ],
   "created_at": 1795278721.0638213,
@@ -291,7 +314,8 @@
           {
             "source_sha256": "b896e6f12d67280800bed265ff2f0087972f17985a211212d60d1aadae88d2c8",
             "at": 1795279592.7491472,
-            "code": "reserved"
+            "code": "pending_review",
+            "image_sha256": "f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be"
           }
         ],
         "last_code": "materialization_interrupted"
@@ -362,6 +386,10 @@
           "Image 3 (final frame) omits the plant and shows a top-down perspective inconsistent with the product definition in Image 1."
         ]
       }
+    },
+    "f01be8813f04dceff65309d1816c5c1f931f9b3345958438d1f6d4791ed5d4be": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
     }
   },
   "identity_source": {
