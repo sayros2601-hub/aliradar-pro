@@ -287,8 +287,8 @@
   "created_at": 1795273267.529113,
   "deferrals": 0,
   "lease_owner": "62c89b4334bd4bfeb32d5a05b05eadf8",
-  "lease_until": 1795275067.5291357,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795359673.9190154,
   "source_version": "ac50ef64849e6315f0bb5efc8d73d365e928185dfcbc9906972f7cb7f7ae1afa",
@@ -406,5 +406,6 @@
     "file": "reference-90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8.png",
     "sha256": "90d7450b20e03574f7b4233726831ff8f11418b758639f7ac8b967559f39c5c8",
     "original_sha256": "5f336512df87f9670b86b8b8d76aac8ed1fa7c1571c7a7f4e6341639fbc2c7b5"
-  }
+  },
+  "reason": ""
 }
