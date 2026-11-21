@@ -47,6 +47,10 @@ jobs:
       FLUXIXO_DIRECT_STUDIO_BG: '0'
       FLUXIXO_USE_VISION_SPEC: '1'
       FLUXIXO_STRICT_COPY: '1'
+      FLUXIXO_REQUIRED_MARKETS: 'none'
+      FLUXIXO_MIN_MARKETS: '4'
+      FLUXIXO_MIN_PRICE_CENTS: '1200'
+      FLUXIXO_MAX_PRICE_CENTS: '12000'
       FLUXIXO_CF_TEXT_MODEL: ${{ vars.FLUXIXO_CF_TEXT_MODEL || '@cf/meta/llama-3.3-70b-instruct-fp8-fast' }}
       FLUXIXO_CF_IMAGE_MODEL: ${{ vars.FLUXIXO_CF_IMAGE_MODEL || '@cf/black-forest-labs/flux-2-klein-9b' }}
       FLUXIXO_CF_VISION_MODEL: ${{ vars.FLUXIXO_CF_VISION_MODEL || '@cf/meta/llama-4-scout-17b-16e-instruct' }}

@@ -407,6 +407,20 @@ def _source_images(raw, primary):
     return result
 
 
+_EXTRA_API_FIELDS = (
+    'evaluate_rate',
+    'lastest_volume',
+    'target_sale_price',
+    'target_original_price',
+    'commission_rate',
+    'hot_product_commission_rate',
+    'product_video_url',
+    'shop_id',
+    'first_level_category_name',
+    'second_level_category_name',
+)
+
+
 def discover(
     call,
     existing,
@@ -420,11 +434,13 @@ def discover(
     presearch_fn=None,
     preferred_markets=None,
     required_markets=(),
+    min_markets=None,
+    use_ai_judge=None,
 ):
-    """Compare API results, screen rarity/presearch, verify target markets, and request exact links.
+    """Compare API results, screen rarity/price/media, AI-judge uniqueness, verify markets, and request links.
 
-    required_markets (with check_all_markets): a product must be sold in every one of these countries, otherwise
-    it is skipped (each language's front-page rope shows only products sold in its country)."""
+    required_markets / min_markets (with check_all_markets): require specific countries or a minimum confirmed
+    country count across the 6 storefront markets."""
     from . import discovery_curator
     if (isinstance(count, bool) or not isinstance(count, int) or not 0 <= count <= 3
             or not isinstance(existing, list) or not callable(call)
@@ -434,6 +450,13 @@ def discover(
         return []
     utc_now = now.astimezone(timezone.utc)
     pref_tuple = tuple(m for m in (preferred_markets or ()) if m in discovery_curator.ALL_MARKETS)
+    effective_min_markets = max(0, int(min_markets or 0))
+    enable_ai_judge = bool(use_curated_pool) if use_ai_judge is None else bool(use_ai_judge)
+    category_counts = {}
+    for item in existing:
+        if isinstance(item, dict) and item.get('category'):
+            cat = str(item['category'])
+            category_counts[cat] = category_counts.get(cat, 0) + 1
     if seeds is not None:
         task_seeds = list(seeds)
     elif use_curated_pool:
@@ -441,6 +464,7 @@ def discover(
             utc_now.date().toordinal(),
             discovery_curator.ALL_MARKETS,
             preferred_markets=pref_tuple or None,
+            category_counts=category_counts,
         )
         ai_queries = discovery_curator.generate_ai_discovery_queries(
             existing, target_markets=pref_tuple or discovery_curator.ALL_MARKETS, limit=6,
@@ -465,6 +489,9 @@ def discover(
     known_titles = {str(item[key]).strip().casefold() for item in existing if isinstance(item, dict)
                     for key in ('name', 'name_en', 'sourceTitle') if item.get(key)}
     known_models = {item.get('sourceModelKey') for item in existing if isinstance(item, dict) and item.get('sourceModelKey')}
+    known_shop_ids = {str(item['sourceShopId']) for item in existing if isinstance(item, dict) and item.get('sourceShopId')}
+    min_price_cents = os.environ.get('FLUXIXO_MIN_PRICE_CENTS', '1200').strip() or '1200'
+    max_price_cents = os.environ.get('FLUXIXO_MAX_PRICE_CENTS', '12000').strip() or '12000'
     chosen = []
     for task in task_seeds:
         is_curated = str(task.get('key') or '').startswith(('rare_', 'ai_rare_'))
@@ -474,31 +501,57 @@ def discover(
                 discovery_curator.fetch_hot_background_ids(call, task['query'], task['market'])
                 if check_hot_background else (set(), [])
             )
-            rows = _rows(call(QUERY, {'keywords': task['query'], 'target_currency': 'USD', 'target_language': 'EN',
-                                      'ship_to_country': task['market'], 'page_size': '20', 'page_no': '1',
-                                      'tracking_id': 'default'}), QUERY)
             query = {}
-            for raw in rows[:20]:
-                try:
-                    item = normalize_product(raw, task['market'], QUERY, utc_now.isoformat())
-                    item['image_urls'] = _source_images(raw, item.get('image_url'))
-                    for metric_key in ('evaluate_rate', 'lastest_volume'):
-                        if metric_key in raw:
-                            item[metric_key] = raw[metric_key]
-                    if item['product_id'] not in known_ids and item['title'].strip().casefold() not in known_titles:
-                        query[item['product_id']] = item
-                except (ValueError, TypeError):
-                    continue
+            pages = ('1', '2', '3') if use_curated_pool else ('1',)
+            for page_no in pages:
+                q_params = {
+                    'keywords': task['query'],
+                    'target_currency': 'USD',
+                    'target_language': 'EN',
+                    'ship_to_country': task['market'],
+                    'page_size': '20',
+                    'page_no': page_no,
+                    'tracking_id': 'default',
+                }
+                if use_curated_pool:
+                    q_params['min_sale_price'] = min_price_cents
+                    q_params['max_sale_price'] = max_price_cents
+                rows = _rows(call(QUERY, q_params), QUERY)
+                for raw in rows[:20]:
+                    try:
+                        item = normalize_product(raw, task['market'], QUERY, utc_now.isoformat())
+                        item['image_urls'] = _source_images(raw, item.get('image_url'))
+                        item['_source_page'] = int(page_no)
+                        for extra_key in _EXTRA_API_FIELDS:
+                            if extra_key in raw and raw[extra_key] is not None:
+                                item[extra_key] = raw[extra_key]
+                        if (item['product_id'] not in query
+                                and item['product_id'] not in known_ids
+                                and item['title'].strip().casefold() not in known_titles):
+                            query[item['product_id']] = item
+                    except (ValueError, TypeError):
+                        continue
+                if len(rows) < 20 or len(query) >= 40:
+                    break
             if not query:
                 continue
-            details = _rows(call(DETAIL, {'product_ids': ','.join(sorted(query)), 'country': task['market'],
-                                        'target_currency': 'USD', 'target_language': 'EN', 'tracking_id': 'default'}), DETAIL)
+            details = []
+            all_pids = sorted(query)
+            for start in range(0, len(all_pids), 20):
+                chunk = all_pids[start:start + 20]
+                details.extend(_rows(call(DETAIL, {
+                    'product_ids': ','.join(chunk),
+                    'country': task['market'],
+                    'target_currency': 'USD',
+                    'target_language': 'EN',
+                    'tracking_id': 'default',
+                }), DETAIL)[:20])
             eligible = []
             catalog_plus_chosen = existing + [
                 {'id': c['product_id'], 'sourceTitle': c['title'], 'name_en': c['title'], 'name': c['title']}
                 for c in chosen
             ]
-            for raw in details[:20]:
+            for raw in details:
                 try:
                     item = normalize_product(raw, task['market'], DETAIL, utc_now.isoformat())
                     previous = query.get(item['product_id'])
@@ -510,45 +563,65 @@ def discover(
                     item['image_urls'] = list(dict.fromkeys(_source_images(raw, item['image_url']) + previous.get('image_urls', [])))[:8]
                     if not item['image_urls']:
                         continue
-                    for metric_key in ('evaluate_rate', 'lastest_volume'):
-                        if metric_key in raw:
-                            item[metric_key] = raw[metric_key]
-                        elif metric_key in previous:
-                            item[metric_key] = previous[metric_key]
+                    item['_source_page'] = previous.get('_source_page', 1)
+                    for extra_key in _EXTRA_API_FIELDS:
+                        if extra_key in raw and raw[extra_key] is not None:
+                            item[extra_key] = raw[extra_key]
+                        elif extra_key in previous:
+                            item[extra_key] = previous[extra_key]
                     screen_ok, _, screen_meta = discovery_curator.presearch_exclusivity_check(
                         item,
                         catalog_plus_chosen,
                         hot_ids=hot_ids,
                         hot_titles=hot_titles,
                         presearch_fn=presearch_fn,
+                        require_observed_metrics=bool(use_curated_pool),
+                        known_shop_ids=known_shop_ids,
                     )
                     if not screen_ok:
                         continue
                     item['presearchStatus'] = screen_meta.get('presearch', {'checked': False, 'status': 'local_only'})
                     word_score = len(_words(task['query']) & _words(item['title']))
-                    total_score = word_score + float(screen_meta.get('score') or 0.0)
+                    deep_page_bonus = 1.5 if item.get('_source_page', 1) >= 2 else 0.0
+                    total_score = word_score + float(screen_meta.get('score') or 0.0) + deep_page_bonus
                     eligible.append((-total_score, item['product_id'], item))
                 except (ValueError, TypeError):
                     continue
+            sorted_eligible = sorted(eligible, key=lambda value: (value[0], value[1]))
+            if enable_ai_judge and sorted_eligible:
+                score_by_pid = {pid: -neg_score for neg_score, pid, _ in sorted_eligible}
+                judged = discovery_curator.judge_candidates_uniqueness(
+                    [item for _, _, item in sorted_eligible[:10]],
+                    catalog_plus_chosen,
+                )
+                sorted_eligible = sorted(
+                    [
+                        (-(score_by_pid[it['product_id']] + float(it.get('_curator_judge_bonus', 0.0))), it['product_id'], it)
+                        for it in judged
+                    ],
+                    key=lambda value: (value[0], value[1]),
+                )
             pref_set = set(pref_tuple)
             verified_pool = []
             full_overlap_count = 0
-            for base_neg_score, pid, item in sorted(eligible, key=lambda value: (value[0], value[1])):
+            for base_neg_score, pid, item in sorted_eligible:
                 if check_all_markets:
                     discovery_curator.verify_markets_for_candidate(
                         call, item, discovery_curator.ALL_MARKETS, utc_now.isoformat(),
                     )
                     avail = item.get('availableMarkets') or []
-                    if not avail or not set(required_markets or ()) <= set(avail):
+                    if not avail or len(avail) < effective_min_markets or not set(required_markets or ()) <= set(avail):
                         continue
                     overlap = len(set(avail) & pref_set) if pref_set else 0
-                    verified_pool.append((0 if (not pref_set or overlap > 0) else 1, -overlap, base_neg_score, pid, item))
+                    extra_markets = max(0, len(avail) - max(1, effective_min_markets))
+                    market_bonus = extra_markets * 1.0 + overlap * 0.5
+                    verified_pool.append((0 if (not pref_set or overlap > 0) else 1, base_neg_score - market_bonus, -len(avail), pid, item))
                     if not pref_set or overlap == len(pref_set):
                         full_overlap_count += 1
                         if full_overlap_count >= 2:
                             break
                 else:
-                    verified_pool.append((0, 0, base_neg_score, pid, item))
+                    verified_pool.append((0, base_neg_score, 0, pid, item))
             for _, _, _, _, item in sorted(verified_pool, key=lambda v: v[:4]):
                 try:
                     affiliate = generate_affiliate(call, item)
@@ -561,6 +634,8 @@ def discover(
                 known_titles.add(item['title'].strip().casefold())
                 if item.get('model_key'):
                     known_models.add(item['model_key'])
+                if item.get('shop_id'):
+                    known_shop_ids.add(str(item['shop_id']))
                 break
         except (ApiError, ValueError, KeyError, TypeError):
             continue
@@ -628,6 +703,10 @@ def build_record(candidate):
         record['availableMarkets'] = list(candidate['availableMarkets'])
     if isinstance(candidate.get('presearchStatus'), dict):
         record['presearchStatus'] = candidate['presearchStatus']
+    if candidate.get('shop_id'):
+        record['sourceShopId'] = str(candidate['shop_id'])
+    if str(candidate.get('product_video_url') or '').startswith('https://'):
+        record['hasVideo'] = True
     return record, {lang: localized[lang] for lang in LANGS if lang != 'ru'}
 
 
@@ -1476,6 +1555,20 @@ def required_markets():
     return markets
 
 
+def min_confirmed_markets():
+    """Minimum number of target countries a product must sell in (FLUXIXO_MIN_MARKETS, default 0)."""
+    from .discovery_curator import ALL_MARKETS
+    raw = os.environ.get('FLUXIXO_MIN_MARKETS', '').strip()
+    if not raw:
+        return 0
+    if not re.fullmatch(r'[0-9]+', raw):
+        raise DailyError('min_markets_invalid')
+    value = int(raw)
+    if not 0 <= value <= len(ALL_MARKETS):
+        raise DailyError('min_markets_invalid')
+    return value
+
+
 def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                discover_fn=None, media_fn=None, validation_run_id=None, queue_store=None, refresh_fn=None,
                enforce_unique_copy=None, snippet_fetcher=None, preferred_markets=None):
@@ -1532,6 +1625,7 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
     from . import discovery_curator
     using_default_discover = discover_fn is None
     must_sell_in = required_markets() if using_default_discover else ()
+    min_mkts = min_confirmed_markets() if using_default_discover else 0
     if discover_fn is None:
         discover_fn = lambda existing, amount, when: discover(
             get_api(),
@@ -1541,9 +1635,10 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             use_curated_pool=True,
             check_all_markets=True,
             check_hot_background=True,
-            presearch_fn=discovery_curator.default_web_presearch,
+            presearch_fn=None,
             preferred_markets=preferred_markets,
             required_markets=must_sell_in,
+            min_markets=min_mkts,
         )
     if refresh_fn is None:
         refresh_fn = lambda entry, when: refresh_queued(get_api(), entry, when)
@@ -1673,14 +1768,16 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 exclusions.append({'id': record_item['id'], 'sourceProductId': record_item['sourceProductId'], 'sourceTitle': record_item['sourceTitle']})
                 if pending:
                     pending.hold(candidate['product_id'], now=now_ts())
-                if must_sell_in and not set(must_sell_in) <= set(candidate.get('availableMarkets') or ()):
+                avail_now = set(candidate.get('availableMarkets') or ())
+                if (must_sell_in and not set(must_sell_in) <= avail_now) or (min_mkts and len(avail_now) < min_mkts):
                     # A queued candidate was found before this rule: check every country now, before any image work.
                     try:
                         discovery_curator.verify_markets_for_candidate(
                             get_api(), candidate, discovery_curator.ALL_MARKETS, instant.astimezone(timezone.utc).isoformat())
                     except Exception:
                         pass
-                    if not set(must_sell_in) <= set(candidate.get('availableMarkets') or ()):
+                    avail_now = set(candidate.get('availableMarkets') or ())
+                    if (must_sell_in and not set(must_sell_in) <= avail_now) or (min_mkts and len(avail_now) < min_mkts):
                         if queue_claim:
                             queue_store.fail(queue_claim['claim_id'], owner, 'markets_incomplete', now=instant)
                         if pending:

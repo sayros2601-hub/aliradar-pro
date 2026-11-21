@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
+import json
 import os
 import re
 import time
@@ -34,6 +35,8 @@ COMMODITY_STOPLIST: frozenset[str] = frozenset({
     'keychain', 'keyring', 'pouch', 'bag', 'socks', 'apron', 'notebook', 'ballpoint',
     'lightbulb', 'bulb', 'fuse', 'filter cartridge', 'filter', 'filters', 'brush head', 'refills',
     'shoe lace', 'shoelace', 'hanger', 'hangers', 'toothpaste', 'cotton swab', 'cotton',
+    'incontinence', 'ostomy', 'catheter', 'colostomy', 'elderly', 'arthritis',
+    'welding', 'lathe', 'milling', 'calibrator', 'collet',
 })
 
 COMMODITY_PHRASE_RE = re.compile(
@@ -43,7 +46,11 @@ COMMODITY_PHRASE_RE = re.compile(
     r'plug\s+adapter|power\s+adapter|universal\s+adapter|travel\s+adapter|extension\s+cord|power\s+strip|'
     r'replacement\s+(?:part|head|filter|blade|pad|tips?|brush|battery)|'
     r'spare\s+parts?|adhesive\s+hook|wall\s+sticker|cleaning\s+cloth|'
-    r'microfiber\s+towel|garbage\s+bag|trash\s+bag|ziplock|hair\s+tie|rubber\s+band'
+    r'microfiber\s+towel|garbage\s+bag|trash\s+bag|ziplock|hair\s+tie|rubber\s+band|'
+    r'calibration\s+ring|ring\s+gauge|plug\s+gauge|plasma\s+cutter|welding\s+machine|'
+    r'arc\s+gouging|lathe\s+chuck|milling\s+cutter|cnc\s+router|'
+    r'tapping\s+collet|wimshurst|elderly\s+dressing|'
+    r'orthopedic\s+brace|dental\s+impression|surgical\s+forceps|lab\s+centrifuge'
     r')\b',
     re.IGNORECASE,
 )
@@ -117,6 +124,25 @@ CURATED_RARE_QUERIES: list[dict[str, Any]] = [
     {'key': 'rare_car_escape_hammer', 'query': 'tungsten car window breaker seatbelt cutter safety hammer', 'groups': (('window', 'seatbelt'), ('breaker', 'hammer')), 'category': 'В дороге', 'market': 'IL', 'theme': 'coral'},
     {'key': 'rare_luggage_cup_holder', 'query': 'travel suitcase handle drink cup holder luggage caddy', 'groups': (('luggage', 'suitcase'), ('cup', 'drink')), 'category': 'В дороге', 'market': 'BR', 'theme': 'sand'},
     {'key': 'rare_pocket_thermal_camera', 'query': 'handheld infrared thermal imaging camera screen pcb', 'groups': (('thermal', 'infrared'), ('imaging', 'camera')), 'category': 'Техника', 'market': 'MX', 'theme': 'blue'},
+    # Fresh high-wow collector & lifestyle gadget wave (skewed to Outdoors, Home, Pets, Sports, Care)
+    {'key': 'rare_ferrofluid_desk_toy', 'query': 'magnetic ferrofluid sound reactive display bottle toy', 'groups': (('ferrofluid',), ('magnetic', 'bottle', 'display')), 'category': 'Дом', 'market': 'US', 'theme': 'blue'},
+    {'key': 'rare_levitating_bonsai_pot', 'query': 'magnetic levitating floating bonsai planter pot', 'groups': (('levitating', 'floating'), ('bonsai', 'planter', 'pot')), 'category': 'Дом', 'market': 'FR', 'theme': 'sand'},
+    {'key': 'rare_tensegrity_desk_stand', 'query': 'anti gravity tensegrity floating structure balance sculpture', 'groups': (('tensegrity',), ('gravity', 'floating', 'balance')), 'category': 'Дом', 'market': 'IL', 'theme': 'lavender'},
+    {'key': 'rare_kinetic_helix_spinner', 'query': 'kinetic desk metal optical illusion spinning sphere toy', 'groups': (('kinetic',), ('illusion', 'spinning', 'desk')), 'category': 'Дом', 'market': 'MX', 'theme': 'coral'},
+    {'key': 'rare_portable_hand_espresso', 'query': 'manual portable hand pressure espresso coffee maker camping', 'groups': (('portable', 'manual'), ('espresso',)), 'category': 'На природе', 'market': 'RU', 'theme': 'coral'},
+    {'key': 'rare_solar_inflatable_lantern', 'query': 'inflatable collapsible waterproof solar led camping lantern', 'groups': (('inflatable', 'collapsible'), ('lantern',)), 'category': 'На природе', 'market': 'BR', 'theme': 'sand'},
+    {'key': 'rare_camping_water_faucet_pump', 'query': 'folding rechargeable portable camping water pump dispenser', 'groups': (('portable', 'folding'), ('pump', 'dispenser'), ('water',)), 'category': 'На природе', 'market': 'US', 'theme': 'blue'},
+    {'key': 'rare_pocket_titanium_stove', 'query': 'folding pocket titanium spirit alcohol camping stove', 'groups': (('alcohol', 'spirit'), ('stove',)), 'category': 'На природе', 'market': 'FR', 'theme': 'sand'},
+    {'key': 'rare_auto_pet_paw_washer', 'query': 'electric automatic dog paw cleaner washer cup', 'groups': (('paw',), ('cleaner', 'washer')), 'category': 'Питомцы', 'market': 'BR', 'theme': 'lavender'},
+    {'key': 'rare_pet_water_fountain_wireless', 'query': 'cordless wireless stainless steel cat water fountain pump', 'groups': (('wireless', 'cordless'), ('fountain',)), 'category': 'Питомцы', 'market': 'US', 'theme': 'blue'},
+    {'key': 'rare_cordless_smart_jump_rope', 'query': 'digital cordless weighted smart counting jump rope', 'groups': (('cordless',), ('jump',), ('rope',)), 'category': 'Спорт', 'market': 'IL', 'theme': 'coral'},
+    {'key': 'rare_pocket_fascia_gun', 'query': 'mini aluminum percussion pocket fascia massage gun', 'groups': (('fascia', 'percussion'), ('massage',)), 'category': 'Спорт', 'market': 'MX', 'theme': 'blue'},
+    {'key': 'rare_ultrasonic_skin_spatula', 'query': 'ultrasonic ion facial pore skin scrubber spatula', 'groups': (('ultrasonic',), ('scrubber', 'spatula')), 'category': 'Уход', 'market': 'RU', 'theme': 'rose'},
+    {'key': 'rare_smart_posture_trainer', 'query': 'smart vibrating posture corrector trainer back sensor', 'groups': (('posture',), ('vibrating', 'sensor', 'smart')), 'category': 'Уход', 'market': 'US', 'theme': 'lavender'},
+    {'key': 'rare_electric_wine_aerator', 'query': 'electric instant wine aerator pourer dispenser rechargeable', 'groups': (('aerator',), ('wine',)), 'category': 'Кухня', 'market': 'FR', 'theme': 'rose'},
+    {'key': 'rare_rolling_diamond_sharpener', 'query': 'magnetic rolling diamond knife sharpener angle block', 'groups': (('rolling',), ('sharpener',), ('knife',)), 'category': 'Кухня', 'market': 'RU', 'theme': 'sand'},
+    {'key': 'rare_ips_nixie_clock', 'query': 'retro ips digital nixie tube glow desk clock', 'groups': (('nixie',), ('clock',)), 'category': 'Техника', 'market': 'IL', 'theme': 'coral'},
+    {'key': 'rare_solar_car_inclinometer', 'query': 'solar digital car inclinometer pitch roll slope meter', 'groups': (('inclinometer', 'slope'), ('car', 'solar')), 'category': 'В дороге', 'market': 'MX', 'theme': 'blue'},
 ]
 
 
@@ -150,8 +176,8 @@ RETIRED_TYPES = frozenset({
     'rare_magnetic_vortex_mug',         # drink mixer: cousin of find-056 milk frother
     'rare_laser_level_inclinometer',    # digital angle meter: cousin of find-052 laser distance meter
 })
-# Fallback seed types that must never run: the owner treats anything cable-like as junk.
-EXCLUDED_SEED_TYPES = frozenset({'cable_fish_tape'})
+# Fallback seed types that must never run: cable junk and narrow orthopedic/machining tools.
+EXCLUDED_SEED_TYPES = frozenset({'cable_fish_tape', 'button_hook', 'bearing_puller', 'screw_extractor', 'reed_trimmer'})
 _STEM_SUFFIXES = ('ings', 'ing', 'ers', 'er', 'ies', 'es', 's', 'ed')
 
 
@@ -208,10 +234,14 @@ def is_ordinary_or_banned_listing(title: str) -> tuple[bool, str | None]:
         'earpads', 'shoelace', 'gasket', 'oring', 'o-ring', 'keychain', 'keyring',
         'socks', 'toothpaste', 'hanger', 'hangers', 'sponge', 'sponges', 'towel',
         'towels', 'rag', 'rags', 'ballpoint', 'notebook', 'apron', 'lightbulb',
+        'incontinence', 'ostomy', 'catheter', 'arthritis', 'wimshurst', 'collet', 'lathe',
     }
     hit = words & strict_single_ban
     if hit:
         return True, f'banned_token:{sorted(hit)[0]}'
+    # Reject B2B calibration metrology gauges unless clearly a consumer contour/carpentry tool.
+    if 'calibration' in words or ('gauge' in words and not ({'contour', 'profile', 'angle', 'tire', 'depth'} & words)):
+        return True, 'industrial_metrology_gauge'
     # Catch commodity cable/case/adapter listings unless paired with specialty diagnostic/novelty hardware.
     diagnostic_whitelist = {
         'borescope', 'endoscope', 'tester', 'analyzer', 'otoscope', 'scanner',
@@ -246,6 +276,44 @@ def compatible_markets_for_title(title: str, candidate_markets: tuple[str, ...] 
     return markets
 
 
+MIN_PRICE_USD = 12.0
+MAX_PRICE_USD = 120.0
+MIN_SELLER_RATING = 92.0
+MIN_VOLUME = 5
+MAX_VOLUME = 5000
+SWEET_SPOT_MIN_VOLUME = 15
+SWEET_SPOT_MAX_VOLUME = 800
+
+
+def parse_price(raw_val: Any) -> float | None:
+    if raw_val is None or isinstance(raw_val, bool):
+        return None
+    if isinstance(raw_val, (int, float)):
+        return float(raw_val) if raw_val > 0 else None
+    match = re.search(r'(\d+(?:[.,]\d+)?)', str(raw_val))
+    if not match:
+        return None
+    try:
+        val = float(match.group(1).replace(',', '.'))
+    except ValueError:
+        return None
+    return val if val > 0 else None
+
+
+def parse_commission(raw_val: Any) -> float | None:
+    if raw_val is None or isinstance(raw_val, bool):
+        return None
+    if isinstance(raw_val, (int, float)):
+        return float(raw_val)
+    match = re.search(r'(\d+(?:[.,]\d+)?)', str(raw_val))
+    if not match:
+        return None
+    try:
+        return float(match.group(1).replace(',', '.'))
+    except ValueError:
+        return None
+
+
 def parse_evaluate_rate(raw_val: Any) -> float | None:
     if raw_val is None:
         return None
@@ -266,28 +334,79 @@ def parse_volume(raw_val: Any) -> int | None:
     return int(digits) if digits else None
 
 
-def seller_quality_check(raw: dict[str, Any]) -> tuple[bool, str, float]:
-    """Evaluate seller reliability & non-commodity niche sweet-spot without inventing missing metrics."""
+def seller_quality_check(
+    raw: dict[str, Any],
+    *,
+    require_observed_metrics: bool = False,
+    min_price: float = MIN_PRICE_USD,
+    max_price: float = MAX_PRICE_USD,
+) -> tuple[bool, str, float]:
+    """Evaluate seller reliability, price window, media richness, and non-commodity niche sweet-spot."""
     rate = parse_evaluate_rate(
         raw.get('evaluate_rate')
         or (raw.get('seller_metrics', {}) or {}).get('evaluate_rate', {}).get('raw_value')
     )
     volume = parse_volume(
         raw.get('lastest_volume')
+        or raw.get('orders_count')
         or (raw.get('seller_metrics', {}) or {}).get('lastest_volume', {}).get('raw_value')
     )
-    if rate is not None and rate < 88.0:
+    price = None
+    for p_key in ('target_sale_price', 'sale_price', 'app_sale_price', 'price', 'target_original_price', 'original_price'):
+        if raw.get(p_key) is not None:
+            price = parse_price(raw.get(p_key))
+            if price is not None:
+                break
+    commission = None
+    for c_key in ('commission_rate', 'hot_product_commission_rate'):
+        if raw.get(c_key) is not None:
+            commission = parse_commission(raw.get(c_key))
+            if commission is not None:
+                break
+
+    if rate is not None and rate < MIN_SELLER_RATING:
         return False, f'low_seller_rating:{rate}', -100.0
+    if require_observed_metrics and rate is None:
+        return False, 'missing_seller_rating', -100.0
+    if volume is not None and volume > MAX_VOLUME:
+        return False, f'mass_commodity_volume:{volume}', -50.0
+    if require_observed_metrics and (volume is None or volume < MIN_VOLUME):
+        return False, f'low_volume_unproven:{volume}', -50.0
+    if price is not None and price < min_price:
+        return False, f'price_below_floor:{price:.2f}', -50.0
+    if price is not None and price > max_price:
+        return False, f'price_above_ceiling:{price:.2f}', -50.0
+
     bonus = 0.0
     if rate is not None:
-        bonus += min(10.0, max(0.0, (rate - 88.0) * 0.8))
+        bonus += min(10.0, max(0.0, (rate - 90.0) * 1.0))
     if volume is not None:
-        if volume > 30000:
-            return False, f'mass_commodity_volume:{volume}', -50.0
-        if 15 <= volume <= 3500:
-            bonus += 6.0
+        if SWEET_SPOT_MIN_VOLUME <= volume <= SWEET_SPOT_MAX_VOLUME:
+            bonus += 8.0
+        elif SWEET_SPOT_MAX_VOLUME < volume <= 2500:
+            bonus += 4.0
+        elif MIN_VOLUME <= volume < SWEET_SPOT_MIN_VOLUME:
+            bonus += 1.5
         elif volume == 0:
-            bonus -= 2.0
+            bonus -= 6.0
+    if price is not None and 18.0 <= price <= 75.0:
+        bonus += 3.0
+    video_url = str(raw.get('product_video_url') or '').strip()
+    if video_url.startswith('https://'):
+        bonus += 8.0
+    images = raw.get('image_urls')
+    if isinstance(images, list):
+        if len(images) >= 4:
+            bonus += 5.0
+        elif len(images) == 3:
+            bonus += 2.0
+        elif len(images) <= 1:
+            bonus -= 4.0
+    if commission is not None:
+        if commission >= 7.0:
+            bonus += 4.0
+        elif commission >= 5.0:
+            bonus += 2.0
     return True, 'ok', bonus
 
 
@@ -378,8 +497,9 @@ def select_rotating_queries(
     target_markets: tuple[str, ...] = ALL_MARKETS,
     pool: list[dict[str, Any]] | None = None,
     preferred_markets: tuple[str, ...] | list[str] | None = None,
+    category_counts: dict[str, int] | None = None,
 ) -> list[dict[str, Any]]:
-    """Order curated queries so peak-window target markets come first without starving fallback markets."""
+    """Order curated queries so peak-window target markets and underrepresented categories come first."""
     # Types already on the site never enter the rotation (see RETIRED_TYPES).
     items = [q for q in (pool if pool is not None else CURATED_RARE_QUERIES) if q.get('key') not in RETIRED_TYPES]
     if not items:
@@ -391,6 +511,9 @@ def select_rotating_queries(
         mkt = entry.get('market', 'US')
         if mkt in target_markets:
             buckets.setdefault(mkt, []).append(entry)
+    if category_counts is not None:
+        for lst in buckets.values():
+            lst.sort(key=lambda e: category_counts.get(str(e.get('category') or ''), 0))
 
     ordered: list[dict[str, Any]] = []
     pref = [m for m in (preferred_markets or ()) if m in target_markets]
@@ -468,6 +591,10 @@ def presearch_exclusivity_check(
     hot_ids: set[str] | None = None,
     hot_titles: list[str] | None = None,
     presearch_fn: Callable[[str], dict[str, Any]] | None = None,
+    require_observed_metrics: bool = False,
+    known_shop_ids: set[str] | None = None,
+    min_price: float = MIN_PRICE_USD,
+    max_price: float = MAX_PRICE_USD,
 ) -> tuple[bool, str, dict[str, Any]]:
     """Run pre-publication uniqueness and non-commodity screening before downloading media."""
     title = str(candidate.get('title') or candidate.get('product_title') or '').strip()
@@ -477,9 +604,18 @@ def presearch_exclusivity_check(
     if banned:
         return False, f'rejected:{ban_reason}', {'stage': 'stoplist', 'reason': ban_reason}
 
-    q_ok, q_reason, q_bonus = seller_quality_check(candidate)
+    q_ok, q_reason, q_bonus = seller_quality_check(
+        candidate,
+        require_observed_metrics=require_observed_metrics,
+        min_price=min_price,
+        max_price=max_price,
+    )
     if not q_ok:
         return False, f'rejected:{q_reason}', {'stage': 'seller_quality', 'reason': q_reason}
+
+    shop_id = str(candidate.get('shop_id') or '').strip()
+    if shop_id and known_shop_ids and shop_id in known_shop_ids:
+        return False, f'rejected:duplicate_shop_id:{shop_id}', {'stage': 'shop_dedup', 'shop_id': shop_id}
 
     # Check semantic overlap against existing published catalog so we avoid clones of similar gadgets.
     for existing in existing_items:
@@ -490,7 +626,7 @@ def presearch_exclusivity_check(
             if not other:
                 continue
             sim = jaccard_similarity(title, other)
-            if sim >= 0.58:
+            if sim >= 0.50:
                 return False, f'rejected:catalog_concept_duplicate:{existing.get("id", "")}', {
                     'stage': 'catalog_overlap',
                     'similarity': round(sim, 3),
@@ -586,23 +722,61 @@ def verify_markets_for_candidate(
     return candidate
 
 
+def _complete_json_with_wait(ai_seo_mod, sys_prompt: str, user_prompt: str) -> dict[str, Any] | None:
+    """Invoke complete_json gracefully, respecting Gemini's short inter-call rate limit."""
+    for attempt in range(2):
+        try:
+            raw_obj, _ = ai_seo_mod.complete_json(sys_prompt, user_prompt)
+            return raw_obj if isinstance(raw_obj, dict) else None
+        except Exception as exc:
+            code = getattr(exc, 'code', '')
+            retry_at = getattr(exc, 'retry_at', None)
+            if attempt == 0 and code == 'gemini_rate_wait' and retry_at is not None:
+                delay = max(0.5, min(6.5, float(retry_at) - time.time() + 0.15))
+                time.sleep(delay)
+                continue
+            return None
+    return None
+
+
+def _ai_credentials_configured(ai_seo_mod) -> bool:
+    """True when an explicit provider credential is set (or complete_json is monkeypatched)."""
+    if os.environ.get('FLUXIXO_OFFLINE') == '1':
+        return False
+    try:
+        if not ai_seo_mod.has_ai_provider():
+            return False
+    except Exception:
+        return False
+    try:
+        keys = ai_seo_mod.load_ai_keys(local=False)
+    except Exception:
+        keys = {}
+    if str(keys.get('FLUXIXO_AI_TRANSPORT', '')).lower() in ('disabled', 'none', 'off'):
+        return False
+    if str(keys.get('FLUXIXO_TEXT_PROVIDER', '')).lower() == 'gemini':
+        if keys.get('FLUXIXO_TEXT_GEMINI_API_KEY'):
+            return True
+    if any(keys.get(k) for k in ('AUTOPILOT_SYNC_TOKEN', 'CLOUDFLARE_API_TOKEN', 'GITHUB_TOKEN', 'GROQ_API_KEY', 'OPENROUTER_API_KEY')):
+        return True
+    # Allow unit tests that patch ai_seo.complete_json without setting dummy API tokens.
+    return getattr(type(ai_seo_mod.complete_json), '__name__', '') != 'function'
+
+
 def generate_ai_discovery_queries(
     existing_items: list[dict[str, Any]],
     *,
     target_markets: tuple[str, ...] = ALL_MARKETS,
     limit: int = 6,
 ) -> list[dict[str, Any]]:
-    """Optionally brainstorm fresh rare-gadget searches via Google AI Studio (direct or Worker transport)."""
+    """Optionally brainstorm fresh rare-gadget searches via Gemini / Worker AI."""
     if limit <= 0 or not target_markets:
         return []
     try:
         from fluxixo_site.tools import ai_seo
     except Exception:
         return []
-    try:
-        if not ai_seo.has_ai_provider():
-            return []
-    except Exception:
+    if not _ai_credentials_configured(ai_seo):
         return []
 
     categories_order = ('Техника', 'Дом', 'Кухня', 'В дороге', 'Инструменты', 'Уход', 'Спорт', 'На природе', 'Питомцы')
@@ -641,47 +815,59 @@ def generate_ai_discovery_queries(
     top_existing_kw = [k for k, _ in sorted(keyword_freq.items(), key=lambda kv: (-kv[1], kv[0]))[:30]]
 
     sys_prompt = (
-        'You curate unusual, genuinely clever non-everyday physical gadgets from AliExpress '
-        'that people do NOT already own at home (kinetic/physics items, outdoor survival gear, '
-        'clever compact tools, pet enrichment, specialty kitchen or care devices). Avoid common commodity cables, '
-        'phone cases, stickers, screws, or spare parts. Reply strictly with JSON: '
-        '{"queries":[{"query":"english 4-6 word query","keyword_required":"single core word","category":"Техника|Дом|Кухня|В дороге|Инструменты|Уход|Спорт|На природе|Питомцы"}]}'
+        'You curate unusual, genuinely clever non-everyday physical gadgets ($12-$120 USD) from AliExpress '
+        'that people do NOT already own at home: kinetic/physics desk sculptures, magnetic levitation/ferrofluid displays, '
+        'clever EDC/titanium tools, Japanese-style mechanical kitchen gadgets, smart camping/outdoor gear, pet enrichment toys, '
+        'and photogenic self-care devices. STRICTLY FORBID common commodity cables, phone cases, stickers, replacement parts, '
+        'industrial calibration gauges, lathes, plasma/welding cutters, or medical/rehab/mobility aids. '
+        'Each query must specify TWO distinct required English title anchor words ("required_words") that a matching consumer listing contains. '
+        'Reply strictly with JSON: '
+        '{"queries":[{"query":"english 4-6 word query","required_words":["word1","word2"],"category":"Техника|Дом|Кухня|В дороге|Инструменты|Уход|Спорт|На природе|Питомцы"}]}'
     )
     user_prompt = (
         f'Catalog has {len(recent_names)} items. Prioritize these underrepresented categories: {underrepresented}. '
         f'Recent items to avoid repeating: {bounded_recent}. '
         f'Overused topics to skip: {top_existing_kw}. '
-        f'Propose {limit} completely distinct gadget ideas.'
+        f'Propose {limit} completely distinct consumer gadget ideas.'
     )
-    raw_obj = None
-    try:
-        raw_obj, _ = ai_seo.complete_json(sys_prompt, user_prompt)
-    except Exception:
-        raw_obj = None
+    raw_obj = _complete_json_with_wait(ai_seo, sys_prompt, user_prompt)
     if not isinstance(raw_obj, dict) or not isinstance(raw_obj.get('queries'), list):
         return []
 
     categories = set(categories_order)
     themes = ('blue', 'coral', 'sand', 'lavender', 'rose')
     out: list[dict[str, Any]] = []
-    seen_req: set[str] = set()
-    for idx, q in enumerate(raw_obj['queries'][: max(limit * 2, limit)]):
+    seen_req: set[tuple[str, ...]] = set()
+    for q in raw_obj['queries'][: max(limit * 2, limit)]:
         if len(out) >= limit:
             break
         if not isinstance(q, dict):
             continue
         text = str(q.get('query') or '').strip()
-        req = re.sub(r'[^a-z0-9]', '', str(q.get('keyword_required') or '').casefold())
+        raw_req = q.get('required_words')
+        req_words: list[str] = []
+        if isinstance(raw_req, list):
+            for rw in raw_req:
+                cw = re.sub(r'[^a-z0-9]', '', str(rw or '').casefold())
+                if len(cw) >= 3 and cw not in req_words:
+                    req_words.append(cw)
+                if len(req_words) >= 2:
+                    break
+        if not req_words and q.get('keyword_required'):
+            cw = re.sub(r'[^a-z0-9]', '', str(q.get('keyword_required') or '').casefold())
+            if len(cw) >= 3:
+                req_words.append(cw)
         cat = str(q.get('category') or 'Техника').strip()
-        if not text or len(req) < 3 or req in seen_req or cat not in categories:
+        req_sig = tuple(sorted(req_words))
+        if not text or not req_words or req_sig in seen_req or cat not in categories:
             continue
         banned, _ = is_ordinary_or_banned_listing(text)
         if banned:
             continue
         cand_task = {
-            'key': 'ai_rare_' + req,
+            'key': 'ai_rare_' + '_'.join(req_words),
             'query': text[:100],
-            'groups': ((req,),),
+            'groups': tuple((w,) for w in req_words),
             'category': cat,
             'market': target_markets[len(out) % len(target_markets)],
             'theme': themes[len(out) % len(themes)],
@@ -691,9 +877,94 @@ def generate_ai_discovery_queries(
             continue
         if any(jaccard_similarity(text, prev) >= 0.45 for prev in recent_names):
             continue
-        seen_req.add(req)
+        seen_req.add(req_sig)
         out.append(cand_task)
     return out
+
+
+def judge_candidates_uniqueness(
+    candidates: list[dict[str, Any]],
+    existing_items: list[dict[str, Any]],
+    *,
+    min_score: float = 7.5,
+) -> list[dict[str, Any]]:
+    """Pre-screen discovered API candidates via LLM curator for wow-factor, novelty, and photogenicity before media work."""
+    if not candidates:
+        return []
+    try:
+        from fluxixo_site.tools import ai_seo
+    except Exception:
+        return list(candidates)
+    if not _ai_credentials_configured(ai_seo):
+        return list(candidates)
+
+    pool = candidates[:12]
+    existing_labels: list[str] = []
+    seen_l: set[str] = set()
+    for p in existing_items:
+        if not isinstance(p, dict):
+            continue
+        lbl = str(p.get('name_en') or p.get('sourceTitle') or p.get('name') or '').strip()
+        if lbl and lbl.casefold() not in seen_l:
+            seen_l.add(lbl.casefold())
+            existing_labels.append(lbl[:60])
+
+    cand_rows = []
+    for item in pool:
+        metrics = item.get('seller_metrics') or {}
+        vol = item.get('lastest_volume')
+        if vol is None:
+            vol = (metrics.get('lastest_volume') or {}).get('raw_value')
+        cand_rows.append({
+            'product_id': str(item.get('product_id') or ''),
+            'title': str(item.get('title') or '')[:140],
+            'price_usd': item.get('target_sale_price') or item.get('sale_price'),
+            'orders': vol,
+            'has_video': bool(item.get('product_video_url')),
+        })
+
+    sys_prompt = (
+        'You are the chief gadget curator for a curated 3D showroom of genuinely unusual, clever consumer finds. '
+        'Score each candidate from 1 to 10 for wow-factor / clever mechanism / photogenic studio silhouette and '
+        '"something most households do NOT already own". Reject (set not_commodity=false or low wow_score): '
+        'ordinary household staples, cables/adapters/cases, industrial/B2B metrology or factory equipment, welding/plasma cutters, '
+        'medical/orthopedic/rehab aids, cheap clutter, or near-duplicates of existing catalog items. '
+        'Reply strictly with JSON: '
+        '{"verdicts":[{"product_id":"id","wow_score":8.5,"not_commodity":true,"photogenic":true,"reason":"short reason"}]}'
+    )
+    user_prompt = (
+        f'Existing catalog sample (avoid similar items): {existing_labels[:30]}\n'
+        f'Candidates to judge: {json.dumps(cand_rows, ensure_ascii=False)}'
+    )
+    raw_obj = _complete_json_with_wait(ai_seo, sys_prompt, user_prompt)
+    if not isinstance(raw_obj, dict) or not isinstance(raw_obj.get('verdicts'), list):
+        return list(candidates)
+
+    verdicts_by_id: dict[str, dict[str, Any]] = {}
+    for row in raw_obj['verdicts']:
+        if isinstance(row, dict) and row.get('product_id'):
+            verdicts_by_id[str(row['product_id'])] = row
+    if not verdicts_by_id:
+        return list(candidates)
+
+    approved: list[dict[str, Any]] = []
+    for item in pool:
+        pid = str(item.get('product_id') or '')
+        verdict = verdicts_by_id.get(pid)
+        if not verdict:
+            continue
+        try:
+            score = float(verdict.get('wow_score', 0))
+        except (TypeError, ValueError):
+            score = 0.0
+        not_comm = verdict.get('not_commodity') is True
+        photogenic = verdict.get('photogenic', True) is True
+        if not_comm and photogenic and score >= min_score:
+            item['_curator_wow_score'] = round(score, 2)
+            item['_curator_judge_bonus'] = round((score - 6.0) * 4.0, 2)
+            item['_curator_judge_reason'] = str(verdict.get('reason') or '')[:120]
+            approved.append(item)
+    return approved
 
 
 def _lazy_check_texts():

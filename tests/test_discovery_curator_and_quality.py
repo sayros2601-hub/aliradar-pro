@@ -461,6 +461,146 @@ class SoldEverywhereTests(unittest.TestCase):
         self.assertIn('catalog_concept_duplicate:levitating-moon-001', reason)
         self.assertEqual('catalog_overlap', meta.get('stage'))
 
+    def test_price_window_strict_metrics_shop_dedup_and_rich_media_bonuses(self):
+        existing = [{'id': 'auto-1', 'name': 'Item', 'sourceShopId': 'shop-999'}]
+        base = {
+            'product_id': '3001',
+            'title': 'Magnetic Ferrofluid Sound Display Bottle Studio',
+            'evaluate_rate': '96.0%',
+            'lastest_volume': 120,
+            'target_sale_price': '34.50',
+            'commission_rate': '8.0%',
+            'product_video_url': 'https://video.aliexpress-media.com/demo.mp4',
+            'image_urls': ['https://a/1.jpg', 'https://a/2.jpg', 'https://a/3.jpg', 'https://a/4.jpg'],
+            'shop_id': 'shop-123',
+        }
+        ok, reason, meta = discovery_curator.presearch_exclusivity_check(
+            base, existing, require_observed_metrics=True, known_shop_ids={'shop-999'}
+        )
+        self.assertTrue(ok, reason)
+        self.assertGreater(meta['score'], 30.0)
+
+        # Too cheap (<$12) and too expensive (>$120) rejected
+        for price, err_code in (('4.99', 'price_below_floor'), ('189.00', 'price_above_ceiling')):
+            ok_p, rsn_p, _ = discovery_curator.presearch_exclusivity_check(
+                {**base, 'target_sale_price': price}, existing, require_observed_metrics=True
+            )
+            self.assertFalse(ok_p)
+            self.assertIn(err_code, rsn_p)
+
+        # Missing/low volume or missing rating rejected in strict mode
+        for bad_metrics, err_code in (
+            ({'lastest_volume': 0}, 'low_volume_unproven'),
+            ({'lastest_volume': 3}, 'low_volume_unproven'),
+            ({'evaluate_rate': None}, 'missing_seller_rating'),
+        ):
+            ok_m, rsn_m, _ = discovery_curator.presearch_exclusivity_check(
+                {**base, **bad_metrics}, existing, require_observed_metrics=True
+            )
+            self.assertFalse(ok_m)
+            self.assertIn(err_code, rsn_m)
+
+        # Duplicate shop blocked
+        ok_s, rsn_s, _ = discovery_curator.presearch_exclusivity_check(
+            {**base, 'shop_id': 'shop-999'}, existing, require_observed_metrics=True, known_shop_ids={'shop-999'}
+        )
+        self.assertFalse(ok_s)
+        self.assertIn('duplicate_shop_id', rsn_s)
+
+    def test_industrial_metrology_and_medical_rehab_titles_banned(self):
+        banned_titles = [
+            'High Precision Calibration Ring Gauge Inside Micrometer Bore Tool',
+            'CT Series External Air Pump Plasma Cutter Arc Gouging Welder',
+            'Incontinence Elderly Arthritis Button Hook Zipper Aid Tool',
+        ]
+        for title in banned_titles:
+            banned, reason = discovery_curator.is_ordinary_or_banned_listing(title)
+            self.assertTrue(banned, f'Expected industrial/medical ban for {title!r}')
+            self.assertIsNotNone(reason)
+
+    def test_judge_candidates_uniqueness_filters_low_wow_and_boosts_winners(self):
+        from fluxixo_site.tools import ai_seo
+        candidates = [
+            {'product_id': '111', 'title': 'Ordinary Plastic Organizer Tray'},
+            {'product_id': '222', 'title': 'Anti Gravity Tensegrity Floating Desk Sculpture', 'target_sale_price': '29.00'},
+            {'product_id': '333', 'title': 'Solar Rotating Crystal Sphere Desk Ornament', 'target_sale_price': '25.00'},
+        ]
+        verdicts = {
+            'verdicts': [
+                {'product_id': '111', 'wow_score': 4.0, 'not_commodity': False, 'photogenic': True, 'reason': 'ordinary'},
+                {'product_id': '222', 'wow_score': 9.5, 'not_commodity': True, 'photogenic': True, 'reason': 'wow physics'},
+                {'product_id': '333', 'wow_score': 7.5, 'not_commodity': True, 'photogenic': True, 'reason': 'decent'},
+            ]
+        }
+        with unittest.mock.patch.object(ai_seo, 'has_ai_provider', return_value=True), \
+             unittest.mock.patch.object(ai_seo, 'complete_json', return_value=(verdicts, 'mock')):
+            approved = discovery_curator.judge_candidates_uniqueness(candidates, [])
+        self.assertEqual(['222', '333'], [c['product_id'] for c in approved])
+        self.assertGreater(approved[0]['_curator_judge_bonus'], approved[1]['_curator_judge_bonus'])
+
+    def test_multipage_price_params_and_min_markets_relaxed_threshold(self):
+        task = self.TASK
+        terms = ' '.join(group[0] for group in task['groups'])
+        seen_pages = []
+        seen_price_bounds = []
+        page1_rows = [{**_api_row(str(71000 + i), f'Filler {terms} Tool {i}'), 'target_sale_price': '40.00', 'lastest_volume': 5} for i in range(20)]
+        rare_p2_row = {**_api_row('72999', f'Magnetic Kinetic {terms} Collector Studio'), 'target_sale_price': '39.00', 'lastest_volume': 120, 'product_video_url': 'https://video.aliexpress-media.com/x.mp4', 'shop_id': 'shop-rare'}
+        low_mkt_p2_row = {**_api_row('72888', f'Magnetic Kinetic {terms} Collector Ultra Tool'), 'target_sale_price': '39.00', 'lastest_volume': 120, 'shop_id': 'shop-3mkt'}
+        four_mkts = set(MARKETS[:4]) | {task['market']}
+        three_mkts = set(MARKETS[:2]) | {task['market']}
+
+        def fake_call(method, params):
+            def wrap(rows):
+                key = method.replace('.', '_') + '_response'
+                return {key: {'resp_result': {'resp_code': '200', 'result': {
+                    'current_record_count': len(rows), 'products': {'product': rows}}}}}
+            if method == HOT:
+                return wrap([])
+            if method == QUERY:
+                if params.get('keywords') != task['query']:
+                    return wrap([])
+                seen_pages.append(params.get('page_no'))
+                seen_price_bounds.append((params.get('min_sale_price'), params.get('max_sale_price')))
+                if params.get('page_no') == '1':
+                    return wrap(page1_rows)
+                if params.get('page_no') == '2':
+                    return wrap([low_mkt_p2_row, rare_p2_row])
+                return wrap([])
+            if method == DETAIL:
+                country = params.get('country')
+                pids = str(params.get('product_ids') or '').split(',')
+                out = []
+                for r in (*page1_rows, low_mkt_p2_row, rare_p2_row):
+                    if r['product_id'] not in pids:
+                        continue
+                    if r['product_id'] == '72999' and country not in four_mkts and country != task['market']:
+                        continue
+                    if r['product_id'] == '72888' and country not in three_mkts and country != task['market']:
+                        continue
+                    out.append(r)
+                return wrap(out)
+            if method == LINK:
+                url = str(params.get('source_values'))
+                pid = re.search(r'item/(\d+)\.html', url).group(1)
+                return {'aliexpress_affiliate_link_generate_response': {'resp_result': {'resp_code': '200', 'result': {
+                    'promotion_links': {'promotion_link': [{'source_value': url,
+                                                            'promotion_link': f'https://s.click.aliexpress.com/e/{pid}'}]}}}}}
+            raise AssertionError(f'Unexpected method {method}')
+
+        with unittest.mock.patch.dict(os.environ, {'FLUXIXO_MIN_PRICE_CENTS': '1200', 'FLUXIXO_MAX_PRICE_CENTS': '12000'}), \
+             unittest.mock.patch.object(discovery_curator.time, 'sleep'):
+            picks = autonomous.discover(
+                fake_call, existing=[], count=1, now=NOW, use_curated_pool=True, check_all_markets=True,
+                check_hot_background=False, presearch_fn=None, required_markets=(), min_markets=4, use_ai_judge=False,
+            )
+        self.assertEqual(['1', '2'], seen_pages[:2])
+        self.assertEqual(('1200', '12000'), seen_price_bounds[0])
+        self.assertEqual(['72999'], [p['product_id'] for p in picks])
+        self.assertTrue(len(picks[0]['availableMarkets']) >= 4)
+        rec, _ = autonomous.build_record(picks[0])
+        self.assertEqual('shop-rare', rec.get('sourceShopId'))
+        self.assertTrue(rec.get('hasVideo'))
+
 
 if __name__ == '__main__':
     unittest.main()
