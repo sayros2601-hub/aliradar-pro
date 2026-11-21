@@ -1302,41 +1302,12 @@ async function fetchExternalIndexedCounts(env, siteOrigin, { skipBingApi = false
   } else if (skipBingApi) {
     result.bing_status = "delegated_to_seo_daily";
   }
-  const yandexToken = String(env.YANDEX_WEBMASTER_TOKEN || "").trim();
-  if (yandexToken) {
-    const auth = { Authorization: `OAuth ${yandexToken}` };
-    const userRes = await fetchJsonSafe("https://api.webmaster.yandex.net/v4/user", auth);
-    result.yandex_status = userRes.status || (userRes.ok ? 200 : "fetch_error");
-    const userId = userRes.ok ? userRes.data?.user_id : null;
-    if (userId) {
-      const hostsRes = await fetchJsonSafe(
-        `https://api.webmaster.yandex.net/v4/user/${userId}/hosts`,
-        auth
-      );
-      result.yandex_status = hostsRes.status || result.yandex_status;
-      const hostObj = hostsRes.ok
-        ? (hostsRes.data?.hosts || []).find((h) =>
-            String(h.host_id || "").includes(new URL(siteOrigin).host)
-          )
-        : null;
-      if (hostObj?.host_id) {
-        const sumRes = await fetchJsonSafe(
-          `https://api.webmaster.yandex.net/v4/user/${userId}/hosts/${encodeURIComponent(
-            hostObj.host_id
-          )}/summary`,
-          auth
-        );
-        result.yandex_status = sumRes.status || result.yandex_status;
-        if (sumRes.ok && sumRes.data) {
-          result.yandex_searchable = sumRes.data.searchable_pages_count ?? null;
-        }
-      }
-    }
-  }
+  result.yandex_searchable = null;
+  result.yandex_status = "disabled";
   return result;
 }
 
-async function runSeoSync(env, { source = "api", force = false, skipIndexNow = false } = {}) {
+async function runSeoSync(env, { source = "api", force = false, skipIndexNow = true } = {}) {
   const siteOrigin = env.SITE_ORIGIN || "https://www.fluxixo.shop";
   const host = new URL(siteOrigin).host;
   const key = env.INDEXNOW_KEY || "";
@@ -1346,30 +1317,21 @@ async function runSeoSync(env, { source = "api", force = false, skipIndexNow = f
   const keyLocation = `${siteOrigin}/${key}.txt`;
   const runAt = new Date().toISOString();
 
-  const [globalXml, ruXml, keyCheckText, externalStats] = await Promise.all([
+  const [globalXml, keyCheckText, externalStats] = await Promise.all([
     fetchText(`${siteOrigin}/sitemap.xml`),
-    fetchText(`${siteOrigin}/sitemap-ru.xml`),
     fetchText(keyLocation).catch(() => ""),
     fetchExternalIndexedCounts(env, siteOrigin, { skipBingApi: skipIndexNow }),
   ]);
 
   const keyVerified = keyCheckText.trim() === key;
   const globalEntries = parseSitemapEntries(globalXml, siteOrigin);
-  const ruEntries = parseSitemapEntries(ruXml, siteOrigin);
   const globalUrls = globalEntries.map((e) => e.url);
-  const ruUrls = ruEntries.map((e) => e.url);
 
   const globalFingerprint = await sha256Hex(
     globalEntries.map((e) => `${e.url}|${e.lastmod}`).join("\n")
   );
-  const ruFingerprint = await sha256Hex(
-    ruEntries.map((e) => `${e.url}|${e.lastmod}`).join("\n")
-  );
 
-  const [prevGlobal, prevRu] = await Promise.all([
-    getPreviousSyncMeta(env, "indexnow_global"),
-    getPreviousSyncMeta(env, "indexnow_yandex"),
-  ]);
+  const prevGlobal = await getPreviousSyncMeta(env, "indexnow_global");
 
   const cooldownMs = 6 * 3600 * 1000;
   const nowMs = Date.now();
@@ -1377,10 +1339,6 @@ async function runSeoSync(env, { source = "api", force = false, skipIndexNow = f
     !force &&
     prevGlobal.lastRateLimitedAt &&
     nowMs - Date.parse(prevGlobal.lastRateLimitedAt) < cooldownMs;
-  const ruRateLimitedRecently =
-    !force &&
-    prevRu.lastRateLimitedAt &&
-    nowMs - Date.parse(prevRu.lastRateLimitedAt) < cooldownMs;
 
   let globalResult;
   if (skipIndexNow || (!force && prevGlobal.fingerprint && prevGlobal.fingerprint === globalFingerprint)) {
@@ -1445,60 +1403,6 @@ async function runSeoSync(env, { source = "api", force = false, skipIndexNow = f
     };
   }
 
-  let yandexResult;
-  if (skipIndexNow || (!force && prevRu.fingerprint && prevRu.fingerprint === ruFingerprint)) {
-    yandexResult = {
-      engine: "indexnow_yandex",
-      endpoint: "https://yandex.com/indexnow",
-      status: skipIndexNow ? "telemetry_only" : "unchanged",
-      total_urls: ruUrls.length,
-      submitted_count: 0,
-      indexed_count: Number(externalStats.yandex_searchable || 0),
-      fingerprint: ruFingerprint,
-      key_verified: keyVerified,
-      source,
-      yandex_status: externalStats.yandex_status,
-    };
-  } else if (ruRateLimitedRecently) {
-    yandexResult = {
-      engine: "indexnow_yandex",
-      endpoint: "https://yandex.com/indexnow",
-      status: "cooldown_skip",
-      total_urls: ruUrls.length,
-      submitted_count: 0,
-      indexed_count: Number(externalStats.yandex_searchable || 0),
-      fingerprint: ruFingerprint,
-      key_verified: keyVerified,
-      source,
-      yandex_status: externalStats.yandex_status,
-    };
-  } else {
-    const changedRuUrls = selectChangedIndexNowUrls(ruEntries, {
-      lastAcceptedAt: prevRu.lastAcceptedAt,
-      maxUrls: 50,
-    });
-    const res = await submitIndexNowBatch(
-      "https://yandex.com/indexnow",
-      host,
-      key,
-      keyLocation,
-      changedRuUrls
-    );
-    yandexResult = {
-      engine: "indexnow_yandex",
-      endpoint: "https://yandex.com/indexnow",
-      status: res.status,
-      total_urls: ruUrls.length,
-      submitted_count: res.submitted_count,
-      indexed_count: Number(externalStats.yandex_searchable || 0),
-      batches: res.batches,
-      fingerprint: ruFingerprint,
-      key_verified: keyVerified,
-      source,
-      yandex_status: externalStats.yandex_status,
-    };
-  }
-
   await env.DB.batch([
     env.DB.prepare(
       "INSERT INTO seo_telemetry (run_at, engine, indexed_count, submitted_count, status, payload_json) VALUES (?, ?, ?, ?, ?, ?)"
@@ -1510,20 +1414,10 @@ async function runSeoSync(env, { source = "api", force = false, skipIndexNow = f
       globalResult.status,
       JSON.stringify(globalResult)
     ),
-    env.DB.prepare(
-      "INSERT INTO seo_telemetry (run_at, engine, indexed_count, submitted_count, status, payload_json) VALUES (?, ?, ?, ?, ?, ?)"
-    ).bind(
-      runAt,
-      yandexResult.engine,
-      yandexResult.indexed_count,
-      yandexResult.submitted_count,
-      yandexResult.status,
-      JSON.stringify(yandexResult)
-    ),
   ]);
 
   return {
-    ok: globalResult.status !== "error" && yandexResult.status !== "error",
+    ok: globalResult.status !== "error",
     run_at: runAt,
     site_origin: siteOrigin,
     key_verified: keyVerified,
@@ -1531,20 +1425,25 @@ async function runSeoSync(env, { source = "api", force = false, skipIndexNow = f
     source,
     engines: {
       indexnow_global: globalResult,
-      indexnow_yandex: yandexResult,
     },
   };
 }
 
 async function handleSeoSync(request, env, url) {
   let force = url.searchParams.get("force") === "1";
-  let skipIndexNow = url.searchParams.get("skip_indexnow") === "1";
+  let skipIndexNow =
+    url.searchParams.get("run_indexnow") !== "1" &&
+    url.searchParams.get("skip_indexnow") !== "0";
   try {
     const text = await request.text();
     if (text.trim()) {
       const body = JSON.parse(text);
       if (body && body.force === true) force = true;
-      if (body && body.skip_indexnow === true) skipIndexNow = true;
+      if (body && (body.run_indexnow === true || body.skip_indexnow === false)) {
+        skipIndexNow = false;
+      } else if (body && body.skip_indexnow === true) {
+        skipIndexNow = true;
+      }
     }
   } catch {
     // Empty or non-JSON body falls back to query param.
@@ -1788,34 +1687,17 @@ async function runScheduledAction(controller, env) {
     let seoReport = null;
     let seoError = null;
     try {
-      seoReport = await runSeoSync(env, { source: "cron", force: false });
+      seoReport = await runSeoSync(env, { source: "cron", force: false, skipIndexNow: true });
     } catch (err) {
       seoError = err instanceof Error ? err.message : String(err);
     }
 
-    const dispatchRes = env.GITHUB_DISPATCH_TOKEN
-      ? await dispatchGitHubWorkflow(env, "fluxixo_seo_daily.yml")
-      : {
-          ok: false,
-          skipped: true,
-          http_status: null,
-          workflow: "fluxixo_seo_daily.yml",
-          reason: "GITHUB_DISPATCH_TOKEN not configured",
-        };
-
     const seoOk = Boolean(seoReport?.ok);
-    const dispatchOk = !env.GITHUB_DISPATCH_TOKEN || dispatchRes.ok;
-    const status =
-      seoError && !dispatchRes.ok
-        ? "error"
-        : seoOk && dispatchOk
-        ? "ok"
-        : "partial_error";
+    const status = seoError ? "error" : seoOk ? "ok" : "partial_error";
 
     const details = {
       ...(seoReport || { ok: false, error: seoError }),
-      dispatch_http_status: dispatchRes.http_status,
-      github_dispatch: dispatchRes,
+      github_dispatch: { skipped: true, reason: "scheduled natively at 25 5 * * *" },
     };
 
     await env.DB.prepare(

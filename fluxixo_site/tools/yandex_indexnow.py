@@ -1,5 +1,6 @@
 """Durable, independent IndexNow notifications for current Russian routes."""
 import json
+import os
 from pathlib import Path
 import re
 import tempfile
@@ -14,6 +15,10 @@ ENDPOINT = 'https://yandex.com/indexnow'
 STATE_FILENAME = 'yandex-indexnow-state.json'
 RU_ROUTE = re.compile(r'/(?:|catalog/|about/|journal/(?:[a-z0-9]+(?:-[a-z0-9]+)*/)?|(?:products|categories)/[a-z0-9]+(?:-[a-z0-9]+)*/)')
 DIGEST = re.compile(r'[0-9a-f]{64}')
+
+
+def _enabled():
+    return os.environ.get('FLUXIXO_ENABLE_YANDEX') == '1'
 
 
 def _read(path):
@@ -60,6 +65,8 @@ def _current_versions(site_root, dist):
 
 def prepare(site_root, dist=None):
     """Persist changed RU versions during build, before the catalog commit/deploy."""
+    if not _enabled():
+        return {'schema_version': 1, 'legacy_shared': {}, 'acknowledged': {}, 'pending': {}}
     site_root = Path(site_root)
     dist = Path(dist) if dist is not None else site_root / 'dist'
     current = _current_versions(site_root, dist)
@@ -87,6 +94,9 @@ def prepare(site_root, dist=None):
 
 def submit_pending(site_root, dist=None):
     """Accept only the exact versions sent to Yandex; failures remain pending."""
+    if not _enabled():
+        print('IndexNow (Yandex): disabled.')
+        return
     site_root = Path(site_root)
     state = prepare(site_root, dist)
     versions = dict(state['pending'])

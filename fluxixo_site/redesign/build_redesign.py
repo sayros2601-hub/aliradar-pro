@@ -92,12 +92,9 @@ FONT_CSS = json.loads((HERE / 'static/fonts.json').read_text(encoding='utf-8'))
 FONT_PRELOAD = {'ru': 'oswald-normal-cyrillic', 'he': 'heebo-normal-hebrew'}
 CSS = re.sub(r'\s*\n\s*', ' ', re.sub(r'/\*.*?\*/', '', (HERE / 'static/style.css').read_text(encoding='utf-8'), flags=re.S)).strip().replace('</', '<\\/')
 VERIFY = ('<meta name="google-site-verification" content="BUSamFSGELSfaWQEaVVj2QzUgKQvWovtg-ZaHCfKNb0">'
-          '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2"><meta name="yandex-verification" content="deee62492f76cf5b">'
+          '<meta name="msvalidate.01" content="49287D3DFF71EA9430905E14A0A426F2">'
           '<meta name="p:domain_verify" content="c0f81b8dc452173100fb9d91208205a1"/>')
 ROOT_TITLE, ROOT_DESC = ROOT_EN['title'], ROOT_EN['desc']
-# Yandex Metrika runs on the Russian pages of the live site only (not on previews): static/ym.js, counter 114240176.
-METRIKA = ('<script src="/js/ym.js" defer></script>\n<noscript><div><img src="https://mc.yandex.ru/watch/114240176" '
-           'style="position:absolute;left:-9999px" alt=""></div></noscript>\n')
 # Extra buyer advice for Russian product pages: {product id: {"who": text, "check": [text, text, text]}}.
 # A product without an entry (a brand-new daily one) simply has no such block until its text is written.
 LONG_RU_FILE = ROOT / 'tools/ru_long_copy.json'
@@ -342,7 +339,7 @@ class Site:
         language_fragments = f' data-shared-fragments="{" ".join(shared_fragments)}"' if shared_fragments else ''
         lang_button = (f'<button type="button" class="lang-btn" aria-label="{e(u["language"])}" aria-expanded="false">{ICONS["globe"]}{self.lang.upper()}</button>')
         nav = ''.join(f'<a href="{self.anchor(anchor)}">{e(label)}</a>' for anchor, label in zip(('drop', 'mundos', 'todo'), u['nav']))
-        metrika = METRIKA if PROD and self.lang == 'ru' else ''
+        canonical = '' if path == '/404.html' else f'<link rel="canonical" href="{ORIGIN}{path}">\n'
         image = image or self.items[0]['image']
         ld = ('<script type="application/ld+json">' + json.dumps(schema, ensure_ascii=False).replace('<', '\\u003c') + '</script>') if schema else ''
         about = L.about_path(self.lang)
@@ -361,12 +358,11 @@ class Site:
 <title>{e(title)}</title>
 <meta name="description" content="{e(desc)}">
 <meta name="theme-color" content="{colour}">
-<link rel="canonical" href="{ORIGIN}{path}">
-{rss}<meta name="robots" content="{robots}">
+{canonical}{rss}<meta name="robots" content="{robots}">
 <meta property="og:type" content="website"><meta property="og:site_name" content="FLUXIXO">
 <meta property="og:title" content="{e(title)}"><meta property="og:description" content="{e(desc)}">
 <meta property="og:url" content="{ORIGIN}{path}"><meta property="og:image" content="{ORIGIN}/{e(image)}">
-<meta property="og:locale" content="{og_locale}"><meta name="twitter:card" content="summary_large_image">{alternates}
+<meta property="og:locale" content="{og_locale}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="{ORIGIN}/{e(image)}">{alternates}
 {VERIFY if self.root else ""}
 <meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="FLUXIXO"><link rel="manifest" href="/{self.manifest_name()}"><link rel="icon" href="/assets/favicon.svg"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/{preload}.woff2" crossorigin>
@@ -386,7 +382,7 @@ class Site:
 </footer>
 {self.tabs(tab, buy)}
 <script src="/js/fx.js" defer></script>
-{metrika}</body>
+</body>
 </html>'''
 
     # ---------- components ----------
@@ -473,12 +469,15 @@ class Site:
         links = ''.join(f'<li><a href="{href}">{e(heading)}</a></li>' for href, heading in found)
         return f'<section class="p-more p-guides"><div><h2>{e(GUIDES_HEADING[self.lang])}</h2><ul>{links}</ul></div></section>'
 
-    def card(self, p):
+    def card(self, p, *, eager=False, priority=False):
         s480 = img(p['image'], 480)
         # Cards are ~38vw wide in the two-column phone grid and at most 240px on desktop.
         srcset = responsive(p['image'], (320, 480, 800), '(max-width:860px) 38vw, 240px')
+        attrs = ' loading="eager" decoding="async"' if eager else ' loading="lazy" decoding="async"'
+        if priority:
+            attrs += ' fetchpriority="high"'
         return (f'<a class="card" data-go data-w="{slug(p["world"])}" href="{self.ppath(p)}" style="--t:{WORLDS[p["world"]]}">'
-                f'<span class="ph"><img src="{s480}"{srcset} alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="card"))}" width="480" height="480" loading="lazy" decoding="async"></span>'
+                f'<span class="ph"><img src="{s480}"{srcset} alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="card"))}" width="480" height="480"{attrs}></span>'
                 f'<span class="nm">{e(p["name"])}</span><span class="ct">{e(self.cat(p["world"]))}</span></a>')
 
     # ---------- pages ----------
@@ -561,7 +560,7 @@ class Site:
         everything = (f'<section class="all" id="todo" data-page="{PAPER}"><h2 class="d rv">{e(u["all"][0])} <span class="s">{len(items)}</span> {e(u["all"][1])}</h2>'
                       f'<div class="tools"><input class="find" id="find" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" '
                       f'placeholder="{e(u["search"])}" aria-label="{e(u["tabs"][3])}"><div class="chips">{chips}</div></div>'
-                      f'<p class="none" hidden>{e(u["nothing"])}</p><div class="grid">{"".join(self.card(p) for p in items)}</div></section>')
+                      f'<p class="none" hidden>{e(u["nothing"])}</p><div class="grid">{"".join(self.card(p, eager=(self.lang == "en" and idx < 4), priority=(self.lang == "en" and idx == 0)) for idx, p in enumerate(items))}</div></section>')
 
         listing = {'@type': 'ItemList', 'name': u['title'], 'numberOfItems': len(items),
                    'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(items)]}
@@ -669,8 +668,8 @@ class Site:
             if related:
                 body += (f'<section class="related"><p class="eye"><b>●</b> {e(self.cat(key))}</p>'
                          f'<h2 class="d rv">{e(u["related"][0])} <span class="s">{e(u["related"][1])}</span></h2>{self.rope(related)}</section>')
-            body += (f'<nav class="pn"><a data-go href="{self.ppath(prev)}"><img src="{img(prev["image"], 480)}" alt="" loading="lazy"><span><small>{self.back} {e(u["prev"])}</small><b>{e(prev["name"])}</b></span></a>'
-                     f'<a data-go href="{self.ppath(nxt)}"><span><small>{e(u["next"])} {self.fwd}</small><b>{e(nxt["name"])}</b></span><img src="{img(nxt["image"], 480)}" alt="" loading="lazy"></a></nav>')
+            body += (f'<nav class="pn"><a data-go href="{self.ppath(prev)}"><img src="{img(prev["image"], 480)}" alt="" width="480" height="480" loading="lazy" decoding="async"><span><small>{self.back} {e(u["prev"])}</small><b>{e(prev["name"])}</b></span></a>'
+                     f'<a data-go href="{self.ppath(nxt)}"><span><small>{e(u["next"])} {self.fwd}</small><b>{e(nxt["name"])}</b></span><img src="{img(nxt["image"], 480)}" alt="" width="480" height="480" loading="lazy" decoding="async"></a></nav>')
             alt = {l: L.product_path(p, l) for l in LANGS if p['id'] in siblings[l]}
             write(path, self.page(title, desc, path, body, alt, schema, p['image'], p['tint'], buy=p))
 
@@ -808,7 +807,7 @@ def main():
     (OUT / 'js').mkdir(exist_ok=True)
     shutil.copyfile(HERE / 'static/early.js', OUT / 'js/early.js')
     shutil.copyfile(HERE / 'static/app.js', OUT / 'js/fx.js')
-    shutil.copyfile(HERE / 'static/ym.js', OUT / 'js/ym.js')
+    (OUT / 'js/ym.js').unlink(missing_ok=True)
     # This status travels with the release, so open pages reset only after it is live.
     (OUT / 'drop-status.json').write_text(
         json.dumps({'published_day': countdown_metadata()['published_day']}) + '\n', encoding='utf-8')

@@ -2,6 +2,7 @@
 import contextlib
 import io
 import json
+import os
 from pathlib import Path
 import tempfile
 import unittest
@@ -84,6 +85,18 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertTrue(self.state_path.exists(), 'Independent Yandex queue must be persisted')
         return json.loads(self.state_path.read_text(encoding='utf-8'))
 
+    def test_default_disabled_skips_yandex_requests_and_queue_writes(self):
+        self.change()
+        with patch.dict(os.environ, {}, clear=False):
+            os.environ.pop('FLUXIXO_ENABLE_YANDEX', None)
+            daily.submit_indexnow()
+        self.assertFalse(self.state_path.exists())
+        self.assertEqual(
+            [('https://api.indexnow.org/indexnow', [ORIGIN + RU_PATHS[0], ORIGIN + '/en/'])],
+            [(url, payload['urlList']) for url, payload in self.calls],
+        )
+
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_global_success_does_not_acknowledge_failed_yandex_versions(self):
         self.change()
         daily.submit_indexnow()
@@ -94,6 +107,7 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertEqual(NEW, global_ack[ORIGIN + RU_PATHS[0]])
         self.assertEqual(NEW, global_ack[ORIGIN + '/en/'])
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_yandex_receives_only_changed_ru_while_global_keeps_multilingual_payload(self):
         self.change()
         daily.submit_indexnow()
@@ -101,6 +115,7 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertEqual([ORIGIN + RU_PATHS[0], ORIGIN + '/en/'], global_payload['urlList'])
         self.assertEqual([ORIGIN + RU_PATHS[0]], yandex_payload['urlList'])
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_pending_retries_when_global_has_no_new_versions(self):
         self.change()
         daily.submit_indexnow()
@@ -111,6 +126,7 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertEqual({}, self.state()['pending'])
         self.assertEqual({ORIGIN + RU_PATHS[0]: NEW}, self.state()['acknowledged'])
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_legacy_baseline_does_not_resend_the_three_unchanged_webmaster_urls(self):
         daily.submit_indexnow()
         state = self.state()
@@ -120,6 +136,7 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertEqual({}, state['acknowledged'])
         self.assertEqual({}, state['pending'])
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_newer_changed_version_replaces_failed_pending_version(self):
         self.change()
         daily.submit_indexnow()
@@ -128,6 +145,7 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertEqual({ORIGIN + RU_PATHS[0]: LATER}, self.state()['pending'])
         self.assertEqual([ORIGIN + RU_PATHS[0]], self.calls[-1][1]['urlList'])
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_acceptance_acknowledges_only_the_payload_version(self):
         self.change()
         self.yandex_status = 202
@@ -143,6 +161,7 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertEqual({ORIGIN + RU_PATHS[0]: NEW}, state['acknowledged'])
         self.assertEqual({ORIGIN + RU_PATHS[0]: LATER}, state['pending'])
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_foreign_and_non_ru_urls_are_rejected_before_any_request(self):
         for unsafe in ('https://other.example/catalog/', ORIGIN + '/en/',
                        ORIGIN + '/catalog/?page=2', ORIGIN + '/products/../catalog/'):
@@ -152,6 +171,7 @@ class YandexIndexNowTests(unittest.TestCase):
                     daily.submit_indexnow()
                 self.assertEqual([], self.calls)
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_pending_removed_route_is_not_submitted(self):
         self.change()
         daily.submit_indexnow()
@@ -161,6 +181,7 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertEqual([], self.calls)
         self.assertEqual({}, self.state()['pending'])
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_build_persists_queue_before_release_is_built_for_commit(self):
         self.change()
         observed = []
@@ -175,6 +196,7 @@ class YandexIndexNowTests(unittest.TestCase):
         self.assertEqual([{ORIGIN + RU_PATHS[0]: NEW}], observed)
         self.assertEqual([], self.calls)
 
+    @patch.dict(os.environ, {'FLUXIXO_ENABLE_YANDEX': '1'})
     def test_failed_deployment_leaves_prepared_queue_on_disk(self):
         self.change()
         with patch('sys.argv', ['fluxixo_daily_rotate.py', '--add', '0', '--deploy']), \

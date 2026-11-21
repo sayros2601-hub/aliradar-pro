@@ -351,22 +351,23 @@ test('authorized SEO telemetry can run without submitting URLs', async () => {
       return { bind(...args) { return { sql, args, async first() { return null; } }; } };
     },
     async batch(queries) {
-      assert.equal(queries.length, 2);
+      assert.equal(queries.length, 1);
       for (const { sql, args } of queries) {
         assert.match(sql, /^INSERT INTO seo_telemetry /);
         assert.equal(args[4], 'telemetry_only');
       }
     },
   };
-  const response = await mockWorker.fetch(post('/api/seo-sync', { skip_indexnow: true }), {
+  const response = await mockWorker.fetch(post('/api/seo-sync', {}), {
     AUTOPILOT_SYNC_TOKEN: syncToken, SITE_ORIGIN: 'https://store.invalid', INDEXNOW_KEY: 'fixture-key', DB: db,
   });
   assert.equal(response.status, 200);
   const result = await response.json();
   assert.equal(result.engines.indexnow_global.submitted_count, 0);
-  assert.equal(result.engines.indexnow_yandex.submitted_count, 0);
+  assert.equal(result.engines.indexnow_global.status, 'telemetry_only');
+  assert.equal(result.engines.indexnow_yandex, undefined);
   assert.deepEqual(calls.sort(), [
-    'https://store.invalid/fixture-key.txt', 'https://store.invalid/sitemap-ru.xml', 'https://store.invalid/sitemap.xml',
+    'https://store.invalid/fixture-key.txt', 'https://store.invalid/sitemap.xml',
   ]);
 });
 

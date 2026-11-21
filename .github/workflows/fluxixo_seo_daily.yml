@@ -1,8 +1,6 @@
-name: FLUXIXO daily SEO telemetry & Bing/Yandex sync
+name: FLUXIXO daily SEO telemetry & Google/Bing sync
 
 on:
-  # Owner 2026-11-15: Cloudflare Worker (fluxixo-autopilot, cron 17 5 * * *) acts as transport/telemetry hub
-  # and can trigger this job via workflow_dispatch; fallback schedule runs at 05:25 UTC for encrypted GSC/Bing/Yandex telemetry.
   schedule:
     - cron: '25 5 * * *'
   workflow_dispatch:
@@ -42,11 +40,10 @@ jobs:
         timeout-minutes: 5
         run: python -m pip install --retries 5 --timeout 60 google-auth requests cryptography
 
-      - name: Run Google, Microsoft Bing, and Yandex (RU-only) daily sync & telemetry
+      - name: Run Google & Microsoft Bing daily sync & telemetry
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
-          YANDEX_WEBMASTER_TOKEN: ${{ secrets.YANDEX_WEBMASTER_TOKEN }}
           SEO_DATA_KEY: ${{ secrets.SEO_DATA_KEY }}
           AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -58,8 +55,9 @@ jobs:
           git config user.name "FLUXIXO SEO Telemetry"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -d data/seo ]; then git add data/seo/*.enc; fi
+          if [ -f fluxixo_site/tools/indexnow-submitted.json ]; then git add -f fluxixo_site/tools/indexnow-submitted.json; fi
           if ! git diff --cached --quiet; then
-            git commit -m "chore(seo): daily Google/Bing/Yandex sync telemetry [skip ci]"
+            git commit -m "chore(seo): daily Google/Bing sync telemetry [skip ci]"
             git pull --rebase --autostash --quiet origin main && git push origin HEAD:main
           fi
 

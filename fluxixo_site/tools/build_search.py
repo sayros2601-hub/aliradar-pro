@@ -26,7 +26,6 @@ DIST = ROOT / 'dist'
 ORIGIN = 'https://www.fluxixo.shop'
 GOOGLE = 'BUSamFSGELSfaWQEaVVj2QzUgKQvWovtg-ZaHCfKNb0'
 BING = '49287D3DFF71EA9430905E14A0A426F2'
-YANDEX = 'deee62492f76cf5b'
 # Inlined because the render-blocking stylesheet cost about 900 ms on mobile.
 INLINE_CSS = re.sub(r'\s*\n\s*', ' ', re.sub(r'/\*.*?\*/', '', (DIST/'css/search.css').read_text(encoding='utf-8'), flags=re.S)).strip().replace('</', '<\\/')
 catalog = json.loads((DIST/'js/catalog.js').read_text(encoding='utf-8').split('=', 1)[1].strip().rstrip(';'))
@@ -254,7 +253,7 @@ meta = metadata(title, description, '/', default_image, 'en')
 stage_small = thumb(default_image, 800)
 # Phones and tablets get the 800px copy, matching the breakpoint app.js uses for the stage image.
 meta += f'\n<link rel="preload" as="image" href="/{e(stage_small)}" media="(max-width: 1100px)" fetchpriority="high"><link rel="preload" as="image" href="/{e(default_image)}" media="(min-width: 1101px)" fetchpriority="high"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">'
-meta += f'\n<meta name="google-site-verification" content="{GOOGLE}"><meta name="msvalidate.01" content="{BING}"><meta name="yandex-verification" content="{YANDEX}">'
+meta += f'\n<meta name="google-site-verification" content="{GOOGLE}"><meta name="msvalidate.01" content="{BING}">'
 meta += structured({'@context': 'https://schema.org', '@graph': [
     {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN+'/', 'inLanguage': 'en'},
     {'@type': 'Organization', 'name': 'FLUXIXO', 'url': ORIGIN+'/', 'logo': ORIGIN+'/apple-touch-icon.png'}
@@ -287,28 +286,11 @@ index = re.sub(r'<div class="product-plane"><img [^>]*fetchpriority="high"[^>]*>
 write('index.html', index)
 
 write('404.html', page('Page Not Found | FLUXIXO', 'The requested page was not found on FLUXIXO.', '/404.html', '<p class="eyebrow">404</p><h1>Page not found</h1><p>This link may have changed. Explore the full interactive showroom or browse the catalog below.</p><div class="cta-row"><a class="button" href="/">Open 3D Showroom</a><a class="button secondary" href="/en/">Browse Catalog</a></div>', noindex=True, language='en'))
-# Yandex serves the Russian audience only; Google and Bing handle Mexico, Brazil and the other locales.
 robots_txt = f"""User-agent: *
 Allow: /
 
-User-agent: Yandex
-Allow: /
-Disallow: /en/
-Disallow: /pt/
-Disallow: /es/
-Disallow: /fr/
-Disallow: /he/
-Clean-param: utm_source&utm_medium&utm_campaign&utm_content&utm_term
-Clean-param: lang /
-
-Sitemap: {ORIGIN}/sitemap.xml
 Sitemap: {ORIGIN}/sitemap-index.xml
-Sitemap: {ORIGIN}/sitemap-ru.xml
-Sitemap: {ORIGIN}/sitemap-en.xml
-Sitemap: {ORIGIN}/sitemap-pt.xml
-Sitemap: {ORIGIN}/sitemap-es.xml
-Sitemap: {ORIGIN}/sitemap-fr.xml
-Sitemap: {ORIGIN}/sitemap-he.xml
+Sitemap: {ORIGIN}/sitemap.xml
 """
 write('robots.txt', robots_txt)
 write('BingSiteAuth.xml', f'<?xml version="1.0" encoding="UTF-8"?>\n<users><user>{BING}</user></users>\n')
@@ -338,7 +320,7 @@ rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
     <title>FLUXIXO — Находки с другой стороны</title>
-    <link>{ORIGIN}/</link>
+    <link>{ORIGIN}/catalog/</link>
     <description>Ежедневно пополняемая коллекция полезных находок с AliExpress</description>
     <language>ru</language>
     <lastBuildDate>{format_datetime(now_dt)}</lastBuildDate>

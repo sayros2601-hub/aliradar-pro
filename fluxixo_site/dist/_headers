@@ -1,20 +1,11 @@
 /*
   X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()
-  Strict-Transport-Security: max-age=31536000
-  Content-Security-Policy: default-src 'none'; base-uri 'none'; object-src 'none'; frame-ancestors https://metrika.yandex.ru https://metrika.yandex.com https://metrica.yandex.ru https://metrica.yandex.com https://webvisor.com https://*.webvisor.com; form-action 'self'; script-src 'self' https://static.cloudflareinsights.com https://mc.yandex.ru https://yastatic.net; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' https://media.fluxixo.shop data: https://mc.yandex.ru https://mc.yandex.com https://mc.yandex.by https://mc.yandex.kz https://mc.yandex.uz https://mc.webvisor.com https://mc.webvisor.org; font-src 'self'; media-src 'self' https://media.fluxixo.shop; connect-src 'self' https://cloudflareinsights.com https://mc.yandex.ru https://mc.yandex.com https://mc.yandex.by https://mc.yandex.kz https://mc.yandex.uz https://mc.webvisor.com https://mc.webvisor.org wss://mc.yandex.ru wss://mc.yandex.com wss://mc.yandex.by wss://mc.yandex.kz wss://mc.yandex.uz wss://mc.webvisor.com wss://mc.webvisor.org; child-src blob: https://mc.yandex.ru; frame-src blob: https://mc.yandex.ru; manifest-src 'self'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: default-src 'none'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; script-src 'self' https://static.cloudflareinsights.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' https://media.fluxixo.shop data:; font-src 'self'; media-src 'self' https://media.fluxixo.shop; connect-src 'self' https://cloudflareinsights.com; manifest-src 'self'; upgrade-insecure-requests
 
-/editor
-  X-Robots-Tag: noindex, nofollow
-/editor.html
-  X-Robots-Tag: noindex, nofollow
-/js/editor.js
-  Cache-Control: no-store
-  X-Robots-Tag: noindex, nofollow
-/css/editor.css
-  Cache-Control: no-store
-  X-Robots-Tag: noindex, nofollow
 /sitemap.xml
   Content-Type: application/xml; charset=utf-8
 /robots.txt
@@ -37,11 +28,41 @@
 /assets/video/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=86400
 
+/assets/featured/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/favicon.ico
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/favicon-96x96.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/apple-touch-icon.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/icon-192.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/icon-512.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/icon-maskable-512.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+
+/sitemap-index.xml
+  Content-Type: application/xml; charset=utf-8
 /sitemap-ru.xml
+  Content-Type: application/xml; charset=utf-8
+/sitemap-en.xml
+  Content-Type: application/xml; charset=utf-8
+/sitemap-es.xml
+  Content-Type: application/xml; charset=utf-8
+/sitemap-pt.xml
+  Content-Type: application/xml; charset=utf-8
+/sitemap-fr.xml
+  Content-Type: application/xml; charset=utf-8
+/sitemap-he.xml
   Content-Type: application/xml; charset=utf-8
 
 /rss.xml
   Content-Type: application/rss+xml; charset=utf-8
+/pinterest-new.xml
+  Content-Type: application/xml; charset=utf-8
 /pinterest-feed.csv
   Content-Type: text/csv; charset=utf-8
 /social-feed.json

@@ -567,15 +567,29 @@ def validate_ru_sitemap(release, all_urls):
 
 
 def validate_search_engine_parity(release):
-    """Verify Google, Microsoft Bing, and Yandex (Russian-only) verification/crawl artifacts."""
+    """Verify Google and Microsoft Bing verification/crawl artifacts without Yandex."""
     errors = []
     rel = Path(release)
     home = rel / 'index.html'
     if home.exists():
         html = home.read_text(encoding='utf-8', errors='replace')
-        for marker in ('google-site-verification', 'msvalidate.01', 'yandex-verification'):
+        for marker in ('google-site-verification', 'msvalidate.01'):
             if f'name="{marker}"' not in html:
                 errors.append(f'homepage missing <meta name="{marker}">')
+    for html_path in (rel / 'index.html', rel / 'catalog/index.html', rel / 'en/index.html'):
+        if html_path.exists():
+            html = html_path.read_text(encoding='utf-8', errors='replace')
+            for forbidden in ('yandex-verification', 'ym.js', 'mc.yandex.ru'):
+                if forbidden in html:
+                    errors.append(f'{html_path.relative_to(rel).as_posix()} still contains Yandex marker: {forbidden}')
+    if (rel / 'js/ym.js').exists():
+        errors.append('release still contains js/ym.js')
+    hdr_path = rel / '_headers'
+    if hdr_path.exists():
+        hdr_txt = hdr_path.read_text(encoding='utf-8', errors='replace')
+        for forbidden in ('mc.yandex.', 'metrika.yandex.', 'metrica.yandex.', 'webvisor.', 'yastatic.net'):
+            if forbidden in hdr_txt:
+                errors.append(f'_headers still contains Yandex domain: {forbidden}')
     bing_auth = rel / 'BingSiteAuth.xml'
     if not bing_auth.exists():
         errors.append('missing BingSiteAuth.xml')
@@ -633,16 +647,11 @@ def validate_search_engine_parity(release):
     robots_path = rel / 'robots.txt'
     if robots_path.exists():
         rtxt = robots_path.read_text(encoding='utf-8', errors='replace')
-        yandex_block = ''
-        m = re.search(r'(?ms)^User-agent:\s*Yandex\b.*?(?=^User-agent:|\Z)', rtxt)
-        if not m:
-            errors.append('robots.txt missing User-agent: Yandex block')
-        else:
-            yandex_block = m.group(0)
-            for req_line in ('Allow: /', 'Disallow: /en/', 'Disallow: /pt/', 'Disallow: /es/', 'Disallow: /fr/', 'Disallow: /he/', 'Clean-param:'):
-                if req_line not in yandex_block:
-                    errors.append(f'robots.txt Yandex block missing {req_line}')
-        for sm in ('sitemap.xml', 'sitemap-index.xml', 'sitemap-ru.xml'):
+        if 'User-agent: *' not in rtxt or 'Allow: /' not in rtxt:
+            errors.append('robots.txt missing default User-agent: * / Allow: /')
+        if 'User-agent: Yandex' in rtxt:
+            errors.append('robots.txt must not contain User-agent: Yandex block')
+        for sm in ('sitemap.xml', 'sitemap-index.xml'):
             if f'Sitemap: {ORIGIN}/{sm}' not in rtxt:
                 errors.append(f'robots.txt missing Sitemap: {ORIGIN}/{sm}')
     return errors

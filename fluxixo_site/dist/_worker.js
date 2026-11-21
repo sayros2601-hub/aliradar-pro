@@ -18,7 +18,7 @@ export default {
         'X-Content-Type-Options': 'nosniff',
         'X-Frame-Options': 'DENY',
         'Content-Security-Policy': "default-src 'none'; frame-ancestors 'none'; base-uri 'none'",
-        'Strict-Transport-Security': 'max-age=2592000'
+        'Strict-Transport-Security': 'max-age=31536000; includeSubDomains'
       }
     });
   }

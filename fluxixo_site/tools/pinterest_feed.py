@@ -105,7 +105,7 @@ def build_pinterest_feed(dist, products, translations, state_path, *, now=None):
     for tag, value in (
         ('title', 'FLUXIXO — New product finds'),
         ('link', ORIGIN + '/en/'),
-        ('description', 'Future FLUXIXO product additions. AI-assisted summaries with affiliate links.'),
+        ('description', 'Curated everyday product finds from AliExpress, updated daily with studio photos and direct seller links.'),
         ('language', 'en'),
     ):
         ET.SubElement(channel, tag).text = value

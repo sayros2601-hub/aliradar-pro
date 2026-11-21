@@ -260,6 +260,7 @@ def _bing_priority(url):
 def bing(key, state, today, products, urls=None, dry_run=False):
     q = urllib.parse.quote
     def call(method, **params):
+        time.sleep(0.5)
         query = '&'.join(f'{k}={q(str(v))}' for k, v in {'apikey': key, **params}.items())
         result = http('GET', f'https://ssl.bing.com/webmaster/api.svc/json/{method}?{query}')
         return result.get('d') if isinstance(result, dict) else result
@@ -311,6 +312,7 @@ def bing(key, state, today, products, urls=None, dry_run=False):
                     feeds_submitted.append(name)
                     continue
                 try:
+                    time.sleep(0.5)
                     http('POST', f'https://ssl.bing.com/webmaster/api.svc/json/SubmitFeed?apikey={q(key)}',
                          body={'siteUrl': ORIGIN, 'feedUrl': feed_url})
                     feeds_submitted.append(name)
@@ -329,6 +331,7 @@ def bing(key, state, today, products, urls=None, dry_run=False):
                 urls_submitted = batch
             else:
                 try:
+                    time.sleep(0.5)
                     http('POST', f'https://ssl.bing.com/webmaster/api.svc/json/SubmitUrlBatch?apikey={q(key)}',
                          body={'siteUrl': ORIGIN, 'urlList': batch})
                     for u in batch:
@@ -359,6 +362,50 @@ def bing(key, state, today, products, urls=None, dry_run=False):
             'feeds_count': feeds_count, 'feeds_submitted': feeds_submitted, 'feed_error': feed_error,
             'urls_submitted': urls_submitted, 'url_submit_error': url_submit_error,
             'keyword_lookups_today': looked}
+
+
+def bing_indexnow(urls, dry_run=False, site_dir=None):
+    site_root = Path(site_dir) if site_dir is not None else SITE
+    key_path = site_root / 'tools/indexnow-key.txt'
+    fp_path = site_root / 'tools/search-build-state.json'
+    sub_path = site_root / 'tools/indexnow-submitted.json'
+    if not (key_path.exists() and fp_path.exists()):
+        return {'submitted': 0, 'pending': 0, 'error': None}
+    key = key_path.read_text(encoding='utf-8').strip()
+    if not key:
+        return {'submitted': 0, 'pending': 0, 'error': 'empty indexnow-key.txt'}
+    try:
+        fingerprints = json.loads(fp_path.read_text(encoding='utf-8'))
+        submitted = json.loads(sub_path.read_text(encoding='utf-8')) if sub_path.exists() else {}
+    except (OSError, json.JSONDecodeError) as error:
+        return {'submitted': 0, 'pending': 0, 'error': f'indexnow state error: {error}'[:200]}
+    changed = []
+    for url in dict.fromkeys(urls or ()):
+        if not url.startswith(ORIGIN + '/'):
+            continue
+        path = urllib.parse.urlsplit(url).path
+        sha = fingerprints.get(path, {}).get('sha256')
+        if isinstance(sha, str) and sha and submitted.get(url) != sha:
+            changed.append((url, sha))
+    batch = changed[:500]
+    if not batch:
+        return {'submitted': 0, 'pending': 0, 'error': None}
+    if dry_run:
+        return {'submitted': len(batch), 'pending': len(changed) - len(batch), 'error': None}
+    payload = {
+        'host': 'www.fluxixo.shop',
+        'key': key,
+        'keyLocation': f'{ORIGIN}/{key}.txt',
+        'urlList': [u for u, _ in batch],
+    }
+    try:
+        http('POST', 'https://www.bing.com/indexnow', body=payload)
+    except ApiError as error:
+        return {'submitted': 0, 'pending': len(changed), 'error': f'Bing IndexNow: {error}'[:200]}
+    for url, sha in batch:
+        submitted[url] = sha
+    sub_path.write_text(json.dumps(submitted, indent=1, sort_keys=True) + '\n', encoding='utf-8')
+    return {'submitted': len(batch), 'pending': len(changed) - len(batch), 'error': None}
 
 
 # ---------- Yandex Webmaster ----------
@@ -482,7 +529,7 @@ def product_names():
 
 def report_text(today, results, errors, keywords=(), stage2=None):
     lines = [f'# FLUXIXO — SEO за {today.isoformat()}', '']
-    titles = {'google': 'Google', 'bing': 'Bing', 'yandex': 'Яндекс'}
+    titles = {'google': 'Google', 'bing': 'Bing'}
     for engine, title in titles.items():
         lines.append(f'## {title}')
         if engine in errors:
@@ -498,28 +545,20 @@ def report_text(today, results, errors, keywords=(), stage2=None):
             i = data['index']
             lines.append(f'Индекс: проверено страниц {i["known"]}, в индексе {i["indexed"]}, не в индексе {len(i["not_indexed"])}.')
             lines += [f'- не в индексе: {u}' for u in i['not_indexed'][:20]]
-        if engine == 'yandex':
-            s = data['summary']
-            lines.append(f'ИКС {s["sqi"]}, страниц в поиске {s["searchable"]}, исключено {s["excluded"]}; русских страниц вне поиска {data["ru_missing"]}, отправлено на переобход {len(data["recrawl_sent"])}.')
-            if data['problems']:
-                lines.append('Проблемы сайта: ' + ', '.join(data['problems']))
-            if data['not_loaded']:
-                lines.append('Яндекс ещё не загрузил данные по сайту (новый сайт): ' + ', '.join(data['not_loaded']))
-            if data['sitemaps_added']:
-                lines.append('Добавлены sitemap в Вебмастер: ' + ', '.join(data['sitemaps_added']))
-            if data['recrawl_error']:
-                lines.append('Яндекс не принял запрос: ' + data['recrawl_error'])
         if engine == 'bing':
-            if data.get('feeds_submitted') or data.get('urls_submitted'):
+            if data.get('feeds_submitted') or data.get('urls_submitted') or data.get('indexnow_submitted'):
                 lines.append(
                     f'Фиды отправлены: {", ".join(data.get("feeds_submitted", [])) or "актуальны"}; '
-                    f'отправлено URL на обход: {len(data.get("urls_submitted", []))} '
+                    f'отправлено URL на обход: {len(data.get("urls_submitted", []))}; '
+                    f'Bing IndexNow: {data.get("indexnow_submitted", 0)} '
                     f'(дневной/месячный лимит: {data.get("submission_quota", {}).get("daily")}/{data.get("submission_quota", {}).get("monthly")}).'
                 )
             if data.get('feed_error'):
                 lines.append('Ошибка фида Bing: ' + data['feed_error'])
             if data.get('url_submit_error'):
                 lines.append('Ошибка отправки URL Bing: ' + data['url_submit_error'])
+            if data.get('indexnow_error'):
+                lines.append('Ошибка Bing IndexNow: ' + data['indexnow_error'])
         if engine == 'bing' and data['crawl_issues']:
             lines.append(f'Ошибки обхода: {len(data["crawl_issues"])}')
         if engine == 'bing' and keywords:
@@ -556,7 +595,7 @@ def report_text(today, results, errors, keywords=(), stage2=None):
 def summary_text(today, results, errors):
     """Totals only: the repository and its job pages are public."""
     lines = [f'### FLUXIXO SEO — {today.isoformat()}', '', '| | Клики | Показы | CTR | Позиция | Статус |', '|---|---|---|---|---|---|']
-    for engine, title in (('google', 'Google'), ('bing', 'Bing'), ('yandex', 'Яндекс')):
+    for engine, title in (('google', 'Google'), ('bing', 'Bing')):
         if engine in errors:
             lines.append(f'| {title} | — | — | — | — | не подключено: {errors[engine]} |')
             continue
@@ -565,16 +604,11 @@ def summary_text(today, results, errors):
         if engine == 'google':
             i = results[engine]['index']
             extra = f'в индексе {i["indexed"]} из {i["known"]} проверенных'
-        elif engine == 'yandex':
-            extra = f'в поиске {results[engine]["in_search"]}, на переобход {len(results[engine]["recrawl_sent"])}'
-            if results[engine]['not_loaded']:
-                extra += '; Яндекс ещё не загрузил данные по сайту'
-            if results[engine]['sitemaps_added']:
-                extra += f'; добавлено sitemap: {len(results[engine]["sitemaps_added"])}'
         elif engine == 'bing':
             extra = (
                 f'фидов отпр. {len(results[engine].get("feeds_submitted", []))}, '
                 f'URL {len(results[engine].get("urls_submitted", []))}, '
+                f'IndexNow {results[engine].get("indexnow_submitted", 0)}, '
                 f'ключевых слов изучено {results[engine]["keyword_lookups_today"]}'
             )
         lines.append(f'| {title} | {t["clicks"]} | {t["impressions"]} | {t["ctr"]}% | {t["position"] or "—"} | {extra} |')
@@ -603,12 +637,16 @@ def main():
     state = load_state(keys['SEO_DATA_KEY'])
     urls = sitemap_urls()
     results, errors = {}, {}
+    def run_bing(k):
+        res = bing(k, state, today, product_names(), urls=urls, dry_run=args.dry_run)
+        idx = bing_indexnow(urls, dry_run=args.dry_run)
+        res['indexnow_submitted'] = idx['submitted']
+        res['indexnow_error'] = idx['error']
+        return res
+
     jobs = (('google', 'GSC_SERVICE_ACCOUNT_JSON', 'нет ключа Google (GSC_SERVICE_ACCOUNT_JSON)',
              lambda k: google(k, urls, state, today, args.dry_run)),
-            ('bing', 'BING_WEBMASTER_API_KEY', 'нет ключа Bing (BING_WEBMASTER_API_KEY)',
-             lambda k: bing(k, state, today, product_names(), urls=urls, dry_run=args.dry_run)),
-            ('yandex', 'YANDEX_WEBMASTER_TOKEN', 'нет токена Яндекса (YANDEX_WEBMASTER_TOKEN)',
-             lambda k: yandex(k, urls, state, today, args.dry_run)))
+            ('bing', 'BING_WEBMASTER_API_KEY', 'нет ключа Bing (BING_WEBMASTER_API_KEY)', run_bing))
     for engine, secret, missing, run in jobs:
         if not keys[secret]:
             errors[engine] = missing
@@ -630,9 +668,6 @@ def main():
                             **({'pages': data['pages'][:SNAPSHOT_ROWS]} if 'pages' in data else {})}
         if engine == 'google':
             snapshot[engine]['daily'] = data['daily']
-        if engine == 'yandex':
-            day[engine] |= {'in_search': data['in_search'], 'recrawl_sent': len(data['recrawl_sent']),
-                            'sqi': data['summary']['sqi']}
     trim(state, today)
     stage2_res = None
     if DIST.exists():

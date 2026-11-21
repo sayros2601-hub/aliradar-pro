@@ -11,7 +11,7 @@ if RELEASE.exists():
     # This exact staging path is disposable and always recreated from source.
     shutil.rmtree(RELEASE)
 RELEASE.mkdir()
-exclude={'editor.html','js/editor.js','css/editor.css'}
+exclude={'editor.html','js/editor.js','css/editor.css','js/ym.js'}
 for file in SOURCE.rglob('*'):
     if not file.is_file():continue
     rel=file.relative_to(SOURCE).as_posix()
@@ -38,7 +38,7 @@ headers=(RELEASE/'_headers').read_text(encoding='utf-8')
 headers=headers.replace('  Cache-Control: public, max-age=0, must-revalidate\n','')
 for original,versioned in mapping.items():
     headers+='\n/'+versioned+'\n  Cache-Control: public, max-age=31536000, immutable\n'
-for route in ['/','/index.html','/catalog/*','/categories/*','/products/*','/en/*','/es/*','/pt/*','/fr/*','/he/*','/rss.xml','/pinterest-new.xml','/sitemap.xml']:
+for route in ['/','/index.html','/catalog/*','/categories/*','/products/*','/about/*','/journal/*','/en/*','/es/*','/pt/*','/fr/*','/he/*','/rss.xml','/pinterest-new.xml','/sitemap.xml','/sitemap-index.xml','/sitemap-ru.xml','/sitemap-en.xml','/sitemap-es.xml','/sitemap-pt.xml','/sitemap-fr.xml','/sitemap-he.xml']:
     headers+='\n'+route+'\n  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=60, must-revalidate\n'
 headers+='\n/drop-status.json\n  Cache-Control: no-store\n'
 headers+='\nhttps://*.dealvault.pages.dev/*\n  X-Robots-Tag: noindex, nofollow\n'

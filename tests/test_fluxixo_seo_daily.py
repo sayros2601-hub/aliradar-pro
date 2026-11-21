@@ -85,17 +85,14 @@ class SeoDailyTest(unittest.TestCase):
         self.assertEqual(result['rows'], [{'query': 'pill box', 'clicks': 2, 'impressions': 40, 'position': 11.0}])
         self.assertEqual(state['keywords']['Pill organizer']['related'][0]['query'], 'pill organizer')
 
-    def test_public_summary_has_no_query_text(self):
+    def test_public_summary_has_no_query_text_or_yandex(self):
         results = {'bing': {'totals': seo.totals([{'query': 'secret query', 'clicks': 1, 'impressions': 9, 'position': 3}]),
-                            'keyword_lookups_today': 2, 'rows': [{'query': 'secret query'}]}}
-        text = seo.summary_text(TODAY, results, {'google': 'нет ключа', 'yandex': 'нет токена'})
+                            'keyword_lookups_today': 2, 'indexnow_submitted': 3, 'rows': [{'query': 'secret query'}]}}
+        text = seo.summary_text(TODAY, results, {'google': 'нет ключа'})
         self.assertNotIn('secret query', text)
+        self.assertNotIn('Яндекс', text)
         self.assertIn('| Bing | 1 | 9 |', text)
-
-    def test_ru_pages_only_for_yandex_recrawl(self):
-        self.assertTrue(seo.ru_url('https://www.fluxixo.shop/products/x/'))
-        self.assertFalse(seo.ru_url('https://www.fluxixo.shop/en/products/x/'))
-        self.assertFalse(seo.ru_url('https://www.fluxixo.shop/'))
+        self.assertIn('IndexNow 3', text)
 
 
 class BingAndYandexParityTests(unittest.TestCase):
@@ -151,45 +148,50 @@ class BingAndYandexParityTests(unittest.TestCase):
         finally:
             seo.http = orig_http
 
-    def test_yandex_only_submits_ru_sitemap_and_russian_urls(self):
-        from datetime import date
+    def test_bing_indexnow_submits_only_changed_urls_to_bing(self):
+        import json
+        import tempfile
+        from pathlib import Path
         import seo_daily as seo
 
-        posted = []
-        state = seo.load_state(None)
-        today = date(2026, 11, 13)
-        urls = [
-            'https://www.fluxixo.shop/',
-            'https://www.fluxixo.shop/catalog/',
-            'https://www.fluxixo.shop/en/',
-            'https://www.fluxixo.shop/pt/products/x/',
-            'https://www.fluxixo.shop/es/',
-            'https://www.fluxixo.shop/fr/',
-            'https://www.fluxixo.shop/he/',
-            'https://www.fluxixo.shop/products/demo-ru/',
-        ]
+        with tempfile.TemporaryDirectory() as tmp:
+            site_dir = Path(tmp)
+            tools = site_dir / 'tools'
+            tools.mkdir()
+            key = 'a' * 32
+            (tools / 'indexnow-key.txt').write_text(key, encoding='utf-8')
+            (tools / 'search-build-state.json').write_text(json.dumps({
+                '/': {'sha256': '11' * 32},
+                '/en/': {'sha256': '22' * 32},
+            }), encoding='utf-8')
+            (tools / 'indexnow-submitted.json').write_text(json.dumps({
+                'https://www.fluxixo.shop/': '11' * 32,
+            }), encoding='utf-8')
 
-        def fake_http(method, url, *, headers=None, body=None, timeout=40):
-            if method == 'POST':
-                posted.append((url, body))
+            posted = []
+
+            def fake_http(method, url, *, headers=None, body=None, timeout=40):
+                posted.append((method, url, body))
                 return {}
-            if url.endswith('/user'):
-                return {'user_id': 1}
-            if url.endswith('/hosts'):
-                return {'hosts': [{'host_id': 'https:www.fluxixo.shop:443'}]}
-            if 'recrawl/quota' in url:
-                return {'daily_quota': 150, 'quota_remainder': 150}
-            return {}
 
-        orig_http = seo.http
-        seo.http = fake_http
-        try:
-            res = seo.yandex('tok', urls, state, today, dry_run=False)
-            self.assertEqual(['sitemap-ru.xml'], res['sitemaps_added'])
-            recrawl_urls = [b['url'] for u, b in posted if 'recrawl/queue' in u]
-            self.assertEqual(['https://www.fluxixo.shop/catalog/', 'https://www.fluxixo.shop/products/demo-ru/'], recrawl_urls)
-        finally:
-            seo.http = orig_http
+            orig_http = seo.http
+            seo.http = fake_http
+            try:
+                res = seo.bing_indexnow(
+                    ['https://www.fluxixo.shop/', 'https://www.fluxixo.shop/en/'],
+                    dry_run=False,
+                    site_dir=site_dir,
+                )
+            finally:
+                seo.http = orig_http
+
+            self.assertEqual(1, res['submitted'])
+            self.assertEqual(None, res['error'])
+            self.assertEqual(1, len(posted))
+            self.assertEqual('https://www.bing.com/indexnow', posted[0][1])
+            self.assertEqual(['https://www.fluxixo.shop/en/'], posted[0][2]['urlList'])
+            saved = json.loads((tools / 'indexnow-submitted.json').read_text(encoding='utf-8'))
+            self.assertEqual('22' * 32, saved['https://www.fluxixo.shop/en/'])
 
 
 if __name__ == '__main__':
