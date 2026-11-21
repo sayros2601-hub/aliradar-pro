@@ -279,6 +279,7 @@ class Site:
             if missing:
                 raise ValueError(f"Product {p['id']} is missing {lang} copy: {', '.join(missing)}")
             self.items.append({**p, **{field: translation[field] for field in fields}})
+        self.drop_items = list(self.items[:3])
         lang_market = {'ru': 'RU', 'en': 'US', 'pt': 'BR', 'es': 'MX', 'fr': 'FR', 'he': 'IL'}.get(lang)
         if lang_market:
             def _market_rank(item):
@@ -484,7 +485,7 @@ class Site:
     def build_home(self):
         u, items = self.ui, self.items
         clock = countdown_metadata()
-        drop = items[:3]
+        drop = self.drop_items
         featured = select_featured_products(items)
         carousel = CAROUSEL_COPY[self.lang]
         guide_label = {'ru': 'Памятки перед покупкой', 'en': 'Buying guides', 'pt': 'Guias de compra',

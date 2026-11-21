@@ -324,6 +324,34 @@ class PerCountryStorefrontOrderingTests(unittest.TestCase):
         pt_site = build_redesign.Site([p_us_only, p_ru_fr, p_legacy], data, 'pt')
         self.assertEqual(['find-legacy', 'auto-us', 'auto-ru'], [item['id'] for item in pt_site.items])
 
+    def test_latest_drop_rope_keeps_top_three_products_across_all_languages(self):
+        common = {
+            'world': 'tech',
+            'category': 'Техника',
+            'image': 'assets/images/test.webp',
+            'original': 'assets/originals/test.webp',
+            'affiliateUrl': 'https://s.click.aliexpress.com/e/test',
+            'details': 'Spec',
+            'facts': [],
+            'theme': 'blue',
+            'scale': 0.85,
+            'rotation': 0,
+            'headline': ['h1', 'h2'],
+            'description': 'Item description',
+        }
+        products = [
+            {**common, 'id': 'auto-1', 'name': 'New 1', 'availableMarkets': ['US', 'BR', 'FR', 'IL']},
+            {**common, 'id': 'auto-2', 'name': 'New 2', 'availableMarkets': ['RU', 'US', 'BR', 'MX', 'IL']},
+            {**common, 'id': 'auto-3', 'name': 'New 3', 'availableMarkets': ['US', 'BR', 'IL', 'FR']},
+            {**common, 'id': 'auto-4', 'name': 'Older 4', 'availableMarkets': ['RU', 'US', 'BR', 'MX', 'IL', 'FR']},
+        ]
+        i18n_entry = {'name': 'Localized', 'headline': ['h1', 'h2'], 'description': 'Desc'}
+        data = {'products': {p['id']: {lang: i18n_entry for lang in ('en', 'pt', 'es', 'fr', 'he')} for p in products}}
+
+        ru_site = build_redesign.Site(products, data, 'ru')
+        self.assertEqual(['auto-1', 'auto-2', 'auto-3'], [item['id'] for item in ru_site.drop_items])
+        self.assertEqual(['auto-2', 'auto-4', 'auto-1', 'auto-3'], [item['id'] for item in ru_site.items])
+
 
 class PeakHourSchedulingTests(unittest.TestCase):
     def test_peak_slots_stagger_one_product_per_wave_across_all_six_markets(self):
