@@ -86,7 +86,32 @@
     }
   ],
   "slots": [
-    {},
+    {
+      "generation_attempts": {},
+      "pending": {
+        "source_file": "reference-cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f.png",
+        "source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se5c0d03ff94d465cb1b1c5540fc6f5d81.png",
+        "original_sha256": "0a97532b68db0c4e1a0bdfdf5a793f20d43d634188a0b67383ff6a1d840dd6da",
+        "output_file": "hero-749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079.webp",
+        "image_sha256": "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079",
+        "metrics": {
+          "fg_width": 682,
+          "fg_height": 429,
+          "fg_max_side": 682,
+          "fg_min_side": 429,
+          "upscale_ratio": 1.305,
+          "sharpness": 12.1,
+          "fg_mean_luma": 207.57,
+          "fg_luma_std": 33.91,
+          "max_border_clip": 0.0,
+          "clipped_edges": 0,
+          "halo_fringe_ratio": 0.012,
+          "reasons": []
+        },
+        "generated": false
+      }
+    },
     {},
     {}
   ],
@@ -106,7 +131,8 @@
           {
             "source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
             "at": 1795349169.5982914,
-            "code": "reserved"
+            "code": "pending_review",
+            "image_sha256": "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079"
           }
         ],
         "last_code": "materialization_interrupted"
@@ -121,7 +147,12 @@
       }
     ]
   },
-  "review_attempts": {},
+  "review_attempts": {
+    "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
+    }
+  },
   "identity_source": {
     "url": "https://ae-pic-a1.aliexpress-media.com/kf/Se5c0d03ff94d465cb1b1c5540fc6f5d81.png",
     "file": "reference-cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f.png",
