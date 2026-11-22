@@ -31,7 +31,7 @@ import locales as L  # noqa: E402
 import journal_pages  # noqa: E402
 import market_seo  # noqa: E402
 from ui_text import (CATALOG_EN, CATEGORY_COPY_RU, CATEGORY_LONG, CATEGORY_LONG_HEADING, CATEGORY_LONG_RU,  # noqa: E402
-                     GUIDES_HEADING, MORE_RU, ROOT_EN, RU_CHECKLIST_GUIDE, RU_CHECKLIST_WORLDS, UI)
+                     GUIDES_HEADING, MORE_HEADINGS, MORE_RU, ROOT_EN, RU_CHECKLIST_GUIDE, RU_CHECKLIST_WORLDS, UI)
 from featured_carousel import CAROUSEL_COPY, FEATURED_IMAGE_OVERRIDES, copy_featured_images, select_featured_products  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
@@ -98,6 +98,8 @@ ROOT_TITLE, ROOT_DESC = ROOT_EN['title'], ROOT_EN['desc']
 # Extra buyer advice for Russian product pages: {product id: {"who": text, "check": [text, text, text]}}.
 # A product without an entry (a brand-new daily one) simply has no such block until its text is written.
 LONG_RU_FILE = ROOT / 'tools/ru_long_copy.json'
+EDITORIAL_FILE = ROOT / 'tools/product_editorial.json'
+CATEGORY_LONG_FILE = ROOT / 'tools/category_long_copy.json'
 
 
 _SVG = '<svg viewBox="0 0 24 24" aria-hidden="true">{}</svg>'
@@ -196,8 +198,10 @@ def load():
     # Odd category names map onto the hub whose English label they share.
     by_label = {data['cats'][k]['en']: k for k in L.CATEGORY_SLUGS if k in data['cats']}
     long_ru = long_copy()
+    editorial = product_editorial()
     for p in products:
         p['more'] = long_ru.get(p['id'])
+        p['editorial'] = editorial.get(p['id'], {})
         key = L.category_key(p['category'])
         p['world'] = key or by_label.get(data['cats'].get(p['category'], {}).get('en'), 'Дом')
         colour, p['dark'] = tint(p['image'])
@@ -215,6 +219,50 @@ def long_copy():
     return {pid: v for pid, v in entries.items()
             if isinstance(v, dict) and isinstance(v.get('who'), str) and v['who'].strip()
             and isinstance(v.get('check'), list) and v['check'] and all(isinstance(c, str) and c.strip() for c in v['check'])}
+
+
+def product_editorial():
+    """Load 6-language product editorial sections from tools/product_editorial.json."""
+    if not EDITORIAL_FILE.exists():
+        return {}
+    raw = json.loads(EDITORIAL_FILE.read_text(encoding='utf-8'))
+    result = {}
+    for pid, by_lang in raw.items():
+        if not isinstance(by_lang, dict):
+            continue
+        cleaned = {}
+        for lang, v in by_lang.items():
+            if not isinstance(v, dict):
+                continue
+            entry = {}
+            for field in ('who', 'skip', 'compare'):
+                val = v.get(field)
+                if isinstance(val, str) and val.strip():
+                    entry[field] = val.strip()
+            chk = v.get('check')
+            if isinstance(chk, list) and chk and all(isinstance(c, str) and c.strip() for c in chk):
+                entry['check'] = [c.strip() for c in chk]
+            if entry:
+                cleaned[lang] = entry
+        if cleaned:
+            result[pid] = cleaned
+    return result
+
+
+def category_long_map():
+    """Merge built-in CATEGORY_LONG and CATEGORY_LONG_RU with category_long_copy.json."""
+    merged = {key: dict(by_lang) for key, by_lang in CATEGORY_LONG.items()}
+    for key, ru_text in CATEGORY_LONG_RU.items():
+        if isinstance(ru_text, str) and ru_text.strip():
+            merged.setdefault(key, {})['ru'] = ru_text.strip()
+    if CATEGORY_LONG_FILE.exists():
+        extra = json.loads(CATEGORY_LONG_FILE.read_text(encoding='utf-8'))
+        for key, by_lang in extra.items():
+            if isinstance(by_lang, dict):
+                merged.setdefault(key, {}).update(
+                    {lang: text.strip() for lang, text in by_lang.items() if isinstance(text, str) and text.strip()}
+                )
+    return merged
 
 
 def tint(image):
@@ -455,16 +503,21 @@ class Site:
                 f'<div class="p-stage" data-dots>{photo}{extra}</div></div>')
 
     def guides(self, p):
-        """Links to the buying guides written about this product (journal preferred_product) in this language;
+        """Links to the buying guides written about this product (journal preferred_product or related_products) in this language;
         Russian tech, tool and travel items also get the general pre-order checklist."""
-        found = []
+        found, seen = [], set()
         for article in GUIDES:
+            slug_id = article['slug']
+            if slug_id in seen:
+                continue
             text = article['translations'].get(self.lang)
             if not text:
                 continue
-            if article['preferred_product'] == p['id'] or (
-                    self.lang == 'ru' and article['slug'] == RU_CHECKLIST_GUIDE and p['world'] in RU_CHECKLIST_WORLDS):
-                found.append((journal_pages.article_path(self.lang, article['slug']), text[2]))
+            is_related = article['preferred_product'] == p['id'] or p['id'] in (article.get('related_products') or ())
+            if is_related or (
+                    self.lang == 'ru' and slug_id == RU_CHECKLIST_GUIDE and p['world'] in RU_CHECKLIST_WORLDS):
+                found.append((journal_pages.article_path(self.lang, slug_id), text[2]))
+                seen.add(slug_id)
         if not found:
             return ''
         links = ''.join(f'<li><a href="{href}">{e(heading)}</a></li>' for href, heading in found)
@@ -655,9 +708,16 @@ class Site:
             facts = ''.join(f'<li>{e(L.translate_fact(self.data, f["label"], self.lang))}: {e(L.translate_fact(self.data, f["value"], self.lang))}</li>'
                             for f in L.public_facts(p))
             crumb_html = ''.join(f'<li><a href="{href}">{e(label)}</a></li>' for label, href in crumbs[:-1])
-            more = p.get('more') if self.lang == 'ru' else None
-            more_html = (f'<section class="p-more"><div><h2>{e(MORE_RU["who"])}</h2><p>{e(more["who"])}</p></div>'
-                         f'<div><h2>{e(MORE_RU["check"])}</h2><ul>{"".join(f"<li>{e(c)}</li>" for c in more["check"])}</ul></div></section>') if more else ''
+            ed = p.get('editorial', {}).get(self.lang) or (p.get('more') if self.lang == 'ru' else None)
+            more_html = ''
+            if ed:
+                headings = MORE_HEADINGS[self.lang]
+                blocks = [f'<div><h2>{e(headings[field])}</h2><p>{e(ed[field])}</p></div>'
+                          for field in ('who', 'skip', 'compare') if ed.get(field)]
+                if ed.get('check'):
+                    blocks.append(f'<div><h2>{e(headings["check"])}</h2><ul>{"".join(f"<li>{e(c)}</li>" for c in ed["check"])}</ul></div>')
+                if blocks:
+                    more_html = f'<section class="p-more">{"".join(blocks)}</section>'
             related = market_seo.rotating_related(self.items, p, self.in_world(key), limit=4)
             body = (f'<section class="p-hero{" dark" if p["dark"] else ""}">'
                     f'<ol class="crumbs" aria-label="{e(L.BREADCRUMB_ARIA[self.lang])}">{crumb_html}</ol><h1 class="d">{e(name)}</h1>'
@@ -677,6 +737,7 @@ class Site:
     def build_categories(self):
         u = self.ui
         overrides = market_seo.load_overrides()
+        cat_long = category_long_map()
         for key in self.worlds:
             group, name, path = self.in_world(key), self.cat(key), self.cpath(key)
             chips = ''.join(f'<a href="{self.cpath(k)}"{" aria-current=\"page\"" if k == key else ""}>{e(self.cat(k))}</a>' for k in self.worlds)
@@ -684,7 +745,7 @@ class Site:
                     f'<h1 class="d">{e(name)} <span class="s">{e(u["count"](n=len(group)))}</span></h1><p class="t">{e(self.copy(key))}</p></section>'
                     f'<section class="c-body">{self.rope(group[:3], width=800) if len(group) >= 3 else ""}'
                     f'<div class="chips">{chips}</div><div class="grid">{"".join(self.card(p) for p in group)}</div></section>')
-            long_text = CATEGORY_LONG_RU.get(key) if self.lang == 'ru' else CATEGORY_LONG.get(key, {}).get(self.lang)
+            long_text = CATEGORY_LONG_RU.get(key) if self.lang == 'ru' else cat_long.get(key, {}).get(self.lang)
             if long_text:
                 heading = CATEGORY_LONG_HEADING[self.lang].format(name=name)
                 body += f'<section class="c-about"><h2>{e(heading)}</h2><p>{e(long_text)}</p></section>'
@@ -778,7 +839,7 @@ def proofread():
     for key, text in CATEGORY_LONG_RU.items():
         check_texts.check_string(text, 'ru', f'category note/{key}', problems)
     # Category notes in the other languages, their headings, the /en/ catalog intro and the guide links heading.
-    for key, by_lang in CATEGORY_LONG.items():
+    for key, by_lang in category_long_map().items():
         for lang, text in by_lang.items():
             check_texts.check_string(text, lang, f'category note/{key}/{lang}', problems)
     for lang, text in CATEGORY_LONG_HEADING.items():
@@ -787,9 +848,32 @@ def proofread():
         check_texts.check_string(text, 'en', f'en catalog/{key}', problems)
     for lang, text in GUIDES_HEADING.items():
         check_texts.check_string(text, lang, f'guides heading/{lang}', problems)
+    for lang, headings in MORE_HEADINGS.items():
+        for field, text in headings.items():
+            check_texts.check_string(text, lang, f'more heading/{lang}/{field}', problems)
+    for lang, text in journal_pages.JOURNAL_RELATED_HEADING.items():
+        check_texts.check_string(text, lang, f'journal related/{lang}', problems)
     for pid, entry in long_copy().items():
         for part in (entry['who'], *entry['check']):
             check_texts.check_string(part, 'ru', f'{pid}/more', problems)
+    for pid, by_lang in product_editorial().items():
+        for lang, entry in by_lang.items():
+            for field in ('who', 'skip', 'compare'):
+                if field in entry:
+                    check_texts.check_string(entry[field], lang, f'{pid}/editorial/{lang}/{field}', problems)
+            for idx, part in enumerate(entry.get('check', ())):
+                check_texts.check_string(part, lang, f'{pid}/editorial/{lang}/check/{idx}', problems)
+    if journal_pages.EXTRA_MULTILINGUAL_FILE.exists():
+        for article in json.loads(journal_pages.EXTRA_MULTILINGUAL_FILE.read_text(encoding='utf-8')):
+            slug_id = article['slug']
+            for lang, payload in article.get('translations', {}).items():
+                title, desc, h1, sections = payload
+                check_texts.check_string(title.removesuffix(' | FLUXIXO'), lang, f'journal/{slug_id}/{lang}/title', problems)
+                check_texts.check_string(desc, lang, f'journal/{slug_id}/{lang}/desc', problems)
+                check_texts.check_string(h1, lang, f'journal/{slug_id}/{lang}/h1', problems)
+                for idx, (h2, body) in enumerate(sections):
+                    check_texts.check_string(h2, lang, f'journal/{slug_id}/{lang}/s{idx}/h2', problems)
+                    check_texts.check_string(body, lang, f'journal/{slug_id}/{lang}/s{idx}/body', problems)
     if problems:
         sys.exit('Text problems, build stopped:\n' + '\n'.join(problems))
 

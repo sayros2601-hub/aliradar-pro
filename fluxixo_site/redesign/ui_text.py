@@ -134,6 +134,14 @@ ROOT_EN = dict(
 
 # Headings of the extra buyer-advice block on Russian product pages (texts: tools/ru_long_copy.json).
 MORE_RU = dict(who='Кому пригодится', check='Что проверить перед заказом')
+MORE_HEADINGS = {
+    'ru': dict(who='Кому и для каких задач подойдёт', skip='Ограничения и кому не подойдёт', compare='Сравнение с альтернативами', check='Что проверить в карточке перед заказом'),
+    'en': dict(who='Where it fits best', skip='Trade-offs and when to skip', compare='How it compares to alternatives', check='What to check before ordering'),
+    'pt': dict(who='Para quem faz mais sentido', skip='Limitações e quando evitar', compare='Comparação com alternativas', check='O que conferir antes de comprar'),
+    'es': dict(who='Para quién funciona mejor', skip='Limitaciones y cuándo evitarlo', compare='Comparación frente a alternativas', check='Qué revisar antes de pedir'),
+    'fr': dict(who='Pour quels usages', skip='Limites et cas à éviter', compare='Face aux alternatives', check='Points à vérifier avant de commander'),
+    'he': dict(who='למי זה מתאים במיוחד', skip='מגבלות ומתי כדאי לוותר', compare='השוואה לחלופות נפוצות', check='מה לבדוק בעמוד המוצר לפני ההזמנה'),
+}
 
 # A longer note under each Russian category: what the world holds and what to check before ordering.
 CATEGORY_LONG_RU = {

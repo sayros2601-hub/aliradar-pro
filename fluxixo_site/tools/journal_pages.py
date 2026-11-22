@@ -8,7 +8,17 @@ from pathlib import Path
 # Guides that exist in Russian only (written for readers who come from Yandex). Each row:
 # {"slug", "preferred_product", "title", "description", "h1", "sections": [[heading, paragraph], ...], "date"}.
 EXTRA_RU_FILE = Path(__file__).resolve().parent / 'journal_ru_extra.json'
+EXTRA_MULTILINGUAL_FILE = Path(__file__).resolve().parent / 'journal_multilingual_extra.json'
 DIST = Path(__file__).resolve().parents[1] / 'dist'
+
+JOURNAL_RELATED_HEADING = {
+    'ru': 'Товары из каталога по этой теме',
+    'en': 'Related finds in the catalog',
+    'pt': 'Itens relacionados no catálogo',
+    'es': 'Artículos relacionados en el catálogo',
+    'fr': 'Articles associés dans le catalogue',
+    'he': 'מוצרים קשורים בקטלוג',
+}
 
 JOURNAL_UI = {
     'ru': {
@@ -389,7 +399,23 @@ ARTICLES = [
 
 
 def all_articles():
-    """List translated guides followed by Russian-only guides."""
+    """List translated guides, multilingual SEO guides, and Russian-only guides."""
+    multi = []
+    if EXTRA_MULTILINGUAL_FILE.exists():
+        for row in json.loads(EXTRA_MULTILINGUAL_FILE.read_text(encoding='utf-8')):
+            translations = {}
+            for lang, payload in row.get('translations', {}).items():
+                title, desc, h1, sections = payload
+                translations[lang] = (title, desc, h1, [tuple(pair) for pair in sections])
+            multi.append({
+                'slug': row['slug'],
+                'preferred_product': row['preferred_product'],
+                'related_products': tuple(row.get('related_products') or ()),
+                'date': row.get('date'),
+                'modified': row.get('modified'),
+                'image': row.get('image'),
+                'translations': translations,
+            })
     extra = []
     if EXTRA_RU_FILE.exists():
         for row in json.loads(EXTRA_RU_FILE.read_text(encoding='utf-8')):
@@ -398,7 +424,7 @@ def all_articles():
                 'image': row.get('image'),
                 'translations': {'ru': (row['title'], row['description'], row['h1'], [tuple(pair) for pair in row['sections']])},
             })
-    return ARTICLES + extra
+    return ARTICLES + multi + extra
 
 
 def article_path(lang, slug):
@@ -453,6 +479,20 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                     img_path = thumb_rel = 'assets/journal/buying-checklist.png'
 
             sec_html = ''.join(f'<section><h2>{e(h2)}</h2><p>{e(body)}</p></section>' for h2, body in sections)
+            rel_ids = []
+            for pid in (article.get('preferred_product'), *(article.get('related_products') or ())):
+                if isinstance(pid, str) and pid in by_id and pid not in rel_ids:
+                    rel_ids.append(pid)
+            rel_list_html = ''
+            if len(rel_ids) >= 2:
+                rel_items = []
+                for pid in rel_ids:
+                    rp = by_id[pid]
+                    rp_name = (rp['name'] if lang == 'ru'
+                               else (i18n_data.get('products', {}).get(pid, {}).get(lang, {}) or {}).get('name', rp['name']))
+                    rel_items.append(f'<li><a href="{prefix_ru}/products/{pid}/">{e(rp_name)}</a></li>')
+                rel_list_html = (f'<section class="journal-related"><h2>{e(JOURNAL_RELATED_HEADING[lang])}</h2>'
+                                 f'<ul>{"".join(rel_items)}</ul></section>')
             crumbs = [(ui['home'], home_href), (ui['eyebrow'], index_path(lang)), (h1, art_url)]
             crumb_nav = (
                 f'<nav class="breadcrumb"><a href="{home_href}">FLUXIXO</a>'
@@ -490,7 +530,7 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                 f'<h1>{e(h1)}</h1>'
                 f'<div class="cta-row">{related_link}'
                 f'<a class="button" href="{catalog_href}">{e(ui["catalog_cta"])}</a></div>'
-                f'{sec_html}'
+                f'{sec_html}{rel_list_html}'
                 f'</article>'
             )
             write_fn(
