@@ -5,6 +5,194 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005012493298577",
+      "name": "Откидной гамак для кошачьего отдыха на окне",
+      "headline": [
+        "Крепление на стекло присосками",
+        "Место для отдыха кошки у окна"
+      ],
+      "description": "Подвесная лежанка фиксируется на стекле с помощью присосок, создавая удобную зону для отдыха вашего питомца. Складная конструкция позволяет легко убирать сиденье при необходимости, а прочные материалы рассчитаны на ежедневное использование внутри помещения. Перед покупкой убедитесь, что оконная рама или стекло имеют достаточную площадь и чистую гладкую поверхность для надежного удержания вакуумных элементов.",
+      "category": "Питомцы",
+      "image": "assets/images/auto-1005012493298577.webp",
+      "original": "assets/originals/auto-1005012493298577.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3tibHHj",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012493298577.html",
+      "sourceProductId": "1005012493298577",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012493298577.html",
+      "sourceTitle": "Cat Window Hammock Suction Cup Hanging Bed Foldable Cat Perch Sunny Rest Seat Indoor Pet Cat Bed Durable Cat Climber Lounge",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Se5c0d03ff94d465cb1b1c5540fc6f5d81.png",
+      "sourceModelKey": null,
+      "sourceMarket": "FR",
+      "sourceTask": "rare_cat_window_hammock",
+      "demo": false,
+      "theme": "rose",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Подвесная лежанка фиксируется на стекле с помощью присосок, создавая удобную зону для отдыха вашего питомца. Складная конструкция позволяет легко убирать сиденье при необходимости, а прочные материалы рассчитаны на ежедневное использование внутри помещения. Перед покупкой убедитесь, что оконная рама или стекло имеют достаточную площадь и чистую гладкую поверхность для надежного удержания вакуумных элементов.",
+      "facts": [],
+      "availableMarkets": [
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "presearchStatus": {
+        "checked": false,
+        "status": "not_run",
+        "saturated": false
+      },
+      "sourceShopId": "1105242615",
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "0580f85e829bc46ca8caeec0655693fecd04400bbe7a52b575923f298cd2766b",
+            "checked_at": 1795349133.0861087
+          },
+          "en": {
+            "sha256": "81c96f6285f58e4a0759bd18433113f7e068e0973623f97625373011e42699f7",
+            "checked_at": 1795349134.8854525
+          },
+          "pt": {
+            "sha256": "3f8bdfbe7d23beb5c01b257aa6237894dab2c57a275375620affeda58ddd9eb5",
+            "checked_at": 1795349136.5660894
+          },
+          "es": {
+            "sha256": "6fd6ddcc1ccb3fb5e9dd5a8e5c27bfe50fa5d54181141efdfc48bbd7a843c6ea",
+            "checked_at": 1795349137.8471053
+          },
+          "fr": {
+            "sha256": "39acbb085badd08f2d0e4ebc085f04b74351e31c5ea098f022ed8704a3dcc44a",
+            "checked_at": 1795349142.181269
+          },
+          "he": {
+            "sha256": "c6e8bb9c2e56335eca2e1ed725727e386d849117eb29ae2e0ac9177b78d70a18",
+            "checked_at": 1795349147.5342553
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005012493298577",
+        "source_title_sha256": "688c7d9fb8e8629b66a5204b5c3ce4f186cfbf633fbbc164225c57b9fb466924",
+        "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+        "identity_source_asset": "assets/originals/auto-1005012493298577-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+            "image_sha256": "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se5c0d03ff94d465cb1b1c5540fc6f5d81.png",
+            "source_asset": "assets/originals/auto-1005012493298577-review-1.png",
+            "output_asset": "assets/images/auto-1005012493298577.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The hero image accurately displays the cat window hammock mounted on glass with suction cups supporting a cat, matching the requested product title and demonstrating its intended function clearly."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "b8db0a5e87b166ed23cc0af9e1aba73b919147a9d0c3f90036e057e0f8d2fe2e",
+            "image_sha256": "b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf",
+            "prior_image_sha256": [
+              "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079"
+            ],
+            "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sb82f16b3037e421a8193fce95750f943e.png",
+            "source_asset": "assets/originals/auto-1005012493298577-review-2.png",
+            "output_asset": "assets/images/auto-1005012493298577-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image clearly shows the cat window hammock in practical application with a cat resting on it.",
+                "All essential product features, including the suction cup mounts and mesh hammock design, are correctly depicted."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "658ad0e6b7d2001903bc6e766caea43a423e4edd7272cf76ded68f3e416c294b",
+            "image_sha256": "1abb5929dd011c9be398b2328d64635d4286f168710a0e9ed029812c26946be9",
+            "prior_image_sha256": [
+              "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079",
+              "b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf"
+            ],
+            "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7a51d3c8af9e4c299c61689bfe094dd0u.png",
+            "source_asset": "assets/originals/auto-1005012493298577-review-3.png",
+            "output_asset": "assets/images/auto-1005012493298577-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image clearly shows the cat window hammock installed on a window with a cat resting on it, successfully fulfilling the result role.",
+                "All essential product features such as the suction cups, mounting brackets, and mesh hammock bed match the product title and reference images."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005012493298577-v2.webp",
+        "assets/images/auto-1005012493298577-v3.webp"
+      ],
+      "sourceImageSha256": "0a97532b68db0c4e1a0bdfdf5a793f20d43d634188a0b67383ff6a1d840dd6da",
+      "sourcePixelSha256": "c923e9919dec3e83b10b4c0bda57a0c752b40b547a065454d7295573cfe2429b",
+      "imageDhash": "0633313614143034",
+      "imageAhash": "f381908287fefeff",
+      "imageAspect": "1.59",
+      "sourceImageDhash": "c91931b36b736763",
+      "sourceImageAhash": "fcc8b8d900399331",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 682,
+        "fg_height": 429,
+        "fg_max_side": 682,
+        "fg_min_side": 429,
+        "upscale_ratio": 1.305,
+        "sharpness": 12.1,
+        "fg_mean_luma": 207.57,
+        "fg_luma_std": 33.91,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.012,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005011808254244",
       "name": "Аккумуляторный погружной душ-насос со шлангом",
       "headline": [
