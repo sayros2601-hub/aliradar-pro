@@ -88,38 +88,196 @@
   "slots": [
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f.png",
-        "source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se5c0d03ff94d465cb1b1c5540fc6f5d81.png",
-        "original_sha256": "0a97532b68db0c4e1a0bdfdf5a793f20d43d634188a0b67383ff6a1d840dd6da",
-        "output_file": "hero-749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079.webp",
-        "image_sha256": "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079",
-        "metrics": {
-          "fg_width": 682,
-          "fg_height": 429,
-          "fg_max_side": 682,
-          "fg_min_side": 429,
-          "upscale_ratio": 1.305,
-          "sharpness": 12.1,
-          "fg_mean_luma": 207.57,
-          "fg_luma_std": 33.91,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.012,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image accurately displays the cat window hammock mounted on glass with suction cups supporting a cat, matching the requested product title and demonstrating its intended function clearly."
+        ]
+      },
+      "source_file": "reference-cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f.png",
+      "source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se5c0d03ff94d465cb1b1c5540fc6f5d81.png",
+      "original_sha256": "0a97532b68db0c4e1a0bdfdf5a793f20d43d634188a0b67383ff6a1d840dd6da",
+      "output_file": "hero-749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079.webp",
+      "image_sha256": "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079",
+      "metrics": {
+        "fg_width": 682,
+        "fg_height": 429,
+        "fg_max_side": 682,
+        "fg_min_side": 429,
+        "upscale_ratio": 1.305,
+        "sharpness": 12.1,
+        "fg_mean_luma": 207.57,
+        "fg_luma_std": 33.91,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.012,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image accurately displays the cat window hammock mounted on glass with suction cups supporting a cat, matching the requested product title and demonstrating its intended function clearly."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+      "source_title_sha256": "688c7d9fb8e8629b66a5204b5c3ce4f186cfbf633fbbc164225c57b9fb466924",
+      "reviewed_at": 1795349586.6476831
     },
-    {},
-    {}
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the cat window hammock in practical application with a cat resting on it.",
+          "All essential product features, including the suction cup mounts and mesh hammock design, are correctly depicted."
+        ]
+      },
+      "source_file": "reference-b8db0a5e87b166ed23cc0af9e1aba73b919147a9d0c3f90036e057e0f8d2fe2e.png",
+      "source_sha256": "b8db0a5e87b166ed23cc0af9e1aba73b919147a9d0c3f90036e057e0f8d2fe2e",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sb82f16b3037e421a8193fce95750f943e.png",
+      "original_sha256": "f59490e697cf54318f2610a69d08c57f3b3040d659a3b75e49209657a7b5091d",
+      "output_file": "application-b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf.webp",
+      "image_sha256": "b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf",
+      "metrics": {
+        "fg_width": 773,
+        "fg_height": 301,
+        "fg_max_side": 773,
+        "fg_min_side": 301,
+        "upscale_ratio": 1.151,
+        "sharpness": 12.17,
+        "fg_mean_luma": 190.61,
+        "fg_luma_std": 36.85,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.166,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the cat window hammock in practical application with a cat resting on it.",
+          "All essential product features, including the suction cup mounts and mesh hammock design, are correctly depicted."
+        ]
+      },
+      "prior_image_sha256": [
+        "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079"
+      ],
+      "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+      "source_title_sha256": "688c7d9fb8e8629b66a5204b5c3ce4f186cfbf633fbbc164225c57b9fb466924",
+      "reviewed_at": 1795349593.092606
+    },
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the cat window hammock installed on a window with a cat resting on it, successfully fulfilling the result role.",
+          "All essential product features such as the suction cups, mounting brackets, and mesh hammock bed match the product title and reference images."
+        ]
+      },
+      "source_file": "reference-658ad0e6b7d2001903bc6e766caea43a423e4edd7272cf76ded68f3e416c294b.png",
+      "source_sha256": "658ad0e6b7d2001903bc6e766caea43a423e4edd7272cf76ded68f3e416c294b",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7a51d3c8af9e4c299c61689bfe094dd0u.png",
+      "original_sha256": "897172f08ca4c8492b16675140732a4816fef7f9d75e7abe20b29c7dd49c2168",
+      "output_file": "result-1abb5929dd011c9be398b2328d64635d4286f168710a0e9ed029812c26946be9.webp",
+      "image_sha256": "1abb5929dd011c9be398b2328d64635d4286f168710a0e9ed029812c26946be9",
+      "metrics": {
+        "fg_width": 750,
+        "fg_height": 705,
+        "fg_max_side": 750,
+        "fg_min_side": 705,
+        "upscale_ratio": 1.187,
+        "sharpness": 13.385,
+        "fg_mean_luma": 199.36,
+        "fg_luma_std": 47.61,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.003,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the cat window hammock installed on a window with a cat resting on it, successfully fulfilling the result role.",
+          "All essential product features such as the suction cups, mounting brackets, and mesh hammock bed match the product title and reference images."
+        ]
+      },
+      "prior_image_sha256": [
+        "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079",
+        "b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf"
+      ],
+      "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
+      "source_title_sha256": "688c7d9fb8e8629b66a5204b5c3ce4f186cfbf633fbbc164225c57b9fb466924",
+      "reviewed_at": 1795349599.039496
+    }
   ],
   "created_at": 1795349167.4319935,
   "deferrals": 0,
   "lease_owner": "538a6a8bb60845df9fa0e81cc83f3d99",
-  "lease_until": 1795350967.4320064,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795435569.472333,
   "source_version": "8fdd70265d45a1dc5a80f5aca23db309c137d380ea74d36c73e66c0075d4b60f",
@@ -138,19 +296,90 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "b8db0a5e87b166ed23cc0af9e1aba73b919147a9d0c3f90036e057e0f8d2fe2e",
+            "at": 1795349586.6491969,
+            "code": "pending_review",
+            "image_sha256": "b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "658ad0e6b7d2001903bc6e766caea43a423e4edd7272cf76ded68f3e416c294b",
+            "at": 1795349593.0946467,
+            "code": "pending_review",
+            "image_sha256": "1abb5929dd011c9be398b2328d64635d4286f168710a0e9ed029812c26946be9"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
   "review_attempts": {
     "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The hero image accurately displays the cat window hammock mounted on glass with suction cups supporting a cat, matching the requested product title and demonstrating its intended function clearly."
+        ]
+      }
+    },
+    "b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the cat window hammock in practical application with a cat resting on it.",
+          "All essential product features, including the suction cup mounts and mesh hammock design, are correctly depicted."
+        ]
+      }
+    },
+    "1abb5929dd011c9be398b2328d64635d4286f168710a0e9ed029812c26946be9": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the cat window hammock installed on a window with a cat resting on it, successfully fulfilling the result role.",
+          "All essential product features such as the suction cups, mounting brackets, and mesh hammock bed match the product title and reference images."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -158,5 +387,6 @@
     "file": "reference-cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f.png",
     "sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
     "original_sha256": "0a97532b68db0c4e1a0bdfdf5a793f20d43d634188a0b67383ff6a1d840dd6da"
-  }
+  },
+  "reason": ""
 }
