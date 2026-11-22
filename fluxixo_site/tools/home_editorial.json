@@ -46,7 +46,22 @@
         "a": "Свежие поступления сразу поднимаются в верхнюю ленту «Дроп дня», а параллельно обновляются подробные руководства в разделе «Журнал». Все тексты в каталоге мы пересматриваем и дополняем по мере появления новых деталей комплектации."
       }
     ],
-    "langs_h": "Витрина FLUXIXO на других языках"
+    "langs_h": "Витрина FLUXIXO на других языках",
+    "hero_lead": "FLUXIXO — авторская коллекция редких и по-настоящему практичных находок с AliExpress в 9 тематических мирах для дома, кухни, мастерской, авто и ухода. У каждой карточки подробный разбор из 4 блоков: реальные задачи, честные ограничения, сравнение с аналогами и точные замеры до оплаты без выдуманных цен и рекламы.",
+    "hero_cards": [
+      {
+        "k": "115+ особых находок",
+        "v": "Отобраны вручную без однотипного мусора по 9 мирам для дома, дороги, спорта и питомцев."
+      },
+      {
+        "k": "4 блока разбора",
+        "v": "Кому пригодится, когда лучше пропустить, чем отличается от альтернатив и что замерить заранее."
+      },
+      {
+        "k": "15 гайдов в «Журнале»",
+        "v": "Подробные памятки по сетям 220 В, евровилкам, комплектациям без батареек и размерам в mm."
+      }
+    ]
   },
   "en": {
     "about_h": "What FLUXIXO Is and How This Catalog Works",
@@ -95,7 +110,22 @@
         "a": "This front page highlights the newest drop, the daily spotlight carousel, category previews, and buying guides, while the dedicated catalog view lists every item with instant keyword search and world filters."
       }
     ],
-    "langs_h": "Explore FLUXIXO in Other Languages"
+    "langs_h": "Explore FLUXIXO in Other Languages",
+    "hero_lead": "FLUXIXO curates unusual, high-utility AliExpress finds across nine everyday worlds for home, kitchen, workshop, auto, and pet care. Instead of thin affiliate cards or invented price badges, every item carries an in-depth four-part review covering real use cases, honest trade-offs, practical comparisons, and US pre-order checks.",
+    "hero_cards": [
+      {
+        "k": "115+ curated finds",
+        "v": "Practical gadgets and clever hardware sorted across nine worlds—never padded with duplicate junk."
+      },
+      {
+        "k": "4-part honest reviews",
+        "v": "Clear fit notes, weak spots and when to skip, real alternatives, and SKU bundle checks before checkout."
+      },
+      {
+        "k": "15 Journal buying guides",
+        "v": "Deep-dive explainers covering 110–120V plugs, dimensions, battery inclusions, and common listing traps."
+      }
+    ]
   },
   "es": {
     "about_h": "Qué es FLUXIXO y cómo funciona este catálogo",
@@ -144,7 +174,22 @@
         "a": "Puedes filtrar el catálogo completo por palabra clave o entrar directamente al mundo que te interese desde la barra superior para comparar modelos parecidos lado a lado."
       }
     ],
-    "langs_h": "Explorar FLUXIXO en otros idiomas"
+    "langs_h": "Explorar FLUXIXO en otros idiomas",
+    "hero_lead": "FLUXIXO reúne hallazgos poco comunes y útiles de AliExpress en nueve mundos cotidianos para hogar, cocina, taller, auto y cuidado diario. En lugar de fichas vacías o precios inventados, cada artículo incluye reseña en cuatro bloques con usos reales, limitaciones claras, comparativas y revisiones pensadas para México.",
+    "hero_cards": [
+      {
+        "k": "115+ hallazgos seleccionados",
+        "v": "Artículos ingeniosos ordenados en nueve mundos prácticos, lejos de listados genéricos repetidos."
+      },
+      {
+        "k": "4 bloques de análisis",
+        "v": "Para quién funciona mejor, desventajas honestas, alternativas frente a frente y medidas clave antes de pedir."
+      },
+      {
+        "k": "15 guías detalladas",
+        "v": "Explicaciones prácticas sobre corriente 110–127V, clavija tipo A o B, centímetros y kits sin batería."
+      }
+    ]
   },
   "pt": {
     "about_h": "O que é o FLUXIXO e como selecionamos cada achadinho",
@@ -193,7 +238,22 @@
         "a": "Os itens recém-publicados ficam em destaque no topo da página inicial e nos respectivos mundos temáticos, enquanto os guias aprofundados reúnem seleções completas por assunto."
       }
     ],
-    "langs_h": "Ver o FLUXIXO em outros idiomas"
+    "langs_h": "Ver o FLUXIXO em outros idiomas",
+    "hero_lead": "O FLUXIXO seleciona achadinhos incomuns e funcionais do AliExpress em nove mundos práticos para casa, cozinha, oficina, carro e cuidados diários. Sem preços inventados nem fichas rasas, cada item traz análise em quatro blocos com cenários reais de uso, limitações honestas, comparativos e conferências para o Brasil.",
+    "hero_cards": [
+      {
+        "k": "115+ achadinhos reais",
+        "v": "Peças úteis divididas em nove mundos temáticos, filtrando clones repetidos e promessas vagas."
+      },
+      {
+        "k": "4 blocos por produto",
+        "v": "Melhor aplicação, quando evitar, comparação com alternativas e medidas exatas antes de comprar."
+      },
+      {
+        "k": "15 guias no Jornal",
+        "v": "Explicações completas sobre voltagem 110/220V, plugue NBR 14136, centímetros e kits completos."
+      }
+    ]
   },
   "fr": {
     "about_h": "Qu’est-ce que FLUXIXO et comment fonctionne le catalogue ?",
@@ -242,7 +302,22 @@
         "a": "Utilisez la barre de recherche par mot-clé ci-dessus ou les filtres par univers pour comparer en un coup d’œil les produits disponibles dans la même famille."
       }
     ],
-    "langs_h": "Parcourir FLUXIXO dans une autre langue"
+    "langs_h": "Parcourir FLUXIXO dans une autre langue",
+    "hero_lead": "FLUXIXO sélectionne des trouvailles rares et vraiment utiles sur AliExpress à travers neuf univers du quotidien pour la maison, la cuisine, l’atelier et le bureau. Loin des fiches creuses ou des faux tarifs, chaque objet reçoit une analyse complète en quatre volets avec usages réels, limites et contrôles préalables.",
+    "hero_cards": [
+      {
+        "k": "115+ objets sélectionnés",
+        "v": "Des accessoires pratiques classés dans neuf univers clairs, sans doublons ni remplissage."
+      },
+      {
+        "k": "4 volets d’analyse",
+        "v": "Usages adaptés, limites sans détour, face aux alternatives et points techniques avant commande."
+      },
+      {
+        "k": "15 guides du Journal",
+        "v": "Dossiers détaillés sur l’alimentation 230V, les prises européennes et les mesures exactes en mm."
+      }
+    ]
   },
   "he": {
     "about_h": "מה זה FLUXIXO ואיך בנוי הקטלוג",
@@ -291,7 +366,22 @@
         "a": "אפשר לחפש לפי מילת מפתח בשורת החיפוש למעלה או לסנן לפי אחד מתשעת העולמות כדי להשוות מוצרים קרובים זה לזה."
       }
     ],
-    "langs_h": "FLUXIXO בשפות נוספות"
+    "langs_h": "FLUXIXO בשפות נוספות",
+    "hero_lead": "אתר FLUXIXO מרכז מציאות ייחודיות ושימושיות מ־AliExpress בתשעה עולמות ברורים לבית, למטבח, לכלי עבודה, לרכב ולטיפוח. במקום כרטיסיות ריקות או מחירים מומצאים, כל מוצר מקבל סקירה מעמיקה בארבעה חלקים הכוללת התאמה אישית, חסרונות אמיתיים, השוואה לחלופות ובדיקות לפני הזמנה.",
+    "hero_cards": [
+      {
+        "k": "115+ מציאות מובחרות",
+        "v": "מוצרים ממוקדי שימוש בתשעה עולמות נקיים, ללא כפילויות מיותרות או הצפת עמודים."
+      },
+      {
+        "k": "4 חלקי סקירה כנה",
+        "v": "למי המוצר מתאים, מתי עדיף לוותר, מה ההבדל מחלופות ומה חשוב למדוד בדף המוכר."
+      },
+      {
+        "k": "15 מדריכי קנייה",
+        "v": "הסברים מעמיקים על התאמה למתח 230V, תקע ישראלי, מידות מדויקות ותכולת ערכה מלאה."
+      }
+    ]
   },
   "catalog_en": {
     "h2": "How to search and compare items across the complete English catalog",

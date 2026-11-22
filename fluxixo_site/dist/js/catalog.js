@@ -83,7 +83,7 @@ window.MIRA_CATALOG = {
           {
             "role": "hero",
             "source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
-            "image_sha256": "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079",
+            "image_sha256": "3a5662b52479d4e52f686e0a9f10c178af5471641389c1e11af7117f4813684a",
             "prior_image_sha256": [],
             "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
             "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se5c0d03ff94d465cb1b1c5540fc6f5d81.png",
@@ -108,9 +108,9 @@ window.MIRA_CATALOG = {
           {
             "role": "application",
             "source_sha256": "b8db0a5e87b166ed23cc0af9e1aba73b919147a9d0c3f90036e057e0f8d2fe2e",
-            "image_sha256": "b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf",
+            "image_sha256": "d9f3896a97b44a11ff1452e4f79b00738990bc8a8b0d28e016bbbbaf36c668cb",
             "prior_image_sha256": [
-              "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079"
+              "3a5662b52479d4e52f686e0a9f10c178af5471641389c1e11af7117f4813684a"
             ],
             "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
             "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sb82f16b3037e421a8193fce95750f943e.png",
@@ -136,10 +136,10 @@ window.MIRA_CATALOG = {
           {
             "role": "result",
             "source_sha256": "658ad0e6b7d2001903bc6e766caea43a423e4edd7272cf76ded68f3e416c294b",
-            "image_sha256": "1abb5929dd011c9be398b2328d64635d4286f168710a0e9ed029812c26946be9",
+            "image_sha256": "7ab981cd6db111534f4c7d65d53a47740cab413b5681cd34724e058ac3356ce0",
             "prior_image_sha256": [
-              "749f5295ac01177fb7f874a1cb32c4aadbc9a4ea627471ef19b9ce16a5946079",
-              "b7c2f3953be96df7a672e698a8a7812d7135e3e747383cec7ee383676fc59acf"
+              "3a5662b52479d4e52f686e0a9f10c178af5471641389c1e11af7117f4813684a",
+              "d9f3896a97b44a11ff1452e4f79b00738990bc8a8b0d28e016bbbbaf36c668cb"
             ],
             "identity_source_sha256": "cbd8a31f5c33ae1679cca5cb0a994ef2a10e535aa694ad3454f9953d2b810d7f",
             "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7a51d3c8af9e4c299c61689bfe094dd0u.png",

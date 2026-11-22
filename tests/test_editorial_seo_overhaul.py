@@ -160,6 +160,14 @@ class EditorialSeoOverhaulTests(unittest.TestCase):
         for lang in LANGS:
             self.assertIn(lang, he_data, f"Missing {lang} in home_editorial.json")
             entry = he_data[lang]
+            hero_lead = (entry.get("hero_lead") or "").strip()
+            self.assertGreaterEqual(len(hero_lead.split()), 28, f"{lang}.hero_lead too short")
+            self.assertEqual(self._check(f"home.{lang}.hero_lead", hero_lead, lang), [])
+            hero_cards = entry.get("hero_cards") or []
+            self.assertEqual(len(hero_cards), 3, f"{lang}.hero_cards must have 3 items")
+            for idx, hc in enumerate(hero_cards):
+                self.assertEqual(self._check(f"home.{lang}.hc.{idx}.k", hc["k"], lang), [])
+                self.assertEqual(self._check(f"home.{lang}.hc.{idx}.v", hc["v"], lang), [])
             total_words = 0
             for key in ("about_h", "pillars_h", "guides_h", "guides_intro", "guides_cta", "qa_h", "langs_h"):
                 val = (entry.get(key) or "").strip()
@@ -184,11 +192,23 @@ class EditorialSeoOverhaulTests(unittest.TestCase):
             self.assertGreaterEqual(total_words, 360, f"Homepage {lang} editorial copy too short: {total_words}")
 
             html = Site(raw_items, data, lang).home_editorial_html(entry_pages)
-            self.assertIn('<section class="home-editorial"', html)
+            self.assertIn('class="home-editorial home-editorial-top"', html)
+            self.assertIn('class="home-editorial home-editorial-bottom"', html)
             self.assertEqual(html.count('class="home-pillar"'), 4)
             self.assertEqual(html.count('<details class="faq-item">'), 4)
             self.assertIn('<ul class="home-guides-grid">', html)
             self.assertNotIn('<section class="product-faq"', html)
+
+        # Verify that built homepage places hero highlights + home-editorial-top BEFORE mundos/todo
+        for rel_home in ("index.html", "catalog/index.html"):
+            home_file = Path("fluxixo_site/release") / rel_home
+            if home_file.is_file():
+                rendered = home_file.read_text(encoding="utf-8")
+                self.assertIn('class="drop-highlights"', rendered)
+                pos_top = rendered.find('id="editorial"')
+                pos_mundos = rendered.find('id="mundos"')
+                if pos_top != -1 and pos_mundos != -1:
+                    self.assertLess(pos_top, pos_mundos)
 
         cat_en = he_data.get("catalog_en", {})
         cat_words = sum(len(str(v).split()) for v in cat_en.values())

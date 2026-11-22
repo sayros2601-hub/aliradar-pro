@@ -531,8 +531,8 @@ class Site:
         links = ''.join(f'<li><a href="{href}">{e(heading)}</a></li>' for href, heading in found)
         return f'<section class="p-more p-guides"><div><h2>{e(GUIDES_HEADING[self.lang])}</h2><ul>{links}</ul></div></section>'
 
-    def home_editorial_html(self, entry_pages):
-        """Render substantial unique editorial copy, featured buying guides, and buyer Q&A for homepage routes."""
+    def home_editorial_top_html(self):
+        """Render primary editorial intro, vetting pillars, and featured Journal guides near the top of homepages."""
         entry = home_editorial().get(self.lang)
         if not entry:
             return ''
@@ -570,6 +570,21 @@ class Site:
             f'<li><a href="{href}"><h3>{e(heading)}</h3><p>{e(desc)}</p></a></li>'
             for href, heading, desc in picked
         )
+        return (
+            f'<section class="home-editorial home-editorial-top" id="editorial" data-page="{PAPER}">'
+            f'<div class="home-editorial-head"><h2>{e(entry["about_h"])}</h2>{about_ps}</div>'
+            f'<div class="home-pillars-wrap"><h2>{e(entry["pillars_h"])}</h2><div class="home-pillars">{pillars}</div></div>'
+            f'<div class="home-guides"><h2>{e(entry["guides_h"])}</h2><p class="home-guides-intro">{e(entry["guides_intro"])}</p>'
+            f'<ul class="home-guides-grid">{guide_cards}</ul>'
+            f'<div class="lang-bar"><a class="btn line" href="{journal_pages.index_path(self.lang)}">{e(entry["guides_cta"])} <span aria-hidden="true">{self.fwd}</span></a></div></div>'
+            f'</section>'
+        )
+
+    def home_editorial_bottom_html(self, entry_pages):
+        """Render Q&A and cross-language switcher at the bottom of homepages."""
+        entry = home_editorial().get(self.lang)
+        if not entry:
+            return ''
         qa_items = ''.join(
             f'<details class="faq-item"><summary>{e(item["q"])}</summary><p>{e(item["a"])}</p></details>'
             for item in entry.get('qa', ())
@@ -579,16 +594,15 @@ class Site:
             for l in LANGS if l != self.lang and l in entry_pages
         )
         return (
-            f'<section class="home-editorial" data-page="{PAPER}">'
-            f'<div class="home-editorial-head"><h2>{e(entry["about_h"])}</h2>{about_ps}</div>'
-            f'<div class="home-pillars-wrap"><h2>{e(entry["pillars_h"])}</h2><div class="home-pillars">{pillars}</div></div>'
-            f'<div class="home-guides"><h2>{e(entry["guides_h"])}</h2><p class="home-guides-intro">{e(entry["guides_intro"])}</p>'
-            f'<ul class="home-guides-grid">{guide_cards}</ul>'
-            f'<div class="lang-bar"><a class="btn line" href="{journal_pages.index_path(self.lang)}">{e(entry["guides_cta"])} <span aria-hidden="true">{self.fwd}</span></a></div></div>'
+            f'<section class="home-editorial home-editorial-bottom" data-page="{PAPER}">'
             f'<div class="home-qa"><h2>{e(entry["qa_h"])}</h2>{qa_items}</div>'
             f'<div class="home-langs"><h2>{e(entry["langs_h"])}</h2><div class="lang-bar">{others}</div></div>'
             f'</section>'
         )
+
+    def home_editorial_html(self, entry_pages):
+        """Render combined homepage editorial top + bottom sections."""
+        return self.home_editorial_top_html() + self.home_editorial_bottom_html(entry_pages)
 
     def card(self, p, *, eager=False, priority=False):
         s480 = img(p['image'], 480)
@@ -610,6 +624,14 @@ class Site:
         carousel = CAROUSEL_COPY[self.lang]
         guide_label = {'ru': 'Памятки перед покупкой', 'en': 'Buying guides', 'pt': 'Guias de compra',
                        'es': 'Guías de compra', 'fr': 'Guides d’achat', 'he': 'מדריכי קנייה'}[self.lang]
+        he_entry = home_editorial().get(self.lang, {})
+        hero_lead = he_entry.get('hero_lead') or u['drop_text']
+        hero_cards = he_entry.get('hero_cards') or ()
+        hero_highlights = (
+            f'<ul class="drop-highlights">'
+            + ''.join(f'<li><strong>{e(c["k"])}</strong><span>{e(c["v"])}</span></li>' for c in hero_cards)
+            + '</ul>'
+        ) if hero_cards else ''
         hero = (f'<section class="drop" id="drop" data-page="{PAPER}"><div class="drop-bar">'
                 # The cached page outlives midnight, so "today's drop" holds only while the date is really today;
                 # after that the same eyebrow reads "latest drop" (server picks at build, the browser re-picks live).
@@ -622,11 +644,11 @@ class Site:
                 f'role="timer" aria-live="off">--:--:--</b></p></div>'
                 f'{self.rope(drop, eager=True, lead=True)}<div class="drop-copy">'
                 f'<h1>{e(u["hero_heading"])}</h1><div class="drop-summary">'
-                f'<p class="drop-sub">{e(u["drop_text"])}</p>'
+                f'<p class="drop-sub">{e(hero_lead)}</p>'
                 f'<div class="drop-actions"><a class="btn" href="{L.catalog_path(self.lang)}#todo">{e(u["hero_cta"])}</a>'
                 f'<a class="guide-link" href="{journal_pages.index_path(self.lang)}">{e(guide_label)} <span aria-hidden="true">{self.fwd}</span></a></div>'
                 f'<p class="drop-frequency">{e(u["hero_note"])}</p>'
-                f'</div></div></section>')
+                f'</div>{hero_highlights}</div></section>')
 
         # Phone only: every world one tap away, right under today's drop.
         tiles = ''.join(
@@ -685,27 +707,28 @@ class Site:
 
         listing = {'@type': 'ItemList', 'name': u['title'], 'numberOfItems': len(items),
                    'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(items)]}
-        body = hero + cats + day + ''.join(bands) + everything
         catalogs = {l: L.catalog_path(l) for l in LANGS}
         entry_pages = {**catalogs, 'en': '/'}
         overrides = market_seo.load_overrides()
+        ed_top = self.home_editorial_top_html()
+        ed_bottom = self.home_editorial_bottom_html(entry_pages)
+        body = hero + cats + day + ed_top + ''.join(bands) + everything
         if self.root:
-            # The front page is not a second catalog: the newest finds, a few words about the site, and the way on.
+            # The front page is not a second catalog: the newest finds, editorial showcase near the top, and the way on.
             r, catalog, newest = ROOT_EN, L.catalog_path(self.lang), items[:12]
             fresh = (f'<section class="all" id="new" data-page="{PAPER}"><h2 class="d rv">{e(r["fresh"][0])} <span class="s">{e(r["fresh"][1])}</span></h2>'
                      f'<div class="grid">{"".join(self.card(p) for p in newest)}</div>'
                      f'<div class="lang-bar"><a class="btn" href="{catalog}#todo">{e(r["all_btn"].format(n=len(items)))} <span aria-hidden="true">{self.fwd}</span></a>'
                      f'<a class="btn line" href="{journal_pages.index_path(self.lang)}">{e(r["guides"])}</a></div></section>')
-            intro = self.home_editorial_html(entry_pages)
-            if not intro:
+            if not ed_bottom:
                 others = ''.join(f'<a class="btn line" href="{L.catalog_path(l)}" hreflang="{L.LANGUAGES[l][0]}" lang="{L.LANGUAGES[l][0]}">{e(L.LANGUAGES[l][2])}</a>'
                                  for l in LANGS if l != self.lang)
-                intro = (f'<section class="about home-about"><h2>{e(r["about_h"])}</h2>{"".join(f"<p>{e(t)}</p>" for t in r["about"])}'
-                         f'<h2>{e(r["how_h"])}</h2><p>{e(r["how"])}</p>'
-                         f'<p><a class="guide-link" href="{journal_pages.article_path("en", "wifi-repeater-buying-guide")}">'
-                         'How to choose and place a Wi-Fi range extender</a></p>'
-                         f'<h2>{e(r["langs_h"])}</h2><div class="lang-bar">{others}</div></section>')
-            root_body = hero + cats + day + ''.join(bands) + fresh + intro
+                ed_bottom = (f'<section class="about home-about"><h2>{e(r["about_h"])}</h2>{"".join(f"<p>{e(t)}</p>" for t in r["about"])}'
+                             f'<h2>{e(r["how_h"])}</h2><p>{e(r["how"])}</p>'
+                             f'<p><a class="guide-link" href="{journal_pages.article_path("en", "wifi-repeater-buying-guide")}">'
+                             'How to choose and place a Wi-Fi range extender</a></p>'
+                             f'<h2>{e(r["langs_h"])}</h2><div class="lang-bar">{others}</div></section>')
+            root_body = hero + cats + day + ed_top + ''.join(bands) + fresh + ed_bottom
             root_listing = {'@type': 'ItemList', 'name': r['title'], 'numberOfItems': len(newest),
                             'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(newest)]}
             schema = {'@context': 'https://schema.org', '@graph': [
@@ -748,7 +771,7 @@ class Site:
                 )
             body = head + cats + everything + cat_note
         else:
-            body += self.home_editorial_html(entry_pages)
+            body += ed_bottom
         hub_schema = market_seo.collection_schema(origin=ORIGIN, path=self.home(), title=home_title, description=desc,
                                                   lang=L.LANGUAGES[self.lang][0],
                                                   items=[(self.ppath(p), p['name']) for p in items],
@@ -943,9 +966,12 @@ def proofread():
     he_data = home_editorial()
     for lang in LANGS:
         entry = he_data.get(lang, {})
-        for field in ('about_h', 'pillars_h', 'guides_h', 'guides_intro', 'guides_cta', 'qa_h', 'langs_h'):
+        for field in ('hero_lead', 'about_h', 'pillars_h', 'guides_h', 'guides_intro', 'guides_cta', 'qa_h', 'langs_h'):
             if entry.get(field):
                 check_texts.check_string(entry[field], lang, f'home/{lang}/{field}', problems)
+        for idx, card in enumerate(entry.get('hero_cards', ())):
+            check_texts.check_string(card['k'], lang, f'home/{lang}/hero_card/{idx}/k', problems)
+            check_texts.check_string(card['v'], lang, f'home/{lang}/hero_card/{idx}/v', problems)
         for idx, part in enumerate(entry.get('about', ())):
             check_texts.check_string(part, lang, f'home/{lang}/about/{idx}', problems)
         for idx, item in enumerate(entry.get('pillars', ())):
