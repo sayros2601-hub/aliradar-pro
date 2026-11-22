@@ -100,6 +100,7 @@ ROOT_TITLE, ROOT_DESC = ROOT_EN['title'], ROOT_EN['desc']
 LONG_RU_FILE = ROOT / 'tools/ru_long_copy.json'
 EDITORIAL_FILE = ROOT / 'tools/product_editorial.json'
 CATEGORY_LONG_FILE = ROOT / 'tools/category_long_copy.json'
+HOME_EDITORIAL_FILE = ROOT / 'tools/home_editorial.json'
 
 
 _SVG = '<svg viewBox="0 0 24 24" aria-hidden="true">{}</svg>'
@@ -263,6 +264,13 @@ def category_long_map():
                     {lang: text.strip() for lang, text in by_lang.items() if isinstance(text, str) and text.strip()}
                 )
     return merged
+
+
+def home_editorial():
+    """Load 6-language homepage editorial copy and standalone /en/ catalog note."""
+    if not HOME_EDITORIAL_FILE.exists():
+        return {}
+    return json.loads(HOME_EDITORIAL_FILE.read_text(encoding='utf-8'))
 
 
 def tint(image):
@@ -523,6 +531,65 @@ class Site:
         links = ''.join(f'<li><a href="{href}">{e(heading)}</a></li>' for href, heading in found)
         return f'<section class="p-more p-guides"><div><h2>{e(GUIDES_HEADING[self.lang])}</h2><ul>{links}</ul></div></section>'
 
+    def home_editorial_html(self, entry_pages):
+        """Render substantial unique editorial copy, featured buying guides, and buyer Q&A for homepage routes."""
+        entry = home_editorial().get(self.lang)
+        if not entry:
+            return ''
+        about_ps = ''.join(f'<p>{e(p)}</p>' for p in entry.get('about', ()))
+        pillars = ''.join(
+            f'<article class="home-pillar"><h3>{e(item["h"])}</h3><p>{e(item["p"])}</p></article>'
+            for item in entry.get('pillars', ())
+        )
+        priority_slugs = (
+            'wifi-repeater-buying-guide',
+            'portable-camping-shower-buying-guide',
+            'phone-lock-box-digital-detox-guide',
+            'magnetic-levitating-planter-guide',
+            'home-coffee-kitchen-tools-guide',
+            'diy-measurement-precision-tools-guide',
+            'home-balance-reflex-training-guide',
+            'smart-pet-care-gadgets-guide',
+            'scalp-and-daily-grooming-tools-guide',
+            'usb-c-buying-checklist',
+        )
+        by_slug = {art['slug']: art for art in journal_pages.all_articles()}
+        picked, seen = [], set()
+        for slug_id in (*priority_slugs, *by_slug.keys()):
+            if slug_id in seen or slug_id not in by_slug:
+                continue
+            art = by_slug[slug_id]
+            tr = art['translations'].get(self.lang)
+            if not tr:
+                continue
+            picked.append((journal_pages.article_path(self.lang, slug_id), tr[2], tr[1]))
+            seen.add(slug_id)
+            if len(picked) >= 8:
+                break
+        guide_cards = ''.join(
+            f'<li><a href="{href}"><h3>{e(heading)}</h3><p>{e(desc)}</p></a></li>'
+            for href, heading, desc in picked
+        )
+        qa_items = ''.join(
+            f'<details class="faq-item"><summary>{e(item["q"])}</summary><p>{e(item["a"])}</p></details>'
+            for item in entry.get('qa', ())
+        )
+        others = ''.join(
+            f'<a class="btn line" href="{entry_pages[l]}" hreflang="{L.LANGUAGES[l][0]}" lang="{L.LANGUAGES[l][0]}">{e(L.LANGUAGES[l][2])}</a>'
+            for l in LANGS if l != self.lang and l in entry_pages
+        )
+        return (
+            f'<section class="home-editorial" data-page="{PAPER}">'
+            f'<div class="home-editorial-head"><h2>{e(entry["about_h"])}</h2>{about_ps}</div>'
+            f'<div class="home-pillars-wrap"><h2>{e(entry["pillars_h"])}</h2><div class="home-pillars">{pillars}</div></div>'
+            f'<div class="home-guides"><h2>{e(entry["guides_h"])}</h2><p class="home-guides-intro">{e(entry["guides_intro"])}</p>'
+            f'<ul class="home-guides-grid">{guide_cards}</ul>'
+            f'<div class="lang-bar"><a class="btn line" href="{journal_pages.index_path(self.lang)}">{e(entry["guides_cta"])} <span aria-hidden="true">{self.fwd}</span></a></div></div>'
+            f'<div class="home-qa"><h2>{e(entry["qa_h"])}</h2>{qa_items}</div>'
+            f'<div class="home-langs"><h2>{e(entry["langs_h"])}</h2><div class="lang-bar">{others}</div></div>'
+            f'</section>'
+        )
+
     def card(self, p, *, eager=False, priority=False):
         s480 = img(p['image'], 480)
         # Cards are ~38vw wide in the two-column phone grid and at most 240px on desktop.
@@ -629,13 +696,15 @@ class Site:
                      f'<div class="grid">{"".join(self.card(p) for p in newest)}</div>'
                      f'<div class="lang-bar"><a class="btn" href="{catalog}#todo">{e(r["all_btn"].format(n=len(items)))} <span aria-hidden="true">{self.fwd}</span></a>'
                      f'<a class="btn line" href="{journal_pages.index_path(self.lang)}">{e(r["guides"])}</a></div></section>')
-            others = ''.join(f'<a class="btn line" href="{L.catalog_path(l)}" hreflang="{L.LANGUAGES[l][0]}" lang="{L.LANGUAGES[l][0]}">{e(L.LANGUAGES[l][2])}</a>'
-                             for l in LANGS if l != self.lang)
-            intro = (f'<section class="about home-about"><h2>{e(r["about_h"])}</h2>{"".join(f"<p>{e(t)}</p>" for t in r["about"])}'
-                     f'<h2>{e(r["how_h"])}</h2><p>{e(r["how"])}</p>'
-                     f'<p><a class="guide-link" href="{journal_pages.article_path("en", "wifi-repeater-buying-guide")}">'
-                     'How to choose and place a Wi-Fi range extender</a></p>'
-                     f'<h2>{e(r["langs_h"])}</h2><div class="lang-bar">{others}</div></section>')
+            intro = self.home_editorial_html(entry_pages)
+            if not intro:
+                others = ''.join(f'<a class="btn line" href="{L.catalog_path(l)}" hreflang="{L.LANGUAGES[l][0]}" lang="{L.LANGUAGES[l][0]}">{e(L.LANGUAGES[l][2])}</a>'
+                                 for l in LANGS if l != self.lang)
+                intro = (f'<section class="about home-about"><h2>{e(r["about_h"])}</h2>{"".join(f"<p>{e(t)}</p>" for t in r["about"])}'
+                         f'<h2>{e(r["how_h"])}</h2><p>{e(r["how"])}</p>'
+                         f'<p><a class="guide-link" href="{journal_pages.article_path("en", "wifi-repeater-buying-guide")}">'
+                         'How to choose and place a Wi-Fi range extender</a></p>'
+                         f'<h2>{e(r["langs_h"])}</h2><div class="lang-bar">{others}</div></section>')
             root_body = hero + cats + day + ''.join(bands) + fresh + intro
             root_listing = {'@type': 'ItemList', 'name': r['title'], 'numberOfItems': len(newest),
                             'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(newest)]}
@@ -661,7 +730,25 @@ class Site:
             # belong to the English front page at '/', so repeating them here only made two near-identical pages.
             head = (f'<section class="c-hero"><h1 class="d">{e(CATALOG_EN["h1"])} <span class="s">{e(u["count"](n=len(items)))}</span></h1>'
                     f'<p class="t">{e(CATALOG_EN["intro"])}</p></section>')
-            body = head + cats + everything
+            cat_en = home_editorial().get('catalog_en')
+            cat_note = ''
+            if cat_en:
+                featured_en = []
+                for slug_id in ('wifi-repeater-buying-guide', 'portable-camping-shower-buying-guide', 'phone-lock-box-digital-detox-guide'):
+                    for art in journal_pages.all_articles():
+                        if art['slug'] == slug_id and 'en' in art['translations']:
+                            featured_en.append(f'<li><a href="{journal_pages.article_path("en", slug_id)}">{e(art["translations"]["en"][2])}</a></li>')
+                            break
+                cat_note = (
+                    f'<section class="c-about home-catalog-note"><h2>{e(cat_en["h2"])}</h2>'
+                    f'<p>{e(cat_en["p1"])}</p><p>{e(cat_en["p2"])}</p>'
+                    f'<h2>{e(cat_en["guides_h"])}</h2><ul>{"".join(featured_en)}</ul>'
+                    f'<div class="lang-bar"><a class="btn line" href="/en/journal/">{e(cat_en["guides_cta"])} <span aria-hidden="true">{self.fwd}</span></a>'
+                    f'<a class="btn line" href="/">{e(cat_en["front_cta"])}</a></div></section>'
+                )
+            body = head + cats + everything + cat_note
+        else:
+            body += self.home_editorial_html(entry_pages)
         hub_schema = market_seo.collection_schema(origin=ORIGIN, path=self.home(), title=home_title, description=desc,
                                                   lang=L.LANGUAGES[self.lang][0],
                                                   items=[(self.ppath(p), p['name']) for p in items],
@@ -853,6 +940,22 @@ def proofread():
             check_texts.check_string(text, lang, f'more heading/{lang}/{field}', problems)
     for lang, text in journal_pages.JOURNAL_RELATED_HEADING.items():
         check_texts.check_string(text, lang, f'journal related/{lang}', problems)
+    he_data = home_editorial()
+    for lang in LANGS:
+        entry = he_data.get(lang, {})
+        for field in ('about_h', 'pillars_h', 'guides_h', 'guides_intro', 'guides_cta', 'qa_h', 'langs_h'):
+            if entry.get(field):
+                check_texts.check_string(entry[field], lang, f'home/{lang}/{field}', problems)
+        for idx, part in enumerate(entry.get('about', ())):
+            check_texts.check_string(part, lang, f'home/{lang}/about/{idx}', problems)
+        for idx, item in enumerate(entry.get('pillars', ())):
+            check_texts.check_string(item['h'], lang, f'home/{lang}/pillar/{idx}/h', problems)
+            check_texts.check_string(item['p'], lang, f'home/{lang}/pillar/{idx}/p', problems)
+        for idx, item in enumerate(entry.get('qa', ())):
+            check_texts.check_string(item['q'], lang, f'home/{lang}/qa/{idx}/q', problems)
+            check_texts.check_string(item['a'], lang, f'home/{lang}/qa/{idx}/a', problems)
+    for key, text in he_data.get('catalog_en', {}).items():
+        check_texts.check_string(text, 'en', f'home/catalog_en/{key}', problems)
     for pid, entry in long_copy().items():
         for part in (entry['who'], *entry['check']):
             check_texts.check_string(part, 'ru', f'{pid}/more', problems)

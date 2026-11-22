@@ -7,16 +7,18 @@ from pathlib import Path
 from fluxixo_site.redesign.build_redesign import (
     CATEGORY_LONG_FILE,
     EDITORIAL_FILE,
+    HOME_EDITORIAL_FILE,
     LANGS,
     LONG_RU_FILE,
     Site,
     category_long_map,
+    home_editorial,
     load,
     product_editorial,
     proofread,
 )
 from fluxixo_site.redesign.ui_text import MORE_HEADINGS
-from fluxixo_site.tools import check_texts
+from fluxixo_site.tools import check_texts, verify_release
 from fluxixo_site.tools.journal_pages import (
     EXTRA_MULTILINGUAL_FILE,
     JOURNAL_RELATED_HEADING,
@@ -28,7 +30,7 @@ class EditorialSeoOverhaulTests(unittest.TestCase):
     @staticmethod
     def _check(where: str, text: str, lang: str) -> list[str]:
         probs: list[str] = []
-        check_texts.check_string(lang, where, text, probs)
+        check_texts.check_string(text, lang, where, probs)
         return probs
 
     def test_all_114_products_have_6_language_4_block_editorial_copy(self) -> None:
@@ -137,6 +139,62 @@ class EditorialSeoOverhaulTests(unittest.TestCase):
         site = Site(raw_items, data, "en")
         linked_products = sum(1 for p in site.items if site.guides(p))
         self.assertGreaterEqual(linked_products, 29)
+
+    def test_all_6_homepages_and_en_catalog_have_rich_editorial_copy(self) -> None:
+        self.assertTrue(HOME_EDITORIAL_FILE.is_file())
+        raw_json = HOME_EDITORIAL_FILE.read_text(encoding="utf-8")
+        for forbidden in verify_release.FORBIDDEN:
+            self.assertNotIn(forbidden, raw_json)
+
+        he_data = home_editorial()
+        raw_items, data = load()
+        entry_pages = {
+            "en": "/",
+            "ru": "/catalog/",
+            "pt": "/pt/",
+            "es": "/es/",
+            "fr": "/fr/",
+            "he": "/he/",
+        }
+
+        for lang in LANGS:
+            self.assertIn(lang, he_data, f"Missing {lang} in home_editorial.json")
+            entry = he_data[lang]
+            total_words = 0
+            for key in ("about_h", "pillars_h", "guides_h", "guides_intro", "guides_cta", "qa_h", "langs_h"):
+                val = (entry.get(key) or "").strip()
+                self.assertTrue(val, f"{lang}.{key} missing")
+                self.assertEqual(self._check(f"home.{lang}.{key}", val, lang), [])
+                total_words += len(val.split())
+            self.assertEqual(len(entry.get("about", [])), 2)
+            for idx, para in enumerate(entry["about"]):
+                self.assertGreaterEqual(len(para.split()), 45)
+                self.assertEqual(self._check(f"home.{lang}.about.{idx}", para, lang), [])
+                total_words += len(para.split())
+            self.assertEqual(len(entry.get("pillars", [])), 4)
+            for idx, pillar in enumerate(entry["pillars"]):
+                self.assertEqual(self._check(f"home.{lang}.pillar.{idx}.h", pillar["h"], lang), [])
+                self.assertEqual(self._check(f"home.{lang}.pillar.{idx}.p", pillar["p"], lang), [])
+                total_words += len(pillar["h"].split()) + len(pillar["p"].split())
+            self.assertEqual(len(entry.get("qa", [])), 4)
+            for idx, qa in enumerate(entry["qa"]):
+                self.assertEqual(self._check(f"home.{lang}.qa.{idx}.q", qa["q"], lang), [])
+                self.assertEqual(self._check(f"home.{lang}.qa.{idx}.a", qa["a"], lang), [])
+                total_words += len(qa["q"].split()) + len(qa["a"].split())
+            self.assertGreaterEqual(total_words, 360, f"Homepage {lang} editorial copy too short: {total_words}")
+
+            html = Site(raw_items, data, lang).home_editorial_html(entry_pages)
+            self.assertIn('<section class="home-editorial"', html)
+            self.assertEqual(html.count('class="home-pillar"'), 4)
+            self.assertEqual(html.count('<details class="faq-item">'), 4)
+            self.assertIn('<ul class="home-guides-grid">', html)
+            self.assertNotIn('<section class="product-faq"', html)
+
+        cat_en = he_data.get("catalog_en", {})
+        cat_words = sum(len(str(v).split()) for v in cat_en.values())
+        self.assertGreaterEqual(cat_words, 110)
+        for key, text in cat_en.items():
+            self.assertEqual(self._check(f"home.catalog_en.{key}", text, "en"), [])
 
     def test_proofread_passes_with_zero_errors(self) -> None:
         for lang in LANGS:

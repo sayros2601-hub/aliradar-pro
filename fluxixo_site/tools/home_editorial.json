@@ -1,0 +1,304 @@
+{
+  "ru": {
+    "about_h": "Что такое FLUXIXO и как устроен каталог",
+    "about": [
+      "FLUXIXO — независимая витрина практичных и редких находок с AliExpress для дома, кухни, мастерской, автомобиля, ухода за собой, спорта и прогулок с питомцами. Вместо бесконечной ленты однотипных карточек мы отбираем в 9 тематических миров только те устройства и аксессуары, у которых есть понятный сценарий применения, живые фотографии без студийного обмана и конкретные параметры для проверки перед покупкой.",
+      "Вся оплата, выбор комплектации, расчёт доставки и оформление заказа проходят напрямую на стороне продавца на AliExpress: мы не продаём товары со склада и не придумываем цены или рейтинги. На каждой странице товара на русском и ещё пяти языках собраны четыре честных раздела разбора: кому вещь действительно пригодится, в каких ситуациях от покупки лучше отказаться, чем она отличается от альтернатив и что именно сверить у продавца перед заказом. За переходы по партнёрским ссылкам мы можем получать комиссию."
+    ],
+    "pillars_h": "Четыре правила отбора перед публикацией",
+    "pillars": [
+      {
+        "h": "Отсеиваем случайные дубли",
+        "p": "В каждый из девяти миров попадает изделие с ясной механикой или полезной функцией, а не десять одинаковых наклеек от разных перепродавцов. Если у товара несколько версий по размеру, комплектации или разъёму, мы отдельно предупреждаем об этом в карточке."
+      },
+      {
+        "h": "Честно называем ограничения",
+        "p": "Ни одна вещь не подходит всем подряд. Поэтому в каждом обзоре есть отдельный блок о слабых местах и сценариях, когда прибор окажется лишним, не выдержит нагрузку или уступит привычному инструменту из ближайшего магазина."
+      },
+      {
+        "h": "Проверяем совместимость для России и СНГ",
+        "p": "Для электроприборов и зарядок уточняем поддержку сети 220 В и европейской вилки без переходников, для крепежа и насадок просим заранее измерить диаметр в mm или длину в cm, а у инструментов напоминаем проверить, входят ли аккумулятор и кабель Type-C в базовый лот."
+      },
+      {
+        "h": "Спокойный темп вместо потокового спама",
+        "p": "В день выходит до нескольких тщательно разобранных находок, а сложные категории мы связываем с подробными памятками в разделе «Журнал». Такой ритм позволяет спокойно сравнить варианты и не переплатить за случайную импульсивную покупку."
+      }
+    ],
+    "guides_h": "Подробные памятки и разборы в разделе «Журнал»",
+    "guides_intro": "Помимо отдельных карточек мы ведём тематические гиды, где на примерах разбираем типовые ошибки при заказе техники, инструмента, товаров для дома, кухни и питомцев.",
+    "guides_cta": "Открыть все статьи и памятки",
+    "qa_h": "Вопросы о витрине и заказах на AliExpress",
+    "qa": [
+      {
+        "q": "Где происходит покупка и кто отвечает за доставку?",
+        "a": "Кнопка перехода ведёт прямо в карточку продавца на AliExpress. Именно там отображаются итоговая цена с учётом доставки, сроки отправки, защита покупателя и условия возврата для вашего региона."
+      },
+      {
+        "q": "Почему на карточках FLUXIXO не указаны фиксированные цены?",
+        "a": "Стоимость на маркетплейсе меняется в зависимости от выбранной комплектации, купонов, курса валют и адреса получателя. Мы намеренно не замораживаем устаревшие цифры и рейтинги, чтобы вы видели актуальную сумму перед оплатой у продавца."
+      },
+      {
+        "q": "Что важнее всего сверить на странице продавца перед оплатой?",
+        "a": "Выберите нужную опцию лота по картинке (частая ошибка — заказать только корпус инструмента без аккумулятора или одну деталь вместо пары), уточните напряжение 220 В, тип вилки и реальные размеры детали в mm или cm."
+      },
+      {
+        "q": "Как часто обновляется коллекция на главной странице?",
+        "a": "Свежие поступления сразу поднимаются в верхнюю ленту «Дроп дня», а параллельно обновляются подробные руководства в разделе «Журнал». Все тексты в каталоге мы пересматриваем и дополняем по мере появления новых деталей комплектации."
+      }
+    ],
+    "langs_h": "Витрина FLUXIXO на других языках"
+  },
+  "en": {
+    "about_h": "What FLUXIXO Is and How This Catalog Works",
+    "about": [
+      "FLUXIXO is an editorial catalog of practical, genuinely clever AliExpress finds organized across nine everyday worlds: Tech, Home, Kitchen, Auto and Travel, Tools, Beauty Care, Sports, Outdoors, and Pets. Rather than dumping thousands of generic marketplace listings into an endless feed, each featured item is selected around a clear daily task and photographed against neutral backgrounds with direct seller attribution.",
+      "FLUXIXO does not hold inventory, process checkout, or invent prices and stock badges. Clicking a listing takes you directly to AliExpress, where the seller displays current US pricing, bundle variations, shipping windows, and buyer protection terms. Every product page pairs the summary with four original editorial sections—best use cases, honest trade-offs, practical alternatives, and a pre-order measurement check. We may earn a commission through affiliate links."
+    ],
+    "pillars_h": "Four Standards Behind Every Published Find",
+    "pillars": [
+      {
+        "h": "Function Over Novelty Clutter",
+        "p": "We prioritize tools, organizers, sensors, and compact appliances that solve a concrete bottleneck at a desk, sink, workbench, or campsite, filtering out lookalike clones with unclear specs or padded listing claims."
+      },
+      {
+        "h": "Explicit Limitations and When to Skip",
+        "p": "Every review states upfront who will actually get daily value from an item and when a simpler local tool, a full-size plug-in appliance, or skipping the purchase altogether makes far more practical sense."
+      },
+      {
+        "h": "US Voltage, Plug, and Sizing Checks",
+        "p": "Because AliExpress listings often bundle international options together, our checklists remind US buyers to verify 110–120V AC ratings, Type A or Type B plugs, imperial vs. metric millimeter dimensions, and whether USB Type-C cables or batteries are included."
+      },
+      {
+        "h": "Steady Curation Paired With Buying Guides",
+        "p": "Instead of flooding search indexes with shallow pages, we grow the catalog at a deliberate pace and connect complex categories to long-form Journal buying guides comparing mechanisms, materials, and common failure points."
+      }
+    ],
+    "guides_h": "Featured Buying Guides in the FLUXIXO Journal",
+    "guides_intro": "Before ordering multi-part gadgets, measurement gear, coffee tools, or pet accessories, explore our deep-dive Journal guides linked directly to relevant finds.",
+    "guides_cta": "Read all buying guides",
+    "qa_h": "Common Questions About Using FLUXIXO",
+    "qa": [
+      {
+        "q": "Does FLUXIXO sell products directly or handle returns?",
+        "a": "No. Purchases, payments, shipping, and dispute protection take place directly on AliExpress between you and the listing seller. FLUXIXO acts strictly as an independent editorial guide with outbound affiliate links."
+      },
+      {
+        "q": "Why are prices, star ratings, and stock counts omitted here?",
+        "a": "Marketplace totals shift continuously with bundle selection, store coupons, currency exchange, and destination shipping fees. Checking the live AliExpress checkout screen guarantees accurate numbers rather than stale cached estimates."
+      },
+      {
+        "q": "What is the biggest mistake shoppers make on AliExpress bundles?",
+        "a": "Clicking the lowest default price tile without noticing it selects only a spare nozzle, a tool body without battery pack, or a non-US plug variant. Always verify the selected photo and SKU text before checkout."
+      },
+      {
+        "q": "How do the front page and full catalog differ on the English site?",
+        "a": "This front page highlights the newest drop, the daily spotlight carousel, category previews, and buying guides, while the dedicated catalog view lists every item with instant keyword search and world filters."
+      }
+    ],
+    "langs_h": "Explore FLUXIXO in Other Languages"
+  },
+  "es": {
+    "about_h": "Qué es FLUXIXO y cómo funciona este catálogo",
+    "about": [
+      "FLUXIXO es un catálogo editorial de hallazgos útiles y poco comunes de AliExpress, organizados en nueve mundos cotidianos: Tecnología, Hogar, Cocina, Auto y viaje, Herramientas, Cuidado personal, Deporte, Aire libre y Mascotas. En lugar de acumular miles de publicaciones repetidas, seleccionamos artículos con un uso concreto en casa, la oficina o el taller, acompañados de fotografías limpias y criterios claros.",
+      "Nosotros no vendemos inventario propio ni inventamos precios fijos ni existencias falsas. Al pulsar el botón de compra entras directamente a AliExpress, donde el vendedor muestra el costo final con envío a México, las opciones del paquete y las condiciones de devolución. Cada ficha incluye cuatro bloques de análisis propios: dónde encaja mejor, sus limitaciones reales, cómo se compara frente a otras opciones y qué medidas o compatibilidad revisar antes de pagar. Podemos recibir una comisión mediante enlaces de afiliado."
+    ],
+    "pillars_h": "Cuatro criterios detrás de cada hallazgo publicado",
+    "pillars": [
+      {
+        "h": "Utilidad práctica por encima de adornos",
+        "p": "Elegimos herramientas, sensores, organizadores y aparatos compactos que resuelven un problema específico en la cocina, el escritorio o el auto, evitando duplicados idénticos sin especificaciones verificables."
+      },
+      {
+        "h": "Desventajas claras y cuándo evitarlo",
+        "p": "Ningún artículo sirve para todo. Cada reseña señala de frente qué materiales o potencias quedan cortos y en qué casos conviene mejor elegir un equipo más grande o comprarlo en una tienda local."
+      },
+      {
+        "h": "Revisión técnica pensada para México",
+        "p": "Recordamos confirmar compatibilidad con corriente de 110–127V, clavija tipo A o B cuando el producto trae eliminador, medidas exactas en centímetros o milímetros y si el cable USB Type-C o las baterías vienen en la caja."
+      },
+      {
+        "h": "Ritmo editorial y guías paso a paso",
+        "p": "Publicamos hallazgos nuevos con moderación y conectamos las categorías técnicas con guías extensas en el diario de compras para ayudarte a comparar variantes antes de levantar tu pedido."
+      }
+    ],
+    "guides_h": "Guías detalladas de compra antes de ordenar",
+    "guides_intro": "Antes de elegir básculas de café, herramientas de medición, accesorios inteligentes para mascotas o cajas con temporizador, consulta nuestras guías prácticas conectadas con productos reales del catálogo.",
+    "guides_cta": "Ver todas las guías del diario",
+    "qa_h": "Dudas frecuentes sobre el catálogo y los pedidos",
+    "qa": [
+      {
+        "q": "¿FLUXIXO procesa pagos o realiza envíos directos?",
+        "a": "No. Todo el proceso de pago, envío internacional o local, rastreo y protección al comprador ocurre dentro de AliExpress directamente con el vendedor seleccionado."
+      },
+      {
+        "q": "¿Por qué no aparecen precios exactos en estas páginas?",
+        "a": "En AliExpress el importe cambia según el color, la capacidad, los cupones de temporada y el código postal de entrega en México. Consultar la ficha en vivo evita mostrar montos desactualizados."
+      },
+      {
+        "q": "¿Cuál es el error más común al elegir variantes en AliExpress?",
+        "a": "Dejar seleccionada la opción más barata por defecto sin notar que solo corresponde a un repuesto, a una unidad sin batería o a una clavija distinta a la mexicana. Revisa siempre la foto exacta de la variante activa."
+      },
+      {
+        "q": "¿Cómo encuentro más rápido un artículo específico?",
+        "a": "Puedes filtrar el catálogo completo por palabra clave o entrar directamente al mundo que te interese desde la barra superior para comparar modelos parecidos lado a lado."
+      }
+    ],
+    "langs_h": "Explorar FLUXIXO en otros idiomas"
+  },
+  "pt": {
+    "about_h": "O que é o FLUXIXO e como selecionamos cada achadinho",
+    "about": [
+      "O FLUXIXO reúne achadinhos práticos e criativos do AliExpress organizados em nove mundos do dia a dia: Tecnologia, Casa, Cozinha, Carro e viagem, Ferramentas, Cuidados, Esportes, Ar livre e Pets. Em vez de repetir anúncios genéricos sem contexto, destacamos peças com função clara, fotos nítidas em fundo limpo e parâmetros objetivos para conferência.",
+      "O site não vende produtos em estoque próprio nem inventa preços, descontos ou avaliações fictícias. Ao abrir a oferta, você segue para a página oficial do vendedor no AliExpress, onde confere o valor atualizado, frete para o Brasil, taxas aplicáveis e regras de devolução. Cada ficha traz quatro blocos independentes: melhor cenário de uso, limitações honestas, comparação com alternativas e checklist pré-compra. Podemos receber comissão por links de afiliado."
+    ],
+    "pillars_h": "Quatro critérios editoriais antes da publicação",
+    "pillars": [
+      {
+        "h": "Função real em vez de cópias repetidas",
+        "p": "Priorizamos organizadores, medidores, acessórios automotivos e utensílios que resolvem uma tarefa concreta no escritório, na oficina ou na cozinha, filtrando anúncios vagos e clones sem dados mínimos."
+      },
+      {
+        "h": "Transparência sobre limites e quando evitar",
+        "p": "Cada análise mostra com clareza para quem o produto não funciona bem, seja por capacidade reduzida, material leve demais ou dependência de tomadas e peças específicas."
+      },
+      {
+        "h": "Conferência de voltagem e medidas para o Brasil",
+        "p": "Destacamos pontos práticos antes de fechar o carrinho: suporte a 110/220V ou bivolt automático, plugue padrão NBR 14136 quando houver fonte, dimensões exatas em centímetros e inclusão de cabo USB Type-C ou pilhas."
+      },
+      {
+        "h": "Curadoria constante e guias aprofundados",
+        "p": "Conectamos os achadinhos mais técnicos a guias completos de compra no Jornal do site, explicando tolerâncias, erros de seleção de kit e critérios de durabilidade."
+      }
+    ],
+    "guides_h": "Guias completos de compra no Jornal FLUXIXO",
+    "guides_intro": "Antes de escolher ferramentas de medição, equipamentos para café, coleiras inteligentes ou aparelhos de uso diário, leia nossos comparativos ligados diretamente aos itens do catálogo.",
+    "guides_cta": "Abrir todos os guias do Jornal",
+    "qa_h": "Perguntas práticas sobre pedidos e funcionamento",
+    "qa": [
+      {
+        "q": "A compra é feita dentro do FLUXIXO?",
+        "a": "Não. O FLUXIXO é um guia independente de curadoria. Pagamento, escolha de variante, envio e garantia de reembolso acontecem integralmente no ambiente do AliExpress."
+      },
+      {
+        "q": "Por que vocês não exibem preços fixos ou contagem de estoque?",
+        "a": "Os valores variam a todo instante conforme a opção selecionada no anúncio, cupons ativos, câmbio e frete para o seu CEP. Preferimos não mostrar números desatualizados nem estimativas inventadas."
+      },
+      {
+        "q": "O que vale mais atenção ao clicar nas variações do vendedor?",
+        "a": "Muitos anúncios usam o menor preço na capa apenas para um refil, estojo vazio ou corpo sem bateria. Confira sempre a imagem vinculada à variação marcada antes de concluir o pedido."
+      },
+      {
+        "q": "Como acompanhar as novidades adicionadas ao catálogo?",
+        "a": "Os itens recém-publicados ficam em destaque no topo da página inicial e nos respectivos mundos temáticos, enquanto os guias aprofundados reúnem seleções completas por assunto."
+      }
+    ],
+    "langs_h": "Ver o FLUXIXO em outros idiomas"
+  },
+  "fr": {
+    "about_h": "Qu’est-ce que FLUXIXO et comment fonctionne le catalogue ?",
+    "about": [
+      "FLUXIXO sélectionne des trouvailles pratiques et ingénieuses sur AliExpress et les classe dans neuf univers du quotidien : Tech, Maison, Cuisine, Auto et voyage, Outils, Soins, Sport, Plein air et Animaux. Plutôt que d’empiler des milliers de références anonymes, chaque fiche repose sur un usage concret, des visuels détourés et des points de contrôle techniques faciles à vérifier.",
+      "Nous ne gérons ni stock ni paiement et n’affichons aucun tarif ou avis inventé. Chaque bouton d’achat redirige directement vers la fiche du vendeur sur AliExpress, où figurent le prix à jour en euros, les frais d’envoi vers la France, la TVA et les modalités de retour. Chaque page produit détaille quatre volets d’analyse : usages adaptés, limites réelles, comparaison avec d’autres solutions et vérifications avant commande. Nous pouvons percevoir une commission via les liens d’affiliation."
+    ],
+    "pillars_h": "Quatre exigences éditoriales pour chaque fiche",
+    "pillars": [
+      {
+        "h": "Pertinence technique avant tout",
+        "p": "Nous retenons des outils de mesure, accessoires de bureau, rangements malins ou équipements compacts apportant un vrai gain pratique, en écartant les doublons sans caractéristiques exploitables."
+      },
+      {
+        "h": "Limites d’usage exposées sans détour",
+        "p": "Chaque présentation précise dans quels cas l’accessoire reste trop juste en puissance, en capacité ou en encombrement, afin d’éviter une commande inutile lorsque le besoin demande un appareil plus robuste."
+      },
+      {
+        "h": "Vérifications électriques et dimensionnelles pour l’Europe",
+        "p": "Nos rappels insistent sur l’alimentation 230V, le choix de la prise européenne de type E lorsque le bloc secteur est fourni, les dimensions exactes en millimètres et la présence ou non du câble USB Type-C."
+      },
+      {
+        "h": "Des guides détaillés reliés au catalogue",
+        "p": "Les catégories techniques s’appuient sur nos guides complets du Journal, qui expliquent comment lire les fiches vendeurs, comparer les mécanismes et choisir la bonne déclinaison."
+      }
+    ],
+    "guides_h": "Guides d’achat complets dans le Journal FLUXIXO",
+    "guides_intro": "Avant de commander un outil de précision, un accessoire de café ou un équipement pour animal de compagnie, parcourez nos dossiers pratiques reliés aux fiches correspondantes.",
+    "guides_cta": "Consulter tous les guides du Journal",
+    "qa_h": "Questions fréquentes sur les fiches et les achats",
+    "qa": [
+      {
+        "q": "Le règlement s’effectue-t-il sur FLUXIXO ?",
+        "a": "Non : la transaction, l’expédition, le suivi du colis et la garantie acheteur s’effectuent directement sur AliExpress auprès du vendeur choisi."
+      },
+      {
+        "q": "Pourquoi n’y a-t-il ni prix fixe ni jauge de stock affichée ici ?",
+        "a": "Les montants changent selon la déclinaison choisie, les remises ponctuelles et l’adresse de livraison. Ne pas figer ces chiffres garantit une consultation fiable directement au moment du panier."
+      },
+      {
+        "q": "Quelle erreur revient le plus souvent lors du choix d’une option sur AliExpress ?",
+        "a": "Sélectionner le tarif d’appel correspondant uniquement à une recharge, à un embout isolé ou à une prise étrangère. Contrôlez toujours l’intitulé et la vignette de la déclinaison cochée."
+      },
+      {
+        "q": "Comment explorer rapidement les neuf univers du catalogue ?",
+        "a": "Utilisez la barre de recherche par mot-clé ci-dessus ou les filtres par univers pour comparer en un coup d’œil les produits disponibles dans la même famille."
+      }
+    ],
+    "langs_h": "Parcourir FLUXIXO dans une autre langue"
+  },
+  "he": {
+    "about_h": "מה זה FLUXIXO ואיך בנוי הקטלוג",
+    "about": [
+      "אתר FLUXIXO מרכז מציאות שימושיות ומדויקות מ־AliExpress בתוך תשעה עולמות ברורים: טכנולוגיה, בית, מטבח, רכב ונסיעות, כלי עבודה, טיפוח, ספורט, שטח וטבע וחיות מחמד. במקום להעמיס אלפי דפים שחוזרים על עצמם, כל פריט נבחר לפי שימוש יומיומי אמיתי בבית, בעבודה או בשטח, עם צילום נקי והנחיות בדיקה ממוקדות של מידות, חיבורים ותכולת ערכה לפני שמזמינים.",
+      "האתר אינו מוכר סחורה ממלאי פרטי ואינו מציג מחירים או דירוגים מומצאים. הלחיצה על הקישור מעבירה ישירות לדף המוכר ב־AliExpress, שם מוצגים המחיר העדכני, תנאי המשלוח לישראל, אפשרויות הערכה והגנת הקונה. בכל דף מוצר תמצאו ארבעה חלקי סקירה מקוריים: למי הפריט מתאים, מגבלות שכדאי להכיר, השוואה לחלופות ורשימת בדיקות לפני הזמנה. ייתכן שנקבל עמלה מקישורי שותפים."
+    ],
+    "pillars_h": "ארבעה עקרונות שמנחים כל פרסום באתר",
+    "pillars": [
+      {
+        "h": "תועלת ברורה במקום שכפולים מיותרים",
+        "p": "אנו מתמקדים בגאדג׳טים, כלי מדידה, פתרונות אחסון ואביזרי בית עם תרומה מוחשית לשגרה, ומסננים מודעות כפולות או מוצרים חסרי מפרט אמין."
+      },
+      {
+        "h": "הצגת חסרונות ומתי עדיף לוותר",
+        "p": "אף מוצר לא מתאים לכולם. בכל סקירה מופיע סעיף ברור שמציין מגבלות הספק, חומר או נפח, כדי שתדעו מראש מתי כדאי לדלג או לבחור פתרון מקומי."
+      },
+      {
+        "h": "בדיקות מתח, תקע ומידות לישראל",
+        "p": "בדפי המוצרים ובמדריכים אנו מזכירים לוודא התאמה למתח 230V, בחירה בתקע אירופאי או ישראלי היכן שמצורף ספק, מדידה במילימטרים ובסנטימטרים והאם כבל USB Type-C או סוללות כלולים בערכה."
+      },
+      {
+        "h": "מדריכי קנייה עמוקים המקושרים לדפי המוצר",
+        "p": "קטגוריות טכניות מקושרות למאמרי קנייה מפורטים במגזין של FLUXIXO, שבהם מוסברים הבדלים בין מנגנונים, טעויות נפוצות בבחירת וריאנט וטיפים לבדיקת מפרט."
+      }
+    ],
+    "guides_h": "מדריכי קנייה נבחרים במגזין FLUXIXO",
+    "guides_intro": "לפני שמזמינים מאזני קפה, כלי מדידה מדויקים, ציוד שטח או גאדג׳טים לחיות מחמד, כדאי לקרוא את המדריכים המפורטים שלנו המקושרים למוצרי הקטלוג.",
+    "guides_cta": "לכל מדריכי הקנייה",
+    "qa_h": "שאלות נפוצות על השימוש באתר ובהזמנות",
+    "qa": [
+      {
+        "q": "האם התשלום והמשלוח מתבצעים דרך FLUXIXO?",
+        "a": "לא. FLUXIXO הוא קטלוג עריכה והמלצות עצמאי; ההזמנה, התשלום, המשלוח וההחזרות מתבצעים ישירות באתר AliExpress מול המוכר."
+      },
+      {
+        "q": "מדוע לא מופיעים כאן מחירים קבועים או כמות במלאי?",
+        "a": "המחיר במודעות משתנה כל הזמן לפי הוריאנט הנבחר, קופונים, שער המרה ודמי משלוח לישראל. עדיף לבדוק את הסכום המדויק בזמן אמת בדף המוכר."
+      },
+      {
+        "q": "מה הטעות השכיחה ביותר בבחירת אפשרות בדף המוצר?",
+        "a": "בחירה אוטומטית במחיר הפתיחה הזול ביותר בלי לשים לב שמדובר בחלק חילוף בלבד, בגוף כלי ללא סוללה או בתקע שאינו מתאים. תמיד בדקו את תמונת הוריאנט המסומן."
+      },
+      {
+        "q": "איך למצוא במהירות פריטים דומים באותו תחום?",
+        "a": "אפשר לחפש לפי מילת מפתח בשורת החיפוש למעלה או לסנן לפי אחד מתשעת העולמות כדי להשוות מוצרים קרובים זה לזה."
+      }
+    ],
+    "langs_h": "FLUXIXO בשפות נוספות"
+  },
+  "catalog_en": {
+    "h2": "How to search and compare items across the complete English catalog",
+    "p1": "This catalog view gathers all curated finds from every world onto one searchable page so you can filter by category, scan neutral-background product photos side by side, and inspect full four-part editorial reviews covering practical use cases, honest trade-offs, comparable alternatives, and pre-order US voltage and millimeter sizing checks.",
+    "p2": "Rather than quoting stale prices or star counts, every listing sends you straight to the seller page on AliExpress for live US checkout options and shipping estimates. Looking for today's spotlight carousel or deep-dive comparisons instead? Return to the FLUXIXO front page or open our long-form Journal buying guides before choosing a bundle variant.",
+    "guides_h": "Popular Journal buying guides",
+    "guides_cta": "Browse all Journal guides",
+    "front_cta": "Back to FLUXIXO front page"
+  }
+}
