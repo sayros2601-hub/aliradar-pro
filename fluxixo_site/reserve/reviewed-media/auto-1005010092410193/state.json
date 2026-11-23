@@ -215,13 +215,74 @@
       "source_title_sha256": "b6748cf5c80e0ac578af90d4dc7ed5143a108c37af5a48601fc3c785860b7a46",
       "reviewed_at": 1795436269.923911
     },
-    {}
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the wrist forearm blaster in use, clearly showing the functional setup and supported outcome for the buyer."
+        ]
+      },
+      "source_file": "reference-52971576995a9d4e9d24d66d6b6a26870c082935be72b92195c016a1493bea5a.png",
+      "source_sha256": "52971576995a9d4e9d24d66d6b6a26870c082935be72b92195c016a1493bea5a",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sebc26825adaf4c88924f224db4aeba68V.png",
+      "original_sha256": "b59021e7323d598db8c4748c6fe200a0ae3c678bba7a98edadff5077bb69133b",
+      "output_file": "result-bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee.webp",
+      "image_sha256": "bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee",
+      "metrics": {
+        "fg_width": 700,
+        "fg_height": 740,
+        "fg_max_side": 740,
+        "fg_min_side": 700,
+        "upscale_ratio": 1.203,
+        "sharpness": 34.645,
+        "fg_mean_luma": 119.4,
+        "fg_luma_std": 72.3,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.143,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the wrist forearm blaster in use, clearly showing the functional setup and supported outcome for the buyer."
+        ]
+      },
+      "prior_image_sha256": [
+        "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa",
+        "a8e6edff105ecd9710f1fe7f4b57b736f08caa61f2ddcbb7053a8f7bb9cc0b79"
+      ],
+      "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+      "source_title_sha256": "b6748cf5c80e0ac578af90d4dc7ed5143a108c37af5a48601fc3c785860b7a46",
+      "reviewed_at": 1795436277.569939
+    }
   ],
   "created_at": 1795435926.7389054,
   "deferrals": 0,
   "lease_owner": "8adc0997fc07418bb81a08aa555c1dec",
-  "lease_until": 1795437726.738923,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795522328.472313,
   "source_version": "4c294469126565887f6f4c86a868eceea52dbdfcf60b090932e537c355575377",
@@ -258,8 +319,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "52971576995a9d4e9d24d66d6b6a26870c082935be72b92195c016a1493bea5a",
+            "at": 1795436271.5522974,
+            "code": "pending_review",
+            "image_sha256": "bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -285,23 +354,21 @@
       }
     },
     "bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee": {
-      "opportunities": 1,
-      "last_code": "review_rejected",
+      "opportunities": 2,
+      "last_code": "accepted",
       "assessment": {
-        "accepted": false,
-        "identity": false,
-        "shape": false,
-        "completeness": false,
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
         "color": true,
         "markings": true,
-        "role": false,
+        "role": true,
         "quality": true,
         "distinct": true,
-        "material_defects": [
-          "The image incorrectly includes an inset of an entirely different fitness device (a spring arm exerciser) that is not part of the wrist forearm roller product."
-        ],
+        "material_defects": [],
         "reasons": [
-          "The product composite image features an extraneous and unrelated spring exerciser inset on the left, which creates confusion regarding the actual product variant and components."
+          "The image accurately depicts the wrist forearm blaster in use, clearly showing the functional setup and supported outcome for the buyer."
         ]
       }
     },
@@ -330,5 +397,6 @@
     "file": "reference-f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75.png",
     "sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
     "original_sha256": "4596b7a8435db5a4ec5cdf77f23dee930d1c13dc51268bc75959bd7fc0fa881f"
-  }
+  },
+  "reason": ""
 }
