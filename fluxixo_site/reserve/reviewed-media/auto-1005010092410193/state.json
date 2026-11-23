@@ -88,31 +88,92 @@
   "slots": [
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75.png",
-        "source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se43428bbbccc41af8b9a5c482f2193354.jpg",
-        "original_sha256": "4596b7a8435db5a4ec5cdf77f23dee930d1c13dc51268bc75959bd7fc0fa881f",
-        "output_file": "hero-e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa.webp",
-        "image_sha256": "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa",
-        "metrics": {
-          "fg_width": 767,
-          "fg_height": 718,
-          "fg_max_side": 767,
-          "fg_min_side": 718,
-          "upscale_ratio": 1.16,
-          "sharpness": 18.375,
-          "fg_mean_luma": 66.44,
-          "fg_luma_std": 52.57,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.054,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the requested wrist forearm blaster fitness equipment with all correct components, colors, and branding.",
+          "The product variant matches the reference images and successfully fulfills the hero role."
+        ]
+      },
+      "source_file": "reference-f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75.png",
+      "source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se43428bbbccc41af8b9a5c482f2193354.jpg",
+      "original_sha256": "4596b7a8435db5a4ec5cdf77f23dee930d1c13dc51268bc75959bd7fc0fa881f",
+      "output_file": "hero-e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa.webp",
+      "image_sha256": "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa",
+      "metrics": {
+        "fg_width": 767,
+        "fg_height": 718,
+        "fg_max_side": 767,
+        "fg_min_side": 718,
+        "upscale_ratio": 1.16,
+        "sharpness": 18.375,
+        "fg_mean_luma": 66.44,
+        "fg_luma_std": 52.57,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.054,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the requested wrist forearm blaster fitness equipment with all correct components, colors, and branding.",
+          "The product variant matches the reference images and successfully fulfills the hero role."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+      "source_title_sha256": "b6748cf5c80e0ac578af90d4dc7ed5143a108c37af5a48601fc3c785860b7a46",
+      "reviewed_at": 1795436214.3549044
     },
-    {},
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": false,
+        "identity": false,
+        "shape": false,
+        "completeness": false,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [
+          "The image incorrectly includes an inset of an entirely different fitness device (a spring arm exerciser) that is not part of the wrist forearm roller product."
+        ],
+        "reasons": [
+          "The product composite image features an extraneous and unrelated spring exerciser inset on the left, which creates confusion regarding the actual product variant and components."
+        ]
+      },
+      "rejected_images": [
+        "bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee"
+      ],
+      "rejected_sources": [
+        "52971576995a9d4e9d24d66d6b6a26870c082935be72b92195c016a1493bea5a"
+      ],
+      "feedback": "Restore the exact primary-reference product variant; do not substitute another product. Restore the exact reference shape and proportions; do not invent geometry. Restore all reference product parts without adding accessories. Show the documented use or result; if unsupported, show a truthful functional detail."
+    },
     {}
   ],
   "created_at": 1795435926.7389054,
@@ -138,8 +199,21 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 2,
+        "events": [
+          {
+            "source_sha256": "52971576995a9d4e9d24d66d6b6a26870c082935be72b92195c016a1493bea5a",
+            "at": 1795436214.356156,
+            "code": "pending_review",
+            "image_sha256": "bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee"
+          },
+          {
+            "source_sha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
+            "at": 1795436248.0512235,
+            "code": "reserved"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -150,7 +224,44 @@
   "review_attempts": {
     "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the requested wrist forearm blaster fitness equipment with all correct components, colors, and branding.",
+          "The product variant matches the reference images and successfully fulfills the hero role."
+        ]
+      }
+    },
+    "bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee": {
+      "opportunities": 1,
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": false,
+        "shape": false,
+        "completeness": false,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [
+          "The image incorrectly includes an inset of an entirely different fitness device (a spring arm exerciser) that is not part of the wrist forearm roller product."
+        ],
+        "reasons": [
+          "The product composite image features an extraneous and unrelated spring exerciser inset on the left, which creates confusion regarding the actual product variant and components."
+        ]
+      }
     }
   },
   "identity_source": {
