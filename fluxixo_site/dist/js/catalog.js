@@ -5,6 +5,193 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005010092410193",
+      "name": "Тренажер для запястий и предплечий",
+      "headline": [
+        "Сила рук и хват",
+        "Домашняя тренировка"
+      ],
+      "description": "Тренажер предназначен для проработки мышц предплечий и укрепления хвата с помощью навешиваемых отягощений. Конструкция состоит из прочной рукояти, соединенной шнуром с креплением для дисков или гантелей. Перед заказом убедитесь, что ваш спортивный инвентарь совместим по весу и размеру с данным роллером для домашних занятий.",
+      "category": "Спорт",
+      "image": "assets/images/auto-1005010092410193.webp",
+      "original": "assets/originals/auto-1005010092410193.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3EB3KNB",
+      "sourceUrl": "https://www.aliexpress.com/item/1005010092410193.html",
+      "sourceProductId": "1005010092410193",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005010092410193.html",
+      "sourceTitle": "Wrist Forearm Blaster Arm Muscle Strength Trainer Exerciser Roller With Hand Grip Fitness Equipment Home Weight Fighting",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Se43428bbbccc41af8b9a5c482f2193354.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "BR",
+      "sourceTask": "rare_forearm_wrist_roller",
+      "demo": false,
+      "theme": "blue",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Тренажер предназначен для проработки мышц предплечий и укрепления хвата с помощью навешиваемых отягощений. Конструкция состоит из прочной рукояти, соединенной шнуром с креплением для дисков или гантелей. Перед заказом убедитесь, что ваш спортивный инвентарь совместим по весу и размеру с данным роллером для домашних занятий.",
+      "facts": [],
+      "availableMarkets": [
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "presearchStatus": {
+        "checked": false,
+        "status": "not_run",
+        "saturated": false
+      },
+      "sourceShopId": "1103855115",
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "f0e8c5466725cd300869640b7474671ce523d740f81181cf8332992b097e3a48",
+            "checked_at": 1795435866.312909
+          },
+          "en": {
+            "sha256": "6b5e16dda6aad3db956e3d8740fa98fbd26ae8c898a54baf41203a011884a8d9",
+            "checked_at": 1795435867.5824594
+          },
+          "pt": {
+            "sha256": "f6c77d3aeb71dc97d6a434b6a82afb0cd7ef63e4e193b2cc640d393242132ce6",
+            "checked_at": 1795435872.2985518
+          },
+          "es": {
+            "sha256": "d4f8ab22c622566c02618e39d7e413cfcf1ec1d0c1909354a267b90f3f89529d",
+            "checked_at": 1795435876.9351115
+          },
+          "fr": {
+            "sha256": "3bcd0ba09a0ab3001d6bc5f31ca150889226f5df595dec5fdde38470b39031c6",
+            "checked_at": 1795435878.6020691
+          },
+          "he": {
+            "sha256": "c9a26fb1b1df728836187b5be03f8614036a4ea77fa41a12ca61894f6b29e3cf",
+            "checked_at": 1795435880.0203133
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005010092410193",
+        "source_title_sha256": "b6748cf5c80e0ac578af90d4dc7ed5143a108c37af5a48601fc3c785860b7a46",
+        "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+        "identity_source_asset": "assets/originals/auto-1005010092410193-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+            "image_sha256": "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se43428bbbccc41af8b9a5c482f2193354.jpg",
+            "source_asset": "assets/originals/auto-1005010092410193-review-1.png",
+            "output_asset": "assets/images/auto-1005010092410193.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately depicts the requested wrist forearm blaster fitness equipment with all correct components, colors, and branding.",
+                "The product variant matches the reference images and successfully fulfills the hero role."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
+            "image_sha256": "a8e6edff105ecd9710f1fe7f4b57b736f08caa61f2ddcbb7053a8f7bb9cc0b79",
+            "prior_image_sha256": [
+              "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa"
+            ],
+            "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sc61826b0291e40728f2e8fee8b929aecn.png",
+            "source_asset": "assets/originals/auto-1005010092410193-review-2.png",
+            "output_asset": "assets/images/auto-1005010092410193-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "Successfully restores the exact primary-reference product variant with green striped handles as shown in Image 1, correcting the previous variant mismatch."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "52971576995a9d4e9d24d66d6b6a26870c082935be72b92195c016a1493bea5a",
+            "image_sha256": "bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee",
+            "prior_image_sha256": [
+              "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa",
+              "a8e6edff105ecd9710f1fe7f4b57b736f08caa61f2ddcbb7053a8f7bb9cc0b79"
+            ],
+            "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sebc26825adaf4c88924f224db4aeba68V.png",
+            "source_asset": "assets/originals/auto-1005010092410193-review-3.png",
+            "output_asset": "assets/images/auto-1005010092410193-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately depicts the wrist forearm blaster in use, clearly showing the functional setup and supported outcome for the buyer."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005010092410193-v2.webp",
+        "assets/images/auto-1005010092410193-v3.webp"
+      ],
+      "sourceImageSha256": "4596b7a8435db5a4ec5cdf77f23dee930d1c13dc51268bc75959bd7fc0fa881f",
+      "sourcePixelSha256": "89fe0b1fe992fab52e2c20d4b41838bdc6c0f8a50e02af991284865380af153c",
+      "imageDhash": "cdcecec989a62d0d",
+      "imageAhash": "3f63223c79f3e7e7",
+      "imageAspect": "1.07",
+      "sourceImageDhash": "cececcc9830c0b0b",
+      "sourceImageAhash": "3f432679fbe7e7f9",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 767,
+        "fg_height": 718,
+        "fg_max_side": 767,
+        "fg_min_side": 718,
+        "upscale_ratio": 1.16,
+        "sharpness": 18.375,
+        "fg_mean_luma": 66.44,
+        "fg_luma_std": 52.57,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.054,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005012493298577",
       "name": "Откидной гамак для кошачьего отдыха на окне",
       "headline": [
