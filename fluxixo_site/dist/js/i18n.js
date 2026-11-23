@@ -7031,6 +7031,48 @@
       ],
       "description": "ערסל תלוי זה נצמד לזכוכית באמצעות תושבות יניקה חזקות כדי ליצור פינת רביצה מוגבהת ומוארת בשמש עבור חיית המחמד שלכם. המבנה המתקפל מאפשר לאחסן את המושב בקלות בעת הצורך, ומספק אזור רביצה פנימי עמיד ונוח לחתולים בתוך הבית. לפני ביצוע ההזמנה, בדקו שמשטחי הזכוכית נקיים לחלוטין ויש להם שטח פנים מספיק כדי לאפשר אחיזה יציבה של מנגנוני היניקה."
     }
+  },
+  "auto-1005010092410193": {
+    "en": {
+      "name": "Forearm and Wrist Roller Strength Trainer",
+      "headline": [
+        "Build arm power",
+        "Home fitness gear"
+      ],
+      "description": "This forearm and wrist training device helps build upper body strength by rolling weights up and down using a sturdy handle and cord system. It targets grip endurance and muscle development for effective home workouts. Before purchasing, verify that your existing weight plates or loading pins match the strap attachment."
+    },
+    "pt": {
+      "name": "Treinador de Punho e Antebraço para Força",
+      "headline": [
+        "Fortaleça os braços",
+        "Equipamento fitness"
+      ],
+      "description": "Este acessório foi desenvolvido para intensificar o treino de antebraços e o fortalecimento da pegada usando cargas adicionais em casa. O mecanismo utiliza uma corda resistente conectada ao cabo para enrolar e desenrolar pesos de forma controlada. Antes de finalizar o pedido, verifique se as anilhas ou pesos que você possui são compatíveis com o suporte."
+    },
+    "es": {
+      "name": "Entrenador de Muñeca y Antebrazo con Mango",
+      "headline": [
+        "Fortalece tus brazos",
+        "Equipo para ejercicio"
+      ],
+      "description": "Este dispositivo permite desarrollar fuerza en los brazos y mejorar la resistencia del agarre mediante el levantamiento controlado de pesas. Su diseño incluye un mango firme y un cordón resistente para suspender discos de peso durante las rutinas en casa. Antes de realizar su compra, asegúrese de comprobar que sus pesas sean compatibles con el sistema de sujeción."
+    },
+    "fr": {
+      "name": "Rouleau d'Entraînement pour Poignets et Avant-Bras",
+      "headline": [
+        "Développez votre force",
+        "Appareil de fitness"
+      ],
+      "description": "Cet accessoire permet de cibler les muscles des avant-bras et d'améliorer la poigne grâce à un système de roulement de poids contrôlé. Idéal pour compléter vos séances d'entraînement à domicile avec des charges adaptées. Avant de passer commande, vérifiez que votre équipement de musculation est compatible avec ce type de sangle et de fixation."
+    },
+    "he": {
+      "name": "מכשיר אימון לחיזוק שורש כף יד ואמות",
+      "headline": [
+        "פיתוח כוח אחיזה",
+        "אימון ביתי אפקטיבי"
+      ],
+      "description": "מכשיר זה נועד לשיפור כוח האחיזה וחיזוק שרירי האמות באמצעות גלילת משקולות בצורה מבוקרת. המבנה כולל ידית אחיזה נוחה ורצועה חזקה לחיבור לצלחות משקל או אביזרי הרמה ביתיים. בטרם ההזמנה, ודאו שציוד המשקולות הקיים ברשותכם מתאים לחיבורי הרצועה של המוצר."
+    }
   }
 };
 
