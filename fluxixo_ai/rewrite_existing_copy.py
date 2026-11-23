@@ -8,7 +8,7 @@ A failed check leaves the published card untouched.
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import json
 import os
 from pathlib import Path
@@ -160,9 +160,19 @@ def main():
         if history.get("completed"):
             report["already_done"] += 1
             continue
+        # Do not retry the same missing/incorrect seller source every day.
+        # Scan past blocked items and continue through the rest of the catalog.
+        last_attempt = history.get("last_attempt")
+        if isinstance(last_attempt, str):
+            try:
+                if datetime.now(timezone.utc) - datetime.fromisoformat(last_attempt) < timedelta(days=7):
+                    continue
+            except ValueError:
+                pass
         if processed >= args.max_products:
             break
         processed += 1
+        history["last_attempt"] = datetime.now(timezone.utc).isoformat()
         try:
             baseline = current_bundle(item, i18n)
             title = source_title(client, item)
