@@ -1,0 +1,124 @@
+name: FLUXIXO existing six-language copy refresh
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 4 * * *'
+
+permissions:
+  contents: write
+
+# Serialize with the daily product pipeline and its durable API quota ledgers.
+concurrency:
+  group: fluxixo-daily-accumulation
+  cancel-in-progress: false
+  queue: max
+
+jobs:
+  refresh-existing-copy:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      FLUXIXO_TEXT_PROVIDER: gemini
+      FLUXIXO_AI_TRANSPORT: disabled
+      FLUXIXO_STRICT_COPY: '1'
+      FLUXIXO_WEB_CHECK: '1'
+      FLUXIXO_WEB_CHECK_PROVIDER: tavily_keyless
+      FLUXIXO_DURABLE_CHECKPOINT: git
+      FLUXIXO_GEMINI_BUDGET_PATH: data/fluxixo_gemini_usage.sqlite3
+      FLUXIXO_FREE_SEARCH_DAILY_LIMIT: '30'
+    steps:
+      - name: Checkout latest main under shared catalog lock
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - name: Configure commit writer
+        run: |
+          git config user.name "FLUXIXO copy verifier"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install existing build dependencies
+        run: |
+          python -m pip install --retries 3 --timeout 60 -r requirements.txt requests
+          npm ci --ignore-scripts
+
+      - name: Verify and rewrite up to two existing six-language cards
+        id: copy
+        env:
+          ALI_APP_KEY: ${{ secrets.ALI_APP_KEY }}
+          ALI_APP_SECRET: ${{ secrets.ALI_APP_SECRET }}
+          FLUXIXO_TEXT_GEMINI_API_KEY: ${{ secrets.FLUXIXO_TEXT_GEMINI_API_KEY }}
+        run: |
+          python -B -m fluxixo_ai.rewrite_existing_copy --max-products 2 --report "$RUNNER_TEMP/fluxixo-copy-report.json"
+
+      - name: Persist deferral journal when no copy passed
+        if: steps.copy.outputs.changed != 'true'
+        run: |
+          git add -f -- data/fluxixo_existing_copy_state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(fluxixo): record copy-check deferrals [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Build all pages and validate the release
+        if: steps.copy.outputs.changed == 'true'
+        env:
+          FLUXIXO_WEB_CHECK: '0'
+        run: |
+          python -B fluxixo_site/tools/check_texts.py
+          python -B fluxixo_daily_rotate.py --add 0
+          python -B fluxixo_site/tools/check_texts.py
+
+      - name: Commit verified textual update before deploy
+        if: steps.copy.outputs.changed == 'true'
+        run: |
+          git add -f -- data/fluxixo_existing_copy_state.json
+          git add -- fluxixo_site/dist fluxixo_site/tools/i18n_data.json fluxixo_site/tools/text_fixes.json
+          git reset -q HEAD -- fluxixo_site/dist/assets/thumbs 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m "content(fluxixo): verified unique localized product copy [skip ci]"
+            git push origin HEAD:main
+          fi
+
+      - name: Deploy only verified release to Cloudflare Pages
+        if: steps.copy.outputs.changed == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+        run: |
+          python -B fluxixo_daily_rotate.py --add 0 --deploy --deploy-existing --skip-indexnow
+
+      - name: Verify live site responds after deployment
+        if: steps.copy.outputs.changed == 'true'
+        run: |
+          python - <<'PY'
+          import urllib.request
+          for path in ('/', '/en/', '/pt/', '/es/', '/fr/', '/he/'):
+              url = 'https://www.fluxixo.shop' + path
+              with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'FLUXIXO-copy-QA/1.0'}), timeout=25) as response:
+                  assert response.status == 200, (url, response.status)
+                  assert b'<html' in response.read(300000).lower(), url
+              print('LIVE_OK', path)
+          PY
+
+      - name: Preserve validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fluxixo-existing-copy-review
+          path: ${{ runner.temp }}/fluxixo-copy-report.json
+          if-no-files-found: ignore
+          retention-days: 30
