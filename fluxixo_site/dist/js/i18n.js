@@ -7073,6 +7073,48 @@
       ],
       "description": "מכשיר זה נועד לשיפור כוח האחיזה וחיזוק שרירי האמות באמצעות גלילת משקולות בצורה מבוקרת. המבנה כולל ידית אחיזה נוחה ורצועה חזקה לחיבור לצלחות משקל או אביזרי הרמה ביתיים. בטרם ההזמנה, ודאו שציוד המשקולות הקיים ברשותכם מתאים לחיבורי הרצועה של המוצר."
     }
+  },
+  "auto-1005004283109553": {
+    "en": {
+      "name": "Round Felt Cat Tunnel and Cave Bed",
+      "headline": [
+        "Cozy hideout for felines",
+        "Interactive play and rest zone"
+      ],
+      "description": "This circular natural felt structure serves as a dual-purpose pet accessory, functioning as both an engaging play tunnel and a cozy resting cave for cats. Prior to purchase, verify the product dimensions against your pet's size to ensure it offers a comfortable fit for daily lounging and active play."
+    },
+    "pt": {
+      "name": "Toca e Túnel Redondo de Feltro para Gatos",
+      "headline": [
+        "Refúgio aconchegante felino",
+        "Área de brincadeiras e descanso"
+      ],
+      "description": "Esta estrutura circular em feltro natural combina um túnel interativo para entretenimento com um espaço fechado de descanso para felinos. Antes de finalizar o pedido, verifique as medidas do produto para garantir que o tamanho atende perfeitamente ao porte do seu animal de estimação."
+    },
+    "es": {
+      "name": "Cueva y Túnel Redondo de Fieltro para Gatos",
+      "headline": [
+        "¡Refugio ideal para mascotas!",
+        "Espacio de juego y descanso"
+      ],
+      "description": "Este diseño circular de fieltro natural funciona simultáneamente como un túnel interactivo para entretenimiento y una cueva acogedora para el descanso felino. Antes de realizar su compra, compruebe las dimensiones detalladas para confirmar que el artículo se adapte adecuadamente al tamaño de sua mascota."
+    },
+    "fr": {
+      "name": "Tunnel et Lit Rond en Feutre pour Chat",
+      "headline": [
+        "Espace douillet pour félins",
+        "Zone de jeu et de repos active"
+      ],
+      "description": "Cette structure circulaire en feutre naturel combine un tunnel de divertissement interactif et un abri douillet pour le repos quotidien des chats. Avant de valider votre commande, vérifiez attentivement les dimensions du produit afin de vous assurer qu'il correspond parfaitement au gabarit de votre animal."
+    },
+    "he": {
+      "name": "מנהרת מחבוא עגולה מבד לבד לחתולים",
+      "headline": [
+        "מחבוא נעים ונוח לחתול",
+        "מרחב למשחק ומנוחה יומיומית"
+      ],
+      "description": "מבנה עגול זה עשוי מבד טבעי איכותי ומשמש בו־זמנית כמנהרת משחק פעילה, כצעצוע אינטראקטיבי וכמחילת מנוחה נוחה עבור חתולים. בטרם ביצוע ההזמנה ורכישת המוצר, בדקו בעמוד המוצר את המידות המדויקות כדי לוודא שהפריט מתאים בצורה מושלמת לממדי החיה שלכם."
+    }
   }
 };
 
