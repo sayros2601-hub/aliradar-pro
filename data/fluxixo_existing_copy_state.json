@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "products": {
+    "auto-1005004283109553": {
+      "last_attempt": "2026-11-24T14:49:51.145985+00:00",
+      "copy_journal": {
+        "versions": {
+          "0a27c2cde7b60dcd0162221080c341e185f679535ad430488bcb9ada0e85c7fe": {
+            "bundle": {
+              "drafts": [
+                {
+                  "status": "reserved",
+                  "review_attempts": 0
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}
