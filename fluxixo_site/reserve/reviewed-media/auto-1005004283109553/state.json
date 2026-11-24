@@ -151,37 +151,133 @@
     },
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-9fc68daf9bcf5adb514bb99f9fdbeae798c7ef7cf67676892ec7ef7f19451dd5.png",
-        "source_sha256": "9fc68daf9bcf5adb514bb99f9fdbeae798c7ef7cf67676892ec7ef7f19451dd5",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S4d993ecff7df4da6903dae03e827fa622.jpg",
-        "original_sha256": "6d321b5f4de922b2e5cdf7c022d40084c3af0257414dc3ccb65f49863e7f4536",
-        "output_file": "application-727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0.webp",
-        "image_sha256": "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0",
-        "metrics": {
-          "fg_width": 726,
-          "fg_height": 613,
-          "fg_max_side": 726,
-          "fg_min_side": 613,
-          "upscale_ratio": 1.226,
-          "sharpness": 15.483,
-          "fg_mean_luma": 129.88,
-          "fg_luma_std": 66.47,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.078,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image clearly shows the product's functional disassembly and internal structure, matching the correct product variant without any material defects."
+        ]
+      },
+      "source_file": "reference-9fc68daf9bcf5adb514bb99f9fdbeae798c7ef7cf67676892ec7ef7f19451dd5.png",
+      "source_sha256": "9fc68daf9bcf5adb514bb99f9fdbeae798c7ef7cf67676892ec7ef7f19451dd5",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S4d993ecff7df4da6903dae03e827fa622.jpg",
+      "original_sha256": "6d321b5f4de922b2e5cdf7c022d40084c3af0257414dc3ccb65f49863e7f4536",
+      "output_file": "application-727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0.webp",
+      "image_sha256": "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0",
+      "metrics": {
+        "fg_width": 726,
+        "fg_height": 613,
+        "fg_max_side": 726,
+        "fg_min_side": 613,
+        "upscale_ratio": 1.226,
+        "sharpness": 15.483,
+        "fg_mean_luma": 129.88,
+        "fg_luma_std": 66.47,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.078,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image clearly shows the product's functional disassembly and internal structure, matching the correct product variant without any material defects."
+        ]
+      },
+      "prior_image_sha256": [
+        "46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb"
+      ],
+      "identity_source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+      "source_title_sha256": "9e55bf3dbeb9890d1f5900a46927c02d023c15518efb71ec56f4c7c85718bf3f",
+      "reviewed_at": 1795521835.7635753
     },
-    {}
+    {
+      "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the donut cat tunnel bed in use by cats, matching the product and variant defined in the hero image and successfully fulfilling the requested result role."
+        ]
+      },
+      "source_file": "reference-2968a8b7729e701eb806c2b8bd9ba4ef1c95928f169df1a4bf439228ecf42c4a.png",
+      "source_sha256": "2968a8b7729e701eb806c2b8bd9ba4ef1c95928f169df1a4bf439228ecf42c4a",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sbc0721abbb7b44a9908dc51533fb89dd6.jpg",
+      "original_sha256": "c7b2590ab3f03d30a37fa8f992a06901fbcbd27ac944332e77ede4faa3ad64ab",
+      "output_file": "result-c2335f21f14b982f1be6fe680da405438dce9a0b98b519c78e9ddf89944a0e00.webp",
+      "image_sha256": "c2335f21f14b982f1be6fe680da405438dce9a0b98b519c78e9ddf89944a0e00",
+      "metrics": {
+        "fg_width": 671,
+        "fg_height": 626,
+        "fg_max_side": 671,
+        "fg_min_side": 626,
+        "upscale_ratio": 1.326,
+        "sharpness": 15.943,
+        "fg_mean_luma": 126.03,
+        "fg_luma_std": 68.06,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the donut cat tunnel bed in use by cats, matching the product and variant defined in the hero image and successfully fulfilling the requested result role."
+        ]
+      },
+      "prior_image_sha256": [
+        "46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb",
+        "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0"
+      ],
+      "identity_source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+      "source_title_sha256": "9e55bf3dbeb9890d1f5900a46927c02d023c15518efb71ec56f4c7c85718bf3f",
+      "reviewed_at": 1795521843.055687
+    }
   ],
   "created_at": 1795520032.1851344,
   "deferrals": 1,
   "lease_owner": "27122f954c6c44c3be42f13804b21cac",
-  "lease_until": 1795523556.653513,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795606434.7537036,
   "source_version": "1618a77ba084dd4d60759e500a8d21b306f516c585b55109fb3474b0a873dc59",
@@ -212,8 +308,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "2968a8b7729e701eb806c2b8bd9ba4ef1c95928f169df1a4bf439228ecf42c4a",
+            "at": 1795521835.766138,
+            "code": "pending_review",
+            "image_sha256": "c2335f21f14b982f1be6fe680da405438dce9a0b98b519c78e9ddf89944a0e00"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -243,7 +347,41 @@
     },
     "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The application image clearly shows the product's functional disassembly and internal structure, matching the correct product variant without any material defects."
+        ]
+      }
+    },
+    "c2335f21f14b982f1be6fe680da405438dce9a0b98b519c78e9ddf89944a0e00": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately depicts the donut cat tunnel bed in use by cats, matching the product and variant defined in the hero image and successfully fulfilling the requested result role."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -252,5 +390,5 @@
     "sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
     "original_sha256": "4f11fa73178548d3c78f13af8668a45489ae834aded7120828dccb105296386b"
   },
-  "reason": "gemini_http_503"
+  "reason": ""
 }
