@@ -88,31 +88,93 @@
   "slots": [
     {
       "generation_attempts": {},
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The donut cat tunnel bed is clearly depicted matching the product title and description.",
+          "All essential features such as the felt material, shape, and zipper details are accurately visible.",
+          "The hero shot successfully presents the product with appropriate context and high clarity."
+        ]
+      },
+      "source_file": "reference-3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e.png",
+      "source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S31755fb5889f4fccb0a8ad4b5189c0b1g.jpg",
+      "original_sha256": "4f11fa73178548d3c78f13af8668a45489ae834aded7120828dccb105296386b",
+      "output_file": "hero-46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb.webp",
+      "image_sha256": "46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb",
+      "metrics": {
+        "fg_width": 702,
+        "fg_height": 752,
+        "fg_max_side": 752,
+        "fg_min_side": 702,
+        "upscale_ratio": 1.184,
+        "sharpness": 23.228,
+        "fg_mean_luma": 107.05,
+        "fg_luma_std": 57.53,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.048,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The donut cat tunnel bed is clearly depicted matching the product title and description.",
+          "All essential features such as the felt material, shape, and zipper details are accurately visible.",
+          "The hero shot successfully presents the product with appropriate context and high clarity."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+      "source_title_sha256": "9e55bf3dbeb9890d1f5900a46927c02d023c15518efb71ec56f4c7c85718bf3f",
+      "reviewed_at": 1795521787.9520607
+    },
+    {
+      "generation_attempts": {},
       "pending": {
-        "source_file": "reference-3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e.png",
-        "source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S31755fb5889f4fccb0a8ad4b5189c0b1g.jpg",
-        "original_sha256": "4f11fa73178548d3c78f13af8668a45489ae834aded7120828dccb105296386b",
-        "output_file": "hero-46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb.webp",
-        "image_sha256": "46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb",
+        "source_file": "reference-9fc68daf9bcf5adb514bb99f9fdbeae798c7ef7cf67676892ec7ef7f19451dd5.png",
+        "source_sha256": "9fc68daf9bcf5adb514bb99f9fdbeae798c7ef7cf67676892ec7ef7f19451dd5",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S4d993ecff7df4da6903dae03e827fa622.jpg",
+        "original_sha256": "6d321b5f4de922b2e5cdf7c022d40084c3af0257414dc3ccb65f49863e7f4536",
+        "output_file": "application-727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0.webp",
+        "image_sha256": "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0",
         "metrics": {
-          "fg_width": 702,
-          "fg_height": 752,
-          "fg_max_side": 752,
-          "fg_min_side": 702,
-          "upscale_ratio": 1.184,
-          "sharpness": 23.228,
-          "fg_mean_luma": 107.05,
-          "fg_luma_std": 57.53,
+          "fg_width": 726,
+          "fg_height": 613,
+          "fg_max_side": 726,
+          "fg_min_side": 613,
+          "upscale_ratio": 1.226,
+          "sharpness": 15.483,
+          "fg_mean_luma": 129.88,
+          "fg_luma_std": 66.47,
           "max_border_clip": 0.0,
           "clipped_edges": 0,
-          "halo_fringe_ratio": 0.048,
+          "halo_fringe_ratio": 0.078,
           "reasons": []
         },
         "generated": false
       }
     },
-    {},
     {}
   ],
   "created_at": 1795520032.1851344,
@@ -138,8 +200,16 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "9fc68daf9bcf5adb514bb99f9fdbeae798c7ef7cf67676892ec7ef7f19451dd5",
+            "at": 1795521787.9539344,
+            "code": "pending_review",
+            "image_sha256": "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -150,9 +220,30 @@
   "review_attempts": {
     "46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted",
+      "last_code": "accepted",
       "provider_attempted": null,
-      "transient_retries": 1
+      "transient_retries": 1,
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The donut cat tunnel bed is clearly depicted matching the product title and description.",
+          "All essential features such as the felt material, shape, and zipper details are accurately visible.",
+          "The hero shot successfully presents the product with appropriate context and high clarity."
+        ]
+      }
+    },
+    "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
     }
   },
   "identity_source": {
