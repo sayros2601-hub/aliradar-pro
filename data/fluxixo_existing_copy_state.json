@@ -12,7 +12,13 @@
             }
           }
         }
-      }
-    }
+      },
+      "last_deferred": "gemini_http_503"
+    },
+    "auto-1005010092410193": {
+      "last_attempt": "2026-11-24T14:50:25.347655+00:00",
+      "last_deferred": "api_method_unavailable"
+    },
+    "auto-1005012493298577": {}
   }
 }
