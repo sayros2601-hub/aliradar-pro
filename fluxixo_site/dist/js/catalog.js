@@ -5,6 +5,190 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005004283109553",
+      "name": "Круглая лежанка-туннель из войлока",
+      "headline": [
+        "Уютный домик для питомцев",
+        "Пространство для игр и отдыха"
+      ],
+      "description": "Эта кольцевая конструкция из натурального войлока совмещает функции закрытого укрытия, игрового тоннеля и мягкой зоны для отдыха кошек. Перед оформлением заказа рекомендуется измерить габариты питомца и сопоставить их с диаметром изделия, чтобы обеспечить комфортное размещение.",
+      "category": "Питомцы",
+      "image": "assets/images/auto-1005004283109553.webp",
+      "original": "assets/originals/auto-1005004283109553.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3fpt7dT",
+      "sourceUrl": "https://www.aliexpress.com/item/1005004283109553.html",
+      "sourceProductId": "1005004283109553",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005004283109553.html",
+      "sourceTitle": "Donut Cat Tunnel Bed Pets House Natural Felt Pet Cat Cave Interactive Toys Round Wool Felt Pet Bed Cat Training Toy Cat House",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S31755fb5889f4fccb0a8ad4b5189c0b1g.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "MX",
+      "sourceTask": "ai_rare_tunnel_bed",
+      "demo": false,
+      "theme": "sand",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Эта кольцевая конструкция из натурального войлока совмещает функции закрытого укрытия, игрового тоннеля и мягкой зоны для отдыха кошек. Перед оформлением заказа рекомендуется измерить габариты питомца и сопоставить их с диаметром изделия, чтобы обеспечить комфортное размещение.",
+      "facts": [],
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL"
+      ],
+      "sourceShopId": "900160004",
+      "hasVideo": true,
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "7c026b54826c7c7cc4c71f2e255cce27534057004389de7fd1f114f91b253a11",
+            "checked_at": 1795519936.4782822
+          },
+          "en": {
+            "sha256": "9e8d893b0a1dd227f48e0fd3d9ce3b44a47cc90a25811345cda813636d437197",
+            "checked_at": 1795519937.5747874
+          },
+          "pt": {
+            "sha256": "be66074af7572716bcb608b1361300c1a6f9f8dfad65921b273bffd0326949be",
+            "checked_at": 1795519943.339726
+          },
+          "es": {
+            "sha256": "2095e56d6ca7fb03daaf8af652099a808b33f92003417d6d577f9bc5f4163ca2",
+            "checked_at": 1795519946.7458081
+          },
+          "fr": {
+            "sha256": "3ea7d5ff0c8678038e73527c511abdfb3af5d7a0e85cc25d0f019fa58e88a59c",
+            "checked_at": 1795519951.9907238
+          },
+          "he": {
+            "sha256": "ce13c485ecfc6dc30ed45e4dd935d78e6bd1e96eb84c7751d993088ef92a5e9e",
+            "checked_at": 1795519953.694539
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005004283109553",
+        "source_title_sha256": "9e55bf3dbeb9890d1f5900a46927c02d023c15518efb71ec56f4c7c85718bf3f",
+        "identity_source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+        "identity_source_asset": "assets/originals/auto-1005004283109553-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+            "image_sha256": "46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S31755fb5889f4fccb0a8ad4b5189c0b1g.jpg",
+            "source_asset": "assets/originals/auto-1005004283109553-review-1.png",
+            "output_asset": "assets/images/auto-1005004283109553.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The donut cat tunnel bed is clearly depicted matching the product title and description.",
+                "All essential features such as the felt material, shape, and zipper details are accurately visible.",
+                "The hero shot successfully presents the product with appropriate context and high clarity."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "9fc68daf9bcf5adb514bb99f9fdbeae798c7ef7cf67676892ec7ef7f19451dd5",
+            "image_sha256": "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0",
+            "prior_image_sha256": [
+              "46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb"
+            ],
+            "identity_source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S4d993ecff7df4da6903dae03e827fa622.jpg",
+            "source_asset": "assets/originals/auto-1005004283109553-review-2.png",
+            "output_asset": "assets/images/auto-1005004283109553-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The application image clearly shows the product's functional disassembly and internal structure, matching the correct product variant without any material defects."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "2968a8b7729e701eb806c2b8bd9ba4ef1c95928f169df1a4bf439228ecf42c4a",
+            "image_sha256": "c2335f21f14b982f1be6fe680da405438dce9a0b98b519c78e9ddf89944a0e00",
+            "prior_image_sha256": [
+              "46074cb45d277e91605ea452c67b01d29959cd522ce02d0f2cc20d994c7177bb",
+              "727c9add6b40cdf7ca10399e860ad7acd806236d5955e44900eb2e35840748b0"
+            ],
+            "identity_source_sha256": "3ba2ed5d28a432aa2f3eaf2680c8a8d3413d136dfe04c3a1443bf17afb3c3f0e",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sbc0721abbb7b44a9908dc51533fb89dd6.jpg",
+            "source_asset": "assets/originals/auto-1005004283109553-review-3.png",
+            "output_asset": "assets/images/auto-1005004283109553-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately depicts the donut cat tunnel bed in use by cats, matching the product and variant defined in the hero image and successfully fulfilling the requested result role."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005004283109553-v2.webp",
+        "assets/images/auto-1005004283109553-v3.webp"
+      ],
+      "sourceImageSha256": "4f11fa73178548d3c78f13af8668a45489ae834aded7120828dccb105296386b",
+      "sourcePixelSha256": "fe42623bf9a550d06c2ab606f39ef7a66a50daeb1d523453da655a45aaa2e0be",
+      "imageDhash": "0f4f9f1f0f0f0f17",
+      "imageAhash": "e3a1c7c381c3c3fb",
+      "imageAspect": "0.93",
+      "sourceImageDhash": "0f2f0f0f0f0f0f16",
+      "sourceImageAhash": "e3818181c1c3c3ff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 702,
+        "fg_height": 752,
+        "fg_max_side": 752,
+        "fg_min_side": 702,
+        "upscale_ratio": 1.184,
+        "sharpness": 23.228,
+        "fg_mean_luma": 107.05,
+        "fg_luma_std": 57.53,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.048,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005010092410193",
       "name": "Тренажер для запястий и предплечий",
       "headline": [
