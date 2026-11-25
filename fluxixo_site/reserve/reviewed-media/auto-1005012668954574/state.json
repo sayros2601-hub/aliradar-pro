@@ -116,11 +116,11 @@
     {}
   ],
   "created_at": 1795617130.8112159,
-  "deferrals": 1,
-  "lease_owner": "98b1e2f4156c414b8c9a1f355df64b24",
+  "deferrals": 2,
+  "lease_owner": "c248eaafe9594fde9c6cb33f19888651",
   "lease_until": 0,
   "status": "waiting",
-  "next_attempt": 1795617322.0417438,
+  "next_attempt": 1795619139.8778086,
   "source_refresh_after": 1795703533.0075643,
   "source_version": "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e",
   "effort_versions": {
@@ -152,7 +152,7 @@
       "opportunities": 0,
       "last_code": "gemini_http_503",
       "provider_attempted": null,
-      "transient_retries": 1
+      "transient_retries": 2
     }
   },
   "identity_source": {
