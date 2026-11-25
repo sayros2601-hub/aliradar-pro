@@ -25,12 +25,8 @@
         "versions": {
           "6b8e761513456ffce7ca5f18870590f9539b017494f5d3821a523b3c74fe4079": {
             "bundle": {
-              "drafts": [
-                {
-                  "status": "reserved",
-                  "review_attempts": 0
-                }
-              ]
+              "drafts": [],
+              "transient_retries": 1
             }
           }
         }
