@@ -116,11 +116,11 @@
     {}
   ],
   "created_at": 1795617130.8112159,
-  "deferrals": 4,
-  "lease_owner": "0c07541376ba4ed8a22ff451dda473b1",
+  "deferrals": 5,
+  "lease_owner": "71cd1b3df3424e9781d0f1d1e40ba3dc",
   "lease_until": 0,
   "status": "waiting",
-  "next_attempt": 1795623079.1685612,
+  "next_attempt": 1795625339.7509089,
   "source_refresh_after": 1795703533.0075643,
   "source_version": "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e",
   "effort_versions": {
@@ -149,7 +149,7 @@
   },
   "review_attempts": {
     "2536ec8db22c6a0f11ddec59be3527ba229d214340fa6b73a0df5a41daedb84a": {
-      "opportunities": 0,
+      "opportunities": 1,
       "last_code": "gemini_http_503",
       "provider_attempted": null,
       "transient_retries": 4
