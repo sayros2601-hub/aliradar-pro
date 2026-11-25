@@ -30,7 +30,23 @@
             }
           }
         }
-      }
-    }
+      },
+      "last_deferred": "gemini_http_503"
+    },
+    "auto-1005011808254244": {
+      "last_attempt": "2026-11-25T14:16:28.481160+00:00",
+      "copy_journal": {
+        "versions": {
+          "6da73ed0d3f27ab39b874bf81e1097e6d512234435f4d11e337cf0508efe0b7e": {
+            "bundle": {
+              "drafts": [],
+              "transient_retries": 1
+            }
+          }
+        }
+      },
+      "last_deferred": "gemini_http_503"
+    },
+    "auto-1005006728238948": {}
   }
 }
