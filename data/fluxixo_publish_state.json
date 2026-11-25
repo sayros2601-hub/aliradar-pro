@@ -74,13 +74,12 @@
       "published_day": "2026-11-24"
     },
     "2026-11-25": {
-      "status": "waiting",
+      "status": "preparing",
       "reserved_count": 1,
       "baseline_count": 0,
       "utc_day": "2026-11-25",
-      "reserved_at": "2026-11-25T18:01:43.345330+00:00",
-      "retries": 0,
-      "next_attempt": "2026-11-25T18:24:17.419757+00:00"
+      "reserved_at": "2026-11-25T18:31:22.877183+00:00",
+      "retries": 0
     }
   }
 }
