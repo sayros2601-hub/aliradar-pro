@@ -19,6 +19,18 @@
       "last_attempt": "2026-11-24T14:50:25.347655+00:00",
       "last_deferred": "api_method_unavailable"
     },
-    "auto-1005012493298577": {}
+    "auto-1005012493298577": {
+      "last_attempt": "2026-11-25T14:16:07.998500+00:00",
+      "copy_journal": {
+        "versions": {
+          "6b8e761513456ffce7ca5f18870590f9539b017494f5d3821a523b3c74fe4079": {
+            "bundle": {
+              "drafts": [],
+              "transient_retries": 1
+            }
+          }
+        }
+      }
+    }
   }
 }
