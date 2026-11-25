@@ -75,7 +75,7 @@
     },
     "2026-11-25": {
       "status": "waiting",
-      "reserved_count": 3,
+      "reserved_count": 1,
       "baseline_count": 0,
       "utc_day": "2026-11-25",
       "reserved_at": "2026-11-25T14:01:34.997470+00:00",

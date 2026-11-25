@@ -243,6 +243,14 @@ GUIDES_HEADING = {
     'fr': 'Guides d’achat pour cet article',
     'he': 'מדריכי קנייה למוצר הזה',
 }
+CATEGORY_GUIDES_HEADING = {
+    'ru': 'Подробные памятки по рубрике',
+    'en': 'Buying guides',
+    'pt': 'Guias de compra da categoria',
+    'es': 'Guías de compra de la categoría',
+    'fr': 'Guides d’achat de l’univers',
+    'he': 'מדריכי קנייה בקטגוריה',
+}
 # The Russian pre-order checklist fits every electronic or tool item, not just its preferred product.
 RU_CHECKLIST_GUIDE = 'pre-order-checklist-aliexpress'
 RU_CHECKLIST_WORLDS = ('Техника', 'Инструменты', 'В дороге')

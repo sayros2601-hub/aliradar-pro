@@ -18,6 +18,8 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 from .daily_ledger import DAILY_MAX, LedgerError, read_ledger, remaining
 
+DAILY_TARGET = 1
+
 # Owner, 2026-11-20: new products prepare from 13:30 Israel time and publish live at 15:30 Israel time
 # (Asia/Jerusalem: 13:30 UTC in winter IST / 12:30 UTC in summer IDT), leaving two hours for copy, web uniqueness and media review.
 SCHEDULE_TZ = 'Asia/Jerusalem'
@@ -184,9 +186,10 @@ def plan(ledger, state, *, now=None, manual_count=None):
             due = datetime.fromisoformat(entry['next_attempt'])
             if instant < due:
                 return answer('skip', 'waiting_review_retry')
-            count = min(DAILY_MAX - done, entry['reserved_count'])
-            if manual_count is not None:
-                count = min(count, manual_count)
+            if manual_count is None:
+                count = min(max(0, DAILY_TARGET - done), entry['reserved_count'])
+            else:
+                count = min(DAILY_MAX - done, entry['reserved_count'], manual_count)
             if count > 0:
                 return answer('prepare', 'resume_review_queue', count, track=True)
             return answer('skip', 'waiting_review_retry')
@@ -197,9 +200,10 @@ def plan(ledger, state, *, now=None, manual_count=None):
                 reserved_at = datetime.fromisoformat(reserved_at_raw.replace('Z', '+00:00')).astimezone(timezone.utc)
                 elapsed_min = (instant - reserved_at).total_seconds() / 60.0
                 if elapsed_min >= STALE_PREPARE_MINUTES:
+                    cap = DAILY_TARGET if manual_count is None else DAILY_MAX
                     remaining_count = max(
                         0,
-                        min(DAILY_MAX - done, entry['baseline_count'] + entry['reserved_count'] - done),
+                        min(cap - done, entry['baseline_count'] + entry['reserved_count'] - done),
                     )
                     if manual_count is not None:
                         remaining_count = min(remaining_count, manual_count)
@@ -210,7 +214,7 @@ def plan(ledger, state, *, now=None, manual_count=None):
     # even if a manual run happens just after the local date changes.
     if any(e['utc_day'] == utc_day and e['reserved_count'] for e in state['days'].values()):
         return answer('skip', 'utc_day_already_reserved')
-    count = min(DAILY_MAX - done, DAILY_MAX if manual_count is None else manual_count)
+    count = max(0, DAILY_TARGET - done) if manual_count is None else min(DAILY_MAX - done, manual_count)
     if count == 0:
         if not publication_due:
             return answer('skip', 'waiting_publication')
@@ -273,10 +277,11 @@ def mark_prepared(ledger, state, day, *, now=None, allow_partial=False):
         utc_day = instant.date().isoformat()
         # Migration: existing full ledger quota still needs one deploy; no new
         # image reservation is created and no product is generated.
-        if _local(instant).date().isoformat() != day or _done(ledger, utc_day) != DAILY_MAX:
+        if _local(instant).date().isoformat() != day or _done(ledger, utc_day) < DAILY_TARGET:
             raise ScheduleError('prepared_reservation_missing')
+        done_today = _done(ledger, utc_day)
         entry = {'status': 'prepared', 'reserved_count': 0,
-                 'baseline_count': DAILY_MAX, 'utc_day': utc_day}
+                 'baseline_count': done_today, 'utc_day': utc_day}
         result['days'][day] = entry
     elif allow_partial and entry['status'] in ('preparing', 'waiting'):
         # Only verified catalog additions can turn into a publishable partial batch.

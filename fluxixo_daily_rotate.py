@@ -474,7 +474,7 @@ def refresh_clean_affiliate_links(*, limit: int = 0) -> int:
 
 def main() -> None:
     parser = argparse.ArgumentParser()
-    parser.add_argument("--rotate", "--add", dest="add_count", type=int, default=3, help="Number of new products to add (0 to rebuild only)")
+    parser.add_argument("--rotate", "--add", dest="add_count", type=int, default=1, help="Number of new products to add (0 to rebuild only)")
     parser.add_argument("--markets", default="", help="Comma-separated preferred target markets for this peak slot (e.g. RU,IL,FR)")
     parser.add_argument("--deploy", action="store_true", help="Deploy an already committed release; requires --add 0")
     parser.add_argument("--validation-run-id", help="One specifically authorized one-item validation run")

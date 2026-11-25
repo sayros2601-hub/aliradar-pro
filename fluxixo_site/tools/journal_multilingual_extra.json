@@ -6,7 +6,9 @@
       "auto-1005011808254244",
       "find-024-trekking-poles",
       "find-015-fishing-float",
-      "auto-1005012599444039"
+      "auto-1005012599444039",
+      "find-021-drip-irrigation",
+      "find-001-neck-cooler"
     ],
     "date": "2026-11-21",
     "translations": {
@@ -205,7 +207,10 @@
       "auto-1005006728238948",
       "find-064-book-light",
       "find-045-white-noise",
-      "find-039-pixel-display"
+      "find-039-pixel-display",
+      "find-017-star-projector",
+      "import-0451",
+      "import-0499"
     ],
     "date": "2026-11-21",
     "translations": {
@@ -303,7 +308,7 @@
         ]
       ],
       "pt": [
-        "Guia de Cofre com Temporizador para Celular e Foco | FLUXIXO",
+        "Guia de cofre com temporizador para celular e foco | FLUXIXO",
         "Saiba como escolher um cofre com temporizador para celular, luminária de leitura e ruído branco, além do que conferir no AliExpress antes do pedido.",
         "Como escolher um cofre com temporizador para celular e acessórios de foco profundo",
         [
@@ -404,7 +409,13 @@
       "auto-1005008721169426",
       "auto-1005013553805507",
       "auto-1005010357329711",
-      "find-048-hydroponic"
+      "find-048-hydroponic",
+      "find-043-weather-station",
+      "find-029-window-cleaner",
+      "find-051-ultrasonic-cleaner",
+      "find-055-lint-remover",
+      "find-003-mosquito-racket",
+      "auto-1005012473764350"
     ],
     "date": "2026-11-21",
     "translations": {
@@ -440,7 +451,7 @@
         ]
       ],
       "en": [
-        "Magnetic Levitating Planter Guide: Limits, Safety & Setup | FLUXIXO",
+        "Magnetic Levitating Planter Guide: Weight & Safety | FLUXIXO",
         "Learn how magnetic levitating planters work, what weight limits to check on AliExpress, power-loss risks, and smart tabletop setup steps.",
         "How Magnetic Levitating Planters Work: Weight Limits, Safety, and Tabletop Setup",
         [
@@ -471,70 +482,70 @@
         ]
       ],
       "es": [
-        "Guía de Macetas Flotantes Magnéticas: Peso y Uso | FLUXIXO",
+        "Guía de macetas flotantes magnéticas: peso y uso | FLUXIXO",
         "Descubre cómo funcionan las macetas flotantes magnéticas, qué límite de peso verificar en AliExpress, riesgos de cortes de luz y cómo colocarlas en casa.",
-        "Cómo Funcionan las Macetas Flotantes Magnéticas: Límite de Peso, Seguridad e Instalación en Casa",
+        "Cómo funcionan las macetas flotantes magnéticas: límite de peso, seguridad e instalación en casa",
         [
           [
-            "Cómo se Mantienen Suspendidas y Giran las Macetas Flotantes Magnéticas",
+            "Cómo se mantienen suspendidas y giran las macetas flotantes magnéticas",
             "Una maceta flotante magnética no se sostiene en el aire únicamente por imanes pasivos, sino mediante un sistema activo de estabilización electromagnética. Dentro del pedestal se encuentra un anillo de bobinas electromagnéticas combinado con sensores de campo magnético que miden de forma continua la posición del recipiente suspendido. Cada vez que la maceta se desvía del centro, la electrónica de control integrada ajusta al instante la corriente de las bobinas para devolverla al equilibrio frente a un imán permanente sellado en el fondo de la maceta. Además, un campo impulsor auxiliar empuja suavemente ese imán inferior, generando un giro continuo para que las hojas reciban luz uniforme desde una ventana cercana o una lámpara de escritorio sin tener que girar la planta a mano. Como este equilibrio depende de la lectura constante de los sensores y de una corriente activa, la base necesita alimentación eléctrica ininterrumpida desde el tomacorriente durante todo el tiempo que la planta flota sobre la plataforma abierta."
           ],
           [
-            "Límites de Peso, Cambios al Regar y Riesgos ante Cortes de Energía",
+            "Límites de peso, cambios al regar y riesgos ante cortes de energía",
             "Cada base de levitación opera dentro de un rango de carga estricto y no simplemente bajo un límite máximo aislado. Un peso demasiado bajo puede provocar vibraciones o saltos inestables en el aire, mientras que sobrecargar el sistema obliga a las bobinas a consumir demasiada corriente, calentarse, emitir un leve zumbido y soltar la maceta sobre el pedestal. Muchos compradores pasan por alto qué tan rápido aumenta el peso después del riego: el sustrato húmedo añade una masa considerable y, con el paso de los meses, los bonsáis o las suculentas ganan densidad en sus raíces y tallos. Asimismo, los tallos altos desplazan el centro de gravedad hacia arriba, lo que facilita las oscilaciones cerca de ventanas abiertas o corrientes de aire. Finalmente, considera qué ocurre durante un apagón o si alguien tropieza con el cable. Cuando se corta la electricidad, el electroimán se apaga de inmediato y el imán inferior cae de golpe contra la superficie de la base, con riesgo de romper bordes, derramar tierra o pellizcar los dedos."
           ],
           [
-            "Comparación entre Tipos de Macetas Levitantes y Sistemas Pasivos de Mesa",
+            "Comparación entre tipos de macetas levitantes y sistemas pasivos de mesa",
             "Las macetas levitantes varían de manera importante en el acabado de la base, el material del recipiente y la geometría de suspensión. Las bases con acabado tipo madera de nogal aportan mayor calidez a escritorios y repisas que las carcasas de plástico brillante, mientras que las macetas de resina sellada protegen el imán interno contra filtraciones de humedad mucho mejor que la arcilla porosa. Los marcos en forma de C suspenden plantas de aire ligeras desde arriba cuando el espacio lo permite, mientras que los pedestales planos de escritorio dejan libre todo el espacio superior para el follaje de bonsáis y suculentas compactas. Antes de elegir la levitación activa, conviene compararla con soluciones de mesa que no consumen energía. Las bandejas mecánicas de germinación y los accesorios domésticos pasivos no requieren enchufe, no necesitan centrado magnético ni sufren caídas bruscas por apagones. Elige la levitación para ejemplares decorativos cerca de un contacto eléctrico y opta por bandejas sin electricidad para cultivar brotes comestibles densos o plantas pesadas que requieren riego abundante."
           ],
           [
-            "Qué Medir y Verificar en una Publicación de AliExpress antes de Comprar",
+            "Qué medir y verificar en una publicación de AliExpress antes de comprar",
             "Antes de realizar tu pedido en AliExpress, revisa cuatro especificaciones concretas en la tabla de detalles del producto y en las fotografías de otros compradores en lugar de guiarte solo por el título promocional. Primero, verifica la capacidad de carga declarada en gramos y deja un margen amplio para la tierra húmeda y el crecimiento futuro de la planta. Segundo, mide el diámetro interior y la profundidad de la maceta, comprobando si cuenta con orificios de drenaje o si tiene un interior cerrado diseñado para suculentas de poca agua, musgo o follaje artificial. Tercero, confirma el rango de voltaje del adaptador de corriente, el tipo de clavija compatible con tus enchufes y la longitud del cable para que llegue cómodamente desde el escritorio hasta la pared sin quedar tenso. Cuarto, revisa si la parte superior del pedestal incluye una almohadilla protectora contra rayones y observa las fotos reales del empaque para confirmar que el adaptador viene incluido en la caja."
           ],
           [
-            "Ubicación en el Escritorio, Técnica de Centrado y Cuidado durante el Riego",
+            "Ubicación en el escritorio, técnica de centrado y cuidado durante el riego",
             "La ubicación influye directamente en la estabilidad del vuelo y en la temperatura de las bobinas. Coloca el pedestal sobre una superficie de madera, piedra o laminado perfectamente nivelada, lejos de estructuras metálicas de escritorio, bocinas, computadoras portátiles, relojes y otros aparatos magnéticos que distorsionen el campo. Conecta la base a la corriente antes de acercar la maceta. Sujeta el recipiente plantado con ambas manos en posición horizontal y bájalo lentamente en línea recta hacia el centro del pedestal hasta sentir un empuje firme hacia arriba que lo mantiene fijo; suéltalo con suavidad solo cuando desaparezca cualquier balanceo. Nunca viertas agua mientras la maceta está flotando, ya que el peso desigual del chorro rompe el equilibrio y las salpicaduras pueden filtrarse hacia la electrónica de la base. Para regar, retira la maceta hacia arriba, humedece el sustrato en el fregadero, escurre el exceso de agua, seca muy bien el exterior y vuelve a centrarla con calma. Usar una mezcla ligera de corteza o piedra pómez ayuda a mantener un peso húmedo predecible."
           ],
           [
-            "Cómo los Productos del Catálogo FLUXIXO Ilustran Estas Verificaciones",
+            "Cómo los productos del catálogo FLUXIXO ilustran estas verificaciones",
             "El catálogo actual de FLUXIXO reúne tanto dispositivos de levitación como ejemplos claros de verificación técnica para el hogar. La Maceta Flotante Magnética Giratoria combina un pedestal electromagnético de tono nogal con una rotación suave para distribuir la luz de manera uniforme sobre el follaje, demostrando por qué el comprador debe confirmar la capacidad de carga y el tipo de adaptador antes de plantar. En contraste, las Bandejas de Acero para Germinar Semillas no requieren electricidad ni lámparas, drenando el agua de enjuague a través de niveles perforados para cultivar brotes de alfalfa, frijol mungo o brócoli, al tiempo que recuerdan verificar la densidad de la malla cuando se usan semillas diminutas como chía o berro. Del mismo modo, el Circulador de Aire para Estufa mueve el aire caliente de la habitación aprovechando el calor de la estufa sin usar baterías, lo que recuerda mantener las plantas delicadas lejos de corrientes de aire caliente. Finalmente, el Dispensador Automático de Espuma 320ml USB ilustra la importancia de revisar cada ficha técnica: confirmar las notas de dilución del jabón para su tanque de 320 ml y los cables de carga incluidos."
           ]
         ]
       ],
       "pt": [
-        "Guia de Vasos Flutuantes Magnéticos: Peso e Uso | FLUXIXO",
+        "Guia de vasos flutuantes magnéticos: peso e uso | FLUXIXO",
         "Saiba como funcionam os vasos flutuantes magnéticos, qual limite de peso verificar no AliExpress, riscos de queda de energia e como instalar na mesa.",
-        "Como Funcionam os Vasos Flutuantes Magnéticos: Limite de Peso, Segurança e Instalação em Casa",
+        "Como funcionam os vasos flutuantes magnéticos: limite de peso, segurança e instalação em casa",
         [
           [
-            "Como os Vasos Flutuantes Magnéticos Ficam Suspensos e Giram",
+            "Como os vasos flutuantes magnéticos ficam suspensos e giram",
             "Um vaso flutuante magnético não permanece suspenso no ar apenas por ímãs passivos, mas sim por meio de um sistema ativo de estabilização eletromagnética. Dentro da base fica um anel de bobinas eletromagnéticas combinado com sensores de campo magnético que monitoram continuamente a posição do recipiente suspenso. Sempre que o vaso se afasta do centro, o circuito eletrônico de controle ajusta instantaneamente a corrente nas bobinas para empurrá-lo de volta ao equilíbrio contra um ímã permanente vedado no fundo do vaso. Além disso, um campo auxiliar impulsiona suavemente esse ímã inferior, criando uma rotação contínua para que as folhas recebam luz uniforme de uma janela próxima ou luminária de mesa sem precisar girar a planta manualmente. Como esse equilíbrio depende da leitura constante dos sensores e de corrente elétrica ativa, a base exige alimentação ininterrupta da tomada durante todo o período em que a planta paira sobre a plataforma aberta."
           ],
           [
-            "Limites de Peso, Variações na Rega e Comportamento na Falta de Energia",
+            "Limites de peso, variações na rega e comportamento na falta de energia",
             "Toda base de levitação opera dentro de uma faixa estrita de carga, e não apenas abaixo de um limite máximo isolado. Peso insuficiente pode causar trepidação e instabilidade no ar, enquanto a sobrecarga força as bobinas a puxar corrente excessiva, aquecer, emitir um leve zumbido e soltar o vaso sobre a base. Muitos compradores esquecem a rapidez com que o peso aumenta após a rega: o substrato encharcado adiciona uma massa inesperada e, ao longo dos meses, bonsais e suculentas ganham densidade nas raízes e nos ramos. Hastes altas e pesadas no topo também deslocam o centro de gravidade para cima, tornando a oscilação mais provável perto de janelas abertas ou correntes de ar. Por fim, avalie o que acontece durante quedas de energia ou esbarrões no cabo. Quando a eletricidade é interrompida, o eletroímã desliga instantaneamente e o ímã inferior desce com força direto sobre a superfície do pedestal, trazendo risco de trincar bordas, espalhar terra e prender os dedos."
           ],
           [
-            "Comparação entre Tipos de Vasos Levitantes e Sistemas Passivos de Mesa",
+            "Comparação entre tipos de vasos levitantes e sistemas passivos de mesa",
             "Os vasos levitantes variam bastante no acabamento da base, no material do recipiente e na geometria de suspensão. Bases com acabamento em tom de nogueira ou madeira harmonizam melhor com mesas de trabalho e prateleiras do que carcaças de plástico brilhante, enquanto vasos de resina vedada protegem o ímã interno contra infiltração de água com muito mais eficiência do que a argila porosa. Estruturas em formato de C suspendem plantas aéreas leves por cima quando há espaço, ao passo que pedestais planos de mesa deixam a área superior totalmente livre para o crescimento de bonsais e suculentas compactas. Antes de optar pela levitação ativa, compare essa escolha com soluções de mesa que funcionam sem energia elétrica. Bandejas mecânicas de germinação e acessórios domésticos passivos não precisam de tomada, dispensam alinhamento magnético e não sofrem quedas repentinas em apagões. Escolha a levitação para plantas ornamentais de destaque próximas a uma tomada e prefira bandejas sem eletricidade para cultivar microverdes comestíveis densos ou plantas pesadas que exigem regas frequentes."
           ],
           [
-            "O Que Medir e Verificar no Anúncio do AliExpress antes da Compra",
+            "O que medir e verificar no anúncio do AliExpress antes da compra",
             "Antes de fechar o pedido no AliExpress, confira quatro especificações concretas na tabela técnica do anúncio e nas fotos de outros compradores, em vez de confiar apenas nas chamadas promocionais do título. Primeiro, verifique o limite de carga informado em gramas e deixe uma folga generosa para a terra úmida e o crescimento futuro das raízes. Segundo, meça o diâmetro interno e a profundidade do vaso, observando se o recipiente possui furos de drenagem ou um interior fechado pensado para suculentas que pedem pouca água, musgo ou plantas artificiais. Terceiro, confirme a faixa de tensão da fonte de alimentação, o padrão do plugue para a sua tomada e o comprimento do cabo para garantir que o fio alcance a parede sem ficar esticado sobre a mesa. Quarto, veja se o topo da base conta com proteção resistente a riscos e analise as fotos reais da embalagem para confirmar a proteção no transporte e a inclusão da fonte na caixa."
           ],
           [
-            "Posicionamento na Mesa, Técnica de Centralização e Cuidados na Rega",
+            "Posicionamento na mesa, técnica de centralização e cuidados na rega",
             "O local de instalação influencia diretamente a estabilidade da flutuação e o aquecimento das bobinas. Posicione a base sobre uma superfície de madeira, pedra ou laminado perfeitamente nivelada, bem longe de estruturas metálicas de mesa, caixas de som, notebooks, relógios e outros aparelhos magnéticos capazes de distorcer o campo. Conecte a fonte na tomada antes de aproximar o vaso. Segure o recipiente já plantado com as duas mãos na horizontal e desça-o devagar, em linha reta em direção ao centro da base, até sentir uma sustentação firme para cima travar no ponto de equilíbrio; solte com cuidado apenas quando qualquer oscilação parar. Nunca despeje água enquanto o vaso estiver flutuando, pois o peso desigual do jato desestabiliza o conjunto e gotas podem entrar nos componentes eletrônicos da base. Para regar, retire o vaso por completo, umedeça o substrato na pia, escorra o excesso de água, seque muito bem a parte externa e centralize novamente com calma. Usar uma mistura leve de casca de pinus ou pedra-pomes ajuda a manter o peso úmido sob controle."
           ],
           [
-            "Como os Achados do Catálogo FLUXIXO Ilustram Essas Verificações",
+            "Como os achados do catálogo FLUXIXO ilustram essas verificações",
             "O catálogo atual da FLUXIXO destaca tanto equipamentos de levitação quanto verificações práticas de anúncios para diferentes ambientes da casa. O Vaso Suspenso Magnético Flutuante combina uma base eletromagnética em tom de nogueira com rotação suave para distribuir a luz de maneira uniforme pela folhagem, mostrando na prática por que o comprador deve confirmar a capacidade de carga e o padrão da fonte antes do plantio. Em contrapartida, as Bandejas de Inox para Germinação de Sementes funcionam sem eletricidade nem lâmpadas, drenando a água de enxágue por níveis perfurados para brotos de alfafa, feijão-mungo ou brócolis, além de lembrar o comprador de conferir a abertura da malha para sementes miúdas como chia e agrião. Da mesma forma, o Ventilador de Ar para Lareira movimenta o ar aquecido do ambiente usando o calor do fogão sem pilhas ou tomada, reforçando o cuidado de manter plantas sensíveis longe de correntes de ar quente. Por fim, o Dispenser Automático de Espuma USB 320ml exemplifica a atenção aos detalhes da ficha técnica: confirmar a proporção de diluição do sabonete no reservatório de 320 ml e os cabos de recarga incluídos."
           ]
         ]
       ],
       "fr": [
         "Guide du pot lévitant magnétique : poids et sécurité | FLUXIXO",
-        "Découvrez le fonctionnement des pots de fleurs lévitants magnétiques, la charge utile à vérifier sur AliExpress, la sécurité secteur et l'installation sur table.",
+        "Comprendre la lévitation magnétique des pots de fleurs : charge maximale avec arrosage, sécurité en cas de coupure 230V et réglages.",
         "Comment fonctionnent les pots de fleurs lévitants magnétiques : limites de poids, sécurité et installation sur table",
         [
           [
@@ -603,7 +614,20 @@
       "find-062-coffee-scale",
       "auto-1005012569530905",
       "auto-1005012687234522",
-      "find-056-milk-frother"
+      "find-056-milk-frother",
+      "find-020-espresso-portable",
+      "find-019-wine-aerator",
+      "find-050-wine-opener",
+      "find-032-sous-vide",
+      "find-002-meat-thermo",
+      "find-053-vacuum-sealer",
+      "find-065-spice-grinder",
+      "find-010-gallon-pump",
+      "find-014-lunch-box",
+      "find-026-veg-purifier",
+      "find-037-banneton",
+      "find-044-crepe-maker",
+      "find-049-electric-scrubber"
     ],
     "date": "2026-11-21",
     "translations": {
@@ -670,7 +694,7 @@
         ]
       ],
       "es": [
-        "Básculas de Café, Espumadores y Utensilios: Guía | FLUXIXO",
+        "Básculas de café, espumadores y utensilios: guía | FLUXIXO",
         "Aprenda qué revisar en AliExpress antes de elegir básculas de café con temporizador, bandejas para descongelar, tapones de vacío y espumadores de leche.",
         "Guía práctica para elegir accesorios de café y preparación en la cocina",
         [
@@ -701,7 +725,7 @@
         ]
       ],
       "pt": [
-        "Balanças de Café, Espumadores e Utensílios: Guia | FLUXIXO",
+        "Balanças de café, espumadores e utensílios: guia | FLUXIXO",
         "Saiba o que verificar no AliExpress antes de escolher balanças de café com timer, bandejas para descongelar, tampas a vácuo para vinho e espumadores.",
         "Guia prático de compra de acessórios para café e preparo na cozinha",
         [
@@ -732,32 +756,32 @@
         ]
       ],
       "fr": [
-        "Balances à Café, Mousseurs et Outils Cuisine : Guide | FLUXIXO",
+        "Balances à café, mousseurs et outils cuisine : guide | FLUXIXO",
         "Comment vérifier sur AliExpress les dimensions et la précision des balances à café, plateaux de décongélation, bouchons à vin et mousseurs à lait.",
-        "Guide Pratique pour Choisir ses Outils de Café et de Préparation en Cuisine",
+        "Guide pratique pour choisir ses outils de café et de préparation en cuisine",
         [
           [
-            "Comment Fonctionnent Réellement ces Ustensiles de Comptoir",
+            "Comment fonctionnent réellement ces ustensiles sur le plan de travail",
             "L'efficacité des petits ustensiles de café et de préparation repose sur des lois physiques concrètes plutôt que sur des promesses marketing exagérées. Une balance pour café filtre ou expresso associe des capteurs de pesée de haute précision à un chronomètre intégré sur une seule plateforme : vous suivez ainsi la masse de mouture sèche, le débit d'eau versée et la durée totale d'extraction sans manipuler votre téléphone près de l'eau bouillante. Un plateau de décongélation en alliage d'aluminium exploite la forte conductivité thermique du métal dense pour transférer la chaleur ambiante de la pièce vers la viande surgelée, tandis que des rainures longitudinales évacuent l'eau de fonte afin d'éviter une cuisson irrégulière des bords. Un bouchon à vin électrique combine une micropompe motorisée et un joint souple pour abaisser la pression d'air dans une bouteille entamée et ralentir l'oxydation des arômes entre deux verres. Enfin, un mousseur à lait portatif fait tourner à grande vitesse un anneau spiralé en acier inoxydable afin d'incorporer de fines bulles d'air dans le lait tiède ou de dissoudre la poudre de matcha sans grumeaux au fond d'une tasse étroite."
           ],
           [
-            "Variantes de Conception et Compromis au Quotidien",
+            "Variantes de conception et compromis au quotidien",
             "Chaque famille d'accessoires se décline en architectures distinctes qui imposent des compromis précis au quotidien. Sur une balance à café, un plateau en verre continu doté d'un affichage LED dissimulé et de touches tactiles affleurantes s'essuie d'un geste après des éclaboussures d'expresso et protège mieux les circuits internes que des boutons mécaniques entourés de fentes, même si le verre sombre marque vite les traces de doigts sans son tapis en silicone amovible. Pour la décongélation, une plaque rainurée passive en aluminium fonctionne sans cordon ni prise murale, contrairement aux appareils chauffants, mais elle se refroidit après avoir traité une grosse pièce de viande et gagne à être rincée à l'eau tiède entre deux utilisations. Un bouchon à vide électrique élimine les approximations du pompage manuel tout en restant dépendant de l'état des piles ou de la recharge par USB ainsi que de la souplesse de son joint d'étanchéité. Quant au mousseur portatif posé sur un support vertical, il libère beaucoup d'espace sur le plan de travail par rapport aux pichets électriques encombrants et se nettoie en quelques secondes, au prix d'un préchauffage séparé du lait dans une casserole ou au micro-ondes."
           ],
           [
-            "Défaillances Courantes et Points de Vigilance avant l'Achat",
-            "Identifier les pannes récurrentes des accessoires économiques permet d'écarter les conceptions fragiles dès l'examen des photos de la fiche produit. Les balances à café tombent souvent en panne lorsque du liquide chaud s'infiltre dans un compartiment à piles mal isolé ou un port de charge ouvert, ou lorsqu'une carafe trop large oscille sur un socle étroit et fausse la lecture du capteur de contrainte. Les plateaux de décongélation trop fins, fabriqués dans une tôle légère emboutie, peuvent fléchir légèrement sur un plan de travail irrégulier : le contact thermique avec le steak surgelé diminue alors fortement et le jus de fonte déborde sur le comptoir en l'absence de bordures ou de patins d'angle en silicone. Les bouchons à vide perdent leur dépression dès que le collet en caoutchouc épouse mal la conicité du goulot ou que des résidus sèchent dans la soupape d'aspiration. Sur un mousseur à lait, une tige métallique trop fine rangée en vrac dans un tiroir sans support finit par se voiler, ce qui génère des vibrations bruyantes et un tourbillon de mousse instable contre les parois du mug."
+            "Défaillances courantes et points de vigilance avant l'achat",
+            "Identifier les pannes récurrentes des accessoires économiques permet d'écarter les conceptions fragiles dès l'examen des photos de la fiche produit. Les balances à café tombent souvent en panne lorsque du liquide chaud s'infiltre dans un compartiment à piles mal isolé ou un port de charge ouvert, ou lorsqu'une carafe trop large oscille sur un socle étroit et fausse la lecture du capteur de contrainte. Les plateaux de décongélation trop fins, fabriqués dans une tôle légère emboutie, peuvent fléchir légèrement sur un plan de travail irrégulier : le contact thermique avec le steak surgelé diminue alors fortement et le jus de fonte déborde sur le plan de travail en l'absence de bordures ou de patins d'angle en silicone. Les bouchons à vide perdent leur dépression dès que le collet en caoutchouc épouse mal la conicité du goulot ou que des résidus sèchent dans la soupape d'aspiration. Sur un mousseur à lait, une tige métallique trop fine rangée en vrac dans un tiroir sans support finit par se voiler, ce qui génère des vibrations bruyantes et un tourbillon de mousse instable contre les parois du mug."
           ],
           [
-            "Que Mesurer et Vérifier sur AliExpress avant de Commander",
+            "Que mesurer et vérifier sur AliExpress avant de commander",
             "Avant de valider votre panier sur AliExpress, prenez les mesures réelles de votre matériel actuel et vérifiez scrupuleusement la variante sélectionnée dans le configurateur du vendeur. Pour une balance à café, mesurez la largeur et la profondeur de la grille d'égouttage de votre machine à expresso, puis contrôlez les dimensions du plateau, la charge maximale tolérée, le pas minimal de tare en grammes ainsi que le mode d'alimentation par port USB ou piles remplaçables. Sur une plaque de décongélation, comparez la longueur, la largeur et surtout l'épaisseur du métal entre les options proposées, tout en vérifiant sur la vignette associée si les coins de protection en silicone ou le bac récupérateur sont bien inclus. Pour un bouchon à vin électrique, examinez la plage de diamètres de goulot compatibles, le nombre de bouchons fournis dans le lot et le type de batterie requis. Pour un mousseur à lait, vérifiez s'il s'agit de la version à piles ou rechargeable par USB, si la tige du fouet est démontable et si le support métallique figure bien dans l'option choisie."
           ],
           [
-            "Installation, Gestes du Quotidien et Entretien Durable",
+            "Installation, gestes du quotidien et entretien durable",
             "De bonnes habitudes d'entretien préservent la justesse des capteurs, l'élasticité des joints et l'état des surfaces métalliques bien au-delà des premières semaines d'utilisation. Posez toujours votre balance à café sur une surface plane et sèche, centrez son tapis en silicone pour isoler le plateau de la chaleur directe d'une verseuse brûlante, et essuyez les touches tactiles avec un chiffon doux sans jamais immerger le boîtier sous le robinet. Installez le plateau de décongélation en aluminium sur une planche propre ou un torchon plié pour retenir les condensats, appliquez la face la plus plate des pièces surgelées contre les rainures et lavez-le exclusivement à la main avec un savon doux, car les détergents abrasifs du lave-vaisselle ternissent le revêtement anodisé. Maintenez le bouchon à vin électrique bien droit sur un goulot propre et essuyez son joint interne avant chaque mise sous vide. Après avoir moussé du lait chaud, faites tourner la spirale du fouet quelques secondes dans un verre d'eau tiède savonneuse, rincez l'acier à l'eau claire et laissez sécher l'appareil verticalement sur son support."
           ],
           [
-            "Comment les Sélections du Catalogue FLUXIXO Illustrent ces Critères",
+            "Comment les sélections du catalogue FLUXIXO illustrent ces critères",
             "Quatre articles du catalogue FLUXIXO illustrent concrètement comment appliquer ces vérifications au moment de choisir une option. La Balance à Café Numérique avec Minuteur associe un écran LED dissimulé, des commandes tactiles affleurantes et un tapis en silicone amovible : pensez à comparer la largeur de son plateau avec votre bac d'égouttage et à vérifier la précision minimale de pesée indiquée dans la fiche technique. Le Plateau de Décongélation Rainuré en Aluminium utilise des canaux de drainage parallèles pour décongeler steaks, volailles et filets de poisson à température ambiante sans cuire les bords : examinez attentivement les variantes de longueur, de largeur et d'épaisseur ainsi que la présence des coins en silicone. Pour préserver vos bouteilles ouvertes, le Bouchon à Vide Électrique pour Bouteille extrait l'air automatiquement entre deux services : contrôlez le diamètre de goulot accepté, le nombre d'unités incluses et l'alimentation par piles ou par USB. Enfin, le Mousseur à Lait Électrique sur Support combine un fouet spiralé en acier inoxydable et un socle vertical stable, où le choix entre version rechargeable ou à piles reste déterminant."
           ]
         ]
@@ -802,7 +826,18 @@
       "auto-1005012367265501",
       "auto-1005013186843415",
       "find-052-laser-meter",
-      "find-063-cable-tester"
+      "find-063-cable-tester",
+      "auto-1005005357943658",
+      "auto-1005013037089570",
+      "auto-1005013145693095",
+      "auto-3256804678707896",
+      "auto-1005004679234788",
+      "find-054-soldering-iron",
+      "find-016-mini-chainsaw",
+      "find-035-cordless-scissors",
+      "find-036-stud-finder",
+      "auto-1005004266671702",
+      "find-040-microscope"
     ],
     "date": "2026-11-21",
     "translations": {
@@ -1001,7 +1036,12 @@
       "auto-1005003729947715",
       "auto-1005013567552516",
       "auto-1005013158011754",
-      "find-034-smart-rope"
+      "auto-1005010092410193",
+      "find-034-smart-rope",
+      "find-013-kick-trainer",
+      "find-018-padel-pressurizer",
+      "find-028-bike-taillight",
+      "find-038-bike-gps"
     ],
     "date": "2026-11-21",
     "translations": {
@@ -1068,7 +1108,7 @@
         ]
       ],
       "es": [
-        "Guía de Equipo Compacto de Equilibrio, Reflejos y Cardio | FLUXIXO",
+        "Guía de equipo compacto de equilibrio y reflejos | FLUXIXO",
         "Descubre cómo funcionan las pelotas de reflejos, tablas de equilibrio, giros de muñeca y cuerdas sin cable, sus fallas comunes y qué revisar antes de pedir.",
         "Cómo elegir equipo compacto de equilibrio, reflejos, muñeca y cardio sin cable para departamento",
         [
@@ -1099,7 +1139,7 @@
         ]
       ],
       "pt": [
-        "Guia de Treino Compacto: Equilíbrio, Reflexo e Cardio | FLUXIXO",
+        "Guia de treino compacto: equilíbrio, reflexo e cardio | FLUXIXO",
         "Descubra como funcionam bolas de reflexo, pranchas de equilíbrio, giroscópios de punho e cordas sem fio, falhas comuns e o que checar antes de pedir.",
         "Como escolher equipamentos compactos de equilíbrio, reflexo, punho e cardio sem fio para apartamento",
         [
@@ -1197,10 +1237,15 @@
     "slug": "smart-pet-care-gadgets-guide",
     "preferred_product": "auto-1005012919201086",
     "related_products": [
+      "auto-1005004283109553",
       "auto-1005012919201086",
       "auto-1005009410831317",
       "find-023-cat-laser",
-      "find-022-litter-deodorizer"
+      "find-022-litter-deodorizer",
+      "auto-1005012493298577",
+      "import-0231",
+      "import-0530",
+      "import-0545"
     ],
     "date": "2026-11-21",
     "translations": {
@@ -1267,7 +1312,7 @@
         ]
       ],
       "es": [
-        "Accesorios para mascotas: bebederos, juguetes y repuestos | FLUXIXO",
+        "Guía de bebederos, juguetes y repuestos mascotas | FLUXIXO",
         "Aprende a revisar seguros de válvula, tamaño de pelotas rodantes, temporizadores láser y repuestos desodorizantes en AliExpress antes de elegir.",
         "Cómo elegir bebederos portátiles, juguetes interactivos y desodorizantes prácticos para mascotas",
         [
@@ -1374,11 +1419,11 @@
           ],
           [
             "כדורים אינטראקטיביים מתגלגלים: התאמת קוטר, מרקם המעטפת והגנה על שקע הטעינה",
-            "כדורים ממונעים שמתגלגלים מעצמם מעודדים חתולי בית וכלבים קטנים לזוז ולשחק גם ללא זריקה ידנית מתמדת, אך סוג הריצוף בבית משפיע מאוד על התוצאה. על פרקט או אריחי קרמיקה, מעטפת פלסטיק קשיחה נוקשת בעוצמה בפאנלים ומחליקה במהירות מחוץ להישג הכפות, בעוד שמעטפת חיצונית בעלת מרקם מחוספס או רך מספקת אחיזה שקטה יותר וקפיצות מתונות. שטיחים עבים בעלי סיבים ארוכים מאטים מנועים קטנים, ולכן כדאי לוודא מראש שהחדרים בבית כוללים רצפה חלקה או שטיחים דקים בלבד. לפני ביצוע ההזמנה, השוו את קוטר הכדור לגודל הלסת של חיית המחמד כדי למנוע סכנת בליעה או לעיסה מסוכנת, בדקו כיצד המעטפת נפתחת לצורך גישה לשקע הטעינה וודאו שקיים מכסה גומי אטום שמגן על החיבור מפני רוק ופרווה. הדגם כדור אינטראקטיבי מתגלגל לחיות מחמד מתוך מבחר FLUXIXO מדגיש את הבדיקות החיוניות האלו: היפוך כיוון אוטומטי במפגש עם מכשול, קוטר מותאם, מרקם המעטפת והגנה על שקע הטעינה."
+            "כדורים ממונעים שמתגלגלים מעצמם מעודדים חתולי בית וכלבים קטנים לזוז ולשחק גם ללא זריקה ידנית מתמדת, אך סוג הריצוף בבית משפיע מאוד על התוצאה. על פרקט או אריחי קרמיקה, מעטפת פלסטיק קשיחה נוקשת בעוצמה בפאנלים ומחליקה במהירות מחוץ להישג הכפות, בעוד שמעטפת חיצונית בעלת מרקם מחוספס או רך מספקת אחיזה שקטה יותר וקפיצות מתונות. שטיחים עבים בעלי סיבים ארוכים מאטים מנועים קטנים, ולכן כדאי לוודא מראש שהחדרים בבית כוללים רצפה חלקה או שטיחים דקים בלבד. לפני ביצוע ההזמנה, השוו את קוטר הכדור לגודל הלסת של חיית המחמד כדי למנוע סכנת בליעה או לעיסה מסוכנת, בדקו כיצד המעטפת נפתחת לצורך גישה לשקע הטעינה ודאו שקיים מכסה גומי אטום שמגן על החיבור מפני רוק ופרווה. הדגם כדור אינטראקטיבי מתגלגל לחיות מחמד מתוך מבחר FLUXIXO מדגיש את הבדיקות החיוניות האלו: היפוך כיוון אוטומטי במפגש עם מכשול, קוטר מותאם, מרקם המעטפת והגנה על שקע הטעינה."
           ],
           [
             "צעצועי לייזר אוטומטיים לחתולים: יציבות הבסיס, טיימר הפסקות ומקור מתח",
-            "צעצועי לייזר אוטומטיים המונחים על שולחן או מדף מקרינים נקודת אור נעה על הרצפה בזמן שאתם עסוקים בעבודה, אולם הצבה לא יציבה עלולה להרוס במהירות את חוויית המשחק. גוף תאורה קל שמונח על מדף צר עלול לזוז עקב רעידות המנוע או ליפול ארצה ברגע שחתול נמרץ חובט במכשיר, ולכן חשוב לחפש במפרט בסיס רחב וכבד, רגליות סיליקון מונעות החלקה או תפס ייעודי לקצה השולחן. בנוסף, בדקו שקיימים מצבי טיימר עם הפסקות אוטומטיות ומהירויות סיבוב משתנות: מנוחה קבועה מונעת התחממות של המנגנון ומונעת תסכול של החתול ממרדף אינסופי ללא הפוגה. מאחר שחיית המחמד אינה יכולה לתפוס פיזית נקודת אור, מומלץ לסיים כל מחזור משחק עם חטיף או בובה רכה לתפיסה. בדקו גם את אפשרויות ההפעלה וודאו אם האריזה כוללת כבל USB או דורשת סוללות רגילות. הפריט צעצוע לייזר אוטומטי לחתולים בקטלוג FLUXIXO ממחיש את הדגשים האלו סביב יציבות הבסיס, הפסקות טיימר מובנות ובדיקת מקור המתח."
+            "צעצועי לייזר אוטומטיים המונחים על שולחן או מדף מקרינים נקודת אור נעה על הרצפה בזמן שאתם עסוקים בעבודה, אולם הצבה לא יציבה עלולה להרוס במהירות את חוויית המשחק. גוף תאורה קל שמונח על מדף צר עלול לזוז עקב רעידות המנוע או ליפול ארצה ברגע שחתול נמרץ חובט במכשיר, ולכן חשוב לחפש במפרט בסיס רחב וכבד, רגליות סיליקון מונעות החלקה או תפס ייעודי לקצה השולחן. בנוסף, בדקו שקיימים מצבי טיימר עם הפסקות אוטומטיות ומהירויות סיבוב משתנות: מנוחה קבועה מונעת התחממות של המנגנון ומונעת תסכול של החתול ממרדף אינסופי ללא הפוגה. מאחר שחיית המחמד אינה יכולה לתפוס פיזית נקודת אור, מומלץ לסיים כל מחזור משחק עם חטיף או בובה רכה לתפיסה. בדקו גם את אפשרויות ההפעלה ודאו אם האריזה כוללת כבל USB או דורשת סוללות רגילות. הפריט צעצוע לייזר אוטומטי לחתולים בקטלוג FLUXIXO ממחיש את הדגשים האלו סביב יציבות הבסיס, הפסקות טיימר מובנות ובדיקת מקור המתח."
           ],
           [
             "מארזי מילוי מנטרלי ריחות לארגז חול אוטומטי: התאמה מדויקת ואטימות האריזה",
@@ -1399,7 +1444,10 @@
       "auto-1005013194588661",
       "find-057-uv-toothbrush",
       "find-033-callus-remover",
-      "find-046-eye-massager"
+      "find-046-eye-massager",
+      "find-011-nail-drill",
+      "find-012-hair-curler",
+      "find-025-period-belt"
     ],
     "date": "2026-11-21",
     "translations": {
@@ -1466,69 +1514,69 @@
         ]
       ],
       "es": [
-        "Cuidado Personal en Casa: Peines, UV, Pies y Ojos | FLUXIXO",
+        "Cuidado personal en casa: peines, UV, pies y ojos | FLUXIXO",
         "Conoce cómo funcionan los peines dispensadores, esterilizadores UV, limas para pies y antifaces de gel, y qué verificar antes de pedir en AliExpress.",
-        "Guía de Compra de Herramientas de Cuidado Personal en Casa: Cabello, Higiene Bucal, Pies y Ojos",
+        "Guía de compra de herramientas de cuidado personal en casa: cabello, higiene bucal, pies y ojos",
         [
           [
-            "Cómo Funcionan los Peines Dispensadores, Soportes UV, Limas para Pies y Antifaces para Ojos",
+            "Cómo funcionan los peines dispensadores, soportes UV, limas para pies y antifaces para ojos",
             "Las herramientas eficaces para el cuidado personal en casa dependen de principios mecánicos o físicos sencillos en lugar de sistemas electrónicos complicados. Los peines aplicadores para cuero cabelludo utilizan pequeñas esferas giratorias dentro de dientes huecos para dosificar sueros o aceites ligeros directamente sobre las raíces mientras ejercen una presión suave sobre la piel. Los esterilizadores UV para cepillos dentales combinan una cámara cerrada con luz ultravioleta y flujo de aire tibio opcional para reducir la humedad acumulada en las cerdas entre cada cepillado. Las limas eléctricas para pies hacen girar un cilindro abrasivo curvo a velocidad constante para retirar la piel seca y endurecida de los talones sin usar navajas filosas. Por su parte, los antifaces para ojos se dividen en dos propuestas: los modelos térmicos con alimentación eléctrica generan calor suave alrededor de la zona orbital, mientras que los antifaces pasivos de gel conservan el frío del refrigerador o una tibieza ligera para relajar la tensión de las cejas y los párpados sin motores ni cables."
           ],
           [
-            "Fallas Comunes y Compromisos de Diseño que Conviene Vigilar",
+            "Fallas comunes y compromisos de diseño que conviene vigilar",
             "Cada categoría presenta puntos débiles específicos que suelen aparecer tras unas semanas de uso continuo en el baño. Los aceites herbales espesos y las lociones capilares densas obstruyen con facilidad los conductos estrechos de las esferas giratorias en los peines dispensadores, mientras que un tapón de llenado mal ajustado puede provocar derrames sobre el lavabo. Las tiras adhesivas de los soportes UV para cepillos tienden a despegarse en azulejos con relieve o paredes con humedad, y las versiones que solo usan batería rara vez sostienen ciclos completos de secado con aire tibio sin estar conectadas a un enchufe de pared. En las limas eléctricas para callos, presionar con demasiada fuerza detiene los motores pequeños, desgasta antes de tiempo el grano abrasivo o irrita la piel sensible del talón. Finalmente, los antifaces eléctricos con calefacción integran resistencias, baterías y costuras que no se pueden sumergir bajo la llave de agua para lavarse, cambiando el calor automático por una vida útil más corta frente a los antifaces de gel lavables."
           ],
           [
-            "Comparación de Formatos para Cuero Cabelludo, Higiene Bucal, Pies y Ojos",
+            "Comparación de formatos para cuero cabelludo, higiene bucal, pies y ojos",
             "Elegir el formato adecuado comienza por adaptar la complejidad del accesorio a su rutina diaria. Los peines pasivos con esferas dosificadoras ofrecen una aplicación silenciosa sin necesidad de recargar batería, mientras que los peines motorizados con vibración añaden estimulación capilar a cambio de cuidar los sellos del compartimento eléctrico. Para el cuidado bucal, las barras UV de pared con secado activo alojan varios cepillos familiares al mismo tiempo, mientras que los estuches UV de bolsillo resultan prácticos para llevar un solo cepillo de viaje aunque prescindan del aire caliente. En el cuidado de los pies, los rodillos cilíndricos curvos se adaptan con naturalidad al contorno del talón y del arco exterior, mientras que los cabezales planos rotatorios cubren zonas anchas de la planta con mayor rapidez pero exigen un ángulo de muñeca más preciso. De igual manera, los antifaces para ojos se dividen entre almohadillas térmicas recargables para aliviar la sequedad ocular y antifaces de gel sin cables que priorizan el enfriamiento en el refrigerador y la limpieza rápida."
           ],
           [
-            "Especificaciones Clave para Verificar en AliExpress Antes de Ordenar",
+            "Especificaciones clave para verificar en AliExpress antes de ordenar",
             "Las fotografías promocionales rara vez muestran todos los detalles operativos, por lo que conviene revisar cuatro especificaciones técnicas en la publicación de AliExpress antes de confirmar el pedido. En los peines dispensadores, verifique la capacidad en mililitros del depósito, el ancho de la boca de llenado y si el vendedor indica compatibilidad con aceites cosméticos o únicamente con tónicos acuosos. Para los soportes UV de cepillos dentales, confirme si la función de secado tibio requiere conexión permanente a la corriente, revise el tipo de clavija seleccionada para sus contactos domésticos y lea las restricciones de superficie del soporte adhesivo. En las limas eléctricas para pies, compruebe cuántos rodillos de repuesto gruesos y finos vienen en la caja, si la recarga utiliza un cable USB estándar y si la carcasa tolera salpicaduras o enjuague directo. Para los antifaces de ojos, revise el rango de ajuste de la correa elástica, la forma de las aberturas oculares y si el diseño incluye calefacción eléctrica o únicamente gel pasivo."
           ],
           [
-            "Instalación Correcta, Uso Seguro y Hábitos de Mantenimiento Rutinario",
+            "Instalación correcta, uso seguro y hábitos de mantenimiento rutinario",
             "Una preparación adecuada previene el desgaste prematuro y mantiene la higiene en el contacto con la piel en los cuatro tipos de herramientas. Enjuague el tanque del peine aplicador y las esferas metálicas con agua tibia después de aplicar lociones oleosas para evitar que los residuos secos bloqueen el giro dentro de los dientes. Antes de fijar cualquier soporte UV para cepillos sobre el azulejo del baño, limpie la superficie cerámica o de vidrio con alcohol, déjela secar por completo y sacuda el exceso de agua de las cerdas antes de colocar cada cepillo en su ranura. Con las limas eléctricas para pies, remoje los pies previamente, seque muy bien los talones con una toalla y deslice el rodillo con pasadas suaves en lugar de presionar un solo punto hasta frenar el motor. Tras lavar los cilindros abrasivos desmontables, déjelos secar al aire fuera del aparato. Limpie los antifaces de gel sin electrónica bajo la llave de agua fría con jabón neutro y guárdelos extendidos dentro de una bolsa limpia en el refrigerador."
           ],
           [
-            "Cómo Nuestros Productos Destacados del Catálogo Aplican Estos Criterios",
+            "Cómo nuestros productos destacados del catálogo aplican estos criterios",
             "Cada uno de los artículos destacados de nuestro catálogo pone en práctica estas verificaciones previas a la compra. El Peine Masajeador Capilar con Dispensador emplea esferas giratorias para distribuir sueros y tónicos directamente sobre las raíces durante el cepillado, por lo que revisar la capacidad del depósito y la fluidez recomendada de la fórmula resulta indispensable. El Porta Cepillos con Esterilizador UV integra ranuras múltiples para cabezales manuales o eléctricos junto con cámara ultravioleta, secado por aire tibio y pantalla digital, haciendo fundamental confirmar la fijación sobre azulejo liso, el formato de enchufe y la conexión constante a la toma eléctrica. Para suavizar los talones, la Lima Eléctrica para Callos de Pies combina una pantalla indicadora con rodillos intercambiables de grano grueso y fino, donde conviene verificar el paquete de repuestos, el cable USB y la resistencia a salpicaduras. Finalmente, el Antifaz de Gel Refrescante para Ojos prescinde por completo de baterías, motores y resistencias térmicas, permitiendo comparar cómodamente el ajuste de su banda elástica y el diseño con aberturas para los párpados."
           ]
         ]
       ],
       "pt": [
-        "Cuidado Pessoal em Casa: Pentes, UV, Pés e Olhos | FLUXIXO",
+        "Cuidado pessoal em casa: pentes, UV, pés e olhos | FLUXIXO",
         "Saiba como funcionam pentes aplicadores, esterilizadores UV, lixadeiras para pés e máscaras de gel, e o que verificar antes de pedir no AliExpress.",
-        "Guia de Compra de Ferramentas de Cuidado Pessoal em Casa: Couro Cabeludo, Higiene Bucal, Pés e Olhos",
+        "Guia de compra de ferramentas de cuidado pessoal em casa: couro cabeludo, higiene bucal, pés e olhos",
         [
           [
-            "Como Funcionam Pentes Aplicadores, Suportes UV, Lixadeiras para Pés e Máscaras para Olhos",
+            "Como funcionam pentes aplicadores, suportes UV, lixadeiras para pés e máscaras para olhos",
             "Ferramentas eficientes para o cuidado pessoal em casa apoiam-se em ações mecânicas ou físicas simples em vez de sistemas eletrônicos complexos. Os pentes aplicadores para couro cabeludo utilizam pequenas esferas rolantes dentro de dentes ocos para liberar séruns ou óleos leves ao longo das divisões do cabelo enquanto pressionam suavemente a pele. Os esterilizadores UV para escovas de dentes combinam um compartimento fechado com luz ultravioleta e fluxo opcional de ar morno para reduzir a umidade acumulada nas cerdas entre as escovações. As lixadeiras elétricas para pés giram um cilindro abrasivo curvo em velocidade constante para remover a pele ressecada e espessa dos calcanhares sem lâminas cortantes. Já as máscaras para olhos dividem-se em duas abordagens: os modelos térmicos alimentados por energia geram aquecimento suave ao redor da região orbital, enquanto as máscaras passivas de gel armazenam o frio da geladeira ou um calor leve para aliviar a tensão da testa e das pálpebras sem motores ou fios."
           ],
           [
-            "Falhas Comuns e Compensações de Projeto para Observar no Uso Diário",
+            "Falhas comuns e compensações de projeto para observar no uso diário",
             "Cada categoria apresenta pontos sensíveis específicos que costumam surgir após algumas semanas de uso contínuo no banheiro. Óleos vegetais densos e cremes capilares espessos entopem com facilidade os canais estreitos das esferas rolantes nos pentes aplicadores, enquanto tampas de abastecimento mal vedadas podem vazar sobre a bancada da pia. As fitas adesivas de fixação nos suportes UV para escovas frequentemente descolam de azulejos texturizados ou paredes úmidas de alvenaria, e os suportes movidos apenas a bateria raramente sustentam ciclos completos de secagem com ar morno sem conexão permanente à tomada. Nas lixadeiras elétricas para calos, pressionar com força excessiva trava motores mais fracos, desgasta a camada abrasiva precocemente ou sensibiliza a pele fina do calcanhar. Por fim, as máscaras térmicas elétricas adicionam resistências de aquecimento, baterias e costuras de tecido que não podem ser lavadas diretamente em água corrente, trocando o aquecimento automático por uma durabilidade menor em comparação às máscaras de gel laváveis."
           ],
           [
-            "Comparando Estilos de Ferramentas para Couro Cabeludo, Higiene Bucal, Pés e Olhos",
+            "Comparando estilos de ferramentas para couro cabeludo, higiene bucal, pés e olhos",
             "A escolha do formato ideal começa pela adequação do nível de complexidade à sua rotina diária de autocuidado. Pentes passivos com esferas dosadoras oferecem aplicação silenciosa sem qualquer necessidade de recarga elétrica, enquanto pentes motorizados vibratórios adicionam estímulo mecânico ao couro cabeludo em troca do cuidado com a vedação da bateria interna. Na organização bucal, barras UV de parede com secagem ativa comportam várias escovas da família simultaneamente, ao passo que estojos UV compactos atendem uma única escova de viagem sem fluxo de ar aquecido. No cuidado com os pés, rolos cilíndricos curvos acompanham com naturalidade o contorno do calcanhar e da borda lateral, enquanto discos rotativos planos cobrem áreas largas da planta do pé mais depressa, mas exigem controle cuidadoso do ângulo do punho. Da mesma forma, as máscaras para olhos dividem-se entre almofadas térmicas recarregáveis para conforto ocular e máscaras de gel sem fios que priorizam o resfriamento na geladeira e a higienização simples."
           ],
           [
-            "Especificações Essenciais para Verificar no AliExpress Antes de Encomendar",
+            "Especificações essenciais para verificar no AliExpress antes de encomendar",
             "As fotos do anúncio raramente revelam todos os detalhes técnicos, por isso vale conferir quatro especificações na página do produto no AliExpress antes de fechar o pedido. Nos pentes aplicadores, verifique a capacidade em mililitros do reservatório, a largura do bocal de abastecimento e se o vendedor confirma compatibilidade com fórmulas oleosas ou apenas tônicos líquidos. Para suportes UV de escovas de dentes, confirme se a secagem com ar morno exige ligação contínua na tomada, verifique o padrão de plugue selecionado para as tomadas da sua residência e leia as restrições de superfície do suporte adesivo. Nas lixadeiras elétricas para pés, confira quantos rolos substitutos grossos e finos acompanham a embalagem, se o carregamento utiliza cabo USB padrão e se o corpo do aparelho resiste a respingos ou lavagem rápida. Para máscaras de olhos, verifique o ajuste da faixa elástica, o formato dos recortes oculares e se o item possui aquecimento elétrico ou apenas gel passivo."
           ],
           [
-            "Instalação Adequada, Operação Segura e Hábitos de Manutenção de Rotina",
+            "Instalação adequada, operação segura e hábitos de manutenção de rotina",
             "Uma preparação correta evita o desgaste prematuro e mantém o contato com a pele higiênico nas quatro categorias de acessórios. Enxágue o reservatório do pente aplicador e as esferas rolantes com água morna após utilizar loções oleosas para que resíduos acumulados não travem o movimento das esferas dentro dos dentes. Antes de colar qualquer suporte UV para escovas no azulejo do banheiro, limpe a superfície lisa de vidro ou cerâmica com álcool, espere secar completamente e sacuda o excesso de água das cerdas antes de guardar cada escova no compartimento. Ao usar lixadeiras elétricas para pés, faça um escalda-pés primeiro, seque bem os calcanhares com uma toalha e deslize o rolo com leveza em vez de forçar um único ponto até reduzir a rotação do motor. Após lavar os cilindros abrasivos removíveis, deixe-os secar ao ar livre fora da base elétrica. Lave as máscaras de gel sem componentes eletrônicos com água fria e sabão neutro, guardando-as esticadas em uma embalagem limpa na geladeira."
           ],
           [
-            "Como os Destaques do Nosso Catálogo Colocam Esses Critérios em Prática",
+            "Como os destaques do nosso catálogo colocam esses critérios em prática",
             "Cada item em destaque no nosso catálogo ilustra na prática essas verificações essenciais antes da compra. O Pente Massageador Capilar com Aplicador utiliza esferas rolantes nos dentes para distribuir séruns e tônicos diretamente no couro cabeludo durante a escovação, tornando a capacidade do tanque interno e a viscosidade do cosmético pontos importantes de conferência. O Suporte Esterilizador UV para Escovas combina encaixes múltiplos para cabeças manuais ou rotativas com compartimento ultravioleta, secagem por ar morno e tela digital, exigindo atenção à fixação em azulejo liso, ao padrão do plugue e à necessidade de tomada contínua. Para o cuidado com os calcanhares, a Lixadeira Elétrica Esfoliadora para Pés reúne um visor digital com rolos intercambiáveis de granulação grossa e fina, onde convém observar a proteção contra umidade, o cabo USB e a quantidade de refis inclusos. Por fim, a Máscara de Gel Refrescante para Olhos dispensa baterias, motores e resistências elétricas, permitindo comparar facilmente o ajuste da alça traseira e o recorte anatômico para as pálpebras."
           ]
         ]
       ],
       "fr": [
-        "Soins Maison : Peignes, Supports UV, Râpes et Masques | FLUXIXO",
+        "Soins maison : peignes, supports UV, râpes et masques | FLUXIXO",
         "Comment choisir peignes applicateurs, stérilisateurs UV de brosses, râpes pour pieds et masques gel pour les yeux avant de commander sur AliExpress.",
         "Guide des appareils de soin à domicile : cuir chevelu, hygiène dentaire, pieds et contour des yeux",
         [

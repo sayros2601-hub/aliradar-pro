@@ -37,14 +37,14 @@ class DailyScheduleTests(unittest.TestCase):
         self.assertTrue(schedule.plan(ledger, prepared, now=NOW)['publish'])
 
     def test_empty_reviewed_batch_waits_with_next_attempt_then_resumes(self):
-        reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
+        reserved = schedule.reserve(self.ledger, self.state, DAY, 1, now=NOW)
         waiting = schedule.mark_prepared(self.ledger, reserved, DAY, now=NOW, allow_partial=True)
         self.assertEqual(waiting['days'][DAY]['status'], 'waiting')
         self.assertFalse(schedule.plan(self.ledger, waiting, now=NOW)['publish'])
         later = NOW + timedelta(minutes=20)
         planned = schedule.plan(self.ledger, waiting, now=later)
         self.assertEqual(planned['action'], 'prepare')
-        renewed = schedule.reserve(self.ledger, waiting, DAY, 3, now=later)
+        renewed = schedule.reserve(self.ledger, waiting, DAY, 1, now=later)
         self.assertEqual(renewed['days'][DAY]['status'], 'preparing')
 
     def setUp(self):
@@ -69,7 +69,7 @@ class DailyScheduleTests(unittest.TestCase):
             with self.subTest(instant=instant):
                 result = schedule.plan(self.ledger, self.state, now=datetime.fromisoformat(instant))
                 self.assertEqual(skip, result['skip'])
-                self.assertEqual(0 if skip else 3, result['add_count'])
+                self.assertEqual(0 if skip else 1, result['add_count'])
                 self.assertEqual(publish, result['publish'])
 
     def test_prepared_batch_waits_until_1530_without_generating_again(self):
@@ -119,12 +119,12 @@ class DailyScheduleTests(unittest.TestCase):
         self.assertFalse(result['record_publication'])
 
     def test_migration_respects_items_already_added_today(self):
-        for done, expected in ((0, 3), (1, 2), (2, 1), (3, 0)):
+        for done, expected in ((0, 1), (1, 0), (2, 0), (3, 0)):
             with self.subTest(done=done):
                 result = schedule.plan(added(self.ledger, done), self.state, now=NOW)
                 self.assertFalse(result['skip'])
                 self.assertEqual(expected, result['add_count'])
-                self.assertEqual('recover' if done == 3 else 'prepare', result['action'])
+                self.assertEqual('recover' if done >= 1 else 'prepare', result['action'])
 
     def test_alternating_groups_cover_each_market_in_each_priority_position(self):
         results = [schedule.plan(self.ledger, self.state, now=NOW + timedelta(days=i))['markets'] for i in range(6)]
@@ -147,16 +147,16 @@ class DailyScheduleTests(unittest.TestCase):
             schedule.reserve(self.ledger, reserved, DAY, 3, now=NOW)
 
     def test_stale_interrupted_prepare_auto_recovers_after_45_minutes_up_to_cap(self):
-        reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
+        reserved = schedule.reserve(self.ledger, self.state, DAY, 1, now=NOW)
         retry1 = schedule.plan(self.ledger, reserved, now=NOW + timedelta(minutes=50))
-        self.assertEqual((False, 3, 'prepare', 'retry_interrupted_prepare'),
+        self.assertEqual((False, 1, 'prepare', 'retry_interrupted_prepare'),
                          (retry1['skip'], retry1['add_count'], retry1['action'], retry1['reason']))
-        reserved2 = schedule.reserve(self.ledger, reserved, DAY, 3, now=NOW + timedelta(minutes=50))
+        reserved2 = schedule.reserve(self.ledger, reserved, DAY, 1, now=NOW + timedelta(minutes=50))
         self.assertEqual(1, reserved2['days'][DAY]['retries'])
         retry2 = schedule.plan(self.ledger, reserved2, now=NOW + timedelta(minutes=110))
-        self.assertEqual((False, 3, 'prepare', 'retry_interrupted_prepare'),
+        self.assertEqual((False, 1, 'prepare', 'retry_interrupted_prepare'),
                          (retry2['skip'], retry2['add_count'], retry2['action'], retry2['reason']))
-        reserved3 = schedule.reserve(self.ledger, reserved2, DAY, 3, now=NOW + timedelta(minutes=110))
+        reserved3 = schedule.reserve(self.ledger, reserved2, DAY, 1, now=NOW + timedelta(minutes=110))
         self.assertEqual(2, reserved3['days'][DAY]['retries'])
         exhausted = schedule.plan(self.ledger, reserved3, now=NOW + timedelta(minutes=180))
         self.assertEqual((True, 0, 'interrupted_prepare'), (exhausted['skip'], exhausted['add_count'], exhausted['reason']))
@@ -198,7 +198,7 @@ class DailyScheduleTests(unittest.TestCase):
         after_recovery = schedule.plan(ledger, published, now=next_day + timedelta(hours=1))
         self.assertEqual((True, 0, 'published'),
                          (after_recovery['skip'], after_recovery['add_count'], after_recovery['reason']))
-        self.assertEqual(3, schedule.plan(ledger, published, now=next_day + timedelta(days=1))['add_count'])
+        self.assertEqual(1, schedule.plan(ledger, published, now=next_day + timedelta(days=1))['add_count'])
 
     def test_unmarked_but_committed_old_catalog_also_recovers_without_new_images(self):
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
@@ -209,7 +209,7 @@ class DailyScheduleTests(unittest.TestCase):
     def test_incomplete_old_reservation_does_not_block_the_next_utc_day(self):
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
         result = schedule.plan(self.ledger, reserved, now=NOW + timedelta(days=1))
-        self.assertEqual(('prepare', 3, '2026-11-15'),
+        self.assertEqual(('prepare', 1, '2026-11-15'),
                          (result['action'], result['add_count'], result['day']))
 
     def test_legacy_published_state_without_actual_date_remains_readable(self):
@@ -242,7 +242,7 @@ class DailyScheduleTests(unittest.TestCase):
         result = schedule.plan(self.ledger, self.state, now=morning, manual_count=0)
         self.assertEqual((False, 0, 'recover', False), (result['skip'], result['add_count'], result['action'], result['record_publication']))
         self.assertTrue(result['publish'])
-        self.assertEqual(3, schedule.plan(self.ledger, self.state, now=NOW)['add_count'])
+        self.assertEqual(1, schedule.plan(self.ledger, self.state, now=NOW)['add_count'])
 
     def test_manual_zero_rebuild_can_recover_or_leave_consumed_interrupted_reservation(self):
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
@@ -292,11 +292,11 @@ class DailyScheduleCliTests(unittest.TestCase):
     def test_real_cli_persists_reservation_then_recovers_and_marks_publication(self):
         planned = self.cli('plan', '--output', str(self.output), '--now', NOW.isoformat())
         self.assertEqual(0, planned.returncode, planned.stderr)
-        self.assertIn('add_count=3\n', self.output.read_text())
-        reserve = self.cli('reserve', '--day', DAY, '--count', '3', '--now', NOW.isoformat())
+        self.assertIn('add_count=1\n', self.output.read_text())
+        reserve = self.cli('reserve', '--day', DAY, '--count', '1', '--now', NOW.isoformat())
         self.assertEqual(0, reserve.returncode, reserve.stderr)
         self.assertEqual('preparing', json.loads(self.state.read_text())['days'][DAY]['status'])
-        self.ledger.write_text(json.dumps(added(seed_ledger(), 3)), encoding='utf-8')
+        self.ledger.write_text(json.dumps(added(seed_ledger(), 1)), encoding='utf-8')
         prepared = self.cli('mark-prepared', '--day', DAY, '--now', NOW.isoformat())
         self.assertEqual(0, prepared.returncode, prepared.stderr)
         published = self.cli('mark-published', '--day', DAY, '--now', NOW.isoformat())

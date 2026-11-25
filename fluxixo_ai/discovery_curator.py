@@ -366,7 +366,7 @@ def seller_quality_check(
 
     if rate is not None and rate < MIN_SELLER_RATING:
         return False, f'low_seller_rating:{rate}', -100.0
-    if require_observed_metrics and rate is None:
+    if require_observed_metrics and rate is None and (volume is None or volume < 15):
         return False, 'missing_seller_rating', -100.0
     if volume is not None and volume > MAX_VOLUME:
         return False, f'mass_commodity_volume:{volume}', -50.0
@@ -380,6 +380,8 @@ def seller_quality_check(
     bonus = 0.0
     if rate is not None:
         bonus += min(10.0, max(0.0, (rate - 90.0) * 1.0))
+    else:
+        bonus -= 5.0
     if volume is not None:
         if SWEET_SPOT_MIN_VOLUME <= volume <= SWEET_SPOT_MAX_VOLUME:
             bonus += 8.0

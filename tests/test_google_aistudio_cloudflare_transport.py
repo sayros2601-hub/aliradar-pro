@@ -191,7 +191,10 @@ class CloudflareWorkerContractTests(unittest.TestCase):
         self.assertIn('GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}', text)
         self.assertIn('models: read', text)
         self.assertIn("env.FLUXIXO_IMAGE_MODE != 'generate'", text)
-        self.assertIn('FLUXIXO_TEXT_PROVIDER: gemini', text)
+        self.assertTrue(
+            'FLUXIXO_TEXT_PROVIDER: gemini' in text
+            or ('FLUXIXO_TEXT_PROVIDER:' in text and "|| 'gemini'" in text)
+        )
         self.assertIn('FLUXIXO_TEXT_GEMINI_API_KEY: ${{ secrets.FLUXIXO_TEXT_GEMINI_API_KEY }}', text)
         self.assertIn("FLUXIXO_REVIEW_REQUIRED: '1'", text)
         self.assertIn('FLUXIXO_DURABLE_CHECKPOINT: git', text)

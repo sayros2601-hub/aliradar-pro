@@ -30,8 +30,8 @@ sys.path.insert(0, str(HERE))
 import locales as L  # noqa: E402
 import journal_pages  # noqa: E402
 import market_seo  # noqa: E402
-from ui_text import (CATALOG_EN, CATEGORY_COPY_RU, CATEGORY_LONG, CATEGORY_LONG_HEADING, CATEGORY_LONG_RU,  # noqa: E402
-                     GUIDES_HEADING, MORE_HEADINGS, MORE_RU, ROOT_EN, RU_CHECKLIST_GUIDE, RU_CHECKLIST_WORLDS, UI)
+from ui_text import (CATALOG_EN, CATEGORY_COPY_RU, CATEGORY_GUIDES_HEADING, CATEGORY_LONG, CATEGORY_LONG_HEADING,  # noqa: E402
+                     CATEGORY_LONG_RU, GUIDES_HEADING, MORE_HEADINGS, MORE_RU, ROOT_EN, RU_CHECKLIST_GUIDE, RU_CHECKLIST_WORLDS, UI)
 from featured_carousel import CAROUSEL_COPY, FEATURED_IMAGE_OVERRIDES, copy_featured_images, select_featured_products  # noqa: E402
 
 ORIGIN = 'https://www.fluxixo.shop'
@@ -184,11 +184,11 @@ def assign_product_metadata(items_by_lang):
 
 WATCH_SEO_RU = {
     'title': 'Купить наручные часы — умные часы на AliExpress | FLUXIXO',
-    'description': 'Купить наручные часы: умные часы с экраном. Сравните изображения и уточните характеристики, стоимость и доставку у продавца AliExpress.',
+    'description': 'Купить умные наручные часы с круглым экраном и стальным браслетом на AliExpress: проверьте совместимость, размеры и условия доставки.',
     'heading': 'Умные наручные часы',
-    'copy': ('Умные наручные часы с экраном. Купить часы можно у продавца на AliExpress; '
-             'модель и характеристики по сохранённому каталогу не подтверждены. До заказа '
-             'проверьте совместимость со смартфоном, размер, цену, доставку и возврат.'),
+    'copy': ('Умные наручные часы с круглым цветным экраном, металлическим корпусом и стальным браслетом со звеньями. '
+             'Купить часы можно на AliExpress — до заказа сверьте точную комплектацию и функции в карточке товара, '
+             'совместимость со смартфоном, ширину ремешка и диаметр корпуса, а также сроки доставки и условия возврата.'),
 }
 
 
@@ -783,7 +783,7 @@ class Site:
                                      shared_fragments=fragments))
 
     def build_404(self):
-        body = (f'<section class="c-hero"><p class="eye">404</p><h1 class="d">Page not found<span class="s">This link may have changed.</span></h1>'
+        body = (f'<section class="c-hero"><p class="eye">404</p><h1 class="d">Page not found <span class="s">This link may have changed.</span></h1>'
                 f'<div class="row" style="margin:30px 0 80px"><a class="btn" href="/">Back to the finds <span aria-hidden="true">→</span></a></div></section>')
         (OUT / '404.html').write_text(self.page('Page Not Found | FLUXIXO', 'The requested page was not found on FLUXIXO.', '/404.html', body, {},
                                                 hreflang=False, noindex=True), encoding='utf-8', newline='\n')
@@ -855,18 +855,26 @@ class Site:
                     f'<h1 class="d">{e(name)} <span class="s">{e(u["count"](n=len(group)))}</span></h1><p class="t">{e(self.copy(key))}</p></section>'
                     f'<section class="c-body">{self.rope(group[:3], width=800) if len(group) >= 3 else ""}'
                     f'<div class="chips">{chips}</div><div class="grid">{"".join(self.card(p) for p in group)}</div></section>')
-            long_text = CATEGORY_LONG_RU.get(key) if self.lang == 'ru' else cat_long.get(key, {}).get(self.lang)
+            long_text = cat_long.get(key, {}).get(self.lang) or (CATEGORY_LONG_RU.get(key) if self.lang == 'ru' else None)
             if long_text:
                 heading = CATEGORY_LONG_HEADING[self.lang].format(name=name)
                 body += f'<section class="c-about"><h2>{e(heading)}</h2><p>{e(long_text)}</p></section>'
-            if self.lang == 'en' and slug(key) == 'tech':
+            group_ids = {p['id'] for p in group}
+            extra_tech = {'usb-c-buying-checklist', 'wifi-repeater-buying-guide', 'desk-cable-management', 'compare-the-final-price'} if slug(key) == 'tech' else set()
+            cat_articles = []
+            for article in journal_pages.all_articles():
+                if self.lang not in article['translations']:
+                    continue
+                art_pids = {article.get('preferred_product'), *(article.get('related_products') or ())} - {None}
+                if (art_pids & group_ids) or (article['slug'] in extra_tech):
+                    cat_articles.append(article)
+            if cat_articles:
                 guide_links = ''.join(
                     f'<li><a class="guide-link" href="{journal_pages.article_path(self.lang, article["slug"])}">'
                     f'{e(article["translations"][self.lang][2])}</a></li>'
-                    for article in GUIDES if article['slug'] in ('usb-c-buying-checklist', 'wifi-repeater-buying-guide')
-                    and self.lang in article['translations']
+                    for article in cat_articles
                 )
-                body += f'<section class="c-about"><h2>Buying guides</h2><ul>{guide_links}</ul></section>'
+                body += f'<section class="c-about"><h2>{e(CATEGORY_GUIDES_HEADING[self.lang])}</h2><ul>{guide_links}</ul></section>'
             ov = market_seo.route_override(overrides, path)
             title = ov.get('title') or L.CATEGORY_TITLE[self.lang].format(cat=name)
             desc = ov.get('description') or (self.copy(key) + ' ' + L.CATEGORY_COUNT[self.lang].format(n=len(group)))
@@ -958,6 +966,8 @@ def proofread():
         check_texts.check_string(text, 'en', f'en catalog/{key}', problems)
     for lang, text in GUIDES_HEADING.items():
         check_texts.check_string(text, lang, f'guides heading/{lang}', problems)
+    for lang, text in CATEGORY_GUIDES_HEADING.items():
+        check_texts.check_string(text, lang, f'category guides heading/{lang}', problems)
     for lang, headings in MORE_HEADINGS.items():
         for field, text in headings.items():
             check_texts.check_string(text, lang, f'more heading/{lang}/{field}', problems)
@@ -1003,6 +1013,25 @@ def proofread():
                 for idx, (h2, body) in enumerate(sections):
                     check_texts.check_string(h2, lang, f'journal/{slug_id}/{lang}/s{idx}/h2', problems)
                     check_texts.check_string(body, lang, f'journal/{slug_id}/{lang}/s{idx}/body', problems)
+    if journal_pages.EXTRA_RU_FILE.exists():
+        for article in json.loads(journal_pages.EXTRA_RU_FILE.read_text(encoding='utf-8')):
+            slug_id = article['slug']
+            check_texts.check_string(article['title'].removesuffix(' | FLUXIXO'), 'ru', f'journal_ru/{slug_id}/ru/title', problems)
+            check_texts.check_string(article['description'], 'ru', f'journal_ru/{slug_id}/ru/desc', problems)
+            check_texts.check_string(article['h1'], 'ru', f'journal_ru/{slug_id}/ru/h1', problems)
+            for idx, (h2, body) in enumerate(article.get('sections', ())):
+                check_texts.check_string(h2, 'ru', f'journal_ru/{slug_id}/ru/s{idx}/h2', problems)
+                check_texts.check_string(body, 'ru', f'journal_ru/{slug_id}/ru/s{idx}/body', problems)
+            for lang, payload in article.get('translations', {}).items():
+                if lang == 'ru':
+                    continue
+                title, desc, h1, sections = payload
+                check_texts.check_string(title.removesuffix(' | FLUXIXO'), lang, f'journal_ru/{slug_id}/{lang}/title', problems)
+                check_texts.check_string(desc, lang, f'journal_ru/{slug_id}/{lang}/desc', problems)
+                check_texts.check_string(h1, lang, f'journal_ru/{slug_id}/{lang}/h1', problems)
+                for idx, (h2, body) in enumerate(sections):
+                    check_texts.check_string(h2, lang, f'journal_ru/{slug_id}/{lang}/s{idx}/h2', problems)
+                    check_texts.check_string(body, lang, f'journal_ru/{slug_id}/{lang}/s{idx}/body', problems)
     if problems:
         sys.exit('Text problems, build stopped:\n' + '\n'.join(problems))
 

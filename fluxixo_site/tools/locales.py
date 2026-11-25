@@ -106,7 +106,7 @@ CATALOG_DESCRIPTION = {
 
 CATEGORY_TITLE = {
     'ru': '{cat}: находки с AliExpress | FLUXIXO',
-    'en': '{cat} Finds on AliExpress | FLUXIXO',
+    'en': '{cat}: Practical AliExpress Finds | FLUXIXO',
     'pt': '{cat}: achadinhos no AliExpress | FLUXIXO',
     'es': '{cat}: hallazgos en AliExpress | FLUXIXO',
     'fr': '{cat} : trouvailles AliExpress | FLUXIXO',

@@ -45,10 +45,10 @@ class WatchSeoTest(unittest.TestCase):
         self.assertIn('наручные часы',description.lower())
         visible = html.unescape(re.sub('<[^>]+>', ' ', page))
         self.assertIn('купить часы',visible.lower())
-        for concept in ('совместимость','размер','доставк','возврат'):
-            self.assertIn(concept,visible.lower())
-        self.assertIn('модель и характеристики',visible.lower())
-        self.assertIn('не подтверждены',visible.lower())
+        for concept in ('круглым', 'совместимость', 'размер', 'доставк', 'возврат'):
+            self.assertIn(concept, visible.lower())
+        self.assertIn('стальным браслетом', visible.lower())
+        self.assertNotIn('не подтверждены', visible.lower())
         self.assertIn(f'<link rel="canonical" href="{CANONICAL}">',page)
         self.assertIn(f'href="{AFFILIATE}"',page)
         self.assertIn('rel="sponsored nofollow noopener"',page)

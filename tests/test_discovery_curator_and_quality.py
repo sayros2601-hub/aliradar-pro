@@ -516,17 +516,24 @@ class SoldEverywhereTests(unittest.TestCase):
             self.assertFalse(ok_p)
             self.assertIn(err_code, rsn_p)
 
-        # Missing/low volume or missing rating rejected in strict mode
+        # Missing/low volume or missing rating with low volume rejected in strict mode
         for bad_metrics, err_code in (
             ({'lastest_volume': 0}, 'low_volume_unproven'),
             ({'lastest_volume': 3}, 'low_volume_unproven'),
-            ({'evaluate_rate': None}, 'missing_seller_rating'),
+            ({'evaluate_rate': None, 'lastest_volume': 12}, 'missing_seller_rating'),
         ):
             ok_m, rsn_m, _ = discovery_curator.presearch_exclusivity_check(
                 {**base, **bad_metrics}, existing, require_observed_metrics=True
             )
             self.assertFalse(ok_m)
             self.assertIn(err_code, rsn_m)
+
+        # Missing seller rating is allowed with penalty when sales volume >= 15
+        ok_hv, rsn_hv, meta_hv = discovery_curator.presearch_exclusivity_check(
+            {**base, 'evaluate_rate': None, 'lastest_volume': 120}, existing, require_observed_metrics=True
+        )
+        self.assertTrue(ok_hv, rsn_hv)
+        self.assertLess(meta_hv['score'], meta['score'])
 
         # Duplicate shop blocked
         ok_s, rsn_s, _ = discovery_curator.presearch_exclusivity_check(

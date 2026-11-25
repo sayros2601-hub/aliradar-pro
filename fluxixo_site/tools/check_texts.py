@@ -29,10 +29,10 @@ LATIN_OK = re.compile(r'^(AliExpress|FLUXIXO|KATORD|PETKIT|ATTACK|SHARK|CABLETIM
 # Words that mark the wrong regional variety.
 SPAIN = ('ordenador', 'móvil', 'móviles', 'coche', 'coches', 'zumo', 'patata', 'gafas', 'nevera', 'altavoz', 'altavoces', 'auriculares',
          'vosotros', 'vuestro', 'vuestra', 'ratón', 'mando', 'aparcar', 'aparcamiento', 'grifo', 'conducir', 'maletero', 'neumático', 'neumáticos',
-         'fregar', 'bombilla', 'tarta', 'piscina', 'vale', 'echar un vistazo', 'aquí tenéis', 'podéis')
+         'fregar', 'bombilla', 'tarta', 'piscina', 'vale', 'echar un vistazo', 'aquí tenéis', 'podéis', 'sua', 'seu', 'você')
 PORTUGAL = ('ecrã', 'telemóvel', 'telemóveis', 'utilizador', 'utilizadores', 'ficheiro', 'autocarro', 'casa de banho', 'frigorífico',
             'pequeno-almoço', 'comboio', 'rato', 'tu podes', 'vós', 'aplicação móvel', 'câmara', 'controlo', 'planear', 'registo',
-            'equipa', 'facto', 'contacto', 'óptimo', 'electr', 'acção', 'direcção', 'objecto', 'projecto', 'actual')
+            'equipa', 'facto', 'contacto', 'óptimo', 'electr', 'acção', 'direcção', 'objecto', 'projecto', 'actual', 'usted', 'ustedes')
 BRITISH = ('colour', 'favourite', 'tyre', 'tyres', 'aluminium', 'centre', 'metre', 'litre', 'organise', 'torch', 'boot of')
 
 

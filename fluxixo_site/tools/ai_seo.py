@@ -113,24 +113,27 @@ NATIVE_STYLE_GUIDES = {
         'Avoid internal jargon like "studio cutout" (use "studio visual"). Vary sentence structure cleanly.'
     ),
     'pt': (
-        'Português do Brasil (pt): use vocabulário brasileiro natural (celular, tela, variação, tomada NBR 14136, bivolt, frete). '
-        'Nunca use termos europeus (ecrã, telemóvel, utilizador) nem "preços ao vivo" (use "preços em tempo real").'
+        'Português do Brasil (pt): use vocabulário brasileiro natural (celular, tela, variação, tomada NBR 14136, bivolt, frete) e tratamento com "você". '
+        'Use iniciais minúsculas no nome após a primeira palavra (apenas siglas/marcas em maiúsculas), prefira próclise ("se fixa") e "temporizador" (não "cronômetro") para timers regressivos. '
+        'Nunca use termos europeus (ecrã, telemóvel, utilizador) nem espanhol ("usted") nem "preços ao vivo" (use "preços em tempo real").'
     ),
     'es': (
         'Español de México (es): use español mexicano natural (celular, computadora, auto, bocina, audífonos, el clima, manguera, '
-        'llantas, foco, quitapelusas, publicación). Nunca use vocabulario de España (coche, ordenador, móvil, rasuradora) ni "precios en vivo". '
-        'Siempre abra con ¿ / ¡ cuando haya ? / !.'
+        'llantas, foco, quitapelusas, publicación) y tuteo uniforme ("tú", "tu/tus", "revisa", "verifica", "confirma"). '
+        'Use mayúscula inicial solo en la primera palabra del nombre (mantenga siglas), nunca use "usted", vocabulario de España (coche, ordenador, móvil, rasuradora), palabras en portugués (sua, seu, você), ni "!" o "¡" en headline. '
+        'En preguntas use siempre apertura "¿". Nunca escriba "precios en vivo".'
     ),
     'fr': (
-        'Français (fr): style éditorial fluide. Respectez toujours une espace avant « ? », « ! », « : », « ; ». '
-        'Gardez les mots-outils en minuscules (de, du, à, pour, d’Irrigation) et évitez « tarifs en direct ».'
+        'Français (fr): style éditorial fluide de France métropolitaine, minuscules après le premier mot dans name (hormis sigles/marques), 230 V / prise européenne et « plan de travail » en cuisine. '
+        'Respectez toujours une espace avant « ? », « ! », « : », « ; » et évitez « tarifs en direct ».'
     ),
     'he': (
         'עברית ישראלית מודרנית (he): כתבו עברית טבעית, חדה וברורה של עורך ישראלי, בלי תרגום מילולי מאנגלית או רוסית. '
-        'אין לכתוב «יש לבדוק עם המוכר», «עיינו», «לצורך שלכם» או «ברשותכם» — העדיפו פנייה ישירה ברבים («בדקו בעמוד המוצר», «השוו», «ודאו»). '
+        'אין לכתוב «יש לבדוק עם המוכר», «עיינו», «לצורך שלכם» או «ברשותכם» — העדיפו פנייה ישירה ברבים («בדקו בעמוד המוצר», «השוו», «ודאו» ב־ו׳ יחידה בראש מילה). '
+        'ציינו מתח 230V בהתאמה לישראל והקפידו שגלאי EMF מודד שדות אלקטרומגנטיים ולא קרינה גרעינית. '
         'אסור להשתמש בצירופים שגויים כמו «מחירים חיים» (במקום «מחירים בזמן אמת»), «קולר» למאוורר צוואר, «נשיכות» בדיג («אכילות»), '
         '«מאוורר יין» («מחמצן יין»), «כדוריות בד» («מוך»), «דוקרן» במזון («מחט»), «דו-יחידתי», «שוקת» לכלבים («קערית שתייה») או «לוח אם» לשעון. '
-        'צמדו תחיליות ב־/ל־/מ־ במקף עברי (ב־AliExpress), ללא רווח לפני נקודתיים או סימן שאלה, וגוונו את פתיחת התיאור.'
+        'צמדו תחיליות ב־/ל־/מ־ במקף עברי (ב־AliExpress), ללא מילים באנגלית שאינן תקניות, ללא רווח לפני נקודתיים או סימן שאלה, וגוונו את פתיחת התיאור.'
     ),
 }
 
@@ -523,7 +526,11 @@ def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
 
 
 def _numeric_units(text):
-    return set(re.findall(r'\b\d+(?:[.,]\d+)?\s?(?:w|v|a|mah|wh|gb|tb|mbps|ghz|mhz|ml|l|mm|cm|m|kg|g|oz|db|lm|k)\b', text.lower()))
+    matches = re.findall(
+        r'\b(\d+(?:[.,]\d+)?)\s?(w|v|mah|wh|gb|tb|mbps|ghz|mhz|ml|l|mm|cm|m|kg|g|oz|db|lm|k|a(?!\s+(?:\d|la\b|el\b|los\b|las\b|un\b|una\b|os\b|as\b|um\b|uma\b|o\b|ao\b|al\b)))\b',
+        str(text or '').lower(),
+    )
+    return {f"{num.replace(',', '.')}{unit}" for num, unit in matches}
 
 
 def free_web_check_enabled():
@@ -600,7 +607,7 @@ def validate_text_field(
     if allow_numbers_from is not None:
         allowed_units = _numeric_units(allow_numbers_from)
         # Market-level standard mains voltages mentioned purely in buyer check reminders are safe when generic.
-        allowed_units |= {'110v', '120v', '127v', '220v', '230v'}
+        allowed_units |= {'110v', '120v', '127v', '220v', '230v', '12v', '24v'}
         invented = _numeric_units(clean) - allowed_units
         if invented:
             problems.append(f'{where}: ungrounded specs {sorted(invented)}')
@@ -867,6 +874,106 @@ def enrich_ru_long_copy(product_context, bundle_ru_and_en, keys=None, transport=
                 'check': [' '.join(str(c).split()) for c in cand['check'][:3]],
             }, provider
         prompt = json.dumps({**payload, 'validation_errors': probs[:6]}, ensure_ascii=False)
+    return None, 'rejected'
+
+
+def validate_product_editorial(editorial_bundle, grounding_text=''):
+    """Validate a complete 6-language 4-block product editorial entry (who, skip, compare, check)."""
+    if not isinstance(editorial_bundle, dict):
+        return ['editorial: must be an object']
+    problems = []
+    for lang in LANGS:
+        entry = editorial_bundle.get(lang)
+        if not isinstance(entry, dict):
+            problems.append(f'editorial.{lang}: missing locale object')
+            continue
+        for block, mn, mx in (('who', 80, 550), ('skip', 70, 520), ('compare', 70, 520)):
+            val = ' '.join(str(entry.get(block) or '').split())
+            problems.extend(validate_text_field(
+                val, lang, f'editorial.{lang}.{block}', max_len=mx, min_len=mn,
+                allow_numbers_from=grounding_text or None, require_terminal_punct=True,
+            ))
+        checks = entry.get('check')
+        if not isinstance(checks, list) or len(checks) != 3:
+            problems.append(f'editorial.{lang}.check: must be a list of exactly 3 buyer checks')
+        else:
+            for idx, item in enumerate(checks):
+                val = ' '.join(str(item or '').split())
+                problems.extend(validate_text_field(
+                    val, lang, f'editorial.{lang}.check[{idx}]', max_len=300, min_len=30,
+                    allow_numbers_from=grounding_text or None, require_terminal_punct=True,
+                ))
+    return problems
+
+
+def enrich_product_editorial(product_context, enriched_bundle, keys=None, transport=_post_json, *,
+                             copy_state=None, checkpoint=None):
+    """Generate unique 6-language 4-block buyer guidance (who, skip, compare, check) for daily products."""
+    resolved = keys if keys is not None else load_ai_keys(local=False)
+    if not has_ai_provider(resolved):
+        return None, 'deterministic'
+    is_gemini = str(resolved.get('FLUXIXO_TEXT_PROVIDER', '')).lower() == 'gemini'
+    source_title = str(product_context.get('source_title') or '')
+    if is_gemini and not source_title.strip():
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        raise GeminiDeferred('gemini_source_title_missing')
+    guides_block = '\n'.join(f'- {NATIVE_STYLE_GUIDES[lang]}' for lang in LANGS)
+    system_prompt = (
+        'You are the senior 6-language catalog editor for FLUXIXO. Return strict JSON with keys: '
+        'ru, en, pt, es, fr, he. Each locale maps to {"who": string (100..450 chars), '
+        '"skip": string (90..420 chars), "compare": string (90..420 chars), '
+        '"check": [string (40..240 chars), string, string] (exactly 3 strings)}.\n'
+        'Hard factual & localization rules:\n'
+        '1) Ground every detail ONLY in source_title — never invent dimensions, specs, materials, ratings, prices, shipping speed, or FAQ blocks;\n'
+        '2) who = concrete realistic buyers/scenarios; skip = who should pass and honest limits; '
+        'compare = objective trade-off vs common alternatives; check = 3 practical buyer verification steps;\n'
+        '3) Follow each locale standard strictly with zero cross-language/register leaks:\n' + guides_block
+    )
+    payload = {
+        'source_title': source_title if is_gemini else _sanitize_for_prompt(source_title),
+        'category_for_classification': _sanitize_for_prompt(product_context.get('category')),
+    }
+    if not is_gemini:
+        payload['context_6_languages'] = {
+            lang: (enriched_bundle or {}).get(lang, {}) for lang in LANGS if (enriched_bundle or {}).get(lang)
+        }
+    grounding = source_title if is_gemini else f"{source_title} {json.dumps(payload, ensure_ascii=False)}"
+
+    def _normalize_editorial(cand):
+        return {
+            lang: {
+                'who': ' '.join(str(cand[lang]['who']).split()),
+                'skip': ' '.join(str(cand[lang]['skip']).split()),
+                'compare': ' '.join(str(cand[lang]['compare']).split()),
+                'check': [' '.join(str(c).split()) for c in cand[lang]['check'][:3]],
+            }
+            for lang in LANGS
+        }
+
+    if is_gemini:
+        def generate(problems):
+            request = {**payload, 'validation_errors': problems[:8]} if problems else payload
+            return complete_json(system_prompt, json.dumps(request, ensure_ascii=False), keys=resolved, transport=transport)
+        try:
+            cand, provider = run_bounded_copy(
+                source_title, scope='editorial', state=copy_state, checkpoint=checkpoint, generate=generate,
+                validate=lambda candidate: validate_product_editorial(candidate, grounding_text=source_title),
+                review=lambda candidate: _gemini_claim_problems(source_title, candidate, ('who', 'skip', 'compare', 'check'),
+                                                                keys=resolved, transport=transport),
+            )
+        except GeminiCopyStopped:
+            return None, 'rejected'
+        return _normalize_editorial(cand), provider
+
+    prompt = json.dumps(payload, ensure_ascii=False)
+    for _ in range(2):
+        cand, provider = complete_json(system_prompt, prompt, keys=resolved, transport=transport)
+        if not cand:
+            return None, provider
+        probs = validate_product_editorial(cand, grounding_text=grounding)
+        if not probs:
+            return _normalize_editorial(cand), provider
+        prompt = json.dumps({**payload, 'validation_errors': probs[:8]}, ensure_ascii=False)
     return None, 'rejected'
 
 

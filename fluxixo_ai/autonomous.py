@@ -332,7 +332,30 @@ def _maybe_ai_enrich(record_item, translated, candidate, site_root, *, catalog_c
                     ai_seo.reject_cached_copy(candidate.get('title') or record_item.get('sourceTitle', ''),
                                               copy_state, checkpoint, problems=problems)
                 if not problems:
-                    if hasattr(ai_seo, 'enrich_ru_long_copy'):
+                    editorial_loaded = False
+                    if hasattr(ai_seo, 'enrich_product_editorial'):
+                        try:
+                            editorial_entry, ed_provider = ai_seo.enrich_product_editorial(
+                                {
+                                    'category': record_item.get('category', ''),
+                                    'source_title': candidate.get('title', record_item.get('sourceTitle', '')),
+                                },
+                                enriched,
+                                keys=keys, **revisions,
+                            )
+                            if editorial_entry:
+                                cand_record['_product_editorial'] = editorial_entry
+                                ru_ed = editorial_entry.get('ru')
+                                if isinstance(ru_ed, dict) and ru_ed.get('who') and ru_ed.get('check'):
+                                    cand_record['_ru_long'] = {'who': ru_ed['who'], 'check': ru_ed['check']}
+                                editorial_loaded = True
+                        except Exception as ed_exc:
+                            if os.environ.get('FLUXIXO_TEXT_PROVIDER') == 'gemini':
+                                from .gemini_client import GeminiDeferred
+                                if isinstance(ed_exc, GeminiDeferred):
+                                    raise
+                            print(f'product_editorial warning ({record_item.get("id")}): {ed_exc}')
+                    if not editorial_loaded and hasattr(ai_seo, 'enrich_ru_long_copy'):
                         # Gemini's long-copy helper already makes its bounded correction attempt.
                         attempts = 1 if keys.get('FLUXIXO_TEXT_PROVIDER') == 'gemini' else 2
                         for _lc_attempt in range(attempts):
@@ -604,7 +627,8 @@ def discover(
             pref_set = set(pref_tuple)
             verified_pool = []
             full_overlap_count = 0
-            for base_neg_score, pid, item in sorted_eligible:
+            iter_candidates = sorted_eligible[:5] if check_all_markets else sorted_eligible
+            for base_neg_score, pid, item in iter_candidates:
                 if check_all_markets:
                     discovery_curator.verify_markets_for_candidate(
                         call, item, discovery_curator.ALL_MARKETS, utc_now.isoformat(),
@@ -1971,12 +1995,16 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             raise DailyError('pre_deploy_gate_failed:' + ','.join(gate_errors[:4]))
         fresh_catalog = dict(catalog)
         ru_long_entries = {}
+        editorial_entries = {}
         prepared_clean = []
         for product, lang, media in prepared:
             prod_copy = dict(product)
             ru_long = prod_copy.pop('_ru_long', None)
             if isinstance(ru_long, dict) and ru_long.get('who') and ru_long.get('check'):
                 ru_long_entries[prod_copy['id']] = ru_long
+            prod_ed = prod_copy.pop('_product_editorial', None)
+            if isinstance(prod_ed, dict) and prod_ed.get('ru'):
+                editorial_entries[prod_copy['id']] = prod_ed
             prepared_clean.append((prod_copy, lang, media))
         prepared = prepared_clean
         fresh_catalog['products'] = [p[0] for p in prepared] + old
@@ -1986,6 +2014,8 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
             fresh_i18n['products'][product['id']] = lang
         long_ru_path = site_root / 'tools/ru_long_copy.json'
         original_long_ru = long_ru_path.read_bytes() if long_ru_path.is_file() else None
+        editorial_path = site_root / 'tools/product_editorial.json'
+        original_editorial = editorial_path.read_bytes() if editorial_path.is_file() else None
         rows = [{'catalog_id': p['id'], 'product_id': p['sourceProductId'], 'source': 'api'} for p, _, _ in prepared]
         if validation_run_id is None:
             next_ledger = record(ledger, day, rows)
@@ -2022,12 +2052,18 @@ def accumulate(*, count, site_root, dist, reserve_dir, ledger_path, now=None,
                 existing_long = json.loads(original_long_ru.decode('utf-8')) if original_long_ru else {}
                 existing_long.update(ru_long_entries)
                 _atomic_bytes(long_ru_path, (json.dumps(existing_long, ensure_ascii=False, indent=2) + '\n').encode('utf-8'))
+            if editorial_entries and editorial_path.parent.is_dir():
+                existing_ed = json.loads(original_editorial.decode('utf-8')) if original_editorial else {}
+                existing_ed.update(editorial_entries)
+                _atomic_bytes(editorial_path, (json.dumps(existing_ed, ensure_ascii=False, indent=2) + '\n').encode('utf-8'))
             atomic_write(ledger_path, next_ledger)
         except Exception:
             _atomic_bytes(catalog_path, original_catalog)
             _atomic_bytes(translations_path, original_i18n)
             if original_long_ru is not None:
                 _atomic_bytes(long_ru_path, original_long_ru)
+            if original_editorial is not None:
+                _atomic_bytes(editorial_path, original_editorial)
             _atomic_bytes(ledger_path, original_ledger)
             for target in created:
                 if target.is_relative_to(dist.resolve()):

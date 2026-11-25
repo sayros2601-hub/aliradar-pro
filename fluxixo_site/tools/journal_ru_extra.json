@@ -2,79 +2,477 @@
   {
     "slug": "car-tire-inflator-guide",
     "preferred_product": "find-060-tire-inflator",
+    "related_products": [
+      "find-060-tire-inflator",
+      "import-0074",
+      "find-005-moto-tpms",
+      "import-0211",
+      "import-0216"
+    ],
     "date": "2026-11-13",
     "title": "Как выбрать аккумуляторный автомобильный компрессор | FLUXIXO",
-    "description": "Давление в PSI, отсечка по уровню, питание от батареи или 12 V и перегрев цилиндра: на что смотреть перед покупкой автокомпрессора.",
+    "description": "Давление в PSI, автостоп по манометру, питание от батареи или 12 В и охлаждение цилиндра: что проверить перед покупкой автокомпрессора.",
     "h1": "Как выбрать аккумуляторный автомобильный компрессор",
     "sections": [
       [
-        "Запас по давлению и точность манометра",
-        "Для легковушки рабочее давление обычно держится около 30–35 PSI, для велосипедного шоссейного колеса требуется заметно больше, поэтому ориентируйтесь на заявленный верхний предел не ниже 120–150 PSI. Важнее пиковой цифры наличие цифрового экрана с автостопом: вы заранее выставляете нужное значение, а насос сам отключается по достижении цели, без беготни вокруг колеса с отдельным манометром."
+        "Запас по давлению и точность манометра с автостопом",
+        "Для легкового автомобиля рабочее давление обычно держится около 2,1–2,5 бар (30–36 PSI), тогда как для шоссейного велосипеда или твёрдой покрышки электросамоката требуется заметно больше, поэтому ориентируйтесь на верхний предел не ниже 120–150 PSI. Гораздо важнее пиковой цифры наличие цифрового экрана с автоматической отсечкой: вы заранее выставляете целевое значение, а насос сам выключается без беготни вокруг колеса с ручным манометром."
       ],
       [
-        "Автономность против питания от бортовой сети",
-        "Аккумуляторный насос удобен тем, что достаётся из багажника или рюкзака за секунду — не надо тянуть провод по мокрому асфальту к прикуривателю или искать розетку во дворе. Но если спустило крупное колесо внедорожника, встроенной батареи может хватить только на подкачку, а не на подъём с нуля. Для дальних трасс практичнее гибридные модели, которые работают и от своего аккумулятора, и через кабель 12 V, либо заряжаются от USB Type-C в салоне."
+        "Автономная батарея против питания от прикуривателя 12 В",
+        "Аккумуляторный компрессор удобен тем, что достаётся из бардачка или рюкзака за секунду — не надо разматывать длинный провод по мокрому асфальту к розетке 12 В. Однако небольшой встроенной батареи уверенно хватает на сезонную подкачку четырёх колёс или велосипеда, а вот полностью спущенное крупное колесо кроссовера на морозе может высадить заряд до конца накачки. Для трассы практичнее гибридные модели с резервным шнуром в прикуриватель 12 В и зарядкой по USB Type-C."
       ],
       [
-        "Охлаждение, шланг и длина непрерывной работы",
-        "Компактный металлический цилиндр быстро греется, поэтому в инструкции ищите допустимое время работы без паузы — обычно 8–10 минут, после чего прибору дают остыть. Обращайте внимание на оплётку шланга и быстросъёмный наконечник с рычажком: в мороз короткий жёсткий шланг неудобно накручивать, а пока вы его свинчиваете, колесо успевает стравить часть воздуха."
+        "Нагрев поршня, длина шланга и тип штуцера",
+        "Миниатюрный металлический цилиндр при работе ощутимо нагревается, поэтому в описании смотрите допустимый цикл без перерыва — как правило, 8–10 минут, после чего корпусу нужна пауза на остывание. Проверяйте гибкий шланг в тканевой оплётке и быстросъёмный флажковый зажим на ниппель: короткий жёсткий патрубок передаёт вибрацию на вентиль, а при долгом скручивании резьбы узкое колесо самоката мгновенно теряет набранное давление."
       ],
       [
-        "Насадки в комплекте и фонарик в дороге",
-        "Кроме стандартного автомобильного золотника проверьте, лежит ли в коробке переходник на тонкий спортивный велониппель и игла для мячей или матрасов — летом они пригождаются чаще всего. В тёмное время суток на обочине выручает встроенный LED-фонарик на торце корпуса и тканевый мешочек, чтобы насадки и кабель Type-C не гремели по нише запаски."
+        "Переходники в комплекте и работа в темноте",
+        "Помимо базового автомобильного штуцера проверьте, лежат ли в чехле латунный переходник под тонкий велосипедный вентиль, игла для футбольных и баскетбольных мячей и конусная насадка для надувных кругов. На неосвещённой парковке сильно выручает встроенный торцевой фонарик LED с режимом мигания и плотный мешочек, чтобы аксессуары не гремели в нише багажника."
       ]
-    ]
+    ],
+    "translations": {
+      "en": [
+        "How to Choose a Cordless Portable Tire Inflator | FLUXIXO",
+        "Compare real PSI output, preset auto-shutoff accuracy, 12V backup cords, and valve chucks before buying a cordless tire inflator.",
+        "How to choose a cordless portable car and bike tire inflator",
+        [
+          [
+            "Real PSI capacity vs. preset auto-shutoff accuracy",
+            "Most passenger cars run between 30 and 36 PSI, while road bike tires and compact electric scooter wheels require higher pressure or zero-loss valve removal. Look for a 150 PSI rated cylinder paired with a digital pressure sensor and automatic shutoff: set your target PSI once and let the pump stop automatically instead of over-inflating."
+          ],
+          [
+            "Cordless battery convenience vs. 12V DC backup",
+            "A pocket-sized lithium inflator is unbeatable for topping off four car tires in a driveway, adjusting trail pressure, or carrying in a backpack without untangling cords. However, inflating a completely flat SUV tire from zero drains small internal packs quickly. For highway road trips, prioritize dual-power models that charge via USB Type-C and also include a 12V car socket cord for emergencies."
+          ],
+          [
+            "Duty cycle heat limits, hose length, and quick-release chucks",
+            "Compact metal pistons generate intense heat at the brass coupling within minutes. Check the stated continuous duty cycle—typically 8 to 10 minutes before a mandatory cool-down break. Choose a braided heat-shielded air hose with a lever-lock quick-release chuck rather than a slow screw-on collar, which bleeds air out of low-volume scooter and stroller tires as you unscrew it."
+          ],
+          [
+            "Valve adapters, LED roadside lighting, and storage",
+            "Confirm the box includes a Presta valve adapter for road bikes, a ball needle, and a tapered inflatable nozzle alongside the standard Schrader chuck. A built-in top LED work light with an amber or red SOS flash mode makes nighttime shoulder stops far safer, and a zippered pouch keeps adapters together in your trunk."
+          ]
+        ]
+      ],
+      "es": [
+        "Cómo elegir un inflador de llantas inalámbrico | FLUXIXO",
+        "Revisa presión real en PSI, apagado automático, respaldo de 12V y boquillas antes de pedir un compresor portátil en AliExpress.",
+        "Cómo elegir un compresor e inflador de llantas inalámbrico para auto y bici",
+        [
+          [
+            "Presión máxima en PSI y corte automático digital",
+            "Las llantas de un auto compacto suelen trabajar entre 30 y 36 PSI, mientras que una bicicleta de ruta exige mucha más presión. Busca un inflador de hasta 150 PSI con manómetro digital y apagado automático: fijas la presión deseada en pantalla y el motor se detiene solo al llegar a la meta sin pasarse."
+          ],
+          [
+            "Batería recargable frente a cable auxiliar de 12V",
+            "Un compresor inalámbrico con carga USB Type-C te salva de desenredar cables por el piso cuando solo necesitas recuperar unas libras en la cochera o ajustar tu moto. Sin embargo, levantar desde cero la llanta grande de una camioneta consume rápido la batería interna. Para salir a carretera en México, conviene elegir un modelo híbrido que también incluya cable para la toma de 12V del encendedor."
+          ],
+          [
+            "Calentamiento del cilindro, manguera y conector rápido",
+            "El pistón compacto se calienta bastante tras varios minutos continuos, así que revisa el tiempo máximo de uso seguido —normalmente de 8 a 10 minutos antes de dejarlo enfriar—. Prefiere una manguera trenzada flexible con palanca de liberación rápida en lugar de boquilla roscada, ya que al desenroscar lento en llantas pequeñas de scooter se escapa buena parte del aire."
+          ],
+          [
+            "Adaptadores incluidos y linterna LED de emergencia",
+            "Verifica en la foto de la variante que vengan el adaptador para válvula francesa de bicicleta, aguja para balones y boquilla cónica para inflables. Una linterna LED frontal con parpadeo de emergencia en la cajuela marca la diferencia si tienes que revisar una llanta de noche en carretera."
+          ]
+        ]
+      ],
+      "pt": [
+        "Como escolher calibrador e compressor de pneus sem fio | FLUXIXO",
+        "Confira limite em PSI, desligamento automático, cabo 12V reserva e bicos antes de comprar um compressor portátil no AliExpress.",
+        "Como escolher um compressor e calibrador de pneus portátil sem fio",
+        [
+          [
+            "Limite de pressão em PSI e parada automática precisa",
+            "Pneus de carros de passeio costumam usar entre 30 e 36 PSI, enquanto bicicletas speed e patinetes elétricos pedem ajustes finos sem perda de ar. Priorize modelos de 150 PSI com visor digital em PSI e BAR e desligamento automático: você programa a calibragem exata e o aparelho para sozinho no valor definido."
+          ],
+          [
+            "Bateria interna USB-C versus cabo veicular 12V",
+            "O calibrador sem fio cabe no porta-luvas ou na mochila e resolve em minutos a calibragem semanal na garagem sem esticar fios. Porém, encher do zero um pneu grande de SUV consome boa parte da carga interna. Para viagens longas pelo Brasil, vale preferir versões híbridas que recarregam via USB Type-C e também trazem cabo para a tomada 12V do painel."
+          ],
+          [
+            "Aquecimento em uso contínuo, mangueira e bico de engate rápido",
+            "Todo microcompressor aquece o bico metálico durante o bombeamento; respeite o ciclo contínuo indicado de 8 a 10 minutos com pausa para resfriar. Prefira mangueira revestida com trava rápida de alavanca em vez de rosca longa, evitando que pneus pequenos de patinete ou moto percam pressão na hora de soltar o bico."
+          ],
+          [
+            "Adaptadores de válvula e lanterna LED no porta-malas",
+            "Confirme no anúncio se o kit traz adaptador para bico fino de bicicleta, agulha para bolas, ponteira para boias e bolsa organizadora. A lanterna LED integrada na ponta ajuda muito a enxergar o ventil do pneu à noite ou em garagens escuras."
+          ]
+        ]
+      ],
+      "fr": [
+        "Comment choisir un gonfleur de pneus sans fil | FLUXIXO",
+        "Pression en bars et PSI, arrêt automatique, câble 12V de secours et embouts de valve : les points clés avant de commander.",
+        "Comment choisir un gonfleur de pneus autonome pour voiture, moto et vélo",
+        [
+          [
+            "Plage de pression en bars et coupure automatique",
+            "Une citadine demande généralement entre 2,1 et 2,5 bars, tandis qu'un vélo de route grimpe bien plus haut. Privilégiez un compresseur donné pour 10 bars (150 PSI) doté d'un écran numérique lisible et d'un arrêt automatique : une fois la consigne réglée, le gonflage coupe net sans risque de surgonflage."
+          ],
+          [
+            "Batterie rechargeable USB-C ou cordon allume-cigare 12V",
+            "Le format sans fil se glisse dans une boîte à gants ou une sacoche de trottinette pour refaire l'appoint sans dérouler de câble autour de la carrosserie. En revanche, regonfler à plat un pneu de SUV sollicite fortement une petite batterie lithium. Pour les longs trajets autoroutiers, un modèle mixte combinant recharge USB Type-C et cordon 12V de secours reste le choix le plus sûr."
+          ],
+          [
+            "Échauffement du piston, flexible tressé et embout rapide",
+            "Le cylindre interne chauffe vite en fonctionnement continu : vérifiez la durée maximale conseillée (souvent 8 à 10 minutes avant refroidissement). Optez pour un flexible tressé muni d'un embout à levier rapide plutôt qu'un embout à visser, qui laisse s'échapper une partie de la pression sur les petites roues de trottinette."
+          ],
+          [
+            "Embouts Presta, aiguille à ballon et lampe LED intégrée",
+            "Assurez-vous que la pochette contient bien l'adaptateur pour valve Presta de vélo, une aiguille pour ballons et un cône pour matelas, ainsi qu'un éclairage LED frontal pratique sur le bas-côté la nuit."
+          ]
+        ]
+      ],
+      "he": [
+        "איך לבחור קומפרסור אלחוטי לניפוח צמיגים לרכב | FLUXIXO",
+        "עוצמת PSI, עצירה אוטומטית מדויקת, כבל גיבוי 12V והגנה מהתחממות: מדריך מעשי לפני הזמנת משאבת צמיגים ניידת ב־AliExpress.",
+        "איך לבחור קומפרסור אלחוטי נייד לצמיגי רכב, אופניים וקורקינט",
+        [
+          [
+            "טווח לחץ בערכי PSI ו־BAR עם עצירה אוטומטית",
+            "צמיגי רכב פרטי דורשים לרוב 30 עד 36 PSI, בעוד שאופני כביש וקורקינטים חשמליים רגישים מאוד לכל בריחת אוויר בניתוק הפייה. בחרו קומפרסור שמגיע עד 150 PSI עם מד לחץ דיגיטלי וכיבוי אוטומטי: מגדירים מראש את הלחץ הרצוי והמכשיר עוצר לבד בדיוק ביעד."
+          ],
+          [
+            "סוללה נטענת מול חיבור גיבוי לשקע מצת 12V",
+            "קומפרסור אלחוטי עם טעינת USB Type-C חוסך פריסת כבלים בחניה ומצוין להשלמת אוויר תקופתית או לנשיאה בתיק רכיבה. יחד עם זאת, ניפוח מאפס של צמיג רכב גדול מרוקן סוללות קטנות במהירות, ובקיץ הישראלי לא מומלץ להשאיר סוללת ליתיום לוהטת בתא המטען בשמש ישירה — העדיפו דגם היברידי הכולל גם כבל 12V לשקע הרכב ושמרו אותו בתא מוצל."
+          ],
+          [
+            "התחממות הצילינדר, אורך הצינור ופיית שחרור מהיר",
+            "בוכנת המתכת הקומפקטית מתחממת תוך דקות ספורות של עבודה רציפה, לכן בדקו במפרט את זמן ההפעלה המותר — בדרך כלל 8 עד 10 דקות לפני הפסקת קירור. העדיפו צינור גמיש מצופה בד עם ידית נעילה מהירה על פני הברגה איטית שמשחררת אוויר מגלגלי קורקינט קטנים בזמן הפירוק."
+          ],
+          [
+            "מתאמים בערכה ופנס LED לעבודה בחושך",
+            "ודאו שהאריזה כוללת מתאם לונטיל צר של אופניים, מחט לכדורים, פייה למזרנים ונרתיק אחסון, לצד פנס LED מובנה שמקל מאוד על חיבור הפייה בחניון חשוך או בשולי הדרך."
+          ]
+        ]
+      ]
+    }
   },
   {
     "slug": "pre-order-checklist-aliexpress",
     "preferred_product": "find-054-soldering-iron",
+    "related_products": [
+      "find-054-soldering-iron",
+      "import-0032",
+      "import-0026",
+      "import-0042",
+      "import-0041",
+      "import-0001",
+      "import-0051",
+      "import-0057",
+      "import-0488",
+      "import-0024",
+      "find-006-phone-cooler",
+      "find-007-phone-gamepad",
+      "find-009-bulb-camera",
+      "find-030-ai-recorder",
+      "find-031-kids-print-camera",
+      "find-047-scanner-pen",
+      "find-059-label-printer",
+      "import-0093",
+      "import-0117",
+      "import-0119",
+      "import-0104",
+      "import-0129",
+      "import-0070",
+      "import-0064",
+      "find-058-key-finder",
+      "find-067-pill-organizer",
+      "find-027-heated-insoles",
+      "find-041-heated-gloves",
+      "find-004-moto-intercom",
+      "find-042-car-hud"
+    ],
     "date": "2026-11-13",
     "title": "Что проверить перед заказом техники на AliExpress | FLUXIXO",
-    "description": "Комплектация без блока питания, тип вилки, мощность по USB PD и совместимость расходников: короткий чек-лист перед переходом к продавцу.",
+    "description": "Комплектация без блока питания, евровилка 220 В, мощность по USB PD и совместимость расходников: чек-лист перед покупкой на AliExpress.",
     "h1": "Что проверить перед заказом техники на AliExpress",
     "sections": [
       [
-        "Вариант комплектации на кнопках выбора",
-        "У одного и того же товара на странице продавца часто соседствуют несколько опций: базовый прибор без кабеля и блока, версия с аккумулятором и полный набор в кейсе с насадками. Фото в галерее почти всегда показывает максимальную комплектацию, поэтому перед оплатой переключите иконку нужного лота и сверьте текстовое содержимое коробки. На примере USB-паяльника или шуруповёрта разница между пустой тушкой и рабочим комплектом заметна сразу."
+        "Вариант комплектации на кнопках выбора лота",
+        "У одного и того же товара на странице продавца часто соседствуют несколько опций: базовый корпус без кабеля и блока, версия с аккумулятором и расширенный набор в кейсе с насадками. Главное фото обложки почти всегда показывает максимальную комплектацию, поэтому перед оплатой нажмите конкретную плитку варианта и сверьте подпись и картинку выбранного лота."
       ],
       [
-        "Питание, тип вилки и реальные ватты",
-        "Всё, что включается в домашнюю сеть, должно быть рассчитано на 220 V и вилку EU, иначе к покупке сразу добавится переходник. Если устройство питается от USB Type-C, проверьте поддерживаемый протокол PD и нужную мощность адаптера в ваттах: цифровой паяльник или паяльный фен на слабой телефонной зарядке просто не наберут рабочую температуру и уйдут в перезагрузку при прогреве."
+        "Питание 220 В, тип вилки и реальные ватты USB PD",
+        "Всё, что включается напрямую в розетку, должно поддерживать сеть 220 В и стандартную евровилку типа C или F, иначе к покупке сразу добавится громоздкий переходник. Если прибор питается по кабелю USB Type-C, заранее проверьте требуемый протокол PD и мощность блока питания в ваттах: цифровой паяльник на 65 Вт от слабой телефонной зарядки просто не выйдет на нагрев."
       ],
       [
-        "Сменные жала, фильтры и расходники",
-        "Любой прибор со сменными частями — от паяльных наконечников и вакуумных пакетов до насадок триммера — имеет смысл покупать только тогда, когда к нему легко докупить расходники отдельно. Посмотрите формат крепления и название серии в характеристиках: стандартные типы наконечников или клапанов избавят от привязки к одному продавцу через полгода."
+        "Сменные жала, фильтры, бумага и расходники",
+        "Любое устройство со сменными частями — от паяльных жал и НЕРА-фильтров автопылесоса до рулонов термобумаги и абразивных роликов — выгодно брать тогда, когда расходники имеют стандартный типоразмер. Сверьте маркировку серии или ширину рулона в мм до оплаты, чтобы через полгода легко докупить запасные части у любого продавца."
       ],
       [
-        "Итоговая сумма корзины и реальные фото покупателей",
-        "Всегда проверяйте окончательную стоимость в корзине с выбранным адресом и способом доставки: нередко позиция с платным отправлением оказывается выгоднее предложения с бесплатной доставкой. Перед подтверждением заказа пролистайте отзывы с фотографиями — на них сразу видны реальный размер корпуса, качество пластика, маркировка блока питания и комплектные мелочи."
+        "Итоговая сумма с доставкой и живые фото покупателей",
+        "Сравнивайте финальную сумму на шаге оформления заказа с учётом доставки в ваш город, а не стартовую цифру в каталоге. Обязательно откройте отзывы с живыми фотографиями: на них сразу видны реальные габариты в руке, читаемость экрана, маркировка адаптера и точность упаковки."
       ]
-    ]
+    ],
+    "translations": {
+      "en": [
+        "What to Check Before Ordering Tech on AliExpress | FLUXIXO",
+        "Avoid bare-tool SKU traps, wrong foreign plugs, underpowered USB-C bricks, and proprietary refills with this US buyer checklist.",
+        "What to verify before ordering gadgets and tools on AliExpress",
+        [
+          [
+            "Click the exact SKU tile instead of trusting the hero photo",
+            "Multi-option AliExpress listings frequently group a bare tool body, a spare accessory pack, and the full kit under one product page, displaying the lowest accessory price first. Always click the exact variant thumbnail you plan to buy and confirm that the preview image and option label list the main unit, battery, and cables."
+          ],
+          [
+            "Confirm 110–120V US plugs and USB-C Power Delivery wattage",
+            "For any corded appliance, wall charger, or screw-in camera, select the US plug (NEMA Type A/B) rated for 110–120V AC at 60 Hz—220V-only heaters and pumps will underperform on US outlets even with a prong adapter. For USB Type-C tools like digital soldering irons or Peltier phone coolers, check how many watts (20W, 45W, or 65W PD) your own power brick must supply."
+          ],
+          [
+            "Verify standard sizes on refills, tips, and thermal rolls",
+            "Before buying pocket label printers, handheld car vacuums, soldering irons, or nail drills, check whether they accept standard consumables—such as 57 mm thermal rolls, T12/TS-style soldering tips, or 3/32-inch bits—so you are never locked into a single seller for replacements."
+          ],
+          [
+            "Inspect real buyer photos and total checkout cost",
+            "Compare total delivered pricing at US checkout rather than headline search prices, and scan recent buyer review photos to verify real-world build finish, English menu labels, and actual scale in hand."
+          ]
+        ]
+      ],
+      "es": [
+        "Qué revisar antes de pedir electrónica en AliExpress | FLUXIXO",
+        "Evita variantes incompletas, clavijas europeas, cargadores USB-C lentos y repuestos difíciles de conseguir al comprar desde México.",
+        "Qué revisar antes de pedir gadgets y herramientas en AliExpress",
+        [
+          [
+            "Selecciona la miniatura exacta de la variante",
+            "Muchas publicaciones agrupan en la misma ficha un repuesto suelto, el cuerpo sin batería y el paquete completo, mostrando en portada el importe del accesorio más barato. Pulsa siempre el recuadro exacto de la variante que vas a comprar y revisa su fotografía específica antes de agregar al carrito."
+          ],
+          [
+            "Confirma voltaje 110–127V, clavija tipo A/B y watts en USB-C",
+            "En México la red doméstica trabaja a 110–127V con clavija plana americana tipo A o B: evita pedir aparatos térmicos exclusivos de 220V con enchufe redondo europeo. Si el equipo funciona por USB Type-C, como un cautín digital o un enfriador para celular, verifica cuántos watts PD exige tu cargador de pared para alcanzar toda su potencia."
+          ],
+          [
+            "Asegura repuestos y consumibles de medida estándar",
+            "En impresoras térmicas de bolsillo, aspiradoras de auto, cautines o limas eléctricas, comprueba que usen rollos, filtros HEPA o puntas de medida comercial en milímetros para poder conseguir repuestos fácilmente después."
+          ],
+          [
+            "Compara el total con envío a México y fotos reales",
+            "Revisa siempre el monto final con envío e impuestos de importación en la pantalla de pago y mira las fotos subidas por otros compradores para confirmar acabados, idioma de la interfaz y tamaño real."
+          ]
+        ]
+      ],
+      "pt": [
+        "O que conferir antes de pedir tech no AliExpress | FLUXIXO",
+        "Evite variações sem bateria, plugues incompatíveis, fontes USB-C fracas e refis proprietários ao fechar seu pedido no Brasil.",
+        "O que conferir antes de pedir eletrônicos e ferramentas no AliExpress",
+        [
+          [
+            "Clique na miniatura exata da variação escolhida",
+            "É comum o anúncio reunir na mesma página apenas um refil, a ferramenta sem bateria e o kit completo em maleta, destacando na capa a foto mais equipada. Clique sempre no botão da opção desejada e confira na imagem vinculada o que realmente vem na caixa."
+          ],
+          [
+            "Verifique tensão 110V/220V, tomada NBR 14136 e potência USB PD",
+            "Para aparelhos ligados na tomada, confirme se o modelo é bivolt automático ou compatível com a rede da sua cidade (127V ou 220V) e observe o padrão de pinos NBR 14136 de 10A ou 20A. Em itens alimentados por USB Type-C, como ferros de solda digitais, cheque quantos watts PD sua fonte precisa fornecer para não desligar sob carga."
+          ],
+          [
+            "Cheque o padrão de refis, pontas, filtros e bobinas",
+            "Antes de escolher mini impressoras térmicas, aspiradores automotivos ou ferros de solda, confirme a largura do rolo em milímetros e o encaixe das pontas ou filtros para encontrar reposições com facilidade."
+          ],
+          [
+            "Some frete e tributos no checkout e veja fotos de compradores",
+            "Compare sempre o valor final já com frete e tributos calculados na tela de pagamento para o seu CEP e analise as fotos reais nas avaliações para conferir tamanho, cabos inclusos e idioma do menu."
+          ]
+        ]
+      ],
+      "fr": [
+        "Que vérifier avant d’acheter de la tech sur AliExpress | FLUXIXO",
+        "Évitez les options sans batterie, les prises étrangères, les chargeurs USB-C sous-dimensionnés et les consommables introuvables.",
+        "Que vérifier avant de commander un appareil ou un outil sur AliExpress",
+        [
+          [
+            "Contrôlez la vignette précise de la déclinaison cochée",
+            "Une même fiche vendeur regroupe souvent une simple recharge, l'outil nu sans batterie et le coffret complet, tandis que le visuel principal montre la version la plus riche. Cliquez systématiquement sur l'option retenue pour vérifier le contenu exact détaillé sur sa vignette."
+          ],
+          [
+            "Alimentation 230V, prise européenne et puissance USB Type-C",
+            "Pour tout équipement branché sur secteur en France, exigez la compatibilité 230V (50 Hz) et une prise européenne Type C ou E/F afin d'éviter les adaptateurs instables. Sur les outils alimentés en USB Type-C comme un fer à souder numérique, vérifiez la puissance USB PD requise en watts (souvent 45 W ou 65 W)."
+          ],
+          [
+            "Privilégiez des consommables aux formats standards",
+            "Qu'il s'agisse de rouleaux thermiques, de pannes à souder, de filtres d'aspirateur à main ou d'embouts abrasifs, relevez les cotes en millimètres pour pouvoir racheter des recharges compatibles sans dépendre d'un seul vendeur."
+          ],
+          [
+            "Vérifiez le total TTC livré et les photos d'acheteurs",
+            "Comparez le montant final incluant la livraison vers la France et la TVA affichée au panier, puis parcourez les photos publiées dans les avis clients pour juger des finitions réelles."
+          ]
+        ]
+      ],
+      "he": [
+        "מה לבדוק לפני הזמנת גאדג׳טים וכלי עבודה ב־AliExpress | FLUXIXO",
+        "הימנעו מהזמנת גוף כלי ללא סוללה, תקע אמריקאי לא מתאים, מטען USB-C חלש וראשי מילוי נדירים בעזרת רשימת הבדיקה לישראל.",
+        "מה חשוב לבדוק לפני שמזמינים מוצרי אלקטרוניקה וכלי עבודה ב־AliExpress",
+        [
+          [
+            "לחצו על תמונת הוריאנט המדויק ולא רק על תמונת השער",
+            "מוכרים רבים מרכזים באותו עמוד חלק חילוף בודד, כלי עבודה ללא סוללה וערכה מלאה במזוודה, כשהמחיר הראשוני מתייחס לפריט הזול ביותר. לחצו תמיד על המשבצת המדויקת שברצונכם להזמין וודאו בתמונה המתחלפת מה בדיוק כלול באריזה."
+          ],
+          [
+            "ודאו מתח 230V, תקע מתאים לישראל והספק USB PD אמיתי",
+            "למכשירים המתחברים לחשמל בקיר בחרו גרסת 220–230V עם תקע אירופאי (EU) או ישראלי תואם — מכשירי חימום של 110V אינם מתאימים לרשת החשמל בישראל. בכלים המוזנים מכבל USB Type-C, כמו מלחם דיגיטלי או מצנן לסמארטפון, בדקו כמה וואט (כגון 65W PD) נדרשים מספק הכוח שלכם."
+          ],
+          [
+            "בדקו זמינות של ראשים חלופיים, פילטרים וגלילי נייר",
+            "לפני רכישת מדפסת תוויות תרמית, שואב אבק לרכב, מלחם או פצירה חשמלית, בדקו שהמוצר עובד עם מידות סטנדרטיות במילימטרים כדי שתוכלו להזמין מילויים וחלקי חילוף בקלות גם בעתיד."
+          ],
+          [
+            "השוו סכום סופי בקופה והציצו בתמונות של קונים",
+            "בדקו את הסכום הכולל עם משלוח לישראל במסך התשלום הסופי, ועברו על תמונות אמיתיות בביקורות הקונים כדי לראות את הגודל האמיתי ביד, שפת הממשק ואיכות הגימור."
+          ]
+        ]
+      ]
+    }
   },
   {
     "slug": "jump-starter-winter-guide",
     "preferred_product": "find-008-jump-starter",
+    "related_products": [
+      "find-008-jump-starter",
+      "find-060-tire-inflator",
+      "import-0074",
+      "import-0093",
+      "find-042-car-hud",
+      "import-0117"
+    ],
     "date": "2026-11-13",
     "title": "Как выбрать пусковое устройство для автомобиля | FLUXIXO",
-    "description": "Реальный пусковой ток, защита клемм от переполюсовки, работа на морозе и разъём зарядки: что важно проверить в карточке бустера.",
+    "description": "Реальный пусковой ток, умные клеммы с защитой от переполюсовки, хранение и зарядка Type-C: что проверить перед покупкой бустера.",
     "h1": "Как выбрать автомобильное пусковое устройство (бустер)",
     "sections": [
       [
-        "Пусковой ток и объём двигателя",
-        "Для морозного утра на севшем аккумуляторе важна не рекламная ёмкость в миллиампер-часах на корпусе внешнего аккумулятора, а пусковой и пиковый ток. Бензиновому двигателю до двух литров нужен уверенный запас по току и силовым проводам, а для дизеля или крупного внедорожника требования ещё выше. Заявления о чудесном запуске грузовика с ладонного корпуса без толстых проводов стоит воспринимать скептически."
+        "Пусковой ток против рекламных цифр и объём двигателя",
+        "Для уверенного прокручивания стартера на подсевшем аккумуляторе важна не красивая цифра миллиампер-часов на наклейке, а реальный пусковой (стартовый) и пиковый ток вкупе с сечением медных проводов. Бензиновому мотору до 2,0 л обычно хватает компактного бустера со стартовым током от 400–600 А, тогда как тяжёлому дизелю и крупному кроссоверу нужен гораздо более массивный блок с высокотоковыми ячейками."
       ],
       [
-        "Умный блок защиты на крокодилах",
-        "Хорошее пусковое устройство комплектуется не просто парой зажимов на проводе, а герметичным блоком с реле и светодиодной индикацией. Такой узел защищает от случайного замыкания клемм, перепутанной полярности и обратного тока от генератора после того, как мотор завёлся. Проверьте в описании наличие защиты BMS и режима принудительного пуска для полностью разряженного в ноль аккумулятора."
+        "Силовые зажимы с блоком релейной защиты",
+        "Надёжный бустер комплектуется не простыми проводами напрямую в разъём, а выносным модулем защиты на «крокодилах» со световой и звуковой индикацией. Такая релейная коробка блокирует искрение, спасает электронику машины при перепутанной полярности, защищает от короткого замыкания и отсекает обратный ток генератора сразу после запуска двигателя."
       ],
       [
-        "Хранение на холоде и зарядка через Type-C",
-        "Литиевые ячейки теряют отдачу на сильном морозе, поэтому зимой бустер лучше держать не в промерзающем багажнике, а забирать домой или хотя бы в тёплое помещение. Модели с входом USB Type-C удобнее старых блоков с круглым штекером: такой бустер легко подзарядить в офисе от обычного адаптера смартфона и использовать как внешний аккумулятор в дороге."
+        "Температурный режим хранения и зарядка по USB Type-C",
+        "Литий-полимерные ячейки теряют токоотдачу при сильном промерзании и деградируют при перегреве выше +50 °C на солнцепеке под стеклом. В сильные морозы бустер разумнее хранить дома или в сумке и подзаряжать раз в квартал через универсальный порт USB Type-C от обычного блока питания смартфона."
       ],
       [
-        "Качество клемм и запас в повседневной поездке",
-        "Обратите внимание на длину и жёсткость силовых кабелей с зажимами: на многих машинах плюсовая клемма закрыта кожухом, а минусовую массу приходится цеплять к проушине блока цилиндров в стороне от батареи. Короткий провод не дотянется до удобной точки, а слабая пружина в крокодиле ухудшит контакт в самый ответственный момент запуска."
+        "Длина силовых проводов и жёсткость пружины зажимов",
+        "Перед заказом прикиньте расположение клемм под капотом вашей машины: нередко плюсовой вывод спрятан под узкой крышкой, а минус приходится цеплять за неокрашенную шпильку кузова на удалении. Слишком короткие 15-сантиметровые перемычки просто не дотянутся до массы, а тонкие губки без медной перемычки между половинками зажима потеряют ток на плохом контакте."
       ]
-    ]
+    ],
+    "translations": {
+      "en": [
+        "How to Choose a Portable Car Jump Starter | FLUXIXO",
+        "Compare real cranking amps, smart spark-proof jumper clamps, gas vs. diesel limits, and safe cabin storage before ordering a jump starter.",
+        "How to choose a portable lithium car jump starter power bank",
+        [
+          [
+            "Starting amps vs. peak amp headlines and engine size",
+            "Marketing titles often spotlight huge peak-amp numbers that last a fraction of a second, whereas actual starting (cranking) amps and copper cable gauge determine whether a dead 12V battery turns over. A compact pack easily starts 4-cylinder and mid-size V6 gas engines, while large V8 trucks and diesel pickups demand higher-capacity 4-cell lithium packs and thicker clamps."
+          ],
+          [
+            "Smart relay jumper clamps and reverse-polarity protection",
+            "Never rely on bare jumper leads without an inline smart relay box. A proper protection module prevents sparks while clipping onto battery posts, blocks current if red and black clamps are reversed, stops back-charging once the alternator kicks in, and offers a manual override button when a battery drops below 2 volts."
+          ],
+          [
+            "Extreme winter cold, summer cabin heat, and USB-C charging",
+            "Cold mornings sap lead-acid car batteries while slowing lithium ion flow, so keeping the jump pack indoors before freezing nights preserves full cranking punch. Conversely, in hot southern states, never leave a lithium pack on a sun-baked dashboard where cabin temperatures exceed 130°F—store it shaded in the trunk and top it off every three months via USB Type-C."
+          ],
+          [
+            "Clamp cable reach and copper jaw construction",
+            "Check total jumper lead length on seller photos: many modern engine bays place the negative ground stud 12 to 16 inches away from the positive battery terminal, where ultra-short budget leads cannot reach. Look for stiff springs and copper braided bridges linking both halves of each jaw."
+          ]
+        ]
+      ],
+      "es": [
+        "Cómo elegir un arrancador portátil de batería para auto | FLUXIXO",
+        "Amperaje real de arranque, pinzas inteligentes contra polaridad inversa, cuidado ante el calor y carga USB-C: guía para México.",
+        "Cómo elegir un arrancador auxiliar portátil para la batería de tu auto",
+        [
+          [
+            "Corriente real de arranque frente a cifras pico y cilindrada",
+            "En las publicaciones abundan cifras enormes de amperios pico que duran milisegundos, pero lo que realmente mueve la marcha es la corriente continua de arranque y el grosor del cable de cobre. Para un sedán o SUV de 4 cilindros a gasolina basta un arrancador mediano bien construido, mientras que motores V8 o diésel exigen baterías de mayor descarga."
+          ],
+          [
+            "Pinzas inteligentes con módulo contra inversión de cables",
+            "Asegúrate de que los caimanes incluyan una caja electrónica inteligente en el cable: este relé evita chispazos al conectar los postes, bloquea el paso si inviertes positivo y negativo por error, corta el retorno del alternador apenas enciende el motor e incorpora botón de arranque forzado para baterías muertas."
+          ],
+          [
+            "Cuidado frente al calor intenso en México y recarga USB Type-C",
+            "En gran parte de México el calor extremo desgasta las baterías automotrices de 12V tanto o más que el frío, y dejar un arrancador de litio al sol sobre el tablero puede inflar sus celdas. Guárdalo siempre a la sombra dentro de su estuche en la cajuela, revisa su carga cada tres meses y prefiere entrada USB Type-C para recargarlo con el mismo cargador de tu celular."
+          ],
+          [
+            "Alcance de las pinzas bajo el cofre y firmeza del agarre",
+            "Revisa el largo libre entre la pinza roja y la negra: en muchos autos recientes el punto negativo de tierra en el chasis queda alejado del borne positivo, y unos cables demasiado cortos no alcanzan a abrir suficiente distancia."
+          ]
+        ]
+      ],
+      "pt": [
+        "Como escolher auxiliar de partida portátil automotivo | FLUXIXO",
+        "Corrente real de partida, garras inteligentes antifaísca, cuidados com calor no carro e recarga USB-C antes de comprar no AliExpress.",
+        "Como escolher um auxiliar de partida portátil (jump starter) para o carro",
+        [
+          [
+            "Corrente de partida real versus pico e motorização",
+            "Não escolha apenas pelos milhares de mAh ou amperes de pico estampados no título: o que gira o motor de arranque em uma bateria arriada é a corrente contínua de partida somada à bitola dos cabos. Motores 1.0 a 2.0 flex ou gasolina partem com folga em modelos compactos de boa descarga, já caminhonetes a diesel exigem conjuntos bem mais parrudos."
+          ],
+          [
+            "Garras inteligentes com proteção contra inversão de polos",
+            "Prefira sempre cabos chupeta equipados com módulo eletrônico de relé nas garras. Ele impede faíscas no engate, bloqueia curto-circuito se os polos positivo e negativo forem trocados no escuro, protege contra retorno do alternador e oferece botão de acionamento manual quando a bateria zerou por completo."
+          ],
+          [
+            "Atenção ao calor forte no Brasil e recarga via USB Type-C",
+            "No clima quente brasileiro, baterias automotivas sofrem desgaste acelerado, mas deixar uma bateria de lítio exposta no painel sob sol forte é perigoso. Guarde o estojo no porta-malas protegido do calor direto, confira o nível de carga a cada três meses e escolha porta USB Type-C para recarregar em casa ou no escritório."
+          ],
+          [
+            "Comprimento dos cabos e ponte de cobre nas garras",
+            "Observe nas fotos reais o alcance total entre as garras vermelha e preta, pois em muitos cofres de motor modernos o ponto de aterramento no chassi fica distante do polo positivo da bateria."
+          ]
+        ]
+      ],
+      "fr": [
+        "Comment choisir un booster de batterie auto portable | FLUXIXO",
+        "Ampérage de démarrage réel, pinces intelligentes anti-inversion, tenue au froid et recharge USB-C : les critères avant d’acheter.",
+        "Comment choisir un booster de démarrage lithium pour voiture",
+        [
+          [
+            "Courant de démarrage réel face à l'ampérage de crête",
+            "Ne vous fiez pas uniquement au chiffre de crête mis en avant dans le titre : c'est l'intensité de démarrage soutenue et la section des câbles en cuivre qui lancent réellement le démarreur. Un modèle compact suffit pour un moteur essence citadin ou compact, tandis qu'un bloc diesel de 2,0 L ou plus réclame nettement plus de réserve en hiver."
+          ],
+          [
+            "Boîtier relais intelligent sur les pinces crocodiles",
+            "Exigez un faisceau équipé d'un boîtier de sécurité électronique : il coupe toute étincelle à la connexion, bloque l'inversion accidentelle de polarité, empêche le retour de courant de l'alternateur dès que le moteur tourne et propose un mode forçage si la batterie 12V est tombée à zéro."
+          ],
+          [
+            "Stockage hivernal, fortes chaleurs d'été et port USB Type-C",
+            "Le gel ralentit la chimie lithium et la canicule dans un habitacle fermé en plein soleil abîme les cellules : rangez la housse à l'abri des écarts thermiques extrêmes et refaites un appoint de charge tous les trois mois via un port USB Type-C universel."
+          ],
+          [
+            "Écartement des câbles et ressorts des mâchoires",
+            "Vérifiez la longueur utile entre les deux pinces sur les photos vendeur : sous de nombreux capots récents, la borne positive est carénée et la cosse de masse déportée sur le châssis exige un écartement suffisant."
+          ]
+        ]
+      ],
+      "he": [
+        "איך לבחור בוסטר התנעה נייד לרכב | FLUXIXO",
+        "זרם התנעה אמיתי מול נתוני שיא, צבתות חכמות נגד היפוך קטבים, שמירה מפני חום הקיץ בישראל וטעינת USB-C לפני הזמנה ב־AliExpress.",
+        "איך לבחור בוסטר התנעה נייד למצבר הרכב",
+        [
+          [
+            "זרם התנעה רציף מול נתון שיא ונפח המנוע",
+            "בכותרות המוצרים מופיעים לעיתים מספרים מנופחים של זרם רגעי או קיבולת סוללה, אך מה שמסובב את הסטרטר בפועל הוא זרם ההתנעה הרציף ועובי כבלי הנחושת. לרכב בנזין או היברידי משפחתי עד 2.0 ליטר מספיק בוסטר קומפקטי איכותי, בעוד שרכבי דיזל ומנועים גדולים דורשים זרם גבוה בהרבה."
+          ],
+          [
+            "צבתות חכמות עם קופסת הגנה אלקטרונית",
+            "אל תתפשרו על כבלים פשוטים ללא יחידת בקרה על הצבתות: ממסר חכם מונע ניצוצות בזמן החיבור למצבר, חוסם נזק למחשב הרכב במקרה של היפוך חיובי ושלילי בחושך, מנתק זרם חוזר מהאלטרנטור מיד לאחר ההנעה וכולל כפתור אילוץ למצבר שהתרוקן לחלוטין."
+          ],
+          [
+            "בטיחות בחום הקיץ הישראלי וטעינה נוחה ב־USB Type-C",
+            "בישראל דווקא גלי החום של הקיץ מקצרים את חיי מצבר הרכב בפתאומיות, ובמקביל אסור להשאיר סוללת ליתיום על הדשבורד או בתא לוהט בשמש ישירה שבו הטמפרטורה חוצה 60 מעלות. שמרו את הבוסטר בנרתיק מבודד במקום מוצל או בבית, והטעינו אותו אחת לשלושה חודשים דרך שקע USB Type-C."
+          ],
+          [
+            "אורך כבלי התנינים ואיכות המגע במצבר",
+            "בדקו בתמונות המוכר את מפתח הכבלים בין הצבת האדומה לשחורה: ברכבים מודרניים רבים נקודת ההארקה בשלדה מרוחקת מקוטב הפלוס המכוסה, וכבלים קצרים מדי של 15 ס״מ פשוט לא יגיעו בנוחות."
+          ]
+        ]
+      ]
+    }
   }
 ]

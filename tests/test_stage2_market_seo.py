@@ -164,14 +164,35 @@ class MarketSeoAndSitemapsTests(unittest.TestCase):
         origin = 'https://www.fluxixo.shop'
         slug = 'wifi-repeater-buying-guide'
         product_id = 'katord-wifi-repeater'
-        guide_paths = {'ru': f'/journal/{slug}/', 'en': f'/en/journal/{slug}/'}
-        product_paths = {'ru': f'/products/{product_id}/', 'en': f'/en/products/{product_id}/'}
-        journal_indexes = {'ru': '/journal/', 'en': '/en/journal/'}
+        guide_paths = {
+            'ru': f'/journal/{slug}/',
+            'en': f'/en/journal/{slug}/',
+            'pt': f'/pt/journal/{slug}/',
+            'es': f'/es/journal/{slug}/',
+            'fr': f'/fr/journal/{slug}/',
+            'he': f'/he/journal/{slug}/',
+        }
+        product_paths = {
+            'ru': f'/products/{product_id}/',
+            'en': f'/en/products/{product_id}/',
+            'pt': f'/pt/products/{product_id}/',
+            'es': f'/es/products/{product_id}/',
+            'fr': f'/fr/products/{product_id}/',
+            'he': f'/he/products/{product_id}/',
+        }
+        journal_indexes = {
+            'ru': '/journal/',
+            'en': '/en/journal/',
+            'pt': '/pt/journal/',
+            'es': '/es/journal/',
+            'fr': '/fr/journal/',
+            'he': '/he/journal/',
+        }
         products = [
             {'id': 'fallback-example', 'name': 'Fallback example', 'image': 'assets/images/fallback.webp'},
             {'id': product_id, 'name': 'KATORD RU', 'image': 'assets/images/katord.webp'},
         ]
-        translations = {'products': {product_id: {'en': {'name': 'KATORD EN'}}}}
+        translations = {'products': {product_id: {lg: {'name': f'KATORD {lg.upper()}'} for lg in ('en', 'pt', 'es', 'fr', 'he')}}}
         pages = {}
 
         def page(title, description, path, body, *, schema, language, alternate_paths, image=None):

@@ -262,10 +262,42 @@ def _clean_cutout_alpha(alpha):
     return Image.composite(cleaned, eroded, cleaned.point(lambda a: 255 if a >= 210 else 0))
 
 
+def _strip_border_frame(image):
+    """Trim uniform solid dark or white outer rectangular frames (up to 8% per edge) from opaque seller photos."""
+    rgb = image.convert('RGB')
+    w, h = rgb.size
+    max_x, max_y = max(2, int(w * 0.08)), max(2, int(h * 0.08))
+
+    def _is_uniform_strip(crop_box):
+        st = ImageStat.Stat(rgb.crop(crop_box))
+        if max(st.stddev[:3]) > 10.0:
+            return False
+        m = st.mean[:3]
+        return all(c <= 28.0 for c in m) or all(c >= 245.0 for c in m)
+
+    top = 0
+    while top < max_y and _is_uniform_strip((0, top, w, top + 1)):
+        top += 1
+    bottom = h
+    while (h - bottom) < max_y and bottom > top + 10 and _is_uniform_strip((0, bottom - 1, w, bottom)):
+        bottom -= 1
+    left = 0
+    while left < max_x and _is_uniform_strip((left, top, left + 1, bottom)):
+        left += 1
+    right = w
+    while (w - right) < max_x and right > left + 10 and _is_uniform_strip((right - 1, top, right, bottom)):
+        right -= 1
+    if (left, top, right, bottom) != (0, 0, w, h) and (right - left) >= int(w * 0.6) and (bottom - top) >= int(h * 0.6):
+        return image.crop((left, top, right, bottom))
+    return image
+
+
 def _compose_authentic(source):
     """Retain RGB samples and real geometry; mask alpha only, no invented angle."""
     image = Image.open(BytesIO(source)).convert('RGBA')
-    if image.getchannel('A').getextrema()[0] >= 250:
+    was_opaque = image.getchannel('A').getextrema()[0] >= 250
+    if was_opaque:
+        image = _strip_border_frame(image)
         try:
             from rembg import remove
             session = _get_rembg_session()
@@ -286,6 +318,19 @@ def _compose_authentic(source):
             # Only reuse the alpha: never its RGB edge decontamination/recoloring.
             alpha = image_studio.extract_isolated_studio_alpha(image).getchannel('A')
         image.putalpha(alpha)
+        bbox = image_studio.tight_alpha_bbox(image) or image.getbbox()
+        if not bbox:
+            raise ValueError('empty_cutout')
+        image = image.crop(bbox)
+        longest = max(image.width, image.height)
+        if longest > 1080 or longest < 760:
+            scale = 1040.0 / float(longest)
+            new_size = (max(1, int(round(image.width * scale))), max(1, int(round(image.height * scale))))
+            image = image.resize(new_size, Image.Resampling.LANCZOS)
+        side = max(1254, image.width + 120, image.height + 120)
+        canvas = Image.new('RGBA', (side, side))
+        canvas.paste(image, ((side - image.width) // 2, (side - image.height) // 2))
+        return canvas
     if not image.getbbox():
         raise ValueError('empty_cutout')
     # Do not rescale, turn, retouch, or crop the product to manufacture a new view.
@@ -572,7 +617,30 @@ class ReviewedMediaPreparer:
                         preferred_retry = slot.get('retry_source_sha256')
                         excluded = used_sources | rejected | set(state.get('retired_source_sha256', []))
                         eligible = [s for s in state['sources'] if s['sha256'] not in excluded]
-                        eligible.sort(key=lambda s: s['sha256'] not in state.get('new_material_sources', []))
+                        _prior_p_hashes = []
+                        for pf in prior:
+                            try:
+                                with Image.open(pf) as pi:
+                                    _prior_p_hashes.append(image_studio.compute_perceptual_hashes(pi.convert('RGBA')))
+                            except Exception:
+                                pass
+
+                        def _source_rank(src_item):
+                            is_old = src_item['sha256'] not in state.get('new_material_sources', [])
+                            if not _prior_p_hashes:
+                                return (is_old, 0)
+                            try:
+                                with Image.open(folder / src_item['file']) as si:
+                                    sh = image_studio.compute_perceptual_hashes(si.convert('RGBA'))
+                                min_dist = min(
+                                    image_studio.hamming_distance(sh['dhash'], ph['dhash'])
+                                    for ph in _prior_p_hashes
+                                )
+                            except Exception:
+                                min_dist = 0
+                            return (is_old, -min_dist)
+
+                        eligible.sort(key=_source_rank)
                         source = next((s for s in eligible if s['sha256'] == preferred_retry), None) or next(iter(eligible), None)
                         if source is None:
                             raise MediaDeferred('awaiting_distinct_source', self.clock() + 86400)

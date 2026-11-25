@@ -1,4 +1,4 @@
-name: FLUXIXO daily update (15:30 Israel, max 3 products)
+name: FLUXIXO daily update (15:30 Israel, 1 product/day)
 
 on:
   schedule:
@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       add_count:
-        description: 'auto follows daily schedule rules; 0 rebuilds without new images; 1-3 requests remaining daily allowance'
+        description: 'auto follows daily schedule rules (1/day); 0 rebuilds without new images; 1-3 manual allowance'
         required: false
         default: 'auto'
       text_provider:

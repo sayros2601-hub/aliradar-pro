@@ -1,6 +1,6 @@
 // Daily schedule (owner, 2026-11-20): prepare from 13:30 and publish at 15:30 Israel time (Asia/Jerusalem).
 const DROP_TZ = "Asia/Jerusalem";
-const DAILY_MAX = 3;
+const DAILY_MAX = 1;
 const SERVICE_HEALTH = { ok: true, service: "fluxixo-autopilot" };
 const NO_STORE = { "Cache-Control": "no-store" };
 const LATEST_PUBLISHED_DAY_SQL =

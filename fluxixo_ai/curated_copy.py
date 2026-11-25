@@ -940,7 +940,7 @@ CURATED_TASK_COPY: dict[str, dict[str, dict[str, object]]] = {
     'rare_ferrofluid_desk_toy': _pack(
         _e('Акустическая колба с феррожидкостью', 'Магнитные шипы,', 'танец в такт музыке.',
            'Настольный стеклянный сосуд с магнитной суспензией реагирует на басы и голос ритмичными живыми всплесками без сложных настроек. Проверьте тип питания и объём колбы.'),
-        _e('Sound-Reactive Ferrofluid Bottle', 'Liquid spikes,', 'dancing to every beat.',
+        _e('Pulse-Reactive Liquid Desk Jar', 'Liquid spikes,', 'dancing to every beat.',
            'Glass display vessel filled with black magnetic suspension forms rhythmic shifting spikes near speakers or voices via an internal pickup. Check charge cable and vessel height.'),
         _e('Frasco de Ferrofluido Reativo ao Som', 'Picos magnéticos,', 'dançam com a música.',
            'Ampola de vidro com fluido magnético preto que forma esculturas dinâmicas ao ritmo da música ou da voz sobre a mesa. Confira a autonomia e dimensões no anúncio.'),
@@ -954,7 +954,7 @@ CURATED_TASK_COPY: dict[str, dict[str, dict[str, object]]] = {
     'rare_levitating_bonsai_pot': _pack(
         _e('Левитирующий кашпо-горшок для бонсай', 'Растение в воздухе,', 'плавное вращение.',
            'Магнитная база удерживает лёгкий горшок в невесомости и медленно вращает цветок над столом, обеспечивая равномерный свет со всех сторон. Уточните допустимый вес.'),
-        _e('Magnetic Floating Bonsai Planter', 'Airborne bloom,', 'quietly spinning in space.',
+        _e('Suspended Plant Showcase Base', 'Airborne bloom,', 'quietly spinning in space.',
            'Electromagnetic walnut-tone pedestal suspends a lightweight planter pot in mid-air while rotating smoothly for even light exposure. Confirm payload weight limit and adapter.'),
         _e('Vaso Suspenso Magnético Flutuante', 'Planta no ar,', 'giro suave e contínuo.',
            'Base magnética mantém o vaso leve flutuando sem contato e girando lentamente sobre a mesa com iluminação uniforme. Confira o peso suportado e o plugue.'),
@@ -1010,7 +1010,7 @@ CURATED_TASK_COPY: dict[str, dict[str, dict[str, object]]] = {
     'rare_solar_inflatable_lantern': _pack(
         _e('Складной надувной солнечный фонарь', 'Воздух и свет,', 'не боится влаги.',
            'Лёгкий герметичный фонарь-куб надувается за секунды, заряжается от солнечной панели или USB и сдувается в плоский лист для рюкзака. Проверьте степень влагозащиты.'),
-        _e('Collapsible Solar Inflatable Lantern', 'Packs completely flat,', 'bright diffused camp glow.',
+        _e('Packable Sunlit Camp Pouch Light', 'Packs completely flat,', 'bright diffused camp glow.',
            'Waterproof inflatable cube lantern charges by sunlight or USB and scatters soft ambient light across tents, folding paper-thin afterward. Check lumens and battery size.'),
         _e('Lanterna Solar Inflável Dobrável', 'Fica plana na mochila,', 'luz difusa à prova d’água.',
            'Cubo luminoso inflável que recarrega no sol ou via USB, ilumina toda a barraca de forma suave e dobra totalmente fino ao guardar. Confira lúmens e proteção.'),
@@ -1080,7 +1080,7 @@ CURATED_TASK_COPY: dict[str, dict[str, dict[str, object]]] = {
     'rare_cordless_smart_jump_rope': _pack(
         _e('Беспроводная умная скакалка со счётчиком', 'Без зацепов дома,', 'точный учёт прыжков.',
            'Короткие утяжелённые шары имитируют инерцию троса в тесной комнате или на балконе, а экран на рукояти фиксирует обороты и время. Проверьте длину сменного шнура.'),
-        _e('Cordless Counting Weighted Jump Rope', 'Compact indoor cardio,', 'zero ceiling strikes.',
+        _e('Wireless Exercise Skipping Handles', 'Compact indoor cardio,', 'zero ceiling strikes.',
            'Handles with detachable weighted ropeless spheres mimic full rope resistance in small apartments while tracking jumps on a digital screen. Check strap and length.'),
         _e('Corda de Pular Digital Sem Fio Inteligente', 'Treino no quarto,', 'sem bater nos móveis.',
            'Manoplas com esferas pesadas sem fio longo simulam o ritmo real da corda em espaços pequenos e registram saltos no visor. Confira o comprimento e pesos inclusos.'),
@@ -1108,7 +1108,7 @@ CURATED_TASK_COPY: dict[str, dict[str, dict[str, object]]] = {
     'rare_ultrasonic_skin_spatula': _pack(
         _e('Ультразвуковой скрабер-лопатка для кожи', 'Ультразвук 24 кГц,', 'деликатный домашний уход.',
            'Тонкая стальная лопатка с высокочастотной вибрацией мягко очищает влажную кожу и помогает распределять сыворотки без трения. Уточните режимы и колпачок.'),
-        _e('Ultrasonic Ionic Facial Spatula Scrubber', 'Micro-mist pulse,', 'gentle surface care.',
+        _e('Vibration Pore Cleansing Blade', 'Micro-mist pulse,', 'gentle surface care.',
            'Stainless blade oscillating at ultrasonic frequency helps lift damp surface buildup and pat serums into skin smoothly. Confirm output modes, protective cap, and cable.'),
         _e('Espátula Ultrassônica Facial de Limpeza', 'Vibração fina,', 'cuidado suave sem atrito.',
            'Lâmina metálica com vibração ultrassônica suave para limpar poros na pele úmida e auxiliar na aplicação de séruns em casa. Confira os modos e a tampa protetora.'),
@@ -1150,7 +1150,7 @@ CURATED_TASK_COPY: dict[str, dict[str, dict[str, object]]] = {
     'rare_rolling_diamond_sharpener': _pack(
         _e('Магнитная роликовая точилка с алмазным диском', 'Ровный угол 15° и 20°,', 'быстрая правка клинка.',
            'Клинок фиксируется на магнитной колодке под стабильным углом, пока алмазный ролик катится вдоль кромки без люфта. Проверьте зернистость и углы колодки.'),
-        _e('Magnetic Rolling Angle Knife Sharpener', 'Locked bevel guide,', 'clean edge roll-on.',
+        _e('Wheel Grinder & Guide Wedge Set', 'Locked bevel guide,', 'clean edge roll-on.',
            'Neodymium cradle holds blades at a fixed 15 or 20 degree angle while a diamond cylinder rolls smoothly along the edge. Confirm grit discs and cradle wood type.'),
         _e('Afiador Magnético Rolante para Facas', 'Ângulo fixo 15°/20°,', 'fio uniforme na cozinha.',
            'Bloco magnético estabiliza a lâmina no ângulo certo enquanto o cilindro diamantado rola ao longo do corte sem esforço. Confira a granulação dos discos.'),
@@ -1164,7 +1164,7 @@ CURATED_TASK_COPY: dict[str, dict[str, dict[str, object]]] = {
     'rare_ips_nixie_clock': _pack(
         _e('Настольные ретро-часы с IPS-лампами', 'Эффект тёплых ламп,', 'настройка цветов.',
            'Шесть миниатюрных IPS-экранов под стеклянными колбами имитируют свет газоразрядных индикаторов с часовыми стилями и фотоальбомом. Уточните софт и кабель.'),
-        _e('Retro IPS Digital Tube Desk Clock', 'Crisp glow tubes,', 'custom themes on desk.',
+        _e('Vintage-Style Timepiece Screen', 'Crisp glow tubes,', 'custom themes on desk.',
            'Glass-domed desktop clock renders glowing digital tube numerals on vivid IPS screens with customizable animations and desk modes. Check software link and USB supply.'),
         _e('Relógio de Mesa Retrô com Tubos IPS', 'Visual clássico,', 'telas em alta definição.',
            'Seis cúpulas com telas IPS exibem números em estilo válvula retrô, cores ajustáveis e modos visuais na estante ou escritório. Confira alimentação e ajuste.'),

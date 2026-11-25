@@ -58,9 +58,7 @@ def main():
                     entry[field], changed = new, changed + 1
     # House rules that apply to every product, present and future.
     for entry in data['products'].values():
-        fr, he = entry.get('fr'), entry.get('he')
-        if fr and fr.get('name') and fr_title(fr['name']) != fr['name']:
-            fr['name'], changed = fr_title(fr['name']), changed + 1
+        he = entry.get('he')
         if he:
             for field in ('name', 'description'):
                 fixed = publication_description('he', he.get(field, ''))
