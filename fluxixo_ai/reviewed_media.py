@@ -7,6 +7,7 @@ The caller persists this directory and retries deferred candidates fairly.
 """
 from __future__ import annotations
 
+from collections import deque
 from contextlib import contextmanager
 import hashlib
 from io import BytesIO
@@ -15,6 +16,8 @@ import os
 from pathlib import Path
 import re
 import shutil
+import subprocess
+import tempfile
 import time
 import uuid
 from urllib.parse import urlsplit
@@ -395,6 +398,207 @@ def _strip_border_frame(image):
     return image
 
 
+def _find_tesseract():
+    found = shutil.which('tesseract')
+    if found:
+        return found
+    win_default = Path(r'C:\Program Files\Tesseract-OCR\tesseract.exe')
+    return str(win_default) if win_default.is_file() else None
+
+
+def _component_mask_map(alpha, grid_size=256):
+    """Build connected-component map of alpha >= 24 on a bounded square grid."""
+    small = alpha.resize((grid_size, grid_size), Image.Resampling.BOX)
+    vals = small.tobytes()
+    remaining = {i for i, v in enumerate(vals) if v >= 24}
+    grid = [0] * (grid_size * grid_size)
+    counts = {}
+    comp_id = 0
+    while remaining:
+        comp_id += 1
+        first = remaining.pop()
+        queue = deque([first])
+        size = 0
+        while queue:
+            pt = queue.popleft()
+            grid[pt] = comp_id
+            size += 1
+            x, y = pt % grid_size, pt // grid_size
+            for nx, ny in ((x + 1, y), (x - 1, y), (x, y + 1), (x, y - 1)):
+                if 0 <= nx < grid_size and 0 <= ny < grid_size:
+                    nxt = ny * grid_size + nx
+                    if nxt in remaining:
+                        remaining.remove(nxt)
+                        queue.append(nxt)
+        counts[comp_id] = size
+    total = sum(counts.values()) or 1
+    fractions = {cid: sz / float(total) for cid, sz in counts.items()}
+    return grid, fractions, grid_size
+
+
+def _ocr_tsv_boxes(rgba_image):
+    tess = _find_tesseract()
+    if not tess:
+        return []
+    white = Image.new('RGB', rgba_image.size, (255, 255, 255))
+    rgba = rgba_image.convert('RGBA')
+    white.paste(rgba, mask=rgba.getchannel('A'))
+    try:
+        with tempfile.TemporaryDirectory() as tmp:
+            png_path = Path(tmp) / 'ocr.png'
+            white.save(png_path, 'PNG')
+            proc = subprocess.run(
+                [tess, str(png_path), 'stdout', '--psm', '11', 'tsv'],
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=False, timeout=20,
+            )
+        if proc.returncode != 0:
+            return []
+        tsv = proc.stdout.decode('utf-8', errors='replace')
+    except (OSError, subprocess.SubprocessError):
+        return []
+    boxes = []
+    for line in tsv.splitlines()[1:]:
+        cols = line.split('\t')
+        if len(cols) < 12:
+            continue
+        try:
+            conf = float(cols[10])
+            x, y, bw, bh = int(cols[6]), int(cols[7]), int(cols[8]), int(cols[9])
+        except ValueError:
+            continue
+        raw_text = cols[11].strip()
+        alnum = ''.join(ch for ch in raw_text if ch.isalnum())
+        if conf >= 35 and len(alnum) >= 2 and bw > 0 and bh > 0:
+            boxes.append({'text': raw_text, 'alnum': alnum, 'conf': conf, 'x': x, 'y': y, 'w': bw, 'h': bh})
+    return boxes
+
+
+def _detached_text_components(rgba_image, boxes, *, min_conf=35, min_len=2, main_fraction=0.06):
+    if not boxes:
+        return [], None, {}, 256
+    alpha = rgba_image.convert('RGBA').getchannel('A')
+    grid, fractions, gsize = _component_mask_map(alpha, grid_size=256)
+    iw, ih = max(1, rgba_image.width), max(1, rgba_image.height)
+    matched_boxes = []
+    for box in boxes:
+        if box['conf'] < min_conf or len(box['alnum']) < min_len:
+            continue
+        gx0 = max(0, min(gsize - 1, int(box['x'] * gsize / iw)))
+        gx1 = max(gx0, min(gsize - 1, int((box['x'] + box['w']) * gsize / iw)))
+        gy0 = max(0, min(gsize - 1, int(box['y'] * gsize / ih)))
+        gy1 = max(gy0, min(gsize - 1, int((box['y'] + box['h']) * gsize / ih)))
+        hit_cids = set()
+        for gy in range(gy0, gy1 + 1):
+            row_off = gy * gsize
+            for gx in range(gx0, gx1 + 1):
+                cid = grid[row_off + gx]
+                if cid:
+                    hit_cids.add(cid)
+        if hit_cids and all(fractions.get(cid, 0.0) < main_fraction for cid in hit_cids):
+            matched_boxes.append((box, hit_cids))
+    return matched_boxes, grid, fractions, gsize
+
+
+def _strip_detached_text(rgba_image):
+    """Zero alpha on detached promo captions detected by OCR without altering the main product."""
+    rgba = rgba_image.convert('RGBA')
+    boxes = _ocr_tsv_boxes(rgba)
+    matched, grid, fractions, gsize = _detached_text_components(rgba, boxes, min_conf=35, min_len=2)
+    if not matched:
+        return rgba
+    iw, ih = max(1, rgba.width), max(1, rgba.height)
+    erase_cids = set()
+    # Keep a mask on the grid of pixels we allow erasing (never erase main body components >= 0.06).
+    protected = Image.new('L', (gsize, gsize), 255)
+    p_px = protected.load()
+    for i, cid in enumerate(grid):
+        if cid and fractions.get(cid, 0.0) >= 0.06:
+            p_px[i % gsize, i // gsize] = 0
+    erase_mask = Image.new('L', rgba.size, 255)
+    from PIL import ImageDraw
+    draw = ImageDraw.Draw(erase_mask)
+    for box, hit_cids in matched:
+        erase_cids.update(hit_cids)
+        pad = max(12, int(box['h'] * 0.65))
+        draw.rectangle(
+            (max(0, box['x'] - pad), max(0, box['y'] - pad),
+             min(iw, box['x'] + box['w'] + pad), min(ih, box['y'] + box['h'] + pad)),
+            fill=0,
+        )
+    # Also zero any connected small component that overlapped detached OCR text.
+    cid_mask = Image.new('L', (gsize, gsize), 255)
+    c_px = cid_mask.load()
+    for i, cid in enumerate(grid):
+        if cid in erase_cids:
+            c_px[i % gsize, i // gsize] = 0
+    # Combine: keep pixel only if BOTH not inside expanded OCR box AND not part of an erase_cid.
+    cid_full = cid_mask.resize(rgba.size, Image.Resampling.NEAREST)
+    combined_erase = ImageChops.multiply(erase_mask, cid_full)
+    # Protect any pixel overlapping main product components (fraction >= 0.06), slightly dilated.
+    prot_full = protected.resize(rgba.size, Image.Resampling.NEAREST)
+    # protected == 0 means main product -> ensure keep_factor = 255 where protected == 0
+    safe_keep = Image.composite(combined_erase, Image.new('L', rgba.size, 255), prot_full)
+    cleaned = rgba.copy()
+    cleaned.putalpha(ImageChops.multiply(rgba.getchannel('A'), safe_keep))
+    return cleaned
+
+
+def _has_floating_text(rgba_image):
+    """Return detached seller promo words not attached to the main product body."""
+    boxes = _ocr_tsv_boxes(rgba_image)
+    matched, _, _, _ = _detached_text_components(boxes=boxes, rgba_image=rgba_image, min_conf=55, min_len=3)
+    return [b['alnum'] for b, _ in matched]
+
+
+def _source_is_clean_studio(raw_bytes):
+    """True when all 4 outer edge strips of an opaque seller image are uniform light/white studio paper."""
+    try:
+        with Image.open(BytesIO(raw_bytes)) as opened:
+            rgb = opened.convert('RGB')
+    except Exception:
+        return False
+    w, h = rgb.size
+    if w < 40 or h < 40:
+        return False
+    band = max(6, min(12, w // 25, h // 25))
+    strips = (
+        (0, 0, w, band),
+        (0, h - band, w, h),
+        (0, 0, band, h),
+        (w - band, 0, w, h),
+    )
+    for box in strips:
+        st = ImageStat.Stat(rgb.crop(box))
+        if max(st.stddev[:3]) > 22.0 or min(st.mean[:3]) < 225.0:
+            return False
+    return True
+
+
+def _major_parts_count(cutout_rgba):
+    _, fractions, _ = _component_mask_map(cutout_rgba.convert('RGBA').getchannel('A'), grid_size=128)
+    return sum(1 for frac in fractions.values() if frac >= 0.1)
+
+
+def _cutout_needs_regeneration(raw_bytes, cutout_rgba):
+    """Detect collage layouts, leftover dirty backgrounds, broken cutouts, or detached text."""
+    rgba = cutout_rgba.convert('RGBA')
+    if _has_floating_text(rgba):
+        return True
+    ok, _ = image_studio.verify_studio_image(rgba, composed=rgba)
+    if not ok:
+        return True
+    _, fractions, _ = _component_mask_map(rgba.getchannel('A'), grid_size=128)
+    major = sum(1 for f in fractions.values() if f >= 0.1)
+    if major >= 4:
+        return True
+    if not _source_is_clean_studio(raw_bytes):
+        bbox = image_studio.tight_alpha_bbox(rgba)
+        fill = ((bbox[2] - bbox[0]) * (bbox[3] - bbox[1])) / float(max(1, rgba.width * rgba.height)) if bbox else 0.0
+        if major >= 2 or fill < 0.12 or len(fractions) >= 3:
+            return True
+    return False
+
+
 def _compose_authentic(source):
     """Retain RGB samples and real geometry; mask alpha only, no invented angle."""
     image = Image.open(BytesIO(source)).convert('RGBA')
@@ -421,6 +625,7 @@ def _compose_authentic(source):
             # Only reuse the alpha: never its RGB edge decontamination/recoloring.
             alpha = image_studio.extract_isolated_studio_alpha(image).getchannel('A')
         image.putalpha(alpha)
+        image = _strip_detached_text(image)
         bbox = image_studio.tight_alpha_bbox(image) or image.getbbox()
         if not bbox:
             raise ValueError('empty_cutout')
@@ -463,7 +668,9 @@ def _default_reviewer(source, output, *, title, role, identity_source, prior_out
         'is acceptable. Transparent cutouts should read clearly on the existing shop background. '
         'Fail only for an actual material defect or uncertainty about an essential feature: wrong variant, '
         'missing or invented part, accessory, control or function, misleading color or size, wrong meaningful '
-        'label, unit or number, visibly broken cutout, or a crop that conceals a relevant feature. '
+        'label, unit or number, visibly broken cutout, floating or clipped seller promo text or watermarks, '
+        'detached collage inset people or callout circles beside the product, leftover background glass/scenery '
+        'debris attached to the cutout, or a crop that conceals a relevant feature. '
         'The hero identifies the item. An application can show a recognizable setup step, such as opening '
         'the drinking bowl; the result can show a dog drinking. Require neither a full demonstration in a '
         'single shot nor a specific hand pose. A result shows the supported outcome or an informative '
@@ -491,7 +698,7 @@ def _default_reviewer(source, output, *, title, role, identity_source, prior_out
 
 class ReviewedMediaPreparer:
     def __init__(self, root_path, *, source_loader=None, reviewer=None, generator=None,
-                 generation_budget=None, compositor=None, clock=None):
+                 generation_budget=None, compositor=None, clock=None, hybrid_mode=False):
         self.root = Path(root_path).resolve()
         self.source_loader = source_loader or _default_source_loader
         self.reviewer = reviewer or _default_reviewer
@@ -499,6 +706,15 @@ class ReviewedMediaPreparer:
         self.generation_budget = generation_budget
         self.compositor = compositor or _compose_authentic
         self.clock = clock or time.time
+        self.hybrid_mode = bool(hybrid_mode)
+
+    def _budget_allows(self, candidate, role, model_tag):
+        if not (self.generator and self.generation_budget):
+            return False
+        try:
+            return self.generation_budget(candidate, role, model_tag) is True
+        except TypeError:
+            return self.generation_budget(candidate, role) is True
 
     @contextmanager
     def _lock(self, folder):
@@ -769,22 +985,79 @@ class ReviewedMediaPreparer:
                             self._save(path, state)
                             raise
                         try:
+                            from . import cf_image_budget
                             generations = slot.setdefault('generation_attempts', {})
-                            try:
-                                # One first render plus one correction for this slot,
-                                # even across restarts or alternate seller references.
-                                authorized = bool(self.generator and self.generation_budget
-                                                  and self.generation_budget(candidate, role) is True)
-                            except Exception:
-                                authorized = False
-                            if authorized:
-                                generations[source['sha256']] = generations.get(source['sha256'], 0) + 1
-                                self._save(path, state)
-                                canvas = self.generator(source=raw, title=candidate.get('title', ''), role=role,
-                                                        feedback=slot.get('feedback', ''), model='9b' if index == 0 else '4b')
-                                generated = True
+                            model_tag = '9b' if index == 0 else '4b'
+                            if self.hybrid_mode:
+                                canvas = None
+                                if not slot.get('feedback') and _source_is_clean_studio(raw):
+                                    candidate_cut = self.compositor(raw)
+                                    if not _cutout_needs_regeneration(raw, candidate_cut):
+                                        canvas = candidate_cut
+                                if canvas is None:
+                                    try:
+                                        authorized = self._budget_allows(candidate, role, model_tag)
+                                    except cf_image_budget.BudgetExhausted as be:
+                                        effort['materializations'] = max(0, effort['materializations'] - 1)
+                                        if effort['events']:
+                                            effort['events'].pop()
+                                        self._save(path, state)
+                                        raise MediaDeferred('cf_image_daily_budget', be.retry_at) from None
+                                    except Exception:
+                                        authorized = False
+                                    if authorized:
+                                        generations[source['sha256']] = generations.get(source['sha256'], 0) + 1
+                                        self._save(path, state)
+                                        try:
+                                            canvas = self.generator(source=raw, title=candidate.get('title', ''), role=role,
+                                                                    feedback=slot.get('feedback', ''), model=model_tag)
+                                            generated = True
+                                        except cf_image_budget.BudgetExhausted as be:
+                                            effort['materializations'] = max(0, effort['materializations'] - 1)
+                                            if effort['events']:
+                                                effort['events'].pop()
+                                            self._save(path, state)
+                                            raise MediaDeferred('cf_image_daily_budget', be.retry_at) from None
+                                        except MediaDeferred:
+                                            effort['materializations'] = max(0, effort['materializations'] - 1)
+                                            if effort['events']:
+                                                effort['events'].pop()
+                                            self._save(path, state)
+                                            raise
+                                        except Exception:
+                                            effort['materializations'] = max(0, effort['materializations'] - 1)
+                                            if effort['events']:
+                                                effort['events'].pop()
+                                            self._save(path, state)
+                                            raise MediaDeferred('cf_image_unavailable', self.clock() + 1800) from None
+                                    else:
+                                        # Free FLUX daily cap reached: clean sources may still pass rembg, dirty ones defer fairly.
+                                        if _source_is_clean_studio(raw):
+                                            canvas = self.compositor(raw)
+                                        else:
+                                            effort['materializations'] = max(0, effort['materializations'] - 1)
+                                            if effort['events']:
+                                                effort['events'].pop()
+                                            self._save(path, state)
+                                            snap = cf_image_budget.usage_snapshot()
+                                            retry_at = (float(snap['oldest_at']) + 86400.01) if snap.get('oldest_at') else (self.clock() + 3600)
+                                            raise MediaDeferred('cf_image_daily_budget', retry_at)
                             else:
-                                canvas = self.compositor(raw)
+                                try:
+                                    # One first render plus one correction for this slot,
+                                    # even across restarts or alternate seller references.
+                                    authorized = bool(self.generator and self.generation_budget
+                                                      and self.generation_budget(candidate, role) is True)
+                                except Exception:
+                                    authorized = False
+                                if authorized:
+                                    generations[source['sha256']] = generations.get(source['sha256'], 0) + 1
+                                    self._save(path, state)
+                                    canvas = self.generator(source=raw, title=candidate.get('title', ''), role=role,
+                                                            feedback=slot.get('feedback', ''), model=model_tag)
+                                    generated = True
+                                else:
+                                    canvas = self.compositor(raw)
                             stream = BytesIO()
                             canvas.convert('RGBA').save(stream, 'WEBP', lossless=True, method=4, exact=True)
                             output = stream.getvalue()
@@ -792,6 +1065,10 @@ class ReviewedMediaPreparer:
                             decoded = Image.open(BytesIO(output)).convert('RGBA')
                             ok, metrics = image_studio.verify_studio_image(decoded, composed=decoded)
                             hashes = image_studio.compute_perceptual_hashes(decoded)
+                            with Image.open(BytesIO(raw)) as raw_im:
+                                raw_opaque = raw_im.convert('RGBA').getchannel('A').getextrema()[0] >= 250
+                            if (generated or raw_opaque) and _has_floating_text(decoded):
+                                raise ValueError('floating_text_artifact')
                             if not ok or (perceptual_index and image_studio.is_perceptually_duplicate(hashes, perceptual_index)[0]):
                                 raise ValueError('technical_quality')
                             if any(_sha(p.read_bytes()) == _sha(output) for p in prior):
@@ -801,7 +1078,9 @@ class ReviewedMediaPreparer:
                         except MediaDeferred:
                             raise
                         except Exception as exc:
-                            code = str(exc) if str(exc) in {'technical_quality', 'duplicate_frame', 'unchanged_rejected_frame'} else 'materialization_failed'
+                            code = (str(exc) if str(exc) in {
+                                'technical_quality', 'duplicate_frame', 'unchanged_rejected_frame', 'floating_text_artifact'
+                            } else 'materialization_failed')
                             effort['last_code'] = code
                             effort['events'][-1]['code'] = code
                             rejected.add(source['sha256'])

@@ -87,30 +87,7 @@
   ],
   "slots": [
     {
-      "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad.png",
-        "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
-        "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa",
-        "output_file": "hero-2536ec8db22c6a0f11ddec59be3527ba229d214340fa6b73a0df5a41daedb84a.webp",
-        "image_sha256": "2536ec8db22c6a0f11ddec59be3527ba229d214340fa6b73a0df5a41daedb84a",
-        "metrics": {
-          "fg_width": 800,
-          "fg_height": 659,
-          "fg_max_side": 800,
-          "fg_min_side": 659,
-          "upscale_ratio": 1.113,
-          "sharpness": 35.77,
-          "fg_mean_luma": 68.05,
-          "fg_luma_std": 47.7,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.025,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "generation_attempts": {}
     },
     {},
     {}
@@ -126,16 +103,8 @@
   "effort_versions": {
     "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e": [
       {
-        "materializations": 1,
-        "events": [
-          {
-            "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
-            "at": 1795617133.1884131,
-            "code": "pending_review",
-            "image_sha256": "2536ec8db22c6a0f11ddec59be3527ba229d214340fa6b73a0df5a41daedb84a"
-          }
-        ],
-        "last_code": "materialization_interrupted"
+        "materializations": 0,
+        "events": []
       },
       {
         "materializations": 0,
@@ -147,16 +116,12 @@
       }
     ]
   },
-  "review_attempts": {
-    "2536ec8db22c6a0f11ddec59be3527ba229d214340fa6b73a0df5a41daedb84a": {
-      "opportunities": 0
-    }
-  },
+  "review_attempts": {},
   "identity_source": {
     "url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
     "file": "reference-ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad.png",
     "sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
     "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa"
   },
-  "reason": "retry_unparked"
+  "reason": "reset_for_hybrid_pipeline"
 }

@@ -32,7 +32,8 @@ def checkpoint(*, root=ROOT, force=False):
         return
     root = Path(root).resolve()
     paths = []
-    for relative in ('data/fluxixo_pending.sqlite3', 'data/fluxixo_gemini_usage.sqlite3', 'data/fluxixo_free_search.sqlite3'):
+    for relative in ('data/fluxixo_pending.sqlite3', 'data/fluxixo_gemini_usage.sqlite3',
+                     'data/fluxixo_free_search.sqlite3', 'data/fluxixo_cf_image_usage.sqlite3'):
         file = root / relative
         if file.is_file() and not file.is_symlink():
             paths.append(relative)
@@ -58,6 +59,7 @@ def checkpoint(*, root=ROOT, force=False):
     # Inspect only the allowlist, then commit only that list (never caller's staged catalog).
     changed = git('diff', '--cached', '--quiet', '--', 'data/fluxixo_pending.sqlite3',
                   'data/fluxixo_gemini_usage.sqlite3', 'data/fluxixo_free_search.sqlite3',
+                  'data/fluxixo_cf_image_usage.sqlite3',
                   'fluxixo_site/reserve/reviewed-media', allowed=(0, 1))
     if changed:
         git('commit', '--only', '-m', 'chore(fluxixo): checkpoint AI retry state [skip ci]',

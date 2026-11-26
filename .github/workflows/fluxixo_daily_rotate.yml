@@ -61,6 +61,7 @@ jobs:
       FLUXIXO_AI_TRANSPORT: ${{ vars.FLUXIXO_AI_TRANSPORT || 'worker' }}
       CLOUDFLARE_AUTOPILOT_URL: https://fluxixo-autopilot.sayros2601.workers.dev
       CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
+      FLUXIXO_CF_IMAGE_HYBRID: '1'
     steps:
       - name: Checkout latest main after the shared lock
         uses: actions/checkout@v4
@@ -97,7 +98,7 @@ jobs:
           node-version: '22'
 
       - name: Install bounded OCR dependencies only for new products
-        if: steps.today.outputs.action == 'prepare' && env.FLUXIXO_IMAGE_MODE != 'generate'
+        if: steps.today.outputs.action == 'prepare' && (env.FLUXIXO_CF_IMAGE_HYBRID == '1' || env.FLUXIXO_IMAGE_MODE != 'generate')
         timeout-minutes: 15
         run: bash .github/scripts/install_ocr.sh
 
@@ -154,6 +155,9 @@ jobs:
           FLUXIXO_CHECKPOINT_MIN_INTERVAL: '120'
           FLUXIXO_TEXT_FALLBACK_FREE: '1'
           FLUXIXO_REVIEW_FALLBACK_FREE: '1'
+          FLUXIXO_CF_IMAGE_HYBRID: '1'
+          FLUXIXO_CF_IMAGE_DAILY_NEURONS: '8000'
+          FLUXIXO_CF_IMAGE_DAILY_CALLS: '6'
         run: |
           # Text: Gemini 3.5 Flash-Lite HIGH. Review: Gemini 3.8 Flash HIGH.
           # Both use only the dedicated Free Tier secret; no alternate paid provider.
@@ -180,7 +184,7 @@ jobs:
           references=(fluxixo_site/dist/assets/originals/*-review-*.png fluxixo_site/dist/assets/originals/*-identity.png)
           if (( ${#references[@]} )); then git add -f -- "${references[@]}"; fi
           if [ -f data/fluxixo_ai.sqlite3 ]; then git add -f data/fluxixo_ai.sqlite3; fi
-          for state in data/fluxixo_pending.sqlite3 "$FLUXIXO_GEMINI_BUDGET_PATH" data/fluxixo_free_search.sqlite3; do
+          for state in data/fluxixo_pending.sqlite3 "$FLUXIXO_GEMINI_BUDGET_PATH" data/fluxixo_free_search.sqlite3 data/fluxixo_cf_image_usage.sqlite3; do
             if [ -e "$state" ]; then git add -f -- "$state"; fi
           done
           if ! git diff --cached --quiet; then

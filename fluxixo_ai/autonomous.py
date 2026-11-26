@@ -1216,10 +1216,62 @@ def _generate_cf_slot_view(
 
 def _default_media_preparer():
     if os.environ.get('FLUXIXO_REVIEW_REQUIRED') == '1':
-        from .reviewed_media import ReviewedMediaPreparer
+        from .reviewed_media import ReviewedMediaPreparer, _strip_detached_text
         root = Path(os.environ.get('FLUXIXO_REVIEW_STATE_DIR', 'fluxixo_site/reserve/reviewed-media'))
-        # Shared Workers Paid usage cannot be bounded from delayed analytics.
-        # No FLUX transport is supplied: use authenticated seller imagery and review it.
+        if os.environ.get('FLUXIXO_CF_IMAGE_HYBRID') == '1' and _resolve_cloudflare_media_ready()[2]:
+            from PIL import Image
+            from . import cf_image_budget
+
+            role_angles = {
+                'hero': 'hero front three-quarter studio view',
+                'application': 'in-use application studio view',
+                'result': 'functional close-up detail studio view',
+            }
+
+            def _cf_budget(_candidate, _role, model_tag='9b'):
+                return cf_image_budget.can_spend(model_tag)
+
+            def _cf_generator(*, source, title, role, feedback='', model='9b'):
+                cf_image_budget.reserve(model)
+                cf_model = (
+                    image_studio.FALLBACK_IMAGE_MODEL
+                    if '4b' in str(model).lower()
+                    else image_studio.DEFAULT_IMAGE_MODEL
+                )
+                angle = role_angles.get(role, 'hero front three-quarter studio view')
+                clean_fb = ' '.join(str(feedback or '').split())[:180]
+                if clean_fb:
+                    angle = f'{angle}; {clean_fb}'
+                with Image.open(BytesIO(source)) as opened:
+                    ref_img = opened.convert('RGB')
+                use_vision = os.environ.get('FLUXIXO_USE_VISION_SPEC', '').strip().lower() in ('1', 'true', 'yes')
+                canvas = image_studio.generate_studio_cutout(
+                    title,
+                    reference_image=ref_img,
+                    angle=angle,
+                    model=cf_model,
+                    background_hex='#FFFFFF',
+                    cutout_alpha=True,
+                    use_vision=use_vision,
+                )
+                canvas = _drop_specks(canvas)
+                canvas = _strip_detached_text(canvas)
+                return image_studio.compose_studio_frame(
+                    canvas,
+                    canvas_size=1254,
+                    max_box=890,
+                    normalize_tonality=True,
+                    add_contact_shadow=False,
+                    apply_clarity=True,
+                )
+
+            return ReviewedMediaPreparer(
+                root,
+                generator=_cf_generator,
+                generation_budget=_cf_budget,
+                hybrid_mode=True,
+            ).prepare
+        # Default fallback when hybrid generation is disabled: use authenticated seller imagery + review.
         return ReviewedMediaPreparer(root).prepare
     # Studio image preparation modes (strictly Google/Gemini-free):
     # - 'hybrid': rembg cutouts on GitHub for Slots 1-2 + Cloudflare FLUX.2 active-effect generation for Slot 3 (0 Google quota).

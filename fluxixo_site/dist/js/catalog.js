@@ -211,7 +211,7 @@ window.MIRA_CATALOG = {
       "sourceProductId": "1005010092410193",
       "sourceDetailUrl": "https://www.aliexpress.com/item/1005010092410193.html",
       "sourceTitle": "Wrist Forearm Blaster Arm Muscle Strength Trainer Exerciser Roller With Hand Grip Fitness Equipment Home Weight Fighting",
-      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Se43428bbbccc41af8b9a5c482f2193354.jpg",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Sc61826b0291e40728f2e8fee8b929aecn.png",
       "sourceModelKey": null,
       "sourceMarket": "BR",
       "sourceTask": "rare_forearm_wrist_roller",
@@ -268,16 +268,16 @@ window.MIRA_CATALOG = {
         "policy": "fluxixo-reference-review-v2",
         "product_id": "1005010092410193",
         "source_title_sha256": "b6748cf5c80e0ac578af90d4dc7ed5143a108c37af5a48601fc3c785860b7a46",
-        "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+        "identity_source_sha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
         "identity_source_asset": "assets/originals/auto-1005010092410193-identity.png",
         "frames": [
           {
             "role": "hero",
-            "source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
-            "image_sha256": "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa",
+            "source_sha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
+            "image_sha256": "65b389acf803af36d3824f9716612ce387d1a644db786a036da994c42ea70bc5",
             "prior_image_sha256": [],
-            "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
-            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se43428bbbccc41af8b9a5c482f2193354.jpg",
+            "identity_source_sha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sc61826b0291e40728f2e8fee8b929aecn.png",
             "source_asset": "assets/originals/auto-1005010092410193-review-1.png",
             "output_asset": "assets/images/auto-1005010092410193.webp",
             "assessment": {
@@ -292,20 +292,19 @@ window.MIRA_CATALOG = {
               "distinct": true,
               "material_defects": [],
               "reasons": [
-                "The image accurately depicts the requested wrist forearm blaster fitness equipment with all correct components, colors, and branding.",
-                "The product variant matches the reference images and successfully fulfills the hero role."
+                "Clean full wrist forearm blaster studio cutout with detached promotional headline stripped."
               ]
             }
           },
           {
             "role": "application",
-            "source_sha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
-            "image_sha256": "a8e6edff105ecd9710f1fe7f4b57b736f08caa61f2ddcbb7053a8f7bb9cc0b79",
+            "source_sha256": "b6dba8a2a49f4adceda13149af42d7850eae65881ac07cc483c8ea6e1f1e6b03",
+            "image_sha256": "83a7f06cb17845a1916fe050c7de93801d41162420b1dba61f97b72428124ad3",
             "prior_image_sha256": [
-              "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa"
+              "65b389acf803af36d3824f9716612ce387d1a644db786a036da994c42ea70bc5"
             ],
-            "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
-            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sc61826b0291e40728f2e8fee8b929aecn.png",
+            "identity_source_sha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Scd9591f008e3427db09f8e65683fbd520.png",
             "source_asset": "assets/originals/auto-1005010092410193-review-2.png",
             "output_asset": "assets/images/auto-1005010092410193-v2.webp",
             "assessment": {
@@ -320,19 +319,19 @@ window.MIRA_CATALOG = {
               "distinct": true,
               "material_defects": [],
               "reasons": [
-                "Successfully restores the exact primary-reference product variant with green striped handles as shown in Image 1, correcting the previous variant mismatch."
+                "Clean close-up of the center sleeve, coiled cord, and carabiner hardware with promo caption removed."
               ]
             }
           },
           {
             "role": "result",
             "source_sha256": "52971576995a9d4e9d24d66d6b6a26870c082935be72b92195c016a1493bea5a",
-            "image_sha256": "bcfc80c5659a2bd75d41aa85d8ddebdd10d82946ab4c2bf3c1c33f8b885bfcee",
+            "image_sha256": "60b237cdcb1c8a2e04a96548f7f60fb33610edf489c4a3e8eb86d4937dd90833",
             "prior_image_sha256": [
-              "e8fa46053fb36cc780753dc76cb3a04179a9b42d42d04f3a7da018928fb4befa",
-              "a8e6edff105ecd9710f1fe7f4b57b736f08caa61f2ddcbb7053a8f7bb9cc0b79"
+              "65b389acf803af36d3824f9716612ce387d1a644db786a036da994c42ea70bc5",
+              "83a7f06cb17845a1916fe050c7de93801d41162420b1dba61f97b72428124ad3"
             ],
-            "identity_source_sha256": "f79a165a8ca0552ebc26e9a0cbec9fa61ad6c88740f6d77b458c63469982bd75",
+            "identity_source_sha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
             "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sebc26825adaf4c88924f224db4aeba68V.png",
             "source_asset": "assets/originals/auto-1005010092410193-review-3.png",
             "output_asset": "assets/images/auto-1005010092410193-v3.webp",
@@ -348,7 +347,7 @@ window.MIRA_CATALOG = {
               "distinct": true,
               "material_defects": [],
               "reasons": [
-                "The image accurately depicts the wrist forearm blaster in use, clearly showing the functional setup and supported outcome for the buyer."
+                "Clean close-up of the metal hanging carabiner buckle and loading loop with promo copy stripped."
               ]
             }
           }
@@ -359,26 +358,26 @@ window.MIRA_CATALOG = {
         "assets/images/auto-1005010092410193-v2.webp",
         "assets/images/auto-1005010092410193-v3.webp"
       ],
-      "sourceImageSha256": "4596b7a8435db5a4ec5cdf77f23dee930d1c13dc51268bc75959bd7fc0fa881f",
-      "sourcePixelSha256": "89fe0b1fe992fab52e2c20d4b41838bdc6c0f8a50e02af991284865380af153c",
-      "imageDhash": "cdcecec989a62d0d",
-      "imageAhash": "3f63223c79f3e7e7",
-      "imageAspect": "1.07",
-      "sourceImageDhash": "cececcc9830c0b0b",
-      "sourceImageAhash": "3f432679fbe7e7f9",
+      "sourceImageSha256": "d649d06dad68532e58d01290bc13a3c0b32de420dff0e798193a84f1ea2a6161",
+      "sourcePixelSha256": "72f43df7650d6dcfd0edae4ae91928c4eb4a57e51d5d747fe901a8e879b617ea",
+      "imageDhash": "050505054d0c4d4d",
+      "imageAhash": "f7f7f7f7f7f70000",
+      "imageAspect": "1.37",
+      "sourceImageDhash": "25a5cc4c4d6dc189",
+      "sourceImageAhash": "f7f7f7e700a7ffed",
       "imageQualityVerified": true,
       "imageQualityMetrics": {
-        "fg_width": 767,
-        "fg_height": 718,
-        "fg_max_side": 767,
-        "fg_min_side": 718,
-        "upscale_ratio": 1.16,
-        "sharpness": 18.375,
-        "fg_mean_luma": 66.44,
-        "fg_luma_std": 52.57,
+        "fg_width": 1040,
+        "fg_height": 759,
+        "fg_max_side": 1040,
+        "fg_min_side": 759,
+        "upscale_ratio": 0.856,
+        "sharpness": 23.752,
+        "fg_mean_luma": 67.58,
+        "fg_luma_std": 47.74,
         "max_border_clip": 0.0,
         "clipped_edges": 0,
-        "halo_fringe_ratio": 0.054,
+        "halo_fringe_ratio": 0.043,
         "reasons": []
       }
     },

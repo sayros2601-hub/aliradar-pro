@@ -218,3 +218,174 @@ class AutopostingOverhaulTests(unittest.TestCase):
             data, prov = ai_seo.complete_json('sys', 'usr', keys=keys_on, transport=fake_transport)
         self.assertEqual({'ok': 'fallback'}, data)
         self.assertTrue(prov.startswith('github_models:'))
+
+    def test_cf_image_budget_enforces_24h_caps_and_resets_cleanly(self):
+        import tempfile
+        from fluxixo_ai import cf_image_budget
+        with tempfile.TemporaryDirectory() as tmp:
+            db = Path(tmp) / 'cf_budget.sqlite3'
+            r1 = cf_image_budget.reserve('9b', path=db, now=1000.0, neuron_limit=1900, call_limit=3)
+            self.assertEqual(1600, r1['used_neurons'])
+            self.assertFalse(cf_image_budget.can_spend('9b', path=db, now=1001.0, neuron_limit=1900, call_limit=3))
+            self.assertTrue(cf_image_budget.can_spend('4b', path=db, now=1001.0, neuron_limit=1900, call_limit=3))
+            r2 = cf_image_budget.reserve('4b', path=db, now=1002.0, neuron_limit=1900, call_limit=3)
+            self.assertEqual(1800, r2['used_neurons'])
+            with self.assertRaises(cf_image_budget.BudgetExhausted) as err:
+                cf_image_budget.reserve('4b', path=db, now=1003.0, neuron_limit=1900, call_limit=3)
+            self.assertEqual('cf_image_daily_budget', err.exception.code)
+            self.assertGreater(err.exception.retry_at, 86400.0)
+            # 24h later rolling window resets cleanly.
+            r3 = cf_image_budget.reserve('9b', path=db, now=1000.0 + 86405.0, neuron_limit=1900, call_limit=3)
+            self.assertEqual(1, r3['calls'])
+
+    def test_strip_detached_text_and_has_floating_text_on_studio_cutout(self):
+        from unittest.mock import patch
+        im = Image.new('RGBA', (1000, 1000), (0, 0, 0, 0))
+        draw = ImageDraw.Draw(im)
+        # Main large product body (center, fraction > 0.90)
+        draw.rectangle((220, 320, 780, 860), fill=(40, 45, 55, 255))
+        # Detached promo caption strip above product (fraction < 0.04)
+        draw.rectangle((140, 60, 480, 105), fill=(20, 20, 20, 255))
+        fake_boxes = [{'text': 'PROMO', 'alnum': 'PROMO', 'conf': 88.0, 'x': 140, 'y': 60, 'w': 340, 'h': 45}]
+        with patch.object(reviewed_media, '_ocr_tsv_boxes', return_value=fake_boxes):
+            self.assertEqual(['PROMO'], reviewed_media._has_floating_text(im))
+            cleaned = reviewed_media._strip_detached_text(im)
+        self.assertEqual(0, cleaned.getpixel((250, 82))[3])
+        self.assertEqual(255, cleaned.getpixel((500, 550))[3])
+
+    def test_hybrid_media_preparer_routes_clean_vs_dirty_and_respects_budget(self):
+        import random
+        import tempfile
+        from io import BytesIO
+        from fluxixo_ai import cf_image_budget
+
+        def make_source(idx, *, dirty_bg):
+            bg = (65, 115, 165, 255) if dirty_bg else (255, 255, 255, 255)
+            im = Image.new('RGBA', (900, 900), bg)
+            d = ImageDraw.Draw(im)
+            if dirty_bg:
+                for x in range(0, 900, 90):
+                    d.line((x, 0, x + 50, 900), fill=(95, 150, 195, 255), width=6)
+            rng = random.Random(100 + idx)
+            d.rectangle((240 + idx * 25, 220, 620, 720 - idx * 35), fill=(35 + idx * 30, 50, 90, 255))
+            for _ in range(18):
+                px = rng.randrange(260, 580)
+                py = rng.randrange(260, 600)
+                d.rectangle((px, py, px + 40, py + 40), fill=(210, 170, 80, 255))
+            buf = BytesIO()
+            im.save(buf, 'PNG')
+            return buf.getvalue()
+
+        def ok_cutout(idx):
+            im = Image.new('RGBA', (1254, 1254), (0, 0, 0, 0))
+            d = ImageDraw.Draw(im)
+            rng = random.Random(500 + idx * 17)
+            for _ in range(900):
+                x = rng.randrange(220, 960)
+                y = rng.randrange(220, 960)
+                d.rectangle((x, y, x + 42, y + 42), fill=(rng.randrange(50, 220), rng.randrange(40, 200), rng.randrange(40, 210), 255))
+            return im
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            clean_assets = {f'https://ae01.alicdn.com/kf/c{i}.png': make_source(i, dirty_bg=False) for i in range(4)}
+            gen_calls = []
+            cut_idx = {'n': 0}
+
+            def fake_comp(_raw):
+                out = ok_cutout(cut_idx['n'])
+                cut_idx['n'] += 1
+                return out
+
+            def fake_gen(**kw):
+                gen_calls.append(kw.get('model'))
+                return ok_cutout(len(gen_calls) + 5)
+
+            prep_clean = reviewed_media.ReviewedMediaPreparer(
+                root / 'c_cache',
+                source_loader=clean_assets.__getitem__,
+                reviewer=lambda *a, **k: {
+                    'accepted': True, 'identity': True, 'shape': True, 'completeness': True,
+                    'color': True, 'markings': True, 'role': True, 'quality': True, 'distinct': True,
+                    'material_defects': [], 'reasons': [],
+                },
+                compositor=fake_comp,
+                generator=fake_gen,
+                generation_budget=lambda *a: True,
+                hybrid_mode=True,
+            )
+            stage_c = root / 'stage_c'
+            stage_c.mkdir()
+            prep_clean.prepare(
+                {'product_id': 'c1', 'title': 'Clean Studio Widget',
+                 'image_url': next(iter(clean_assets)), 'image_urls': list(clean_assets)},
+                'auto-c1', stage_c,
+            )
+            self.assertEqual([], gen_calls)
+
+            dirty_assets = {f'https://ae01.alicdn.com/kf/d{i}.png': make_source(i, dirty_bg=True) for i in range(4)}
+            prep_dirty = reviewed_media.ReviewedMediaPreparer(
+                root / 'd_cache',
+                source_loader=dirty_assets.__getitem__,
+                reviewer=lambda *a, **k: {
+                    'accepted': True, 'identity': True, 'shape': True, 'completeness': True,
+                    'color': True, 'markings': True, 'role': True, 'quality': True, 'distinct': True,
+                    'material_defects': [], 'reasons': [],
+                },
+                compositor=lambda _raw: self.fail('dirty scene must route directly to generator'),
+                generator=fake_gen,
+                generation_budget=lambda *a: True,
+                hybrid_mode=True,
+            )
+            stage_d = root / 'stage_d'
+            stage_d.mkdir()
+            prep_dirty.prepare(
+                {'product_id': 'd1', 'title': 'Dirty Scene Hammer',
+                 'image_url': next(iter(dirty_assets)), 'image_urls': list(dirty_assets)},
+                'auto-d1', stage_d,
+            )
+            self.assertEqual(['9b', '4b', '4b'], gen_calls)
+
+            def exhausted_gen(**_kw):
+                raise cf_image_budget.BudgetExhausted('cf_image_daily_budget', 9999.0)
+
+            prep_cap = reviewed_media.ReviewedMediaPreparer(
+                root / 'cap_cache',
+                source_loader=dirty_assets.__getitem__,
+                reviewer=lambda *a, **k: {},
+                generator=exhausted_gen,
+                generation_budget=lambda *a: True,
+                hybrid_mode=True,
+                clock=lambda: 1000.0,
+            )
+            stage_cap = root / 'stage_cap'
+            stage_cap.mkdir()
+            with self.assertRaises(reviewed_media.MediaDeferred) as err:
+                prep_cap.prepare(
+                    {'product_id': 'cap1', 'title': 'Dirty Scene Hammer',
+                     'image_url': next(iter(dirty_assets)), 'image_urls': list(dirty_assets)},
+                    'auto-cap1', stage_cap,
+                )
+            self.assertEqual('cf_image_daily_budget', err.exception.code)
+            self.assertNotEqual('MediaStopped', type(err.exception).__name__)
+
+    def test_default_reviewer_rubric_blocks_floating_text_collages_and_debris(self):
+        from unittest.mock import patch
+        seen = []
+
+        def fake_call(system, payload, *, model, images):
+            seen.append(system)
+            return {
+                'accepted': True, 'identity': True, 'shape': True, 'completeness': True,
+                'color': True, 'markings': True, 'role': True, 'quality': True, 'distinct': True,
+                'material_defects': [], 'reasons': [],
+            }
+
+        with patch('fluxixo_ai.gemini_client.call_json', side_effect=fake_call):
+            reviewed_media._default_reviewer(b'ref', b'out', title='Hammer', role='hero', identity_source=b'id')
+        rubric = seen[0]
+        self.assertIn('Accept harmless differences in background, soft shadow, framing', rubric)
+        self.assertIn('opening the drinking bowl', rubric)
+        self.assertIn('floating or clipped seller promo text', rubric)
+        self.assertIn('detached collage inset people', rubric)
+        self.assertIn('glass/scenery debris', rubric)
