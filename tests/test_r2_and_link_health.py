@@ -1,8 +1,6 @@
-"""Unit tests for Cloudflare R2 media sync/packing, Telegram digest/alerts, and link streak tracking."""
+"""Unit tests for Cloudflare R2 media sync/packing and link streak tracking."""
 from __future__ import annotations
 
-from datetime import datetime, timezone
-import json
 import os
 from pathlib import Path
 import sys
@@ -17,10 +15,9 @@ if str(TOOLS) not in sys.path:
 
 import link_health_guard  # noqa: E402
 import r2_media_sync  # noqa: E402
-from fluxixo_ai import telegram_digest  # noqa: E402
 
 
-class R2MediaAndTelegramTests(unittest.TestCase):
+class R2MediaAndLinkHealthTests(unittest.TestCase):
     def test_pack_pages_bundle_strips_offloaded_media_and_rewrites_urls(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -83,29 +80,6 @@ class R2MediaAndTelegramTests(unittest.TestCase):
             self.assertEqual([('assets/images/hero.webp', 'image/webp')], uploaded_keys)
             self.assertEqual({'total_media': 1, 'uploaded': 1, 'cached': 0}, s1)
             self.assertEqual({'total_media': 1, 'uploaded': 0, 'cached': 1}, s2)
-
-    def test_telegram_digest_and_ops_alerts(self):
-        products = [
-            {'id': 'p1', 'name': 'Умный датчик', 'category': 'Дом', 'description': 'Краткое описание.', 'image': 'assets/images/p1.webp'}
-        ]
-        i18n = {'products': {'p1': {'en': {'name': 'Smart Sensor'}}}}
-        clicks = {'days': 7, 'total_clicks': 42, 'top_products': [{'product_id': 'p1', 'clicks': 19}]}
-        digest = telegram_digest.build_digest_payload(products, i18n, clicks_summary=clicks, limit=5)
-        self.assertEqual('https://media.fluxixo.shop/assets/images/p1.webp', digest['items'][0]['image_url'])
-        self.assertIn('Клики за 7 дн.', digest['message_html'])
-
-        with tempfile.TemporaryDirectory() as tmp:
-            root = Path(tmp)
-            ps = root / 'ps.json'
-            lr = root / 'lr.json'
-            ps.write_text(json.dumps({'days': {'2026-11-20': {'status': 'published', 'published_day': '2026-11-20'}}}), encoding='utf-8')
-            lr.write_text(json.dumps({'results': [{'id': 'p9', 'status': 'UNAVAILABLE', 'reason': 'HTTP_404', 'broken_streak': 3}]}), encoding='utf-8')
-            alerts = telegram_digest.collect_ops_alerts(
-                ps, lr, now=datetime(2026, 11, 24, 12, 0, tzinfo=timezone.utc), explicit_reason='test_err'
-            )
-            self.assertTrue(any('Workflow alert: test_err' in a for a in alerts))
-            self.assertTrue(any('Catalog publish stall' in a for a in alerts))
-            self.assertTrue(any('Persistent broken affiliate links' in a for a in alerts))
 
     def test_link_health_guard_tracks_broken_streak(self):
         with tempfile.TemporaryDirectory() as tmp:

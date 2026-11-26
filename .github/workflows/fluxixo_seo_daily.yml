@@ -54,27 +54,13 @@ jobs:
         continue-on-error: true
         run: python -B link_health_guard.py --catalog fluxixo_site/dist/js/catalog.js --report data/link_health_report.json --summary "$GITHUB_STEP_SUMMARY"
 
-      - name: Check ops health & send weekly Telegram digest (Sunday)
-        continue-on-error: true
-        env:
-          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          python -B -m fluxixo_ai.telegram_digest --mode alert --summary "$GITHUB_STEP_SUMMARY" || true
-          if [ "$(date -u +%u)" = "7" ]; then
-            python -B -m fluxixo_ai.telegram_digest --mode digest --weekly --write-json fluxixo_site/dist/telegram-digest.json || true
-          fi
-
       - name: Persist encrypted SEO telemetry & link health state
         run: |
           git config user.name "FLUXIXO SEO Telemetry"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -d data/seo ]; then git add data/seo/*.enc; fi
           if [ -f fluxixo_site/tools/indexnow-submitted.json ]; then git add -f fluxixo_site/tools/indexnow-submitted.json; fi
-          for f in data/link_health_report.json data/telegram_digest_state.json; do
-            if [ -f "$f" ]; then git add -f -- "$f"; fi
-          done
+          if [ -f data/link_health_report.json ]; then git add -f -- data/link_health_report.json; fi
           if ! git diff --cached --quiet; then
             git commit -m "chore(seo): daily Google/Bing sync telemetry [skip ci]"
             git pull --rebase --autostash --quiet origin main && git push origin HEAD:main

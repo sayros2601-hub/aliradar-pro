@@ -565,10 +565,6 @@ def main() -> None:
         subprocess.run([sys.executable, str(SITE_ROOT / "redesign" / "build_redesign.py"), "--production"], check=True)
         # Sitemap dates and page fingerprints come from the finished pages, after the design is applied.
         subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "write_sitemaps.py")], check=True)
-        subprocess.run(
-            [sys.executable, "-B", "-m", "fluxixo_ai.telegram_digest", "--mode", "digest", "--write-json", str(DIST / "telegram-digest.json")],
-            check=False,
-        )
         yandex_indexnow.prepare(SITE_ROOT, DIST)
         subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
     # A release with broken pages stops here instead of reaching the live site.

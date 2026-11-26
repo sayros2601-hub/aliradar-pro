@@ -1946,37 +1946,6 @@ async function handleReviewMedia(request, env) {
   }, 502);
 }
 
-async function handleTelegramDigest(request, env) {
-  let body;
-  try {
-    body = JSON.parse(await request.text());
-  } catch {
-    return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
-  }
-  const text = String(body?.text || "").trim().slice(0, 4000);
-  if (!text) {
-    return jsonResponse({ ok: false, error: "text is required" }, 400);
-  }
-  const botToken = String(env.TELEGRAM_BOT_TOKEN || "").trim();
-  const chatId = String(body?.chat_id || env.TELEGRAM_CHAT_ID || "").trim();
-  if (!botToken || !chatId) {
-    return jsonResponse({ ok: true, skipped: "missing_telegram_secrets" }, 200, NO_STORE);
-  }
-  const resp = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json; charset=utf-8" },
-    body: JSON.stringify({
-      chat_id: chatId,
-      text,
-      parse_mode: body?.parse_mode || "HTML",
-      disable_web_page_preview: body?.disable_web_page_preview ?? false,
-    }),
-    signal: AbortSignal.timeout(15000),
-  });
-  const data = await resp.json().catch(() => ({ ok: false, status: resp.status }));
-  return jsonResponse({ ok: resp.ok && Boolean(data?.ok), status: resp.status, result: data }, resp.ok ? 200 : 502, NO_STORE);
-}
-
 const R2_SAFE_KEY_RE = /^assets\/(?:images|thumbs|featured|video|pinterest)\/[a-zA-Z0-9._/-]+$/;
 
 function contentTypeForR2Key(key, fallback) {
@@ -2026,7 +1995,6 @@ const PROTECTED_POST_HANDLERS = new Map([
   ["/api/seo-sync", handleSeoSync],
   ["/api/catalog-sync", handleCatalogSync],
   ["/api/review-media", handleReviewMedia],
-  ["/api/telegram-digest", handleTelegramDigest],
 ]);
 
 export default {

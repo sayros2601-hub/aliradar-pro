@@ -17,7 +17,6 @@ const protectedPosts = [
   '/api/seo-sync',
   '/api/catalog-sync',
   '/api/review-media',
-  '/api/telegram-digest',
 ];
 
 function loadWorker(mockFetch = () => assert.fail('unexpected network call'), Clock = Date) {
@@ -461,7 +460,7 @@ test('click tracking endpoint enforces allowed origins and records D1 rows while
   assert.equal(inserted[0][1], 'he');
 });
 
-test('flux-1-schnell fallback and telegram/review-media handlers behave safely', async () => {
+test('flux-1-schnell fallback, review-media and R2 upload handlers behave safely', async () => {
   const reviewRes = await worker.fetch(post('/api/review-media', {
     system: 'Review studio image',
     payload: { id: 'p1' },
@@ -480,11 +479,10 @@ test('flux-1-schnell fallback and telegram/review-media handlers behave safely',
   assert.equal(reviewJson.ok, true);
   assert.equal(reviewJson.result.accepted, true);
 
-  const tgSkip = await worker.fetch(post('/api/telegram-digest', { text: 'Daily drop live' }), {
+  const tgRemoved = await worker.fetch(post('/api/telegram-digest', { text: 'Daily drop live' }), {
     AUTOPILOT_SYNC_TOKEN: syncToken,
   });
-  assert.equal(tgSkip.status, 200);
-  assert.equal((await tgSkip.json()).skipped, 'missing_telegram_secrets');
+  assert.equal(tgRemoved.status, 404);
 
   const storedR2 = [];
   const r2Res = await worker.fetch(
