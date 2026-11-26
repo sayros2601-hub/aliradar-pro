@@ -1,4 +1,39 @@
 {
   "version": 1,
-  "routes": {}
+  "routes": {
+    "/products/katord-wifi-repeater/": {
+      "title": "KATORD 1200 Мбит/с: репитер и усилитель Wi-Fi | FLUXIXO",
+      "description": "Усилитель Wi-Fi сигнала и репитер KATORD 2,4 и 5 ГГц с шестью внешними антеннами для квартиры и дома. Проверьте вилку 220 В и порт RJ45 на AliExpress.",
+      "h1": "KATORD 1200 Мбит/с — усилитель Wi-Fi сигнала"
+    },
+    "/he/products/katord-wifi-repeater/": {
+      "title": "KATORD 1200 Mbps — מגדיל טווח ומגבר Wi-Fi | FLUXIXO",
+      "description": "מגבר וויפי ומגדיל טווח Wi-Fi KATORD דו-תדרי עם שש אנטנות חיצוניות לבית ולמשרד. בדקו התאמה לתקע ישראלי וחיבור RJ45 בעמוד המוצר ב־AliExpress.",
+      "h1": "KATORD 1200 Mbps — מגדיל טווח Wi-Fi דו-תדרי"
+    },
+    "/en/products/katord-wifi-repeater/": {
+      "title": "KATORD 1200Mbps Wi-Fi Extender & Repeater | FLUXIXO",
+      "description": "Dual-band KATORD 2.4 GHz & 5 GHz Wi-Fi booster and range extender with six external antennas. Verify US plug options and RJ45 AP mode on AliExpress."
+    },
+    "/es/products/katord-wifi-repeater/": {
+      "title": "KATORD 1200 Mbps: repetidor Wi-Fi doble banda | FLUXIXO",
+      "description": "Repetidor Wi-Fi y amplificador de señal KATORD con seis antenas para casa u oficina. Revisa clavija para México y modo RJ45 en AliExpress."
+    },
+    "/pt/products/katord-wifi-repeater/": {
+      "title": "KATORD 1200 Mbps: repetidor Wi-Fi dual band | FLUXIXO",
+      "description": "Repetidor Wi-Fi e amplificador de sinal KATORD com seis antenas para ampliar a cobertura em casa. Confira tomada e modo RJ45 no AliExpress Brasil."
+    },
+    "/fr/products/katord-wifi-repeater/": {
+      "title": "KATORD 1200 Mbps : répéteur Wi-Fi double bande | FLUXIXO",
+      "description": "Répéteur Wi-Fi et amplificateur de signal KATORD avec six antennes orientables pour la maison. Vérifiez la prise et le mode RJ45 sur AliExpress."
+    },
+    "/products/find-001-neck-cooler/": {
+      "title": "Вентилятор на шею беспроводной без лопастей | FLUXIXO",
+      "description": "Портативный шейный вентилятор без лопастей обдувает вдоль шеи и оставляет руки свободными в транспорте и офисе. Проверьте зарядку на AliExpress."
+    },
+    "/products/find-024-trekking-poles/": {
+      "title": "Треккинговые палки складные для походов | FLUXIXO",
+      "description": "Складная треккинговая палка с темляком убирается в рюкзак и разгружает колени на спусках. Перед заказом проверьте, продаётся поштучно или парой."
+    }
+  }
 }

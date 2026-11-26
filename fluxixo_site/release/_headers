@@ -10,6 +10,8 @@
   Content-Type: application/xml; charset=utf-8
 /robots.txt
   Content-Type: text/plain; charset=utf-8
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
 
 /404
   X-Robots-Tag: noindex
@@ -122,6 +124,9 @@
 /index.html
   Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=60, must-revalidate
 
+/llms.txt
+  Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=60, must-revalidate
+
 /catalog/*
   Cache-Control: public, max-age=0, s-maxage=300, stale-while-revalidate=60, must-revalidate
 
@@ -184,6 +189,9 @@
 
 /drop-status.json
   Cache-Control: no-store
+
+https://dealvault.pages.dev/*
+  X-Robots-Tag: noindex, nofollow
 
 https://*.dealvault.pages.dev/*
   X-Robots-Tag: noindex, nofollow

@@ -286,6 +286,86 @@ index = re.sub(r'<div class="product-plane"><img [^>]*fetchpriority="high"[^>]*>
 write('index.html', index)
 
 write('404.html', page('Page Not Found | FLUXIXO', 'The requested page was not found on FLUXIXO.', '/404.html', '<p class="eyebrow">404</p><h1>Page not found</h1><p>This link may have changed. Explore the full interactive showroom or browse the catalog below.</p><div class="cta-row"><a class="button" href="/">Open 3D Showroom</a><a class="button secondary" href="/en/">Browse Catalog</a></div>', noindex=True, language='en'))
+def build_llms_txt(prods, i18n_data, origin=ORIGIN):
+    """Generate GEO-friendly /llms.txt index following llmstxt.org conventions."""
+    lines = [
+        '# FLUXIXO',
+        '',
+        ('> Independent 6-language curated showcase of useful AliExpress finds for home, kitchen, workshop, '
+         'tech, auto/travel, sports, outdoors, and pets. Every product page pairs transparent studio visuals and '
+         'original seller photos with honest 4-block editorial notes (best fit, limitations, comparisons, and '
+         'pre-order verification points). FLUXIXO is not a store and never lists static prices or stock; verify '
+         'live options and shipping directly on AliExpress.'),
+        '',
+        '## Core Entry Pages',
+        f'- [FLUXIXO English Home]({origin}/): Latest daily finds, 6 worlds, and editorial overview.',
+        f'- [Full English Catalog ({len(prods)} items)]({origin}/en/): Complete English product directory.',
+        f'- [Русский каталог]({origin}/catalog/): Полная коллекция и обзоры на русском языке.',
+        f'- [Catálogo Português (Brasil)]({origin}/pt/): Achadinhos do AliExpress para o Brasil.',
+        f'- [Catálogo Español (México)]({origin}/es/): Hallazgos útiles de AliExpress para México.',
+        f'- [Catalogue Français]({origin}/fr/): Sélection de trouvailles AliExpress pour la France.',
+        f'- [קטלוג בעברית (ישראל)]({origin}/he/): מציאות וגאדג׳טים נבחרים מ־AliExpress לישראל.',
+        f'- [About & Affiliate Disclosure]({origin}/en/about/): Methodology, studio visuals, and privacy policy.',
+        f'- [О проекте (RU)]({origin}/about/): Принципы отбора, конфиденциальность и контакты редакции.',
+        '',
+        '## Product Categories',
+    ]
+    for slug_ru, c_name in sorted(cat_titles.items()):
+        c_key = category_key(c_name)
+        cnt = len(by_cat.get(slug_ru, []))
+        if c_key:
+            en_slug = category_paths(c_key)['en']
+            en_name = i18n_data.get('cats', {}).get(c_key, {}).get('en', c_name)
+            lines.append(f'- [{en_name} ({cnt})]({origin}{en_slug}) · [RU: {c_name}]({origin}/categories/{slug_ru}/)')
+        else:
+            lines.append(f'- [{c_name} ({cnt})]({origin}/categories/{slug_ru}/)')
+
+    lines.extend(['', '## Buying & Comparison Guides'])
+    for art in journal_pages.all_articles():
+        slug = art['slug']
+        en_tr = art['translations'].get('en')
+        ru_tr = art['translations'].get('ru')
+        if en_tr:
+            en_title = en_tr[0].removesuffix(' | FLUXIXO')
+            lines.append(f'- [{en_title}]({origin}{journal_pages.article_path("en", slug)}): {en_tr[1]}')
+        elif ru_tr:
+            ru_title = ru_tr[0].removesuffix(' | FLUXIXO')
+            lines.append(f'- [{ru_title}]({origin}{journal_pages.article_path("ru", slug)}): {ru_tr[1]}')
+
+    lines.extend(['', '## Highlighted Product Reviews'])
+    priority_ids = [
+        'katord-wifi-repeater', 'find-001-neck-cooler', 'find-024-trekking-poles',
+        'import-0024', 'find-008-jump-starter', 'find-055-lint-remover', 'import-0119',
+    ]
+    by_id = {p['id']: p for p in prods}
+    chosen = []
+    seen_ids = set()
+    for pid in priority_ids + [p['id'] for p in prods]:
+        if pid in by_id and pid not in seen_ids:
+            chosen.append(by_id[pid])
+            seen_ids.add(pid)
+        if len(chosen) >= 24:
+            break
+    for prod in chosen:
+        pid = prod['id']
+        en_tr = i18n_data.get('products', {}).get(pid, {}).get('en', {})
+        title = en_tr.get('name') or prod['name']
+        desc = fit_description(en_tr.get('description') or prod['description'], 'en', limit=158)
+        en_url = f'{origin}/en/products/{pid}/'
+        ru_url = f'{origin}/products/{pid}/'
+        lines.append(f'- [{title}]({en_url}) ([RU]({ru_url})): {desc}')
+
+    lines.extend([
+        '',
+        '## Sitemaps & Machine-Readable Feeds',
+        f'- [Sitemap Index]({origin}/sitemap-index.xml)',
+        f'- [Master Sitemap]({origin}/sitemap.xml)',
+        f'- [RSS Feed (RU)]({origin}/rss.xml)',
+        f'- [Social Catalog JSON]({origin}/social-feed.json)',
+    ])
+    return '\n'.join(lines) + '\n'
+
+
 robots_txt = f"""User-agent: *
 Allow: /
 
@@ -293,6 +373,7 @@ Sitemap: {ORIGIN}/sitemap-index.xml
 Sitemap: {ORIGIN}/sitemap.xml
 """
 write('robots.txt', robots_txt)
+write('llms.txt', build_llms_txt(products, i18n))
 write('BingSiteAuth.xml', f'<?xml version="1.0" encoding="UTF-8"?>\n<users><user>{BING}</user></users>\n')
 keyfile = ROOT/'tools/indexnow-key.txt'
 if not keyfile.exists():

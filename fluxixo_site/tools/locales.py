@@ -339,16 +339,49 @@ def fit_title(name, language, limit=60):
     return name + suffixes[-1]
 
 
+_SENTENCE_SPLIT_RE = re.compile(r'(?<=[.!?])\s+(?=[^\d])')
+
+
 def fit_description(text, language, limit=158):
-    text = text.strip()
+    text = ' '.join(str(text or '').split())
+    if not text:
+        return ''
     if not text.endswith(('.', '!', '?', '…')):
         text += '.'
-    full = f'{text} {DESCRIPTION_CTA[language]}'
+    cta = DESCRIPTION_CTA[language]
+    full = f'{text} {cta}'
     if len(full) <= limit:
         return full
     if len(text) <= limit:
         return text
-    return text[:limit - 1].rsplit(' ', 1)[0].rstrip(' ,;:—-') + '…'
+
+    sentences = [s.strip() for s in _SENTENCE_SPLIT_RE.split(text) if s.strip()]
+    kept = []
+    cur_len = 0
+    for sent in sentences:
+        add_len = len(sent) if not kept else cur_len + 1 + len(sent)
+        if add_len <= limit:
+            kept.append(sent)
+            cur_len = add_len
+        else:
+            break
+    if kept:
+        joined = ' '.join(kept)
+        with_cta = f'{joined} {cta}'
+        if len(with_cta) <= limit:
+            return with_cta
+        if len(joined) >= 55:
+            return joined
+
+    window = text[:limit - 1]
+    best_idx = -1
+    for sep in ('; ', ' — ', ' – ', ': ', ', '):
+        idx = window.rfind(sep)
+        if idx > best_idx and idx >= 65:
+            best_idx = idx
+    if best_idx >= 65:
+        return window[:best_idx].rstrip(' ,;:—–-') + '.'
+    return window.rsplit(' ', 1)[0].rstrip(' ,;:—–-.') + '.'
 
 
 def resolve_image_size(dist, image_rel):

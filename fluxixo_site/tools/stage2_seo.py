@@ -121,7 +121,7 @@ def collect_existing_meta(dist_dir, routes):
 
 
 def technical_audit(dist_dir):
-    """Inspect dist/ readiness: per-country sitemaps, katord route, redirect rule margin, text lint."""
+    """Inspect dist/ readiness: per-country sitemaps, llms.txt, katord route, redirect limits, text lint."""
     dist_dir = Path(dist_dir)
     issues = []
     expected_maps = ('sitemap.xml', 'sitemap-index.xml', 'sitemap-ru.xml',
@@ -129,12 +129,26 @@ def technical_audit(dist_dir):
     missing_maps = [m for m in expected_maps if not (dist_dir / m).exists()]
     if missing_maps:
         issues.append(f'отсутствуют карты сайта: {", ".join(missing_maps)}')
+    llms_ok = (dist_dir / 'llms.txt').exists()
+    if not llms_ok:
+        issues.append('файл llms.txt отсутствует')
     red_file = dist_dir / '_redirects'
-    red_count = 0
+    static_count = dynamic_count = 0
     if red_file.exists():
-        red_count = sum(1 for l in red_file.read_text(encoding='utf-8').splitlines() if l.strip() and not l.lstrip().startswith('#'))
-        if red_count > 90:
-            issues.append(f'правил _redirects слишком много: {red_count} > 90')
+        for line in red_file.read_text(encoding='utf-8').splitlines():
+            stripped = line.strip()
+            if not stripped or stripped.startswith('#'):
+                continue
+            src = stripped.split()[0]
+            if '*' in src or ':' in src:
+                dynamic_count += 1
+            else:
+                static_count += 1
+        if static_count > 1800:
+            issues.append(f'статических правил _redirects слишком много: {static_count} > 1800')
+        if dynamic_count > 90:
+            issues.append(f'динамических правил _redirects слишком много: {dynamic_count} > 90')
+    red_count = static_count + dynamic_count
     kat_ok = (dist_dir / 'products/katord-wifi-repeater/index.html').exists()
     if not kat_ok:
         issues.append('страница /products/katord-wifi-repeater/ отсутствует')
@@ -144,6 +158,9 @@ def technical_audit(dist_dir):
     return {
         'ok': not issues,
         'redirect_rules': red_count,
+        'static_redirects': static_count,
+        'dynamic_redirects': dynamic_count,
+        'llms_txt': llms_ok,
         'katord_live': kat_ok,
         'text_problems': len(lint_problems),
         'issues': issues,

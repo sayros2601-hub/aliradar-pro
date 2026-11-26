@@ -529,8 +529,10 @@ def product_names():
 
 def report_text(today, results, errors, keywords=(), stage2=None):
     lines = [f'# FLUXIXO — SEO за {today.isoformat()}', '']
-    titles = {'google': 'Google', 'bing': 'Bing'}
-    for engine, title in titles.items():
+    titles = [('google', 'Google'), ('bing', 'Bing')]
+    if 'yandex' in results or 'yandex' in errors:
+        titles.append(('yandex', 'Яндекс'))
+    for engine, title in titles:
         lines.append(f'## {title}')
         if engine in errors:
             lines += [f'Не подключено: {errors[engine]}', '']
@@ -559,6 +561,16 @@ def report_text(today, results, errors, keywords=(), stage2=None):
                 lines.append('Ошибка отправки URL Bing: ' + data['url_submit_error'])
             if data.get('indexnow_error'):
                 lines.append('Ошибка Bing IndexNow: ' + data['indexnow_error'])
+        if engine == 'yandex':
+            ysum = data.get('summary') or {}
+            lines.append(
+                f'ИКС {ysum.get("sqi") or "—"}, в поиске {data.get("in_search", 0)} '
+                f'(не хватает RU-страниц: {data.get("ru_missing", 0)}), '
+                f'карт добавлено: {len(data.get("sitemaps_added") or ())}, '
+                f'переобход: {len(data.get("recrawl_sent") or ())}.'
+            )
+            if data.get('recrawl_error'):
+                lines.append('Заметка Яндекса: ' + data['recrawl_error'])
         if engine == 'bing' and data['crawl_issues']:
             lines.append(f'Ошибки обхода: {len(data["crawl_issues"])}')
         if engine == 'bing' and keywords:
@@ -577,7 +589,10 @@ def report_text(today, results, errors, keywords=(), stage2=None):
     if stage2:
         lines.append('## Автономный SEO-агент (Stage 2)')
         audit = stage2.get('audit', {})
-        lines.append(f'Техническая проверка: {"OK" if audit.get("ok") else ", ".join(audit.get("issues", []))} (редиректов {audit.get("redirect_rules", 0)}/90).')
+        static_r = audit.get('static_redirects')
+        dyn_r = audit.get('dynamic_redirects')
+        redir_info = f'стат. {static_r}/1800, динам. {dyn_r}/90' if static_r is not None and dyn_r is not None else f'редиректов {audit.get("redirect_rules", 0)}'
+        lines.append(f'Техническая проверка: {"OK" if audit.get("ok") else ", ".join(audit.get("issues", []))} ({redir_info}).')
         if stage2.get('applied'):
             lines.append(f'Применено улучшений (проверено check_texts + verify_release): {len(stage2["applied"])}')
             for item in stage2['applied']:
@@ -595,7 +610,10 @@ def report_text(today, results, errors, keywords=(), stage2=None):
 def summary_text(today, results, errors):
     """Totals only: the repository and its job pages are public."""
     lines = [f'### FLUXIXO SEO — {today.isoformat()}', '', '| | Клики | Показы | CTR | Позиция | Статус |', '|---|---|---|---|---|---|']
-    for engine, title in (('google', 'Google'), ('bing', 'Bing')):
+    engines = [('google', 'Google'), ('bing', 'Bing')]
+    if 'yandex' in results or 'yandex' in errors:
+        engines.append(('yandex', 'Яндекс'))
+    for engine, title in engines:
         if engine in errors:
             lines.append(f'| {title} | — | — | — | — | не подключено: {errors[engine]} |')
             continue
@@ -611,6 +629,13 @@ def summary_text(today, results, errors):
                 f'IndexNow {results[engine].get("indexnow_submitted", 0)}, '
                 f'ключевых слов изучено {results[engine]["keyword_lookups_today"]}'
             )
+        elif engine == 'yandex':
+            d = results[engine]
+            sm_n = len(d.get('sitemaps_added') or ())
+            rc_n = len(d.get('recrawl_sent') or ())
+            extra = f'в поиске {d.get("in_search", 0)}, не хватает RU {d.get("ru_missing", 0)}, карт +{sm_n}, переобход {rc_n}'
+            if d.get('write_locked'):
+                extra += ' (только чтение 504)'
         lines.append(f'| {title} | {t["clicks"]} | {t["impressions"]} | {t["ctr"]}% | {t["position"] or "—"} | {extra} |')
     return '\n'.join(lines) + '\n'
 
@@ -644,9 +669,15 @@ def main():
         res['indexnow_error'] = idx['error']
         return res
 
-    jobs = (('google', 'GSC_SERVICE_ACCOUNT_JSON', 'нет ключа Google (GSC_SERVICE_ACCOUNT_JSON)',
-             lambda k: google(k, urls, state, today, args.dry_run)),
-            ('bing', 'BING_WEBMASTER_API_KEY', 'нет ключа Bing (BING_WEBMASTER_API_KEY)', run_bing))
+    enable_yandex = bool(args.local or os.environ.get('FLUXIXO_ENABLE_YANDEX') == '1')
+    jobs = [
+        ('google', 'GSC_SERVICE_ACCOUNT_JSON', 'нет ключа Google (GSC_SERVICE_ACCOUNT_JSON)',
+         lambda k: google(k, urls, state, today, args.dry_run)),
+        ('bing', 'BING_WEBMASTER_API_KEY', 'нет ключа Bing (BING_WEBMASTER_API_KEY)', run_bing),
+    ]
+    if enable_yandex and keys.get('YANDEX_WEBMASTER_TOKEN'):
+        jobs.append(('yandex', 'YANDEX_WEBMASTER_TOKEN', 'нет ключа Яндекса (YANDEX_WEBMASTER_TOKEN)',
+                     lambda k: yandex(k, urls, state, today, args.dry_run)))
     for engine, secret, missing, run in jobs:
         if not keys[secret]:
             errors[engine] = missing
@@ -686,6 +717,12 @@ def main():
                 )
                 if str(keys.get(k) or '').strip()
             }
+            if 'GITHUB_TOKEN' not in ai_keys and str(keys.get('GH_TOKEN') or '').strip():
+                ai_keys['GITHUB_TOKEN'] = str(keys['GH_TOKEN']).strip()
+            if 'FLUXIXO_AI_TRANSPORT' not in ai_keys:
+                ai_keys['FLUXIXO_AI_TRANSPORT'] = 'worker'
+            if 'CLOUDFLARE_AUTOPILOT_URL' not in ai_keys and ai_keys.get('FLUXIXO_AI_TRANSPORT') != 'disabled':
+                ai_keys['CLOUDFLARE_AUTOPILOT_URL'] = 'https://fluxixo-autopilot.sayros2601.workers.dev'
             stage2_res = stage2_seo.run_stage2(today, DIST, results, state, ai_keys, apply_changes=bool(args.apply and not args.dry_run))
             print(f'stage2: applied={len(stage2_res["applied"])}, rolled_back={len(stage2_res["rolled_back"])}, proposed={len(stage2_res["proposed"])}', flush=True)
         except Exception as exc:

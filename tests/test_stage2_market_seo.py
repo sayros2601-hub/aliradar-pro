@@ -5,6 +5,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from unittest import mock
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -14,6 +15,7 @@ if str(TOOLS) not in sys.path:
 
 import ai_seo  # noqa: E402
 import journal_pages  # noqa: E402
+import locales  # noqa: E402
 import market_seo  # noqa: E402
 import stage2_seo  # noqa: E402
 import write_sitemaps  # noqa: E402
@@ -298,6 +300,55 @@ class Stage2AutonomousTests(unittest.TestCase):
             self.assertEqual(orig, ov_file.read_text(encoding='utf-8'))
             self.assertEqual([], res['applied'])
             self.assertEqual({}, state['experiments'])
+
+    def test_fit_description_snaps_to_sentences_without_ellipsis_cutoff(self):
+        long_en = (
+            'This magnetic seam guide attaches securely to your sewing machine to help maintain precise '
+            'stitch lines and prevent fabric from curling while you work. It includes a built-in ruler '
+            'and thread cutter for daily sewing projects.'
+        )
+        fitted = locales.fit_description(long_en, 'en', limit=158)
+        self.assertLessEqual(len(fitted), 158)
+        self.assertFalse(fitted.endswith(('…', '...')), fitted)
+        self.assertTrue(fitted.endswith('.'), fitted)
+
+        single_long_clause = (
+            'Компактный двухдиапазонный повторитель с шестью внешними антеннами расширяет покрытие '
+            'домашней сети, устраняет мёртвые зоны в спальне и легко настраивается со смартфона или компьютера.'
+        )
+        fitted_ru = locales.fit_description(single_long_clause, 'ru', limit=158)
+        self.assertLessEqual(len(fitted_ru), 158)
+        self.assertFalse(fitted_ru.endswith(('…', '...')), fitted_ru)
+        self.assertTrue(fitted_ru.endswith('.'), fitted_ru)
+
+    def test_technical_audit_tracks_static_dynamic_limits_and_llms_txt(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            dist = Path(tmp)
+            for name in ('sitemap.xml', 'sitemap-index.xml', 'sitemap-ru.xml', 'sitemap-en.xml',
+                         'sitemap-pt.xml', 'sitemap-es.xml', 'sitemap-fr.xml', 'sitemap-he.xml', 'llms.txt'):
+                (dist / name).write_text('ok', encoding='utf-8')
+            (dist / 'products/katord-wifi-repeater').mkdir(parents=True)
+            (dist / 'products/katord-wifi-repeater/index.html').write_text('<html></html>', encoding='utf-8')
+            static_lines = [f'/old-{i} /en/ 301' for i in range(150)]
+            dynamic_lines = ['/ru/products/:id /products/:id/ 301']
+            (dist / '_redirects').write_text('\n'.join(static_lines + dynamic_lines), encoding='utf-8')
+
+            with mock.patch.object(stage2_seo.check_texts, 'run', return_value=[]):
+                audit_ok = stage2_seo.technical_audit(dist)
+                self.assertTrue(audit_ok['ok'], audit_ok)
+                self.assertEqual(150, audit_ok['static_redirects'])
+                self.assertEqual(1, audit_ok['dynamic_redirects'])
+                self.assertTrue(audit_ok['llms_txt'])
+
+                (dist / 'llms.txt').unlink()
+                audit_no_llms = stage2_seo.technical_audit(dist)
+                self.assertFalse(audit_no_llms['ok'])
+                self.assertTrue(any('llms.txt' in i for i in audit_no_llms['issues']))
+
+                (dist / '_redirects').write_text('\n'.join(f'/dyn-{i}/* /en/ 301' for i in range(95)), encoding='utf-8')
+                audit_dyn = stage2_seo.technical_audit(dist)
+                self.assertFalse(audit_dyn['ok'])
+                self.assertTrue(any('динамических' in i for i in audit_dyn['issues']))
 
 
 if __name__ == '__main__':

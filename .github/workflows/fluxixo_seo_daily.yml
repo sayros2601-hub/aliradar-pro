@@ -18,7 +18,7 @@ concurrency:
 jobs:
   seo-sync:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     env:
       PYTHONDONTWRITEBYTECODE: '1'
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: 'true'
@@ -38,31 +38,62 @@ jobs:
 
       - name: Install SEO sync dependencies
         timeout-minutes: 5
-        run: python -m pip install --retries 5 --timeout 60 google-auth requests cryptography
+        run: python -m pip install --retries 5 --timeout 60 google-auth requests cryptography Pillow
 
-      - name: Run Google & Microsoft Bing daily sync & telemetry
+      - name: Run Google, Bing, Yandex & Autonomous Stage-2 AI SEO Optimizer
         env:
           GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
           BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+          YANDEX_WEBMASTER_TOKEN: ${{ secrets.YANDEX_WEBMASTER_TOKEN }}
+          FLUXIXO_ENABLE_YANDEX: '1'
           SEO_DATA_KEY: ${{ secrets.SEO_DATA_KEY }}
           AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python -B fluxixo_site/tools/seo_daily.py --summary "$GITHUB_STEP_SUMMARY"
+        run: python -B fluxixo_site/tools/seo_daily.py --apply --summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Detect updated SEO site artifacts
+        id: site_delta
+        run: |
+          if [ -f fluxixo_site/release/index.html ] && ! git diff --quiet -- fluxixo_site/tools/seo_overrides.json fluxixo_site/dist; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set up Node 22 for Cloudflare Pages deploy
+        if: steps.site_delta.outputs.changed == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Pack lean Pages bundle and deploy Stage-2 SEO updates
+        if: steps.site_delta.outputs.changed == 'true' && env.CLOUDFLARE_API_TOKEN != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: a4be28e05f73ad2b3939d364ea8b2817
+        run: |
+          python -B fluxixo_site/tools/r2_media_sync.py --source fluxixo_site/release --pack-pages fluxixo_site/release_pages --pack-only
+          npx --yes wrangler@4 pages deploy fluxixo_site/release_pages --project-name=dealvault --branch=main --commit-dirty=true
+          python -B -c "import fluxixo_daily_rotate as r; r.submit_indexnow()"
 
       - name: Audit AliExpress affiliate links across catalog
         continue-on-error: true
         run: python -B link_health_guard.py --catalog fluxixo_site/dist/js/catalog.js --report data/link_health_report.json --summary "$GITHUB_STEP_SUMMARY"
 
-      - name: Persist encrypted SEO telemetry & link health state
+      - name: Persist encrypted SEO telemetry, Stage-2 overrides & link health state
         run: |
           git config user.name "FLUXIXO SEO Telemetry"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           if [ -d data/seo ]; then git add data/seo/*.enc; fi
+          if [ -f fluxixo_site/tools/seo_overrides.json ]; then git add -f fluxixo_site/tools/seo_overrides.json; fi
+          if [ -f fluxixo_site/tools/search-build-state.json ]; then git add -f fluxixo_site/tools/search-build-state.json; fi
+          if [ -f fluxixo_site/tools/sitemap-routes.json ]; then git add -f fluxixo_site/tools/sitemap-routes.json; fi
           if [ -f fluxixo_site/tools/indexnow-submitted.json ]; then git add -f fluxixo_site/tools/indexnow-submitted.json; fi
+          if [ -d fluxixo_site/dist ]; then git add -f fluxixo_site/dist; fi
           if [ -f data/link_health_report.json ]; then git add -f -- data/link_health_report.json; fi
           if ! git diff --cached --quiet; then
-            git commit -m "chore(seo): daily Google/Bing sync telemetry [skip ci]"
+            git commit -m "chore(seo): daily Google/Bing/AI Stage-2 telemetry & sync [skip ci]"
             git pull --rebase --autostash --quiet origin main && git push origin HEAD:main
           fi
 
@@ -84,7 +115,7 @@ jobs:
             echo "AUTOPILOT_SYNC_TOKEN is unset. Skipping Worker SEO sync."
             exit 0
           fi
-          PAYLOAD="{\"source\":\"github-actions\",\"workflow\":\"fluxixo_seo_daily\",\"project\":\"dealvault\",\"site\":\"https://www.fluxixo.shop\",\"brandColor\":\"#e4007c\",\"skip_indexnow\":true,\"sha\":\"$GITHUB_SHA\"}"
+          PAYLOAD="{\"source\":\"github-actions\",\"workflow\":\"fluxixo_seo_daily\",\"project\":\"fluxixo\",\"site\":\"https://www.fluxixo.shop\",\"brandColor\":\"#e4007c\",\"skip_indexnow\":true,\"sha\":\"$GITHUB_SHA\"}"
           curl -fsS --max-time 15 -X POST "$TARGET_URL" \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer $AUTOPILOT_SYNC_TOKEN" \

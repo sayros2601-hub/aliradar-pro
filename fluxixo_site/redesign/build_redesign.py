@@ -113,6 +113,69 @@ ICONS = {
     'globe': _SVG.format('<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'),
 }
 
+_FAQ_Q_TEMPLATES = {
+    'ru': {
+        'who': 'Кому и для каких задач подойдёт {qname}?',
+        'skip': 'Когда лучше отказаться от покупки {qname}?',
+        'check': 'Что проверить в карточке {qname} перед заказом?',
+    },
+    'en': {
+        'who': 'Who is {name} best suited for?',
+        'skip': 'When should you skip {name}?',
+        'check': 'What should you check before ordering {name}?',
+    },
+    'pt': {
+        'who': 'Para quem {name} faz mais sentido?',
+        'skip': 'Quando vale evitar {name}?',
+        'check': 'O que conferir antes de comprar {name}?',
+    },
+    'es': {
+        'who': '¿Para quién funciona mejor {name}?',
+        'skip': '¿Cuándo conviene evitar {name}?',
+        'check': '¿Qué revisar antes de pedir {name}?',
+    },
+    'fr': {
+        'who': 'Pour quels usages choisir {name} ?',
+        'skip': 'Dans quels cas éviter {name} ?',
+        'check': 'Points à vérifier avant de commander {name} ?',
+    },
+    'he': {
+        'who': 'למי מתאים {name} במיוחד?',
+        'skip': 'מתי כדאי לוותר על {name}?',
+        'check': 'מה לבדוק בעמוד המוצר של {name} לפני ההזמנה?',
+    },
+}
+
+
+def product_faq_schema(name, lang, ed):
+    """Build FAQPage JSON-LD strictly grounded in the product's own visible editorial blocks."""
+    if not isinstance(ed, dict):
+        return None
+    tpls = _FAQ_Q_TEMPLATES.get(lang)
+    if not tpls:
+        return None
+    qname = name if ('«' in name or '"' in name) else f'«{name}»'
+    entities = []
+    for field in ('who', 'skip'):
+        ans = ' '.join(str(ed.get(field) or '').split())
+        if ans:
+            entities.append({
+                '@type': 'Question',
+                'name': tpls[field].format(name=name, qname=qname),
+                'acceptedAnswer': {'@type': 'Answer', 'text': ans},
+            })
+    checks = [' '.join(str(c or '').split()) for c in (ed.get('check') or ()) if str(c or '').strip()]
+    if checks:
+        entities.append({
+            '@type': 'Question',
+            'name': tpls['check'].format(name=name, qname=qname),
+            'acceptedAnswer': {'@type': 'Answer', 'text': ' '.join(checks)},
+        })
+    if not entities:
+        return None
+    return {'@type': 'FAQPage', 'mainEntity': entities}
+
+
 def product_metadata(name, description, lang, source_id, marker=None):
     """Preserve legacy metadata; keep new listings readable and bounded."""
     if source_id is None:
@@ -839,6 +902,7 @@ class Site:
             if not (self.lang == 'ru' and p['id'] == 'import-0024'):
                 title = ov.get('title') or title
                 desc = ov.get('description') or desc
+                name = ov.get('h1') or name
             crumbs = [(u['home'], self.home()), (self.cat(key), self.cpath(key)), (name, path)]
             schema = L.item_page_schema(
                 ORIGIN, path, title, desc, p['image'], self.lang,
@@ -854,6 +918,9 @@ class Site:
                             for f in L.public_facts(p))
             crumb_html = ''.join(f'<li><a href="{href}">{e(label)}</a></li>' for label, href in crumbs[:-1])
             ed = p.get('editorial', {}).get(self.lang) or (p.get('more') if self.lang == 'ru' else None)
+            faq_schema = product_faq_schema(name, self.lang, ed)
+            if faq_schema:
+                schema['@graph'].append(faq_schema)
             more_html = ''
             if ed:
                 headings = MORE_HEADINGS[self.lang]

@@ -6,15 +6,25 @@ export default {
     if (url.hostname.includes('pages.dev')) {
       url.hostname = 'www.fluxixo.shop';
       url.protocol = 'https:';
-      return Response.redirect(url.toString(), 301);
+      return new Response(null, {
+        status: 301,
+        headers: {
+          'Location': url.toString(),
+          'X-Robots-Tag': 'noindex, nofollow',
+          'Cache-Control': 'public, max-age=3600'
+        }
+      });
     }
-    if (!retired.has(url.pathname)) return env.ASSETS.fetch(request);
-    const msg = url.pathname === '/telegram-digest.json' ? 'This feed is no longer available.\n' : 'This editor is no longer publicly available.\n';
+    const isGoneAsset = url.pathname.startsWith('/assets/img/');
+    if (!retired.has(url.pathname) && !isGoneAsset) return env.ASSETS.fetch(request);
+    const msg = isGoneAsset
+      ? 'This legacy image resource has been permanently removed.\n'
+      : (url.pathname === '/telegram-digest.json' ? 'This feed is no longer available.\n' : 'This editor is no longer publicly available.\n');
     return new Response(request.method === 'HEAD' ? null : msg, {
       status: 410,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'no-store',
+        'Cache-Control': isGoneAsset ? 'public, max-age=86400' : 'no-store',
         'X-Robots-Tag': 'noindex, nofollow',
         'X-Content-Type-Options': 'nosniff',
         'X-Frame-Options': 'DENY',

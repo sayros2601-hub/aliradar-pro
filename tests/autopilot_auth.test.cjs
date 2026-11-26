@@ -430,6 +430,14 @@ test('click tracking endpoint enforces allowed origins and records D1 rows while
   );
   assert.equal(badOrigin.status, 403);
 
+  for (const retiredOrigin of ['https://dealvault.pages.dev', 'https://abc.dealvault.pages.dev']) {
+    const retiredRes = await worker.fetch(
+      request('/api/click', { method: 'POST', headers: { Origin: retiredOrigin }, body: { product_id: 'p1' } }),
+      forbidBindings(syncToken)
+    );
+    assert.equal(retiredRes.status, 403);
+  }
+
   const inserted = [];
   const clickDb = {
     prepare(sql) {

@@ -1,0 +1,80 @@
+# FLUXIXO
+
+> Independent 6-language curated showcase of useful AliExpress finds for home, kitchen, workshop, tech, auto/travel, sports, outdoors, and pets. Every product page pairs transparent studio visuals and original seller photos with honest 4-block editorial notes (best fit, limitations, comparisons, and pre-order verification points). FLUXIXO is not a store and never lists static prices or stock; verify live options and shipping directly on AliExpress.
+
+## Core Entry Pages
+- [FLUXIXO English Home](https://www.fluxixo.shop/): Latest daily finds, 6 worlds, and editorial overview.
+- [Full English Catalog (118 items)](https://www.fluxixo.shop/en/): Complete English product directory.
+- [Русский каталог](https://www.fluxixo.shop/catalog/): Полная коллекция и обзоры на русском языке.
+- [Catálogo Português (Brasil)](https://www.fluxixo.shop/pt/): Achadinhos do AliExpress para o Brasil.
+- [Catálogo Español (México)](https://www.fluxixo.shop/es/): Hallazgos útiles de AliExpress para México.
+- [Catalogue Français](https://www.fluxixo.shop/fr/): Sélection de trouvailles AliExpress pour la France.
+- [קטלוג בעברית (ישראל)](https://www.fluxixo.shop/he/): מציאות וגאדג׳טים נבחרים מ־AliExpress לישראל.
+- [About & Affiliate Disclosure](https://www.fluxixo.shop/en/about/): Methodology, studio visuals, and privacy policy.
+- [О проекте (RU)](https://www.fluxixo.shop/about/): Принципы отбора, конфиденциальность и контакты редакции.
+
+## Product Categories
+- [Home & Living (16)](https://www.fluxixo.shop/en/categories/home/) · [RU: Дом](https://www.fluxixo.shop/categories/dom/)
+- [Tools (13)](https://www.fluxixo.shop/en/categories/tools/) · [RU: Инструменты](https://www.fluxixo.shop/categories/instrumenty/)
+- [Kitchen (17)](https://www.fluxixo.shop/en/categories/kitchen/) · [RU: Кухня](https://www.fluxixo.shop/categories/kuhnya/)
+- [Outdoors (4)](https://www.fluxixo.shop/en/categories/outdoors/) · [RU: На природе](https://www.fluxixo.shop/categories/na-prirode/)
+- [Pets (9)](https://www.fluxixo.shop/en/categories/pets/) · [RU: Питомцы](https://www.fluxixo.shop/categories/pitomcy/)
+- [Sports & Fitness (9)](https://www.fluxixo.shop/en/categories/sports/) · [RU: Спорт](https://www.fluxixo.shop/categories/sport/)
+- [Tech & Gadgets (24)](https://www.fluxixo.shop/en/categories/tech/) · [RU: Техника](https://www.fluxixo.shop/categories/tehnika/)
+- [Beauty & Care (7)](https://www.fluxixo.shop/en/categories/beauty-care/) · [RU: Уход](https://www.fluxixo.shop/categories/uhod/)
+- [Auto & On the Go (19)](https://www.fluxixo.shop/en/categories/auto-travel/) · [RU: В дороге](https://www.fluxixo.shop/categories/v-doroge/)
+
+## Buying & Comparison Guides
+- [Why the price changes between a listing and checkout](https://www.fluxixo.shop/en/journal/compare-the-final-price/): Compare the exact AliExpress SKU variant, US shipping fees, taxes, and conditional coupons before placing an order.
+- [Before buying a USB-C charger: compatibility checklist](https://www.fluxixo.shop/en/journal/usb-c-buying-checklist/): Verify USB Power Delivery wattage per port, multi-port power sharing, 100W E-Marker cables, video support, and US plugs.
+- [Tidy desk cables: measure first, buy fewer accessories](https://www.fluxixo.shop/en/journal/desk-cable-management/): Map fixed vs. daily-carry cords, measure desk edge thickness, keep power bricks cool, and label cables cleanly.
+- [How to Choose and Place a Wi-Fi Range Extender](https://www.fluxixo.shop/en/journal/wifi-repeater-buying-guide/): Find an outlet with a strong router signal, compare 2.4 and 5 GHz, and check Ethernet modes before buying a Wi-Fi range extender.
+- [How to Choose a Portable Camping Shower & Gear](https://www.fluxixo.shop/en/journal/portable-camping-shower-buying-guide/): Learn how portable bucket shower pumps work, common leak points to avoid, and what specs to verify on AliExpress before buying camp or yard gear.
+- [Phone Lock Box and Digital Detox Buyer Guide](https://www.fluxixo.shop/en/journal/phone-lock-box-digital-detox-guide/): Learn how timed phone lock boxes, warm reading lamps, and sound machines support deep focus, plus what specs to check on AliExpress before ordering.
+- [Magnetic Levitating Planter Guide: Weight & Safety](https://www.fluxixo.shop/en/journal/magnetic-levitating-planter-guide/): Learn how magnetic levitating planters work, what weight limits to check on AliExpress, power-loss risks, and smart tabletop setup steps.
+- [Coffee Scales, Frothers & Prep Tools: Buyer Guide](https://www.fluxixo.shop/en/journal/home-coffee-kitchen-tools-guide/): Learn how to inspect timer scales, defrosting trays, wine vacuum stoppers, and milk frothers on AliExpress before selecting an option.
+- [DIY & Workshop Precision Measuring Tools Guide](https://www.fluxixo.shop/en/journal/diy-measurement-precision-tools-guide/): Learn how contour gauges, bore rings, laser meters, and cable testers work, key trade-offs, and what to verify on AliExpress before ordering.
+- [Apartment Reflex, Balance, Wrist & Cardio Gear Guide](https://www.fluxixo.shop/en/journal/home-balance-reflex-training-guide/): Learn how indoor reflex balls, wobble boards, gyro wrist trainers, and ropeless ropes work, common flaws, and key checks before ordering.
+- [Smart Pet Care Gadgets: Dispensers, Toys, and Refills](https://www.fluxixo.shop/en/journal/smart-pet-care-gadgets-guide/): Learn how to check valve locks, rolling ball sizing, laser timers, and litter refill fit on AliExpress before choosing practical pet care gear.
+- [At-Home Grooming Tools: Scalp, Foot, UV & Eye Guide](https://www.fluxixo.shop/en/journal/scalp-and-daily-grooming-tools-guide/): Learn how scalp applicator combs, UV toothbrush sanitizers, foot smoothers, and eye masks work, plus key checks before ordering on AliExpress.
+- [How to Choose a Cordless Portable Tire Inflator](https://www.fluxixo.shop/en/journal/car-tire-inflator-guide/): Compare real PSI output, preset auto-shutoff accuracy, 12V backup cords, and valve chucks before buying a cordless tire inflator.
+- [What to Check Before Ordering Tech on AliExpress](https://www.fluxixo.shop/en/journal/pre-order-checklist-aliexpress/): Avoid bare-tool SKU traps, wrong foreign plugs, underpowered USB-C bricks, and proprietary refills with this US buyer checklist.
+- [How to Choose a Portable Car Jump Starter](https://www.fluxixo.shop/en/journal/jump-starter-winter-guide/): Compare real cranking amps, smart spark-proof jumper clamps, gas vs. diesel limits, and safe cabin storage before ordering a jump starter.
+- [Home Utility Gadgets Comparison Guide](https://www.fluxixo.shop/en/journal/smart-home-gadgets-comparison/): Compare touchless soap dispensers, reading lamps, and compact home hardware by power source, mounting, and upkeep.
+- [Kitchen Tools & Coffee Gear Comparison](https://www.fluxixo.shop/en/journal/kitchen-tools-comparison/): Compare coffee scales, vacuum sealers, gravity grinders, and defrost trays by precision, cleanup, and consumables.
+- [Desk Tech & Phone Accessories Comparison](https://www.fluxixo.shop/en/journal/everyday-tech-desk-comparison/): Compare portable label printers, magnetic phone coolers, testers, and meters by app setup, power draw, and refills.
+- [Road Trip & Car Emergency Gear Comparison](https://www.fluxixo.shop/en/journal/travel-car-gear-comparison/): Compare portable tire inflators, jump starters, key trackers, and waterproof travel cases by cold-weather reliability.
+- [Pet Accessories & Enrichment Gear Comparison](https://www.fluxixo.shop/en/journal/pet-care-accessories-comparison/): Compare travel dog water bottles, window cat hammocks, felt beds, and automated toys by weight limit and cleanup.
+- [DIY Measurement & Workshop Tools Comparison](https://www.fluxixo.shop/en/journal/diy-workshop-tools-comparison/): Compare contour gauges, magnetic pickup tools, watch hand presses, and setting rings by locking rigidity and specs.
+
+## Highlighted Product Reviews
+- [KATORD 1200Mbps Dual-Band Wi-Fi Repeater](https://www.fluxixo.shop/en/products/katord-wifi-repeater/) ([RU](https://www.fluxixo.shop/products/katord-wifi-repeater/)): A compact 2.4 GHz and 5 GHz Wi-Fi repeater with six external antennas expands home or office wireless coverage.
+- [Bladeless Wearable Personal Neck Fan](https://www.fluxixo.shop/en/products/find-001-neck-cooler/) ([RU](https://www.fluxixo.shop/products/find-001-neck-cooler/)): This collar-style fan rests lightly around your shoulders like wireless headphones and guides upward airflow along your jawline.
+- [Folding Trekking Pole](https://www.fluxixo.shop/en/products/find-024-trekking-poles/) ([RU](https://www.fluxixo.shop/products/find-024-trekking-poles/)): A segmented collapsible hiking pole folds into short sections that tuck neatly inside a daypack or checked suitcase.
+- [Round Stainless Steel Smart Watch](https://www.fluxixo.shop/en/products/import-0024/) ([RU](https://www.fluxixo.shop/products/import-0024/)): Round stainless-steel smartwatch featuring a metal bezel, twin side buttons, and a matching steel link bracelet.
+- [Car Jump Starter Power Bank](https://www.fluxixo.shop/en/products/find-008-jump-starter/) ([RU](https://www.fluxixo.shop/products/find-008-jump-starter/)): This rugged portable jump pack pairs a digital charge readout with heavy-duty clamp ports to crank a weak car battery solo.
+- [Rechargeable Fabric Lint Shaver](https://www.fluxixo.shop/en/products/find-055-lint-remover/) ([RU](https://www.fluxixo.shop/products/find-055-lint-remover/)): Cordless sweater defuzzer featuring a stainless mesh guard and round digital battery readout. See seller photos, current price and shipping on AliExpress.
+- [Cordless Electric Air Duster Blower](https://www.fluxixo.shop/en/products/import-0119/) ([RU](https://www.fluxixo.shop/products/import-0119/)): A high-speed rechargeable air duster that blows dry dust out of keyboards, PC towers, and car vents.
+- [Adjustable Magnetic Seam Guide with Built-In Ripper](https://www.fluxixo.shop/en/products/auto-1005011837050347/) ([RU](https://www.fluxixo.shop/products/auto-1005011837050347/)): This magnetic seam guide attaches securely to your sewing machine to help maintain precise stitch lines and prevent fabric from curling while you work.
+- [Felt donut cat tunnel cave bed](https://www.fluxixo.shop/en/products/auto-1005004283109553/) ([RU](https://www.fluxixo.shop/products/auto-1005004283109553/)): Sturdy needle-punched felt forms a two-level donut hideout with an enclosed circular tunnel underneath and a sunken top lounging bowl.
+- [Forearm & Wrist Roller Bar with Weight Loading Pin](https://www.fluxixo.shop/en/products/auto-1005010092410193/) ([RU](https://www.fluxixo.shop/products/auto-1005010092410193/)): This forearm and wrist training device helps build upper body strength by rolling weights up and down using a sturdy handle and cord system.
+- [Foldable Cat Window Hammock](https://www.fluxixo.shop/en/products/auto-1005012493298577/) ([RU](https://www.fluxixo.shop/products/auto-1005012493298577/)): This suspended feline furniture attaches directly to smooth glass via vacuum holders to establish an elevated sunbathing zone.
+- [Portable Cordless Camping Shower](https://www.fluxixo.shop/en/products/auto-1005011808254244/) ([RU](https://www.fluxixo.shop/products/auto-1005011808254244/)): Submersible cordless pump feeds water from any bucket or jug into a handheld shower nozzle for beach trips, camping, and washing pets outdoors.
+- [Metal Timed Phone Lock Box](https://www.fluxixo.shop/en/products/auto-1005006728238948/) ([RU](https://www.fluxixo.shop/products/auto-1005006728238948/)): Sturdy locking box seals inside a timer-controlled latch for phones or keys until your focus countdown ends.
+- [Magnetic Floating Bonsai Planter](https://www.fluxixo.shop/en/products/auto-1005008721169426/) ([RU](https://www.fluxixo.shop/products/auto-1005008721169426/)): Electromagnetic walnut-tone pedestal suspends a lightweight planter pot in mid-air while rotating smoothly for even light exposure.
+- [Hexagonal Silicone Reaction Ball](https://www.fluxixo.shop/en/products/auto-1005003729947715/) ([RU](https://www.fluxixo.shop/products/auto-1005003729947715/)): This silicone training accessory features a multi-faceted design that creates unpredictable bounces to challenge hand-eye coordination and reaction speed.
+- [Scalp Massager Liquid Applicator Comb](https://www.fluxixo.shop/en/products/auto-1005013194588661/) ([RU](https://www.fluxixo.shop/products/auto-1005013194588661/)): This specialized comb features rolling balls designed to distribute liquid hair treatments and essential oils directly to the scalp during use.
+- [Wooden Balance Board Core Trainer](https://www.fluxixo.shop/en/products/auto-1005013567552516/) ([RU](https://www.fluxixo.shop/products/auto-1005013567552516/)): A platform built for core workouts, stability routines, and board sport training right inside your living space while challenging physical equilibrium.
+- [Setting Ring for Bore Gauges](https://www.fluxixo.shop/en/products/auto-1005013186843415/) ([RU](https://www.fluxixo.shop/products/auto-1005013186843415/)): This smooth hardened-steel setting ring gives you a known circular bore for zeroing a dial bore gauge before inspection.
+- [Telescoping Magnetic Pickup Tool](https://www.fluxixo.shop/en/products/auto-1005005357943658/) ([RU](https://www.fluxixo.shop/products/auto-1005005357943658/)): This pocket-sized telescoping steel wand extends like a pen with a strong magnetic tip to retrieve dropped hardware from cramped spots.
+- [Digital EMF & Temperature Detector](https://www.fluxixo.shop/en/products/auto-1005004266671702/) ([RU](https://www.fluxixo.shop/products/auto-1005004266671702/)): This handheld meter measures electric and magnetic field (EMF) strength alongside ambient temperature around appliances, routers, and wiring.
+- [Wimshurst Electrostatic Generator Lab Model](https://www.fluxixo.shop/en/products/auto-1005012473764350/) ([RU](https://www.fluxixo.shop/products/auto-1005012473764350/)): A hand-cranked Wimshurst generator spins two clear acrylic disks with radial aluminum sectors and twin Leyden jars to build high-voltage static charge.
+- [Grooved Aluminum Rapid Defrosting Tray](https://www.fluxixo.shop/en/products/auto-1005012569530905/) ([RU](https://www.fluxixo.shop/products/auto-1005012569530905/)): A conductive grooved aluminum tray draws ambient room heat into frozen steaks, chicken breasts, and fish fillets to speed up thawing without electricity.
+- [CT-Series Inverter Plasma Cutter & Gouger](https://www.fluxixo.shop/en/products/auto-1005013037089570/) ([RU](https://www.fluxixo.shop/products/auto-1005013037089570/)): A portable CT-series inverter unit handles both air plasma cutting and air arc gouging across carbon steel, stainless, aluminum, and copper.
+- [Heat-Powered Wood Stove Air Circulator](https://www.fluxixo.shop/en/products/auto-1005013553805507/) ([RU](https://www.fluxixo.shop/products/auto-1005013553805507/)): A thermoelectric fan sits on the flat hot top plate of a freestanding wood stove and converts surface heat via a Peltier module into quiet blade rotation.
+
+## Sitemaps & Machine-Readable Feeds
+- [Sitemap Index](https://www.fluxixo.shop/sitemap-index.xml)
+- [Master Sitemap](https://www.fluxixo.shop/sitemap.xml)
+- [RSS Feed (RU)](https://www.fluxixo.shop/rss.xml)
+- [Social Catalog JSON](https://www.fluxixo.shop/social-feed.json)

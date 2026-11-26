@@ -1796,7 +1796,6 @@ async function runScheduledAction(controller, env) {
 const ALLOWED_CLICK_ORIGINS = new Set([
   "https://www.fluxixo.shop",
   "https://fluxixo.shop",
-  "https://dealvault.pages.dev",
   "http://localhost",
   "http://127.0.0.1",
 ]);
@@ -1806,7 +1805,6 @@ function isAllowedClickOrigin(originHeader) {
   try {
     const u = new URL(originHeader);
     if (ALLOWED_CLICK_ORIGINS.has(u.origin)) return true;
-    if (u.hostname.endsWith(".dealvault.pages.dev") && u.protocol === "https:") return true;
     if ((u.hostname === "localhost" || u.hostname === "127.0.0.1") && u.protocol === "http:") return true;
   } catch {
     return false;
