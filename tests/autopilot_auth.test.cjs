@@ -16,6 +16,8 @@ const protectedPosts = [
   '/api/dispatch',
   '/api/seo-sync',
   '/api/catalog-sync',
+  '/api/review-media',
+  '/api/telegram-digest',
 ];
 
 function loadWorker(mockFetch = () => assert.fail('unexpected network call'), Clock = Date) {
@@ -414,4 +416,93 @@ test('the scheduled callback still runs inside the Worker without HTTP credentia
   assert.match(recorded.sql, /^INSERT INTO cron_runs /);
   assert.equal(recorded.args[1], 'prepare_window_check');
   assert.equal(recorded.args[2], 'ok');
+});
+
+test('click tracking endpoint enforces allowed origins and records D1 rows while summary/r2 require auth', async () => {
+  const deniedSummary = await worker.fetch(request('/api/clicks-summary'), forbidBindings(syncToken));
+  assert.equal(deniedSummary.status, 401);
+
+  const deniedR2 = await worker.fetch(request('/api/r2-media/assets/images/test.webp', { method: 'PUT', body: { bad: 1 } }), forbidBindings(syncToken));
+  assert.equal(deniedR2.status, 401);
+
+  const badOrigin = await worker.fetch(
+    request('/api/click', { method: 'POST', headers: { Origin: 'https://evil.invalid' }, body: { product_id: 'p1' } }),
+    forbidBindings(syncToken)
+  );
+  assert.equal(badOrigin.status, 403);
+
+  const inserted = [];
+  const clickDb = {
+    prepare(sql) {
+      assert.match(sql, /^INSERT INTO affiliate_clicks /);
+      return {
+        bind(...args) {
+          return {
+            async run() {
+              inserted.push(args);
+              return { success: true };
+            },
+          };
+        },
+      };
+    },
+  };
+  const okClick = await worker.fetch(
+    new Request('https://worker.invalid/api/click', {
+      method: 'POST',
+      headers: { Origin: 'https://www.fluxixo.shop', 'Content-Type': 'text/plain', 'CF-IPCountry': 'IL' },
+      body: JSON.stringify({ product_id: 'auto-123', lang: 'he', world: 'tech', page_path: '/he/products/auto-123/' }),
+    }),
+    { AUTOPILOT_SYNC_TOKEN: syncToken, DB: clickDb }
+  );
+  assert.equal(okClick.status, 204);
+  assert.equal(inserted.length, 1);
+  assert.equal(inserted[0][0], 'auto-123');
+  assert.equal(inserted[0][1], 'he');
+});
+
+test('flux-1-schnell fallback and telegram/review-media handlers behave safely', async () => {
+  const reviewRes = await worker.fetch(post('/api/review-media', {
+    system: 'Review studio image',
+    payload: { id: 'p1' },
+    images: ['data:image/jpeg;base64,/9j/4AAQ'],
+  }), {
+    AUTOPILOT_SYNC_TOKEN: syncToken,
+    AI: {
+      async run(model) {
+        assert.match(model, /^@cf\//);
+        return { response: JSON.stringify({ accepted: true, reasons: [], material_defects: [] }) };
+      },
+    },
+  });
+  assert.equal(reviewRes.status, 200);
+  const reviewJson = await reviewRes.json();
+  assert.equal(reviewJson.ok, true);
+  assert.equal(reviewJson.result.accepted, true);
+
+  const tgSkip = await worker.fetch(post('/api/telegram-digest', { text: 'Daily drop live' }), {
+    AUTOPILOT_SYNC_TOKEN: syncToken,
+  });
+  assert.equal(tgSkip.status, 200);
+  assert.equal((await tgSkip.json()).skipped, 'missing_telegram_secrets');
+
+  const storedR2 = [];
+  const r2Res = await worker.fetch(
+    new Request('https://worker.invalid/api/r2-media/assets/images/sample.webp', {
+      method: 'PUT',
+      headers: { Authorization: `Bearer ${syncToken}`, 'Content-Type': 'image/webp' },
+      body: new Uint8Array([82, 73, 70, 70]),
+    }),
+    {
+      AUTOPILOT_SYNC_TOKEN: syncToken,
+      MEDIA_BUCKET: {
+        async put(key, bytes, opts) {
+          storedR2.push({ key, len: bytes.byteLength, opts });
+        },
+      },
+    }
+  );
+  assert.equal(r2Res.status, 200);
+  assert.equal(storedR2[0].key, 'assets/images/sample.webp');
+  assert.equal(storedR2[0].opts.httpMetadata.contentType, 'image/webp');
 });

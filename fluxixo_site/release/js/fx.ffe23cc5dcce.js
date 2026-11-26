@@ -1,0 +1,875 @@
+// A scheduled start is not proof of a completed publication. Keep the due day
+// anchored to the release metadata, including when a cached page spans midnight.
+const FluxixoCountdown = (() => {
+  const parts = (date, timeZone) => Object.fromEntries(new Intl.DateTimeFormat('en-CA', {
+    timeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+  }).formatToParts(date).filter(part => part.type !== 'literal').map(part => [part.type, part.value]));
+  const localDay = (date, timeZone) => {
+    const p = parts(date, timeZone);
+    return `${p.year}-${p.month}-${p.day}`;
+  };
+  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 15, minute = 30 } = {}) {
+    now = new Date(now);
+    if (publishedDay) {
+      const next = new Date(publishedDay + 'T12:00:00Z');
+      next.setUTCDate(next.getUTCDate() + 1);
+      dueDay = next.toISOString().slice(0, 10);
+    }
+    dueDay = dueDay || localDay(now, timeZone);
+    const [year, month, day] = dueDay.split('-').map(Number);
+    const wallClock = Date.UTC(year, month - 1, day, Number(hour), Number(minute));
+    let target = wallClock;
+    // Resolve the local 15:30 using the offset on that date, not today's offset.
+    // The two passes give the right instant across Israel's spring/autumn clock changes.
+    for (let pass = 0; pass < 2; pass++) {
+      const p = parts(new Date(target), timeZone);
+      target += wallClock - Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
+    }
+    const seconds = Math.max(0, Math.ceil((target - now.getTime()) / 1000));
+    return { status: seconds > 0 ? 'countdown' : 'awaiting', seconds, dueDay };
+  }
+  function createPublicationPoller(fetchStatus, timeZone = 'Asia/Jerusalem') {
+    let checkedAt = -Infinity, inFlight = false;
+    return async (now, publishedDay = '') => {
+      const at = new Date(now).getTime();
+      if (inFlight || at - checkedAt < 60000) return publishedDay;
+      checkedAt = at;
+      inFlight = true;
+      try {
+        const status = await fetchStatus();
+        const day = status && status.published_day;
+        if (typeof day === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(day)
+            && new Date(day + 'T00:00:00Z').toISOString().slice(0, 10) === day
+            && day > publishedDay && day <= localDay(new Date(now), timeZone)) return day;
+      } catch (_) {
+        // Offline/failed publication remains pending; retry at most once a minute.
+      } finally { inFlight = false; }
+      return publishedDay;
+    };
+  }
+  return { getCountdownState, localDay, createPublicationPoller };
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = FluxixoCountdown;
+
+// A single rotation clock, separate from the publication counter and rope physics.
+const FluxixoCarousel = (() => {
+  function createCarouselController({ count, reducedMotion = false, pausedReasons = [],
+    onChange = () => {}, onState = () => {},
+    setTimeout: schedule = setTimeout, clearTimeout: cancel = clearTimeout } = {}) {
+    if (!Number.isInteger(count) || count < 1) throw new TypeError('Carousel requires a positive slide count');
+    const blockers = new Set(pausedReasons);
+    let index = 0, committedIndex = 0, userPaused = false, pending = false, pendingAutomatic = false, destroyed = false;
+    let timer = null, timerVersion = 0, changeVersion = 0;
+    const canRotate = () => !destroyed && !userPaused && !reducedMotion && !blockers.size && count > 1;
+    const state = () => ({ index, reducedMotion, playing: !userPaused && !reducedMotion,
+      rotating: canRotate() && !pending });
+    const clear = () => { timerVersion++; if (timer !== null) cancel(timer); timer = null; };
+    const abandonAutomatic = () => {
+      if (pending && pendingAutomatic) {
+        changeVersion++; index = committedIndex; pending = false; pendingAutomatic = false;
+      }
+    };
+    const arm = () => {
+      clear();
+      if (state().rotating) {
+        const version = timerVersion;
+        timer = schedule(() => {
+          if (version !== timerVersion || !state().rotating) return;
+          timer = null;
+          show((index + 1) % count, { manual: false });
+        }, 3000);
+      }
+      onState(state());
+    };
+    function show(next, meta) {
+      if (destroyed) return;
+      clear();
+      const version = ++changeVersion;
+      index = next; pending = true; pendingAutomatic = !meta.manual && !meta.initial;
+      onState(state());
+      const ready = onChange(index, { ...meta, canCommit: () => !destroyed && version === changeVersion && (!pendingAutomatic || canRotate()) });
+      const finish = () => {
+        if (destroyed || version !== changeVersion) return;
+        committedIndex = index; pending = false; pendingAutomatic = false; arm();
+      };
+      if (ready && typeof ready.then === 'function') ready.then(finish, finish);
+      else finish();
+    }
+    const controller = {
+      state,
+      move(step) { if (!destroyed) show((index + step % count + count) % count, { manual: true }); },
+      pause(reason, active) {
+        if (destroyed || blockers.has(reason) === Boolean(active)) return;
+        if (active) { blockers.add(reason); abandonAutomatic(); } else blockers.delete(reason);
+        arm();
+      },
+      stop() { if (!destroyed && !userPaused) { userPaused = true; abandonAutomatic(); arm(); } },
+      start() { if (!destroyed) { userPaused = false; arm(); } },
+      setReducedMotion(value) {
+        if (!destroyed && reducedMotion !== Boolean(value)) {
+          reducedMotion = Boolean(value); if (reducedMotion) abandonAutomatic(); arm();
+        }
+      },
+      destroy() { destroyed = true; changeVersion++; clear(); }
+    };
+    show(0, { manual: false, initial: true });
+    return controller;
+  }
+  function carouselSwipeStep(dx, dy, rtl = false) {
+    if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.3) return 0;
+    return (dx < 0 ? 1 : -1) * (rtl ? -1 : 1);
+  }
+  return { createCarouselController, carouselSwipeStep };
+})();
+const FluxixoLocale = (() => {
+  const ALI_LANG_BY_LOCALE = {
+    ru: 'ru_RU',
+    en: 'en_US',
+    es: 'es_ES',
+    pt: 'pt_BR',
+    fr: 'fr_FR',
+    he: 'iw_IL',
+  };
+  const LOCALE_PATHS = {
+    ru: '/catalog/',
+    en: '/',
+    es: '/es/',
+    pt: '/pt/',
+    fr: '/fr/',
+    he: '/he/',
+  };
+  // Legacy showroom links used the product ID as the root fragment, alongside ?lang=.
+  const LEGACY_PRODUCT_ID = /^(?:auto-\d+|find-\d+-[a-z0-9]+(?:-[a-z0-9]+)*|import-\d+|katord-wifi-repeater)$/;
+
+  function normalizeLocaleCode(raw) {
+    if (!raw || typeof raw !== 'string') return '';
+    const base = raw.trim().toLowerCase().split(/[-_]/)[0];
+    if (base === 'iw') return 'he';
+    return Object.prototype.hasOwnProperty.call(LOCALE_PATHS, base) ? base : '';
+  }
+
+  function resolveVisitorPath(opts) {
+    const options = opts || {};
+    const pathname = options.pathname || '/';
+    if (pathname !== '/' && pathname !== '/index.html') return null;
+    const search = options.search || '';
+    const hash = options.hash || '';
+    const productId = hash.slice(1);
+    const productLink = hash.startsWith('#') && LEGACY_PRODUCT_ID.test(productId);
+    const params = new URLSearchParams(search);
+    const localeKeys = [...params.keys()].filter(key => key.toLowerCase() === 'lang');
+    if (localeKeys.length) {
+      const locale = normalizeLocaleCode(params.get(localeKeys[0]));
+      if (!locale) return null;
+      const englishCatalog = locale === 'en' && (hash === '#find' || hash === '#todo');
+      if (locale === 'en' && !productLink && !englishCatalog) return null;
+      for (const key of localeKeys) params.delete(key);
+      const remaining = params.toString();
+      const query = remaining ? `?${remaining}` : '';
+      if (productLink) {
+        const prefix = locale === 'ru' ? '' : `/${locale}`;
+        return `${prefix}/products/${productId}/${query}`;
+      }
+      const target = englishCatalog ? '/en/' : LOCALE_PATHS[locale];
+      return target + query + hash;
+    }
+    // The English showroom's share URL omitted ?lang= when it was not already set.
+    if (productLink) return `/en/products/${productId}/${search}`;
+    return null;
+  }
+
+  function decorateAffiliateUrl(href, pageLang) {
+    if (!href || typeof href !== 'string') return href;
+    const locale = normalizeLocaleCode(pageLang) || 'en';
+    const aliLang = ALI_LANG_BY_LOCALE[locale] || 'en_US';
+    if (typeof URL === 'function') {
+      try {
+        const url = new URL(href);
+        if (url.hostname !== 's.click.aliexpress.com') return href;
+        url.searchParams.set('_lang', aliLang);
+        if (!url.searchParams.has('afSmartRedirect')) {
+          url.searchParams.set('afSmartRedirect', 'y');
+        }
+        return url.toString();
+      } catch {
+        return href;
+      }
+    }
+    if (!/^https?:\/\/s\.click\.aliexpress\.com(?:[/?#]|$)/i.test(href)) return href;
+    const hashIdx = href.indexOf('#');
+    const hash = hashIdx >= 0 ? href.slice(hashIdx) : '';
+    const beforeHash = hashIdx >= 0 ? href.slice(0, hashIdx) : href;
+    const qIdx = beforeHash.indexOf('?');
+    const base = qIdx >= 0 ? beforeHash.slice(0, qIdx) : beforeHash;
+    const rawQuery = qIdx >= 0 ? beforeHash.slice(qIdx + 1) : '';
+    const params = rawQuery ? rawQuery.split('&').filter(Boolean) : [];
+    const entries = [];
+    let hasLang = false;
+    let hasSmart = false;
+    for (const part of params) {
+      const eq = part.indexOf('=');
+      const key = eq >= 0 ? part.slice(0, eq) : part;
+      if (key === '_lang') {
+        entries.push(`_lang=${encodeURIComponent(aliLang)}`);
+        hasLang = true;
+      } else {
+        if (key === 'afSmartRedirect') hasSmart = true;
+        entries.push(part);
+      }
+    }
+    if (!hasLang) entries.push(`_lang=${encodeURIComponent(aliLang)}`);
+    if (!hasSmart) entries.push('afSmartRedirect=y');
+    return `${base}?${entries.join('&')}${hash}`;
+  }
+
+  return {
+    ALI_LANG_BY_LOCALE,
+    LOCALE_PATHS,
+    normalizeLocaleCode,
+    resolveVisitorPath,
+    decorateAffiliateUrl,
+  };
+})();
+
+if (typeof module !== 'undefined' && module.exports) Object.assign(module.exports, FluxixoCarousel, FluxixoLocale);
+
+(() => {
+  if (typeof document === 'undefined') return;
+  const root = document.documentElement;
+  const lang = root.lang || 'en';
+  try {
+    const redirectTarget = FluxixoLocale.resolveVisitorPath({
+      pathname: location.pathname,
+      search: location.search,
+      hash: location.hash,
+    });
+    if (redirectTarget) {
+      location.replace(redirectTarget);
+      return;
+    }
+  } catch { /* ignore restricted location contexts */ }
+  const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // Phones and small tablets get the app layout: no pinned scene, no repainting; the rope swings there too.
+  const phone = matchMedia('(max-width: 860px)');
+  root.classList.add('js');
+
+  // Sections fade up once.
+  const seen = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting) { entry.target.classList.add('in'); seen.unobserve(entry.target); }
+  }), { rootMargin: '0px 0px -4% 0px' });
+  document.querySelectorAll('.rv').forEach(el => seen.observe(el));
+
+  // Seven curated products share one grid cell: invisible slides still reserve
+  // the tallest card's height, while inert/aria-hidden remove their interactions.
+  document.querySelectorAll('[data-carousel]').forEach(carousel => {
+    const slides = [...carousel.querySelectorAll('[data-carousel-slide]')];
+    const stage = carousel.querySelector('[data-carousel-slides]');
+    const controls = carousel.querySelector('[data-carousel-controls]');
+    const previous = carousel.querySelector('[data-carousel-prev]');
+    const next = carousel.querySelector('[data-carousel-next]');
+    const count = carousel.querySelector('[data-carousel-count]');
+    const status = carousel.querySelector('[data-carousel-status]');
+    if (slides.length !== 7 || !stage || !controls || !previous || !next) return;
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    const rtl = getComputedStyle(carousel).direction === 'rtl';
+    const focusable = slides.map(slide => [...slide.querySelectorAll('a[href],button,input,select,textarea,[tabindex]')]
+      .map(el => [el, el.getAttribute('tabindex')]));
+    // Keep the complete SSR/no-JS images, but after enhancement defer hidden
+    // sources so the shared grid position does not fetch all seven at once.
+    const sources = new Map();
+    slides.slice(1).forEach(slide => {
+      const img = slide.querySelector('img');
+      if (!img) return;
+      sources.set(img, { src: img.getAttribute('src'), srcset: img.getAttribute('srcset') });
+      img.removeAttribute('src'); img.removeAttribute('srcset');
+    });
+    const images = new Map();
+    let visible = false, requested = 0, displayed = 0, pointer = null, suppressClickUntil = 0;
+    const readyImage = slide => {
+      const img = slide.querySelector('img');
+      if (sources.has(img)) {
+        const source = sources.get(img);
+        img.loading = 'eager';
+        if (source.srcset) img.setAttribute('srcset', source.srcset);
+        if (source.src) img.setAttribute('src', source.src);
+        sources.delete(img);
+      }
+      if (!img || img.complete) return Promise.resolve();
+      if (images.has(img)) return images.get(img);
+      img.loading = 'eager';
+      const promise = new Promise(resolve => {
+        let timeout;
+        const done = () => {
+          clearTimeout(timeout);
+          img.removeEventListener('load', done); img.removeEventListener('error', done);
+          resolve();
+        };
+        timeout = setTimeout(done, 4000);
+        if (typeof img.decode === 'function') img.decode().then(done, done);
+        else { img.addEventListener('load', done, { once: true }); img.addEventListener('error', done, { once: true }); }
+      });
+      images.set(img, promise);
+      return promise;
+    };
+    const warmNext = index => { if (visible) void readyImage(slides[(index + 1) % slides.length]); };
+    const render = (index, meta) => {
+      displayed = index;
+      slides.forEach((slide, i) => {
+        const active = i === index;
+        if (!active && slide.contains(document.activeElement)) previous.focus({ preventScroll: true });
+        slide.inert = !active;
+        slide.setAttribute('aria-hidden', String(!active));
+        focusable[i].forEach(([el, original]) => {
+          if (!active) el.setAttribute('tabindex', '-1');
+          else if (original === null) el.removeAttribute('tabindex');
+          else el.setAttribute('tabindex', original);
+        });
+        slide.classList.toggle('is-active', active);
+        slide.hidden = false;
+      });
+      if (count) count.textContent = `${index + 1} / ${slides.length}`;
+      if (status) status.textContent = meta.manual
+        ? (status.dataset.countTemplate || '{current} / {total}').replace('{current}', String(index + 1)).replace('{total}', String(slides.length)) : '';
+      if (meta.manual) controller.pause('hover', matchMedia('(hover: hover)').matches && Boolean(slides[index].querySelector('.day-prod:hover')));
+      warmNext(index);
+    };
+    const controller = FluxixoCarousel.createCarouselController({
+      count: slides.length, reducedMotion: motion.matches,
+      pausedReasons: ['offscreen', ...(document.hidden ? ['hidden'] : [])],
+      onChange(index, meta) {
+        const version = ++requested;
+        if (meta.initial) { render(index, meta); return; }
+        return readyImage(slides[index]).then(() => { if (version === requested && meta.canCommit()) render(index, meta); });
+      },
+      onState(state) {
+        if (status) status.setAttribute('aria-live', state.rotating ? 'off' : 'polite');
+      }
+    });
+    stage.classList.add('is-ready');
+    controls.hidden = false;
+    previous.addEventListener('click', () => controller.move(-1));
+    next.addEventListener('click', () => controller.move(1));
+    slides.forEach(slide => {
+      const photo = slide.querySelector('.day-prod');
+      if (!photo) return;
+      photo.addEventListener('pointerenter', event => {
+        if (event.pointerType !== 'touch' && slide.classList.contains('is-active')) controller.pause('hover', true);
+      });
+      photo.addEventListener('pointerleave', event => { if (event.pointerType !== 'touch') controller.pause('hover', false); });
+    });
+    stage.addEventListener('focusin', () => controller.pause('focus', true));
+    stage.addEventListener('focusout', event => controller.pause('focus', stage.contains(event.relatedTarget)));
+    document.addEventListener('visibilitychange', () => controller.pause('hidden', document.hidden));
+    motion.addEventListener('change', event => controller.setReducedMotion(event.matches));
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      controller.pause('offscreen', !visible);
+      if (visible) { void readyImage(slides[displayed]); warmNext(displayed); }
+    }, { rootMargin: '200px 0px' }).observe(carousel);
+    stage.addEventListener('pointerdown', event => {
+      if (event.pointerType === 'touch' && event.isPrimary !== false) pointer = { id: event.pointerId, x: event.clientX, y: event.clientY, axis: '' };
+    }, { passive: true });
+    stage.addEventListener('pointermove', event => {
+      if (!pointer || event.pointerId !== pointer.id) return;
+      const dx = event.clientX - pointer.x, dy = event.clientY - pointer.y;
+      if (!pointer.axis && Math.max(Math.abs(dx), Math.abs(dy)) > 10) pointer.axis = Math.abs(dx) > Math.abs(dy) * 1.3 ? 'x' : 'y';
+      if (pointer.axis === 'x' && event.cancelable) event.preventDefault();
+    }, { passive: false });
+    stage.addEventListener('pointerup', event => {
+      if (!pointer || event.pointerId !== pointer.id) return;
+      const step = pointer.axis !== 'y' ? FluxixoCarousel.carouselSwipeStep(event.clientX - pointer.x, event.clientY - pointer.y, rtl) : 0;
+      pointer = null;
+      if (step) { suppressClickUntil = performance.now() + 500; controller.move(step); }
+    });
+    stage.addEventListener('pointercancel', () => { pointer = null; });
+    stage.addEventListener('click', event => {
+      if (performance.now() < suppressClickUntil) { event.preventDefault(); event.stopImmediatePropagation(); }
+    }, true);
+    addEventListener('pagehide', () => controller.pause('pagehide', true));
+    addEventListener('pageshow', () => controller.pause('pagehide', false));
+  });
+
+  // Wide screens: the section in the middle of the screen decides the page colour.
+  const paint = new IntersectionObserver(entries => entries.forEach(entry => {
+    if (entry.isIntersecting && !phone.matches) document.body.style.setProperty('--page', entry.target.dataset.page);
+  }), { rootMargin: '-50% 0px -50% 0px' });
+  document.querySelectorAll('[data-page]').forEach(el => paint.observe(el));
+
+  // The date of the latest real drop (a UTC day from the daily job's ledger), in the visitor's language.
+  document.querySelectorAll('[data-day]').forEach(el => {
+    const day = new Date(el.getAttribute('datetime') + 'T12:00:00Z');
+    if (!isNaN(day)) el.textContent = new Intl.DateTimeFormat(lang, { day: 'numeric', month: 'long', timeZone: 'UTC' }).format(day);
+  });
+  // Count down to the planned start; if the release is late, say so honestly.
+  const clocks = [...document.querySelectorAll('[data-countdown]')];
+  const pollPublication = FluxixoCountdown.createPublicationPoller(async () => {
+    const response = await fetch('/drop-status.json?v=' + Math.floor(Date.now() / 60000), { cache: 'no-store' });
+    if (!response.ok) throw new Error('Publication status unavailable');
+    return response.json();
+  });
+  const refreshPublication = async now => {
+    const previous = clocks.reduce((day, el) => el.dataset.publishedDay > day ? el.dataset.publishedDay : day, '');
+    const published = await pollPublication(now, previous);
+    if (published > previous) {
+      clocks.forEach(el => { el.dataset.publishedDay = published; });
+      updateClocks();
+    }
+  };
+  const updateClocks = () => {
+    const now = new Date();
+    let awaiting = false;
+    clocks.forEach(el => {
+      const value = FluxixoCountdown.getCountdownState(now, {
+        publishedDay: el.dataset.publishedDay, dueDay: el.dataset.dueDay,
+        timeZone: el.dataset.timezone,
+        hour: el.dataset.hour !== undefined ? el.dataset.hour : 14,
+        minute: el.dataset.minute !== undefined ? el.dataset.minute : 0
+      });
+      const pad = n => String(n).padStart(2, '0');
+      el.textContent = value.status === 'awaiting' ? el.dataset.awaiting
+        : `${pad(Math.floor(value.seconds / 3600))}:${pad(Math.floor(value.seconds / 60) % 60)}:${pad(value.seconds % 60)}`;
+      el.dataset.state = value.status;
+      awaiting = awaiting || value.status === 'awaiting';
+    });
+    if (awaiting && !document.hidden) refreshPublication(now);
+  };
+  if (clocks.length) {
+    updateClocks();
+    setInterval(updateClocks, 1000);
+    document.addEventListener('visibilitychange', updateClocks);
+    window.addEventListener('pageshow', updateClocks);
+  }
+  // The eyebrow says "today's drop" only while the latest drop really landed today; the cached page
+  // outlives midnight, so after that the same line honestly reads "latest drop".
+  document.querySelectorAll('[data-drop]').forEach(el => {
+    const [todays, latest] = el.dataset.drop.split('|');
+    el.textContent = el.dataset.on >= new Date().toISOString().slice(0, 10) ? todays : latest;
+  });
+
+  // Every screen: scroll speed swings the hanging products; a mouse brushing past nudges one, and on a touch screen
+  // so does a finger that pokes it or slides across the rope.
+  const hangs = [...document.querySelectorAll('.hang')].map((el, i) => ({ el, a: 0, v: 0, phase: i * 1.7, shown: 0 }));
+  const near = new Set();
+  let last = scrollY, lastTime = 0, running = false;
+  const frame = time => {
+    if (!near.size) { running = false; return; }
+    // The swing is tuned per 60 Hz frame; on 90 and 120 Hz phone screens each frame takes a proportionally smaller
+    // step, so it swings at the same pace everywhere.
+    const k = lastTime ? Math.max(0.25, Math.min(3, (time - lastTime) / (1000 / 60))) : 1;
+    lastTime = time;
+    const dy = scrollY - last; last = scrollY;
+    if (!calm) {
+      const push = Math.max(-3, Math.min(3, dy / k * 0.02));
+      for (const h of hangs) {
+        h.v += (-h.a * 0.035 - h.v * 0.045 + push) * k;
+        h.a = Math.max(-16, Math.min(16, h.a + h.v * k));
+        const angle = h.a + Math.sin(time / 1300 + h.phase) * 1.4;
+        if (Math.abs(angle - h.shown) > 0.02) { h.shown = angle; h.el.style.setProperty('--a', angle.toFixed(2)); }
+      }
+    }
+    requestAnimationFrame(frame);
+  };
+  const loop = () => {
+    if (!running && near.size) { running = true; last = scrollY; lastTime = 0; requestAnimationFrame(frame); }
+  };
+  // Nothing animates off screen, so the page never spends frames on what nobody sees.
+  const nearby = new IntersectionObserver(entries => {
+    entries.forEach(entry => entry.isIntersecting ? near.add(entry.target) : near.delete(entry.target));
+    loop();
+  }, { rootMargin: '200px 0px' });
+  document.querySelectorAll('.rope').forEach(el => nearby.observe(el));
+  const nudge = (h, dv) => { h.v = Math.max(-5, Math.min(5, h.v + dv)); };
+  hangs.forEach(h => h.el.addEventListener('pointerenter', e => {
+    if (e.pointerType === 'mouse') { h.v += (e.movementX || 6) > 0 ? 3 : -3; return; }
+    // A poke on the left half pushes the product to the right, on the right half to the left.
+    const box = h.el.getBoundingClientRect();
+    nudge(h, e.clientX < box.left + box.width / 2 ? -2.2 : 2.2);
+  }));
+  if (!calm) {
+    // Touch: a finger sliding sideways along the rope sets each product it passes swinging; an up-down swipe still
+    // scrolls the page (touch-action: pan-y on .rope), and a slide is never taken for a tap on a product.
+    let quietUntil = 0;
+    document.querySelectorAll('.rope').forEach(rope => {
+      const own = hangs.filter(h => rope.contains(h.el));
+      let finger = null;
+      rope.addEventListener('pointerdown', e => {
+        if (e.pointerType !== 'mouse') finger = { id: e.pointerId, x: e.clientX, from: e.clientX };
+      }, { passive: true });
+      rope.addEventListener('pointermove', e => {
+        if (!finger || e.pointerId !== finger.id) return;
+        const dx = e.clientX - finger.x;
+        finger.x = e.clientX;
+        if (!dx) return;
+        for (const h of own) {
+          const box = h.el.getBoundingClientRect();
+          if (e.clientX > box.left - 8 && e.clientX < box.right + 8) nudge(h, -Math.max(-2.5, Math.min(2.5, dx * 0.12)));
+        }
+        loop();
+      }, { passive: true });
+      const lift = e => {
+        if (!finger || e.pointerId !== finger.id) return;
+        if (e.type === 'pointerup' && Math.abs(e.clientX - finger.from) > 12) quietUntil = performance.now() + 400;
+        finger = null;
+      };
+      rope.addEventListener('pointerup', lift);
+      rope.addEventListener('pointercancel', lift);
+      rope.addEventListener('click', e => {
+        if (performance.now() >= quietUntil) return;
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        const link = e.target.closest('a[data-go]');
+        const image = link && link.querySelector('img');
+        if (image) image.style.viewTransitionName = '';
+      }, true);
+    });
+    // Touch screens have no mouse brushing past, so the first time a rope comes into view a gust runs along it from
+    // left to right; every product swings the same way, so neighbours never knock into each other.
+    if (matchMedia('(hover: none)').matches) {
+      const greet = new IntersectionObserver(entries => entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        greet.unobserve(entry.target);
+        hangs.filter(h => entry.target.contains(h.el))
+          .forEach((h, i) => setTimeout(() => { nudge(h, -2); loop(); }, 150 + i * 110));
+      }), { threshold: 0.35 });
+      document.querySelectorAll('.rope').forEach(el => greet.observe(el));
+    }
+  }
+
+  // Swipe rows: dots show which card is in view and jump to it; product galleries also get arrows.
+  // The rope hangs whole on every screen, so it is not a swipe row and gets no dots.
+  document.querySelectorAll('[data-dots]').forEach(row => {
+    if (row.classList.contains('rope')) return;
+    const cards = [...row.children].filter(el => el.tagName !== 'svg');
+    if (cards.length < 2) return;
+    const dots = document.createElement('div');
+    dots.className = 'dots';
+    dots.setAttribute('role', 'group');
+    dots.setAttribute('aria-label', 'Gallery views');
+    dots.innerHTML = cards.map((_, i) => `<button type="button"${i ? '' : ' class="on" aria-current="true"'} aria-label="${i + 1} / ${cards.length}"></button>`).join('');
+    row.after(dots);
+    let current = 0;
+    const go = i => {
+      const card = cards[Math.max(0, Math.min(cards.length - 1, i))];
+      row.scrollTo({ left: row.scrollLeft + card.getBoundingClientRect().left - row.getBoundingClientRect().left
+        - (row.clientWidth - card.offsetWidth) / 2, behavior: calm ? 'auto' : 'smooth' });
+    };
+    [...dots.children].forEach((dot, i) => dot.addEventListener('click', () => go(i)));
+    const frame = row.parentElement.matches('.p-gallery') ? row.parentElement : null;
+    const arrows = [];
+    if (frame) {
+      ['prev', 'next'].forEach((name, k) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'arrow ' + name;
+        button.setAttribute('aria-label', frame.dataset[name === 'prev' ? 'labelPrev' : 'labelNext'] || name);
+        button.textContent = (k ? 1 : -1) * (root.dir === 'rtl' ? -1 : 1) > 0 ? '→' : '←';
+        button.addEventListener('click', () => go(current + (k ? 1 : -1)));
+        frame.append(button);
+        arrows.push(button);
+      });
+      arrows[0].disabled = true;
+    }
+    let queued = false;
+    row.addEventListener('scroll', () => {
+      if (queued) return;
+      queued = true;
+      requestAnimationFrame(() => {
+        queued = false;
+        const middle = row.getBoundingClientRect().left + row.clientWidth / 2;
+        let best = 0, gap = Infinity;
+        cards.forEach((card, i) => {
+          const box = card.getBoundingClientRect();
+          const d = Math.abs(box.left + box.width / 2 - middle);
+          if (d < gap) { gap = d; best = i; }
+        });
+        // The first and last cards never reach the middle of a row that shows a peek of the next one.
+        const end = Math.abs(row.scrollLeft);
+        if (end < 8) best = 0;
+        else if (end > row.scrollWidth - row.clientWidth - 8) best = cards.length - 1;
+        current = best;
+        [...dots.children].forEach((dot, i) => {
+          dot.classList.toggle('on', i === best);
+          if (i === best) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
+        if (arrows.length) { arrows[0].disabled = best === 0; arrows[1].disabled = best === cards.length - 1; }
+      });
+    }, { passive: true });
+  });
+
+  // Catalog: filter by world and by words in the name, with progressive batches on full catalog view.
+  const cards = [...document.querySelectorAll('.grid [data-w]')];
+  const filters = [...document.querySelectorAll('[data-filter]')];
+  const find = document.querySelector('.find');
+  const none = document.querySelector('.none');
+  const moreWrap = document.querySelector('.catalog-more');
+  const moreBtn = document.querySelector('[data-catalog-more]');
+  const PAGE_SIZE = 24;
+  let visibleLimit = PAGE_SIZE;
+  const plain = text => text.toLowerCase().normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g, '');
+  const categoryParameter = 'category';
+  const readWorld = () => {
+    const requested = new URLSearchParams(location.search).get(categoryParameter);
+    return filters.some(button => button.dataset.filter === requested) ? requested : '*';
+  };
+  let world = readWorld();
+  const names = cards.map(card => plain(card.textContent));
+  const apply = () => {
+    const words = find ? plain(find.value).split(/\s+/).filter(Boolean) : [];
+    const paginate = moreBtn && world === '*' && words.length === 0;
+    let shown = 0;
+    let totalMatched = 0;
+    cards.forEach((card, i) => {
+      const ok = (world === '*' || card.dataset.w === world) && words.every(word => names[i].includes(word));
+      if (ok) totalMatched += 1;
+      const visible = ok && (!paginate || totalMatched <= visibleLimit);
+      card.hidden = !visible;
+      if (visible) shown += 1;
+    });
+    if (moreWrap && moreBtn) {
+      const remaining = Math.max(0, totalMatched - shown);
+      moreWrap.hidden = !paginate || remaining <= 0;
+      const tpl = moreBtn.dataset.labelTemplate || '';
+      if (tpl) moreBtn.textContent = tpl.replace('{n}', String(Math.min(PAGE_SIZE, remaining))).replace('{rem}', String(remaining));
+    }
+    if (none) none.hidden = totalMatched > 0;
+  };
+  const showWorld = () => {
+    for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.filter === world));
+    apply();
+  };
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      visibleLimit += PAGE_SIZE;
+      apply();
+    });
+  }
+  if (filters.length || moreBtn) showWorld();
+  if (find) find.addEventListener('input', apply);
+
+  // Phone: the language list is a sheet that slides up.
+  const langButton = document.querySelector('.lang-btn');
+  const sheet = document.querySelector('.langs');
+  if (langButton && sheet) {
+    const toggle = open => { sheet.classList.toggle('open', open); langButton.setAttribute('aria-expanded', String(open)); };
+    langButton.addEventListener('click', event => { event.stopPropagation(); toggle(!sheet.classList.contains('open')); });
+    document.addEventListener('click', event => { if (!sheet.contains(event.target)) toggle(false); });
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') toggle(false); });
+  }
+
+  const sharedFragments = sheet?.dataset.sharedFragments?.split(' ') || [];
+  const targets = sharedFragments.length ? [...sheet.querySelectorAll('a[hreflang]')].map(link => [link, link.getAttribute('href')]) : [];
+  const syncLanguageLinks = () => {
+    const currentFragment = location.hash.slice(1);
+    const fragment = world !== '*' && currentFragment !== 'find' ? 'todo' : currentFragment;
+    for (const [link, href] of targets) {
+      const target = new URL(href, location.href);
+      if (sharedFragments.includes(fragment)) {
+        if (target.pathname === '/en/' && ['drop', 'mundos'].includes(fragment)) target.pathname = '/';
+        target.hash = fragment;
+      }
+      if (world !== '*') target.searchParams.set(categoryParameter, world);
+      link.setAttribute('href', target.pathname + target.search + target.hash);
+    }
+  };
+  if (targets.length) {
+    syncLanguageLinks();
+    addEventListener('hashchange', syncLanguageLinks);
+  }
+  for (const button of filters) {
+    button.addEventListener('click', () => {
+      world = button.dataset.filter;
+      if (world === '*') visibleLimit = PAGE_SIZE;
+      const url = new URL(location.href);
+      if (world === '*') {
+        url.searchParams.delete(categoryParameter);
+      } else {
+        url.searchParams.set(categoryParameter, world);
+        if (url.hash !== '#find') url.hash = 'todo';
+      }
+      if (url.href !== location.href) history.replaceState(history.state, '', url);
+      showWorld();
+      syncLanguageLinks();
+    });
+  }
+  if (filters.length) addEventListener('popstate', () => {
+    const restored = readWorld();
+    if (restored !== world) {
+      world = restored;
+      showWorld();
+      syncLanguageLinks();
+    }
+  });
+
+  // Bottom bar: same-page tabs act at once, and the bar shows where you are.
+  const tabs = [...document.querySelectorAll('.tabs [data-tab]')];
+  const here = name => tabs.forEach(tab => tab.dataset.tab === name ? tab.setAttribute('aria-current', 'page') : tab.removeAttribute('aria-current'));
+  const openSearch = () => { find.scrollIntoView({ block: 'center' }); find.focus({ preventScroll: true }); };
+  tabs.forEach(tab => tab.addEventListener('click', event => {
+    const url = new URL(tab.href);
+    if (url.pathname !== location.pathname) return;
+    if (tab.dataset.tab === 'home' && !location.hash) { event.preventDefault(); scrollTo(0, 0); }
+    if (tab.dataset.tab === 'find' && find) {
+      event.preventDefault();
+      if (location.hash === '#find') openSearch();
+      else location.hash = 'find';
+    }
+  }));
+  if (find) {
+    const focusSearchSection = () => { if (location.hash === '#find') openSearch(); };
+    focusSearchSection();
+    addEventListener('hashchange', focusSearchSection);
+  }
+  const catalog = document.getElementById('todo');
+  const worlds = document.getElementById('cats');
+  if (tabs.length && catalog && worlds) {
+    let queued = false;
+    const where = () => {
+      queued = false;
+      const line = innerHeight * 0.45;
+      here(catalog.getBoundingClientRect().top < line ? 'all' : worlds.getBoundingClientRect().top < line ? 'cats' : 'home');
+    };
+    addEventListener('scroll', () => { if (!queued && phone.matches) { queued = true; requestAnimationFrame(where); } }, { passive: true });
+  }
+
+  // Product clip: the photo stays a while, the real clip slowly dissolves in over it, plays, and dissolves back
+  // into the photo while still moving (no frozen last frame); repeats while on screen.
+  // Smoothness: the dissolve starts on the first frame the screen really shows, the rewind happens while the clip is
+  // hidden, and a phone gets the format its chip decodes in hardware (AV1 where it can, H.264 otherwise).
+  const clip = document.querySelector('.demo video');
+  if (clip && !calm && !(navigator.connection && navigator.connection.saveData)) {
+    const frame = clip.parentElement;
+    const PHOTO = 3000;  // how long the photo is shown before each play
+    const FADE = 1.5;    // seconds; matches the CSS transition
+    const exact = 'requestVideoFrameCallback' in clip;
+    let visible = false, timer = 0, ready = null;
+    const playing = () => frame.classList.contains('playing');
+    const show = on => frame.classList.toggle('playing', on);
+    const pick = async () => {
+      for (const source of clip.querySelectorAll('source[data-codec]')) {
+        let keep = false;
+        try {
+          const info = await navigator.mediaCapabilities.decodingInfo({ type: 'file', video: {
+            contentType: source.type, width: 720, height: 720, bitrate: 1200000, framerate: 25 } });
+          // A format is kept only where the device decodes it in hardware: smooth and no battery or CPU drain.
+          // Otherwise the next one is tried; H.264, the last, is hardware-decoded practically everywhere.
+          keep = info.supported && info.smooth && info.powerEfficient;
+        } catch (error) { keep = false; }
+        if (!keep) source.remove();
+      }
+    };
+    const prepare = () => ready || (ready = pick().then(() => { clip.preload = 'auto'; clip.load(); }));
+    const watch = (now, meta) => {
+      if (!playing()) return;
+      if (clip.duration && meta.mediaTime > clip.duration - FADE) show(false);
+      else clip.requestVideoFrameCallback(watch);
+    };
+    const start = () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        if (!visible) return;
+        clip.play().then(() => {
+          if (!exact) { show(true); return; }
+          // The decoder wakes up on the first frames; they play while the clip is still invisible, and the dissolve
+          // begins only once frames are flowing, so the start never hitches on screen.
+          let shown = 0;
+          const warm = () => {
+            if (!visible) return;
+            if (++shown < 3) { clip.requestVideoFrameCallback(warm); return; }
+            show(true);
+            clip.requestVideoFrameCallback(watch);
+          };
+          clip.requestVideoFrameCallback(warm);
+        }).catch(() => {});
+      }, PHOTO);
+    };
+    if (!exact) clip.addEventListener('timeupdate', () => {
+      if (playing() && clip.duration && clip.currentTime > clip.duration - FADE) show(false);
+    });
+    clip.addEventListener('ended', () => {
+      show(false);
+      clip.currentTime = 0;  // hidden by now, so the rewind is never seen
+      if (visible) start();
+    });
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) prepare().then(() => { if (visible && clip.paused) start(); });
+      else {
+        clearTimeout(timer);
+        clip.pause();
+        show(false);
+        setTimeout(() => { if (!visible) clip.currentTime = 0; }, FADE * 1000);
+      }
+    }, { threshold: 0.4 }).observe(frame);
+  }
+
+  // Adapt outbound AliExpress links to the current storefront language.
+  const adaptAffiliateHref = event => {
+    const link = event.target && event.target.closest ? event.target.closest('a[href*="s.click.aliexpress.com"]') : null;
+    if (!link) return;
+    const decorated = FluxixoLocale.decorateAffiliateUrl(link.href, lang);
+    if (decorated && decorated !== link.href) link.href = decorated;
+    if (event.type === 'click') {
+      document.dispatchEvent(new CustomEvent('fluxixo:affiliate_click', { detail: { href: link.href, lang, link } }));
+    }
+  };
+  document.addEventListener('pointerdown', adaptAffiliateHref, true);
+  document.addEventListener('contextmenu', adaptAffiliateHref, true);
+  document.addEventListener('auxclick', adaptAffiliateHref, true);
+  document.addEventListener('click', adaptAffiliateHref, true);
+
+  const trackedClicks = new Map();
+  document.addEventListener('fluxixo:affiliate_click', event => {
+    try {
+      const detail = event.detail || {};
+      const link = detail.link;
+      const href = detail.href || (link && link.href) || '';
+      if (!href) return;
+      const now = Date.now();
+      const prev = trackedClicks.get(href) || 0;
+      if (now - prev < 1500) return;
+      trackedClicks.set(href, now);
+      let productId = (link && link.dataset && link.dataset.productId) || '';
+      if (!productId) {
+        const holder = link && link.closest ? link.closest('[data-product-id]') : null;
+        if (holder && holder.dataset && holder.dataset.productId) productId = holder.dataset.productId;
+      }
+      if (!productId) {
+        const m = /\/products\/([^/]+)\//.exec(location.pathname);
+        if (m) productId = m[1];
+      }
+      if (!productId) productId = 'storefront';
+      let targetHost = 's.click.aliexpress.com';
+      try { targetHost = new URL(href).hostname || targetHost; } catch {}
+      let referrerHost = '';
+      try { if (document.referrer) referrerHost = new URL(document.referrer).hostname || ''; } catch {}
+      const payload = JSON.stringify({
+        product_id: productId.slice(0, 80),
+        lang: String(detail.lang || lang || 'en').slice(0, 10),
+        world: String((link && link.dataset && link.dataset.world) || '').slice(0, 40),
+        page_path: String(location.pathname || '/').slice(0, 200),
+        target_host: String(targetHost).slice(0, 80),
+        referrer_host: String(referrerHost).slice(0, 80),
+      });
+      const endpoint = 'https://fluxixo-autopilot.sayros2601.workers.dev/api/click';
+      if (navigator.sendBeacon && navigator.sendBeacon(endpoint, new Blob([payload], { type: 'text/plain' }))) return;
+      if (window.fetch) {
+        fetch(endpoint, {
+          method: 'POST',
+          mode: 'cors',
+          keepalive: true,
+          headers: { 'Content-Type': 'text/plain' },
+          body: payload,
+        }).catch(() => {});
+      }
+    } catch {}
+  });
+
+  // The clicked product image morphs into the hero of its page.
+  document.addEventListener('click', event => {
+    const link = event.target.closest('a[data-go]');
+    const image = link && link.querySelector('img');
+    if (image) image.style.viewTransitionName = 'hero-p';
+  }, true);
+})();

@@ -314,9 +314,9 @@ def responsive(path, widths, sizes):
     return f' srcset="{", ".join(parts)}" sizes="{sizes}"' if len(parts) > 1 else ''
 
 
-# One brand node shared by the front page and the About pages; sameAs ties the brand to its public profile.
+# One brand node shared by the front page and the About pages.
 ORGANIZATION = {'@type': 'Organization', '@id': ORIGIN + '/#organization', 'name': 'FLUXIXO', 'url': ORIGIN + '/',
-                'logo': ORIGIN + '/apple-touch-icon.png', 'sameAs': ['https://www.pinterest.com/FLUXIXO/']}
+                'logo': ORIGIN + '/apple-touch-icon.png'}
 GUIDES = journal_pages.all_articles()
 
 
@@ -381,7 +381,9 @@ class Site:
         return [p for p in self.items if p['world'] == key]
 
     def buy(self, p, attrs=''):
-        return (f'<a class="btn" href="{e(p["affiliateUrl"])}" target="_blank" rel="sponsored nofollow noopener" {attrs}>'
+        extra = f'data-product-id="{e(p["id"])}" data-world="{e(slug(p["world"]))}"'
+        attr_str = f'{extra} {attrs}'.strip() if attrs else extra
+        return (f'<a class="btn" href="{e(p["affiliateUrl"])}" target="_blank" rel="sponsored nofollow noopener" {attr_str}>'
                 f'{e(self.ui["cta"])} <span aria-hidden="true">{self.fwd}</span></a>')
 
     def page(self, title, desc, path, body, alt_paths, schema=None, image=None, colour=PAPER, hreflang=True, noindex=False, tab=None, buy=None,
@@ -440,6 +442,7 @@ class Site:
 </footer>
 {self.tabs(tab, buy)}
 <script src="/js/fx.js" defer></script>
+{('<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon=\'{"token":"2f975b7003994ff681244fb713e4b8b1"}\'></script>' if PROD else '')}
 </body>
 </html>'''
 
@@ -664,7 +667,7 @@ class Site:
             image_src = override or img(star['image'], 800)
             image_class = ' class="day-cutout"' if override else ''
             seller_link = (f'<a class="btn line" href="{e(star["affiliateUrl"])}" target="_blank" '
-                           f'rel="sponsored nofollow noopener">{e(u["seller_cta"])} <span aria-hidden="true">↗</span></a>')
+                           f'rel="sponsored nofollow noopener" data-product-id="{e(star["id"])}" data-world="{e(slug(star["world"]))}">{e(u["seller_cta"])} <span aria-hidden="true">↗</span></a>')
             slides.append(
                 f'<article class="day-card" data-carousel-slide data-product-id="{e(star["id"])}" '
                 f'role="group" aria-roledescription="{e(carousel["slide"])}" aria-label="{e(position + ": " + star["name"])}" '
@@ -727,6 +730,14 @@ class Site:
         ed_top = self.home_editorial_top_html()
         ed_bottom = self.home_editorial_bottom_html(entry_pages)
         body = hero + cats + day + ed_top + ''.join(bands) + everything
+        qa_entries = (home_editorial().get(self.lang) or {}).get('qa') or ()
+        faq_node = {
+            '@type': 'FAQPage',
+            'mainEntity': [
+                {'@type': 'Question', 'name': item['q'], 'acceptedAnswer': {'@type': 'Answer', 'text': item['a']}}
+                for item in qa_entries if item.get('q') and item.get('a')
+            ],
+        } if qa_entries else None
         if self.root:
             # The front page is not a second catalog: the newest finds, editorial showcase near the top, and the way on.
             r, catalog, newest = ROOT_EN, L.catalog_path(self.lang), items[:12]
@@ -745,10 +756,13 @@ class Site:
             root_body = hero + cats + day + ed_top + ''.join(bands) + fresh + ed_bottom
             root_listing = {'@type': 'ItemList', 'name': r['title'], 'numberOfItems': len(newest),
                             'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(newest)]}
-            schema = {'@context': 'https://schema.org', '@graph': [
+            root_graph = [
                 {'@type': 'WebSite', 'name': 'FLUXIXO', 'url': ORIGIN + '/', 'inLanguage': ['en', 'ru', 'pt-BR', 'es-MX', 'fr', 'he-IL'],
                  'publisher': {'@id': ORGANIZATION['@id']}},
-                ORGANIZATION, root_listing]}
+                ORGANIZATION, root_listing]
+            if faq_node and ed_bottom:
+                root_graph.append(faq_node)
+            schema = {'@context': 'https://schema.org', '@graph': root_graph}
             ov_root = market_seo.route_override(overrides, '/')
             language_paths = {l: '/' if l == 'en' else f'{path}#drop' for l, path in entry_pages.items()}
             root_hero_preload = img((drop or items)[0]['image'], 800) if (drop or items) else None
@@ -791,6 +805,8 @@ class Site:
                                                   lang=L.LANGUAGES[self.lang][0],
                                                   items=[(self.ppath(p), p['name']) for p in items],
                                                   crumbs=[(u['home'], self.home())])
+        if faq_node and self.lang != 'en' and ed_bottom:
+            hub_schema['@graph'].append(faq_node)
         language_paths = {l: f'{path}#todo' if l != self.lang else path for l, path in catalogs.items()}
         fragments = ('todo', 'find', 'cats') if self.lang == 'en' else ('todo', 'find', 'cats', 'drop', 'mundos')
         home_hero_preload = (
@@ -1051,6 +1067,21 @@ def proofread():
                 for idx, (h2, body) in enumerate(sections):
                     check_texts.check_string(h2, lang, f'journal_ru/{slug_id}/{lang}/s{idx}/h2', problems)
                     check_texts.check_string(body, lang, f'journal_ru/{slug_id}/{lang}/s{idx}/body', problems)
+    import comparison_guides
+    for article in comparison_guides.GUIDES:
+        slug_id = article['slug']
+        for lang, payload in article.get('translations', {}).items():
+            title, desc, h1, sections = payload
+            check_texts.check_string(title.removesuffix(' | FLUXIXO'), lang, f'cmp_guide/{slug_id}/{lang}/title', problems)
+            check_texts.check_string(desc, lang, f'cmp_guide/{slug_id}/{lang}/desc', problems)
+            check_texts.check_string(h1, lang, f'cmp_guide/{slug_id}/{lang}/h1', problems)
+            for idx, (h2, body) in enumerate(sections):
+                check_texts.check_string(h2, lang, f'cmp_guide/{slug_id}/{lang}/s{idx}/h2', problems)
+                check_texts.check_string(body, lang, f'cmp_guide/{slug_id}/{lang}/s{idx}/body', problems)
+        for lang, qa_list in article.get('faq', {}).items():
+            for idx, (q, a) in enumerate(qa_list):
+                check_texts.check_string(q, lang, f'cmp_guide/{slug_id}/{lang}/faq{idx}/q', problems)
+                check_texts.check_string(a, lang, f'cmp_guide/{slug_id}/{lang}/faq{idx}/a', problems)
     if problems:
         sys.exit('Text problems, build stopped:\n' + '\n'.join(problems))
 

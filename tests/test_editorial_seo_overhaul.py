@@ -34,7 +34,7 @@ class EditorialSeoOverhaulTests(unittest.TestCase):
         return probs
 
     def test_all_114_products_have_6_language_4_block_editorial_copy(self) -> None:
-        raw_items, _ = load()
+        raw_items, data = load()
         products = [p for p in raw_items if not p.get("demo")]
         self.assertGreaterEqual(len(products), 114)
 
@@ -97,7 +97,7 @@ class EditorialSeoOverhaulTests(unittest.TestCase):
         extra_articles = json.loads(EXTRA_MULTILINGUAL_FILE.read_text(encoding="utf-8"))
         self.assertEqual(len(extra_articles), 8)
 
-        raw_items, _ = load()
+        raw_items, data = load()
         valid_ids = {p["id"] for p in raw_items if not p.get("demo")}
 
         for art in extra_articles:
@@ -131,8 +131,27 @@ class EditorialSeoOverhaulTests(unittest.TestCase):
                         [],
                     )
 
-        # Total Journal guides across the site should now be 15 (7 original + 8 new)
-        self.assertEqual(len(all_articles()), 15)
+        # Total Journal guides: 7 original + 8 multilingual + 6 commercial comparison guides = 21
+        self.assertEqual(len(all_articles()), 21)
+
+        from fluxixo_site.tools import comparison_guides
+        for cg in comparison_guides.GUIDES:
+            for lang in LANGS:
+                title, desc, h1, sections = cg['translations'][lang]
+                self.assertLessEqual(len(title), 70, f"{cg['slug']}.{lang} title too long: {len(title)}")
+                self.assertGreaterEqual(len(desc), 50, f"{cg['slug']}.{lang} desc too short: {len(desc)}")
+                self.assertLessEqual(len(desc), 170, f"{cg['slug']}.{lang} desc too long: {len(desc)}")
+                for forbidden in verify_release.FORBIDDEN:
+                    self.assertNotIn(forbidden, title + desc + h1 + str(sections))
+                for idx, (h2, body) in enumerate(sections):
+                    self.assertEqual(self._check(f"cmp.{cg['slug']}.{lang}.h2.{idx}", h2, lang), [])
+                    self.assertEqual(self._check(f"cmp.{cg['slug']}.{lang}.body.{idx}", body, lang), [])
+            tbl = comparison_guides.render_comparison_table(cg['world'], 'en', raw_items, data)
+            self.assertIn('<table class="cmp-table">', tbl)
+            self.assertNotIn('<td>Open review</td>', tbl)
+            faq_html, faq_schema = comparison_guides.render_faq_and_schema(cg.get('faq'), 'en')
+            self.assertIn('class="guide-faq"', faq_html)
+            self.assertEqual([], verify_release.validate_google_structured_data(faq_schema))
 
         # Site.guides(p) should link products in related_products back to their Journal guide
         raw_items, data = load()

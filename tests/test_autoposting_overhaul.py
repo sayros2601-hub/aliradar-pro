@@ -389,3 +389,74 @@ class AutopostingOverhaulTests(unittest.TestCase):
         self.assertIn('floating or clipped seller promo text', rubric)
         self.assertIn('detached collage inset people', rubric)
         self.assertIn('glass/scenery debris', rubric)
+
+    def test_complete_json_uses_env_fallback_free_flag_when_keys_dict_passed(self):
+        import json as json_mod
+        import os
+        from unittest.mock import patch
+        from fluxixo_ai.gemini_client import GeminiDeferred
+
+        def fake_transport(url, _payload, _headers):
+            if '/api/generate-copy' in url:
+                return {'ok': True, 'model': '@cf/meta/llama-3.3-70b-instruct-fp8-fast', 'provider': 'cloudflare-workers-ai',
+                        'choices': [{'message': {'content': json_mod.dumps({'ok': 'worker-free'})}}]}
+            raise AssertionError(f'unexpected url: {url}')
+
+        passed_keys = {'FLUXIXO_TEXT_PROVIDER': 'gemini', 'FLUXIXO_TEXT_GEMINI_API_KEY': 'k'}
+        with patch.dict(os.environ, {
+            'FLUXIXO_TEXT_FALLBACK_FREE': '1',
+            'CLOUDFLARE_AUTOPILOT_URL': 'https://fluxixo-autopilot.sayros2601.workers.dev',
+            'AUTOPILOT_SYNC_TOKEN': 'sync-tok',
+            'FLUXIXO_AI_TRANSPORT': 'worker',
+        }, clear=False), patch('fluxixo_ai.gemini_client.call_json', side_effect=GeminiDeferred('gemini_http_503')):
+            data, prov = ai_seo.complete_json('sys', 'usr', keys=passed_keys, transport=fake_transport)
+        self.assertEqual({'ok': 'worker-free'}, data)
+        self.assertTrue(prov.startswith('cloudflare:'))
+
+    def test_free_vision_reviewer_encodes_compact_jpeg_and_tries_worker(self):
+        import io
+        import json as json_mod
+        import os
+        from unittest.mock import patch
+
+        im = Image.new('RGBA', (1600, 1600), (20, 40, 80, 255))
+        buf = io.BytesIO()
+        im.save(buf, format='PNG')
+        raw_png = buf.getvalue()
+
+        seen = []
+
+        class FakeResp:
+            def __init__(self, body):
+                self._body = body
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *args):
+                return False
+
+            def read(self, _n=-1):
+                return self._body
+
+        def fake_urlopen(req, timeout=60):
+            body = json_mod.loads(req.data.decode('utf-8'))
+            seen.append((req.full_url, body))
+            return FakeResp(json_mod.dumps({'ok': True, 'result': {'accepted': True, 'reasons': []}}).encode('utf-8'))
+
+        with patch.dict(os.environ, {
+            'CLOUDFLARE_AUTOPILOT_URL': 'https://fluxixo-autopilot.sayros2601.workers.dev',
+            'AUTOPILOT_SYNC_TOKEN': 'sync-tok',
+            'FLUXIXO_AI_TRANSPORT': 'worker',
+        }, clear=False), patch('urllib.request.urlopen', side_effect=fake_urlopen):
+            res = reviewed_media._call_free_vision_reviewer('sys', {'id': 'p1'}, [raw_png])
+
+        self.assertEqual({'accepted': True, 'reasons': []}, res)
+        self.assertEqual(1, len(seen))
+        self.assertTrue(seen[0][0].endswith('/api/review-media'))
+        self.assertTrue(seen[0][1]['images'][0].startswith('data:image/jpeg;base64,'))
+
+    def test_cf_image_budget_accounts_for_schnell_fallback(self):
+        from fluxixo_ai import cf_image_budget
+        self.assertEqual('schnell', cf_image_budget.infer_model_tag('@cf/black-forest-labs/flux-1-schnell'))
+        self.assertEqual(300, cf_image_budget.cost_for_model('@cf/black-forest-labs/flux-1-schnell'))

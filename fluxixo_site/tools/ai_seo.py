@@ -533,14 +533,26 @@ def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
             )
             return result, f'gemini:{gemini_client.TEXT_MODEL}:HIGH'
         except gemini_client.GeminiDeferred as exc:
+            explicit_flag = resolved.get('FLUXIXO_TEXT_FALLBACK_FREE')
             fallback_free = str(
-                resolved.get('FLUXIXO_TEXT_FALLBACK_FREE')
-                or (os.environ.get('FLUXIXO_TEXT_FALLBACK_FREE') if keys is None else '')
-                or ''
+                explicit_flag if explicit_flag is not None else os.environ.get('FLUXIXO_TEXT_FALLBACK_FREE', '')
             ).strip()
             if fallback_free == '1' and exc.code in _TRANSIENT_GEMINI_FAILOVER_CODES:
+                failover_keys = dict(resolved)
+                if os.environ.get('FLUXIXO_OFFLINE', '').strip() != '1':
+                    for env_name in (
+                        'CLOUDFLARE_AUTOPILOT_URL',
+                        'AUTOPILOT_SYNC_TOKEN',
+                        'FLUXIXO_AI_TRANSPORT',
+                        'CLOUDFLARE_API_TOKEN',
+                        'CLOUDFLARE_ACCOUNT_ID',
+                        'GITHUB_TOKEN',
+                        'GH_TOKEN',
+                    ):
+                        if not failover_keys.get(env_name) and os.environ.get(env_name):
+                            failover_keys[env_name] = os.environ[env_name]
                 result, _errors = _call_free_provider_chain(
-                    resolved, system_prompt, user_prompt,
+                    failover_keys, system_prompt, user_prompt,
                     transport=transport, allow_env=(keys is None),
                 )
                 if result is not None:

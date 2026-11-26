@@ -9,7 +9,7 @@ const FluxixoCountdown = (() => {
     const p = parts(date, timeZone);
     return `${p.year}-${p.month}-${p.day}`;
   };
-  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Europe/Moscow', hour = 14, minute = 0 } = {}) {
+  function getCountdownState(now = new Date(), { publishedDay = '', dueDay = '', timeZone = 'Asia/Jerusalem', hour = 15, minute = 30 } = {}) {
     now = new Date(now);
     if (publishedDay) {
       const next = new Date(publishedDay + 'T12:00:00Z');
@@ -20,8 +20,8 @@ const FluxixoCountdown = (() => {
     const [year, month, day] = dueDay.split('-').map(Number);
     const wallClock = Date.UTC(year, month - 1, day, Number(hour), Number(minute));
     let target = wallClock;
-    // Resolve the local 14:00 using the offset on that date, not today's offset. Moscow keeps UTC+3 all year;
-    // the two passes still give the right instant in a zone with clock changes.
+    // Resolve the local 15:30 using the offset on that date, not today's offset.
+    // The two passes give the right instant across Israel's spring/autumn clock changes.
     for (let pass = 0; pass < 2; pass++) {
       const p = parts(new Date(target), timeZone);
       target += wallClock - Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour, +p.minute, +p.second);
@@ -29,7 +29,7 @@ const FluxixoCountdown = (() => {
     const seconds = Math.max(0, Math.ceil((target - now.getTime()) / 1000));
     return { status: seconds > 0 ? 'countdown' : 'awaiting', seconds, dueDay };
   }
-  function createPublicationPoller(fetchStatus, timeZone = 'Europe/Moscow') {
+  function createPublicationPoller(fetchStatus, timeZone = 'Asia/Jerusalem') {
     let checkedAt = -Infinity, inFlight = false;
     return async (now, publishedDay = '') => {
       const at = new Date(now).getTime();
@@ -139,7 +139,8 @@ const FluxixoLocale = (() => {
     fr: '/fr/',
     he: '/he/',
   };
-  const STORAGE_KEY = 'fluxixo.lang.v2';
+  // Legacy showroom links used the product ID as the root fragment, alongside ?lang=.
+  const LEGACY_PRODUCT_ID = /^(?:auto-\d+|find-\d+-[a-z0-9]+(?:-[a-z0-9]+)*|import-\d+|katord-wifi-repeater)$/;
 
   function normalizeLocaleCode(raw) {
     if (!raw || typeof raw !== 'string') return '';
@@ -148,44 +149,34 @@ const FluxixoLocale = (() => {
     return Object.prototype.hasOwnProperty.call(LOCALE_PATHS, base) ? base : '';
   }
 
-  function sameOriginReferrer(referrer, origin) {
-    if (!referrer || !origin) return false;
-    if (typeof URL === 'function') {
-      try {
-        return new URL(referrer).origin === origin;
-      } catch {
-        return false;
-      }
-    }
-    return referrer.indexOf(origin + '/') === 0 || referrer === origin;
-  }
-
   function resolveVisitorPath(opts) {
     const options = opts || {};
-    if (options.webdriver) return null;
-    if (options.userAgent && /bot|crawl|spider|slurp|mediapartners|lighthouse/i.test(options.userAgent)) {
-      return null;
-    }
     const pathname = options.pathname || '/';
     if (pathname !== '/' && pathname !== '/index.html') return null;
     const search = options.search || '';
-    if (/[?&]lang=/i.test(search)) return null;
-    if (sameOriginReferrer(options.referrer, options.origin)) return null;
-
-    let preferred = normalizeLocaleCode(options.savedLang);
-    if (!preferred && Array.isArray(options.languages)) {
-      for (const candidate of options.languages) {
-        const normalized = normalizeLocaleCode(candidate);
-        if (normalized) {
-          preferred = normalized;
-          break;
-        }
+    const hash = options.hash || '';
+    const productId = hash.slice(1);
+    const productLink = hash.startsWith('#') && LEGACY_PRODUCT_ID.test(productId);
+    const params = new URLSearchParams(search);
+    const localeKeys = [...params.keys()].filter(key => key.toLowerCase() === 'lang');
+    if (localeKeys.length) {
+      const locale = normalizeLocaleCode(params.get(localeKeys[0]));
+      if (!locale) return null;
+      const englishCatalog = locale === 'en' && (hash === '#find' || hash === '#todo');
+      if (locale === 'en' && !productLink && !englishCatalog) return null;
+      for (const key of localeKeys) params.delete(key);
+      const remaining = params.toString();
+      const query = remaining ? `?${remaining}` : '';
+      if (productLink) {
+        const prefix = locale === 'ru' ? '' : `/${locale}`;
+        return `${prefix}/products/${productId}/${query}`;
       }
+      const target = englishCatalog ? '/en/' : LOCALE_PATHS[locale];
+      return target + query + hash;
     }
-    if (!preferred || preferred === 'en') return null;
-    const target = LOCALE_PATHS[preferred];
-    if (!target || target === '/') return null;
-    return target + search + (options.hash || '');
+    // The English showroom's share URL omitted ?lang= when it was not already set.
+    if (productLink) return `/en/products/${productId}/${search}`;
+    return null;
   }
 
   function decorateAffiliateUrl(href, pageLang) {
@@ -235,7 +226,6 @@ const FluxixoLocale = (() => {
   return {
     ALI_LANG_BY_LOCALE,
     LOCALE_PATHS,
-    STORAGE_KEY,
     normalizeLocaleCode,
     resolveVisitorPath,
     decorateAffiliateUrl,
@@ -249,27 +239,16 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
   const root = document.documentElement;
   const lang = root.lang || 'en';
   try {
-    const savedLang = typeof localStorage !== 'undefined' ? localStorage.getItem(FluxixoLocale.STORAGE_KEY) : null;
-    const navLangs = typeof navigator !== 'undefined'
-      ? ((Array.isArray(navigator.languages) && navigator.languages.length && navigator.languages)
-        || (navigator.language ? [navigator.language] : []))
-      : [];
     const redirectTarget = FluxixoLocale.resolveVisitorPath({
       pathname: location.pathname,
       search: location.search,
       hash: location.hash,
-      referrer: document.referrer,
-      origin: location.origin,
-      savedLang,
-      languages: navLangs,
-      webdriver: typeof navigator !== 'undefined' && Boolean(navigator.webdriver),
-      userAgent: typeof navigator !== 'undefined' ? navigator.userAgent : '',
     });
     if (redirectTarget) {
       location.replace(redirectTarget);
       return;
     }
-  } catch { /* ignore restricted storage/location contexts */ }
+  } catch { /* ignore restricted location contexts */ }
   const calm = matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Phones and small tablets get the app layout: no pinned scene, no repainting; the rope swings there too.
   const phone = matchMedia('(max-width: 860px)');
@@ -565,8 +544,9 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     if (cards.length < 2) return;
     const dots = document.createElement('div');
     dots.className = 'dots';
-    dots.setAttribute('aria-hidden', 'true');
-    dots.innerHTML = cards.map((_, i) => `<i${i ? '' : ' class="on"'}></i>`).join('');
+    dots.setAttribute('role', 'group');
+    dots.setAttribute('aria-label', 'Gallery views');
+    dots.innerHTML = cards.map((_, i) => `<button type="button"${i ? '' : ' class="on" aria-current="true"'} aria-label="${i + 1} / ${cards.length}"></button>`).join('');
     row.after(dots);
     let current = 0;
     const go = i => {
@@ -608,11 +588,65 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
         if (end < 8) best = 0;
         else if (end > row.scrollWidth - row.clientWidth - 8) best = cards.length - 1;
         current = best;
-        [...dots.children].forEach((dot, i) => dot.classList.toggle('on', i === best));
+        [...dots.children].forEach((dot, i) => {
+          dot.classList.toggle('on', i === best);
+          if (i === best) dot.setAttribute('aria-current', 'true');
+          else dot.removeAttribute('aria-current');
+        });
         if (arrows.length) { arrows[0].disabled = best === 0; arrows[1].disabled = best === cards.length - 1; }
       });
     }, { passive: true });
   });
+
+  // Catalog: filter by world and by words in the name, with progressive batches on full catalog view.
+  const cards = [...document.querySelectorAll('.grid [data-w]')];
+  const filters = [...document.querySelectorAll('[data-filter]')];
+  const find = document.querySelector('.find');
+  const none = document.querySelector('.none');
+  const moreWrap = document.querySelector('.catalog-more');
+  const moreBtn = document.querySelector('[data-catalog-more]');
+  const PAGE_SIZE = 24;
+  let visibleLimit = PAGE_SIZE;
+  const plain = text => text.toLowerCase().normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g, '');
+  const categoryParameter = 'category';
+  const readWorld = () => {
+    const requested = new URLSearchParams(location.search).get(categoryParameter);
+    return filters.some(button => button.dataset.filter === requested) ? requested : '*';
+  };
+  let world = readWorld();
+  const names = cards.map(card => plain(card.textContent));
+  const apply = () => {
+    const words = find ? plain(find.value).split(/\s+/).filter(Boolean) : [];
+    const paginate = moreBtn && world === '*' && words.length === 0;
+    let shown = 0;
+    let totalMatched = 0;
+    cards.forEach((card, i) => {
+      const ok = (world === '*' || card.dataset.w === world) && words.every(word => names[i].includes(word));
+      if (ok) totalMatched += 1;
+      const visible = ok && (!paginate || totalMatched <= visibleLimit);
+      card.hidden = !visible;
+      if (visible) shown += 1;
+    });
+    if (moreWrap && moreBtn) {
+      const remaining = Math.max(0, totalMatched - shown);
+      moreWrap.hidden = !paginate || remaining <= 0;
+      const tpl = moreBtn.dataset.labelTemplate || '';
+      if (tpl) moreBtn.textContent = tpl.replace('{n}', String(Math.min(PAGE_SIZE, remaining))).replace('{rem}', String(remaining));
+    }
+    if (none) none.hidden = totalMatched > 0;
+  };
+  const showWorld = () => {
+    for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.filter === world));
+    apply();
+  };
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      visibleLimit += PAGE_SIZE;
+      apply();
+    });
+  }
+  if (filters.length || moreBtn) showWorld();
+  if (find) find.addEventListener('input', apply);
 
   // Phone: the language list is a sheet that slides up.
   const langButton = document.querySelector('.lang-btn');
@@ -624,29 +658,49 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     document.addEventListener('keydown', event => { if (event.key === 'Escape') toggle(false); });
   }
 
-  // Catalog: filter by world and by words in the name.
-  const cards = [...document.querySelectorAll('.grid [data-w]')];
-  const find = document.querySelector('.find');
-  const none = document.querySelector('.none');
-  const plain = text => text.toLowerCase().normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g, '');
-  let world = '*';
-  const names = cards.map(card => plain(card.textContent));
-  const apply = () => {
-    const words = find ? plain(find.value).split(/\s+/).filter(Boolean) : [];
-    let shown = 0;
-    cards.forEach((card, i) => {
-      const ok = (world === '*' || card.dataset.w === world) && words.every(word => names[i].includes(word));
-      card.hidden = !ok;
-      shown += ok;
-    });
-    if (none) none.hidden = shown > 0;
+  const sharedFragments = sheet?.dataset.sharedFragments?.split(' ') || [];
+  const targets = sharedFragments.length ? [...sheet.querySelectorAll('a[hreflang]')].map(link => [link, link.getAttribute('href')]) : [];
+  const syncLanguageLinks = () => {
+    const currentFragment = location.hash.slice(1);
+    const fragment = world !== '*' && currentFragment !== 'find' ? 'todo' : currentFragment;
+    for (const [link, href] of targets) {
+      const target = new URL(href, location.href);
+      if (sharedFragments.includes(fragment)) {
+        if (target.pathname === '/en/' && ['drop', 'mundos'].includes(fragment)) target.pathname = '/';
+        target.hash = fragment;
+      }
+      if (world !== '*') target.searchParams.set(categoryParameter, world);
+      link.setAttribute('href', target.pathname + target.search + target.hash);
+    }
   };
-  document.querySelectorAll('[data-filter]').forEach(button => button.addEventListener('click', () => {
-    world = button.dataset.filter;
-    document.querySelectorAll('[data-filter]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
-    apply();
-  }));
-  if (find) find.addEventListener('input', apply);
+  if (targets.length) {
+    syncLanguageLinks();
+    addEventListener('hashchange', syncLanguageLinks);
+  }
+  for (const button of filters) {
+    button.addEventListener('click', () => {
+      world = button.dataset.filter;
+      if (world === '*') visibleLimit = PAGE_SIZE;
+      const url = new URL(location.href);
+      if (world === '*') {
+        url.searchParams.delete(categoryParameter);
+      } else {
+        url.searchParams.set(categoryParameter, world);
+        if (url.hash !== '#find') url.hash = 'todo';
+      }
+      if (url.href !== location.href) history.replaceState(history.state, '', url);
+      showWorld();
+      syncLanguageLinks();
+    });
+  }
+  if (filters.length) addEventListener('popstate', () => {
+    const restored = readWorld();
+    if (restored !== world) {
+      world = restored;
+      showWorld();
+      syncLanguageLinks();
+    }
+  });
 
   // Bottom bar: same-page tabs act at once, and the bar shows where you are.
   const tabs = [...document.querySelectorAll('.tabs [data-tab]')];
@@ -655,10 +709,18 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
   tabs.forEach(tab => tab.addEventListener('click', event => {
     const url = new URL(tab.href);
     if (url.pathname !== location.pathname) return;
-    if (tab.dataset.tab === 'home') { event.preventDefault(); scrollTo(0, 0); }
-    if (tab.dataset.tab === 'find' && find) { event.preventDefault(); openSearch(); }
+    if (tab.dataset.tab === 'home' && !location.hash) { event.preventDefault(); scrollTo(0, 0); }
+    if (tab.dataset.tab === 'find' && find) {
+      event.preventDefault();
+      if (location.hash === '#find') openSearch();
+      else location.hash = 'find';
+    }
   }));
-  if (find && location.hash === '#find') openSearch();
+  if (find) {
+    const focusSearchSection = () => { if (location.hash === '#find') openSearch(); };
+    focusSearchSection();
+    addEventListener('hashchange', focusSearchSection);
+  }
   const catalog = document.getElementById('todo');
   const worlds = document.getElementById('cats');
   if (tabs.length && catalog && worlds) {
@@ -742,27 +804,67 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     }, { threshold: 0.4 }).observe(frame);
   }
 
-  // Remember explicit language choice and adapt outbound AliExpress links to storefront language.
-  document.addEventListener('click', event => {
-    const langLink = event.target && event.target.closest ? event.target.closest('.langs a[hreflang]') : null;
-    if (!langLink) return;
-    const picked = FluxixoLocale.normalizeLocaleCode(langLink.getAttribute('hreflang'));
-    if (!picked) return;
-    try {
-      if (typeof localStorage !== 'undefined') localStorage.setItem(FluxixoLocale.STORAGE_KEY, picked);
-    } catch { /* ignore */ }
-  }, true);
-
+  // Adapt outbound AliExpress links to the current storefront language.
   const adaptAffiliateHref = event => {
     const link = event.target && event.target.closest ? event.target.closest('a[href*="s.click.aliexpress.com"]') : null;
     if (!link) return;
     const decorated = FluxixoLocale.decorateAffiliateUrl(link.href, lang);
     if (decorated && decorated !== link.href) link.href = decorated;
+    if (event.type === 'click') {
+      document.dispatchEvent(new CustomEvent('fluxixo:affiliate_click', { detail: { href: link.href, lang, link } }));
+    }
   };
   document.addEventListener('pointerdown', adaptAffiliateHref, true);
   document.addEventListener('contextmenu', adaptAffiliateHref, true);
   document.addEventListener('auxclick', adaptAffiliateHref, true);
   document.addEventListener('click', adaptAffiliateHref, true);
+
+  const trackedClicks = new Map();
+  document.addEventListener('fluxixo:affiliate_click', event => {
+    try {
+      const detail = event.detail || {};
+      const link = detail.link;
+      const href = detail.href || (link && link.href) || '';
+      if (!href) return;
+      const now = Date.now();
+      const prev = trackedClicks.get(href) || 0;
+      if (now - prev < 1500) return;
+      trackedClicks.set(href, now);
+      let productId = (link && link.dataset && link.dataset.productId) || '';
+      if (!productId) {
+        const holder = link && link.closest ? link.closest('[data-product-id]') : null;
+        if (holder && holder.dataset && holder.dataset.productId) productId = holder.dataset.productId;
+      }
+      if (!productId) {
+        const m = /\/products\/([^/]+)\//.exec(location.pathname);
+        if (m) productId = m[1];
+      }
+      if (!productId) productId = 'storefront';
+      let targetHost = 's.click.aliexpress.com';
+      try { targetHost = new URL(href).hostname || targetHost; } catch {}
+      let referrerHost = '';
+      try { if (document.referrer) referrerHost = new URL(document.referrer).hostname || ''; } catch {}
+      const payload = JSON.stringify({
+        product_id: productId.slice(0, 80),
+        lang: String(detail.lang || lang || 'en').slice(0, 10),
+        world: String((link && link.dataset && link.dataset.world) || '').slice(0, 40),
+        page_path: String(location.pathname || '/').slice(0, 200),
+        target_host: String(targetHost).slice(0, 80),
+        referrer_host: String(referrerHost).slice(0, 80),
+      });
+      const endpoint = 'https://fluxixo-autopilot.sayros2601.workers.dev/api/click';
+      if (navigator.sendBeacon && navigator.sendBeacon(endpoint, new Blob([payload], { type: 'text/plain' }))) return;
+      if (window.fetch) {
+        fetch(endpoint, {
+          method: 'POST',
+          mode: 'cors',
+          keepalive: true,
+          headers: { 'Content-Type': 'text/plain' },
+          body: payload,
+        }).catch(() => {});
+      }
+    } catch {}
+  });
 
   // The clicked product image morphs into the hero of its page.
   document.addEventListener('click', event => {

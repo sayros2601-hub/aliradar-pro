@@ -82,8 +82,23 @@ def check_single_link(product, opener=None, timeout=7):
 
 def audit_catalog(products=None, report_path=REPORT_FILE, write=True, workers=4):
     products = products if products is not None else read_json(PRODUCTS_FILE)["products"]
+    prev_streaks = {}
+    if Path(report_path).is_file():
+        try:
+            prev = read_json(Path(report_path))
+            for row in prev.get("results") or []:
+                if isinstance(row, dict) and row.get("id"):
+                    prev_streaks[row["id"]] = int(row.get("broken_streak") or 0)
+        except Exception:
+            prev_streaks = {}
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        results = list(pool.map(check_single_link, products))
+        results = [dict(r) for r in pool.map(check_single_link, products)]
+    for row in results:
+        pid = row.get("id")
+        if row.get("status") == "RESOLVED":
+            row["broken_streak"] = 0
+        else:
+            row["broken_streak"] = prev_streaks.get(pid, 0) + 1
     report = {"checked_at": utc_now(), "scope": "affiliate_destination_only", "stock_verified": False,
               "summary": dict(Counter(r["status"] for r in results)), "results": results}
     if write:
@@ -136,7 +151,9 @@ def _write_markdown_summary(summary_path, report):
     if broken:
         lines.append(f"- Non-resolved links ({len(broken)}):")
         for row in broken[:30]:
-            lines.append(f"  - `{row.get('id')}`: {row.get('status')} ({row.get('reason')})")
+            streak = int(row.get("broken_streak") or 0)
+            flag = " [PERSISTENT]" if streak >= 3 else ""
+            lines.append(f"  - `{row.get('id')}`: {row.get('status')} ({row.get('reason')}, streak={streak}){flag}")
     Path(summary_path).parent.mkdir(parents=True, exist_ok=True)
     with Path(summary_path).open("a", encoding="utf-8") as fh:
         fh.write("\n".join(lines) + "\n\n")
@@ -145,9 +162,11 @@ def _write_markdown_summary(summary_path, report):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalog", default="", help="Path to products.json or catalog.js")
+    parser.add_argument("--report", default="", help="Optional report JSON path")
     parser.add_argument("--dry-run", action="store_true", help="Check links without writing even the report")
     parser.add_argument("--summary", default="", help="Optional markdown summary file (e.g. $GITHUB_STEP_SUMMARY)")
     args = parser.parse_args()
     products = load_catalog_products(args.catalog or None)
-    report = audit_catalog(products, write=not args.dry_run)
+    report_path = Path(args.report) if args.report else REPORT_FILE
+    report = audit_catalog(products, report_path=report_path, write=not args.dry_run)
     _write_markdown_summary(args.summary, report)

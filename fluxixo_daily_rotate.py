@@ -31,6 +31,7 @@ REPO_ROOT = Path(__file__).resolve().parent
 SITE_ROOT = REPO_ROOT / "fluxixo_site" if (REPO_ROOT / "fluxixo_site").exists() else REPO_ROOT
 DIST = SITE_ROOT / "dist"
 RELEASE = SITE_ROOT / "release"
+RELEASE_PAGES = SITE_ROOT / "release_pages"
 RESERVE_DIR = SITE_ROOT / "reserve"
 RESERVE_IMAGES = RESERVE_DIR / "images"
 RESERVE_ORIGINALS = RESERVE_DIR / "originals"
@@ -305,6 +306,42 @@ def deploy_release() -> None:
     env = os.environ.copy()
     env["CLOUDFLARE_API_TOKEN"] = token
     env["CLOUDFLARE_ACCOUNT_ID"] = account_id
+    sync_token = (
+        os.environ.get("AUTOPILOT_SYNC_TOKEN", "").strip()
+        or _load_dpapi_secret("autopilot-sync-token.dpapi")
+    )
+    if sync_token and not env.get("AUTOPILOT_SYNC_TOKEN"):
+        env["AUTOPILOT_SYNC_TOKEN"] = sync_token
+
+    deploy_dir = RELEASE
+    if env.get("FLUXIXO_R2_MEDIA_OFFLOAD", "1").strip() != "0":
+        try:
+            tools_dir = str(SITE_ROOT / "tools")
+            if tools_dir not in sys.path:
+                sys.path.insert(0, tools_dir)
+            import r2_media_sync
+            prev_token = os.environ.get("CLOUDFLARE_API_TOKEN")
+            prev_sync = os.environ.get("AUTOPILOT_SYNC_TOKEN")
+            os.environ["CLOUDFLARE_API_TOKEN"] = token
+            if sync_token:
+                os.environ["AUTOPILOT_SYNC_TOKEN"] = sync_token
+            try:
+                sync_res = r2_media_sync.sync_media_to_r2(RELEASE)
+                pack_res = r2_media_sync.pack_pages_bundle(RELEASE, RELEASE_PAGES)
+                deploy_dir = RELEASE_PAGES
+                print(f"[R2 offload] sync={sync_res} pack={pack_res}")
+            finally:
+                if prev_token is None:
+                    os.environ.pop("CLOUDFLARE_API_TOKEN", None)
+                else:
+                    os.environ["CLOUDFLARE_API_TOKEN"] = prev_token
+                if prev_sync is None:
+                    os.environ.pop("AUTOPILOT_SYNC_TOKEN", None)
+                else:
+                    os.environ["AUTOPILOT_SYNC_TOKEN"] = prev_sync
+        except Exception as exc:
+            print(f"[R2 offload] warning, deploying full release folder: {exc}", file=sys.stderr)
+            deploy_dir = RELEASE
 
     cmd = "npx.cmd" if os.name == "nt" else "npx"
     subprocess.run(
@@ -313,7 +350,7 @@ def deploy_release() -> None:
             "wrangler",
             "pages",
             "deploy",
-            str(RELEASE),
+            str(deploy_dir),
             f"--project-name={PROJECT_NAME}",
             "--branch=main",
             "--commit-dirty=true",
@@ -528,6 +565,10 @@ def main() -> None:
         subprocess.run([sys.executable, str(SITE_ROOT / "redesign" / "build_redesign.py"), "--production"], check=True)
         # Sitemap dates and page fingerprints come from the finished pages, after the design is applied.
         subprocess.run([sys.executable, str(SITE_ROOT / "tools" / "write_sitemaps.py")], check=True)
+        subprocess.run(
+            [sys.executable, "-B", "-m", "fluxixo_ai.telegram_digest", "--mode", "digest", "--write-json", str(DIST / "telegram-digest.json")],
+            check=False,
+        )
         yandex_indexnow.prepare(SITE_ROOT, DIST)
         subprocess.run([sys.executable, str(SITE_ROOT / "build_release.py")], check=True)
     # A release with broken pages stops here instead of reaching the live site.

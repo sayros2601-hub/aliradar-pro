@@ -149,7 +149,7 @@ jobs:
           # Free-tier Tavily API key (1,000 free searches/month, strictly capped in SQLite).
           FLUXIXO_WEB_CHECK: '1'
           FLUXIXO_WEB_CHECK_PROVIDER: tavily_free
-          FLUXIXO_FREE_SEARCH_DAILY_LIMIT: '54'
+          FLUXIXO_FREE_SEARCH_DAILY_LIMIT: '30'
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           # Batch frequent mid-run checkpoints to avoid git push storms; the always() step flushes final state.
           FLUXIXO_CHECKPOINT_MIN_INTERVAL: '120'
@@ -269,17 +269,32 @@ jobs:
           DAY: ${{ steps.today.outputs.day }}
           RECORD_PUBLICATION: ${{ steps.today.outputs.record_publication }}
           AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           if [ "$RECORD_PUBLICATION" = "true" ]; then
             python -B -m fluxixo_ai.daily_schedule mark-published --ledger "$LEDGER" --state "$PUBLISH_STATE" --day "$DAY"
           fi
+          python -B -m fluxixo_ai.telegram_digest --mode digest --write-json fluxixo_site/dist/telegram-digest.json || true
           git add "$PUBLISH_STATE"
           git add -f fluxixo_site/tools/indexnow-submitted.json fluxixo_site/tools/yandex-indexnow-state.json
+          for extra in data/r2_media_manifest.json data/telegram_digest_state.json fluxixo_site/dist/telegram-digest.json; do
+            if [ -f "$extra" ]; then git add -f -- "$extra"; fi
+          done
           if ! git diff --cached --quiet; then
             git commit -m "chore(fluxixo): record published daily batch [skip ci]"
             git push origin HEAD:main
           fi
           python -B -c "import fluxixo_daily_rotate as d; d.report_autopilot_sync('published', {'day': '$DAY'})" || true
+
+      - name: Notify Telegram on workflow failure
+        if: failure()
+        env:
+          AUTOPILOT_SYNC_TOKEN: ${{ secrets.AUTOPILOT_SYNC_TOKEN }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          python -B -m fluxixo_ai.telegram_digest --mode alert --reason "fluxixo_daily_rotate workflow failed" || true
 
       - name: Report waiting preparation
         if: steps.today.outputs.reason == 'interrupted_prepare'

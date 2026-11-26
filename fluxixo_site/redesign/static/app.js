@@ -819,6 +819,53 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
   document.addEventListener('auxclick', adaptAffiliateHref, true);
   document.addEventListener('click', adaptAffiliateHref, true);
 
+  const trackedClicks = new Map();
+  document.addEventListener('fluxixo:affiliate_click', event => {
+    try {
+      const detail = event.detail || {};
+      const link = detail.link;
+      const href = detail.href || (link && link.href) || '';
+      if (!href) return;
+      const now = Date.now();
+      const prev = trackedClicks.get(href) || 0;
+      if (now - prev < 1500) return;
+      trackedClicks.set(href, now);
+      let productId = (link && link.dataset && link.dataset.productId) || '';
+      if (!productId) {
+        const holder = link && link.closest ? link.closest('[data-product-id]') : null;
+        if (holder && holder.dataset && holder.dataset.productId) productId = holder.dataset.productId;
+      }
+      if (!productId) {
+        const m = /\/products\/([^/]+)\//.exec(location.pathname);
+        if (m) productId = m[1];
+      }
+      if (!productId) productId = 'storefront';
+      let targetHost = 's.click.aliexpress.com';
+      try { targetHost = new URL(href).hostname || targetHost; } catch {}
+      let referrerHost = '';
+      try { if (document.referrer) referrerHost = new URL(document.referrer).hostname || ''; } catch {}
+      const payload = JSON.stringify({
+        product_id: productId.slice(0, 80),
+        lang: String(detail.lang || lang || 'en').slice(0, 10),
+        world: String((link && link.dataset && link.dataset.world) || '').slice(0, 40),
+        page_path: String(location.pathname || '/').slice(0, 200),
+        target_host: String(targetHost).slice(0, 80),
+        referrer_host: String(referrerHost).slice(0, 80),
+      });
+      const endpoint = 'https://fluxixo-autopilot.sayros2601.workers.dev/api/click';
+      if (navigator.sendBeacon && navigator.sendBeacon(endpoint, new Blob([payload], { type: 'text/plain' }))) return;
+      if (window.fetch) {
+        fetch(endpoint, {
+          method: 'POST',
+          mode: 'cors',
+          keepalive: true,
+          headers: { 'Content-Type': 'text/plain' },
+          body: payload,
+        }).catch(() => {});
+      }
+    } catch {}
+  });
+
   // The clicked product image morphs into the hero of its page.
   document.addEventListener('click', event => {
     const link = event.target.closest('a[data-go]');

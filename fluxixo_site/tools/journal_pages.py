@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import json
 from html import escape as e
+import comparison_guides
 from pathlib import Path
 
 # Guides that exist in Russian only (written for readers who come from Yandex). Each row:
@@ -516,7 +517,7 @@ def all_articles():
                 'image': row.get('image'),
                 'translations': trans,
             })
-    return ARTICLES + multi + extra
+    return ARTICLES + multi + extra + comparison_guides.as_journal_articles()
 
 
 def article_path(lang, slug):
@@ -571,6 +572,11 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                     img_path = thumb_rel = 'assets/journal/buying-checklist.png'
 
             sec_html = ''.join(f'<section><h2>{e(h2)}</h2><p>{e(body)}</p></section>' for h2, body in sections)
+            cmp_html = (
+                comparison_guides.render_comparison_table(article['comparison_world'], lang, products, i18n_data)
+                if article.get('comparison_world') else ''
+            )
+            faq_html, faq_schema = comparison_guides.render_faq_and_schema(article.get('faq'), lang)
             rel_ids = []
             for pid in (article.get('preferred_product'), *(article.get('related_products') or ())):
                 if isinstance(pid, str) and pid in by_id and pid not in rel_ids:
@@ -591,30 +597,30 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                 f'<span class="breadcrumb-sep">/</span><a href="{index_path(lang)}">{e(ui["eyebrow"])}</a>'
                 f'<span class="breadcrumb-sep">/</span><span>{e(h1)}</span></nav>'
             )
-            art_schema = {
-                '@context': 'https://schema.org',
-                '@graph': [
-                    {
-                        '@type': 'Article',
-                        'headline': h1,
-                        'description': meta_desc,
-                        'image': origin + '/' + img_path,
-                        'datePublished': published,
-                        'dateModified': modified,
-                        'inLanguage': lang,
-                        'author': {'@type': 'Organization', 'name': 'FLUXIXO', 'url': origin + '/'},
-                        'publisher': {'@type': 'Organization', 'name': 'FLUXIXO', 'url': origin + '/'},
-                        'mainEntityOfPage': origin + art_url,
-                    },
-                    {
-                        '@type': 'BreadcrumbList',
-                        'itemListElement': [
-                            {'@type': 'ListItem', 'position': idx + 1, 'name': label, 'item': origin + href}
-                            for idx, (label, href) in enumerate(crumbs)
-                        ],
-                    },
-                ],
-            }
+            art_graph = [
+                {
+                    '@type': 'Article',
+                    'headline': h1,
+                    'description': meta_desc,
+                    'image': origin + '/' + img_path,
+                    'datePublished': published,
+                    'dateModified': modified,
+                    'inLanguage': lang,
+                    'author': {'@type': 'Organization', 'name': 'FLUXIXO', 'url': origin + '/'},
+                    'publisher': {'@type': 'Organization', 'name': 'FLUXIXO', 'url': origin + '/'},
+                    'mainEntityOfPage': origin + art_url,
+                },
+                {
+                    '@type': 'BreadcrumbList',
+                    'itemListElement': [
+                        {'@type': 'ListItem', 'position': idx + 1, 'name': label, 'item': origin + href}
+                        for idx, (label, href) in enumerate(crumbs)
+                    ],
+                },
+            ]
+            if faq_schema:
+                art_graph.append(faq_schema)
+            art_schema = {'@context': 'https://schema.org', '@graph': art_graph}
             art_body = (
                 f'{crumb_nav}'
                 f'<article class="about-page journal-article">'
@@ -622,7 +628,7 @@ def generate_journal_pages(origin, products, i18n_data, page_fn, write_fn, alter
                 f'<h1>{e(h1)}</h1>'
                 f'<div class="cta-row">{related_link}'
                 f'<a class="button" href="{catalog_href}">{e(ui["catalog_cta"])}</a></div>'
-                f'{sec_html}{rel_list_html}'
+                f'{sec_html}{cmp_html}{faq_html}{rel_list_html}'
                 f'</article>'
             )
             write_fn(

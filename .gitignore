@@ -74,4 +74,5 @@ test-results/
 playwright-report/
 *.tmp
 .daily-stage-*/
+fluxixo_site/release_pages/
 

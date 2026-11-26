@@ -13,8 +13,9 @@ import sqlite3
 import time
 
 MODEL_COSTS = {
-    '9b': 1600,   # @cf/black-forest-labs/flux-2-klein-9b (1024x1024 + reference is ~1,546 Neurons)
-    '4b': 200,    # @cf/black-forest-labs/flux-2-klein-4b (1024x1024 + reference is ~126 Neurons)
+    '9b': 1600,     # @cf/black-forest-labs/flux-2-klein-9b (1024x1024 + reference is ~1,546 Neurons)
+    '4b': 200,      # @cf/black-forest-labs/flux-2-klein-4b (1024x1024 + reference is ~126 Neurons)
+    'schnell': 300, # @cf/black-forest-labs/flux-1-schnell (fallback)
 }
 DEFAULT_NEURON_LIMIT = 8000
 DEFAULT_CALL_LIMIT = 6
@@ -30,11 +31,17 @@ class BudgetExhausted(RuntimeError):
         super().__init__(code)
 
 
-def cost_for_model(model_tag: str | None) -> int:
+def infer_model_tag(model_tag: str | None) -> str:
     key = str(model_tag or '9b').strip().lower()
+    if 'schnell' in key:
+        return 'schnell'
     if '4b' in key:
-        return MODEL_COSTS['4b']
-    return MODEL_COSTS['9b']
+        return '4b'
+    return '9b'
+
+
+def cost_for_model(model_tag: str | None) -> int:
+    return MODEL_COSTS[infer_model_tag(model_tag)]
 
 
 def _budget_path(path=None) -> Path:
@@ -107,7 +114,7 @@ def can_spend(model_tag: str = '9b', *, path=None, now=None, neuron_limit=None, 
 def reserve(model_tag: str = '9b', *, path=None, now=None, neuron_limit=None, call_limit=None) -> dict:
     """Atomically verify and record one FLUX.2 image generation reservation before remote I/O."""
     ts = float(now if now is not None else time.time())
-    key = '4b' if '4b' in str(model_tag or '').lower() else '9b'
+    key = infer_model_tag(model_tag)
     cost = cost_for_model(key)
     n_lim, c_lim = _limits(neuron_limit, call_limit)
     with _connect(_budget_path(path)) as db:

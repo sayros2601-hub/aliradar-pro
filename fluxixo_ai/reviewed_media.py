@@ -38,21 +38,43 @@ _TRANSIENT_REVIEW_CODES = frozenset({
 })
 
 
-def _encode_image_data_url(image):
+def _encode_image_data_url(image, *, max_side=512, quality=78):
+    """Encode an image as a compact warm-paper JPEG data URL within free vision token caps."""
     import base64
     if isinstance(image, tuple) and len(image) == 2:
         mime, raw = image
     else:
         raw = image
-        if isinstance(raw, bytes) and raw.startswith(b'\x89PNG\r\n\x1a\n'):
+        mime = None
+    if not isinstance(raw, bytes) or not raw:
+        return None
+    try:
+        with Image.open(BytesIO(raw)) as im:
+            if 'A' in im.getbands() or im.mode in ('P', 'LA'):
+                rgba = im.convert('RGBA')
+                bg = Image.new('RGBA', rgba.size, (243, 240, 233, 255))
+                im_rgb = Image.alpha_composite(bg, rgba).convert('RGB')
+            else:
+                im_rgb = im.convert('RGB')
+            if max(im_rgb.size) > max_side:
+                im_rgb.thumbnail((max_side, max_side), Image.Resampling.LANCZOS)
+            buf = BytesIO()
+            im_rgb.save(buf, format='JPEG', quality=quality, optimize=True)
+            encoded = buf.getvalue()
+            if encoded:
+                return f'data:image/jpeg;base64,{base64.b64encode(encoded).decode("ascii")}'
+    except Exception:
+        pass
+    if mime is None:
+        if raw.startswith(b'\x89PNG\r\n\x1a\n'):
             mime = 'image/png'
-        elif isinstance(raw, bytes) and raw.startswith(b'\xff\xd8'):
+        elif raw.startswith(b'\xff\xd8'):
             mime = 'image/jpeg'
-        elif isinstance(raw, bytes) and raw[:4] == b'RIFF' and raw[8:12] == b'WEBP':
+        elif raw[:4] == b'RIFF' and raw[8:12] == b'WEBP':
             mime = 'image/webp'
         else:
             return None
-    if mime not in ('image/png', 'image/jpeg', 'image/webp') or not isinstance(raw, bytes) or not raw:
+    if mime not in ('image/png', 'image/jpeg', 'image/webp'):
         return None
     return f'data:{mime};base64,{base64.b64encode(raw).decode("ascii")}'
 
@@ -68,11 +90,41 @@ def _parse_json_reply(text):
 
 
 def _call_free_vision_reviewer(system, payload, images):
-    """Best-effort free vision review fallback via GitHub Models or Cloudflare Workers AI."""
+    """Free vision review fallback: Worker -> GitHub Models (compact JPEG) -> direct Cloudflare."""
+    import sys
     import urllib.request
     data_urls = [u for u in (_encode_image_data_url(img) for img in (images or ())) if u]
     if not data_urls:
         return None
+
+    autopilot_url = str(os.environ.get('CLOUDFLARE_AUTOPILOT_URL') or '').strip().rstrip('/')
+    sync_token = str(os.environ.get('AUTOPILOT_SYNC_TOKEN') or '').strip()
+    transport_mode = str(os.environ.get('FLUXIXO_AI_TRANSPORT') or 'worker').strip().lower()
+    if autopilot_url and sync_token and transport_mode not in ('disabled', 'none', 'off'):
+        body = json.dumps({
+            'system': system,
+            'payload': payload,
+            'images': data_urls,
+        }, ensure_ascii=False).encode('utf-8')
+        req = urllib.request.Request(
+            f'{autopilot_url}/api/review-media',
+            data=body,
+            headers={
+                'Authorization': f'Bearer {sync_token}',
+                'Content-Type': 'application/json',
+                'User-Agent': 'fluxixo-review-fallback/1.0',
+            },
+            method='POST',
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                data = json.loads(resp.read(2_000_000).decode('utf-8'))
+            result = data.get('result')
+            if isinstance(result, dict):
+                return result
+        except Exception as exc:
+            print(f'[review fallback] worker failed: {exc}', file=sys.stderr)
+
     user_parts = [{'type': 'text', 'text': json.dumps(payload, ensure_ascii=False)}]
     user_parts.extend({'type': 'image_url', 'image_url': {'url': url}} for url in data_urls)
 
@@ -106,8 +158,8 @@ def _call_free_vision_reviewer(system, payload, images):
             parsed = _parse_json_reply(content)
             if isinstance(parsed, dict):
                 return parsed
-        except Exception:
-            pass
+        except Exception as exc:
+            print(f'[review fallback] github_models failed: {exc}', file=sys.stderr)
 
     cf_token = str(os.environ.get('CLOUDFLARE_API_TOKEN') or '').strip()
     cf_acc = str(os.environ.get('CLOUDFLARE_ACCOUNT_ID') or '').strip()
@@ -132,8 +184,8 @@ def _call_free_vision_reviewer(system, payload, images):
             parsed = raw if isinstance(raw, dict) else _parse_json_reply(raw)
             if isinstance(parsed, dict):
                 return parsed
-        except Exception:
-            pass
+        except Exception as exc:
+            print(f'[review fallback] cloudflare_direct failed: {exc}', file=sys.stderr)
     return None
 
 

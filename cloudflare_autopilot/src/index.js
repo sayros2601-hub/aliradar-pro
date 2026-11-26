@@ -501,6 +501,7 @@ const WORLD_BACKGROUNDS = {
 const CF_IMAGE_MODELS = [
   "@cf/black-forest-labs/flux-2-klein-9b",
   "@cf/black-forest-labs/flux-2-klein-4b",
+  "@cf/black-forest-labs/flux-1-schnell",
 ];
 
 const CF_VISION_MODELS = [
@@ -731,20 +732,28 @@ async function generateCloudflareFluxImage(
   let lastErr = null;
   for (const modelName of models) {
     try {
-      const aiForm = new FormData();
-      aiForm.append("prompt", studioPrompt);
-      aiForm.append("width", String(width));
-      aiForm.append("height", String(height));
-      if (refBytes && refBytes.byteLength > 0 && refBytes.byteLength <= 6_000_000) {
-        aiForm.append("input_image_0", new Blob([refBytes], { type: refMime }), "reference.png");
+      let aiResult;
+      if (modelName.endsWith("/flux-1-schnell")) {
+        aiResult = await env.AI.run(modelName, {
+          prompt: studioPrompt.slice(0, 2000),
+          num_steps: 6,
+        });
+      } else {
+        const aiForm = new FormData();
+        aiForm.append("prompt", studioPrompt);
+        aiForm.append("width", String(width));
+        aiForm.append("height", String(height));
+        if (refBytes && refBytes.byteLength > 0 && refBytes.byteLength <= 6_000_000) {
+          aiForm.append("input_image_0", new Blob([refBytes], { type: refMime }), "reference.png");
+        }
+        const formResponse = new Response(aiForm);
+        aiResult = await env.AI.run(modelName, {
+          multipart: {
+            body: formResponse.body,
+            contentType: formResponse.headers.get("content-type"),
+          },
+        });
       }
-      const formResponse = new Response(aiForm);
-      const aiResult = await env.AI.run(modelName, {
-        multipart: {
-          body: formResponse.body,
-          contentType: formResponse.headers.get("content-type"),
-        },
-      });
       const bytes = await extractAiImageBytes(aiResult);
       if (bytes && bytes.byteLength > 100) {
         return { bytes, model: modelName };
@@ -1784,6 +1793,231 @@ async function runScheduledAction(controller, env) {
     .run();
 }
 
+const ALLOWED_CLICK_ORIGINS = new Set([
+  "https://www.fluxixo.shop",
+  "https://fluxixo.shop",
+  "https://dealvault.pages.dev",
+  "http://localhost",
+  "http://127.0.0.1",
+]);
+
+function isAllowedClickOrigin(originHeader) {
+  if (!originHeader) return true;
+  try {
+    const u = new URL(originHeader);
+    if (ALLOWED_CLICK_ORIGINS.has(u.origin)) return true;
+    if (u.hostname.endsWith(".dealvault.pages.dev") && u.protocol === "https:") return true;
+    if ((u.hostname === "localhost" || u.hostname === "127.0.0.1") && u.protocol === "http:") return true;
+  } catch {
+    return false;
+  }
+  return false;
+}
+
+async function handlePublicClick(request, env) {
+  const originHeader = String(request.headers.get("Origin") || "").trim();
+  if (!isAllowedClickOrigin(originHeader)) {
+    return jsonResponse({ ok: false, error: "Forbidden origin" }, 403, NO_STORE);
+  }
+  const raw = await request.text();
+  if (!raw || raw.length > 1024) {
+    return jsonResponse({ ok: false, error: "Invalid click payload size" }, 400, NO_STORE);
+  }
+  let body;
+  try {
+    body = JSON.parse(raw);
+  } catch {
+    return jsonResponse({ ok: false, error: "Invalid JSON payload" }, 400, NO_STORE);
+  }
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return jsonResponse({ ok: false, error: "Invalid click object" }, 400, NO_STORE);
+  }
+  const productId = String(body.product_id || "").replace(/[^a-zA-Z0-9._-]/g, "").slice(0, 80);
+  if (!productId) {
+    return jsonResponse({ ok: false, error: "product_id required" }, 400, NO_STORE);
+  }
+  const lang = String(body.lang || "en").replace(/[^a-zA-Z0-9-]/g, "").slice(0, 10) || "en";
+  const world = String(body.world || "").replace(/[^\w-]/g, "").slice(0, 40);
+  const pagePath = String(body.page_path || "/").slice(0, 200);
+  const targetHost = String(body.target_host || "s.click.aliexpress.com").slice(0, 80);
+  const referrerHost = String(body.referrer_host || "").slice(0, 80);
+  const country = String(request.cf?.country || "XX").slice(0, 8);
+  const clickedAt = new Date().toISOString();
+
+  if (env.DB) {
+    await env.DB.prepare(
+      "INSERT INTO affiliate_clicks (product_id, lang, world, page_path, target_host, country, referrer_host, clicked_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    )
+      .bind(productId, lang, world, pagePath, targetHost, country, referrerHost, clickedAt)
+      .run();
+  }
+  return new Response(null, { status: 204, headers: corsHeaders(NO_STORE) });
+}
+
+async function handleClicksSummary(request, env, url) {
+  if (!env.DB) {
+    return jsonResponse({ ok: false, error: "D1 database not configured" }, 503, NO_STORE);
+  }
+  const rawDays = Number.parseInt(url.searchParams.get("days") || "7", 10);
+  const days = Number.isFinite(rawDays) ? Math.min(Math.max(rawDays, 1), 90) : 7;
+  const sinceIso = new Date(Date.now() - days * 86400 * 1000).toISOString();
+
+  const [totalRes, topProductsRes, byLangRes, byCountryRes, byWorldRes, byDayRes] = await env.DB.batch([
+    env.DB.prepare("SELECT COUNT(*) AS total FROM affiliate_clicks WHERE clicked_at >= ?").bind(sinceIso),
+    env.DB.prepare(
+      "SELECT product_id, world, COUNT(*) AS clicks FROM affiliate_clicks WHERE clicked_at >= ? GROUP BY product_id, world ORDER BY clicks DESC LIMIT 20"
+    ).bind(sinceIso),
+    env.DB.prepare(
+      "SELECT lang, COUNT(*) AS clicks FROM affiliate_clicks WHERE clicked_at >= ? GROUP BY lang ORDER BY clicks DESC"
+    ).bind(sinceIso),
+    env.DB.prepare(
+      "SELECT country, COUNT(*) AS clicks FROM affiliate_clicks WHERE clicked_at >= ? GROUP BY country ORDER BY clicks DESC LIMIT 25"
+    ).bind(sinceIso),
+    env.DB.prepare(
+      "SELECT world, COUNT(*) AS clicks FROM affiliate_clicks WHERE clicked_at >= ? GROUP BY world ORDER BY clicks DESC"
+    ).bind(sinceIso),
+    env.DB.prepare(
+      "SELECT substr(clicked_at, 1, 10) AS day, COUNT(*) AS clicks FROM affiliate_clicks WHERE clicked_at >= ? GROUP BY day ORDER BY day DESC"
+    ).bind(sinceIso),
+  ]);
+
+  return jsonResponse({
+    ok: true,
+    days,
+    since: sinceIso,
+    total_clicks: Number(totalRes.results?.[0]?.total || 0),
+    top_products: topProductsRes.results || [],
+    by_lang: byLangRes.results || [],
+    by_country: byCountryRes.results || [],
+    by_world: byWorldRes.results || [],
+    by_day: byDayRes.results || [],
+  }, 200, NO_STORE);
+}
+
+async function handleReviewMedia(request, env) {
+  if (!env.AI) {
+    return jsonResponse({ ok: false, error: "Cloudflare Workers AI binding (env.AI) not configured" }, 503);
+  }
+  let body;
+  try {
+    body = JSON.parse(await request.text());
+  } catch {
+    return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
+  }
+  const system = String(body?.system || "").trim();
+  const payload = body?.payload;
+  const images = Array.isArray(body?.images) ? body.images.slice(0, 6) : [];
+  if (!system || !images.length) {
+    return jsonResponse({ ok: false, error: "system prompt and images are required" }, 400);
+  }
+  const payloadText = typeof payload === "string" ? payload : JSON.stringify(payload || {});
+  const userContent = [
+    { type: "text", text: payloadText },
+    ...images
+      .filter((u) => typeof u === "string" && u.startsWith("data:image/"))
+      .map((u) => ({ type: "image_url", image_url: { url: u } })),
+  ];
+  const models = resolveCfModelChain([body?.model, env.DEFAULT_VISION_MODEL], CF_VISION_MODELS);
+  let lastErr = null;
+  for (const modelName of models) {
+    try {
+      const aiRes = await env.AI.run(modelName, {
+        messages: [
+          { role: "system", content: system + " Return strictly valid JSON only." },
+          { role: "user", content: userContent },
+        ],
+        temperature: 0.1,
+        max_tokens: 600,
+      });
+      const rawText = extractAiChatText(aiRes);
+      const parsed = parseCopyJsonObject(rawText);
+      if (parsed && typeof parsed === "object") {
+        return jsonResponse({ ok: true, model: modelName, provider: "cloudflare-workers-ai", result: parsed });
+      }
+      lastErr = new Error(`Cloudflare vision review returned non-JSON (${modelName})`);
+    } catch (err) {
+      lastErr = new Error(`Cloudflare vision review error (${modelName}): ${err instanceof Error ? err.message : String(err)}`);
+    }
+  }
+  return jsonResponse({
+    ok: false,
+    provider: "cloudflare-workers-ai",
+    error: lastErr ? lastErr.message : "Cloudflare vision review failed",
+  }, 502);
+}
+
+async function handleTelegramDigest(request, env) {
+  let body;
+  try {
+    body = JSON.parse(await request.text());
+  } catch {
+    return jsonResponse({ ok: false, error: "Invalid JSON body" }, 400);
+  }
+  const text = String(body?.text || "").trim().slice(0, 4000);
+  if (!text) {
+    return jsonResponse({ ok: false, error: "text is required" }, 400);
+  }
+  const botToken = String(env.TELEGRAM_BOT_TOKEN || "").trim();
+  const chatId = String(body?.chat_id || env.TELEGRAM_CHAT_ID || "").trim();
+  if (!botToken || !chatId) {
+    return jsonResponse({ ok: true, skipped: "missing_telegram_secrets" }, 200, NO_STORE);
+  }
+  const resp = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text,
+      parse_mode: body?.parse_mode || "HTML",
+      disable_web_page_preview: body?.disable_web_page_preview ?? false,
+    }),
+    signal: AbortSignal.timeout(15000),
+  });
+  const data = await resp.json().catch(() => ({ ok: false, status: resp.status }));
+  return jsonResponse({ ok: resp.ok && Boolean(data?.ok), status: resp.status, result: data }, resp.ok ? 200 : 502, NO_STORE);
+}
+
+const R2_SAFE_KEY_RE = /^assets\/(?:images|thumbs|featured|video|pinterest)\/[a-zA-Z0-9._/-]+$/;
+
+function contentTypeForR2Key(key, fallback) {
+  const low = key.toLowerCase();
+  if (low.endsWith(".webp")) return "image/webp";
+  if (low.endsWith(".jpg") || low.endsWith(".jpeg")) return "image/jpeg";
+  if (low.endsWith(".png")) return "image/png";
+  if (low.endsWith(".svg")) return "image/svg+xml";
+  if (low.endsWith(".mp4")) return "video/mp4";
+  if (low.endsWith(".json")) return "application/json; charset=utf-8";
+  return fallback || "application/octet-stream";
+}
+
+async function handleR2MediaUpload(request, env, key) {
+  if (!env.MEDIA_BUCKET) {
+    return jsonResponse({ ok: false, error: "R2 binding MEDIA_BUCKET not configured" }, 503);
+  }
+  const cleanKey = String(key || "").replace(/^\/+/, "");
+  if (!R2_SAFE_KEY_RE.test(cleanKey) || cleanKey.includes("..")) {
+    return jsonResponse({ ok: false, error: "Invalid R2 media key" }, 400);
+  }
+  const bytes = await request.arrayBuffer();
+  if (!bytes || !bytes.byteLength || bytes.byteLength > 25_000_000) {
+    return jsonResponse({ ok: false, error: "Invalid object byte size" }, 400);
+  }
+  const contentType = contentTypeForR2Key(cleanKey, request.headers.get("Content-Type"));
+  await env.MEDIA_BUCKET.put(cleanKey, bytes, {
+    httpMetadata: {
+      contentType,
+      cacheControl: "public, max-age=31536000, immutable",
+    },
+  });
+  return jsonResponse({
+    ok: true,
+    key: cleanKey,
+    bytes: bytes.byteLength,
+    content_type: contentType,
+    url: `${env.MEDIA_ORIGIN || "https://media.fluxixo.shop"}/${cleanKey}`,
+  });
+}
+
 const PROTECTED_POST_HANDLERS = new Map([
   ["/api/generate-cutout", handleGenerateCutout],
   ["/api/describe-product", handleDescribeProduct],
@@ -1791,6 +2025,8 @@ const PROTECTED_POST_HANDLERS = new Map([
   ["/api/dispatch", handleDispatch],
   ["/api/seo-sync", handleSeoSync],
   ["/api/catalog-sync", handleCatalogSync],
+  ["/api/review-media", handleReviewMedia],
+  ["/api/telegram-digest", handleTelegramDigest],
 ]);
 
 export default {
@@ -1834,6 +2070,30 @@ export default {
 
     if (request.method === "GET" && path === "/api/redirects") {
       return handleRedirects(request, env, url);
+    }
+
+    if (request.method === "POST" && path === "/api/click") {
+      return handlePublicClick(request, env);
+    }
+
+    if (request.method === "GET" && path === "/api/clicks-summary") {
+      if (!hasValidSyncAuth(request, syncToken)) {
+        return jsonResponse({ ok: false, error: "Unauthorized" }, 401, {
+          ...NO_STORE,
+          "WWW-Authenticate": "Bearer",
+        });
+      }
+      return handleClicksSummary(request, env, url);
+    }
+
+    if (request.method === "PUT" && path.startsWith("/api/r2-media/")) {
+      if (!hasValidSyncAuth(request, syncToken)) {
+        return jsonResponse({ ok: false, error: "Unauthorized" }, 401, {
+          ...NO_STORE,
+          "WWW-Authenticate": "Bearer",
+        });
+      }
+      return handleR2MediaUpload(request, env, path.slice("/api/r2-media/".length));
     }
 
     const handler = request.method === "POST" && PROTECTED_POST_HANDLERS.get(path);

@@ -57,3 +57,18 @@ CREATE INDEX IF NOT EXISTS idx_daily_ledger_day ON daily_ledger(day);
 CREATE INDEX IF NOT EXISTS idx_seo_telemetry_run_at ON seo_telemetry(run_at);
 CREATE INDEX IF NOT EXISTS idx_studio_generations_product ON studio_generations(product_id, created_at);
 CREATE INDEX IF NOT EXISTS idx_cron_runs_ran_at ON cron_runs(ran_at);
+
+CREATE TABLE IF NOT EXISTS affiliate_clicks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  product_id TEXT NOT NULL,
+  lang TEXT NOT NULL,
+  world TEXT NOT NULL,
+  page_path TEXT NOT NULL,
+  target_host TEXT NOT NULL,
+  country TEXT NOT NULL,
+  referrer_host TEXT NOT NULL,
+  clicked_at TEXT NOT NULL
+);
+
+CREATE INDEX IF NOT EXISTS idx_affiliate_clicks_at ON affiliate_clicks(clicked_at);
+CREATE INDEX IF NOT EXISTS idx_affiliate_clicks_product ON affiliate_clicks(product_id, clicked_at);

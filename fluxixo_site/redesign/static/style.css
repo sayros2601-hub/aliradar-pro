@@ -445,3 +445,15 @@ html.anim .top{transition:background-color .9s}
 .home-catalog-note p{margin:0 0 14px}
 .all .lang-bar{margin-top:26px}
 @media (max-width:860px){.all .lang-bar{margin-inline:var(--g)}.drop-highlights,.p-more,.home-pillars,.home-guides-grid{grid-template-columns:1fr;gap:12px}.drop-highlights li{padding:12px 14px}.p-more h2,.c-about h2{font-size:21px}}
+.cmp-section,.guide-faq{margin:34px 0 8px}
+.cmp-section h2,.guide-faq h2{font:700 clamp(20px,2.6vw,27px)/1.18 var(--disp);margin:0 0 14px;color:var(--ink)}
+.cmp-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid rgba(20,17,15,.12);border-radius:16px;background:rgba(255,255,255,.55)}
+.cmp-table{width:100%;border-collapse:collapse;font:400 14px/1.5 var(--body);text-align:start}
+.cmp-table th,.cmp-table td{padding:13px 15px;border-bottom:1px solid rgba(20,17,15,.08);vertical-align:top}
+.cmp-table th{font:700 12.5px/1.3 var(--disp);letter-spacing:.03em;text-transform:uppercase;color:var(--muted);background:rgba(20,17,15,.03)}
+.cmp-table tbody tr:last-child td{border-bottom:0}
+.cmp-link{font-weight:700;color:var(--ink);text-decoration:none}
+.cmp-link:hover{text-decoration:underline}
+.cmp-btn{white-space:nowrap;padding:8px 13px;font-size:13px}
+.guide-faq .faq-item{margin:10px 0}
+@media (max-width:700px){.cmp-table th,.cmp-table td{padding:10px 11px;font-size:13px}}
