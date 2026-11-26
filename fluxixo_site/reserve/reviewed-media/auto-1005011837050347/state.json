@@ -157,37 +157,147 @@
     },
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-05c57028e3a62ce607299cc9592509186aab19c65f1e9e5c5b204f791d3bb812.png",
-        "source_sha256": "05c57028e3a62ce607299cc9592509186aab19c65f1e9e5c5b204f791d3bb812",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S96c0a263a28c40549306126ab83b4a665.jpg",
-        "original_sha256": "4aaa35b2e8e84a5c091cf1ce0d90ee859cf84dfd5676397bf96b694a48328ebf",
-        "output_file": "application-03389f2907e92767e198aacd7484a3784337a7ed3b49f69146c47fd5310354fd.webp",
-        "image_sha256": "03389f2907e92767e198aacd7484a3784337a7ed3b49f69146c47fd5310354fd",
-        "metrics": {
-          "fg_width": 1040,
-          "fg_height": 689,
-          "fg_max_side": 1040,
-          "fg_min_side": 689,
-          "upscale_ratio": 0.856,
-          "sharpness": 4.424,
-          "fg_mean_luma": 138.62,
-          "fg_luma_std": 17.87,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.0,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly depicts the pink variant of the adjustable magnetic sewing track.",
+          "Accurately fulfills the requested application role by featuring an inset action shot demonstrating the built-in seam ripper in use on fabric."
+        ]
+      },
+      "source_file": "reference-05c57028e3a62ce607299cc9592509186aab19c65f1e9e5c5b204f791d3bb812.png",
+      "source_sha256": "05c57028e3a62ce607299cc9592509186aab19c65f1e9e5c5b204f791d3bb812",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S96c0a263a28c40549306126ab83b4a665.jpg",
+      "original_sha256": "4aaa35b2e8e84a5c091cf1ce0d90ee859cf84dfd5676397bf96b694a48328ebf",
+      "output_file": "application-03389f2907e92767e198aacd7484a3784337a7ed3b49f69146c47fd5310354fd.webp",
+      "image_sha256": "03389f2907e92767e198aacd7484a3784337a7ed3b49f69146c47fd5310354fd",
+      "metrics": {
+        "fg_width": 1040,
+        "fg_height": 689,
+        "fg_max_side": 1040,
+        "fg_min_side": 689,
+        "upscale_ratio": 0.856,
+        "sharpness": 4.424,
+        "fg_mean_luma": 138.62,
+        "fg_luma_std": 17.87,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.0,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly depicts the pink variant of the adjustable magnetic sewing track.",
+          "Accurately fulfills the requested application role by featuring an inset action shot demonstrating the built-in seam ripper in use on fabric."
+        ]
+      },
+      "prior_image_sha256": [
+        "b43d1fbe0ec4ca827dfb2fb9976d029c0f503b67af2e09f06b1afdf83c165a62"
+      ],
+      "identity_source_sha256": "3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc",
+      "source_title_sha256": "cff89a5c78e8efe6a2424f693eeca17f93e99fd10538e965fc45d47df45d95a0",
+      "reviewed_at": 1795700181.247412
     },
-    {}
+    {
+      "generation_attempts": {
+        "c690200574d797c1e77a2de9aeda95256aca406d989dcea7dee28e68cb3af0a1": 2
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly depicts the pink adjustable magnetic sewing track variant.",
+          "The inset clearly illustrates the functional outcome of the built-in seam ripper in use, accurately fulfilling the result role.",
+          "All details, including ruler markings, shape, and color, match the specified product title and variant."
+        ]
+      },
+      "rejected_images": [
+        "1d8f59c3eda2b7304684e7487cd00d8ae86f5bfbeda1fa61b48444f4fb84ae74"
+      ],
+      "retry_source_sha256": "c690200574d797c1e77a2de9aeda95256aca406d989dcea7dee28e68cb3af0a1",
+      "rejected_sources": [],
+      "feedback": "Keep the full product with clean edges and no background artifacts.",
+      "source_file": "reference-c690200574d797c1e77a2de9aeda95256aca406d989dcea7dee28e68cb3af0a1.png",
+      "source_sha256": "c690200574d797c1e77a2de9aeda95256aca406d989dcea7dee28e68cb3af0a1",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S77fa1afcabbc44ba953956854e4625f2j.jpg",
+      "original_sha256": "948ff78e4d857c3c04fca0a098a3a58ebbaa5a0bba1ffe761a0a29173e5cc92b",
+      "output_file": "result-45a112aea3be68f6a16e1504aa9d0c32fb2f5a1ee745618ddfc3fd2abe283742.webp",
+      "image_sha256": "45a112aea3be68f6a16e1504aa9d0c32fb2f5a1ee745618ddfc3fd2abe283742",
+      "metrics": {
+        "fg_width": 890,
+        "fg_height": 594,
+        "fg_max_side": 890,
+        "fg_min_side": 594,
+        "upscale_ratio": 1.0,
+        "sharpness": 10.468,
+        "fg_mean_luma": 181.63,
+        "fg_luma_std": 42.17,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.171,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly depicts the pink adjustable magnetic sewing track variant.",
+          "The inset clearly illustrates the functional outcome of the built-in seam ripper in use, accurately fulfilling the result role.",
+          "All details, including ruler markings, shape, and color, match the specified product title and variant."
+        ]
+      },
+      "prior_image_sha256": [
+        "b43d1fbe0ec4ca827dfb2fb9976d029c0f503b67af2e09f06b1afdf83c165a62",
+        "03389f2907e92767e198aacd7484a3784337a7ed3b49f69146c47fd5310354fd"
+      ],
+      "identity_source_sha256": "3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc",
+      "source_title_sha256": "cff89a5c78e8efe6a2424f693eeca17f93e99fd10538e965fc45d47df45d95a0",
+      "reviewed_at": 1795700230.7510836
+    }
   ],
   "created_at": 1795700108.6148388,
   "deferrals": 0,
   "lease_owner": "7513992652644107b8730151e59c5f0d",
-  "lease_until": 1795701908.6148667,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795786510.5194116,
   "source_version": "161c924712b776d771d79828cb704906b6237b18d67fd35f99813e5ac6ffb8df",
@@ -224,8 +334,22 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 2,
+        "events": [
+          {
+            "source_sha256": "c690200574d797c1e77a2de9aeda95256aca406d989dcea7dee28e68cb3af0a1",
+            "at": 1795700181.4531338,
+            "code": "pending_review",
+            "image_sha256": "1d8f59c3eda2b7304684e7487cd00d8ae86f5bfbeda1fa61b48444f4fb84ae74"
+          },
+          {
+            "source_sha256": "c690200574d797c1e77a2de9aeda95256aca406d989dcea7dee28e68cb3af0a1",
+            "at": 1795700208.0986507,
+            "code": "pending_review",
+            "image_sha256": "45a112aea3be68f6a16e1504aa9d0c32fb2f5a1ee745618ddfc3fd2abe283742"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -273,7 +397,65 @@
     },
     "03389f2907e92767e198aacd7484a3784337a7ed3b49f69146c47fd5310354fd": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly depicts the pink variant of the adjustable magnetic sewing track.",
+          "Accurately fulfills the requested application role by featuring an inset action shot demonstrating the built-in seam ripper in use on fabric."
+        ]
+      }
+    },
+    "1d8f59c3eda2b7304684e7487cd00d8ae86f5bfbeda1fa61b48444f4fb84ae74": {
+      "opportunities": 1,
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "detached collage inset/callout circle"
+        ],
+        "reasons": [
+          "The image features an unwanted circular collage inset/callout in the upper right corner, which violates the quality guidelines."
+        ]
+      }
+    },
+    "45a112aea3be68f6a16e1504aa9d0c32fb2f5a1ee745618ddfc3fd2abe283742": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image correctly depicts the pink adjustable magnetic sewing track variant.",
+          "The inset clearly illustrates the functional outcome of the built-in seam ripper in use, accurately fulfilling the result role.",
+          "All details, including ruler markings, shape, and color, match the specified product title and variant."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -281,5 +463,6 @@
     "file": "reference-3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc.png",
     "sha256": "3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc",
     "original_sha256": "f322946ec17584d8b60df06ba7563eea784fce324a1835385206ca1f91469c27"
-  }
+  },
+  "reason": ""
 }
