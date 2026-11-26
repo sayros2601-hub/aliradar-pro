@@ -83,13 +83,12 @@
       "next_attempt": "2026-11-25T21:01:27.896722+00:00"
     },
     "2026-11-26": {
-      "status": "waiting",
+      "status": "preparing",
       "reserved_count": 1,
       "baseline_count": 0,
       "utc_day": "2026-11-26",
-      "reserved_at": "2026-11-26T11:31:59.736584+00:00",
-      "retries": 0,
-      "next_attempt": "2026-11-26T13:07:15.498734+00:00"
+      "reserved_at": "2026-11-26T13:31:29.343556+00:00",
+      "retries": 0
     }
   }
 }
