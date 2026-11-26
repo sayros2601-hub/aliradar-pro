@@ -29,7 +29,7 @@ WINDOW_CLOSE_HOUR = 23
 STALE_PREPARE_MINUTES = 45
 MAX_PREPARE_RETRIES = 2
 WAITING_RETRY_MINUTES = 90
-REST_WEEKDAY = 6  # Sunday in Asia/Jerusalem (6 days/week schedule, 1 rest day)
+REST_WEEKDAY = 5  # Saturday in Asia/Jerusalem (6 days/week Sun-Fri schedule, Saturday rest day)
 
 
 class ScheduleError(Exception):

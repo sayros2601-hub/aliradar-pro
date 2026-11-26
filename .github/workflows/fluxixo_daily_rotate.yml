@@ -1,4 +1,4 @@
-name: FLUXIXO daily update (15:30 Israel, 1 product/day, Mon-Sat)
+name: FLUXIXO daily update (15:30 Israel, 1 product/day, Sun-Fri)
 
 on:
   schedule:

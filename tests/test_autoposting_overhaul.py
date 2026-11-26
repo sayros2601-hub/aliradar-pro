@@ -117,16 +117,19 @@ class AutopostingOverhaulTests(unittest.TestCase):
         plan = daily_schedule.plan(ledger, state, now=datetime(2026, 11, 25, 13, 30, tzinfo=timezone.utc))
         self.assertEqual(1, plan['add_count'])
 
-    def test_daily_schedule_skips_sunday_rest_day_and_uses_90m_retry(self):
+    def test_daily_schedule_skips_saturday_rest_day_and_uses_90m_retry(self):
         self.assertEqual(90, daily_schedule.WAITING_RETRY_MINUTES)
-        self.assertEqual(6, daily_schedule.REST_WEEKDAY)
+        self.assertEqual(5, daily_schedule.REST_WEEKDAY)
         ledger = {'version': 1, 'days': {}, 'validation_runs': {}}
         state = {'version': 1, 'days': {}}
-        sunday = datetime(2026, 11, 29, 14, 0, tzinfo=timezone.utc)  # Sunday 16:00 Asia/Jerusalem
-        skipped = daily_schedule.plan(ledger, state, now=sunday)
+        saturday = datetime(2026, 11, 28, 14, 0, tzinfo=timezone.utc)  # Saturday 16:00 Asia/Jerusalem
+        skipped = daily_schedule.plan(ledger, state, now=saturday)
         self.assertEqual(('skip', 'weekly_rest_day', 0), (skipped['action'], skipped['reason'], skipped['add_count']))
-        manual = daily_schedule.plan(ledger, state, now=sunday, manual_count=1)
+        manual = daily_schedule.plan(ledger, state, now=saturday, manual_count=1)
         self.assertEqual(('prepare', 1), (manual['action'], manual['add_count']))
+        sunday = datetime(2026, 11, 29, 14, 0, tzinfo=timezone.utc)  # Sunday 16:00 Asia/Jerusalem
+        active = daily_schedule.plan(ledger, state, now=sunday)
+        self.assertEqual(('prepare', 1), (active['action'], active['add_count']))
 
     def test_transient_503_never_permanently_burns_copy_drafts(self):
         from fluxixo_ai import copy_revisions
