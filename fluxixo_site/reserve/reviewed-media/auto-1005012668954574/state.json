@@ -88,56 +88,65 @@
   "slots": [
     {
       "generation_attempts": {
-        "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad": 1
+        "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad": 2
       },
-      "pending": {
-        "source_file": "reference-ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad.png",
-        "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
-        "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa",
-        "output_file": "hero-d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b.webp",
-        "image_sha256": "d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b",
-        "metrics": {
-          "fg_width": 890,
-          "fg_height": 828,
-          "fg_max_side": 890,
-          "fg_min_side": 828,
-          "upscale_ratio": 1.0,
-          "sharpness": 19.451,
-          "fg_mean_luma": 73.84,
-          "fg_luma_std": 48.73,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.041,
-          "reasons": []
-        },
-        "generated": true
-      }
+      "last_assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [
+          "Brand logo watermark and promotional graphics present in the upper left corner"
+        ],
+        "reasons": [
+          "The image includes a brand logo watermark and promotional graphics in the upper left corner.",
+          "The action scene background with shattered glass and water effects is not suitable for a clean standard hero product card."
+        ]
+      },
+      "rejected_images": [
+        "d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b",
+        "1052021c955a8b0ff2e5cfec68011ab92a63de9a7278ace3581cf4a09ec4518f"
+      ],
+      "rejected_sources": [
+        "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad"
+      ],
+      "feedback": "Show the documented use or result; if unsupported, show a truthful functional detail."
     },
     {},
     {}
   ],
   "created_at": 1795617130.8112159,
   "deferrals": 1,
-  "lease_owner": "1aa3b8acfcfa4161a676b3ee1c2eaa7d",
+  "lease_owner": "42ccd9d1df5149f895a4d40150112f98",
   "lease_until": 0,
-  "status": "waiting",
-  "next_attempt": 1795692949.2039742,
+  "status": "stopped",
+  "next_attempt": 0,
   "source_refresh_after": 1795703533.0075643,
   "source_version": "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e",
   "effort_versions": {
     "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e": [
       {
-        "materializations": 1,
+        "materializations": 2,
         "events": [
           {
             "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
             "at": 1795692750.7458198,
             "code": "pending_review",
             "image_sha256": "d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b"
+          },
+          {
+            "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+            "at": 1795699973.0673556,
+            "code": "pending_review",
+            "image_sha256": "1052021c955a8b0ff2e5cfec68011ab92a63de9a7278ace3581cf4a09ec4518f"
           }
         ],
-        "last_code": "materialization_interrupted"
+        "last_code": "review_rejected"
       },
       {
         "materializations": 0,
@@ -151,10 +160,50 @@
   },
   "review_attempts": {
     "d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b": {
-      "opportunities": 0,
-      "last_code": "gemini_http_503",
+      "opportunities": 1,
+      "last_code": "review_rejected",
       "provider_attempted": null,
-      "transient_retries": 1
+      "transient_retries": 1,
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "leftover background glass/scenery debris attached to the cutout",
+          "visibly broken cutout"
+        ],
+        "reasons": [
+          "The isolated product image (Image 3) features a defective cutout with leftover background glass and scenery debris attached around the product handle and tether area."
+        ]
+      }
+    },
+    "1052021c955a8b0ff2e5cfec68011ab92a63de9a7278ace3581cf4a09ec4518f": {
+      "opportunities": 1,
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": false,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [
+          "Brand logo watermark and promotional graphics present in the upper left corner"
+        ],
+        "reasons": [
+          "The image includes a brand logo watermark and promotional graphics in the upper left corner.",
+          "The action scene background with shattered glass and water effects is not suitable for a clean standard hero product card."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -163,5 +212,21 @@
     "sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
     "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa"
   },
-  "reason": "gemini_http_503"
+  "reason": "review_rejected",
+  "terminal": {
+    "code": "review_rejected",
+    "source_version": "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e",
+    "details": {
+      "role": "hero",
+      "failed_checks": [
+        "role"
+      ],
+      "reasons": [
+        "The image includes a brand logo watermark and promotional graphics in the upper left corner.",
+        "The action scene background with shattered glass and water effects is not suitable for a clean standard hero product card."
+      ],
+      "materializations": 2
+    },
+    "at": 1795700043.7443507
+  }
 }
