@@ -385,7 +385,7 @@ class Site:
                 f'{e(self.ui["cta"])} <span aria-hidden="true">{self.fwd}</span></a>')
 
     def page(self, title, desc, path, body, alt_paths, schema=None, image=None, colour=PAPER, hreflang=True, noindex=False, tab=None, buy=None,
-             language_paths=None, shared_fragments=()):
+             language_paths=None, shared_fragments=(), hero_preload=None):
         u = self.ui
         tag, og_locale = L.LANGUAGES[self.lang][:2]
         language_paths = alt_paths if language_paths is None else language_paths
@@ -407,6 +407,7 @@ class Site:
         alternates = '\n' + L.alternates(ORIGIN, alt_paths) if hreflang and alt_paths else ''
         fonts = FONT_CSS['latin'] + FONT_CSS.get(self.lang, '')
         preload = FONT_PRELOAD.get(self.lang, 'bricolage-grotesque-normal-latin')
+        image_preload = f'\n<link rel="preload" as="image" href="{e(hero_preload)}" fetchpriority="high">' if hero_preload else ''
         return f'''<!doctype html>
 <html lang="{tag}" dir="{"rtl" if self.rtl else "ltr"}">
 <head>
@@ -422,7 +423,7 @@ class Site:
 <meta property="og:locale" content="{og_locale}"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{e(title)}"><meta name="twitter:description" content="{e(desc)}"><meta name="twitter:image" content="{ORIGIN}/{e(image)}">{alternates}
 {VERIFY if self.root else ""}
 <meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="FLUXIXO"><link rel="manifest" href="/{self.manifest_name()}"><link rel="icon" href="/assets/favicon.svg"><link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/{preload}.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="/assets/fonts/{preload}.woff2" crossorigin>{image_preload}
 <script src="/js/early.js"></script>
 <style>{fonts}{CSS}</style>
 {ld}
@@ -690,7 +691,7 @@ class Site:
             group = self.in_world(key)
             minis = ''.join(
                 f'<a class="mini" data-go href="{self.ppath(p)}"><img class="cut" src="{img(p["image"], 480)}"{responsive(p["image"], (320, 480, 800), "(max-width:860px) 36vw, 18.5vw")} alt="{e(L.editorial_image_alt(p["name"], self.cat(p["world"]), self.lang, role="mini"))}" width="480" height="480" loading="lazy" decoding="async"><b>{e(p["name"])}</b></a>'
-                for p in [q for q in group if q not in drop][:8] or group[:8])
+                for p in [q for q in group if q not in drop][:5] or group[:5])
             bands.append(
                 f'<section class="world"{" id=\"mundos\"" if i == 0 else ""} data-page="{WORLDS[key]}" style="--t:{WORLDS[key]}"><div class="rv">'
                 f'<p class="eye">{e(u["world"])} {i + 1:02d} / {total:02d}</p><h2 class="d"><a href="{self.cpath(key)}">{e(self.cat(key))}</a></h2>'
@@ -700,10 +701,23 @@ class Site:
 
         chips = (f'<button type="button" data-filter="*" aria-pressed="true">{e(u["filter_all"])}</button>'
                  + ''.join(f'<button type="button" data-filter="{slug(k)}" aria-pressed="false">{e(self.cat(k))}</button>' for k in self.worlds))
+        more_tpl = {
+            'ru': 'Показать ещё {n}',
+            'en': 'Show {n} more',
+            'es': 'Ver {n} más',
+            'pt': 'Ver mais {n}',
+            'fr': 'Afficher {n} de plus',
+            'he': 'הצג עוד {n}',
+        }.get(self.lang, 'Show {n} more')
+        more_html = (
+            f'<div class="catalog-more" hidden><button type="button" class="btn line" '
+            f'data-catalog-more data-label-template="{e(more_tpl)}">{e(more_tpl.replace("{n}", "24"))}</button></div>'
+            if len(items) > 24 else ''
+        )
         everything = (f'<section class="all" id="todo" data-page="{PAPER}"><h2 class="d rv">{e(u["all"][0])} <span class="s">{len(items)}</span> {e(u["all"][1])}</h2>'
                       f'<div class="tools"><input class="find" id="find" type="search" inputmode="search" enterkeyhint="search" autocomplete="off" '
                       f'placeholder="{e(u["search"])}" aria-label="{e(u["tabs"][3])}"><div class="chips">{chips}</div></div>'
-                      f'<p class="none" hidden>{e(u["nothing"])}</p><div class="grid">{"".join(self.card(p, eager=(self.lang == "en" and idx < 4), priority=(self.lang == "en" and idx == 0)) for idx, p in enumerate(items))}</div></section>')
+                      f'<p class="none" hidden>{e(u["nothing"])}</p><div class="grid">{"".join(self.card(p, eager=(self.lang == "en" and idx < 4), priority=(self.lang == "en" and idx == 0)) for idx, p in enumerate(items))}</div>{more_html}</section>')
 
         listing = {'@type': 'ItemList', 'name': u['title'], 'numberOfItems': len(items),
                    'itemListElement': [{'@type': 'ListItem', 'position': i + 1, 'url': ORIGIN + self.ppath(p), 'name': p['name']} for i, p in enumerate(items)]}
@@ -737,9 +751,10 @@ class Site:
                 ORGANIZATION, root_listing]}
             ov_root = market_seo.route_override(overrides, '/')
             language_paths = {l: '/' if l == 'en' else f'{path}#drop' for l, path in entry_pages.items()}
+            root_hero_preload = img((drop or items)[0]['image'], 800) if (drop or items) else None
             write('/', self.page(ov_root.get('title') or ROOT_TITLE, ov_root.get('description') or ROOT_DESC, '/', root_body,
                                  entry_pages, schema, tab='home', language_paths=language_paths,
-                                 shared_fragments=('drop', 'mundos', 'cats')))
+                                 shared_fragments=('drop', 'mundos', 'cats'), hero_preload=root_hero_preload))
             return
         # Titles and descriptions stay as search engines know them unless explicitly tuned in seo_overrides.json.
         ov_home = market_seo.route_override(overrides, self.home())
@@ -778,9 +793,13 @@ class Site:
                                                   crumbs=[(u['home'], self.home())])
         language_paths = {l: f'{path}#todo' if l != self.lang else path for l, path in catalogs.items()}
         fragments = ('todo', 'find', 'cats') if self.lang == 'en' else ('todo', 'find', 'cats', 'drop', 'mundos')
+        home_hero_preload = (
+            img(items[0]['image'], 480) if self.lang == 'en' and items
+            else (img((drop or items)[0]['image'], 800) if (drop or items) else None)
+        )
         write(self.home(), self.page(home_title, desc, self.home(), body, entry_pages, hub_schema,
                                      hreflang=self.lang != 'en', tab='home', language_paths=language_paths,
-                                     shared_fragments=fragments))
+                                     shared_fragments=fragments, hero_preload=home_hero_preload))
 
     def build_404(self):
         body = (f'<section class="c-hero"><p class="eye">404</p><h1 class="d">Page not found <span class="s">This link may have changed.</span></h1>'

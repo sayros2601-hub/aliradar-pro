@@ -531,6 +531,10 @@ def select_rotating_queries(
                 lst = buckets.get(m)
                 if lst:
                     ordered.append(lst.pop(0))
+    if category_counts is not None:
+        thin = [q for q in ordered if category_counts.get(str(q.get('category') or ''), 0) < 8]
+        regular = [q for q in ordered if category_counts.get(str(q.get('category') or ''), 0) >= 8]
+        return thin + regular
     return ordered
 
 
@@ -657,7 +661,17 @@ def presearch_exclusivity_check(
         except Exception as exc:
             presearch_info = {'checked': False, 'status': f'error:{type(exc).__name__}', 'saturated': False}
 
-    score = 10.0 + q_bonus + hot_penalty - (clone_hits * 1.5)
+    thin_cat_bonus = 0.0
+    cand_cat = str(candidate.get('category') or '').strip()
+    if cand_cat and existing_items:
+        cat_count = sum(
+            1 for existing in existing_items
+            if isinstance(existing, dict) and str(existing.get('category') or '').strip() == cand_cat
+        )
+        if cat_count < 8:
+            thin_cat_bonus = (8 - cat_count) * 1.5
+
+    score = 10.0 + q_bonus + thin_cat_bonus + hot_penalty - (clone_hits * 1.5)
     return True, 'passed', {'score': round(score, 2), 'presearch': presearch_info}
 
 

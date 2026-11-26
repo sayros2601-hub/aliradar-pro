@@ -133,6 +133,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--max-products", type=int, default=2)
     parser.add_argument("--report", type=Path, required=True)
+    parser.add_argument("--force-curated", action="store_true",
+                        help="Allow rewriting items that already have curated 6-language editorial copy.")
     args = parser.parse_args()
     if not 1 <= args.max_products <= 4:
         parser.error("--max-products must be 1..4")
@@ -147,6 +149,8 @@ def main():
     prefix, catalog = read_catalog()
     i18n = json.loads(I18N_PATH.read_text(encoding="utf-8"))
     fixes = json.loads(FIXES_PATH.read_text(encoding="utf-8"))
+    editorial_path = I18N_PATH.parent / "product_editorial.json"
+    curated_ids = set(json.loads(editorial_path.read_text(encoding="utf-8")).keys()) if editorial_path.exists() else set()
     state = load_state()
     client = AliClient()
     report = {"attempted": [], "updated": [], "deferred": [], "already_done": 0}
@@ -157,7 +161,7 @@ def main():
             continue
         pid = item.get("id")
         history = state["products"].setdefault(pid, {})
-        if history.get("completed"):
+        if history.get("completed") or (pid in curated_ids and not args.force_curated):
             report["already_done"] += 1
             continue
         # Do not retry the same missing/incorrect seller source every day.

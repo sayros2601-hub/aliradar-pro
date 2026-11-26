@@ -116,3 +116,105 @@ class AutopostingOverhaulTests(unittest.TestCase):
         state = {'version': 1, 'days': {}}
         plan = daily_schedule.plan(ledger, state, now=datetime(2026, 11, 25, 13, 30, tzinfo=timezone.utc))
         self.assertEqual(1, plan['add_count'])
+
+    def test_daily_schedule_skips_sunday_rest_day_and_uses_90m_retry(self):
+        self.assertEqual(90, daily_schedule.WAITING_RETRY_MINUTES)
+        self.assertEqual(6, daily_schedule.REST_WEEKDAY)
+        ledger = {'version': 1, 'days': {}, 'validation_runs': {}}
+        state = {'version': 1, 'days': {}}
+        sunday = datetime(2026, 11, 29, 14, 0, tzinfo=timezone.utc)  # Sunday 16:00 Asia/Jerusalem
+        skipped = daily_schedule.plan(ledger, state, now=sunday)
+        self.assertEqual(('skip', 'weekly_rest_day', 0), (skipped['action'], skipped['reason'], skipped['add_count']))
+        manual = daily_schedule.plan(ledger, state, now=sunday, manual_count=1)
+        self.assertEqual(('prepare', 1), (manual['action'], manual['add_count']))
+
+    def test_transient_503_never_permanently_burns_copy_drafts(self):
+        from fluxixo_ai import copy_revisions
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        state = {}
+        calls = 0
+
+        def flaky(_problems):
+            nonlocal calls
+            calls += 1
+            if calls <= 6:
+                raise GeminiDeferred('gemini_http_503')
+            return {'ok': True}, 'test'
+
+        for _ in range(6):
+            with self.assertRaises(GeminiDeferred) as err:
+                copy_revisions.run_bounded_copy(
+                    'Compact Pocket Tool',
+                    scope='bundle',
+                    state=state,
+                    checkpoint=lambda: None,
+                    generate=flaky,
+                    validate=lambda _cand: [],
+                    review=lambda _cand: [],
+                )
+            self.assertNotIsInstance(err.exception, copy_revisions.GeminiCopyStopped)
+
+        cand, provider = copy_revisions.run_bounded_copy(
+            'Compact Pocket Tool',
+            scope='bundle',
+            state=state,
+            checkpoint=lambda: None,
+            generate=flaky,
+            validate=lambda _cand: [],
+            review=lambda _cand: [],
+        )
+        self.assertEqual({'ok': True}, cand)
+        self.assertEqual('test', provider)
+
+    def test_link_health_guard_loads_catalog_js_and_ignores_demos(self):
+        import tempfile
+        import link_health_guard
+        with tempfile.TemporaryDirectory() as tmp:
+            p = Path(tmp) / 'catalog.js'
+            p.write_text(
+                'window.MIRA_CATALOG = {"products": ['
+                '{"id": "a1", "affiliateUrl": "https://s.click.aliexpress.com/e/_real", "demo": false},'
+                '{"id": "d1", "affiliateUrl": "https://s.click.aliexpress.com/e/_demo", "demo": true}'
+                ']};',
+                encoding='utf-8',
+            )
+            loaded = link_health_guard.load_catalog_products(p)
+        self.assertEqual(1, len(loaded))
+        self.assertEqual('a1', loaded[0]['id'])
+        self.assertEqual('https://s.click.aliexpress.com/e/_real', loaded[0]['affiliate_url'])
+
+    def test_thin_category_bonus_prioritizes_sparse_worlds(self):
+        from fluxixo_ai import discovery_curator
+        existing = [{'id': f't{i}', 'category': 'Техника', 'sourceTitle': f'Unrelated Gadget {i}'} for i in range(12)]
+        existing.append({'id': 'o1', 'category': 'На природе', 'sourceTitle': 'Solar Camp Lantern'})
+        ok_thin, _, meta_thin = discovery_curator.presearch_exclusivity_check(
+            {'product_id': '901', 'title': 'Compact Folding Titanium Pocket Stove', 'category': 'На природе',
+             'evaluate_rate': '98%', 'lastest_volume': 200},
+            existing,
+        )
+        ok_full, _, meta_full = discovery_curator.presearch_exclusivity_check(
+            {'product_id': '902', 'title': 'Compact Folding Titanium Pocket Stove', 'category': 'Техника',
+             'evaluate_rate': '98%', 'lastest_volume': 200},
+            existing,
+        )
+        self.assertTrue(ok_thin and ok_full)
+        self.assertGreater(meta_thin['score'], meta_full['score'])
+
+    def test_free_text_failover_requires_flag_and_falls_back_on_503(self):
+        import json as json_mod
+        from unittest.mock import patch
+        from fluxixo_ai.gemini_client import GeminiDeferred
+        keys_off = {'FLUXIXO_TEXT_PROVIDER': 'gemini', 'FLUXIXO_TEXT_GEMINI_API_KEY': 'k'}
+        with patch('fluxixo_ai.gemini_client.call_json', side_effect=GeminiDeferred('gemini_http_503')):
+            with self.assertRaises(GeminiDeferred):
+                ai_seo.complete_json('sys', 'usr', keys=keys_off)
+
+        keys_on = {**keys_off, 'FLUXIXO_TEXT_FALLBACK_FREE': '1', 'GITHUB_TOKEN': 'gh-test'}
+
+        def fake_transport(_url, _payload, _headers):
+            return {'choices': [{'message': {'content': json_mod.dumps({'ok': 'fallback'})}}]}
+
+        with patch('fluxixo_ai.gemini_client.call_json', side_effect=GeminiDeferred('gemini_http_503')):
+            data, prov = ai_seo.complete_json('sys', 'usr', keys=keys_on, transport=fake_transport)
+        self.assertEqual({'ok': 'fallback'}, data)
+        self.assertTrue(prov.startswith('github_models:'))

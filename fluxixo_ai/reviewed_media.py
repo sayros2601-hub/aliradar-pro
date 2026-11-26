@@ -28,7 +28,110 @@ ROLES = ('hero', 'application', 'result')
 CHECKS = ('identity', 'shape', 'completeness', 'color', 'markings', 'role', 'quality', 'distinct')
 LEASE_SECONDS = 1800
 _REMBG_SESSION = None
-_TRANSIENT_REVIEW_CODES = frozenset({'gemini_http_500', 'gemini_http_502', 'gemini_http_503', 'gemini_http_504'})
+# Keep gemini_daily_budget out of transient codes so quota exhaustion stops per unit-test contract.
+_TRANSIENT_REVIEW_CODES = frozenset({
+    'gemini_http_429', 'gemini_http_500', 'gemini_http_502',
+    'gemini_http_503', 'gemini_http_504', 'gemini_rate_wait', 'gemini_timeout',
+})
+
+
+def _encode_image_data_url(image):
+    import base64
+    if isinstance(image, tuple) and len(image) == 2:
+        mime, raw = image
+    else:
+        raw = image
+        if isinstance(raw, bytes) and raw.startswith(b'\x89PNG\r\n\x1a\n'):
+            mime = 'image/png'
+        elif isinstance(raw, bytes) and raw.startswith(b'\xff\xd8'):
+            mime = 'image/jpeg'
+        elif isinstance(raw, bytes) and raw[:4] == b'RIFF' and raw[8:12] == b'WEBP':
+            mime = 'image/webp'
+        else:
+            return None
+    if mime not in ('image/png', 'image/jpeg', 'image/webp') or not isinstance(raw, bytes) or not raw:
+        return None
+    return f'data:{mime};base64,{base64.b64encode(raw).decode("ascii")}'
+
+
+def _parse_json_reply(text):
+    raw = str(text or '').strip()
+    if raw.startswith('```'):
+        raw = raw.split('\n', 1)[-1].rsplit('```', 1)[0].strip()
+    start, end = raw.find('{'), raw.rfind('}')
+    if start >= 0 and end > start:
+        return json.loads(raw[start:end + 1])
+    return json.loads(raw)
+
+
+def _call_free_vision_reviewer(system, payload, images):
+    """Best-effort free vision review fallback via GitHub Models or Cloudflare Workers AI."""
+    import urllib.request
+    data_urls = [u for u in (_encode_image_data_url(img) for img in (images or ())) if u]
+    if not data_urls:
+        return None
+    user_parts = [{'type': 'text', 'text': json.dumps(payload, ensure_ascii=False)}]
+    user_parts.extend({'type': 'image_url', 'image_url': {'url': url}} for url in data_urls)
+
+    gh_token = str(os.environ.get('GITHUB_TOKEN') or os.environ.get('GH_TOKEN') or '').strip()
+    if gh_token:
+        body = json.dumps({
+            'model': 'openai/gpt-4o-mini',
+            'messages': [
+                {'role': 'system', 'content': system + ' Return strictly valid JSON only.'},
+                {'role': 'user', 'content': user_parts},
+            ],
+            'temperature': 0.1,
+            'max_tokens': 500,
+            'response_format': {'type': 'json_object'},
+        }, ensure_ascii=False).encode('utf-8')
+        req = urllib.request.Request(
+            'https://models.github.ai/inference/chat/completions',
+            data=body,
+            headers={
+                'Authorization': f'Bearer {gh_token}',
+                'Content-Type': 'application/json',
+                'Accept': 'application/vnd.github+json',
+                'X-GitHub-Api-Version': '2022-11-28',
+            },
+            method='POST',
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                data = json.loads(resp.read(2_000_000).decode('utf-8'))
+            content = ((data.get('choices') or [{}])[0].get('message') or {}).get('content', '')
+            parsed = _parse_json_reply(content)
+            if isinstance(parsed, dict):
+                return parsed
+        except Exception:
+            pass
+
+    cf_token = str(os.environ.get('CLOUDFLARE_API_TOKEN') or '').strip()
+    cf_acc = str(os.environ.get('CLOUDFLARE_ACCOUNT_ID') or '').strip()
+    if cf_token and cf_acc:
+        body = json.dumps({
+            'messages': [
+                {'role': 'system', 'content': system + ' Return strictly valid JSON only.'},
+                {'role': 'user', 'content': user_parts},
+            ],
+            'max_tokens': 500,
+        }, ensure_ascii=False).encode('utf-8')
+        req = urllib.request.Request(
+            f'https://api.cloudflare.com/client/v4/accounts/{cf_acc}/ai/run/@cf/meta/llama-4-scout-17b-16e-instruct',
+            data=body,
+            headers={'Authorization': f'Bearer {cf_token}', 'Content-Type': 'application/json'},
+            method='POST',
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                data = json.loads(resp.read(2_000_000).decode('utf-8'))
+            raw = (data.get('result') or {}).get('response', '')
+            parsed = raw if isinstance(raw, dict) else _parse_json_reply(raw)
+            if isinstance(parsed, dict):
+                return parsed
+        except Exception:
+            pass
+    return None
 
 
 class MediaDeferred(Exception):
@@ -374,8 +477,15 @@ def _default_reviewer(source, output, *, title, role, identity_source, prior_out
         return call_json(system, payload, model=REVIEW_MODEL, images=images)
     except GeminiDeferred as exc:
         if exc.code in _REVIEW_FALLBACK_CODES:
-            # Same dedicated Free Tier Gemini key & HIGH reasoning; avoids stalling on overloaded review model.
-            return call_json(system, payload, model=TEXT_MODEL, images=images)
+            try:
+                # Same dedicated Free Tier Gemini key & HIGH reasoning; avoids stalling on overloaded review model.
+                return call_json(system, payload, model=TEXT_MODEL, images=images)
+            except GeminiDeferred as inner_exc:
+                if os.environ.get('FLUXIXO_REVIEW_FALLBACK_FREE') == '1' and inner_exc.code in _TRANSIENT_REVIEW_CODES:
+                    fallback = _call_free_vision_reviewer(system, payload, images)
+                    if isinstance(fallback, dict):
+                        return fallback
+                raise
         raise
 
 
@@ -732,7 +842,7 @@ class ReviewedMediaPreparer:
                         review['last_code'] = code
                         review['provider_attempted'] = getattr(exc, 'provider_attempted', None)
                         transient_seen = int(review.get('transient_retries', 0))
-                        if code in _TRANSIENT_REVIEW_CODES and transient_seen < 4:
+                        if code in _TRANSIENT_REVIEW_CODES:
                             review['opportunities'] = max(0, review['opportunities'] - 1)
                             review['transient_retries'] = transient_seen + 1
                             self._save(path, state)

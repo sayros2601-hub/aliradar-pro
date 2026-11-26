@@ -28,7 +28,8 @@ PUBLISH_START_MINUTES = 15 * 60 + 30  # 15:30 Asia/Jerusalem
 WINDOW_CLOSE_HOUR = 23
 STALE_PREPARE_MINUTES = 45
 MAX_PREPARE_RETRIES = 2
-WAITING_RETRY_MINUTES = 20
+WAITING_RETRY_MINUTES = 90
+REST_WEEKDAY = 6  # Sunday in Asia/Jerusalem (6 days/week schedule, 1 rest day)
 
 
 class ScheduleError(Exception):
@@ -176,6 +177,8 @@ def plan(ledger, state, *, now=None, manual_count=None):
         if not publication_due:
             return answer('skip', 'waiting_publication')
         return answer('recover', 'prepared_catalog', track=True)
+    if manual_count is None and local.weekday() == REST_WEEKDAY:
+        return answer('skip', 'weekly_rest_day')
     if ((manual_count is None and local_minutes < PREPARE_START_MINUTES)
             or local.hour >= WINDOW_CLOSE_HOUR):
         return answer('skip', 'outside_daily_window')

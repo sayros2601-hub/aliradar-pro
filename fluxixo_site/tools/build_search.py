@@ -335,13 +335,16 @@ write('pinterest-new.xml', build_pinterest_feed(
     DIST, products, i18n, ROOT/'tools/pinterest-feed-state.json', now=now_dt))
 
 # Generate Pinterest Bulk Create CSV (/pinterest-feed.csv) & Social feed (/social-feed.json)
+from pinterest_feed import _render_pinterest_jpeg
 csv_buf = io.StringIO()
 writer = csv.writer(csv_buf)
 writer.writerow(['Title', 'Media URL', 'Pinterest board', 'Thumbnail', 'Description', 'Link', 'Publish date', 'Keywords'])
 social_posts = []
 for p in products:
     p_link = f"{ORIGIN}{route(p)}?utm_source=pinterest&utm_medium=organic"
-    img_url = f"{ORIGIN}/{p['image']}"
+    src_img = DIST / p['image']
+    pin_path = _render_pinterest_jpeg(DIST, src_img, p['id']) if src_img.is_file() else None
+    img_url = f"{ORIGIN}/assets/pinterest/{p['id']}.jpg" if pin_path else f"{ORIGIN}/{p['image']}"
     writer.writerow([
         f"{p['name']} | Находки FLUXIXO",
         img_url,

@@ -116,10 +116,10 @@
     {}
   ],
   "created_at": 1795617130.8112159,
-  "deferrals": 5,
+  "deferrals": 0,
   "lease_owner": "34e37ca86d064f7ba82571d5b20a9c2d",
   "lease_until": 0,
-  "status": "stopped",
+  "status": "deferred",
   "next_attempt": 0,
   "source_refresh_after": 1795703533.0075643,
   "source_version": "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e",
@@ -149,10 +149,7 @@
   },
   "review_attempts": {
     "2536ec8db22c6a0f11ddec59be3527ba229d214340fa6b73a0df5a41daedb84a": {
-      "opportunities": 2,
-      "last_code": "gemini_http_503",
-      "provider_attempted": null,
-      "transient_retries": 4
+      "opportunities": 0
     }
   },
   "identity_source": {
@@ -161,18 +158,5 @@
     "sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
     "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa"
   },
-  "reason": "gemini_http_503",
-  "terminal": {
-    "code": "gemini_http_503",
-    "source_version": "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e",
-    "details": {
-      "role": "hero",
-      "failed_checks": [],
-      "reasons": [],
-      "review_opportunities": 2,
-      "image_sha256": "2536ec8db22c6a0f11ddec59be3527ba229d214340fa6b73a0df5a41daedb84a",
-      "provider_attempted": null
-    },
-    "at": 1795626207.096226
-  }
+  "reason": "retry_unparked"
 }

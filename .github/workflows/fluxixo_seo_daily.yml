@@ -50,6 +50,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python -B fluxixo_site/tools/seo_daily.py --summary "$GITHUB_STEP_SUMMARY"
 
+      - name: Audit AliExpress affiliate links across catalog
+        continue-on-error: true
+        run: python -B link_health_guard.py --catalog fluxixo_site/dist/js/catalog.js --dry-run --summary "$GITHUB_STEP_SUMMARY"
+
       - name: Persist encrypted SEO telemetry state
         run: |
           git config user.name "FLUXIXO SEO Telemetry"

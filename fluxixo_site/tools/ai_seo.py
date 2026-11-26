@@ -438,25 +438,20 @@ def _call_autopilot_copy(worker_base_url, system_prompt, user_prompt, transport=
     return _extract_json_object(str(raw_resp)), provider_tag
 
 
-def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
-    """Gemini is exclusive when selected; otherwise preserve the legacy provider chain."""
-    resolved = keys if keys is not None else load_ai_keys(local=False)
-    if str(resolved.get('FLUXIXO_TEXT_PROVIDER', '')).lower() == 'gemini':
-        from fluxixo_ai import gemini_client
-        result = gemini_client.call_json(
-            system_prompt, user_prompt, model=gemini_client.TEXT_MODEL,
-            api_key=resolved.get('FLUXIXO_TEXT_GEMINI_API_KEY', ''),
-            # The legacy transport retries requests and exposes provider error bodies.
-            # Gemini uses its own single-request transport; retain injection for offline tests.
-            transport=None if transport is _post_json else transport,
-        )
-        return result, f'gemini:{gemini_client.TEXT_MODEL}:HIGH'
+_TRANSIENT_GEMINI_FAILOVER_CODES = frozenset({
+    'gemini_http_500', 'gemini_http_502', 'gemini_http_503', 'gemini_http_504',
+    'gemini_http_429', 'gemini_rate_wait', 'gemini_daily_budget', 'gemini_timeout',
+})
+
+
+def _call_free_provider_chain(resolved, system_prompt, user_prompt, transport=_post_json, allow_env=False, include_paid_overrides=False):
     errors = []
-    autopilot_url = _autopilot_url_from_keys(resolved)
-    sync_token = str(resolved.get('AUTOPILOT_SYNC_TOKEN') or '').strip()
-    cf_token = str(resolved.get('CLOUDFLARE_API_TOKEN') or '').strip()
-    cf_acc = str(resolved.get('CLOUDFLARE_ACCOUNT_ID') or DEFAULT_CLOUDFLARE_ACCOUNT_ID).strip()
-    gh_token = str(resolved.get('GITHUB_TOKEN') or '').strip()
+    env = os.environ if allow_env else {}
+    autopilot_url = _autopilot_url_from_keys(resolved) or (_autopilot_url_from_keys(env) if allow_env else '')
+    sync_token = str(resolved.get('AUTOPILOT_SYNC_TOKEN') or env.get('AUTOPILOT_SYNC_TOKEN') or '').strip()
+    cf_token = str(resolved.get('CLOUDFLARE_API_TOKEN') or env.get('CLOUDFLARE_API_TOKEN') or '').strip()
+    cf_acc = str(resolved.get('CLOUDFLARE_ACCOUNT_ID') or env.get('CLOUDFLARE_ACCOUNT_ID') or DEFAULT_CLOUDFLARE_ACCOUNT_ID).strip()
+    gh_token = str(resolved.get('GITHUB_TOKEN') or resolved.get('GH_TOKEN') or env.get('GITHUB_TOKEN') or env.get('GH_TOKEN') or '').strip()
 
     if autopilot_url:
         try:
@@ -466,13 +461,13 @@ def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
                 user_prompt,
                 transport=transport,
                 sync_token=sync_token,
-            )
+            ), errors
         except Exception as exc:
             errors.append(str(exc))
 
     if cf_token:
         try:
-            return _call_cloudflare_direct_copy(cf_token, cf_acc, system_prompt, user_prompt, transport=transport)
+            return _call_cloudflare_direct_copy(cf_token, cf_acc, system_prompt, user_prompt, transport=transport), errors
         except Exception as exc:
             errors.append(str(exc))
 
@@ -487,11 +482,11 @@ def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
                 user_prompt,
                 extra_headers={'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'},
                 transport=transport,
-            )
+            ), errors
         except Exception as exc:
             errors.append(str(exc))
 
-    if keys is not None:
+    if include_paid_overrides:
         if resolved.get('GROQ_API_KEY'):
             try:
                 return _call_openai_compat(
@@ -502,7 +497,7 @@ def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
                     system_prompt,
                     user_prompt,
                     transport=transport,
-                )
+                ), errors
             except Exception as exc:
                 errors.append(str(exc))
         if resolved.get('OPENROUTER_API_KEY'):
@@ -516,9 +511,47 @@ def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
                     user_prompt,
                     extra_headers={'HTTP-Referer': 'https://www.fluxixo.shop/', 'X-Title': 'FLUXIXO SEO'},
                     transport=transport,
-                )
+                ), errors
             except Exception as exc:
                 errors.append(str(exc))
+
+    return None, errors
+
+
+def complete_json(system_prompt, user_prompt, keys=None, transport=_post_json):
+    """Gemini primary with optional free Cloudflare/GitHub failover when FLUXIXO_TEXT_FALLBACK_FREE=1."""
+    resolved = keys if keys is not None else load_ai_keys(local=False)
+    if str(resolved.get('FLUXIXO_TEXT_PROVIDER', '')).lower() == 'gemini':
+        from fluxixo_ai import gemini_client
+        try:
+            result = gemini_client.call_json(
+                system_prompt, user_prompt, model=gemini_client.TEXT_MODEL,
+                api_key=resolved.get('FLUXIXO_TEXT_GEMINI_API_KEY', ''),
+                # The legacy transport retries requests and exposes provider error bodies.
+                # Gemini uses its own single-request transport; retain injection for offline tests.
+                transport=None if transport is _post_json else transport,
+            )
+            return result, f'gemini:{gemini_client.TEXT_MODEL}:HIGH'
+        except gemini_client.GeminiDeferred as exc:
+            fallback_free = str(
+                resolved.get('FLUXIXO_TEXT_FALLBACK_FREE')
+                or (os.environ.get('FLUXIXO_TEXT_FALLBACK_FREE') if keys is None else '')
+                or ''
+            ).strip()
+            if fallback_free == '1' and exc.code in _TRANSIENT_GEMINI_FAILOVER_CODES:
+                result, _errors = _call_free_provider_chain(
+                    resolved, system_prompt, user_prompt,
+                    transport=transport, allow_env=(keys is None),
+                )
+                if result is not None:
+                    return result
+            raise
+    result, errors = _call_free_provider_chain(
+        resolved, system_prompt, user_prompt,
+        transport=transport, include_paid_overrides=(keys is not None),
+    )
+    if result is not None:
+        return result
 
     if not errors:
         return None, 'deterministic'

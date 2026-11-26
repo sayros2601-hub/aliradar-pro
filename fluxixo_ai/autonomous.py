@@ -592,6 +592,7 @@ def discover(
                             item[extra_key] = raw[extra_key]
                         elif extra_key in previous:
                             item[extra_key] = previous[extra_key]
+                    item.setdefault('category', task['category'])
                     screen_ok, _, screen_meta = discovery_curator.presearch_exclusivity_check(
                         item,
                         catalog_plus_chosen,

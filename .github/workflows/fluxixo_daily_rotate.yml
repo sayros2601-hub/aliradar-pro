@@ -1,4 +1,4 @@
-name: FLUXIXO daily update (15:30 Israel, 1 product/day)
+name: FLUXIXO daily update (15:30 Israel, 1 product/day, Mon-Sat)
 
 on:
   schedule:
@@ -151,7 +151,9 @@ jobs:
           FLUXIXO_FREE_SEARCH_DAILY_LIMIT: '54'
           TAVILY_API_KEY: ${{ secrets.TAVILY_API_KEY }}
           # Batch frequent mid-run checkpoints to avoid git push storms; the always() step flushes final state.
-          FLUXIXO_CHECKPOINT_MIN_INTERVAL: '20'
+          FLUXIXO_CHECKPOINT_MIN_INTERVAL: '120'
+          FLUXIXO_TEXT_FALLBACK_FREE: '1'
+          FLUXIXO_REVIEW_FALLBACK_FREE: '1'
         run: |
           # Text: Gemini 3.5 Flash-Lite HIGH. Review: Gemini 3.8 Flash HIGH.
           # Both use only the dedicated Free Tier secret; no alternate paid provider.

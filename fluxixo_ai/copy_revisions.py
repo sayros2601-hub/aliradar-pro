@@ -80,8 +80,10 @@ def reject_cached_copy(title, copy_state, checkpoint=None, reason='copy_outer_va
 
 TRANSIENT_PROVIDER_CODES = frozenset({
     'gemini_http_500', 'gemini_http_502', 'gemini_http_503', 'gemini_http_504',
-    'gemini_http_429', 'gemini_rate_wait', 'gemini_daily_budget', 'checkpoint_unavailable',
+    'gemini_http_429', 'gemini_rate_wait', 'gemini_daily_budget', 'gemini_timeout',
+    'checkpoint_unavailable',
 })
+# Retained for import compatibility; transient provider outages no longer count toward lifetime draft bans.
 MAX_TRANSIENT_RETRIES = 4
 
 
@@ -125,8 +127,8 @@ def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, valida
                 candidate, provider = generate(problems)
             except GeminiDeferred as error:
                 transient_count = int(journal.get('transient_retries', 0))
-                if error.code in TRANSIENT_PROVIDER_CODES and transient_count < MAX_TRANSIENT_RETRIES:
-                    # Transient provider overload/rate-limit/checkpoint blip must not burn a lifetime draft.
+                if error.code in TRANSIENT_PROVIDER_CODES:
+                    # Transient provider overload/rate-limit/checkpoint blip must never burn a lifetime draft.
                     drafts.pop()
                     journal['transient_retries'] = transient_count + 1
                     try:
@@ -166,7 +168,7 @@ def run_bounded_copy(source_title, *, scope, state, checkpoint, generate, valida
                 problems = review(candidate)
             except GeminiDeferred as error:
                 transient_count = int(journal.get('transient_review_retries', 0))
-                if error.code in TRANSIENT_PROVIDER_CODES and transient_count < MAX_TRANSIENT_RETRIES:
+                if error.code in TRANSIENT_PROVIDER_CODES:
                     draft['review_attempts'] = attempts
                     draft['reason'] = 'copy_claim_review_' + error.code
                     journal['transient_review_retries'] = transient_count + 1

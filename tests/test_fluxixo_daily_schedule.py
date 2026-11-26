@@ -41,7 +41,7 @@ class DailyScheduleTests(unittest.TestCase):
         waiting = schedule.mark_prepared(self.ledger, reserved, DAY, now=NOW, allow_partial=True)
         self.assertEqual(waiting['days'][DAY]['status'], 'waiting')
         self.assertFalse(schedule.plan(self.ledger, waiting, now=NOW)['publish'])
-        later = NOW + timedelta(minutes=20)
+        later = NOW + timedelta(minutes=90)
         planned = schedule.plan(self.ledger, waiting, now=later)
         self.assertEqual(planned['action'], 'prepare')
         renewed = schedule.reserve(self.ledger, waiting, DAY, 1, now=later)
@@ -208,8 +208,11 @@ class DailyScheduleTests(unittest.TestCase):
 
     def test_incomplete_old_reservation_does_not_block_the_next_utc_day(self):
         reserved = schedule.reserve(self.ledger, self.state, DAY, 3, now=NOW)
-        result = schedule.plan(self.ledger, reserved, now=NOW + timedelta(days=1))
-        self.assertEqual(('prepare', 1, '2026-11-15'),
+        sunday = schedule.plan(self.ledger, reserved, now=NOW + timedelta(days=1))
+        self.assertEqual(('skip', 0, '2026-11-15', 'weekly_rest_day'),
+                         (sunday['action'], sunday['add_count'], sunday['day'], sunday['reason']))
+        result = schedule.plan(self.ledger, reserved, now=NOW + timedelta(days=2))
+        self.assertEqual(('prepare', 1, '2026-11-16'),
                          (result['action'], result['add_count'], result['day']))
 
     def test_legacy_published_state_without_actual_date_remains_readable(self):

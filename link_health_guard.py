@@ -3,6 +3,8 @@ from __future__ import annotations
 import argparse
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
+import json
+from pathlib import Path
 import re
 import time
 import urllib.error
@@ -97,8 +99,55 @@ def validate_and_clean_catalog():
     return db["products"]
 
 
+def load_catalog_products(catalog_path=None):
+    """Load non-demo products from products.json or catalog.js cleanly."""
+    path = Path(catalog_path) if catalog_path else PRODUCTS_FILE
+    if not catalog_path or path == PRODUCTS_FILE:
+        return read_json(PRODUCTS_FILE)["products"]
+    raw = path.read_text(encoding="utf-8").strip()
+    if path.suffix == ".js" and "=" in raw:
+        raw = raw.split("=", 1)[1].strip().rstrip(";")
+    data = json.loads(raw)
+    items = data["products"] if isinstance(data, dict) else data
+    out = []
+    for item in items:
+        if not isinstance(item, dict) or item.get("demo"):
+            continue
+        out.append({
+            "id": item.get("id"),
+            "slug": item.get("slug") or item.get("id"),
+            "affiliate_url": item.get("affiliate_url") or item.get("affiliateUrl") or "",
+            "item_id": item.get("item_id") or item.get("sourceProductId"),
+        })
+    return out
+
+
+def _write_markdown_summary(summary_path, report):
+    if not summary_path:
+        return
+    counts = report.get("summary") or {}
+    results = report.get("results") or []
+    broken = [r for r in results if r.get("status") != "RESOLVED"]
+    lines = [
+        "## AliExpress Affiliate Link Health Audit",
+        f"- Checked links: **{len(results)}**",
+        f"- Summary: `{json.dumps(counts, ensure_ascii=False)}`",
+    ]
+    if broken:
+        lines.append(f"- Non-resolved links ({len(broken)}):")
+        for row in broken[:30]:
+            lines.append(f"  - `{row.get('id')}`: {row.get('status')} ({row.get('reason')})")
+    Path(summary_path).parent.mkdir(parents=True, exist_ok=True)
+    with Path(summary_path).open("a", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n\n")
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--catalog", default="", help="Path to products.json or catalog.js")
     parser.add_argument("--dry-run", action="store_true", help="Check links without writing even the report")
+    parser.add_argument("--summary", default="", help="Optional markdown summary file (e.g. $GITHUB_STEP_SUMMARY)")
     args = parser.parse_args()
-    audit_catalog(write=not args.dry_run)
+    products = load_catalog_products(args.catalog or None)
+    report = audit_catalog(products, write=not args.dry_run)
+    _write_markdown_summary(args.summary, report)

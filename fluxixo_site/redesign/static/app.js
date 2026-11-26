@@ -598,11 +598,15 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     }, { passive: true });
   });
 
-  // Catalog: filter by world and by words in the name.
+  // Catalog: filter by world and by words in the name, with progressive batches on full catalog view.
   const cards = [...document.querySelectorAll('.grid [data-w]')];
   const filters = [...document.querySelectorAll('[data-filter]')];
   const find = document.querySelector('.find');
   const none = document.querySelector('.none');
+  const moreWrap = document.querySelector('.catalog-more');
+  const moreBtn = document.querySelector('[data-catalog-more]');
+  const PAGE_SIZE = 24;
+  let visibleLimit = PAGE_SIZE;
   const plain = text => text.toLowerCase().normalize('NFD').replace(/[̀-֑ͯ-ׇ]/g, '');
   const categoryParameter = 'category';
   const readWorld = () => {
@@ -613,19 +617,35 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
   const names = cards.map(card => plain(card.textContent));
   const apply = () => {
     const words = find ? plain(find.value).split(/\s+/).filter(Boolean) : [];
+    const paginate = moreBtn && world === '*' && words.length === 0;
     let shown = 0;
+    let totalMatched = 0;
     cards.forEach((card, i) => {
       const ok = (world === '*' || card.dataset.w === world) && words.every(word => names[i].includes(word));
-      card.hidden = !ok;
-      shown += ok;
+      if (ok) totalMatched += 1;
+      const visible = ok && (!paginate || totalMatched <= visibleLimit);
+      card.hidden = !visible;
+      if (visible) shown += 1;
     });
-    if (none) none.hidden = shown > 0;
+    if (moreWrap && moreBtn) {
+      const remaining = Math.max(0, totalMatched - shown);
+      moreWrap.hidden = !paginate || remaining <= 0;
+      const tpl = moreBtn.dataset.labelTemplate || '';
+      if (tpl) moreBtn.textContent = tpl.replace('{n}', String(Math.min(PAGE_SIZE, remaining))).replace('{rem}', String(remaining));
+    }
+    if (none) none.hidden = totalMatched > 0;
   };
   const showWorld = () => {
     for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.filter === world));
     apply();
   };
-  if (filters.length) showWorld();
+  if (moreBtn) {
+    moreBtn.addEventListener('click', () => {
+      visibleLimit += PAGE_SIZE;
+      apply();
+    });
+  }
+  if (filters.length || moreBtn) showWorld();
   if (find) find.addEventListener('input', apply);
 
   // Phone: the language list is a sheet that slides up.
@@ -660,6 +680,7 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
   for (const button of filters) {
     button.addEventListener('click', () => {
       world = button.dataset.filter;
+      if (world === '*') visibleLimit = PAGE_SIZE;
       const url = new URL(location.href);
       if (world === '*') {
         url.searchParams.delete(categoryParameter);
@@ -789,6 +810,9 @@ if (typeof module !== 'undefined' && module.exports) Object.assign(module.export
     if (!link) return;
     const decorated = FluxixoLocale.decorateAffiliateUrl(link.href, lang);
     if (decorated && decorated !== link.href) link.href = decorated;
+    if (event.type === 'click') {
+      document.dispatchEvent(new CustomEvent('fluxixo:affiliate_click', { detail: { href: link.href, lang, link } }));
+    }
   };
   document.addEventListener('pointerdown', adaptAffiliateHref, true);
   document.addEventListener('contextmenu', adaptAffiliateHref, true);
