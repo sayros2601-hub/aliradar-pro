@@ -15,9 +15,10 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from fluxixo_ai import autonomous, discovery_curator, image_studio
-from fluxixo_ai.policy import DETAIL, MARKETS, QUERY
+from fluxixo_ai.policy import DETAIL, MARKETS, QUERY, market_currency, usd_cents_to_market_subunits
 from fluxixo_ai.search import HOT, LINK
 from fluxixo_site.redesign import build_redesign
+from fluxixo_site.tools import locales
 
 NOW = datetime(2026, 11, 12, 10, 0, tzinfo=timezone.utc)
 
@@ -508,8 +509,37 @@ class SoldEverywhereTests(unittest.TestCase):
         self.assertTrue(ok, reason)
         self.assertGreater(meta['score'], 30.0)
 
-        # Too cheap (<$12) and too expensive (>$120) rejected
-        for price, err_code in (('4.99', 'price_below_floor'), ('189.00', 'price_above_ceiling')):
+        # Serious high-ticket machine ($480) with lower volume passes and outscores small items
+        machine = {
+            **base,
+            'product_id': '3002',
+            'title': 'SIHAO Mini Metal Lathe Benchtop Precision Variable Speed Machine',
+            'target_sale_price': '480.00',
+            'lastest_volume': 6,
+        }
+        ok_hi, reason_hi, meta_hi = discovery_curator.presearch_exclusivity_check(
+            machine, existing, require_observed_metrics=True
+        )
+        self.assertTrue(ok_hi, reason_hi)
+        self.assertGreater(meta_hi['score'], meta['score'])
+
+        # Local-currency prices (MXN / RUB) normalize to USD accurately
+        ok_mx, rsn_mx, _ = discovery_curator.presearch_exclusivity_check(
+            {**machine, 'target_sale_price': '9600.00', 'target_sale_price_currency': 'MXN'},
+            existing,
+            require_observed_metrics=True,
+        )
+        self.assertTrue(ok_mx, rsn_mx)
+        ok_low_mx, rsn_low_mx, _ = discovery_curator.presearch_exclusivity_check(
+            {**base, 'target_sale_price': '200.00', 'target_sale_price_currency': 'MXN'},
+            existing,
+            require_observed_metrics=True,
+        )
+        self.assertFalse(ok_low_mx)
+        self.assertIn('price_below_floor', rsn_low_mx)
+
+        # Too cheap (<$30) and above max ceiling (>$2500) rejected
+        for price, err_code in (('14.99', 'price_below_floor'), ('2899.00', 'price_above_ceiling')):
             ok_p, rsn_p, _ = discovery_curator.presearch_exclusivity_check(
                 {**base, 'target_sale_price': price}, existing, require_observed_metrics=True
             )
@@ -542,16 +572,50 @@ class SoldEverywhereTests(unittest.TestCase):
         self.assertFalse(ok_s)
         self.assertIn('duplicate_shop_id', rsn_s)
 
-    def test_industrial_metrology_and_medical_rehab_titles_banned(self):
+    def test_industrial_metrology_and_medical_rehab_titles_banned_while_workshop_machines_allowed(self):
         banned_titles = [
             'High Precision Calibration Ring Gauge Inside Micrometer Bore Tool',
-            'CT Series External Air Pump Plasma Cutter Arc Gouging Welder',
             'Incontinence Elderly Arthritis Button Hook Zipper Aid Tool',
+            'Replacement Milling Cutter Lathe Chuck Collet Adapter Only',
         ]
         for title in banned_titles:
             banned, reason = discovery_curator.is_ordinary_or_banned_listing(title)
-            self.assertTrue(banned, f'Expected industrial/medical ban for {title!r}')
+            self.assertTrue(banned, f'Expected industrial/medical/spare ban for {title!r}')
             self.assertIsNotNone(reason)
+
+        allowed_machines = [
+            'SIHAO Mini Metal Lathe Machine 7x14 Benchtop Variable Speed 550W',
+            'TwoTrees TTC450 Desktop CNC Router Engraving Machine with USB Cable',
+            'LONGER Laser B1 40W Diode Laser Engraver Cutter Machine',
+            'Handheld Portable Inverter Welding Machine IGBT Arc Welder with Case',
+        ]
+        for title in allowed_machines:
+            banned, reason = discovery_curator.is_ordinary_or_banned_listing(title)
+            self.assertFalse(banned, f'Complete high-value machine should be allowed ({reason}): {title!r}')
+
+    def test_localize_affiliate_url_sets_market_currency_country_and_gateway(self):
+        base = 'https://s.click.aliexpress.com/e/_c4rE37SZ'
+        es_url = locales.localize_affiliate_url(base, 'es')
+        self.assertIn('_lang=es_MX', es_url)
+        self.assertIn('_randl_currency=MXN', es_url)
+        self.assertIn('_randl_shipto=MX', es_url)
+        self.assertIn('gatewayAdapt=glo2mex', es_url)
+        self.assertIn('afSmartRedirect=y', es_url)
+        self.assertEqual(es_url, locales.localize_affiliate_url(es_url, 'es-MX'))
+
+        for lang, cur, ship, gw in (
+            ('pt', 'BRL', 'BR', 'glo2bra'),
+            ('en', 'USD', 'US', 'glo2usa'),
+            ('fr', 'EUR', 'FR', 'glo2fra'),
+            ('he', 'ILS', 'IL', 'glo2isr'),
+            ('ru', 'RUB', 'RU', 'glo2rus'),
+        ):
+            out = locales.localize_affiliate_url(base, lang)
+            self.assertIn(f'_randl_currency={cur}', out)
+            self.assertIn(f'_randl_shipto={ship}', out)
+            self.assertIn(f'gatewayAdapt={gw}', out)
+
+        self.assertEqual('https://www.fluxixo.shop/products/demo/', locales.localize_affiliate_url('https://www.fluxixo.shop/products/demo/', 'es'))
 
     def test_judge_candidates_uniqueness_filters_low_wow_and_boosts_winners(self):
         from fluxixo_site.tools import ai_seo
@@ -578,9 +642,11 @@ class SoldEverywhereTests(unittest.TestCase):
         terms = ' '.join(group[0] for group in task['groups'])
         seen_pages = []
         seen_price_bounds = []
-        page1_rows = [{**_api_row(str(71000 + i), f'Filler {terms} Tool {i}'), 'target_sale_price': '40.00', 'lastest_volume': 5} for i in range(20)]
-        rare_p2_row = {**_api_row('72999', f'Magnetic Kinetic {terms} Collector Studio'), 'target_sale_price': '39.00', 'lastest_volume': 120, 'product_video_url': 'https://video.aliexpress-media.com/x.mp4', 'shop_id': 'shop-rare'}
-        low_mkt_p2_row = {**_api_row('72888', f'Magnetic Kinetic {terms} Collector Ultra Tool'), 'target_sale_price': '39.00', 'lastest_volume': 120, 'shop_id': 'shop-3mkt'}
+        seen_query_currencies = []
+        expected_cur = market_currency(task['market'])
+        page1_rows = [{**_api_row(str(71000 + i), f'Filler {terms} Tool {i}'), 'target_sale_price': '45.00', 'target_sale_price_currency': 'USD', 'lastest_volume': 5} for i in range(20)]
+        rare_p2_row = {**_api_row('72999', f'Magnetic Kinetic {terms} Collector Studio'), 'target_sale_price': '48.00', 'target_sale_price_currency': 'USD', 'lastest_volume': 120, 'product_video_url': 'https://video.aliexpress-media.com/x.mp4', 'shop_id': 'shop-rare'}
+        low_mkt_p2_row = {**_api_row('72888', f'Magnetic Kinetic {terms} Collector Ultra Tool'), 'target_sale_price': '48.00', 'target_sale_price_currency': 'USD', 'lastest_volume': 120, 'shop_id': 'shop-3mkt'}
         four_mkts = set(MARKETS[:4]) | {task['market']}
         three_mkts = set(MARKETS[:2]) | {task['market']}
 
@@ -596,6 +662,7 @@ class SoldEverywhereTests(unittest.TestCase):
                     return wrap([])
                 seen_pages.append(params.get('page_no'))
                 seen_price_bounds.append((params.get('min_sale_price'), params.get('max_sale_price')))
+                seen_query_currencies.append((params.get('ship_to_country'), params.get('target_currency')))
                 if params.get('page_no') == '1':
                     return wrap(page1_rows)
                 if params.get('page_no') == '2':
@@ -622,14 +689,18 @@ class SoldEverywhereTests(unittest.TestCase):
                                                             'promotion_link': f'https://s.click.aliexpress.com/e/{pid}'}]}}}}}
             raise AssertionError(f'Unexpected method {method}')
 
-        with unittest.mock.patch.dict(os.environ, {'FLUXIXO_MIN_PRICE_CENTS': '1200', 'FLUXIXO_MAX_PRICE_CENTS': '12000'}), \
+        with unittest.mock.patch.dict(os.environ, {'FLUXIXO_MIN_PRICE_CENTS': '3000', 'FLUXIXO_MAX_PRICE_CENTS': '250000'}), \
              unittest.mock.patch.object(discovery_curator.time, 'sleep'):
             picks = autonomous.discover(
                 fake_call, existing=[], count=1, now=NOW, use_curated_pool=True, check_all_markets=True,
                 check_hot_background=False, presearch_fn=None, required_markets=(), min_markets=4, use_ai_judge=False,
             )
         self.assertEqual(['1', '2'], seen_pages[:2])
-        self.assertEqual(('1200', '12000'), seen_price_bounds[0])
+        self.assertEqual(
+            (usd_cents_to_market_subunits(3000, task['market']), usd_cents_to_market_subunits(250000, task['market'])),
+            seen_price_bounds[0],
+        )
+        self.assertEqual((task['market'], expected_cur), seen_query_currencies[0])
         self.assertEqual(['72999'], [p['product_id'] for p in picks])
         self.assertTrue(len(picks[0]['availableMarkets']) >= 4)
         rec, _ = autonomous.build_record(picks[0])

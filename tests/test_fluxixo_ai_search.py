@@ -133,4 +133,15 @@ class SearchTests(unittest.TestCase):
         self.assertEqual(result['candidates'],[])
         self.assertGreater(len(result['rejected']),0)
 
+    def test_search_sends_market_specific_target_currency_per_country(self):
+        search,_=self.api(); seen=[]
+        def call(method,params):
+            seen.append((method,params.get('ship_to_country') or params.get('country'),params.get('target_currency'),params.get('target_language')))
+            return {method.replace('.','_')+'_response':{'resp_result':{'resp_code':200,'result':{'products':{'product':[{'product_id':'100000000009','product_title':'Synthetic CNC Router Engraving Machine','product_detail_url':'https://www.aliexpress.com/item/100000000009.html','product_main_image_url':'https://ae01.alicdn.com/kf/test9.jpg'}]}}}}}
+        search(call,'desktop cnc router',['RU','US','BR','MX','IL','FR'],observed_at='2026-11-10T12:00:00Z')
+        expected={'RU':'RUB','US':'USD','BR':'BRL','MX':'MXN','IL':'ILS','FR':'EUR'}
+        for method in ('aliexpress.affiliate.product.query','aliexpress.affiliate.hotproduct.query','aliexpress.affiliate.productdetail.get'):
+            by_mkt={mkt:cur for m,mkt,cur,lang in seen if m==method and lang=='EN'}
+            self.assertEqual(expected,by_mkt,method)
+
 if __name__=='__main__':unittest.main()

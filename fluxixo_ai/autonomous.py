@@ -23,7 +23,7 @@ import time
 
 from urllib.parse import urlsplit
 from . import curated_copy, image_studio
-from .policy import QUERY, DETAIL, normalize_product, image_host_allowed
+from .policy import QUERY, DETAIL, normalize_product, image_host_allowed, market_currency, usd_cents_to_market_subunits
 from .search import _rows, generate_affiliate, ApiError
 from .task_copy import task_description, task_headline
 
@@ -434,7 +434,13 @@ _EXTRA_API_FIELDS = (
     'evaluate_rate',
     'lastest_volume',
     'target_sale_price',
+    'target_sale_price_currency',
+    'sale_price',
+    'sale_price_currency',
     'target_original_price',
+    'target_original_price_currency',
+    'original_price',
+    'original_price_currency',
     'commission_rate',
     'hot_product_commission_rate',
     'product_video_url',
@@ -492,8 +498,7 @@ def discover(
         ai_queries = discovery_curator.generate_ai_discovery_queries(
             existing, target_markets=pref_tuple or discovery_curator.ALL_MARKETS, limit=6,
         )
-        # The tool seeds (with their own six-language copy) back up the curated pool once it runs low.
-        task_seeds = ai_queries + rotated + list(SEEDS)
+        task_seeds = ai_queries + rotated
     else:
         task_seeds = list(SEEDS)
     # Never the same kind of product twice: drop every type the site already shows (by hand-audited list, by an
@@ -513,8 +518,16 @@ def discover(
                     for key in ('name', 'name_en', 'sourceTitle') if item.get(key)}
     known_models = {item.get('sourceModelKey') for item in existing if isinstance(item, dict) and item.get('sourceModelKey')}
     known_shop_ids = {str(item['sourceShopId']) for item in existing if isinstance(item, dict) and item.get('sourceShopId')}
-    min_price_cents = os.environ.get('FLUXIXO_MIN_PRICE_CENTS', '1200').strip() or '1200'
-    max_price_cents = os.environ.get('FLUXIXO_MAX_PRICE_CENTS', '12000').strip() or '12000'
+    try:
+        min_price_cents_usd = max(100, int(os.environ.get('FLUXIXO_MIN_PRICE_CENTS', '3000').strip() or '3000'))
+    except ValueError:
+        min_price_cents_usd = 3000
+    try:
+        max_price_cents_usd = max(min_price_cents_usd, int(os.environ.get('FLUXIXO_MAX_PRICE_CENTS', '250000').strip() or '250000'))
+    except ValueError:
+        max_price_cents_usd = 250000
+    min_price_usd = min_price_cents_usd / 100.0
+    max_price_usd = max_price_cents_usd / 100.0
     chosen = []
     for task in task_seeds:
         is_curated = str(task.get('key') or '').startswith(('rare_', 'ai_rare_'))
@@ -529,7 +542,7 @@ def discover(
             for page_no in pages:
                 q_params = {
                     'keywords': task['query'],
-                    'target_currency': 'USD',
+                    'target_currency': market_currency(task['market']),
                     'target_language': 'EN',
                     'ship_to_country': task['market'],
                     'page_size': '20',
@@ -537,8 +550,8 @@ def discover(
                     'tracking_id': 'default',
                 }
                 if use_curated_pool:
-                    q_params['min_sale_price'] = min_price_cents
-                    q_params['max_sale_price'] = max_price_cents
+                    q_params['min_sale_price'] = usd_cents_to_market_subunits(min_price_cents_usd, task['market'])
+                    q_params['max_sale_price'] = usd_cents_to_market_subunits(max_price_cents_usd, task['market'])
                 rows = _rows(call(QUERY, q_params), QUERY)
                 for raw in rows[:20]:
                     try:
@@ -565,7 +578,7 @@ def discover(
                 details.extend(_rows(call(DETAIL, {
                     'product_ids': ','.join(chunk),
                     'country': task['market'],
-                    'target_currency': 'USD',
+                    'target_currency': market_currency(task['market']),
                     'target_language': 'EN',
                     'tracking_id': 'default',
                 }), DETAIL)[:20])
@@ -601,6 +614,8 @@ def discover(
                         presearch_fn=presearch_fn,
                         require_observed_metrics=bool(use_curated_pool),
                         known_shop_ids=known_shop_ids,
+                        min_price=min_price_usd,
+                        max_price=max_price_usd,
                     )
                     if not screen_ok:
                         continue
@@ -747,7 +762,7 @@ def refresh_queued(call, candidate, now):
         raise AutonomousError('queued_market_unknown')
     for market in markets:
         try:
-            rows = _rows(call(DETAIL, {'product_ids': product_id, 'country': market, 'target_currency': 'USD',
+            rows = _rows(call(DETAIL, {'product_ids': product_id, 'country': market, 'target_currency': market_currency(market),
                                       'target_language': 'EN', 'tracking_id': 'default'}), DETAIL)
             for raw in rows[:20]:
                 item = normalize_product(raw, market, DETAIL, now.astimezone(timezone.utc).isoformat())

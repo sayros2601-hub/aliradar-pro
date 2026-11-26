@@ -1,9 +1,53 @@
 """Localized catalog and product pages share the showroom's translation data."""
 from html import escape as e
 from pathlib import Path, PurePosixPath
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 import json
 import re
 import market_seo
+
+ALI_MARKET_BY_LOCALE = {
+    'ru': {'_lang': 'ru_RU', '_randl_currency': 'RUB', '_randl_shipto': 'RU', 'gatewayAdapt': 'glo2rus'},
+    'en': {'_lang': 'en_US', '_randl_currency': 'USD', '_randl_shipto': 'US', 'gatewayAdapt': 'glo2usa'},
+    'es': {'_lang': 'es_MX', '_randl_currency': 'MXN', '_randl_shipto': 'MX', 'gatewayAdapt': 'glo2mex'},
+    'pt': {'_lang': 'pt_BR', '_randl_currency': 'BRL', '_randl_shipto': 'BR', 'gatewayAdapt': 'glo2bra'},
+    'fr': {'_lang': 'fr_FR', '_randl_currency': 'EUR', '_randl_shipto': 'FR', 'gatewayAdapt': 'glo2fra'},
+    'he': {'_lang': 'iw_IL', '_randl_currency': 'ILS', '_randl_shipto': 'IL', 'gatewayAdapt': 'glo2isr'},
+}
+
+
+def localize_affiliate_url(href: str, lang: str = 'en') -> str:
+    """Attach target-market language, local currency, ship-to country, and gatewayAdapt idempotently."""
+    if not href or not isinstance(href, str):
+        return href
+    try:
+        parsed = urlsplit(href)
+    except ValueError:
+        return href
+    if (parsed.hostname or '').lower() != 's.click.aliexpress.com':
+        return href
+    base_lang = str(lang or 'en').strip().lower().replace('_', '-').split('-')[0]
+    if base_lang == 'iw':
+        base_lang = 'he'
+    desired = ALI_MARKET_BY_LOCALE.get(base_lang, ALI_MARKET_BY_LOCALE['en'])
+    params = []
+    seen = set()
+    has_smart = False
+    for k, v in parse_qsl(parsed.query, keep_blank_values=True):
+        if k in desired:
+            if k not in seen:
+                params.append((k, desired[k]))
+                seen.add(k)
+        else:
+            if k == 'afSmartRedirect':
+                has_smart = True
+            params.append((k, v))
+    for k, v in desired.items():
+        if k not in seen:
+            params.append((k, v))
+    if not has_smart:
+        params.append(('afSmartRedirect', 'y'))
+    return urlunsplit((parsed.scheme, parsed.netloc, parsed.path, urlencode(params), parsed.fragment))
 
 LANGUAGES = {
     'ru': ('ru', 'ru_RU', 'Русский', 'Каталог', '3D-витрина', 'Посмотреть на AliExpress', 'Исходное фото продавца'),
@@ -668,7 +712,7 @@ def generate(origin, data, products, page, write, image):
             key = category_key(product['category'])
             studio = f"/?lang={language}#{product['id']}"
             listed.append((product, name, desc, cat, path, key))
-            buy = (f'<a class="button" href="{e(product["affiliateUrl"])}" target="_blank" rel="sponsored noopener"><span>{e(ali)}</span><span aria-hidden="true">↗</span></a>'
+            buy = (f'<a class="button" href="{e(localize_affiliate_url(product["affiliateUrl"], language))}" target="_blank" rel="sponsored noopener"><span>{e(ali)}</span><span aria-hidden="true">↗</span></a>'
                    if product['affiliateUrl'] and not product.get('pendingLink') else f'<p class="muted">{e(ui["ctaPending"])}</p>')
             facts_html = ''.join(
                 f'<dt>{e(translate_fact(data, f["label"], language))}</dt><dd>{e(translate_fact(data, f["value"], language))}</dd>'

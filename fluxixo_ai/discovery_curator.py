@@ -11,7 +11,7 @@ import urllib.parse
 import urllib.request
 from typing import Any, Callable
 
-from .policy import DETAIL, MARKETS, QUERY, normalize_product
+from .policy import DETAIL, MARKET_CONFIG, MARKETS, QUERY, market_currency, normalize_product, price_to_usd
 from .search import HOT, _rows
 
 ALL_MARKETS: tuple[str, ...] = MARKETS  # ('RU', 'US', 'BR', 'MX', 'IL', 'FR')
@@ -36,21 +36,29 @@ COMMODITY_STOPLIST: frozenset[str] = frozenset({
     'lightbulb', 'bulb', 'fuse', 'filter cartridge', 'filter', 'filters', 'brush head', 'refills',
     'shoe lace', 'shoelace', 'hanger', 'hangers', 'toothpaste', 'cotton swab', 'cotton',
     'incontinence', 'ostomy', 'catheter', 'colostomy', 'elderly', 'arthritis',
-    'welding', 'lathe', 'milling', 'calibrator', 'collet',
+    'calibrator', 'collet',
 })
 
 COMMODITY_PHRASE_RE = re.compile(
     r'\b(?:'
-    r'phone\s+case|screen\s+protector|tempered\s+glass|charging\s+cable|usb\s+cable|'
-    r'data\s+cable|power\s+cord|watch\s+band|watch\s+strap|ear\s*pads?|'
-    r'plug\s+adapter|power\s+adapter|universal\s+adapter|travel\s+adapter|extension\s+cord|power\s+strip|'
+    r'phone\s+case|screen\s+protector|tempered\s+glass|'
+    r'watch\s+band|watch\s+strap|ear\s*pads?|'
     r'replacement\s+(?:part|head|filter|blade|pad|tips?|brush|battery)|'
     r'spare\s+parts?|adhesive\s+hook|wall\s+sticker|cleaning\s+cloth|'
     r'microfiber\s+towel|garbage\s+bag|trash\s+bag|ziplock|hair\s+tie|rubber\s+band|'
-    r'calibration\s+ring|ring\s+gauge|plug\s+gauge|plasma\s+cutter|welding\s+machine|'
-    r'arc\s+gouging|lathe\s+chuck|milling\s+cutter|cnc\s+router|'
+    r'calibration\s+ring|ring\s+gauge|plug\s+gauge|'
+    r'lathe\s+chuck|milling\s+cutter|'
     r'tapping\s+collet|wimshurst|elderly\s+dressing|'
     r'orthopedic\s+brace|dental\s+impression|surgical\s+forceps|lab\s+centrifuge'
+    r')\b',
+    re.IGNORECASE,
+)
+
+# Standalone cords/adapters/chargers banned unless bundled inside a full specialty machine or diagnostic kit.
+ACCESSORY_PHRASE_RE = re.compile(
+    r'\b(?:'
+    r'charging\s+cable|usb\s+cable|data\s+cable|power\s+cord|'
+    r'plug\s+adapter|power\s+adapter|universal\s+adapter|travel\s+adapter|extension\s+cord|power\s+strip'
     r')\b',
     re.IGNORECASE,
 )
@@ -143,6 +151,25 @@ CURATED_RARE_QUERIES: list[dict[str, Any]] = [
     {'key': 'rare_rolling_diamond_sharpener', 'query': 'magnetic rolling diamond knife sharpener angle block', 'groups': (('rolling',), ('sharpener',), ('knife',)), 'category': 'Кухня', 'market': 'RU', 'theme': 'sand'},
     {'key': 'rare_ips_nixie_clock', 'query': 'retro ips digital nixie tube glow desk clock', 'groups': (('nixie',), ('clock',)), 'category': 'Техника', 'market': 'IL', 'theme': 'coral'},
     {'key': 'rare_solar_car_inclinometer', 'query': 'solar digital car inclinometer pitch roll slope meter', 'groups': (('inclinometer', 'slope'), ('car', 'solar')), 'category': 'В дороге', 'market': 'MX', 'theme': 'blue'},
+    # High-value rare gear & benchtop/workshop machines wave (all 6 markets & 9 worlds)
+    {'key': 'rare_desktop_cnc_router', 'query': 'desktop cnc router engraving machine', 'groups': (('cnc',), ('router', 'engraving', 'machine')), 'category': 'Инструменты', 'market': 'US', 'theme': 'blue'},
+    {'key': 'rare_mini_metal_lathe', 'query': 'mini metal lathe benchtop variable speed', 'groups': (('lathe',), ('metal', 'benchtop', 'mini')), 'category': 'Инструменты', 'market': 'RU', 'theme': 'coral'},
+    {'key': 'rare_diode_laser_engraver', 'query': 'diode laser engraver cutter machine', 'groups': (('laser',), ('engraver', 'cutter')), 'category': 'Инструменты', 'market': 'MX', 'theme': 'sand'},
+    {'key': 'rare_handheld_3d_scanner', 'query': 'handheld 3d scanner color laser', 'groups': (('3d',), ('scanner',)), 'category': 'Техника', 'market': 'IL', 'theme': 'blue'},
+    {'key': 'rare_lifepo4_power_station', 'query': 'portable power station lifepo4 solar generator', 'groups': (('power',), ('station',), ('lifepo4', 'solar', 'portable')), 'category': 'На природе', 'market': 'US', 'theme': 'coral'},
+    {'key': 'rare_window_cleaning_robot', 'query': 'robot window cleaner automatic water spray', 'groups': (('window',), ('robot', 'cleaner')), 'category': 'Дом', 'market': 'FR', 'theme': 'lavender'},
+    {'key': 'rare_portable_espresso_machine', 'query': 'portable electric espresso coffee machine bar', 'groups': (('espresso',), ('machine', 'maker')), 'category': 'Кухня', 'market': 'BR', 'theme': 'rose'},
+    {'key': 'rare_inverter_spot_welder', 'query': 'portable inverter welding machine handheld', 'groups': (('welding', 'welder'), ('machine', 'handheld', 'inverter')), 'category': 'Инструменты', 'market': 'RU', 'theme': 'coral'},
+    {'key': 'rare_digital_oscilloscope_multimeter', 'query': 'handheld digital oscilloscope multimeter waveform', 'groups': (('oscilloscope',), ('digital', 'handheld')), 'category': 'Техника', 'market': 'IL', 'theme': 'blue'},
+    {'key': 'rare_smart_laser_projector', 'query': 'mini portable projector autofocus 4k android', 'groups': (('projector',), ('portable', 'autofocus', 'smart')), 'category': 'Дом', 'market': 'FR', 'theme': 'lavender'},
+    {'key': 'rare_ultrasonic_parts_washer', 'query': 'stainless steel ultrasonic cleaner heater machine', 'groups': (('ultrasonic',), ('heater', 'stainless', 'digital')), 'category': 'Инструменты', 'market': 'BR', 'theme': 'sand'},
+    {'key': 'rare_vacuum_chamber_sealer', 'query': 'chamber vacuum sealer machine food commercial', 'groups': (('vacuum',), ('sealer',), ('chamber', 'machine')), 'category': 'Кухня', 'market': 'MX', 'theme': 'sand'},
+    {'key': 'rare_smart_cat_litter_robot', 'query': 'automatic self cleaning smart cat litter box', 'groups': (('litter',), ('automatic', 'self', 'smart')), 'category': 'Питомцы', 'market': 'US', 'theme': 'lavender'},
+    {'key': 'rare_smart_pet_feeder_camera', 'query': 'automatic smart pet feeder wifi camera', 'groups': (('feeder',), ('camera', 'wifi', 'smart')), 'category': 'Питомцы', 'market': 'BR', 'theme': 'blue'},
+    {'key': 'rare_electric_hydrofoil_scooter', 'query': 'underwater sea scooter diving propulsion electric', 'groups': (('underwater', 'diving'), ('scooter',)), 'category': 'Спорт', 'market': 'FR', 'theme': 'blue'},
+    {'key': 'rare_portable_car_fridge', 'query': 'portable car refrigerator compressor 12v freezer', 'groups': (('car', 'portable'), ('refrigerator', 'fridge', 'freezer')), 'category': 'В дороге', 'market': 'MX', 'theme': 'coral'},
+    {'key': 'rare_led_light_therapy_mask', 'query': 'red light therapy led facial mask wireless', 'groups': (('light', 'led'), ('therapy', 'mask')), 'category': 'Уход', 'market': 'IL', 'theme': 'rose'},
+    {'key': 'rare_home_cold_brew_roaster', 'query': 'electric coffee bean roaster home machine', 'groups': (('coffee',), ('roaster',)), 'category': 'Кухня', 'market': 'RU', 'theme': 'sand'},
 ]
 
 
@@ -175,6 +202,28 @@ RETIRED_TYPES = frozenset({
     'rare_car_gap_caddy',               # car seat organizer with USB: cousin of existing car mounts/organizers
     'rare_magnetic_vortex_mug',         # drink mixer: cousin of find-056 milk frother
     'rare_laser_level_inclinometer',    # digital angle meter: cousin of find-052 laser distance meter
+    # Low-value trinkets retired under owner's high-value / rare-item curation standard:
+    'rare_dry_bag_compression',
+    'rare_ultralight_camp_pillow',
+    'rare_flint_compass_whistle',
+    'rare_pocket_fire_bellows',
+    'rare_cryo_ice_roller',
+    'rare_scalp_oil_applicator',
+    'rare_agility_reaction_ball',
+    'rare_foldable_pushup_board',
+    'rare_electrostatic_pet_roller',
+    'rare_cat_window_hammock',
+    'rare_led_dog_collar',
+    'rare_ratchet_finger_wrench',
+    'rare_mezzaluna_herb_chopper',
+    'rare_collapsible_sink_colander',
+    'rare_luggage_cup_holder',
+    'rare_car_escape_hammer',
+    'rare_leakproof_dog_flask',
+    'rare_contour_profile_gauge',
+    'rare_rapid_defrost_tray',
+    'rare_survival_filter_straw',
+    'rare_plasma_arc_lighter',
 })
 # Fallback seed types that must never run: cable junk and narrow orthopedic/machining tools.
 EXCLUDED_SEED_TYPES = frozenset({'cable_fish_tape', 'button_hook', 'bearing_puller', 'screw_extractor', 'reed_trimmer'})
@@ -234,7 +283,7 @@ def is_ordinary_or_banned_listing(title: str) -> tuple[bool, str | None]:
         'earpads', 'shoelace', 'gasket', 'oring', 'o-ring', 'keychain', 'keyring',
         'socks', 'toothpaste', 'hanger', 'hangers', 'sponge', 'sponges', 'towel',
         'towels', 'rag', 'rags', 'ballpoint', 'notebook', 'apron', 'lightbulb',
-        'incontinence', 'ostomy', 'catheter', 'arthritis', 'wimshurst', 'collet', 'lathe',
+        'incontinence', 'ostomy', 'catheter', 'arthritis', 'wimshurst', 'collet',
     }
     hit = words & strict_single_ban
     if hit:
@@ -242,14 +291,19 @@ def is_ordinary_or_banned_listing(title: str) -> tuple[bool, str | None]:
     # Reject B2B calibration metrology gauges unless clearly a consumer contour/carpentry tool.
     if 'calibration' in words or ('gauge' in words and not ({'contour', 'profile', 'angle', 'tire', 'depth'} & words)):
         return True, 'industrial_metrology_gauge'
-    # Catch commodity cable/case/adapter listings unless paired with specialty diagnostic/novelty hardware.
+    # Catch commodity cable/case/adapter listings unless paired with specialty diagnostic/machine hardware.
     diagnostic_whitelist = {
         'borescope', 'endoscope', 'tester', 'analyzer', 'otoscope', 'scanner',
         'thermal', 'laser', 'ultrasonic', 'gyroscopic', 'stirling', 'sanitizer',
         'uv', 'uvc', 'inclinometer', 'microscope', 'oscilloscope', 'soldering',
-        'telemetry', 'hud',
+        'telemetry', 'hud', 'cnc', 'lathe', 'engraver', 'router', 'welder',
+        'welding', 'plasma', 'espresso', 'robot', 'projector', 'roaster',
+        'sealer', 'freezer', 'refrigerator', 'scooter', 'station', 'lifepo4',
+        'feeder', 'litter', 'therapy', 'milling',
     }
     if {'cable', 'charger', 'adapter', 'case', 'cover'} & words and not (words & diagnostic_whitelist):
+        return True, 'everyday_commodity_accessory'
+    if ACCESSORY_PHRASE_RE.search(clean) and not (words & diagnostic_whitelist):
         return True, 'everyday_commodity_accessory'
     return False, None
 
@@ -276,10 +330,12 @@ def compatible_markets_for_title(title: str, candidate_markets: tuple[str, ...] 
     return markets
 
 
-MIN_PRICE_USD = 12.0
-MAX_PRICE_USD = 120.0
+MIN_PRICE_USD = 30.0
+MAX_PRICE_USD = 2500.0
+HIGH_TICKET_PRICE_USD = 100.0
 MIN_SELLER_RATING = 92.0
 MIN_VOLUME = 5
+MIN_VOLUME_HIGH_TICKET = 2
 MAX_VOLUME = 5000
 SWEET_SPOT_MIN_VOLUME = 15
 SWEET_SPOT_MAX_VOLUME = 800
@@ -341,7 +397,7 @@ def seller_quality_check(
     min_price: float = MIN_PRICE_USD,
     max_price: float = MAX_PRICE_USD,
 ) -> tuple[bool, str, float]:
-    """Evaluate seller reliability, price window, media richness, and non-commodity niche sweet-spot."""
+    """Evaluate seller reliability, USD-normalized price window, media richness, and high-value niche fit."""
     rate = parse_evaluate_rate(
         raw.get('evaluate_rate')
         or (raw.get('seller_metrics', {}) or {}).get('evaluate_rate', {}).get('raw_value')
@@ -351,12 +407,22 @@ def seller_quality_check(
         or raw.get('orders_count')
         or (raw.get('seller_metrics', {}) or {}).get('lastest_volume', {}).get('raw_value')
     )
-    price = None
-    for p_key in ('target_sale_price', 'sale_price', 'app_sale_price', 'price', 'target_original_price', 'original_price'):
+    price_usd = None
+    for p_key, c_key in (
+        ('target_sale_price', 'target_sale_price_currency'),
+        ('sale_price', 'sale_price_currency'),
+        ('app_sale_price', 'app_sale_price_currency'),
+        ('price', 'price_currency'),
+        ('target_original_price', 'target_original_price_currency'),
+        ('original_price', 'original_price_currency'),
+    ):
         if raw.get(p_key) is not None:
-            price = parse_price(raw.get(p_key))
-            if price is not None:
-                break
+            parsed_val = parse_price(raw.get(p_key))
+            if parsed_val is not None:
+                cur_val = raw.get(c_key) or raw.get('currency') or 'USD'
+                price_usd = price_to_usd(parsed_val, cur_val)
+                if price_usd is not None:
+                    break
     commission = None
     for c_key in ('commission_rate', 'hot_product_commission_rate'):
         if raw.get(c_key) is not None:
@@ -364,18 +430,22 @@ def seller_quality_check(
             if commission is not None:
                 break
 
+    is_high_ticket = price_usd is not None and price_usd >= HIGH_TICKET_PRICE_USD
+    eff_min_vol = MIN_VOLUME_HIGH_TICKET if is_high_ticket else MIN_VOLUME
+    eff_missing_rate_vol = 5 if is_high_ticket else 15
+
     if rate is not None and rate < MIN_SELLER_RATING:
         return False, f'low_seller_rating:{rate}', -100.0
-    if require_observed_metrics and rate is None and (volume is None or volume < 15):
+    if require_observed_metrics and rate is None and (volume is None or volume < eff_missing_rate_vol):
         return False, 'missing_seller_rating', -100.0
     if volume is not None and volume > MAX_VOLUME:
         return False, f'mass_commodity_volume:{volume}', -50.0
-    if require_observed_metrics and (volume is None or volume < MIN_VOLUME):
+    if require_observed_metrics and (volume is None or volume < eff_min_vol):
         return False, f'low_volume_unproven:{volume}', -50.0
-    if price is not None and price < min_price:
-        return False, f'price_below_floor:{price:.2f}', -50.0
-    if price is not None and price > max_price:
-        return False, f'price_above_ceiling:{price:.2f}', -50.0
+    if price_usd is not None and price_usd < min_price:
+        return False, f'price_below_floor:{price_usd:.2f}', -50.0
+    if price_usd is not None and price_usd > max_price:
+        return False, f'price_above_ceiling:{price_usd:.2f}', -50.0
 
     bonus = 0.0
     if rate is not None:
@@ -383,16 +453,23 @@ def seller_quality_check(
     else:
         bonus -= 5.0
     if volume is not None:
-        if SWEET_SPOT_MIN_VOLUME <= volume <= SWEET_SPOT_MAX_VOLUME:
+        if (is_high_ticket and eff_min_vol <= volume <= SWEET_SPOT_MAX_VOLUME) or (
+            SWEET_SPOT_MIN_VOLUME <= volume <= SWEET_SPOT_MAX_VOLUME
+        ):
             bonus += 8.0
         elif SWEET_SPOT_MAX_VOLUME < volume <= 2500:
             bonus += 4.0
-        elif MIN_VOLUME <= volume < SWEET_SPOT_MIN_VOLUME:
-            bonus += 1.5
+        elif eff_min_vol <= volume < SWEET_SPOT_MIN_VOLUME:
+            bonus += 2.0 if is_high_ticket else 1.5
         elif volume == 0:
             bonus -= 6.0
-    if price is not None and 18.0 <= price <= 75.0:
-        bonus += 3.0
+    if price_usd is not None:
+        if 60.0 <= price_usd <= 800.0:
+            bonus += 5.0
+        elif 800.0 < price_usd <= 2500.0:
+            bonus += 4.0
+        elif 30.0 <= price_usd < 60.0:
+            bonus += 1.5
     video_url = str(raw.get('product_video_url') or '').strip()
     if video_url.startswith('https://'):
         bonus += 8.0
@@ -547,7 +624,7 @@ def fetch_hot_background_ids(call: Callable[[str, dict[str, str]], dict], query:
                 {
                     'keywords': query.strip(),
                     'ship_to_country': market,
-                    'target_currency': 'USD',
+                    'target_currency': market_currency(market),
                     'target_language': 'EN',
                     'page_size': '20',
                     'tracking_id': 'default',
@@ -708,7 +785,7 @@ def verify_markets_for_candidate(
                         {
                             'product_ids': pid,
                             'country': market,
-                            'target_currency': 'USD',
+                            'target_currency': market_currency(market),
                             'target_language': 'EN',
                             'tracking_id': 'default',
                         },
@@ -830,21 +907,28 @@ def generate_ai_discovery_queries(
                 keyword_freq[tok] = keyword_freq.get(tok, 0) + 1
     top_existing_kw = [k for k, _ in sorted(keyword_freq.items(), key=lambda kv: (-kv[1], kv[0]))[:30]]
 
+    market_profiles = [
+        f"{m} ({MARKET_CONFIG[m]['currency']}, {MARKET_CONFIG[m]['voltage']}): {MARKET_CONFIG[m]['market_taste']}"
+        for m in target_markets if m in MARKET_CONFIG
+    ]
     sys_prompt = (
-        'You curate unusual, genuinely clever non-everyday physical gadgets ($12-$120 USD) from AliExpress '
-        'that people do NOT already own at home: kinetic/physics desk sculptures, magnetic levitation/ferrofluid displays, '
-        'clever EDC/titanium tools, Japanese-style mechanical kitchen gadgets, smart camping/outdoor gear, pet enrichment toys, '
-        'and photogenic self-care devices. STRICTLY FORBID common commodity cables, phone cases, stickers, replacement parts, '
-        'industrial calibration gauges, lathes, plasma/welding cutters, or medical/rehab/mobility aids. '
+        'You curate rare, high-desire, non-everyday consumer gadgets AND serious benchtop/workshop machines ($30-$2,500 USD) '
+        'on AliExpress that people do NOT already own at home and genuinely want to buy (desktop CNC routers, mini metal/wood lathes, '
+        'diode laser engravers, 3D scanners, thermal imaging cameras, LiFePO4 solar power stations, robotic window cleaners, '
+        'portable electric/automatic espresso machines, 12V compressor car fridges, underwater sea scooters, handheld inverter welders, '
+        'chamber vacuum sealers, autofocus smart projectors, LED skincare/wellness devices, and smart pet robotics). '
+        'Paid shipping and premium pricing are completely fine; NEVER suggest cheap trinkets (<$30), everyday household clutter, '
+        'cables, phone cases, stickers, replacement spare parts, calibration ring/plug gauges, or medical/rehab/mobility aids. '
         'Each query must specify TWO distinct required English title anchor words ("required_words") that a matching consumer listing contains. '
         'Reply strictly with JSON: '
         '{"queries":[{"query":"english 4-6 word query","required_words":["word1","word2"],"category":"Техника|Дом|Кухня|В дороге|Инструменты|Уход|Спорт|На природе|Питомцы"}]}'
     )
     user_prompt = (
         f'Catalog has {len(recent_names)} items. Prioritize these underrepresented categories: {underrepresented}. '
+        f'Target market currency/voltage/demand profiles: {market_profiles}. '
         f'Recent items to avoid repeating: {bounded_recent}. '
         f'Overused topics to skip: {top_existing_kw}. '
-        f'Propose {limit} completely distinct consumer gadget ideas.'
+        f'Propose {limit} completely distinct high-desire rare gadget or workshop machine ideas tailored to those markets.'
     )
     raw_obj = _complete_json_with_wait(ai_seo, sys_prompt, user_prompt)
     if not isinstance(raw_obj, dict) or not isinstance(raw_obj.get('queries'), list):
@@ -931,20 +1015,25 @@ def judge_candidates_uniqueness(
         vol = item.get('lastest_volume')
         if vol is None:
             vol = (metrics.get('lastest_volume') or {}).get('raw_value')
+        raw_p = parse_price(item.get('target_sale_price') or item.get('sale_price'))
+        cur_p = item.get('target_sale_price_currency') or item.get('sale_price_currency') or 'USD'
+        norm_usd = price_to_usd(raw_p, cur_p)
         cand_rows.append({
             'product_id': str(item.get('product_id') or ''),
             'title': str(item.get('title') or '')[:140],
-            'price_usd': item.get('target_sale_price') or item.get('sale_price'),
+            'price_usd': round(norm_usd, 2) if norm_usd is not None else None,
             'orders': vol,
             'has_video': bool(item.get('product_video_url')),
         })
 
     sys_prompt = (
-        'You are the chief gadget curator for a curated 3D showroom of genuinely unusual, clever consumer finds. '
-        'Score each candidate from 1 to 10 for wow-factor / clever mechanism / photogenic studio silhouette and '
-        '"something most households do NOT already own". Reject (set not_commodity=false or low wow_score): '
-        'ordinary household staples, cables/adapters/cases, industrial/B2B metrology or factory equipment, welding/plasma cutters, '
-        'medical/orthopedic/rehab aids, cheap clutter, or near-duplicates of existing catalog items. '
+        'You are the chief curator for a 3D showroom of genuinely rare, high-desire finds & serious personal equipment ($30-$2,500 USD). '
+        'Score each candidate from 1 to 10 for wow-factor / craftsmanship / photogenic silhouette and '
+        '"something most households do NOT already own and immediately want to buy". '
+        'High-value hobby/workshop machines (mini metal lathes, desktop CNC routers, diode laser engravers, handheld welders, '
+        '3D scanners, thermal imagers, LiFePO4 stations, smart appliances, espresso machines) are WELCOMED even at higher prices and paid shipping. '
+        'Reject (set not_commodity=false or low wow_score): cheap low-value trinkets or clutter (<$30 feel), everyday staples, '
+        'cables/adapters/cases/spare parts, calibration ring/plug gauges, medical/orthopedic/rehab aids, or near-duplicates of existing catalog items. '
         'Reply strictly with JSON: '
         '{"verdicts":[{"product_id":"id","wow_score":8.5,"not_commodity":true,"photogenic":true,"reason":"short reason"}]}'
     )

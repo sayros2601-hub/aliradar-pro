@@ -50,7 +50,8 @@ class WatchSeoTest(unittest.TestCase):
         self.assertIn('стальным браслетом', visible.lower())
         self.assertNotIn('не подтверждены', visible.lower())
         self.assertIn(f'<link rel="canonical" href="{CANONICAL}">',page)
-        self.assertIn(f'href="{AFFILIATE}"',page)
+        expected_ru = html.escape(self.site_module.L.localize_affiliate_url(AFFILIATE, 'ru'), quote=True)
+        self.assertIn(f'href="{expected_ru}"',page)
         self.assertIn('rel="sponsored nofollow noopener"',page)
         self.assertNotRegex(page,r'"(?:price|priceCurrency|ratingValue|reviewCount)"\s*:')
 
@@ -61,7 +62,8 @@ class WatchSeoTest(unittest.TestCase):
         self.assertNotIn('Купить наручные часы',en)
         expected = self.translations['products'][WATCH_ID]['en']['name']
         self.assertIn(f'<h1 class="d">{html.escape(expected,quote=True)}</h1>',en)
-        self.assertIn(f'href="{AFFILIATE}"',en)
+        expected_en = html.escape(self.site_module.L.localize_affiliate_url(AFFILIATE, 'en'), quote=True)
+        self.assertIn(f'href="{expected_en}"',en)
 
 
 if __name__ == '__main__':

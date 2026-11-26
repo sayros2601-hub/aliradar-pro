@@ -77,19 +77,20 @@ test('legacy showroom product links open the same item in its requested locale',
   }), '/en/products/find-063-cable-tester/?utm_source=share');
 });
 
-test('decorateAffiliateUrl appends AliExpress storefront _lang and afSmartRedirect idempotently', () => {
+test('decorateAffiliateUrl appends AliExpress market currency, shipto, gatewayAdapt, _lang, and afSmartRedirect idempotently', () => {
   const base = 'https://s.click.aliexpress.com/e/_c32Y13sN';
-  assert.equal(fx.decorateAffiliateUrl(base, 'en'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=en_US&afSmartRedirect=y');
-  assert.equal(fx.decorateAffiliateUrl(base, 'ru'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=ru_RU&afSmartRedirect=y');
-  assert.equal(fx.decorateAffiliateUrl(base, 'pt-BR'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=pt_BR&afSmartRedirect=y');
-  assert.equal(fx.decorateAffiliateUrl(base, 'es-MX'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=es_ES&afSmartRedirect=y');
-  assert.equal(fx.decorateAffiliateUrl(base, 'fr'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=fr_FR&afSmartRedirect=y');
-  assert.equal(fx.decorateAffiliateUrl(base, 'he-IL'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=iw_IL&afSmartRedirect=y');
+  assert.equal(fx.decorateAffiliateUrl(base, 'en'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=en_US&_randl_currency=USD&_randl_shipto=US&gatewayAdapt=glo2usa&afSmartRedirect=y');
+  assert.equal(fx.decorateAffiliateUrl(base, 'ru'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=ru_RU&_randl_currency=RUB&_randl_shipto=RU&gatewayAdapt=glo2rus&afSmartRedirect=y');
+  assert.equal(fx.decorateAffiliateUrl(base, 'pt-BR'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=pt_BR&_randl_currency=BRL&_randl_shipto=BR&gatewayAdapt=glo2bra&afSmartRedirect=y');
+  assert.equal(fx.decorateAffiliateUrl(base, 'es-MX'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=es_MX&_randl_currency=MXN&_randl_shipto=MX&gatewayAdapt=glo2mex&afSmartRedirect=y');
+  assert.equal(fx.decorateAffiliateUrl(base, 'fr'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=fr_FR&_randl_currency=EUR&_randl_shipto=FR&gatewayAdapt=glo2fra&afSmartRedirect=y');
+  assert.equal(fx.decorateAffiliateUrl(base, 'he-IL'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=iw_IL&_randl_currency=ILS&_randl_shipto=IL&gatewayAdapt=glo2isr&afSmartRedirect=y');
 
-  const once = fx.decorateAffiliateUrl(base, 'ru');
-  assert.equal(fx.decorateAffiliateUrl(once, 'ru'), once);
+  const once = fx.decorateAffiliateUrl(base, 'es-MX');
+  assert.equal(fx.decorateAffiliateUrl(once, 'es-MX'), once);
   assert.equal(fx.decorateAffiliateUrl('https://www.fluxixo.shop/products/demo/', 'ru'), 'https://www.fluxixo.shop/products/demo/');
 
   const fxNoUrl = loadLocaleExports({ withUrl: false });
-  assert.equal(fxNoUrl.decorateAffiliateUrl(base, 'pt-BR'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=pt_BR&afSmartRedirect=y');
+  assert.equal(fxNoUrl.decorateAffiliateUrl(base, 'es-MX'), 'https://s.click.aliexpress.com/e/_c32Y13sN?_lang=es_MX&_randl_currency=MXN&_randl_shipto=MX&gatewayAdapt=glo2mex&afSmartRedirect=y');
+  assert.equal(fxNoUrl.decorateAffiliateUrl(once, 'es-MX'), once);
 });

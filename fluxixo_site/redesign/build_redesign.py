@@ -446,7 +446,8 @@ class Site:
     def buy(self, p, attrs=''):
         extra = f'data-product-id="{e(p["id"])}" data-world="{e(slug(p["world"]))}"'
         attr_str = f'{extra} {attrs}'.strip() if attrs else extra
-        return (f'<a class="btn" href="{e(p["affiliateUrl"])}" target="_blank" rel="sponsored nofollow noopener" {attr_str}>'
+        href = L.localize_affiliate_url(p['affiliateUrl'], self.lang)
+        return (f'<a class="btn" href="{e(href)}" target="_blank" rel="sponsored nofollow noopener" {attr_str}>'
                 f'{e(self.ui["cta"])} <span aria-hidden="true">{self.fwd}</span></a>')
 
     def page(self, title, desc, path, body, alt_paths, schema=None, image=None, colour=PAPER, hreflang=True, noindex=False, tab=None, buy=None,
@@ -729,7 +730,8 @@ class Site:
             override = FEATURED_IMAGE_OVERRIDES.get(star['id'])
             image_src = override or img(star['image'], 800)
             image_class = ' class="day-cutout"' if override else ''
-            seller_link = (f'<a class="btn line" href="{e(star["affiliateUrl"])}" target="_blank" '
+            seller_href = L.localize_affiliate_url(star['affiliateUrl'], self.lang)
+            seller_link = (f'<a class="btn line" href="{e(seller_href)}" target="_blank" '
                            f'rel="sponsored nofollow noopener" data-product-id="{e(star["id"])}" data-world="{e(slug(star["world"]))}">{e(u["seller_cta"])} <span aria-hidden="true">↗</span></a>')
             slides.append(
                 f'<article class="day-card" data-carousel-slide data-product-id="{e(star["id"])}" '

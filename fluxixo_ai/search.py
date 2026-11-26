@@ -8,7 +8,7 @@ import os
 import re
 from urllib.parse import urlencode, urlsplit
 from urllib.request import Request, urlopen
-from .policy import MARKETS, QUERY, DETAIL, normalize_product, merge_observations, image_field_shapes
+from .policy import MARKETS, QUERY, DETAIL, normalize_product, merge_observations, image_field_shapes, market_currency
 
 LINK = 'aliexpress.affiliate.link.generate'
 HOT = 'aliexpress.affiliate.hotproduct.query'
@@ -109,7 +109,7 @@ def search_products(call,query,markets,limit=20,observed_at=None):
     for market in markets:
         for page in (1,2):
             try:
-                rows=_rows(call(QUERY,{'keywords':query.strip(),'ship_to_country':market,'target_currency':'USD','target_language':'EN','page_size':'20','page_no':str(page),'tracking_id':'default'}),QUERY)
+                rows=_rows(call(QUERY,{'keywords':query.strip(),'ship_to_country':market,'target_currency':market_currency(market),'target_language':'EN','page_size':'20','page_no':str(page),'tracking_id':'default'}),QUERY)
                 if len(rows)>20:warnings.append({'market':market,'operation':'query','status':'response_truncated_to_page_size'})
                 for row in rows[:20]:
                     record_image_shapes(row)
@@ -120,7 +120,7 @@ def search_products(call,query,markets,limit=20,observed_at=None):
                         rejected.append({'market':market,'reason':'invalid_or_mismatching_identity_or_source',**_source_diagnostic(row,error)})
             except (ApiError,ValueError):warnings.append({'market':market,'operation':'query','status':'unavailable'})
         try:
-            rows=_rows(call(HOT,{'keywords':query.strip(),'ship_to_country':market,'target_currency':'USD','target_language':'EN','page_size':'20','tracking_id':'default'}),HOT)
+            rows=_rows(call(HOT,{'keywords':query.strip(),'ship_to_country':market,'target_currency':market_currency(market),'target_language':'EN','page_size':'20','tracking_id':'default'}),HOT)
             if len(rows)>20:warnings.append({'market':market,'operation':'hotproduct.query','status':'response_truncated_to_page_size'})
             for row in rows[:20]:
                 # This list is a popular background only. It cannot confer or
@@ -136,7 +136,7 @@ def search_products(call,query,markets,limit=20,observed_at=None):
         for start in range(0,len(ids),20):
             requested=set(ids[start:start+20])
             try:
-                rows=_rows(call(DETAIL,{'product_ids':','.join(sorted(requested)),'country':market,'target_currency':'USD','target_language':'EN','tracking_id':'default'}),DETAIL)
+                rows=_rows(call(DETAIL,{'product_ids':','.join(sorted(requested)),'country':market,'target_currency':market_currency(market),'target_language':'EN','tracking_id':'default'}),DETAIL)
                 if len(rows)>20:warnings.append({'market':market,'operation':'productdetail.get','status':'response_truncated_to_page_size'})
                 for row in rows[:20]:
                     record_image_shapes(row)

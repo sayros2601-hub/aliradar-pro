@@ -4,7 +4,7 @@ from html import escape
 from locales import (
     ABOUT, BREADCRUMB_ARIA, CATALOG_TITLE, CATEGORY_TITLE, IMAGE_SIZES, LANGUAGES, DISCLOSURE, STAGE_CAPTION, about_path, alternates,
     card_image, catalog_path, category_key, category_paths, fit_description, fit_title, generate, generate_about,
-    header_lang_select, hero_image, item_page_schema, language_links, product_path, public_facts, sticky_cta, sync_showroom, thumb,
+    header_lang_select, hero_image, item_page_schema, language_links, localize_affiliate_url, product_path, public_facts, sticky_cta, sync_showroom, thumb,
     translations
 )
 import journal_pages
@@ -183,7 +183,7 @@ for idx, p in enumerate(products):
     headline_ru = ' '.join(p.get('headline', []))
     studio_ru = f"/?lang=ru#{e(p['id'])}"
     cta_ru = (
-        f'<a class="button" href="{e(p["affiliateUrl"])}" target="_blank" rel="sponsored noopener"><span>Посмотреть на AliExpress</span><span aria-hidden="true">↗</span></a>'
+        f'<a class="button" href="{e(localize_affiliate_url(p["affiliateUrl"], "ru"))}" target="_blank" rel="sponsored noopener"><span>Посмотреть на AliExpress</span><span aria-hidden="true">↗</span></a>'
         if p.get('affiliateUrl') and not p.get('pendingLink')
         else '<p class="muted">Ссылка на продавца уточняется.</p>'
     )

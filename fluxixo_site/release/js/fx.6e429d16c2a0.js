@@ -123,10 +123,18 @@ const FluxixoCarousel = (() => {
   return { createCarouselController, carouselSwipeStep };
 })();
 const FluxixoLocale = (() => {
+  const ALI_MARKET_BY_LOCALE = {
+    ru: { lang: 'ru_RU', currency: 'RUB', shipto: 'RU', gatewayAdapt: 'glo2rus' },
+    en: { lang: 'en_US', currency: 'USD', shipto: 'US', gatewayAdapt: 'glo2usa' },
+    es: { lang: 'es_MX', currency: 'MXN', shipto: 'MX', gatewayAdapt: 'glo2mex' },
+    pt: { lang: 'pt_BR', currency: 'BRL', shipto: 'BR', gatewayAdapt: 'glo2bra' },
+    fr: { lang: 'fr_FR', currency: 'EUR', shipto: 'FR', gatewayAdapt: 'glo2fra' },
+    he: { lang: 'iw_IL', currency: 'ILS', shipto: 'IL', gatewayAdapt: 'glo2isr' },
+  };
   const ALI_LANG_BY_LOCALE = {
     ru: 'ru_RU',
     en: 'en_US',
-    es: 'es_ES',
+    es: 'es_MX',
     pt: 'pt_BR',
     fr: 'fr_FR',
     he: 'iw_IL',
@@ -182,12 +190,15 @@ const FluxixoLocale = (() => {
   function decorateAffiliateUrl(href, pageLang) {
     if (!href || typeof href !== 'string') return href;
     const locale = normalizeLocaleCode(pageLang) || 'en';
-    const aliLang = ALI_LANG_BY_LOCALE[locale] || 'en_US';
+    const market = ALI_MARKET_BY_LOCALE[locale] || ALI_MARKET_BY_LOCALE.en;
     if (typeof URL === 'function') {
       try {
         const url = new URL(href);
         if (url.hostname !== 's.click.aliexpress.com') return href;
-        url.searchParams.set('_lang', aliLang);
+        url.searchParams.set('_lang', market.lang);
+        url.searchParams.set('_randl_currency', market.currency);
+        url.searchParams.set('_randl_shipto', market.shipto);
+        url.searchParams.set('gatewayAdapt', market.gatewayAdapt);
         if (!url.searchParams.has('afSmartRedirect')) {
           url.searchParams.set('afSmartRedirect', 'y');
         }
@@ -204,26 +215,37 @@ const FluxixoLocale = (() => {
     const base = qIdx >= 0 ? beforeHash.slice(0, qIdx) : beforeHash;
     const rawQuery = qIdx >= 0 ? beforeHash.slice(qIdx + 1) : '';
     const params = rawQuery ? rawQuery.split('&').filter(Boolean) : [];
+    const desired = {
+      _lang: market.lang,
+      _randl_currency: market.currency,
+      _randl_shipto: market.shipto,
+      gatewayAdapt: market.gatewayAdapt,
+    };
+    const seen = new Set();
     const entries = [];
-    let hasLang = false;
     let hasSmart = false;
     for (const part of params) {
       const eq = part.indexOf('=');
       const key = eq >= 0 ? part.slice(0, eq) : part;
-      if (key === '_lang') {
-        entries.push(`_lang=${encodeURIComponent(aliLang)}`);
-        hasLang = true;
+      if (Object.prototype.hasOwnProperty.call(desired, key)) {
+        if (!seen.has(key)) {
+          entries.push(`${key}=${encodeURIComponent(desired[key])}`);
+          seen.add(key);
+        }
       } else {
         if (key === 'afSmartRedirect') hasSmart = true;
         entries.push(part);
       }
     }
-    if (!hasLang) entries.push(`_lang=${encodeURIComponent(aliLang)}`);
+    for (const [key, val] of Object.entries(desired)) {
+      if (!seen.has(key)) entries.push(`${key}=${encodeURIComponent(val)}`);
+    }
     if (!hasSmart) entries.push('afSmartRedirect=y');
     return `${base}?${entries.join('&')}${hash}`;
   }
 
   return {
+    ALI_MARKET_BY_LOCALE,
     ALI_LANG_BY_LOCALE,
     LOCALE_PATHS,
     normalizeLocaleCode,

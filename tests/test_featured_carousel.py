@@ -105,7 +105,8 @@ class FeaturedCarouselTest(unittest.TestCase):
                     self.assertEqual(slide['images'][0]['alt'], text['name'])
                     self.assertIn(Path(product['image']).stem, Path(slide['images'][0]['src']).stem)
                     detail = ('' if lang == 'ru' else '/' + lang) + '/products/' + pid + '/'
-                    self.assertEqual([link['href'] for link in slide['links']], [detail, detail, product['affiliateUrl']])
+                    expected_aff = self.module.L.localize_affiliate_url(product['affiliateUrl'], lang)
+                    self.assertEqual([link['href'] for link in slide['links']], [detail, detail, expected_aff])
                     self.assertEqual(set(slide['links'][-1]['rel'].split()), {'sponsored', 'nofollow', 'noopener'})
 
     def test_date_order_and_catalog_growth_do_not_change_the_fixed_selection(self):

@@ -14,6 +14,93 @@ import re
 from urllib.parse import urlsplit
 
 MARKETS = ('RU', 'US', 'BR', 'MX', 'IL', 'FR')
+MARKET_CONFIG = {
+    'RU': {
+        'currency': 'RUB',
+        'api_language': 'RU',
+        'storefront_lang': 'ru',
+        'ali_lang': 'ru_RU',
+        'gateway_adapt': 'glo2rus',
+        'usd_to_local': 98.0,
+        'voltage': '220V',
+        'market_taste': 'benchtop workshop machines, CNC/laser/lathe tools, winter & off-grid power stations, smart home automation',
+    },
+    'US': {
+        'currency': 'USD',
+        'api_language': 'EN',
+        'storefront_lang': 'en',
+        'ali_lang': 'en_US',
+        'gateway_adapt': 'glo2usa',
+        'usd_to_local': 1.0,
+        'voltage': '110V',
+        'market_taste': 'desktop CNC/laser/3D-scanner maker gear, LiFePO4 portable power stations, thermal imaging cameras, specialty espresso & smart home robotics',
+    },
+    'BR': {
+        'currency': 'BRL',
+        'api_language': 'PT',
+        'storefront_lang': 'pt',
+        'ali_lang': 'pt_BR',
+        'gateway_adapt': 'glo2bra',
+        'usd_to_local': 5.8,
+        'voltage': 'bivolt',
+        'market_taste': 'bivolt/USB-C workshop & auto diagnostics, ultrasonic washers, robotic cleaners, gourmet espresso & solar outdoor gear',
+    },
+    'MX': {
+        'currency': 'MXN',
+        'api_language': 'ES',
+        'storefront_lang': 'es',
+        'ali_lang': 'es_MX',
+        'gateway_adapt': 'glo2mex',
+        'usd_to_local': 20.0,
+        'voltage': '110V',
+        'market_taste': '110V laser/CNC/woodworking machines, 12V compressor car fridges & off-road tech, vacuum sealers, portable power & smart home tech',
+    },
+    'IL': {
+        'currency': 'ILS',
+        'api_language': 'HE',
+        'storefront_lang': 'he',
+        'ali_lang': 'iw_IL',
+        'gateway_adapt': 'glo2isr',
+        'usd_to_local': 3.7,
+        'voltage': '220V',
+        'market_taste': '220V precision maker/3D-scanning/oscilloscope tech, thermal cameras, premium coffee/kitchen machines, LED skincare & apartment robotics',
+    },
+    'FR': {
+        'currency': 'EUR',
+        'api_language': 'FR',
+        'storefront_lang': 'fr',
+        'ali_lang': 'fr_FR',
+        'gateway_adapt': 'glo2fra',
+        'usd_to_local': 0.92,
+        'voltage': '220V',
+        'market_taste': '220V woodworking/laser/CNC tools, robotic window cleaners, smart autofocus projectors, underwater sea scooters, culinary & specialty bar gear',
+    },
+}
+USD_FX_RATES = {'USD': 1.0, 'EUR': 0.92, 'ILS': 3.7, 'BRL': 5.8, 'MXN': 20.0, 'RUB': 98.0, 'CNY': 7.2}
+
+
+def market_currency(market: str) -> str:
+    """Return the AliExpress target_currency code for a configured market."""
+    cfg = MARKET_CONFIG.get(str(market or '').strip().upper())
+    return cfg['currency'] if cfg else 'USD'
+
+
+def usd_cents_to_market_subunits(usd_cents: int, market: str) -> str:
+    """Convert USD cents into local target_currency integer subunits for min/max_sale_price."""
+    cfg = MARKET_CONFIG.get(str(market or '').strip().upper())
+    scale = cfg['usd_to_local'] if cfg else 1.0
+    return str(max(1, int(round(int(usd_cents) * scale))))
+
+
+def price_to_usd(amount: float | None, currency: str | None = 'USD') -> float | None:
+    """Normalize an observed product price into approximate USD."""
+    if amount is None or isinstance(amount, bool) or amount <= 0:
+        return None
+    code = str(currency or 'USD').strip().upper() or 'USD'
+    rate = USD_FX_RATES.get(code, 1.0)
+    return float(amount) / rate
+
+
 QUERY = 'aliexpress.affiliate.product.query'
 DETAIL = 'aliexpress.affiliate.productdetail.get'
 _DETAIL_HOSTS = {'aliexpress.com', 'www.aliexpress.com', 'm.aliexpress.com'}
