@@ -87,24 +87,57 @@
   ],
   "slots": [
     {
-      "generation_attempts": {}
+      "generation_attempts": {
+        "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad": 1
+      },
+      "pending": {
+        "source_file": "reference-ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad.png",
+        "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
+        "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa",
+        "output_file": "hero-d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b.webp",
+        "image_sha256": "d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b",
+        "metrics": {
+          "fg_width": 890,
+          "fg_height": 828,
+          "fg_max_side": 890,
+          "fg_min_side": 828,
+          "upscale_ratio": 1.0,
+          "sharpness": 19.451,
+          "fg_mean_luma": 73.84,
+          "fg_luma_std": 48.73,
+          "max_border_clip": 0.0,
+          "clipped_edges": 0,
+          "halo_fringe_ratio": 0.041,
+          "reasons": []
+        },
+        "generated": true
+      }
     },
     {},
     {}
   ],
   "created_at": 1795617130.8112159,
-  "deferrals": 0,
-  "lease_owner": "34e37ca86d064f7ba82571d5b20a9c2d",
+  "deferrals": 1,
+  "lease_owner": "1aa3b8acfcfa4161a676b3ee1c2eaa7d",
   "lease_until": 0,
-  "status": "deferred",
-  "next_attempt": 0,
+  "status": "waiting",
+  "next_attempt": 1795692949.2039742,
   "source_refresh_after": 1795703533.0075643,
   "source_version": "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e",
   "effort_versions": {
     "66923fecc09466ebb5271ead44d232f3d43e3ffcf1b80cc2634c66aa3387558e": [
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
+            "at": 1795692750.7458198,
+            "code": "pending_review",
+            "image_sha256": "d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -116,12 +149,19 @@
       }
     ]
   },
-  "review_attempts": {},
+  "review_attempts": {
+    "d0d99d4db17c7ce8f25a3da76ebfef3d994fb657229c94ce4be0b65c40afd83b": {
+      "opportunities": 0,
+      "last_code": "gemini_http_503",
+      "provider_attempted": null,
+      "transient_retries": 1
+    }
+  },
   "identity_source": {
     "url": "https://ae-pic-a1.aliexpress-media.com/kf/Sa1b177e37d3f4b3e9354453f62c6ca75s.jpg",
     "file": "reference-ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad.png",
     "sha256": "ca16d1d9c861296d05a7dbf204d913f1fe15cec3653039d92c1dfaa16e33c4ad",
     "original_sha256": "ba40488e4e2008dadcdb86920e2d64a1865555903bc0bf35a127904fc277dbfa"
   },
-  "reason": "reset_for_hybrid_pipeline"
+  "reason": "gemini_http_503"
 }
