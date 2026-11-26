@@ -6987,6 +6987,48 @@
         ],
         "description": "מבנה טבעתי מלבד צפוף משלב מנהרת מסתור היקפית בחלק הפנימי עם קערת רביצה שקועה מלמעלה. רוכסן היקפי מלא מפריד את המעטפת לשני חצאים לניקוי נוח משערות, לכן חשוב לבדוק את קוטר הדגם מול משקל החתול."
       }
+    },
+    "auto-1005011837050347": {
+      "en": {
+        "name": "Adjustable Magnetic Seam Guide with Built-In Ripper",
+        "headline": [
+          "Keep seams straight and even",
+          "Built-in ripper and measurement"
+        ],
+        "description": "This magnetic seam guide attaches securely to your sewing machine to help maintain precise stitch lines and prevent fabric from curling while you work. It features an integrated measuring scale and a handy built-in seam ripper for quick adjustments during any sewing or quilting project. Verify that your sewing machine has a compatible metal surface for magnetic attachment before ordering."
+      },
+      "pt": {
+        "name": "Guia magnético ajustável de costura com abridor",
+        "headline": [
+          "Costuras retas e precisas",
+          "Com abridor e escala de medida"
+        ],
+        "description": "Este guia magnético ajustável para máquina de costura ajuda a manter o tecido alinhado, evitando que ele crole durante o trabalho. O acessório conta com marcações de medida e um abridor integrado para facilitar correções rápidas em projetos de costura ou patchwork. Antes de pedir, verifique se a base da sua máquina possui superfície metálica compatível com fixação magnética."
+      },
+      "es": {
+        "name": "Guía magnética ajustable para costura con descosedor",
+        "headline": [
+          "Costuras rectas sin desvíos",
+          "Descosedor y medidor integrado"
+        ],
+        "description": "Esta guía magnética ajustable se fija a la máquina para mantener las puntadas rectas y evitar que la tela se doble mientras coses. El diseño incluye una escala de medición y un descosedor integrado para hacer correcciones prácticas en tus proyectos textiles. Antes de ordenar, verifica que la superficie de tu máquina sea metálica y permita una sujeción magnética firme."
+      },
+      "fr": {
+        "name": "Guide de couture magnétique réglable avec découseur",
+        "headline": [
+          "Coutures droites et régulières",
+          "Découseur et mesure intégrés"
+        ],
+        "description": "Ce guide de couture magnétique réglable se fixe facilement sur la machine pour maintenir le tissu aligné et éviter qu'il ne s'enroule pendant le travail. L'outil intègre une échelle de mesure ainsi qu'un découseur pratique pour rectifier rapidement vos ouvrages de couture ou de quilting. Vérifiez que votre machine dispose d'une surface métallique compatible avec les aimants avant de passer commande."
+      },
+      "he": {
+        "name": "מוביל תפירה מגנטי מתכוונן עם פורם תפרים",
+        "headline": [
+          "שמירה על תפרים ישרים ואחידים",
+          "כולל פורם מובנה וכלי מדידה"
+        ],
+        "description": "מוביל תפירה מגנטי מתכוונן זה נצמד למכונת התפירה כדי לסייע בשמירה על קווי תפר מדויקים ולמנוע את התקפלות הבד בזמן העבודה. הכלי כולל סדת מידה מובנית ופורם תפרים שימושי לתיקונים מהירים בכל פרויקט תפירה. בדקו בעמוד המוצר שמשטח מכונת התפירה שלכם תומך בהצמדה מגנטית יציבה טרם ההזמנה."
+      }
     }
   }
 }

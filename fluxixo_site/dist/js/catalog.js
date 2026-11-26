@@ -5,6 +5,192 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005011837050347",
+      "name": "Магнитный направляющий гид для шитья с распарывателем",
+      "headline": [
+        "Ровные швы без смещения ткани",
+        "Встроенный распарыватель и замер"
+      ],
+      "description": "Универсальный магнитный ограничитель для швейной машины помогает удерживать ровную строчку и предотвращает скручивание ткани во время работы. Инструмент оснащен встроенным распарывателем и измерительной шкалой для точного позиционирования деталей. Перед покупкой убедитесь, что игольная пластина или корпус вашей швейной машины поддерживают надежную магнитную фиксацию.",
+      "category": "Дом",
+      "image": "assets/images/auto-1005011837050347.webp",
+      "original": "assets/originals/auto-1005011837050347.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c4rE37SZ",
+      "sourceUrl": "https://www.aliexpress.com/item/1005011837050347.html",
+      "sourceProductId": "1005011837050347",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005011837050347.html",
+      "sourceTitle": "Adjustable Magnetic Sewing Track Built-In Seam Ripper with Measurement Anti-Curling Positioning Tool Seam Guide",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/S576e26574c10476f86d7a1630ad141acR.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "FR",
+      "sourceTask": "sewing_seam_guide",
+      "demo": false,
+      "theme": "rose",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Универсальный магнитный ограничитель для швейной машины помогает удерживать ровную строчку и предотвращает скручивание ткани во время работы. Инструмент оснащен встроенным распарывателем и измерительной шкалой для точного позиционирования деталей. Перед покупкой убедитесь, что игольная пластина или корпус вашей швейной машины поддерживают надежную магнитную фиксацию.",
+      "facts": [],
+      "sourceShopId": "911236135",
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "972ed0b72177834f0091f053c4dd4299d53c9af1a7ab63db0f73d38f8bd79bc6",
+            "checked_at": 1795639107.4431674
+          },
+          "en": {
+            "sha256": "41164f4464f06100d953304b5cbef4e87c9887508129ae5e9b8e98770da8dec7",
+            "checked_at": 1795639109.5196939
+          },
+          "pt": {
+            "sha256": "41467a2e81e3f8b388c7e9a3e2c96c926c44a03e6dce25b78565b4151a0080ba",
+            "checked_at": 1795639113.5505958
+          },
+          "es": {
+            "sha256": "b5d61e4a2da8b280a788048e993588f17b517f98d03568d27144fd18c595d5cf",
+            "checked_at": 1795639121.111863
+          },
+          "fr": {
+            "sha256": "91da0f010ef9f8404dcc7b29aea7ee5d4290d57d469785037165ef0d6ce51b0e",
+            "checked_at": 1795639125.5969136
+          },
+          "he": {
+            "sha256": "9e10b76e799b0d8b00aedb48edca84a49338fcf68eb554b902983dbe7d0b0f55",
+            "checked_at": 1795639127.4533064
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005011837050347",
+        "source_title_sha256": "cff89a5c78e8efe6a2424f693eeca17f93e99fd10538e965fc45d47df45d95a0",
+        "identity_source_sha256": "3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc",
+        "identity_source_asset": "assets/originals/auto-1005011837050347-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc",
+            "image_sha256": "b43d1fbe0ec4ca827dfb2fb9976d029c0f503b67af2e09f06b1afdf83c165a62",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S576e26574c10476f86d7a1630ad141acR.jpg",
+            "source_asset": "assets/originals/auto-1005011837050347-review-1.png",
+            "output_asset": "assets/images/auto-1005011837050347.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The hero image accurately displays the product with correct identity, color, shape, and markings.",
+                "The extraneous inset from the reference image has been successfully removed for a clean product display."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "05c57028e3a62ce607299cc9592509186aab19c65f1e9e5c5b204f791d3bb812",
+            "image_sha256": "03389f2907e92767e198aacd7484a3784337a7ed3b49f69146c47fd5310354fd",
+            "prior_image_sha256": [
+              "b43d1fbe0ec4ca827dfb2fb9976d029c0f503b67af2e09f06b1afdf83c165a62"
+            ],
+            "identity_source_sha256": "3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S96c0a263a28c40549306126ab83b4a665.jpg",
+            "source_asset": "assets/originals/auto-1005011837050347-review-2.png",
+            "output_asset": "assets/images/auto-1005011837050347-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image correctly depicts the pink variant of the adjustable magnetic sewing track.",
+                "Accurately fulfills the requested application role by featuring an inset action shot demonstrating the built-in seam ripper in use on fabric."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "c690200574d797c1e77a2de9aeda95256aca406d989dcea7dee28e68cb3af0a1",
+            "image_sha256": "45a112aea3be68f6a16e1504aa9d0c32fb2f5a1ee745618ddfc3fd2abe283742",
+            "prior_image_sha256": [
+              "b43d1fbe0ec4ca827dfb2fb9976d029c0f503b67af2e09f06b1afdf83c165a62",
+              "03389f2907e92767e198aacd7484a3784337a7ed3b49f69146c47fd5310354fd"
+            ],
+            "identity_source_sha256": "3f7653763e49308c572b57dc25e381c45414a46d1814b71b5ddc8df8e216f2bc",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S77fa1afcabbc44ba953956854e4625f2j.jpg",
+            "source_asset": "assets/originals/auto-1005011837050347-review-3.png",
+            "output_asset": "assets/images/auto-1005011837050347-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image correctly depicts the pink adjustable magnetic sewing track variant.",
+                "The inset clearly illustrates the functional outcome of the built-in seam ripper in use, accurately fulfilling the result role.",
+                "All details, including ruler markings, shape, and color, match the specified product title and variant."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005011837050347-v2.webp",
+        "assets/images/auto-1005011837050347-v3.webp"
+      ],
+      "sourceImageSha256": "f322946ec17584d8b60df06ba7563eea784fce324a1835385206ca1f91469c27",
+      "sourcePixelSha256": "667bd932bafb1ca0fd8b02eeb1ee9ec8fc9743db25260a3f873538e6207b0acc",
+      "imageDhash": "232c47f340170f47",
+      "imageAhash": "9f97030100c0e1f3",
+      "imageAspect": "1.68",
+      "sourceImageDhash": "5b276178d88bc8ca",
+      "sourceImageAhash": "00003c3e6ee0e060",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 890,
+        "fg_height": 531,
+        "fg_max_side": 890,
+        "fg_min_side": 531,
+        "upscale_ratio": 1.0,
+        "sharpness": 5.203,
+        "fg_mean_luma": 160.43,
+        "fg_luma_std": 29.02,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.01,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005004283109553",
       "name": "Круглая войлочная лежанка-тоннель для кошек",
       "headline": [

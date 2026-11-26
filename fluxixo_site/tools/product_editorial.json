@@ -7840,5 +7840,67 @@
         "ודאו עם פתיחת האריזה שהרוכסן ההיקפי נסגר חלק משני צידי הפתח האובאלי."
       ]
     }
+  },
+  "auto-1005011837050347": {
+    "ru": {
+      "who": "Подходит для швейных работ, где требуются точное позиционирование, измерение и защита от скручивания ткани. Этот регулируемый магнитный направляющий трек помогает удерживать ровный шов и включает встроенный распарыватель для быстрой корректировки стежков.",
+      "skip": "Не подходит для поверхностей, не удерживающих магниты, а также для задач, где не нужно позиционирование и измерение ткани. Если вам не требуется встроенный распарыватель или антискручивающий эффект, инструмент избыточен.",
+      "compare": "В отличие от обычных магнитных направляющих без дополнительных опций, этот вариант объединяет функции позиционирования, измерения, защиты от скручивания и встроенного распарывателя в одном приспособлении.",
+      "check": [
+        "Убедитесь, что магнитный трек надежно фиксируется на рабочей поверхности швейной машины.",
+        "Проверьте наличие встроенного распарывателя и элементов для измерения и позиционирования.",
+        "Оцените работу функции защиты от скручивания ткани при шитье по направляющей."
+      ]
+    },
+    "en": {
+      "who": "Ideal for sewing projects requiring precise positioning, measurement, and anti-curling support. This adjustable magnetic sewing track helps maintain straight lines while incorporating a built-in seam ripper for quick corrections.",
+      "skip": "Skip this if your sewing surface is non-magnetic or if you do not need positioning tools, measurements, anti-curling features, or a built-in seam ripper for your standard workflow.",
+      "compare": "Unlike basic magnetic seam guides, this tool combines a positioning track, measurement markings, anti-curling design, and a built-in seam ripper into one complete accessory.",
+      "check": [
+        "Verify that the magnetic sewing track securely attaches to your metal machine surface.",
+        "Check the functionality of the built-in seam ripper for quick stitch removal.",
+        "Test the anti-curling positioning tool and measurement guide during straight stitching."
+      ]
+    },
+    "pt": {
+      "who": "Ideal para quem busca precisão na costura com trilho magnético ajustável, ferramenta de posicionamento, medição e recurso anti-enrolamento. Inclui um abridor de costuras integrado para correções rápidas.",
+      "skip": "Evite este produto se a sua máquina não possuir superfície magnética compatível ou se você não precisar de guias de costura, medição, ferramentas anti-enrolamento nem de abridor integrado.",
+      "compare": "Ao contrário de guias magnéticas simples, esta opção reúne trilho ajustável, medição, sistema anti-enrolamento, posicionamento e um abridor de costuras integrado em um único acessório.",
+      "check": [
+        "Verifique se o trilho magnético se fixa firmemente na base metálica da sua máquina de costura.",
+        "Confirme a presença e o funcionamento do abridor de costuras embutido para ajustes rápidos.",
+        "Teste o guia de posicionamento e o recurso anti-enrolamento durante a costura de tecidos."
+      ]
+    },
+    "es": {
+      "who": "Ideal para proyectos de costura que requieren posicionamiento preciso, medición y soporte antienrollamiento. Este guía magnética ajustable incluye un descosedor integrado para correcciones rápidas.",
+      "skip": "Evita este producto si tu superficie de costura no es magnética o si no necesitas herramientas de posicionamiento, medición, funciones antienrollamiento ni un descosedor integrado.",
+      "compare": "A diferencia de las guías magnéticas comunes, este accesorio combina una pista ajustable, funciones de medición, diseño antienrollamiento y un descosedor integrado en una sola herramienta.",
+      "check": [
+        "Verifica que la pista magnética de costura se fije de forma segura en la superficie metálica.",
+        "Comprueba el estado del descosedor integrado para realizar correcciones rápidas de costura.",
+        "Prueba la herramienta de posicionamiento y la guía de medición durante el proceso de costura."
+      ]
+    },
+    "fr": {
+      "who": "Idéal pour les projets de couture nécessitant un positionnement précis, des mesures et un support anti-enroulement. Ce guide magnétique ajustable intègre un découseur pour des corrections rapides.",
+      "skip": "Passez votre chemin si votre surface de couture n'est pas magnétique ou si vous n'avez pas besoin d'outils de positionnement, de mesure, de propriétés anti-enroulement ni de découseur intégré.",
+      "compare": "Contrairement aux guides magnétiques basiques, cet accessoire combine un rail de couture ajustable, des mesures, une fonction anti-enroulement et un découseur intégré en un seul outil.",
+      "check": [
+        "Vérifiez que le rail magnétique de couture se fixe solidement sur la surface métallique.",
+        "Testez le découseur intégré pour vous assurer qu'il répond à vos besoins de correction.",
+        "Confirmez la présence des éléments de mesure et du positionneur anti-enroulement."
+      ]
+    },
+    "he": {
+      "who": "מתאים לפרויקטים של תפירה הדורשים מיקום מדויק, מדידה ותמיכה נגד סלסול. מסילת התפירה המגנטית המתכווננת כוללת פורם תפרים מובנה, כלי מיקום ומדריך תפרים לשימוש נוח.",
+      "skip": "ודאו שאינכם רוכשים את המוצר אם משטח העבודה שלכם אינו מגנטי, או אם איכם זקוקים למדריך תפרים, לכלי מיקום, למדידה, לתכונות נגד סלסול או לפורם תפרים מובנה.",
+      "compare": "בניגוד למדריכי תפר מגנטיים פשוטים, מוצר זה משלב מסילה מתכווננת, יכולות מדידה, עיצוב נגד סלסול וכלי מיקום יחד עם פורם תפרים מובנה באביזר אחד.",
+      "check": [
+        "בדקו שמסילת התפירה המגנטית מתחברת היטב ובבטחה אל משטח העבודה המתכתי.",
+        "ודאו את תקינותו ומיקומו של פורם התפרים המובנה לביצוע תיקונים מהירים.",
+        "השוו את פעולת כלי המיקום ומדריך התפרים הכולל תכונה נגד סלסול בעבודה."
+      ]
+    }
   }
 }
