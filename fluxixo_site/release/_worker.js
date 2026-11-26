@@ -1,5 +1,5 @@
-// Redirect *.pages.dev to official domain & retire editor
-const retired = new Set(['/editor', '/editor/', '/editor.html', '/js/editor.js', '/css/editor.css']);
+// Redirect *.pages.dev to official domain & retire deleted endpoints
+const retired = new Set(['/editor', '/editor/', '/editor.html', '/js/editor.js', '/css/editor.css', '/telegram-digest.json']);
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -9,7 +9,8 @@ export default {
       return Response.redirect(url.toString(), 301);
     }
     if (!retired.has(url.pathname)) return env.ASSETS.fetch(request);
-    return new Response(request.method === 'HEAD' ? null : 'This editor is no longer publicly available.\n', {
+    const msg = url.pathname === '/telegram-digest.json' ? 'This feed is no longer available.\n' : 'This editor is no longer publicly available.\n';
+    return new Response(request.method === 'HEAD' ? null : msg, {
       status: 410,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',

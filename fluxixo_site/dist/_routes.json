@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "description": "Retire public editor URLs; the storefront remains static.",
-  "include": ["/editor", "/editor/", "/editor.html", "/js/editor.js", "/css/editor.css"],
+  "description": "Retire public editor URLs and removed feeds; the storefront remains static.",
+  "include": ["/editor", "/editor/", "/editor.html", "/js/editor.js", "/css/editor.css", "/telegram-digest.json"],
   "exclude": []
 }
