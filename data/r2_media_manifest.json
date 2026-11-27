@@ -372,6 +372,21 @@
       "content_type": "image/webp",
       "sha256": "2d6f966c22ae09f24f8384a817bc0ddf1b5d657888f0a354b6760fcbedb39c7c"
     },
+    "assets/images/auto-1005012869308314-v2.webp": {
+      "bytes": 398478,
+      "content_type": "image/webp",
+      "sha256": "ff9056909d7ee717fa1d0616caad765cbd5c2ad77f523e57c382959ef303dc3e"
+    },
+    "assets/images/auto-1005012869308314-v3.webp": {
+      "bytes": 647050,
+      "content_type": "image/webp",
+      "sha256": "68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85"
+    },
+    "assets/images/auto-1005012869308314.webp": {
+      "bytes": 326674,
+      "content_type": "image/webp",
+      "sha256": "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b"
+    },
     "assets/images/auto-1005012919201086-chatgpt-20261115.webp": {
       "bytes": 214540,
       "content_type": "image/webp",
@@ -2408,9 +2423,9 @@
       "sha256": "358f5ce693bbe993fb08c7cc95ba77e7a1adbffda146e63f0e885625a0777a5a"
     },
     "assets/thumbs/auto-1005003729947715-320.webp": {
-      "bytes": 21274,
+      "bytes": 21074,
       "content_type": "image/webp",
-      "sha256": "857ef2b6a0dc712ccc361578711f44705a54baf6d88e890e3f6b372747c46d6f"
+      "sha256": "d7615263ae8495e7e185cc927451b3fc2953e58ff8943c50f63af10d6e88d967"
     },
     "assets/thumbs/auto-1005003729947715-480.webp": {
       "bytes": 34460,
@@ -2423,9 +2438,9 @@
       "sha256": "6477a78c5d03e3537622da7ca30971814727f9f5631a626fc4a14ca4a3dcab96"
     },
     "assets/thumbs/auto-1005003729947715-v2-320.webp": {
-      "bytes": 17830,
+      "bytes": 18058,
       "content_type": "image/webp",
-      "sha256": "aaf7610ee12cae00f5260a21431fd156791a83b24563cc5f3985af88222c34de"
+      "sha256": "4ad940d3e528ee284420508dbe7f24cecf9f948c7ed4668f43ef4bce15cf7bd3"
     },
     "assets/thumbs/auto-1005003729947715-v2-480.webp": {
       "bytes": 28118,
@@ -2438,9 +2453,9 @@
       "sha256": "fb65c743266c79d5deead0530b8e16bd7d8e1772f698f48eda85c5e8b240e86e"
     },
     "assets/thumbs/auto-1005003729947715-v3-320.webp": {
-      "bytes": 16424,
+      "bytes": 16524,
       "content_type": "image/webp",
-      "sha256": "eb02510a00b32fef022177f7f5024f58caa94dc0601f2d230bf0f1b9cf041bec"
+      "sha256": "c883c7ad8c65ddc82c9172d5981e939940590500a43c5275ea1c158d3bbdeef5"
     },
     "assets/thumbs/auto-1005003729947715-v3-480.webp": {
       "bytes": 26556,
@@ -3217,6 +3232,51 @@
       "content_type": "image/webp",
       "sha256": "0765afee7064a57aca344b64af98f4e82611d810c48bb54bb452e13df3fb8e5c"
     },
+    "assets/thumbs/auto-1005012869308314-320.webp": {
+      "bytes": 9630,
+      "content_type": "image/webp",
+      "sha256": "bc2b5a51b9dabd9637ed5551a0bf4d53f1211ba0c54187497a95c8b1ecadb310"
+    },
+    "assets/thumbs/auto-1005012869308314-480.webp": {
+      "bytes": 16250,
+      "content_type": "image/webp",
+      "sha256": "e510005daf0d323c21e98c4a3b23b12019a557af0b13a218047e6c55777c078d"
+    },
+    "assets/thumbs/auto-1005012869308314-800.webp": {
+      "bytes": 34206,
+      "content_type": "image/webp",
+      "sha256": "cc9dc240b3943f44879f33adfee62ff1945a317b59460fa0a1706cf027809cf9"
+    },
+    "assets/thumbs/auto-1005012869308314-v2-320.webp": {
+      "bytes": 7544,
+      "content_type": "image/webp",
+      "sha256": "a9c79edae05aae9032ecd62cce70cf2c3033c06ed190b40ec3557ce7ae3241e3"
+    },
+    "assets/thumbs/auto-1005012869308314-v2-480.webp": {
+      "bytes": 12116,
+      "content_type": "image/webp",
+      "sha256": "241a5de37c1834606cecf4ac329a428bf7231decb8db7eb14516df9d6e0dadee"
+    },
+    "assets/thumbs/auto-1005012869308314-v2-800.webp": {
+      "bytes": 24758,
+      "content_type": "image/webp",
+      "sha256": "6f7e72625ae9b5530ef29d269dda5980e1c6e6ea103faf01abda153cf0b11485"
+    },
+    "assets/thumbs/auto-1005012869308314-v3-320.webp": {
+      "bytes": 14378,
+      "content_type": "image/webp",
+      "sha256": "c413667b454af2e2f368b59166dcd26bd8c61e3cdad2950df1f62f5c7d9f8be3"
+    },
+    "assets/thumbs/auto-1005012869308314-v3-480.webp": {
+      "bytes": 26698,
+      "content_type": "image/webp",
+      "sha256": "7eca86c769433d0a58bad44cf975d2595c00e1fc061089c8e77109d66fed2035"
+    },
+    "assets/thumbs/auto-1005012869308314-v3-800.webp": {
+      "bytes": 58334,
+      "content_type": "image/webp",
+      "sha256": "b09f718e6ca42442abf74ef6ef0615baca8c6981ca48114b5791639bebc267fe"
+    },
     "assets/thumbs/auto-1005012919201086-chatgpt-20261115-320.webp": {
       "bytes": 20896,
       "content_type": "image/webp",
@@ -3788,9 +3848,9 @@
       "sha256": "3863d8dcc15aaf9c663b8a4e4a94cca809db1b268b9c5988726e1d8c32b5d6b3"
     },
     "assets/thumbs/find-004-moto-intercom-gallery-effect-fc726eb59c-320.webp": {
-      "bytes": 11150,
+      "bytes": 11182,
       "content_type": "image/webp",
-      "sha256": "21db8906574f2182a033b81529a7ad8f5417c994a27086519a155ff92d6191f9"
+      "sha256": "4103cf720857a8530c89b5b4d4910bc9d68ef388b95969f2139ffa141857cb75"
     },
     "assets/thumbs/find-004-moto-intercom-gallery-effect-fc726eb59c-480.webp": {
       "bytes": 19332,
@@ -3923,9 +3983,9 @@
       "sha256": "d963d75798a2bd3d119e340be22a7543ca5f791abb2c6ac5121adad1d153137a"
     },
     "assets/thumbs/find-007-phone-gamepad-gallery-effect-ef1289eb0e-320.webp": {
-      "bytes": 14686,
+      "bytes": 14636,
       "content_type": "image/webp",
-      "sha256": "9690793541727bd1d59831c68cac9a4ae30f6e016cea2809f215810c7f81a1ff"
+      "sha256": "803c93b8cd3bbc0b2216bbe11d52c52e313d24bdc09faaf2bd2327fe91a129b2"
     },
     "assets/thumbs/find-007-phone-gamepad-gallery-effect-ef1289eb0e-480.webp": {
       "bytes": 25506,
@@ -4508,9 +4568,9 @@
       "sha256": "4c7ea72fe9d20d8a736b8f991058bff83acda8e7e1156edac861ab492663d2af"
     },
     "assets/thumbs/find-023-cat-laser-gallery-action-233a4c0096-320.webp": {
-      "bytes": 10936,
+      "bytes": 10832,
       "content_type": "image/webp",
-      "sha256": "7948c316b5bc782e6d22d3ad43243fd6e90a0412f33d6c71c64eb21cbb13f07f"
+      "sha256": "8166fc770ad7b4662a631a482552f0ca9872dfd9e0be72333da7dea1431ed1ce"
     },
     "assets/thumbs/find-023-cat-laser-gallery-action-233a4c0096-480.webp": {
       "bytes": 17810,
@@ -5633,9 +5693,9 @@
       "sha256": "f984460761f589c9efccbcfe4e8935e1f466df38124f2abf488fdeaf60ce2640"
     },
     "assets/thumbs/find-052-laser-meter-gallery-action-b754fc3ead-320.webp": {
-      "bytes": 9296,
+      "bytes": 9446,
       "content_type": "image/webp",
-      "sha256": "8ed03608b6ac3737afa98752dbb8f338d10775c429be0cc46e9f4a419cda721f"
+      "sha256": "6e14e96d197a9a27a1ccd8968a6838fa0da9227ea066dc147bd48f06329c9c9a"
     },
     "assets/thumbs/find-052-laser-meter-gallery-action-b754fc3ead-480.webp": {
       "bytes": 15854,
@@ -5648,9 +5708,9 @@
       "sha256": "917af97d828856ea2fd959921e4d7320401011c817363e3915d4e7ddb94b15bd"
     },
     "assets/thumbs/find-052-laser-meter-gallery-effect-4e21e4c2c3-320.webp": {
-      "bytes": 11226,
+      "bytes": 11838,
       "content_type": "image/webp",
-      "sha256": "2ba4aa61dfea887d31f78a29ddfd47a1fd49ef24299a4a3e0a5221a93911c87b"
+      "sha256": "7cf4c51c5cb7a36564c346739137207463073983a1a247d0944d9a50ffabf540"
     },
     "assets/thumbs/find-052-laser-meter-gallery-effect-4e21e4c2c3-480.webp": {
       "bytes": 20180,
@@ -6923,9 +6983,9 @@
       "sha256": "adc0f312e33a4a884877ebe488956cf997ae71d6d1900d48efa24b5ac187aee9"
     },
     "assets/thumbs/import-0129-gallery-action-c937e3b611-320.webp": {
-      "bytes": 13022,
+      "bytes": 13034,
       "content_type": "image/webp",
-      "sha256": "acf61a30d9ff60b27771ded151f95b65ba8945e3c1e8fbc9b130ebc9b715e302"
+      "sha256": "a820a785059454d1f17ceafb4b7b7b6a3a7411c361e353b11654538a78efb055"
     },
     "assets/thumbs/import-0129-gallery-action-c937e3b611-480.webp": {
       "bytes": 21886,
