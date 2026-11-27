@@ -34,6 +34,20 @@
     "/products/find-024-trekking-poles/": {
       "title": "Треккинговые палки складные для походов | FLUXIXO",
       "description": "Складная треккинговая палка с темляком убирается в рюкзак и разгружает колени на спусках. Перед заказом проверьте, продаётся поштучно или парой."
+    },
+    "/products/auto-1005012869308314/": {
+      "title": "Деревянная чаша-спиннер",
+      "description": "Деревянная чаша-спиннер для бисера: удобный инструмент для создания уникальных ювелирных украшений с помощью мелких бусин, ручная работа.",
+      "updated": "2026-11-27",
+      "reason": "market_seo_enrichment",
+      "provider": "cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+    },
+    "/pt/products/auto-1005012869308314/": {
+      "title": "Tigela Giratória de Madeira",
+      "description": "Facilite o carregamento de miçangas em cordões e correntes com nossa tigela giratória de madeira manual, ideal para a confecção de joias.",
+      "updated": "2026-11-27",
+      "reason": "market_seo_enrichment",
+      "provider": "cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast"
     }
   }
 }

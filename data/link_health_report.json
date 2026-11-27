@@ -1,18 +1,29 @@
 {
-  "checked_at": "2026-11-26T15:35:41+00:00",
+  "checked_at": "2026-11-27T15:27:32+00:00",
   "scope": "affiliate_destination_only",
   "stock_verified": false,
   "summary": {
-    "RESOLVED": 118
+    "RESOLVED": 119
   },
   "results": [
     {
-      "id": "auto-1005011837050347",
-      "slug": "auto-1005011837050347",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "id": "auto-1005012869308314",
+      "slug": "auto-1005012869308314",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005011837050347.html?aff_fcid=1a0f935a2cbc48649ce8f8c788cb1e72-1795707335760-04619-_c4rE37SZ&aff_fsk=_c4rE37SZ&aff_platform=api-new-link-generate&sk=_c4rE37SZ&aff_trace_key=1a0f935a2cbc48649ce8f8c788cb1e72-1795707335760-04619-_c4rE37SZ&terminal_id=7b7a3598d1b74d5088053696fcfb599d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012869308314.html?aff_fcid=b7ddf715254f4117bf99eb9c95eadb07-1795793246648-09588-_c3c1GDxL&aff_fsk=_c3c1GDxL&aff_platform=api-new-link-generate&sk=_c3c1GDxL&aff_trace_key=b7ddf715254f4117bf99eb9c95eadb07-1795793246648-09588-_c3c1GDxL&terminal_id=f8af8949555d451c8971479085598c6f&afSmartRedirect=y",
+      "item_id": "1005012869308314",
+      "affiliate_url": "https://s.click.aliexpress.com/e/_c3c1GDxL",
+      "broken_streak": 0
+    },
+    {
+      "id": "auto-1005011837050347",
+      "slug": "auto-1005011837050347",
+      "checked_at": "2026-11-27T15:27:26+00:00",
+      "status": "RESOLVED",
+      "reason": "PRODUCT_DESTINATION_ONLY",
+      "dest": "https://www.aliexpress.com/item/1005011837050347.html?aff_fcid=bfaee2da391047029a7c2cfc00b502e6-1795793246648-05210-_c4rE37SZ&aff_fsk=_c4rE37SZ&aff_platform=api-new-link-generate&sk=_c4rE37SZ&aff_trace_key=bfaee2da391047029a7c2cfc00b502e6-1795793246648-05210-_c4rE37SZ&terminal_id=e76982bf14b04bed905de7bbfdd8421a&afSmartRedirect=y",
       "item_id": "1005011837050347",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4rE37SZ",
       "broken_streak": 0
@@ -20,10 +31,10 @@
     {
       "id": "auto-1005004283109553",
       "slug": "auto-1005004283109553",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005004283109553.html?aff_fcid=91e9c0d652c14468ab22b4fe5c8689da-1795707335756-03344-_c3fpt7dT&aff_fsk=_c3fpt7dT&aff_platform=api-new-link-generate&sk=_c3fpt7dT&aff_trace_key=91e9c0d652c14468ab22b4fe5c8689da-1795707335756-03344-_c3fpt7dT&terminal_id=815101377d764041bb9ee5131d337faa&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005004283109553.html?aff_fcid=82c0d072d5f04bfcac985cf042427ad4-1795793246646-06051-_c3fpt7dT&aff_fsk=_c3fpt7dT&aff_platform=api-new-link-generate&sk=_c3fpt7dT&aff_trace_key=82c0d072d5f04bfcac985cf042427ad4-1795793246646-06051-_c3fpt7dT&terminal_id=ed12c69c47c747f2a7f5c6851aedeab0&afSmartRedirect=y",
       "item_id": "1005004283109553",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3fpt7dT",
       "broken_streak": 0
@@ -31,10 +42,10 @@
     {
       "id": "auto-1005010092410193",
       "slug": "auto-1005010092410193",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010092410193.html?aff_fcid=1f3d354d6d6b49b2b7673dea04191f79-1795707335777-06091-_c3EB3KNB&aff_fsk=_c3EB3KNB&aff_platform=api-new-link-generate&sk=_c3EB3KNB&aff_trace_key=1f3d354d6d6b49b2b7673dea04191f79-1795707335777-06091-_c3EB3KNB&terminal_id=193461927d77433d93879e16764068c7&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010092410193.html?aff_fcid=67f000eb96f244f9920c75f60fc75e19-1795793246641-05579-_c3EB3KNB&aff_fsk=_c3EB3KNB&aff_platform=api-new-link-generate&sk=_c3EB3KNB&aff_trace_key=67f000eb96f244f9920c75f60fc75e19-1795793246641-05579-_c3EB3KNB&terminal_id=11e00a535f2244ecb2f9c6c53e3871ec&afSmartRedirect=y",
       "item_id": "1005010092410193",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3EB3KNB",
       "broken_streak": 0
@@ -42,10 +53,10 @@
     {
       "id": "auto-1005012493298577",
       "slug": "auto-1005012493298577",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012493298577.html?aff_fcid=c2045e1852ad41fa8c6fef0dd027a3ad-1795707335745-00557-_c3tibHHj&aff_fsk=_c3tibHHj&aff_platform=api-new-link-generate&sk=_c3tibHHj&aff_trace_key=c2045e1852ad41fa8c6fef0dd027a3ad-1795707335745-00557-_c3tibHHj&terminal_id=db591c5a591d4608898ad2dafbfb357c&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012493298577.html?aff_fcid=7fb1117de2c346ddb9ba7a4f4784326b-1795793246805-02598-_c3tibHHj&aff_fsk=_c3tibHHj&aff_platform=api-new-link-generate&sk=_c3tibHHj&aff_trace_key=7fb1117de2c346ddb9ba7a4f4784326b-1795793246805-02598-_c3tibHHj&terminal_id=6634be90cbcf41428da54359ebd70581&afSmartRedirect=y",
       "item_id": "1005012493298577",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3tibHHj",
       "broken_streak": 0
@@ -53,10 +64,10 @@
     {
       "id": "auto-1005011808254244",
       "slug": "auto-1005011808254244",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005011808254244.html?aff_fcid=bc5ce33f67f34f0abec4f90c6f2bb987-1795707335922-00489-_c40jtZu1&aff_fsk=_c40jtZu1&aff_platform=api-new-link-generate&sk=_c40jtZu1&aff_trace_key=bc5ce33f67f34f0abec4f90c6f2bb987-1795707335922-00489-_c40jtZu1&terminal_id=965b04ff7c294870a2823e797549622b&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005011808254244.html?aff_fcid=ad03907ebfa546248279f105129bf932-1795793246793-01136-_c40jtZu1&aff_fsk=_c40jtZu1&aff_platform=api-new-link-generate&sk=_c40jtZu1&aff_trace_key=ad03907ebfa546248279f105129bf932-1795793246793-01136-_c40jtZu1&terminal_id=8e4974aac8e64e669e23d3e65a993126&afSmartRedirect=y",
       "item_id": "1005011808254244",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c40jtZu1",
       "broken_streak": 0
@@ -64,10 +75,10 @@
     {
       "id": "auto-1005006728238948",
       "slug": "auto-1005006728238948",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005006728238948.html?aff_fcid=efc61953f6474ce5bd32e9cfcc07814c-1795707335973-06712-_c4rAQMYN&aff_fsk=_c4rAQMYN&aff_platform=api-new-link-generate&sk=_c4rAQMYN&aff_trace_key=efc61953f6474ce5bd32e9cfcc07814c-1795707335973-06712-_c4rAQMYN&terminal_id=a6adf362ae2342919e1d7336dcba3d99&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005006728238948.html?aff_fcid=1a92616a734b437a9d4b9757df3c4c49-1795793246810-05671-_c4rAQMYN&aff_fsk=_c4rAQMYN&aff_platform=api-new-link-generate&sk=_c4rAQMYN&aff_trace_key=1a92616a734b437a9d4b9757df3c4c49-1795793246810-05671-_c4rAQMYN&terminal_id=c4793f5723304351ab0550f720c8e88d&afSmartRedirect=y",
       "item_id": "1005006728238948",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4rAQMYN",
       "broken_streak": 0
@@ -75,10 +86,10 @@
     {
       "id": "auto-1005008721169426",
       "slug": "auto-1005008721169426",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008721169426.html?aff_fcid=254f2f0779744c128a63ffcb488cda1c-1795707335942-08731-_c4dmUQ1r&aff_fsk=_c4dmUQ1r&aff_platform=api-new-link-generate&sk=_c4dmUQ1r&aff_trace_key=254f2f0779744c128a63ffcb488cda1c-1795707335942-08731-_c4dmUQ1r&terminal_id=6e94752bfe754c32a6ab3156459db88d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008721169426.html?aff_fcid=32cea2f44027412eab6bc951832cf9b3-1795793246806-09170-_c4dmUQ1r&aff_fsk=_c4dmUQ1r&aff_platform=api-new-link-generate&sk=_c4dmUQ1r&aff_trace_key=32cea2f44027412eab6bc951832cf9b3-1795793246806-09170-_c4dmUQ1r&terminal_id=feb6769994b14eae8b0e4e19bae42278&afSmartRedirect=y",
       "item_id": "1005008721169426",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4dmUQ1r",
       "broken_streak": 0
@@ -86,10 +97,10 @@
     {
       "id": "auto-1005003729947715",
       "slug": "auto-1005003729947715",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005003729947715.html?aff_fcid=f0777e5b4ad84befbb0d98a8468c91db-1795707335985-08821-_c4SLnAnT&aff_fsk=_c4SLnAnT&aff_platform=api-new-link-generate&sk=_c4SLnAnT&aff_trace_key=f0777e5b4ad84befbb0d98a8468c91db-1795707335985-08821-_c4SLnAnT&terminal_id=deb5c89df02c41b09453d2eae1d4878c&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005003729947715.html?aff_fcid=20d3d015962e410a8ba067f073f6571a-1795793246953-09662-_c4SLnAnT&aff_fsk=_c4SLnAnT&aff_platform=api-new-link-generate&sk=_c4SLnAnT&aff_trace_key=20d3d015962e410a8ba067f073f6571a-1795793246953-09662-_c4SLnAnT&terminal_id=ea1210f2fc3e423884285494be2ffc7e&afSmartRedirect=y",
       "item_id": "1005003729947715",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4SLnAnT",
       "broken_streak": 0
@@ -97,10 +108,10 @@
     {
       "id": "auto-1005013194588661",
       "slug": "auto-1005013194588661",
-      "checked_at": "2026-11-26T15:35:35+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013194588661.html?aff_fcid=4e6f56375f944b4598ba00625a9b8342-1795707336125-07971-_c2yDzHZF&aff_fsk=_c2yDzHZF&aff_platform=api-new-link-generate&sk=_c2yDzHZF&aff_trace_key=4e6f56375f944b4598ba00625a9b8342-1795707336125-07971-_c2yDzHZF&terminal_id=348815fbbeda40b193e83125a8163049&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013194588661.html?aff_fcid=ce03a4dd95b4429b8f46a71a8148588b-1795793246954-03840-_c2yDzHZF&aff_fsk=_c2yDzHZF&aff_platform=api-new-link-generate&sk=_c2yDzHZF&aff_trace_key=ce03a4dd95b4429b8f46a71a8148588b-1795793246954-03840-_c2yDzHZF&terminal_id=24cbe99038d640df9fff0874f1aa8811&afSmartRedirect=y",
       "item_id": "1005013194588661",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2yDzHZF",
       "broken_streak": 0
@@ -108,10 +119,10 @@
     {
       "id": "auto-1005013567552516",
       "slug": "auto-1005013567552516",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013567552516.html?aff_fcid=ffb18737e8ef4ed99742c957d99f6fc9-1795707336149-03284-_c4VMgzwH&aff_fsk=_c4VMgzwH&aff_platform=api-new-link-generate&sk=_c4VMgzwH&aff_trace_key=ffb18737e8ef4ed99742c957d99f6fc9-1795707336149-03284-_c4VMgzwH&terminal_id=4078d5c7936c4567bbcb30494a8de4f8&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013567552516.html?aff_fcid=3f0fee78a2374526a75524477f8d6955-1795793247143-04912-_c4VMgzwH&aff_fsk=_c4VMgzwH&aff_platform=api-new-link-generate&sk=_c4VMgzwH&aff_trace_key=3f0fee78a2374526a75524477f8d6955-1795793247143-04912-_c4VMgzwH&terminal_id=26eb0f5cd231476186bbd624ed3ac4df&afSmartRedirect=y",
       "item_id": "1005013567552516",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4VMgzwH",
       "broken_streak": 0
@@ -119,10 +130,10 @@
     {
       "id": "auto-1005013186843415",
       "slug": "auto-1005013186843415",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:26+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013186843415.html?aff_fcid=a071527b30994ff2ad6272745a6598d8-1795707336164-02877-_c3AaIrYd&aff_fsk=_c3AaIrYd&aff_platform=api-new-link-generate&sk=_c3AaIrYd&aff_trace_key=a071527b30994ff2ad6272745a6598d8-1795707336164-02877-_c3AaIrYd&terminal_id=ab4a8f23b4c14491bb8fcb41c134e653&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013186843415.html?aff_fcid=b271579a373d41c29d4b0f834caeccdf-1795793247258-08829-_c3AaIrYd&aff_fsk=_c3AaIrYd&aff_platform=api-new-link-generate&sk=_c3AaIrYd&aff_trace_key=b271579a373d41c29d4b0f834caeccdf-1795793247258-08829-_c3AaIrYd&terminal_id=20e7a21ccc44413ca5d15c991cedd6de&afSmartRedirect=y",
       "item_id": "1005013186843415",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3AaIrYd",
       "broken_streak": 0
@@ -130,10 +141,10 @@
     {
       "id": "auto-1005005357943658",
       "slug": "auto-1005005357943658",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005005357943658.html?aff_fcid=2a13b80263744caa986bb4472107e3fc-1795707336188-08750-_c2zCYNpf&aff_fsk=_c2zCYNpf&aff_platform=api-new-link-generate&sk=_c2zCYNpf&aff_trace_key=2a13b80263744caa986bb4472107e3fc-1795707336188-08750-_c2zCYNpf&terminal_id=98767b7d05d74fa5b76f89dd5c0387ee&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005005357943658.html?aff_fcid=27b11de8af004ac8b36888ec1d4090c2-1795793247112-00393-_c2zCYNpf&aff_fsk=_c2zCYNpf&aff_platform=api-new-link-generate&sk=_c2zCYNpf&aff_trace_key=27b11de8af004ac8b36888ec1d4090c2-1795793247112-00393-_c2zCYNpf&terminal_id=21000947c617420e8d30733240147a01&afSmartRedirect=y",
       "item_id": "1005005357943658",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2zCYNpf",
       "broken_streak": 0
@@ -141,10 +152,10 @@
     {
       "id": "auto-1005004266671702",
       "slug": "auto-1005004266671702",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005004266671702.html?aff_fcid=fb1ad09b13d44e1486a7d46a2f58d436-1795707336339-00236-_c3XcYLlf&aff_fsk=_c3XcYLlf&aff_platform=api-new-link-generate&sk=_c3XcYLlf&aff_trace_key=fb1ad09b13d44e1486a7d46a2f58d436-1795707336339-00236-_c3XcYLlf&terminal_id=32f3195933b64881a5d1d3eab2855600&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005004266671702.html?aff_fcid=ce28cb8cbf0f4ce4a690edd764caefef-1795793247105-03077-_c3XcYLlf&aff_fsk=_c3XcYLlf&aff_platform=api-new-link-generate&sk=_c3XcYLlf&aff_trace_key=ce28cb8cbf0f4ce4a690edd764caefef-1795793247105-03077-_c3XcYLlf&terminal_id=b300b549b9ca452f8687d0bf47b8dd66&afSmartRedirect=y",
       "item_id": "1005004266671702",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3XcYLlf",
       "broken_streak": 0
@@ -152,10 +163,10 @@
     {
       "id": "auto-1005012473764350",
       "slug": "auto-1005012473764350",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012473764350.html?aff_fcid=a1e05a7624ad48eab861fec05b0d7a60-1795707336350-07422-_c4PtSWCv&aff_fsk=_c4PtSWCv&aff_platform=api-new-link-generate&sk=_c4PtSWCv&aff_trace_key=a1e05a7624ad48eab861fec05b0d7a60-1795707336350-07422-_c4PtSWCv&terminal_id=917dba9902b04fd1936d7718c736c6f4&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012473764350.html?aff_fcid=220068eb669f4f7398031c5cc066f9ef-1795793247310-08280-_c4PtSWCv&aff_fsk=_c4PtSWCv&aff_platform=api-new-link-generate&sk=_c4PtSWCv&aff_trace_key=220068eb669f4f7398031c5cc066f9ef-1795793247310-08280-_c4PtSWCv&terminal_id=94c9a9e473e64603afb7e693230341aa&afSmartRedirect=y",
       "item_id": "1005012473764350",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4PtSWCv",
       "broken_streak": 0
@@ -163,10 +174,10 @@
     {
       "id": "auto-1005012569530905",
       "slug": "auto-1005012569530905",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012569530905.html?aff_fcid=bb0e5b65bd69431e89562f37dfc8a0a0-1795707336315-09378-_c2RpvHZX&aff_fsk=_c2RpvHZX&aff_platform=api-new-link-generate&sk=_c2RpvHZX&aff_trace_key=bb0e5b65bd69431e89562f37dfc8a0a0-1795707336315-09378-_c2RpvHZX&terminal_id=74e5cf6c5cb3426ea9600a170331291c&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012569530905.html?aff_fcid=ace6fef41830470da8100c979c6426a1-1795793247303-04421-_c2RpvHZX&aff_fsk=_c2RpvHZX&aff_platform=api-new-link-generate&sk=_c2RpvHZX&aff_trace_key=ace6fef41830470da8100c979c6426a1-1795793247303-04421-_c2RpvHZX&terminal_id=0d5469171d804af79545ef0edcce8f8c&afSmartRedirect=y",
       "item_id": "1005012569530905",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2RpvHZX",
       "broken_streak": 0
@@ -174,10 +185,10 @@
     {
       "id": "auto-1005013037089570",
       "slug": "auto-1005013037089570",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013037089570.html?aff_fcid=8d2e7cc0eaa6401e8455d28f362da153-1795707336341-05827-_c4bF4fCH&aff_fsk=_c4bF4fCH&aff_platform=api-new-link-generate&sk=_c4bF4fCH&aff_trace_key=8d2e7cc0eaa6401e8455d28f362da153-1795707336341-05827-_c4bF4fCH&terminal_id=b62ffd80e1af4eae9469ecb69f53e469&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013037089570.html?aff_fcid=8645f43dabc04f7da37dc42a382a35f9-1795793247348-06920-_c4bF4fCH&aff_fsk=_c4bF4fCH&aff_platform=api-new-link-generate&sk=_c4bF4fCH&aff_trace_key=8645f43dabc04f7da37dc42a382a35f9-1795793247348-06920-_c4bF4fCH&terminal_id=f2f7b01a8aab460b83337abf903115dc&afSmartRedirect=y",
       "item_id": "1005013037089570",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4bF4fCH",
       "broken_streak": 0
@@ -185,10 +196,10 @@
     {
       "id": "auto-1005013553805507",
       "slug": "auto-1005013553805507",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013553805507.html?aff_fcid=dedc2aa9bef34fbfbbb3948237e4d22c-1795707336494-03892-_c3U2Ur39&aff_fsk=_c3U2Ur39&aff_platform=api-new-link-generate&sk=_c3U2Ur39&aff_trace_key=dedc2aa9bef34fbfbbb3948237e4d22c-1795707336494-03892-_c3U2Ur39&terminal_id=36c0289040484608b0fa57f7ccbbe003&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013553805507.html?aff_fcid=8deb5962f8e44cecb21c8e14ad97a418-1795793247430-06226-_c3U2Ur39&aff_fsk=_c3U2Ur39&aff_platform=api-new-link-generate&sk=_c3U2Ur39&aff_trace_key=8deb5962f8e44cecb21c8e14ad97a418-1795793247430-06226-_c3U2Ur39&terminal_id=61d23867df004cd5b9e0900bb30db873&afSmartRedirect=y",
       "item_id": "1005013553805507",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3U2Ur39",
       "broken_streak": 0
@@ -196,10 +207,10 @@
     {
       "id": "auto-1005013158011754",
       "slug": "auto-1005013158011754",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013158011754.html?aff_fcid=af628b8ee5dc44e5b14787e0ada6e7a5-1795707336522-04829-_c3HcpxK3&aff_fsk=_c3HcpxK3&aff_platform=api-new-link-generate&sk=_c3HcpxK3&aff_trace_key=af628b8ee5dc44e5b14787e0ada6e7a5-1795707336522-04829-_c3HcpxK3&terminal_id=ec205f6d8aed4c97b464373a28796d68&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013158011754.html?aff_fcid=9875426ac3ae45e8a0bef959d8f56cdc-1795793247448-06322-_c3HcpxK3&aff_fsk=_c3HcpxK3&aff_platform=api-new-link-generate&sk=_c3HcpxK3&aff_trace_key=9875426ac3ae45e8a0bef959d8f56cdc-1795793247448-06322-_c3HcpxK3&terminal_id=3870739748624416b667a4128c99b2ed&afSmartRedirect=y",
       "item_id": "1005013158011754",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3HcpxK3",
       "broken_streak": 0
@@ -207,10 +218,10 @@
     {
       "id": "auto-1005012367265501",
       "slug": "auto-1005012367265501",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012367265501.html?aff_fcid=48a4fa2e1cb944aa85ad61936e818566-1795707336496-03063-_c329XLkr&aff_fsk=_c329XLkr&aff_platform=api-new-link-generate&sk=_c329XLkr&aff_trace_key=48a4fa2e1cb944aa85ad61936e818566-1795707336496-03063-_c329XLkr&terminal_id=e07d20b340684a7f966535b1a9152324&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012367265501.html?aff_fcid=6bf18c07c90445b88d725b22e8853ff1-1795793247551-04394-_c329XLkr&aff_fsk=_c329XLkr&aff_platform=api-new-link-generate&sk=_c329XLkr&aff_trace_key=6bf18c07c90445b88d725b22e8853ff1-1795793247551-04394-_c329XLkr&terminal_id=d40012b7b2094d1296895e90ef1771ed&afSmartRedirect=y",
       "item_id": "1005012367265501",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c329XLkr",
       "broken_streak": 0
@@ -218,10 +229,10 @@
     {
       "id": "auto-1005012919201086",
       "slug": "auto-1005012919201086",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012919201086.html?aff_fcid=ed8d647bb17c40a3aa04e46852819500-1795707336580-04687-_c3pGQIRD&aff_fsk=_c3pGQIRD&aff_platform=api-new-link-generate&sk=_c3pGQIRD&aff_trace_key=ed8d647bb17c40a3aa04e46852819500-1795707336580-04687-_c3pGQIRD&terminal_id=715c6cbf3b604795a202d3484c97bc32&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012919201086.html?aff_fcid=e0988409251a4fba91b35760ec3ca7eb-1795793247578-07031-_c3pGQIRD&aff_fsk=_c3pGQIRD&aff_platform=api-new-link-generate&sk=_c3pGQIRD&aff_trace_key=e0988409251a4fba91b35760ec3ca7eb-1795793247578-07031-_c3pGQIRD&terminal_id=d4dc83d31076447d945555861f446fbb&afSmartRedirect=y",
       "item_id": "1005012919201086",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3pGQIRD",
       "broken_streak": 0
@@ -229,10 +240,10 @@
     {
       "id": "auto-1005012687234522",
       "slug": "auto-1005012687234522",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012687234522.html?aff_fcid=ad18d054b0324c4d905e7e155ac92075-1795707336692-01246-_c3AiHYGb&aff_fsk=_c3AiHYGb&aff_platform=api-new-link-generate&sk=_c3AiHYGb&aff_trace_key=ad18d054b0324c4d905e7e155ac92075-1795707336692-01246-_c3AiHYGb&terminal_id=9ae46d390f594d10ada4e1edc10d043c&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012687234522.html?aff_fcid=6407b902b6474db395908334f07caa87-1795793247608-07162-_c3AiHYGb&aff_fsk=_c3AiHYGb&aff_platform=api-new-link-generate&sk=_c3AiHYGb&aff_trace_key=6407b902b6474db395908334f07caa87-1795793247608-07162-_c3AiHYGb&terminal_id=e39f48f492e54c2ba852f10d2510d82e&afSmartRedirect=y",
       "item_id": "1005012687234522",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3AiHYGb",
       "broken_streak": 0
@@ -240,10 +251,10 @@
     {
       "id": "auto-1005009410831317",
       "slug": "auto-1005009410831317",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005009410831317.html?aff_fcid=9bfe2987036d4a50af8e608d5553e754-1795707336711-03239-_c35CN5hD&aff_fsk=_c35CN5hD&aff_platform=api-new-link-generate&sk=_c35CN5hD&aff_trace_key=9bfe2987036d4a50af8e608d5553e754-1795707336711-03239-_c35CN5hD&terminal_id=b65276b349f54bcfb29d30786959378e&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005009410831317.html?aff_fcid=27d61e28f72f47bcbc09424955e2a606-1795793247777-03979-_c35CN5hD&aff_fsk=_c35CN5hD&aff_platform=api-new-link-generate&sk=_c35CN5hD&aff_trace_key=27d61e28f72f47bcbc09424955e2a606-1795793247777-03979-_c35CN5hD&terminal_id=ac7aa751e8db4308b03ff789c8a53af5&afSmartRedirect=y",
       "item_id": "1005009410831317",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c35CN5hD",
       "broken_streak": 0
@@ -251,10 +262,10 @@
     {
       "id": "auto-1005010357329711",
       "slug": "auto-1005010357329711",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010357329711.html?aff_fcid=0877b3ad9cf24e56838fc6b3004c2d61-1795707336741-07170-_c3pExu55&aff_fsk=_c3pExu55&aff_platform=api-new-link-generate&sk=_c3pExu55&aff_trace_key=0877b3ad9cf24e56838fc6b3004c2d61-1795707336741-07170-_c3pExu55&terminal_id=bb307131deb241f78cdf57852945fa62&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010357329711.html?aff_fcid=67edab4b22dc4b07ac09a5859d10e2bd-1795793247734-04128-_c3pExu55&aff_fsk=_c3pExu55&aff_platform=api-new-link-generate&sk=_c3pExu55&aff_trace_key=67edab4b22dc4b07ac09a5859d10e2bd-1795793247734-04128-_c3pExu55&terminal_id=946ea2cfd9564867889dbce308656d44&afSmartRedirect=y",
       "item_id": "1005010357329711",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3pExu55",
       "broken_streak": 0
@@ -262,10 +273,10 @@
     {
       "id": "auto-1005013145693095",
       "slug": "auto-1005013145693095",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013145693095.html?aff_fcid=9cdbd767b65d4f1099e3f795221a3866-1795707336746-01408-_c3ZaDiCF&aff_fsk=_c3ZaDiCF&aff_platform=api-new-link-generate&sk=_c3ZaDiCF&aff_trace_key=9cdbd767b65d4f1099e3f795221a3866-1795707336746-01408-_c3ZaDiCF&terminal_id=4c9f4c73f3254f7eba076e2d09f2dcb1&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013145693095.html?aff_fcid=ae68f6e84e23443ca446644e7899643a-1795793247756-00557-_c3ZaDiCF&aff_fsk=_c3ZaDiCF&aff_platform=api-new-link-generate&sk=_c3ZaDiCF&aff_trace_key=ae68f6e84e23443ca446644e7899643a-1795793247756-00557-_c3ZaDiCF&terminal_id=961bf967042a4f99be4b42a6e847895f&afSmartRedirect=y",
       "item_id": "1005013145693095",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3ZaDiCF",
       "broken_streak": 0
@@ -273,10 +284,10 @@
     {
       "id": "auto-3256804678707896",
       "slug": "auto-3256804678707896",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/3256804678707896.html?aff_fcid=cd4234ea5d624ce38bc6cf9f143f4662-1795707336871-02991-_c2zTjVCR&aff_fsk=_c2zTjVCR&aff_platform=api-new-link-generate&sk=_c2zTjVCR&aff_trace_key=cd4234ea5d624ce38bc6cf9f143f4662-1795707336871-02991-_c2zTjVCR&terminal_id=fc95120b14ba429a8e9c5654cf835d4a&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/3256804678707896.html?aff_fcid=38074c007227461e888a44b1c2bfad32-1795793247780-07713-_c2zTjVCR&aff_fsk=_c2zTjVCR&aff_platform=api-new-link-generate&sk=_c2zTjVCR&aff_trace_key=38074c007227461e888a44b1c2bfad32-1795793247780-07713-_c2zTjVCR&terminal_id=427b5fed68a0446689ec0ae3b9cafb24&afSmartRedirect=y",
       "item_id": "3256804678707896",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2zTjVCR",
       "broken_streak": 0
@@ -284,10 +295,10 @@
     {
       "id": "auto-1005012599444039",
       "slug": "auto-1005012599444039",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012599444039.html?aff_fcid=6ea4fcbaff5242a0a98511021006ac24-1795707336879-04068-_c4DJ6jpp&aff_fsk=_c4DJ6jpp&aff_platform=api-new-link-generate&sk=_c4DJ6jpp&aff_trace_key=6ea4fcbaff5242a0a98511021006ac24-1795707336879-04068-_c4DJ6jpp&terminal_id=a51bafa32a87498b81ee0316e876c5bb&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012599444039.html?aff_fcid=220e2f11e43249e19bf8d07b38f76096-1795793247880-01071-_c4DJ6jpp&aff_fsk=_c4DJ6jpp&aff_platform=api-new-link-generate&sk=_c4DJ6jpp&aff_trace_key=220e2f11e43249e19bf8d07b38f76096-1795793247880-01071-_c4DJ6jpp&terminal_id=d490b87887da4862a6213bd45e00eee5&afSmartRedirect=y",
       "item_id": "1005012599444039",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4DJ6jpp",
       "broken_streak": 0
@@ -295,10 +306,10 @@
     {
       "id": "auto-1005004679234788",
       "slug": "auto-1005004679234788",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005004679234788.html?aff_fcid=5a68b53d686a43909ffed5a0e975e71b-1795707336951-05662-_c4draMZZ&aff_fsk=_c4draMZZ&aff_platform=api-new-link-generate&sk=_c4draMZZ&aff_trace_key=5a68b53d686a43909ffed5a0e975e71b-1795707336951-05662-_c4draMZZ&terminal_id=0390d29f8d7b4fe49219feaf94c807bf&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005004679234788.html?aff_fcid=e577d6bd20454900acdd5803c7bfcb55-1795793247924-00057-_c4draMZZ&aff_fsk=_c4draMZZ&aff_platform=api-new-link-generate&sk=_c4draMZZ&aff_trace_key=e577d6bd20454900acdd5803c7bfcb55-1795793247924-00057-_c4draMZZ&terminal_id=a7f6a0a412474d49b2c4ea5a9ccd1a78&afSmartRedirect=y",
       "item_id": "1005004679234788",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4draMZZ",
       "broken_streak": 0
@@ -306,10 +317,10 @@
     {
       "id": "find-064-book-light",
       "slug": "find-064-book-light",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005007202873213.html?aff_fcid=dcd8b821963d494e9f5e5d156593888f-1795707337037-00802-_c4m3xNQJ&aff_fsk=_c4m3xNQJ&aff_platform=api-new-link-generate&sk=_c4m3xNQJ&aff_trace_key=dcd8b821963d494e9f5e5d156593888f-1795707337037-00802-_c4m3xNQJ&terminal_id=e3e798c489b04db2ae806594b06d4c2e&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005007202873213.html?aff_fcid=a98d9015fa8545999da088c77f6312af-1795793247947-08696-_c4m3xNQJ&aff_fsk=_c4m3xNQJ&aff_platform=api-new-link-generate&sk=_c4m3xNQJ&aff_trace_key=a98d9015fa8545999da088c77f6312af-1795793247947-08696-_c4m3xNQJ&terminal_id=a0a1fd182f1e4b6bb2f48226c6606f46&afSmartRedirect=y",
       "item_id": "1005007202873213",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4m3xNQJ",
       "broken_streak": 0
@@ -317,10 +328,10 @@
     {
       "id": "find-065-spice-grinder",
       "slug": "find-065-spice-grinder",
-      "checked_at": "2026-11-26T15:35:36+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013368832628.html?aff_fcid=f1194f47494d4dc58c63152423eebf79-1795707337095-02268-_c4spKHll&aff_fsk=_c4spKHll&aff_platform=api-new-link-generate&sk=_c4spKHll&aff_trace_key=f1194f47494d4dc58c63152423eebf79-1795707337095-02268-_c4spKHll&terminal_id=cf785a1b624f46c8b686178287d85f00&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013368832628.html?aff_fcid=325fc8ab94834181b1d55b94fd4deffc-1795793247987-03325-_c4spKHll&aff_fsk=_c4spKHll&aff_platform=api-new-link-generate&sk=_c4spKHll&aff_trace_key=325fc8ab94834181b1d55b94fd4deffc-1795793247987-03325-_c4spKHll&terminal_id=3dbce032caa446609384cdd0b3569627&afSmartRedirect=y",
       "item_id": "1005013368832628",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4spKHll",
       "broken_streak": 0
@@ -328,10 +339,10 @@
     {
       "id": "find-067-pill-organizer",
       "slug": "find-067-pill-organizer",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008038578506.html?aff_fcid=9c599a2a76c24e69b003cbd2cb52a340-1795707337208-04914-_c2R05EJ5&aff_fsk=_c2R05EJ5&aff_platform=api-new-link-generate&sk=_c2R05EJ5&aff_trace_key=9c599a2a76c24e69b003cbd2cb52a340-1795707337208-04914-_c2R05EJ5&terminal_id=ecf8a451c1ac404dbcb1f5cc1f78c8dc&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008038578506.html?aff_fcid=004a916a924b4f5b9fa33bd9c992c3f4-1795793248052-08678-_c2R05EJ5&aff_fsk=_c2R05EJ5&aff_platform=api-new-link-generate&sk=_c2R05EJ5&aff_trace_key=004a916a924b4f5b9fa33bd9c992c3f4-1795793248052-08678-_c2R05EJ5&terminal_id=6f6a120061ef414cac103800e7ff1531&afSmartRedirect=y",
       "item_id": "1005008038578506",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2R05EJ5",
       "broken_streak": 0
@@ -339,10 +350,10 @@
     {
       "id": "find-060-tire-inflator",
       "slug": "find-060-tire-inflator",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:27+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013197548476.html?aff_fcid=eeb44122526649be9e4d7a99bf7b5ed4-1795707337141-05001-_c39aHeER&aff_fsk=_c39aHeER&aff_platform=api-new-link-generate&sk=_c39aHeER&aff_trace_key=eeb44122526649be9e4d7a99bf7b5ed4-1795707337141-05001-_c39aHeER&terminal_id=fe06a55c5257406a81756809bc8cb2b5&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013197548476.html?aff_fcid=646af9c3a088461193159816fa2ac052-1795793248098-09280-_c39aHeER&aff_fsk=_c39aHeER&aff_platform=api-new-link-generate&sk=_c39aHeER&aff_trace_key=646af9c3a088461193159816fa2ac052-1795793248098-09280-_c39aHeER&terminal_id=108226b3264f436ca53025ddb1004b2d&afSmartRedirect=y",
       "item_id": "1005013197548476",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c39aHeER",
       "broken_streak": 0
@@ -350,10 +361,10 @@
     {
       "id": "find-062-coffee-scale",
       "slug": "find-062-coffee-scale",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012780690869.html?aff_fcid=a8c1b13b549d4192908dcaf90c2d7663-1795707337199-03659-_c3deVF67&aff_fsk=_c3deVF67&aff_platform=api-new-link-generate&sk=_c3deVF67&aff_trace_key=a8c1b13b549d4192908dcaf90c2d7663-1795707337199-03659-_c3deVF67&terminal_id=bd08a0368b19421dbf448eeae282ddb9&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012780690869.html?aff_fcid=bab824c4438646f7aadfdbab4d1e34b7-1795793248110-07911-_c3deVF67&aff_fsk=_c3deVF67&aff_platform=api-new-link-generate&sk=_c3deVF67&aff_trace_key=bab824c4438646f7aadfdbab4d1e34b7-1795793248110-07911-_c3deVF67&terminal_id=2a9512798a4c4e3d84b792a028946345&afSmartRedirect=y",
       "item_id": "1005012780690869",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3deVF67",
       "broken_streak": 0
@@ -361,10 +372,10 @@
     {
       "id": "find-063-cable-tester",
       "slug": "find-063-cable-tester",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010192060931.html?aff_fcid=82deb323b06041f0be1fad05bc4b7cf5-1795707337284-06537-_c3RO8UPD&aff_fsk=_c3RO8UPD&aff_platform=api-new-link-generate&sk=_c3RO8UPD&aff_trace_key=82deb323b06041f0be1fad05bc4b7cf5-1795707337284-06537-_c3RO8UPD&terminal_id=c054430f95e94da29e815d90ecef466d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010192060931.html?aff_fcid=8b16624a39c0486b80949bbf8f6fd817-1795793248172-08228-_c3RO8UPD&aff_fsk=_c3RO8UPD&aff_platform=api-new-link-generate&sk=_c3RO8UPD&aff_trace_key=8b16624a39c0486b80949bbf8f6fd817-1795793248172-08228-_c3RO8UPD&terminal_id=451cba7344914cd78ebd6cd8f9f76b8c&afSmartRedirect=y",
       "item_id": "1005010192060931",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3RO8UPD",
       "broken_streak": 0
@@ -372,10 +383,10 @@
     {
       "id": "find-057-uv-toothbrush",
       "slug": "find-057-uv-toothbrush",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012725447808.html?aff_fcid=a0cac957c9534770b58f2b71fd74826e-1795707337418-07734-_c44Z1h6x&aff_fsk=_c44Z1h6x&aff_platform=api-new-link-generate&sk=_c44Z1h6x&aff_trace_key=a0cac957c9534770b58f2b71fd74826e-1795707337418-07734-_c44Z1h6x&terminal_id=44af17fd1e9e488c87119f1415c97d90&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012725447808.html?aff_fcid=a5e5a7b8529340b48d311711a1c69454-1795793248222-07044-_c44Z1h6x&aff_fsk=_c44Z1h6x&aff_platform=api-new-link-generate&sk=_c44Z1h6x&aff_trace_key=a5e5a7b8529340b48d311711a1c69454-1795793248222-07044-_c44Z1h6x&terminal_id=d0191d3bcebb4721ad045ff612936b1e&afSmartRedirect=y",
       "item_id": "1005012725447808",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c44Z1h6x",
       "broken_streak": 0
@@ -383,10 +394,10 @@
     {
       "id": "find-058-key-finder",
       "slug": "find-058-key-finder",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008507001024.html?aff_fcid=73f41944ea944821867267c1babea641-1795707337388-03998-_c2wLDGGT&aff_fsk=_c2wLDGGT&aff_platform=api-new-link-generate&sk=_c2wLDGGT&aff_trace_key=73f41944ea944821867267c1babea641-1795707337388-03998-_c2wLDGGT&terminal_id=ac4599e0a2b04627bbe87a46b562c416&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008507001024.html?aff_fcid=3ab99707150345c688689de7feda90ae-1795793248298-01385-_c2wLDGGT&aff_fsk=_c2wLDGGT&aff_platform=api-new-link-generate&sk=_c2wLDGGT&aff_trace_key=3ab99707150345c688689de7feda90ae-1795793248298-01385-_c2wLDGGT&terminal_id=c03737aea21a4daf987f01028a644ccc&afSmartRedirect=y",
       "item_id": "1005008507001024",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2wLDGGT",
       "broken_streak": 0
@@ -394,10 +405,10 @@
     {
       "id": "find-059-label-printer",
       "slug": "find-059-label-printer",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005009253532387.html?aff_fcid=97d69dd6dd2f48c3ba47e3a16479f148-1795707337393-01833-_c3MdAJWb&aff_fsk=_c3MdAJWb&aff_platform=api-new-link-generate&sk=_c3MdAJWb&aff_trace_key=97d69dd6dd2f48c3ba47e3a16479f148-1795707337393-01833-_c3MdAJWb&terminal_id=be1316017fa94be0a4546493e330dd15&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005009253532387.html?aff_fcid=03ad10d85da5402fa385dca97298dd13-1795793248304-04889-_c3MdAJWb&aff_fsk=_c3MdAJWb&aff_platform=api-new-link-generate&sk=_c3MdAJWb&aff_trace_key=03ad10d85da5402fa385dca97298dd13-1795793248304-04889-_c3MdAJWb&terminal_id=5ac05a6e10b64e9b9325780d6cf9fb62&afSmartRedirect=y",
       "item_id": "1005009253532387",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3MdAJWb",
       "broken_streak": 0
@@ -405,10 +416,10 @@
     {
       "id": "find-054-soldering-iron",
       "slug": "find-054-soldering-iron",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008380178784.html?aff_fcid=b9c21a8e613c4fd8b19ad0eff5a19c4f-1795707337448-07934-_c3WQPIKX&aff_fsk=_c3WQPIKX&aff_platform=api-new-link-generate&sk=_c3WQPIKX&aff_trace_key=b9c21a8e613c4fd8b19ad0eff5a19c4f-1795707337448-07934-_c3WQPIKX&terminal_id=2340381b671c4e4fb9a3e4447673552d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008380178784.html?aff_fcid=26f832355f8f451890c648209d1aca41-1795793248406-01412-_c3WQPIKX&aff_fsk=_c3WQPIKX&aff_platform=api-new-link-generate&sk=_c3WQPIKX&aff_trace_key=26f832355f8f451890c648209d1aca41-1795793248406-01412-_c3WQPIKX&terminal_id=696c2b5bedf74b05b9cee204a0423367&afSmartRedirect=y",
       "item_id": "1005008380178784",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3WQPIKX",
       "broken_streak": 0
@@ -416,10 +427,10 @@
     {
       "id": "find-055-lint-remover",
       "slug": "find-055-lint-remover",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013166128264.html?aff_fcid=4527fce702054c30bdd7aec92fdd2406-1795707337542-04993-_c4PU2gP1&aff_fsk=_c4PU2gP1&aff_platform=api-new-link-generate&sk=_c4PU2gP1&aff_trace_key=4527fce702054c30bdd7aec92fdd2406-1795707337542-04993-_c4PU2gP1&terminal_id=e908860125744b739329b5c02f600720&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013166128264.html?aff_fcid=7f492e2b7df64c348ad5638d1089d104-1795793248435-00579-_c4PU2gP1&aff_fsk=_c4PU2gP1&aff_platform=api-new-link-generate&sk=_c4PU2gP1&aff_trace_key=7f492e2b7df64c348ad5638d1089d104-1795793248435-00579-_c4PU2gP1&terminal_id=c146484664fb47b0b211774151f97a7a&afSmartRedirect=y",
       "item_id": "1005013166128264",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4PU2gP1",
       "broken_streak": 0
@@ -427,10 +438,10 @@
     {
       "id": "find-056-milk-frother",
       "slug": "find-056-milk-frother",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013525988012.html?aff_fcid=fa58501e758040d69e9f07beb4fd6586-1795707337585-06153-_c3yjRGbh&aff_fsk=_c3yjRGbh&aff_platform=api-new-link-generate&sk=_c3yjRGbh&aff_trace_key=fa58501e758040d69e9f07beb4fd6586-1795707337585-06153-_c3yjRGbh&terminal_id=eda269fc26594e31948e701b0808d0e3&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013525988012.html?aff_fcid=6864889eaf734862b6936b2392d68810-1795793248467-03330-_c3yjRGbh&aff_fsk=_c3yjRGbh&aff_platform=api-new-link-generate&sk=_c3yjRGbh&aff_trace_key=6864889eaf734862b6936b2392d68810-1795793248467-03330-_c3yjRGbh&terminal_id=da8eee047c054f958c243110709b77d9&afSmartRedirect=y",
       "item_id": "1005013525988012",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3yjRGbh",
       "broken_streak": 0
@@ -438,10 +449,10 @@
     {
       "id": "find-051-ultrasonic-cleaner",
       "slug": "find-051-ultrasonic-cleaner",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013151609503.html?aff_fcid=c368e11feeb64ffeab3f3bc8e367b5d4-1795707337596-00318-_c3hvoHnl&aff_fsk=_c3hvoHnl&aff_platform=api-new-link-generate&sk=_c3hvoHnl&aff_trace_key=c368e11feeb64ffeab3f3bc8e367b5d4-1795707337596-00318-_c3hvoHnl&terminal_id=fa4c7feb0ff843909b2b46f3eb27dc38&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013151609503.html?aff_fcid=49fc717c4f824355a754cbd73e38e22f-1795793248471-07490-_c3hvoHnl&aff_fsk=_c3hvoHnl&aff_platform=api-new-link-generate&sk=_c3hvoHnl&aff_trace_key=49fc717c4f824355a754cbd73e38e22f-1795793248471-07490-_c3hvoHnl&terminal_id=18671242173847d4a914303f7c1d77cc&afSmartRedirect=y",
       "item_id": "1005013151609503",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3hvoHnl",
       "broken_streak": 0
@@ -449,10 +460,10 @@
     {
       "id": "find-052-laser-meter",
       "slug": "find-052-laser-meter",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013381565639.html?aff_fcid=031c13515311401bba1c619d1cf6ab72-1795707337592-02752-_c4DAgiIr&aff_fsk=_c4DAgiIr&aff_platform=api-new-link-generate&sk=_c4DAgiIr&aff_trace_key=031c13515311401bba1c619d1cf6ab72-1795707337592-02752-_c4DAgiIr&terminal_id=27988af8008d46e39fccd9d334431d4d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013381565639.html?aff_fcid=47ed980ef6a74d90a4781f8f6bee6350-1795793248610-04376-_c4DAgiIr&aff_fsk=_c4DAgiIr&aff_platform=api-new-link-generate&sk=_c4DAgiIr&aff_trace_key=47ed980ef6a74d90a4781f8f6bee6350-1795793248610-04376-_c4DAgiIr&terminal_id=4774cc2c2a6042c3bb5d00303b99f1c4&afSmartRedirect=y",
       "item_id": "1005013381565639",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4DAgiIr",
       "broken_streak": 0
@@ -460,10 +471,10 @@
     {
       "id": "find-053-vacuum-sealer",
       "slug": "find-053-vacuum-sealer",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012945423332.html?aff_fcid=0ad56ea6e2a64f038164ef829a485e5d-1795707337723-07819-_c3B5ujZD&aff_fsk=_c3B5ujZD&aff_platform=api-new-link-generate&sk=_c3B5ujZD&aff_trace_key=0ad56ea6e2a64f038164ef829a485e5d-1795707337723-07819-_c3B5ujZD&terminal_id=de2fe502c6bf44cea7417ec97c2deebc&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012945423332.html?aff_fcid=7493496ffe5a46da82b153b6574624f0-1795793248615-05531-_c3B5ujZD&aff_fsk=_c3B5ujZD&aff_platform=api-new-link-generate&sk=_c3B5ujZD&aff_trace_key=7493496ffe5a46da82b153b6574624f0-1795793248615-05531-_c3B5ujZD&terminal_id=4dc26d9277554ee4b1f2253bdaa847a5&afSmartRedirect=y",
       "item_id": "1005012945423332",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3B5ujZD",
       "broken_streak": 0
@@ -471,10 +482,10 @@
     {
       "id": "import-0024",
       "slug": "import-0024",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010122561084.html?pdp_npi=6%40dis%21USD%2133.52%2114.44%21%21%21222.42%2195.78%21%402140f89017929480104304190e0ed7%2112000051219773945%21affd%21%21%21%211%210%21&aff_fcid=316018da90fb43b59961d7ba504d841f-1795707337750-08783-_c2vkUuwb&aff_fsk=_c2vkUuwb&aff_platform=portals-billboard-sea&sk=_c2vkUuwb&aff_trace_key=316018da90fb43b59961d7ba504d841f-1795707337750-08783-_c2vkUuwb&terminal_id=9a9b92e0a9114e57a399bf26142c5cd6&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010122561084.html?pdp_npi=6%40dis%21USD%2133.52%2114.44%21%21%21222.42%2195.78%21%402140f89017929480104304190e0ed7%2112000051219773945%21affd%21%21%21%211%210%21&aff_fcid=60f8747e08ed4503beca7a1066fb8184-1795793248653-00404-_c2vkUuwb&aff_fsk=_c2vkUuwb&aff_platform=portals-billboard-sea&sk=_c2vkUuwb&aff_trace_key=60f8747e08ed4503beca7a1066fb8184-1795793248653-00404-_c2vkUuwb&terminal_id=13b772a8da264302b93827c3938eca3a&afSmartRedirect=y",
       "item_id": "1005010122561084",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2vkUuwb",
       "broken_streak": 0
@@ -482,10 +493,10 @@
     {
       "id": "find-001-neck-cooler",
       "slug": "find-001-neck-cooler",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005011798288613.html?aff_fcid=2baeacc6d99747b7bb3a86e516db283d-1795707337774-04210-_c35AJS8j&aff_fsk=_c35AJS8j&aff_platform=api-new-link-generate&sk=_c35AJS8j&aff_trace_key=2baeacc6d99747b7bb3a86e516db283d-1795707337774-04210-_c35AJS8j&terminal_id=dc870e1211c54f9682e1a78f9d69191b&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005011798288613.html?aff_fcid=72d2265bcdea4882a0df3942039cfe8b-1795793248670-01441-_c35AJS8j&aff_fsk=_c35AJS8j&aff_platform=api-new-link-generate&sk=_c35AJS8j&aff_trace_key=72d2265bcdea4882a0df3942039cfe8b-1795793248670-01441-_c35AJS8j&terminal_id=765c2641268f4ca9a007a825ed59d272&afSmartRedirect=y",
       "item_id": "1005011798288613",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c35AJS8j",
       "broken_streak": 0
@@ -493,10 +504,10 @@
     {
       "id": "find-002-meat-thermo",
       "slug": "find-002-meat-thermo",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005007923722752.html?aff_fcid=c20a7ceee6534e86b1338c7ddd8880b3-1795707337795-04094-_c2zLbjjl&aff_fsk=_c2zLbjjl&aff_platform=api-new-link-generate&sk=_c2zLbjjl&aff_trace_key=c20a7ceee6534e86b1338c7ddd8880b3-1795707337795-04094-_c2zLbjjl&terminal_id=b486a793ac77427da7b0cde59fefca44&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005007923722752.html?aff_fcid=adcdb0fd56764e98bd99e204ab0693e6-1795793248757-05859-_c2zLbjjl&aff_fsk=_c2zLbjjl&aff_platform=api-new-link-generate&sk=_c2zLbjjl&aff_trace_key=adcdb0fd56764e98bd99e204ab0693e6-1795793248757-05859-_c2zLbjjl&terminal_id=dfa1539e436946b4ac59189c496a66e6&afSmartRedirect=y",
       "item_id": "1005007923722752",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2zLbjjl",
       "broken_streak": 0
@@ -504,10 +515,10 @@
     {
       "id": "find-003-mosquito-racket",
       "slug": "find-003-mosquito-racket",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005011949737989.html?aff_fcid=8713d0bafb344ff0b8a3f52bf1127609-1795707337916-04572-_c3QrzNKT&aff_fsk=_c3QrzNKT&aff_platform=api-new-link-generate&sk=_c3QrzNKT&aff_trace_key=8713d0bafb344ff0b8a3f52bf1127609-1795707337916-04572-_c3QrzNKT&terminal_id=3fa365cfef43489cb9b8e058c60404cb&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005011949737989.html?aff_fcid=1b61f41d28fd4a69b748b74e344f15be-1795793248801-04046-_c3QrzNKT&aff_fsk=_c3QrzNKT&aff_platform=api-new-link-generate&sk=_c3QrzNKT&aff_trace_key=1b61f41d28fd4a69b748b74e344f15be-1795793248801-04046-_c3QrzNKT&terminal_id=4aa52b9b8f1d45348a98198bc569350a&afSmartRedirect=y",
       "item_id": "1005011949737989",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3QrzNKT",
       "broken_streak": 0
@@ -515,10 +526,10 @@
     {
       "id": "find-004-moto-intercom",
       "slug": "find-004-moto-intercom",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005007345049533.html?aff_fcid=e6f2507ce36448a5bdbc41ff2cc29f18-1795707337930-04068-_c3rLvUiJ&aff_fsk=_c3rLvUiJ&aff_platform=api-new-link-generate&sk=_c3rLvUiJ&aff_trace_key=e6f2507ce36448a5bdbc41ff2cc29f18-1795707337930-04068-_c3rLvUiJ&terminal_id=b58ed5102f0f4b1c9705019b59d26166&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005007345049533.html?aff_fcid=41bc651de6cd4ff897ecda10c2189a7d-1795793248828-03084-_c3rLvUiJ&aff_fsk=_c3rLvUiJ&aff_platform=api-new-link-generate&sk=_c3rLvUiJ&aff_trace_key=41bc651de6cd4ff897ecda10c2189a7d-1795793248828-03084-_c3rLvUiJ&terminal_id=e7c11865ff8046d297f4b9f3ee544ff8&afSmartRedirect=y",
       "item_id": "1005007345049533",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3rLvUiJ",
       "broken_streak": 0
@@ -526,10 +537,10 @@
     {
       "id": "find-005-moto-tpms",
       "slug": "find-005-moto-tpms",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013138934226.html?aff_fcid=e356fe8cf45f443a9892b34d37218562-1795707337949-02629-_c43jdjTz&aff_fsk=_c43jdjTz&aff_platform=api-new-link-generate&sk=_c43jdjTz&aff_trace_key=e356fe8cf45f443a9892b34d37218562-1795707337949-02629-_c43jdjTz&terminal_id=10627d4af5f24a519cb7d23950a5bf00&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013138934226.html?aff_fcid=58ba068c9fde47b99e311f435dcc5cb2-1795793248850-02252-_c43jdjTz&aff_fsk=_c43jdjTz&aff_platform=api-new-link-generate&sk=_c43jdjTz&aff_trace_key=58ba068c9fde47b99e311f435dcc5cb2-1795793248850-02252-_c43jdjTz&terminal_id=ada17e10153a4a4b8e23193c22206993&afSmartRedirect=y",
       "item_id": "1005013138934226",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c43jdjTz",
       "broken_streak": 0
@@ -537,10 +548,10 @@
     {
       "id": "find-006-phone-cooler",
       "slug": "find-006-phone-cooler",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013069561167.html?aff_fcid=531926e96ed440e29f9f8ea91757d58c-1795707338021-06872-_c4bYREN5&aff_fsk=_c4bYREN5&aff_platform=api-new-link-generate&sk=_c4bYREN5&aff_trace_key=531926e96ed440e29f9f8ea91757d58c-1795707338021-06872-_c4bYREN5&terminal_id=c0397c5d15ad4d7d92c95a8edcfe5434&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013069561167.html?aff_fcid=456f76e412c04f7cb9595952f15f9a49-1795793248908-03310-_c4bYREN5&aff_fsk=_c4bYREN5&aff_platform=api-new-link-generate&sk=_c4bYREN5&aff_trace_key=456f76e412c04f7cb9595952f15f9a49-1795793248908-03310-_c4bYREN5&terminal_id=eb68c3a49de741b5b8153bb52947df10&afSmartRedirect=y",
       "item_id": "1005013069561167",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4bYREN5",
       "broken_streak": 0
@@ -548,10 +559,10 @@
     {
       "id": "find-007-phone-gamepad",
       "slug": "find-007-phone-gamepad",
-      "checked_at": "2026-11-26T15:35:37+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012306370309.html?aff_fcid=094c9164527348e89fd2feaa38879795-1795707338120-03841-_c37DNSrD&aff_fsk=_c37DNSrD&aff_platform=api-new-link-generate&sk=_c37DNSrD&aff_trace_key=094c9164527348e89fd2feaa38879795-1795707338120-03841-_c37DNSrD&terminal_id=f1a8e1f8992a44e09850748a66d9f6e7&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012306370309.html?aff_fcid=457a6b676e704edc985baeef4fce10d5-1795793249029-00410-_c37DNSrD&aff_fsk=_c37DNSrD&aff_platform=api-new-link-generate&sk=_c37DNSrD&aff_trace_key=457a6b676e704edc985baeef4fce10d5-1795793249029-00410-_c37DNSrD&terminal_id=81cf00ce695945eba1217e02741b3abe&afSmartRedirect=y",
       "item_id": "1005012306370309",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c37DNSrD",
       "broken_streak": 0
@@ -559,10 +570,10 @@
     {
       "id": "find-008-jump-starter",
       "slug": "find-008-jump-starter",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013246153250.html?aff_fcid=df54c2d938ec41b896a57648d2581c90-1795707338155-07622-_c3eu7vJl&aff_fsk=_c3eu7vJl&aff_platform=api-new-link-generate&sk=_c3eu7vJl&aff_trace_key=df54c2d938ec41b896a57648d2581c90-1795707338155-07622-_c3eu7vJl&terminal_id=8dec9ecada81481bad8371ce51e38d21&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013246153250.html?aff_fcid=4198243425da4185af5c1ba2a7c8b10a-1795793248980-06208-_c3eu7vJl&aff_fsk=_c3eu7vJl&aff_platform=api-new-link-generate&sk=_c3eu7vJl&aff_trace_key=4198243425da4185af5c1ba2a7c8b10a-1795793248980-06208-_c3eu7vJl&terminal_id=06e8865b9388470083ffb52f7d8a774e&afSmartRedirect=y",
       "item_id": "1005013246153250",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3eu7vJl",
       "broken_streak": 0
@@ -570,10 +581,10 @@
     {
       "id": "find-009-bulb-camera",
       "slug": "find-009-bulb-camera",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013147484784.html?aff_fcid=3c17ef1d8a58415b90e3bd62cc47ee24-1795707338156-09364-_c3RHx7tt&aff_fsk=_c3RHx7tt&aff_platform=api-new-link-generate&sk=_c3RHx7tt&aff_trace_key=3c17ef1d8a58415b90e3bd62cc47ee24-1795707338156-09364-_c3RHx7tt&terminal_id=faf82491e2b34701ad826c6e4d1ab7b2&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013147484784.html?aff_fcid=06a2f418507846acbebdf1ed0eb4d8bb-1795793249013-06417-_c3RHx7tt&aff_fsk=_c3RHx7tt&aff_platform=api-new-link-generate&sk=_c3RHx7tt&aff_trace_key=06a2f418507846acbebdf1ed0eb4d8bb-1795793249013-06417-_c3RHx7tt&terminal_id=101371dc870d467c9ca895c17de8e465&afSmartRedirect=y",
       "item_id": "1005013147484784",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3RHx7tt",
       "broken_streak": 0
@@ -581,10 +592,10 @@
     {
       "id": "find-010-gallon-pump",
       "slug": "find-010-gallon-pump",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:28+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012329741557.html?aff_fcid=54558c99ed2d46d4bc0b0c7baf149b4a-1795707338295-08742-_c3YG6kzd&aff_fsk=_c3YG6kzd&aff_platform=api-new-link-generate&sk=_c3YG6kzd&aff_trace_key=54558c99ed2d46d4bc0b0c7baf149b4a-1795707338295-08742-_c3YG6kzd&terminal_id=719b351d92064d2e9ff59c782760232d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012329741557.html?aff_fcid=4b5324311f544e0b84a2aaec162c9abd-1795793249076-08003-_c3YG6kzd&aff_fsk=_c3YG6kzd&aff_platform=api-new-link-generate&sk=_c3YG6kzd&aff_trace_key=4b5324311f544e0b84a2aaec162c9abd-1795793249076-08003-_c3YG6kzd&terminal_id=41c81012fcb04450a4bd7536fee130ee&afSmartRedirect=y",
       "item_id": "1005012329741557",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3YG6kzd",
       "broken_streak": 0
@@ -592,10 +603,10 @@
     {
       "id": "find-011-nail-drill",
       "slug": "find-011-nail-drill",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005006444449944.html?aff_fcid=b5fef6760db045b8b7ada0d444501c27-1795707338316-06520-_c3yo7Khz&aff_fsk=_c3yo7Khz&aff_platform=api-new-link-generate&sk=_c3yo7Khz&aff_trace_key=b5fef6760db045b8b7ada0d444501c27-1795707338316-06520-_c3yo7Khz&terminal_id=0e28e53949d74198880ba75b58582390&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005006444449944.html?aff_fcid=0ea50b7fc8d848eda7106022f6810ac2-1795793249226-06595-_c3yo7Khz&aff_fsk=_c3yo7Khz&aff_platform=api-new-link-generate&sk=_c3yo7Khz&aff_trace_key=0ea50b7fc8d848eda7106022f6810ac2-1795793249226-06595-_c3yo7Khz&terminal_id=93c019f4b89f4ae0bec1b5f710e6ea7e&afSmartRedirect=y",
       "item_id": "1005006444449944",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3yo7Khz",
       "broken_streak": 0
@@ -603,10 +614,10 @@
     {
       "id": "find-012-hair-curler",
       "slug": "find-012-hair-curler",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012406439621.html?aff_fcid=6591cdd8ad0f43f0bb403a0d7aa26357-1795707338331-09908-_c4lUHGEJ&aff_fsk=_c4lUHGEJ&aff_platform=api-new-link-generate&sk=_c4lUHGEJ&aff_trace_key=6591cdd8ad0f43f0bb403a0d7aa26357-1795707338331-09908-_c4lUHGEJ&terminal_id=943b347472ca4096bb72fbc1cced9e82&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012406439621.html?aff_fcid=cfbf6c7207614fa5a9656d0a0ba6270e-1795793249211-07576-_c4lUHGEJ&aff_fsk=_c4lUHGEJ&aff_platform=api-new-link-generate&sk=_c4lUHGEJ&aff_trace_key=cfbf6c7207614fa5a9656d0a0ba6270e-1795793249211-07576-_c4lUHGEJ&terminal_id=0558b08ae74d45c68e8eac7df395f8b9&afSmartRedirect=y",
       "item_id": "1005012406439621",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4lUHGEJ",
       "broken_streak": 0
@@ -614,10 +625,10 @@
     {
       "id": "find-013-kick-trainer",
       "slug": "find-013-kick-trainer",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012345163064.html?aff_fcid=766ff44d0f2a40c18eb348f01e98e393-1795707338465-02850-_c3nU94bZ&aff_fsk=_c3nU94bZ&aff_platform=api-new-link-generate&sk=_c3nU94bZ&aff_trace_key=766ff44d0f2a40c18eb348f01e98e393-1795707338465-02850-_c3nU94bZ&terminal_id=6d171815f39c4f7591036d3429d7d059&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012345163064.html?aff_fcid=5c2b1b0f2ece4e9298d9124b656777b5-1795793249232-01730-_c3nU94bZ&aff_fsk=_c3nU94bZ&aff_platform=api-new-link-generate&sk=_c3nU94bZ&aff_trace_key=5c2b1b0f2ece4e9298d9124b656777b5-1795793249232-01730-_c3nU94bZ&terminal_id=2d6400f57c8b4098a70f7f4f1dc46215&afSmartRedirect=y",
       "item_id": "1005012345163064",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3nU94bZ",
       "broken_streak": 0
@@ -625,10 +636,10 @@
     {
       "id": "find-014-lunch-box",
       "slug": "find-014-lunch-box",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012637951929.html?aff_fcid=85035f8b98fe45c7a6459ea60d6ce595-1795707338461-03785-_c3CRzyPh&aff_fsk=_c3CRzyPh&aff_platform=api-new-link-generate&sk=_c3CRzyPh&aff_trace_key=85035f8b98fe45c7a6459ea60d6ce595-1795707338461-03785-_c3CRzyPh&terminal_id=5f81509269da430b8007062932a8c882&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012637951929.html?aff_fcid=3e5de8a25392430bbee6208fa22792a6-1795793249278-08654-_c3CRzyPh&aff_fsk=_c3CRzyPh&aff_platform=api-new-link-generate&sk=_c3CRzyPh&aff_trace_key=3e5de8a25392430bbee6208fa22792a6-1795793249278-08654-_c3CRzyPh&terminal_id=30d506a7ba8547f59dd2eaf268978add&afSmartRedirect=y",
       "item_id": "1005012637951929",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3CRzyPh",
       "broken_streak": 0
@@ -636,10 +647,10 @@
     {
       "id": "find-015-fishing-float",
       "slug": "find-015-fishing-float",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012924903231.html?pdp_npi=6%40dis%21EUR%212.55%212.55%21%21%2118.55%2118.55%21%400b8ded7b17933978159355458e0eb3%2112000059752661846%21affd%21%21%21%211%210%21&aff_fcid=08ea2feece3f4cfaa611637fd4a5f2be-1795707338498-05027-_c4bHmyY7&aff_fsk=_c4bHmyY7&aff_platform=portals-billboard-sea&sk=_c4bHmyY7&aff_trace_key=08ea2feece3f4cfaa611637fd4a5f2be-1795707338498-05027-_c4bHmyY7&terminal_id=013727a90a1a4008bb693abb883e755c&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012924903231.html?pdp_npi=6%40dis%21EUR%212.55%212.55%21%21%2118.55%2118.55%21%400b8ded7b17933978159355458e0eb3%2112000059752661846%21affd%21%21%21%211%210%21&aff_fcid=12cc7a9faa414ae8958a0170c576333b-1795793249366-00665-_c4bHmyY7&aff_fsk=_c4bHmyY7&aff_platform=portals-billboard-sea&sk=_c4bHmyY7&aff_trace_key=12cc7a9faa414ae8958a0170c576333b-1795793249366-00665-_c4bHmyY7&terminal_id=15de5072448c4cec8bbfe1b613f657d9&afSmartRedirect=y",
       "item_id": "1005012924903231",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4bHmyY7",
       "broken_streak": 0
@@ -647,10 +658,10 @@
     {
       "id": "find-016-mini-chainsaw",
       "slug": "find-016-mini-chainsaw",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012717717456.html?aff_fcid=9d8ececff654473881f61285e360dda8-1795707338523-01898-_c3woGwkx&aff_fsk=_c3woGwkx&aff_platform=api-new-link-generate&sk=_c3woGwkx&aff_trace_key=9d8ececff654473881f61285e360dda8-1795707338523-01898-_c3woGwkx&terminal_id=9169839968f94697b64da6e900a24d6f&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012717717456.html?aff_fcid=a30ca9ca9297429ab8909747a16cc4e3-1795793249422-02989-_c3woGwkx&aff_fsk=_c3woGwkx&aff_platform=api-new-link-generate&sk=_c3woGwkx&aff_trace_key=a30ca9ca9297429ab8909747a16cc4e3-1795793249422-02989-_c3woGwkx&terminal_id=e02a3993e0ce468f9887813be2e0218e&afSmartRedirect=y",
       "item_id": "1005012717717456",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3woGwkx",
       "broken_streak": 0
@@ -658,10 +669,10 @@
     {
       "id": "find-017-star-projector",
       "slug": "find-017-star-projector",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012889773492.html?aff_fcid=a95d0141d12c40a889a8e8fe62291cc1-1795707338612-02238-_c3cqlC7Z&aff_fsk=_c3cqlC7Z&aff_platform=api-new-link-generate&sk=_c3cqlC7Z&aff_trace_key=a95d0141d12c40a889a8e8fe62291cc1-1795707338612-02238-_c3cqlC7Z&terminal_id=70400893f7b048609e9e90824f454a6a&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012889773492.html?aff_fcid=306d0b81391f4d6bad048fa69009f801-1795793249418-06204-_c3cqlC7Z&aff_fsk=_c3cqlC7Z&aff_platform=api-new-link-generate&sk=_c3cqlC7Z&aff_trace_key=306d0b81391f4d6bad048fa69009f801-1795793249418-06204-_c3cqlC7Z&terminal_id=46ae21110e7947438677cfdbc9f52868&afSmartRedirect=y",
       "item_id": "1005012889773492",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3cqlC7Z",
       "broken_streak": 0
@@ -669,10 +680,10 @@
     {
       "id": "find-018-padel-pressurizer",
       "slug": "find-018-padel-pressurizer",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013375285489.html?aff_fcid=549b9d29a97246fa8b50713eb31807d0-1795707338611-06575-_c4FEf5b5&aff_fsk=_c4FEf5b5&aff_platform=api-new-link-generate&sk=_c4FEf5b5&aff_trace_key=549b9d29a97246fa8b50713eb31807d0-1795707338611-06575-_c4FEf5b5&terminal_id=c1efcd57681d42e7bf16af34d681baee&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013375285489.html?aff_fcid=d757285d93b84d9dac9b9e08cfdedd94-1795793249464-01549-_c4FEf5b5&aff_fsk=_c4FEf5b5&aff_platform=api-new-link-generate&sk=_c4FEf5b5&aff_trace_key=d757285d93b84d9dac9b9e08cfdedd94-1795793249464-01549-_c4FEf5b5&terminal_id=30780562205547b180a60561b385a562&afSmartRedirect=y",
       "item_id": "1005013375285489",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4FEf5b5",
       "broken_streak": 0
@@ -680,10 +691,10 @@
     {
       "id": "find-019-wine-aerator",
       "slug": "find-019-wine-aerator",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010553121484.html?aff_fcid=dfba84c631e042789ee86ad2463f51a7-1795707338645-08649-_c3Z0E2pH&aff_fsk=_c3Z0E2pH&aff_platform=api-new-link-generate&sk=_c3Z0E2pH&aff_trace_key=dfba84c631e042789ee86ad2463f51a7-1795707338645-08649-_c3Z0E2pH&terminal_id=3c9abdb2332d45ce8fbbbeb138f9fb8d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010553121484.html?aff_fcid=bf61bd7b7b4f40209f3b7be939121120-1795793249543-01425-_c3Z0E2pH&aff_fsk=_c3Z0E2pH&aff_platform=api-new-link-generate&sk=_c3Z0E2pH&aff_trace_key=bf61bd7b7b4f40209f3b7be939121120-1795793249543-01425-_c3Z0E2pH&terminal_id=c7b358b2576d4af4aad674a5c82106f7&afSmartRedirect=y",
       "item_id": "1005010553121484",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3Z0E2pH",
       "broken_streak": 0
@@ -691,10 +702,10 @@
     {
       "id": "find-020-espresso-portable",
       "slug": "find-020-espresso-portable",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013062287580.html?aff_fcid=afd80d75f05a46ce94e8e48f48251ceb-1795707338697-09138-_c3aKShCX&aff_fsk=_c3aKShCX&aff_platform=api-new-link-generate&sk=_c3aKShCX&aff_trace_key=afd80d75f05a46ce94e8e48f48251ceb-1795707338697-09138-_c3aKShCX&terminal_id=baad3d75854744c78d18d1a7ae82b17e&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013062287580.html?aff_fcid=1cff02a8fcb6444ca4a6a436627bcd42-1795793249620-05469-_c3aKShCX&aff_fsk=_c3aKShCX&aff_platform=api-new-link-generate&sk=_c3aKShCX&aff_trace_key=1cff02a8fcb6444ca4a6a436627bcd42-1795793249620-05469-_c3aKShCX&terminal_id=5844ab7bcb73450f98c89d138d2c9633&afSmartRedirect=y",
       "item_id": "1005013062287580",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3aKShCX",
       "broken_streak": 0
@@ -702,10 +713,10 @@
     {
       "id": "find-021-drip-irrigation",
       "slug": "find-021-drip-irrigation",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013110936784.html?aff_fcid=edc58c592dcf44119b5cef1484b70694-1795707338794-01919-_c3kwldun&aff_fsk=_c3kwldun&aff_platform=api-new-link-generate&sk=_c3kwldun&aff_trace_key=edc58c592dcf44119b5cef1484b70694-1795707338794-01919-_c3kwldun&terminal_id=d779a7657dec42728b974e80d0b338ef&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013110936784.html?aff_fcid=b3cef425f29843879e3db2c28b8fabb4-1795793249631-04430-_c3kwldun&aff_fsk=_c3kwldun&aff_platform=api-new-link-generate&sk=_c3kwldun&aff_trace_key=b3cef425f29843879e3db2c28b8fabb4-1795793249631-04430-_c3kwldun&terminal_id=fc81746569974b11aadd58f0e2da0959&afSmartRedirect=y",
       "item_id": "1005013110936784",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3kwldun",
       "broken_streak": 0
@@ -713,10 +724,10 @@
     {
       "id": "find-022-litter-deodorizer",
       "slug": "find-022-litter-deodorizer",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005007295821197.html?aff_fcid=d9e51f2f263a47568c758ee742baee9c-1795707338765-01779-_c2RgXlFV&aff_fsk=_c2RgXlFV&aff_platform=api-new-link-generate&sk=_c2RgXlFV&aff_trace_key=d9e51f2f263a47568c758ee742baee9c-1795707338765-01779-_c2RgXlFV&terminal_id=1d695603739a460f8d3a0ed1d46b8f6d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005007295821197.html?aff_fcid=63dd865dc62b44dc98c40e6c54914222-1795793249632-06712-_c2RgXlFV&aff_fsk=_c2RgXlFV&aff_platform=api-new-link-generate&sk=_c2RgXlFV&aff_trace_key=63dd865dc62b44dc98c40e6c54914222-1795793249632-06712-_c2RgXlFV&terminal_id=68d1e444496d4b8d9d20ad0562877da9&afSmartRedirect=y",
       "item_id": "1005007295821197",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2RgXlFV",
       "broken_streak": 0
@@ -724,10 +735,10 @@
     {
       "id": "find-023-cat-laser",
       "slug": "find-023-cat-laser",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005007135304891.html?aff_fcid=d349d04300a54e69a6bec7d4b2898ee6-1795707338796-01952-_c2wZGlnV&aff_fsk=_c2wZGlnV&aff_platform=api-new-link-generate&sk=_c2wZGlnV&aff_trace_key=d349d04300a54e69a6bec7d4b2898ee6-1795707338796-01952-_c2wZGlnV&terminal_id=2e5a55f7e9d54648b2c5d62299a24810&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005007135304891.html?aff_fcid=561acd2080f548eeb4fc3a24398e0444-1795793249816-07575-_c2wZGlnV&aff_fsk=_c2wZGlnV&aff_platform=api-new-link-generate&sk=_c2wZGlnV&aff_trace_key=561acd2080f548eeb4fc3a24398e0444-1795793249816-07575-_c2wZGlnV&terminal_id=18ae814042e040cb891cb4758f060853&afSmartRedirect=y",
       "item_id": "1005007135304891",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2wZGlnV",
       "broken_streak": 0
@@ -735,10 +746,10 @@
     {
       "id": "find-024-trekking-poles",
       "slug": "find-024-trekking-poles",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005004690293919.html?aff_fcid=1d634d2b5cfc44daa3125156f39e55b5-1795707338894-04868-_c37LcOn1&aff_fsk=_c37LcOn1&aff_platform=api-new-link-generate&sk=_c37LcOn1&aff_trace_key=1d634d2b5cfc44daa3125156f39e55b5-1795707338894-04868-_c37LcOn1&terminal_id=a6f37720d1f74428bf41442ec3c223bb&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005004690293919.html?aff_fcid=faab4d4a67cf42eea6809bf103d0e480-1795793249798-01138-_c37LcOn1&aff_fsk=_c37LcOn1&aff_platform=api-new-link-generate&sk=_c37LcOn1&aff_trace_key=faab4d4a67cf42eea6809bf103d0e480-1795793249798-01138-_c37LcOn1&terminal_id=4d0536c33bf84e92a194b7e44fbda600&afSmartRedirect=y",
       "item_id": "1005004690293919",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c37LcOn1",
       "broken_streak": 0
@@ -746,10 +757,10 @@
     {
       "id": "find-025-period-belt",
       "slug": "find-025-period-belt",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012646322706.html?aff_fcid=8e62c90908854e52973ba2c223eb68ef-1795707338950-04635-_c3PS6vd1&aff_fsk=_c3PS6vd1&aff_platform=api-new-link-generate&sk=_c3PS6vd1&aff_trace_key=8e62c90908854e52973ba2c223eb68ef-1795707338950-04635-_c3PS6vd1&terminal_id=b45b7b07a6bb496dbbf18a79544c7eea&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012646322706.html?aff_fcid=ce3b25aa7950426ca27a953a491e3349-1795793249830-03329-_c3PS6vd1&aff_fsk=_c3PS6vd1&aff_platform=api-new-link-generate&sk=_c3PS6vd1&aff_trace_key=ce3b25aa7950426ca27a953a491e3349-1795793249830-03329-_c3PS6vd1&terminal_id=11c570bcad3d43d3bec6eb227b17489d&afSmartRedirect=y",
       "item_id": "1005012646322706",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3PS6vd1",
       "broken_streak": 0
@@ -757,10 +768,10 @@
     {
       "id": "find-026-veg-purifier",
       "slug": "find-026-veg-purifier",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012983612508.html?aff_fcid=d12c07a963754314b67ba1d04611bed8-1795707338987-00882-_c4pGopEL&aff_fsk=_c4pGopEL&aff_platform=api-new-link-generate&sk=_c4pGopEL&aff_trace_key=d12c07a963754314b67ba1d04611bed8-1795707338987-00882-_c4pGopEL&terminal_id=e3ec68e3a4f246edbe876f4c9e6693ae&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012983612508.html?aff_fcid=140a7d3c23d8498b9f9351c8feeba43f-1795793249830-08580-_c4pGopEL&aff_fsk=_c4pGopEL&aff_platform=api-new-link-generate&sk=_c4pGopEL&aff_trace_key=140a7d3c23d8498b9f9351c8feeba43f-1795793249830-08580-_c4pGopEL&terminal_id=f1a07b76c91d464e8fa31262cb30f81e&afSmartRedirect=y",
       "item_id": "1005012983612508",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4pGopEL",
       "broken_streak": 0
@@ -768,10 +779,10 @@
     {
       "id": "find-027-heated-insoles",
       "slug": "find-027-heated-insoles",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013277975332.html?aff_fcid=f9f84982fc6f455b9a4925d55b4a3b85-1795707338996-02404-_c4Vvqttv&aff_fsk=_c4Vvqttv&aff_platform=api-new-link-generate&sk=_c4Vvqttv&aff_trace_key=f9f84982fc6f455b9a4925d55b4a3b85-1795707338996-02404-_c4Vvqttv&terminal_id=f778e9121b2e4ee7973375975e7fb039&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013277975332.html?aff_fcid=80c6c1c48edb426c91d7e5d1f70b324f-1795793249962-00060-_c4Vvqttv&aff_fsk=_c4Vvqttv&aff_platform=api-new-link-generate&sk=_c4Vvqttv&aff_trace_key=80c6c1c48edb426c91d7e5d1f70b324f-1795793249962-00060-_c4Vvqttv&terminal_id=5e6c3ff3869143de8e3b1618b1d33e73&afSmartRedirect=y",
       "item_id": "1005013277975332",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4Vvqttv",
       "broken_streak": 0
@@ -779,10 +790,10 @@
     {
       "id": "find-028-bike-taillight",
       "slug": "find-028-bike-taillight",
-      "checked_at": "2026-11-26T15:35:38+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013261575699.html?aff_fcid=4129d9a0b6fa42babcc3b566dc180a91-1795707339055-04535-_c4nSiG6R&aff_fsk=_c4nSiG6R&aff_platform=api-new-link-generate&sk=_c4nSiG6R&aff_trace_key=4129d9a0b6fa42babcc3b566dc180a91-1795707339055-04535-_c4nSiG6R&terminal_id=c9269b5d036c48fea119771d7f320289&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013261575699.html?aff_fcid=e2c93023b1554c21a6d5fb410879444d-1795793249973-07478-_c4nSiG6R&aff_fsk=_c4nSiG6R&aff_platform=api-new-link-generate&sk=_c4nSiG6R&aff_trace_key=e2c93023b1554c21a6d5fb410879444d-1795793249973-07478-_c4nSiG6R&terminal_id=94dc67e5e87f4e0390d33ef4545312d6&afSmartRedirect=y",
       "item_id": "1005013261575699",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4nSiG6R",
       "broken_streak": 0
@@ -790,10 +801,10 @@
     {
       "id": "find-029-window-cleaner",
       "slug": "find-029-window-cleaner",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005009806712673.html?aff_fcid=5e026388ee8442de8b0e022b7cf0f649-1795707339098-06248-_c4SgMlGR&aff_fsk=_c4SgMlGR&aff_platform=api-new-link-generate&sk=_c4SgMlGR&aff_trace_key=5e026388ee8442de8b0e022b7cf0f649-1795707339098-06248-_c4SgMlGR&terminal_id=ee5eb15282eb43cb96ffcb1936a87746&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005009806712673.html?aff_fcid=345d3121bc724b52bcf5c243a1a1e563-1795793250031-04388-_c4SgMlGR&aff_fsk=_c4SgMlGR&aff_platform=api-new-link-generate&sk=_c4SgMlGR&aff_trace_key=345d3121bc724b52bcf5c243a1a1e563-1795793250031-04388-_c4SgMlGR&terminal_id=f97ad36d547142aa9f3270a0982b1e25&afSmartRedirect=y",
       "item_id": "1005009806712673",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4SgMlGR",
       "broken_streak": 0
@@ -801,10 +812,10 @@
     {
       "id": "find-030-ai-recorder",
       "slug": "find-030-ai-recorder",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:29+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010328225887.html?aff_fcid=fb1493d14edd4a67b6f4bf79d9170135-1795707339177-07636-_c4bT9Jej&aff_fsk=_c4bT9Jej&aff_platform=api-new-link-generate&sk=_c4bT9Jej&aff_trace_key=fb1493d14edd4a67b6f4bf79d9170135-1795707339177-07636-_c4bT9Jej&terminal_id=c713951ab12946c188cddf1c25c9f317&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010328225887.html?aff_fcid=96a5aa554eae4aa0a9a8f2e465426257-1795793250071-05169-_c4bT9Jej&aff_fsk=_c4bT9Jej&aff_platform=api-new-link-generate&sk=_c4bT9Jej&aff_trace_key=96a5aa554eae4aa0a9a8f2e465426257-1795793250071-05169-_c4bT9Jej&terminal_id=aae12fe5da7c46f3a9d3480330c3013d&afSmartRedirect=y",
       "item_id": "1005010328225887",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4bT9Jej",
       "broken_streak": 0
@@ -812,10 +823,10 @@
     {
       "id": "find-031-kids-print-camera",
       "slug": "find-031-kids-print-camera",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013482610686.html?aff_fcid=869791b7b6984632a91469e051ef1d19-1795707339182-09093-_c4rnny2B&aff_fsk=_c4rnny2B&aff_platform=api-new-link-generate&sk=_c4rnny2B&aff_trace_key=869791b7b6984632a91469e051ef1d19-1795707339182-09093-_c4rnny2B&terminal_id=c358180cc84843b7b9ebaacb5465c345&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013482610686.html?aff_fcid=5bb7dd95720545958e549ed4488a08f5-1795793250119-03873-_c4rnny2B&aff_fsk=_c4rnny2B&aff_platform=api-new-link-generate&sk=_c4rnny2B&aff_trace_key=5bb7dd95720545958e549ed4488a08f5-1795793250119-03873-_c4rnny2B&terminal_id=daf8e531573e4a459cdcda32748c7c38&afSmartRedirect=y",
       "item_id": "1005013482610686",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4rnny2B",
       "broken_streak": 0
@@ -823,10 +834,10 @@
     {
       "id": "find-032-sous-vide",
       "slug": "find-032-sous-vide",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005009849788088.html?aff_fcid=c62d97be757a4efc97b4d99bdd159a66-1795707339215-08735-_c3HJ1UEX&aff_fsk=_c3HJ1UEX&aff_platform=api-new-link-generate&sk=_c3HJ1UEX&aff_trace_key=c62d97be757a4efc97b4d99bdd159a66-1795707339215-08735-_c3HJ1UEX&terminal_id=12672490fcf649f2b2b468620a3fe3d1&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005009849788088.html?aff_fcid=97e92c22934f46e3b44243f76ec08eea-1795793250160-04293-_c3HJ1UEX&aff_fsk=_c3HJ1UEX&aff_platform=api-new-link-generate&sk=_c3HJ1UEX&aff_trace_key=97e92c22934f46e3b44243f76ec08eea-1795793250160-04293-_c3HJ1UEX&terminal_id=fc41e6e87b694134a8ff15ebe681c40d&afSmartRedirect=y",
       "item_id": "1005009849788088",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3HJ1UEX",
       "broken_streak": 0
@@ -834,10 +845,10 @@
     {
       "id": "find-033-callus-remover",
       "slug": "find-033-callus-remover",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010650833589.html?aff_fcid=ba64eba7f0d1466a94ddf3a69bc7eb4a-1795707339273-09114-_c3030NJH&aff_fsk=_c3030NJH&aff_platform=api-new-link-generate&sk=_c3030NJH&aff_trace_key=ba64eba7f0d1466a94ddf3a69bc7eb4a-1795707339273-09114-_c3030NJH&terminal_id=9adc7fe7064b43469657f71dabf02393&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010650833589.html?aff_fcid=21b7e0c362bc49c9a1ca4051a7a6200d-1795793250231-04588-_c3030NJH&aff_fsk=_c3030NJH&aff_platform=api-new-link-generate&sk=_c3030NJH&aff_trace_key=21b7e0c362bc49c9a1ca4051a7a6200d-1795793250231-04588-_c3030NJH&terminal_id=25b68c353d2a498bbfae5b0520206292&afSmartRedirect=y",
       "item_id": "1005010650833589",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3030NJH",
       "broken_streak": 0
@@ -845,10 +856,10 @@
     {
       "id": "find-034-smart-rope",
       "slug": "find-034-smart-rope",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005011858997518.html?aff_fcid=8b4ea0a3e3ed42368334608973676b71-1795707339368-09014-_c2wS7T1v&aff_fsk=_c2wS7T1v&aff_platform=api-new-link-generate&sk=_c2wS7T1v&aff_trace_key=8b4ea0a3e3ed42368334608973676b71-1795707339368-09014-_c2wS7T1v&terminal_id=eec243324ca54a86b239bdf88864a3f8&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005011858997518.html?aff_fcid=1e3349d217d441ef9e4257cf4d2553fa-1795793250265-03095-_c2wS7T1v&aff_fsk=_c2wS7T1v&aff_platform=api-new-link-generate&sk=_c2wS7T1v&aff_trace_key=1e3349d217d441ef9e4257cf4d2553fa-1795793250265-03095-_c2wS7T1v&terminal_id=df5bf22061634ac0a67f1881342fba90&afSmartRedirect=y",
       "item_id": "1005011858997518",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2wS7T1v",
       "broken_streak": 0
@@ -856,10 +867,10 @@
     {
       "id": "find-035-cordless-scissors",
       "slug": "find-035-cordless-scissors",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012982717298.html?aff_fcid=d007d4f275fd4860937b49524687c140-1795707339361-01972-_c35TUGsL&aff_fsk=_c35TUGsL&aff_platform=api-new-link-generate&sk=_c35TUGsL&aff_trace_key=d007d4f275fd4860937b49524687c140-1795707339361-01972-_c35TUGsL&terminal_id=0373ea3eaa2d4bba86cd26b093879786&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012982717298.html?aff_fcid=b257e7cf03a54a7eb12c4556219675dd-1795793250304-08342-_c35TUGsL&aff_fsk=_c35TUGsL&aff_platform=api-new-link-generate&sk=_c35TUGsL&aff_trace_key=b257e7cf03a54a7eb12c4556219675dd-1795793250304-08342-_c35TUGsL&terminal_id=1d949d2244be443a9e2db661b5182edf&afSmartRedirect=y",
       "item_id": "1005012982717298",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c35TUGsL",
       "broken_streak": 0
@@ -867,10 +878,10 @@
     {
       "id": "find-036-stud-finder",
       "slug": "find-036-stud-finder",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013100283561.html?aff_fcid=7028816bb69c4ff6bc99cd9c4786c69b-1795707339368-04513-_c4kafZ3d&aff_fsk=_c4kafZ3d&aff_platform=api-new-link-generate&sk=_c4kafZ3d&aff_trace_key=7028816bb69c4ff6bc99cd9c4786c69b-1795707339368-04513-_c4kafZ3d&terminal_id=c697e23fe2b84cc6aa89f0aef4217511&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013100283561.html?aff_fcid=68a2b2c333d441ad9d262ab1a150bbce-1795793250360-06394-_c4kafZ3d&aff_fsk=_c4kafZ3d&aff_platform=api-new-link-generate&sk=_c4kafZ3d&aff_trace_key=68a2b2c333d441ad9d262ab1a150bbce-1795793250360-06394-_c4kafZ3d&terminal_id=5b08df0023ef421cb960f8d8b4b96f58&afSmartRedirect=y",
       "item_id": "1005013100283561",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4kafZ3d",
       "broken_streak": 0
@@ -878,10 +889,10 @@
     {
       "id": "find-037-banneton",
       "slug": "find-037-banneton",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012742966390.html?aff_fcid=f75d2524a15d476f95f2b7230600b344-1795707339445-03102-_c3veP0NN&aff_fsk=_c3veP0NN&aff_platform=api-new-link-generate&sk=_c3veP0NN&aff_trace_key=f75d2524a15d476f95f2b7230600b344-1795707339445-03102-_c3veP0NN&terminal_id=48ad0d2575ec4fb8897e28dfb8816ad4&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012742966390.html?aff_fcid=e6cfc8b5f7e34ceda4e2ecff737372f0-1795793250401-03728-_c3veP0NN&aff_fsk=_c3veP0NN&aff_platform=api-new-link-generate&sk=_c3veP0NN&aff_trace_key=e6cfc8b5f7e34ceda4e2ecff737372f0-1795793250401-03728-_c3veP0NN&terminal_id=f6d89bf66d63442584ea4f6039b11337&afSmartRedirect=y",
       "item_id": "1005012742966390",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3veP0NN",
       "broken_streak": 0
@@ -889,10 +900,10 @@
     {
       "id": "find-038-bike-gps",
       "slug": "find-038-bike-gps",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005006327951638.html?aff_fcid=029e73f660af45f8a81a9c1c08c94dba-1795707339540-05570-_c4ckHB3N&aff_fsk=_c4ckHB3N&aff_platform=api-new-link-generate&sk=_c4ckHB3N&aff_trace_key=029e73f660af45f8a81a9c1c08c94dba-1795707339540-05570-_c4ckHB3N&terminal_id=03a0b47520244338ba0a7bc6dfeb2a49&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005006327951638.html?aff_fcid=55a8cd42cc594be189a052ed90d9a796-1795793250441-08583-_c4ckHB3N&aff_fsk=_c4ckHB3N&aff_platform=api-new-link-generate&sk=_c4ckHB3N&aff_trace_key=55a8cd42cc594be189a052ed90d9a796-1795793250441-08583-_c4ckHB3N&terminal_id=41f1ef272c9d44919326078023dc58d3&afSmartRedirect=y",
       "item_id": "1005006327951638",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4ckHB3N",
       "broken_streak": 0
@@ -900,10 +911,10 @@
     {
       "id": "find-039-pixel-display",
       "slug": "find-039-pixel-display",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010242168022.html?aff_fcid=1f1110c3ffde43bbb37cb7d6c0c1765f-1795707339532-02246-_c3iyerVD&aff_fsk=_c3iyerVD&aff_platform=api-new-link-generate&sk=_c3iyerVD&aff_trace_key=1f1110c3ffde43bbb37cb7d6c0c1765f-1795707339532-02246-_c3iyerVD&terminal_id=1a853e424ce8429db57bd2095236d49e&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010242168022.html?aff_fcid=a6fdeb01bf27455b984655245bcdff36-1795793250480-06322-_c3iyerVD&aff_fsk=_c3iyerVD&aff_platform=api-new-link-generate&sk=_c3iyerVD&aff_trace_key=a6fdeb01bf27455b984655245bcdff36-1795793250480-06322-_c3iyerVD&terminal_id=e8e8d77583e7428fb6f75aab1397384f&afSmartRedirect=y",
       "item_id": "1005010242168022",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3iyerVD",
       "broken_streak": 0
@@ -911,10 +922,10 @@
     {
       "id": "find-040-microscope",
       "slug": "find-040-microscope",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005007223760516.html?aff_fcid=97af03632c3f45b8a2556bb35617aba6-1795707339580-02005-_c2z88xGX&aff_fsk=_c2z88xGX&aff_platform=api-new-link-generate&sk=_c2z88xGX&aff_trace_key=97af03632c3f45b8a2556bb35617aba6-1795707339580-02005-_c2z88xGX&terminal_id=93c1e66c07bc4b43ae3f4f763f4219a1&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005007223760516.html?aff_fcid=73c2230941e3489ebc0ff018b31f0640-1795793250538-03324-_c2z88xGX&aff_fsk=_c2z88xGX&aff_platform=api-new-link-generate&sk=_c2z88xGX&aff_trace_key=73c2230941e3489ebc0ff018b31f0640-1795793250538-03324-_c2z88xGX&terminal_id=921bf75cbc1a43dbb612ae58e5b6f140&afSmartRedirect=y",
       "item_id": "1005007223760516",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2z88xGX",
       "broken_streak": 0
@@ -922,10 +933,10 @@
     {
       "id": "find-041-heated-gloves",
       "slug": "find-041-heated-gloves",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013424643680.html?aff_fcid=6d4f2105bb85479c9bbbf4d2b0647c87-1795707339742-07468-_c3S5oCVn&aff_fsk=_c3S5oCVn&aff_platform=api-new-link-generate&sk=_c3S5oCVn&aff_trace_key=6d4f2105bb85479c9bbbf4d2b0647c87-1795707339742-07468-_c3S5oCVn&terminal_id=70084e4bf58b4fee8db37087678e0a4d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013424643680.html?aff_fcid=39d720cc2b47421db0cab42fa8821d7a-1795793250556-09175-_c3S5oCVn&aff_fsk=_c3S5oCVn&aff_platform=api-new-link-generate&sk=_c3S5oCVn&aff_trace_key=39d720cc2b47421db0cab42fa8821d7a-1795793250556-09175-_c3S5oCVn&terminal_id=413c8e0395d448559a57907078ffd284&afSmartRedirect=y",
       "item_id": "1005013424643680",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3S5oCVn",
       "broken_streak": 0
@@ -933,10 +944,10 @@
     {
       "id": "find-042-car-hud",
       "slug": "find-042-car-hud",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013465665510.html?aff_fcid=bd99ef2e80cd46b7ac0696a430059914-1795707339723-07816-_c4Di8aBp&aff_fsk=_c4Di8aBp&aff_platform=api-new-link-generate&sk=_c4Di8aBp&aff_trace_key=bd99ef2e80cd46b7ac0696a430059914-1795707339723-07816-_c4Di8aBp&terminal_id=176bba6b32ae490fb0e0a6abfdaba2e2&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013465665510.html?aff_fcid=6208156de1314cab81e692f0e72c3ccb-1795793250580-00168-_c4Di8aBp&aff_fsk=_c4Di8aBp&aff_platform=api-new-link-generate&sk=_c4Di8aBp&aff_trace_key=6208156de1314cab81e692f0e72c3ccb-1795793250580-00168-_c4Di8aBp&terminal_id=5958be265fa5414c82dd6d67933627fd&afSmartRedirect=y",
       "item_id": "1005013465665510",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4Di8aBp",
       "broken_streak": 0
@@ -944,10 +955,10 @@
     {
       "id": "find-043-weather-station",
       "slug": "find-043-weather-station",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013378194490.html?aff_fcid=4a0804e6043841b78b3efb89be6c0c3e-1795707339745-09114-_c4OtCHi7&aff_fsk=_c4OtCHi7&aff_platform=api-new-link-generate&sk=_c4OtCHi7&aff_trace_key=4a0804e6043841b78b3efb89be6c0c3e-1795707339745-09114-_c4OtCHi7&terminal_id=970e392fbff8464399c573da137f24c8&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013378194490.html?aff_fcid=5f4dc9a082554b9d894baf81ec97414e-1795793250644-02939-_c4OtCHi7&aff_fsk=_c4OtCHi7&aff_platform=api-new-link-generate&sk=_c4OtCHi7&aff_trace_key=5f4dc9a082554b9d894baf81ec97414e-1795793250644-02939-_c4OtCHi7&terminal_id=3b1e8923a691450786731bb24ae8824b&afSmartRedirect=y",
       "item_id": "1005013378194490",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4OtCHi7",
       "broken_streak": 0
@@ -955,10 +966,10 @@
     {
       "id": "find-044-crepe-maker",
       "slug": "find-044-crepe-maker",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012787495948.html?pdp_npi=6%40dis%21EUR%2140.69%2134.59%21%21%21295.93%21251.57%21%400b8ded7b17933980289698844e0eb3%2112000059340411747%21affd%21%21%21%211%210%21&aff_fcid=9e0e1b3348144b968bdd4fa5b3d69fa5-1795707339771-06837-_c4FZQkEf&aff_fsk=_c4FZQkEf&aff_platform=portals-billboard-sea&sk=_c4FZQkEf&aff_trace_key=9e0e1b3348144b968bdd4fa5b3d69fa5-1795707339771-06837-_c4FZQkEf&terminal_id=c4bda7a5f07d41108c162bf561d8f094&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012787495948.html?pdp_npi=6%40dis%21EUR%2140.69%2134.59%21%21%21295.93%21251.57%21%400b8ded7b17933980289698844e0eb3%2112000059340411747%21affd%21%21%21%211%210%21&aff_fcid=55cdc10fa38a491883c5262f64b1f3c6-1795793250705-03183-_c4FZQkEf&aff_fsk=_c4FZQkEf&aff_platform=portals-billboard-sea&sk=_c4FZQkEf&aff_trace_key=55cdc10fa38a491883c5262f64b1f3c6-1795793250705-03183-_c4FZQkEf&terminal_id=ffdc536b1d7e4a5eb0770bfbb9752500&afSmartRedirect=y",
       "item_id": "1005012787495948",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4FZQkEf",
       "broken_streak": 0
@@ -966,10 +977,10 @@
     {
       "id": "find-045-white-noise",
       "slug": "find-045-white-noise",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010455609574.html?aff_fcid=9ae308fe119447ac943d6893a1118dda-1795707339876-01015-_c2vdmgzV&aff_fsk=_c2vdmgzV&aff_platform=api-new-link-generate&sk=_c2vdmgzV&aff_trace_key=9ae308fe119447ac943d6893a1118dda-1795707339876-01015-_c2vdmgzV&terminal_id=5100b3397aac452db50209580b820c93&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010455609574.html?aff_fcid=3054a026755e4bdb9fa4f0d013263897-1795793250767-02437-_c2vdmgzV&aff_fsk=_c2vdmgzV&aff_platform=api-new-link-generate&sk=_c2vdmgzV&aff_trace_key=3054a026755e4bdb9fa4f0d013263897-1795793250767-02437-_c2vdmgzV&terminal_id=d780bd141e5547bbad0789b42990e576&afSmartRedirect=y",
       "item_id": "1005010455609574",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2vdmgzV",
       "broken_streak": 0
@@ -977,10 +988,10 @@
     {
       "id": "find-046-eye-massager",
       "slug": "find-046-eye-massager",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013227823025.html?aff_fcid=ab0b33f3308c4b49a4277f6cc49cc9db-1795707339919-06216-_c3JgcvaF&aff_fsk=_c3JgcvaF&aff_platform=api-new-link-generate&sk=_c3JgcvaF&aff_trace_key=ab0b33f3308c4b49a4277f6cc49cc9db-1795707339919-06216-_c3JgcvaF&terminal_id=77f532e382e64ad8af9b0c7e452f4f64&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013227823025.html?aff_fcid=7c42b193b739462191a39a0f9fa213fe-1795793250845-03201-_c3JgcvaF&aff_fsk=_c3JgcvaF&aff_platform=api-new-link-generate&sk=_c3JgcvaF&aff_trace_key=7c42b193b739462191a39a0f9fa213fe-1795793250845-03201-_c3JgcvaF&terminal_id=c9954360f2304d77adbcb4adeea6cb2e&afSmartRedirect=y",
       "item_id": "1005013227823025",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3JgcvaF",
       "broken_streak": 0
@@ -988,10 +999,10 @@
     {
       "id": "find-047-scanner-pen",
       "slug": "find-047-scanner-pen",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005009393558411.html?aff_fcid=bc0faefd09a64cc891403a91a96ebb36-1795707339949-03295-_c3zvXssb&aff_fsk=_c3zvXssb&aff_platform=api-new-link-generate&sk=_c3zvXssb&aff_trace_key=bc0faefd09a64cc891403a91a96ebb36-1795707339949-03295-_c3zvXssb&terminal_id=97239dd51c474407b340f5956713ff8a&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005009393558411.html?aff_fcid=a18219be23784225a1f20c09a3949fc9-1795793250835-07886-_c3zvXssb&aff_fsk=_c3zvXssb&aff_platform=api-new-link-generate&sk=_c3zvXssb&aff_trace_key=a18219be23784225a1f20c09a3949fc9-1795793250835-07886-_c3zvXssb&terminal_id=17950e7c1f594300bd0a3218ae9d9610&afSmartRedirect=y",
       "item_id": "1005009393558411",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3zvXssb",
       "broken_streak": 0
@@ -999,10 +1010,10 @@
     {
       "id": "find-048-hydroponic",
       "slug": "find-048-hydroponic",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005009692583631.html?aff_fcid=166eb4ae07704a3b8ab07a68686ff38e-1795707339976-03029-_c4cd1xTz&aff_fsk=_c4cd1xTz&aff_platform=api-new-link-generate&sk=_c4cd1xTz&aff_trace_key=166eb4ae07704a3b8ab07a68686ff38e-1795707339976-03029-_c4cd1xTz&terminal_id=64fd560313d84b52a4b35f6f48f061e7&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005009692583631.html?aff_fcid=42c7c384db814c6e88fdc0475e7ffcd8-1795793250913-07496-_c4cd1xTz&aff_fsk=_c4cd1xTz&aff_platform=api-new-link-generate&sk=_c4cd1xTz&aff_trace_key=42c7c384db814c6e88fdc0475e7ffcd8-1795793250913-07496-_c4cd1xTz&terminal_id=2365edd6000c4871953af502d383a22f&afSmartRedirect=y",
       "item_id": "1005009692583631",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4cd1xTz",
       "broken_streak": 0
@@ -1010,10 +1021,10 @@
     {
       "id": "find-049-electric-scrubber",
       "slug": "find-049-electric-scrubber",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012696773525.html?aff_fcid=aea8d1229086419e8d300db2d87327e0-1795707340253-06882-_c3DTuBOx&aff_fsk=_c3DTuBOx&aff_platform=api-new-link-generate&sk=_c3DTuBOx&aff_trace_key=aea8d1229086419e8d300db2d87327e0-1795707340253-06882-_c3DTuBOx&terminal_id=bcb864aedaea459d95081119b0f347a3&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012696773525.html?aff_fcid=aadd73d689654f58ac88817899b39aa7-1795793250974-06019-_c3DTuBOx&aff_fsk=_c3DTuBOx&aff_platform=api-new-link-generate&sk=_c3DTuBOx&aff_trace_key=aadd73d689654f58ac88817899b39aa7-1795793250974-06019-_c3DTuBOx&terminal_id=387bdbfcce684155b0ef27c06f6aed12&afSmartRedirect=y",
       "item_id": "1005012696773525",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3DTuBOx",
       "broken_streak": 0
@@ -1021,10 +1032,10 @@
     {
       "id": "find-050-wine-opener",
       "slug": "find-050-wine-opener",
-      "checked_at": "2026-11-26T15:35:39+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005009885733856.html?aff_fcid=c953dbf3c1174f578012b5d93358ff70-1795707340079-00596-_c3zivzxH&aff_fsk=_c3zivzxH&aff_platform=api-new-link-generate&sk=_c3zivzxH&aff_trace_key=c953dbf3c1174f578012b5d93358ff70-1795707340079-00596-_c3zivzxH&terminal_id=0c8385bcb1a346e4bfabed2f2b5f8f8c&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005009885733856.html?aff_fcid=89f1ebb0ec804e18aa710fe4343b49e6-1795793251001-05728-_c3zivzxH&aff_fsk=_c3zivzxH&aff_platform=api-new-link-generate&sk=_c3zivzxH&aff_trace_key=89f1ebb0ec804e18aa710fe4343b49e6-1795793251001-05728-_c3zivzxH&terminal_id=3cb10feadf654b6bbb24d699de64af34&afSmartRedirect=y",
       "item_id": "1005009885733856",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3zivzxH",
       "broken_streak": 0
@@ -1032,10 +1043,10 @@
     {
       "id": "import-0032",
       "slug": "import-0032",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:30+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012931376534.html?aff_fcid=1d8be90251584e8b9fc044812ba25da7-1795707340098-01300-_c3uJg7dt&aff_fsk=_c3uJg7dt&aff_platform=api-new-link-generate&sk=_c3uJg7dt&aff_trace_key=1d8be90251584e8b9fc044812ba25da7-1795707340098-01300-_c3uJg7dt&terminal_id=5308b936f9cb49279b24c8bc1be7bb67&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012931376534.html?aff_fcid=103a6e71a0f142eb99398078b6b95134-1795793251066-03893-_c3uJg7dt&aff_fsk=_c3uJg7dt&aff_platform=api-new-link-generate&sk=_c3uJg7dt&aff_trace_key=103a6e71a0f142eb99398078b6b95134-1795793251066-03893-_c3uJg7dt&terminal_id=a4ed48ec55464367852786007a2af92e&afSmartRedirect=y",
       "item_id": "1005012931376534",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3uJg7dt",
       "broken_streak": 0
@@ -1043,10 +1054,10 @@
     {
       "id": "import-0042",
       "slug": "import-0042",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008032142642.html?aff_fcid=46b68658c86f4e68951942b6d9447d87-1795707340190-08247-_c41TNELp&aff_fsk=_c41TNELp&aff_platform=api-new-link-generate&sk=_c41TNELp&aff_trace_key=46b68658c86f4e68951942b6d9447d87-1795707340190-08247-_c41TNELp&terminal_id=d59d8aa0b13c423fba189db8df1b41c9&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008032142642.html?aff_fcid=bf8d1f4669474a158a382bd91de2d4bb-1795793251153-07115-_c41TNELp&aff_fsk=_c41TNELp&aff_platform=api-new-link-generate&sk=_c41TNELp&aff_trace_key=bf8d1f4669474a158a382bd91de2d4bb-1795793251153-07115-_c41TNELp&terminal_id=0baa842d0ddc4482a354d4b024c265c5&afSmartRedirect=y",
       "item_id": "1005008032142642",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c41TNELp",
       "broken_streak": 0
@@ -1054,10 +1065,10 @@
     {
       "id": "import-0001",
       "slug": "import-0001",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010274525972.html?aff_fcid=4b3f99ac5fe040b0b4ed86f60b160a66-1795707340244-07480-_c3KmGBa3&aff_fsk=_c3KmGBa3&aff_platform=api-new-link-generate&sk=_c3KmGBa3&aff_trace_key=4b3f99ac5fe040b0b4ed86f60b160a66-1795707340244-07480-_c3KmGBa3&terminal_id=af81a4bb59ef43ce980920e37f9f4e13&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010274525972.html?aff_fcid=be3cf2eca2a849a5b472558a6df518fd-1795793251236-04264-_c3KmGBa3&aff_fsk=_c3KmGBa3&aff_platform=api-new-link-generate&sk=_c3KmGBa3&aff_trace_key=be3cf2eca2a849a5b472558a6df518fd-1795793251236-04264-_c3KmGBa3&terminal_id=1e0f45838ddd46cd97fc43c6adbdb31a&afSmartRedirect=y",
       "item_id": "1005010274525972",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3KmGBa3",
       "broken_streak": 0
@@ -1065,10 +1076,10 @@
     {
       "id": "import-0010",
       "slug": "import-0010",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008453098012.html?aff_fcid=b2bf0a00a1064fe5a34ad3976f02a37f-1795707340243-07120-_c3IO7CD5&aff_fsk=_c3IO7CD5&aff_platform=api-new-link-generate&sk=_c3IO7CD5&aff_trace_key=b2bf0a00a1064fe5a34ad3976f02a37f-1795707340243-07120-_c3IO7CD5&terminal_id=d09bfcf6004143b3a6eb779140dd9265&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008453098012.html?aff_fcid=f1561dad6f3d4d95a743756613fbdf4e-1795793251179-08088-_c3IO7CD5&aff_fsk=_c3IO7CD5&aff_platform=api-new-link-generate&sk=_c3IO7CD5&aff_trace_key=f1561dad6f3d4d95a743756613fbdf4e-1795793251179-08088-_c3IO7CD5&terminal_id=21ec3d108c6f4fc88dede28d53d84579&afSmartRedirect=y",
       "item_id": "1005008453098012",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3IO7CD5",
       "broken_streak": 0
@@ -1076,10 +1087,10 @@
     {
       "id": "import-0070",
       "slug": "import-0070",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012809624235.html?aff_fcid=4aa48b42214740a7aed0b0a8c083c829-1795707340399-00745-_c2wwRynh&aff_fsk=_c2wwRynh&aff_platform=api-new-link-generate&sk=_c2wwRynh&aff_trace_key=4aa48b42214740a7aed0b0a8c083c829-1795707340399-00745-_c2wwRynh&terminal_id=0c54674adbd74531b34b2613656abb91&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012809624235.html?aff_fcid=fac9454c2f7d40b6af86ed2e2527c0c6-1795793251253-09683-_c2wwRynh&aff_fsk=_c2wwRynh&aff_platform=api-new-link-generate&sk=_c2wwRynh&aff_trace_key=fac9454c2f7d40b6af86ed2e2527c0c6-1795793251253-09683-_c2wwRynh&terminal_id=c363befa50c6469b9210b8306dba04b0&afSmartRedirect=y",
       "item_id": "1005012809624235",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2wwRynh",
       "broken_streak": 0
@@ -1087,10 +1098,10 @@
     {
       "id": "import-0451",
       "slug": "import-0451",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005010528801315.html?aff_fcid=0d0b63e8c0ef4f7383cd1ee97e090887-1795707340399-04070-_c3OalL8P&aff_fsk=_c3OalL8P&aff_platform=api-new-link-generate&sk=_c3OalL8P&aff_trace_key=0d0b63e8c0ef4f7383cd1ee97e090887-1795707340399-04070-_c3OalL8P&terminal_id=8d13ee003eb54d5f860f196e16d7849d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005010528801315.html?aff_fcid=7315ac50c9f14b379df584fa5e533f10-1795793251314-00674-_c3OalL8P&aff_fsk=_c3OalL8P&aff_platform=api-new-link-generate&sk=_c3OalL8P&aff_trace_key=7315ac50c9f14b379df584fa5e533f10-1795793251314-00674-_c3OalL8P&terminal_id=57d8938d0e434c85850df1ac34b7a09e&afSmartRedirect=y",
       "item_id": "1005010528801315",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3OalL8P",
       "broken_streak": 0
@@ -1098,10 +1109,10 @@
     {
       "id": "import-0041",
       "slug": "import-0041",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008603585460.html?aff_fcid=0cf3a117dce343a6986f5b7139873f9c-1795707340408-06566-_c3dePC59&aff_fsk=_c3dePC59&aff_platform=api-new-link-generate&sk=_c3dePC59&aff_trace_key=0cf3a117dce343a6986f5b7139873f9c-1795707340408-06566-_c3dePC59&terminal_id=dc567d54a50a46e38e8a5f3f26865e33&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008603585460.html?aff_fcid=0d32f31ef22a43f5ada8c86d8f7a57a3-1795793251365-06648-_c3dePC59&aff_fsk=_c3dePC59&aff_platform=api-new-link-generate&sk=_c3dePC59&aff_trace_key=0d32f31ef22a43f5ada8c86d8f7a57a3-1795793251365-06648-_c3dePC59&terminal_id=ae8e5b25e53140ffac6edba73ad515c8&afSmartRedirect=y",
       "item_id": "1005008603585460",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3dePC59",
       "broken_streak": 0
@@ -1109,10 +1120,10 @@
     {
       "id": "import-0026",
       "slug": "import-0026",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013049109862.html?aff_fcid=dbaf81371c2341bc8dddeb53c727dad2-1795707340421-03739-_c4UU4aZ5&aff_fsk=_c4UU4aZ5&aff_platform=api-new-link-generate&sk=_c4UU4aZ5&aff_trace_key=dbaf81371c2341bc8dddeb53c727dad2-1795707340421-03739-_c4UU4aZ5&terminal_id=442b909b91644a3895361e9f2d9290cb&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013049109862.html?aff_fcid=f4a48eeada8e444e9e599bd45b733bd7-1795793251425-03470-_c4UU4aZ5&aff_fsk=_c4UU4aZ5&aff_platform=api-new-link-generate&sk=_c4UU4aZ5&aff_trace_key=f4a48eeada8e444e9e599bd45b733bd7-1795793251425-03470-_c4UU4aZ5&terminal_id=4ed59c5b6c504a8f8dbf4dae660537c5&afSmartRedirect=y",
       "item_id": "1005013049109862",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4UU4aZ5",
       "broken_streak": 0
@@ -1120,10 +1131,10 @@
     {
       "id": "import-0051",
       "slug": "import-0051",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013083552611.html?aff_fcid=0b845474b6f7461ea132a22f76dcb7e4-1795707340568-07931-_c3f9uuZ9&aff_fsk=_c3f9uuZ9&aff_platform=api-new-link-generate&sk=_c3f9uuZ9&aff_trace_key=0b845474b6f7461ea132a22f76dcb7e4-1795707340568-07931-_c3f9uuZ9&terminal_id=6488562b5f374244a1850ae1b12c1638&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013083552611.html?aff_fcid=baafa1c76f1a4d7cb14e4a82ab8c1b5f-1795793251484-03614-_c3f9uuZ9&aff_fsk=_c3f9uuZ9&aff_platform=api-new-link-generate&sk=_c3f9uuZ9&aff_trace_key=baafa1c76f1a4d7cb14e4a82ab8c1b5f-1795793251484-03614-_c3f9uuZ9&terminal_id=d27a11eb47d445b3b115fddef0ff1b02&afSmartRedirect=y",
       "item_id": "1005013083552611",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3f9uuZ9",
       "broken_streak": 0
@@ -1131,10 +1142,10 @@
     {
       "id": "import-0057",
       "slug": "import-0057",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012278726601.html?aff_fcid=15326f0752284311bc0db90d2d89d42b-1795707340572-01395-_c3eomgfv&aff_fsk=_c3eomgfv&aff_platform=api-new-link-generate&sk=_c3eomgfv&aff_trace_key=15326f0752284311bc0db90d2d89d42b-1795707340572-01395-_c3eomgfv&terminal_id=c59f87987fe0482b9093dbbdec4d00ec&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012278726601.html?aff_fcid=fc5c5b08a5b1466a8d09882316df84db-1795793251477-03322-_c3eomgfv&aff_fsk=_c3eomgfv&aff_platform=api-new-link-generate&sk=_c3eomgfv&aff_trace_key=fc5c5b08a5b1466a8d09882316df84db-1795793251477-03322-_c3eomgfv&terminal_id=e03947a44aae462ba15dde41db9fde41&afSmartRedirect=y",
       "item_id": "1005012278726601",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3eomgfv",
       "broken_streak": 0
@@ -1142,10 +1153,10 @@
     {
       "id": "import-0074",
       "slug": "import-0074",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008707184695.html?aff_fcid=be67c234f39742d7b9941a08151b6f78-1795707340627-08712-_c4qtl4o3&aff_fsk=_c4qtl4o3&aff_platform=api-new-link-generate&sk=_c4qtl4o3&aff_trace_key=be67c234f39742d7b9941a08151b6f78-1795707340627-08712-_c4qtl4o3&terminal_id=fada2c020ecf4be78303f5d4c14276df&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008707184695.html?aff_fcid=ecff706b3588446ba8f12b4c26cf1f9c-1795793251521-08864-_c4qtl4o3&aff_fsk=_c4qtl4o3&aff_platform=api-new-link-generate&sk=_c4qtl4o3&aff_trace_key=ecff706b3588446ba8f12b4c26cf1f9c-1795793251521-08864-_c4qtl4o3&terminal_id=6fd2ae8ce9734278a80138871c0250a0&afSmartRedirect=y",
       "item_id": "1005008707184695",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4qtl4o3",
       "broken_streak": 0
@@ -1153,10 +1164,10 @@
     {
       "id": "import-0093",
       "slug": "import-0093",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005006165666836.html?aff_fcid=69a07bef3b1a407d9c8adec72a9d653b-1795707340609-05914-_c3yFS191&aff_fsk=_c3yFS191&aff_platform=api-new-link-generate&sk=_c3yFS191&aff_trace_key=69a07bef3b1a407d9c8adec72a9d653b-1795707340609-05914-_c3yFS191&terminal_id=2229b10dda494ce680f33c4f9ca360ff&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005006165666836.html?aff_fcid=aaf09e4e9bae4f1f9ae746b0c4ee24c2-1795793251600-02592-_c3yFS191&aff_fsk=_c3yFS191&aff_platform=api-new-link-generate&sk=_c3yFS191&aff_trace_key=aaf09e4e9bae4f1f9ae746b0c4ee24c2-1795793251600-02592-_c3yFS191&terminal_id=f381153305d9409f86077c0a82351e1b&afSmartRedirect=y",
       "item_id": "1005006165666836",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3yFS191",
       "broken_streak": 0
@@ -1164,10 +1175,10 @@
     {
       "id": "import-0117",
       "slug": "import-0117",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012289023528.html?aff_fcid=a591aa816a98451ba879eb7b6b9bc563-1795707340735-01202-_c3drRIdd&aff_fsk=_c3drRIdd&aff_platform=api-new-link-generate&sk=_c3drRIdd&aff_trace_key=a591aa816a98451ba879eb7b6b9bc563-1795707340735-01202-_c3drRIdd&terminal_id=41e56b6f632d4142a531d19de4ddb91c&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012289023528.html?aff_fcid=3c865856ee9d462db6d90ce6e6ba6b52-1795793251630-05811-_c3drRIdd&aff_fsk=_c3drRIdd&aff_platform=api-new-link-generate&sk=_c3drRIdd&aff_trace_key=3c865856ee9d462db6d90ce6e6ba6b52-1795793251630-05811-_c3drRIdd&terminal_id=1e5485f671004cf2b522d3f32490239c&afSmartRedirect=y",
       "item_id": "1005012289023528",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3drRIdd",
       "broken_streak": 0
@@ -1175,10 +1186,10 @@
     {
       "id": "import-0119",
       "slug": "import-0119",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005011692496508.html?aff_fcid=8de64c398f124b29997efb213764a00a-1795707340832-08778-_c3cO9jb9&aff_fsk=_c3cO9jb9&aff_platform=api-new-link-generate&sk=_c3cO9jb9&aff_trace_key=8de64c398f124b29997efb213764a00a-1795707340832-08778-_c3cO9jb9&terminal_id=5f40f84a4e704670a910af82a2f4cc7d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005011692496508.html?aff_fcid=f0cdb074c0774cdbbedf0021bc4ab4a6-1795793251673-08373-_c3cO9jb9&aff_fsk=_c3cO9jb9&aff_platform=api-new-link-generate&sk=_c3cO9jb9&aff_trace_key=f0cdb074c0774cdbbedf0021bc4ab4a6-1795793251673-08373-_c3cO9jb9&terminal_id=bc46c8f9017f4e97bb76451f8f4528f5&afSmartRedirect=y",
       "item_id": "1005011692496508",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3cO9jb9",
       "broken_streak": 0
@@ -1186,10 +1197,10 @@
     {
       "id": "import-0104",
       "slug": "import-0104",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005009637190232.html?aff_fcid=6d470afa0179464f8f6e4659b483c85d-1795707340797-07295-_c4lQa8qJ&aff_fsk=_c4lQa8qJ&aff_platform=api-new-link-generate&sk=_c4lQa8qJ&aff_trace_key=6d470afa0179464f8f6e4659b483c85d-1795707340797-07295-_c4lQa8qJ&terminal_id=c9c15eed6dc64d2fa9711e84bbd661c9&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005009637190232.html?aff_fcid=03ab88b2b0654bbebc3a43d3c87afa5c-1795793251693-08693-_c4lQa8qJ&aff_fsk=_c4lQa8qJ&aff_platform=api-new-link-generate&sk=_c4lQa8qJ&aff_trace_key=03ab88b2b0654bbebc3a43d3c87afa5c-1795793251693-08693-_c4lQa8qJ&terminal_id=b130cc9bd13d4829b1dedeb95ed7e740&afSmartRedirect=y",
       "item_id": "1005009637190232",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4lQa8qJ",
       "broken_streak": 0
@@ -1197,10 +1208,10 @@
     {
       "id": "import-0488",
       "slug": "import-0488",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012595701916.html?aff_fcid=d5bb591a58a34bb59e5184ea691de903-1795707340810-06528-_c4pVywKX&aff_fsk=_c4pVywKX&aff_platform=api-new-link-generate&sk=_c4pVywKX&aff_trace_key=d5bb591a58a34bb59e5184ea691de903-1795707340810-06528-_c4pVywKX&terminal_id=62ce0720f7f44b9bb19a26c6baee0a80&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012595701916.html?aff_fcid=393c900b8d73463e982bfb6d626986af-1795793251804-08223-_c4pVywKX&aff_fsk=_c4pVywKX&aff_platform=api-new-link-generate&sk=_c4pVywKX&aff_trace_key=393c900b8d73463e982bfb6d626986af-1795793251804-08223-_c4pVywKX&terminal_id=1760a9e98f10407b9a5da7eba16f81b9&afSmartRedirect=y",
       "item_id": "1005012595701916",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4pVywKX",
       "broken_streak": 0
@@ -1208,10 +1219,10 @@
     {
       "id": "import-0499",
       "slug": "import-0499",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013466553225.html?aff_fcid=9ac9f188bc8045d08bd6ed925318fd87-1795707340944-05726-_c3vJPfx9&aff_fsk=_c3vJPfx9&aff_platform=api-new-link-generate&sk=_c3vJPfx9&aff_trace_key=9ac9f188bc8045d08bd6ed925318fd87-1795707340944-05726-_c3vJPfx9&terminal_id=7414b73a84f642cba256b58dc62d4ef7&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013466553225.html?aff_fcid=b370db94e4d648f6945206031b5c9658-1795793251794-08494-_c3vJPfx9&aff_fsk=_c3vJPfx9&aff_platform=api-new-link-generate&sk=_c3vJPfx9&aff_trace_key=b370db94e4d648f6945206031b5c9658-1795793251794-08494-_c3vJPfx9&terminal_id=ba6c3943f4c2431184ed88c9ecf381bb&afSmartRedirect=y",
       "item_id": "1005013466553225",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3vJPfx9",
       "broken_streak": 0
@@ -1219,10 +1230,10 @@
     {
       "id": "import-0129",
       "slug": "import-0129",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013363359765.html?aff_fcid=293fded136834048a13767f280762231-1795707341020-04348-_c3GTHC47&aff_fsk=_c3GTHC47&aff_platform=api-new-link-generate&sk=_c3GTHC47&aff_trace_key=293fded136834048a13767f280762231-1795707341020-04348-_c3GTHC47&terminal_id=7f489c463ebc4c0f854648db4e51c62e&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013363359765.html?aff_fcid=c1f6e54914044ce0b5faf5203fdb2846-1795793251864-07390-_c3GTHC47&aff_fsk=_c3GTHC47&aff_platform=api-new-link-generate&sk=_c3GTHC47&aff_trace_key=c1f6e54914044ce0b5faf5203fdb2846-1795793251864-07390-_c3GTHC47&terminal_id=92e597eea7534a31b74bf8b1b9cff964&afSmartRedirect=y",
       "item_id": "1005013363359765",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3GTHC47",
       "broken_streak": 0
@@ -1230,10 +1241,10 @@
     {
       "id": "import-0211",
       "slug": "import-0211",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013169167872.html?aff_fcid=52fb86bcf625495fb3d45d3ba4c285fb-1795707340997-00759-_c4dBm2Z5&aff_fsk=_c4dBm2Z5&aff_platform=api-new-link-generate&sk=_c4dBm2Z5&aff_trace_key=52fb86bcf625495fb3d45d3ba4c285fb-1795707340997-00759-_c4dBm2Z5&terminal_id=dcdb44bb9f7b447ea8b0dd2577258592&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013169167872.html?aff_fcid=232424b634cb49f9a76cd17bd6aaac44-1795793251845-01735-_c4dBm2Z5&aff_fsk=_c4dBm2Z5&aff_platform=api-new-link-generate&sk=_c4dBm2Z5&aff_trace_key=232424b634cb49f9a76cd17bd6aaac44-1795793251845-01735-_c4dBm2Z5&terminal_id=1342e66625174566bc6b5996d0dbe375&afSmartRedirect=y",
       "item_id": "1005013169167872",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c4dBm2Z5",
       "broken_streak": 0
@@ -1241,10 +1252,10 @@
     {
       "id": "import-0216",
       "slug": "import-0216",
-      "checked_at": "2026-11-26T15:35:40+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013008804363.html?aff_fcid=5332d409d47045a39ece0aa6cd36a033-1795707341002-01778-_c3V4KLEb&aff_fsk=_c3V4KLEb&aff_platform=api-new-link-generate&sk=_c3V4KLEb&aff_trace_key=5332d409d47045a39ece0aa6cd36a033-1795707341002-01778-_c3V4KLEb&terminal_id=975b0538b2d7413c91e1fc518f3d313d&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013008804363.html?aff_fcid=d50c1e4227eb45aaaa0b6131b770682e-1795793251979-04392-_c3V4KLEb&aff_fsk=_c3V4KLEb&aff_platform=api-new-link-generate&sk=_c3V4KLEb&aff_trace_key=d50c1e4227eb45aaaa0b6131b770682e-1795793251979-04392-_c3V4KLEb&terminal_id=f40a1b9d0de942d4bc72b98bb106c2a6&afSmartRedirect=y",
       "item_id": "1005013008804363",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3V4KLEb",
       "broken_streak": 0
@@ -1252,10 +1263,10 @@
     {
       "id": "import-0231",
       "slug": "import-0231",
-      "checked_at": "2026-11-26T15:35:41+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013323272142.html?aff_fcid=513c86e0375f4df08b61a603db98545d-1795707341108-07207-_c2w6YSzz&aff_fsk=_c2w6YSzz&aff_platform=api-new-link-generate&sk=_c2w6YSzz&aff_trace_key=513c86e0375f4df08b61a603db98545d-1795707341108-07207-_c2w6YSzz&terminal_id=b79051fc448147959ae702b4f61e1e06&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013323272142.html?aff_fcid=1cc6f804a9ae44499006493375184c0f-1795793251989-03525-_c2w6YSzz&aff_fsk=_c2w6YSzz&aff_platform=api-new-link-generate&sk=_c2w6YSzz&aff_trace_key=1cc6f804a9ae44499006493375184c0f-1795793251989-03525-_c2w6YSzz&terminal_id=c8231c4869f54820b4b341c6bba875d0&afSmartRedirect=y",
       "item_id": "1005013323272142",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2w6YSzz",
       "broken_streak": 0
@@ -1263,10 +1274,10 @@
     {
       "id": "import-0530",
       "slug": "import-0530",
-      "checked_at": "2026-11-26T15:35:41+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005013088900668.html?aff_fcid=3928471865cb4c85a568ae90ac277917-1795707341225-05785-_c3R1zuKJ&aff_fsk=_c3R1zuKJ&aff_platform=api-new-link-generate&sk=_c3R1zuKJ&aff_trace_key=3928471865cb4c85a568ae90ac277917-1795707341225-05785-_c3R1zuKJ&terminal_id=564cd950023745aabb98e49b3b1088da&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005013088900668.html?aff_fcid=6019fb61974c433f9f670ea8d840b613-1795793252028-05251-_c3R1zuKJ&aff_fsk=_c3R1zuKJ&aff_platform=api-new-link-generate&sk=_c3R1zuKJ&aff_trace_key=6019fb61974c433f9f670ea8d840b613-1795793252028-05251-_c3R1zuKJ&terminal_id=3d66b0f2fcfb490d93446e14daefbf6c&afSmartRedirect=y",
       "item_id": "1005013088900668",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3R1zuKJ",
       "broken_streak": 0
@@ -1274,10 +1285,10 @@
     {
       "id": "import-0545",
       "slug": "import-0545",
-      "checked_at": "2026-11-26T15:35:41+00:00",
+      "checked_at": "2026-11-27T15:27:31+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005012904650795.html?aff_fcid=799e5db09e7c4cf4b1884ee69d129bd8-1795707341231-00944-_c2REswJp&aff_fsk=_c2REswJp&aff_platform=api-new-link-generate&sk=_c2REswJp&aff_trace_key=799e5db09e7c4cf4b1884ee69d129bd8-1795707341231-00944-_c2REswJp&terminal_id=92d4dccea95b4721a5614d6ea01e04b0&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005012904650795.html?aff_fcid=7d1b622da1454213a99279ab50957bad-1795793252103-07912-_c2REswJp&aff_fsk=_c2REswJp&aff_platform=api-new-link-generate&sk=_c2REswJp&aff_trace_key=7d1b622da1454213a99279ab50957bad-1795793252103-07912-_c2REswJp&terminal_id=7a7e71b458c644369aff27cc8088699b&afSmartRedirect=y",
       "item_id": "1005012904650795",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c2REswJp",
       "broken_streak": 0
@@ -1285,10 +1296,10 @@
     {
       "id": "import-0064",
       "slug": "import-0064",
-      "checked_at": "2026-11-26T15:35:41+00:00",
+      "checked_at": "2026-11-27T15:27:32+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005008888378454.html?aff_fcid=33560fdf947643b39680e3606c31b9f5-1795707341211-08434-_c3oRU14R&aff_fsk=_c3oRU14R&aff_platform=api-new-link-generate&sk=_c3oRU14R&aff_trace_key=33560fdf947643b39680e3606c31b9f5-1795707341211-08434-_c3oRU14R&terminal_id=19a07e350e1b4776b1f2a6247f4d1547&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005008888378454.html?aff_fcid=a2c4d83c3ba44ea0aee1d21698738b10-1795793252161-08225-_c3oRU14R&aff_fsk=_c3oRU14R&aff_platform=api-new-link-generate&sk=_c3oRU14R&aff_trace_key=a2c4d83c3ba44ea0aee1d21698738b10-1795793252161-08225-_c3oRU14R&terminal_id=f957d1407d054c1d850784e793f563c7&afSmartRedirect=y",
       "item_id": "1005008888378454",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3oRU14R",
       "broken_streak": 0
@@ -1296,10 +1307,10 @@
     {
       "id": "katord-wifi-repeater",
       "slug": "katord-wifi-repeater",
-      "checked_at": "2026-11-26T15:35:41+00:00",
+      "checked_at": "2026-11-27T15:27:32+00:00",
       "status": "RESOLVED",
       "reason": "PRODUCT_DESTINATION_ONLY",
-      "dest": "https://www.aliexpress.com/item/1005011800659333.html?aff_fcid=28d0e3fffc6e4d6ca4f5a63cdb9f583e-1795707341268-03257-_c3fpWRgn&aff_fsk=_c3fpWRgn&aff_platform=api-new-link-generate&sk=_c3fpWRgn&aff_trace_key=28d0e3fffc6e4d6ca4f5a63cdb9f583e-1795707341268-03257-_c3fpWRgn&terminal_id=acb2bb094c0b485abdb62909d6586993&afSmartRedirect=y",
+      "dest": "https://www.aliexpress.com/item/1005011800659333.html?aff_fcid=c8dd062f42a344498a8e557b6c20b7f8-1795793252172-02221-_c3fpWRgn&aff_fsk=_c3fpWRgn&aff_platform=api-new-link-generate&sk=_c3fpWRgn&aff_trace_key=c8dd062f42a344498a8e557b6c20b7f8-1795793252172-02221-_c3fpWRgn&terminal_id=4e8a4bc7c7694667af54d2f64112a58e&afSmartRedirect=y",
       "item_id": "1005011800659333",
       "affiliate_url": "https://s.click.aliexpress.com/e/_c3fpWRgn",
       "broken_streak": 0
