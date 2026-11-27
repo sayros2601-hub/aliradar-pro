@@ -76,39 +76,76 @@
       "generation_attempts": {
         "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d": 1
       },
-      "pending": {
-        "source_file": "reference-0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d.png",
-        "source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se65fed5917214373b890f4fe069fe872k.jpg",
-        "original_sha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965",
-        "output_file": "hero-24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b.webp",
-        "image_sha256": "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b",
-        "metrics": {
-          "fg_width": 890,
-          "fg_height": 577,
-          "fg_max_side": 890,
-          "fg_min_side": 577,
-          "upscale_ratio": 1.0,
-          "sharpness": 19.703,
-          "fg_mean_luma": 138.62,
-          "fg_luma_std": 42.56,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.054,
-          "reasons": []
-        },
-        "generated": true
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the wooden bead spinner bowl and the coordinating spool stand with thread, accurately matching the product title and description.",
+          "The lighting and composition are clean and professional, serving effectively as a hero product image."
+        ]
+      },
+      "source_file": "reference-0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d.png",
+      "source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se65fed5917214373b890f4fe069fe872k.jpg",
+      "original_sha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965",
+      "output_file": "hero-24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b.webp",
+      "image_sha256": "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b",
+      "metrics": {
+        "fg_width": 890,
+        "fg_height": 577,
+        "fg_max_side": 890,
+        "fg_min_side": 577,
+        "upscale_ratio": 1.0,
+        "sharpness": 19.703,
+        "fg_mean_luma": 138.62,
+        "fg_luma_std": 42.56,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.054,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the wooden bead spinner bowl and the coordinating spool stand with thread, accurately matching the product title and description.",
+          "The lighting and composition are clean and professional, serving effectively as a hero product image."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+      "source_title_sha256": "719dd7cdd6b49394ee36b4099da374503bd8847809a5f99a3b6588950f7241b1",
+      "reviewed_at": 1795779324.5228808
     },
-    {},
+    {
+      "generation_attempts": {}
+    },
     {}
   ],
   "created_at": 1795779231.2089202,
-  "deferrals": 0,
+  "deferrals": 1,
   "lease_owner": "b0e5567d98bd4b71995e155c5fbce450",
-  "lease_until": 1795781031.208938,
-  "status": "processing",
-  "next_attempt": 0,
+  "lease_until": 0,
+  "status": "waiting",
+  "next_attempt": 1795786373.0789702,
   "source_refresh_after": 1795865633.1799862,
   "source_version": "43f182109e7f6ea3766cef21a938aed2b375a952745ef22177ff5d102b7f7065",
   "effort_versions": {
@@ -127,7 +164,8 @@
       },
       {
         "materializations": 0,
-        "events": []
+        "events": [],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -138,7 +176,23 @@
   "review_attempts": {
     "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the wooden bead spinner bowl and the coordinating spool stand with thread, accurately matching the product title and description.",
+          "The lighting and composition are clean and professional, serving effectively as a hero product image."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -146,5 +200,6 @@
     "file": "reference-0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d.png",
     "sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
     "original_sha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965"
-  }
+  },
+  "reason": "cf_image_daily_budget"
 }
