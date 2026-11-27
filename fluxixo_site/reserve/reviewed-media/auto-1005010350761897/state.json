@@ -88,39 +88,76 @@
   "slots": [
     {
       "generation_attempts": {},
-      "pending": {
-        "source_file": "reference-20fc7e157b6fd1349a5f2c90571b14ae6223379fec665a35de38d0467c1e9123.png",
-        "source_sha256": "20fc7e157b6fd1349a5f2c90571b14ae6223379fec665a35de38d0467c1e9123",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sc2c27976109c4dc3a0ec05cf7356612dy.jpg",
-        "original_sha256": "2fdfcdc5451e8280b55a210b1a3695e33ad3aa56866f14f4fda4ccd23061ce4f",
-        "output_file": "hero-f142f5c9a73ef36e8539c5cc05a8c01b971b110e084c314e083638518fdc5edb.webp",
-        "image_sha256": "f142f5c9a73ef36e8539c5cc05a8c01b971b110e084c314e083638518fdc5edb",
-        "metrics": {
-          "fg_width": 1040,
-          "fg_height": 718,
-          "fg_max_side": 1040,
-          "fg_min_side": 718,
-          "upscale_ratio": 0.856,
-          "sharpness": 28.674,
-          "fg_mean_luma": 155.02,
-          "fg_luma_std": 81.07,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.287,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the requested 12V/24V portable car air conditioner with correct shape, color, and features.",
+          "The hero shot is clean, well-lit, and properly displays the product from a recognizable angle against a neutral background."
+        ]
+      },
+      "source_file": "reference-20fc7e157b6fd1349a5f2c90571b14ae6223379fec665a35de38d0467c1e9123.png",
+      "source_sha256": "20fc7e157b6fd1349a5f2c90571b14ae6223379fec665a35de38d0467c1e9123",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Sc2c27976109c4dc3a0ec05cf7356612dy.jpg",
+      "original_sha256": "2fdfcdc5451e8280b55a210b1a3695e33ad3aa56866f14f4fda4ccd23061ce4f",
+      "output_file": "hero-f142f5c9a73ef36e8539c5cc05a8c01b971b110e084c314e083638518fdc5edb.webp",
+      "image_sha256": "f142f5c9a73ef36e8539c5cc05a8c01b971b110e084c314e083638518fdc5edb",
+      "metrics": {
+        "fg_width": 1040,
+        "fg_height": 718,
+        "fg_max_side": 1040,
+        "fg_min_side": 718,
+        "upscale_ratio": 0.856,
+        "sharpness": 28.674,
+        "fg_mean_luma": 155.02,
+        "fg_luma_std": 81.07,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.287,
+        "reasons": []
+      },
+      "generated": false,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the requested 12V/24V portable car air conditioner with correct shape, color, and features.",
+          "The hero shot is clean, well-lit, and properly displays the product from a recognizable angle against a neutral background."
+        ]
+      },
+      "prior_image_sha256": [],
+      "identity_source_sha256": "20fc7e157b6fd1349a5f2c90571b14ae6223379fec665a35de38d0467c1e9123",
+      "source_title_sha256": "b8a6a2fffe66dbac767bfe841b3e6bf9bf8aa7f6fe3c9ef9f4e339f718d2a090",
+      "reviewed_at": 1795779987.5329542
     },
-    {},
+    {
+      "generation_attempts": {}
+    },
     {}
   ],
   "created_at": 1795779885.6010356,
-  "deferrals": 0,
+  "deferrals": 1,
   "lease_owner": "d2a1b5fd34db4889930987a9938c511f",
-  "lease_until": 1795781685.601053,
-  "status": "processing",
-  "next_attempt": 0,
+  "lease_until": 0,
+  "status": "waiting",
+  "next_attempt": 1795786373.0789702,
   "source_refresh_after": 1795866287.4993389,
   "source_version": "907f7ec432a4bdb106f3a7a972a33e3690c442e7a8b5189bc55aad81902f5e10",
   "effort_versions": {
@@ -139,7 +176,8 @@
       },
       {
         "materializations": 0,
-        "events": []
+        "events": [],
+        "last_code": "materialization_interrupted"
       },
       {
         "materializations": 0,
@@ -150,7 +188,23 @@
   "review_attempts": {
     "f142f5c9a73ef36e8539c5cc05a8c01b971b110e084c314e083638518fdc5edb": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the requested 12V/24V portable car air conditioner with correct shape, color, and features.",
+          "The hero shot is clean, well-lit, and properly displays the product from a recognizable angle against a neutral background."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -158,5 +212,6 @@
     "file": "reference-20fc7e157b6fd1349a5f2c90571b14ae6223379fec665a35de38d0467c1e9123.png",
     "sha256": "20fc7e157b6fd1349a5f2c90571b14ae6223379fec665a35de38d0467c1e9123",
     "original_sha256": "2fdfcdc5451e8280b55a210b1a3695e33ad3aa56866f14f4fda4ccd23061ce4f"
-  }
+  },
+  "reason": "cf_image_daily_budget"
 }
