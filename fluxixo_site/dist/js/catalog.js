@@ -5,6 +5,191 @@ window.MIRA_CATALOG = {
   "tagline": "Находки с другой стороны",
   "products": [
     {
+      "id": "auto-1005012869308314",
+      "name": "Ручная деревянная чаша-спиннер для бисера",
+      "headline": [
+        "Деревянная чаша для бисера",
+        "Для ручной сборки украшений"
+      ],
+      "description": "Ручной инструмент в виде деревянной чаши-спиннера создан для удобного нанизывания мелких бусин и создания уникальных ювелирных украшений. Перед покупкой убедитесь, что размеры и комплектация механизма соответствуют вашим задачам по работе с бисером и цепочками.",
+      "category": "Дом",
+      "image": "assets/images/auto-1005012869308314.webp",
+      "original": "assets/originals/auto-1005012869308314.webp",
+      "imageNote": "Изображение подготовлено из фотографии продавца. Исходная фотография доступна для сравнения.",
+      "affiliateUrl": "https://s.click.aliexpress.com/e/_c3c1GDxL",
+      "sourceUrl": "https://www.aliexpress.com/item/1005012869308314.html",
+      "sourceProductId": "1005012869308314",
+      "sourceDetailUrl": "https://www.aliexpress.com/item/1005012869308314.html",
+      "sourceTitle": "Manual Wooden Crafts Bead Spinner Bowl String Seed Beads Chain Tool String Loader  Jewelry Making",
+      "sourceImageUrl": "https://ae-pic-a1.aliexpress-media.com/kf/Se65fed5917214373b890f4fe069fe872k.jpg",
+      "sourceModelKey": null,
+      "sourceMarket": "FR",
+      "sourceTask": "bead_spinner",
+      "demo": false,
+      "theme": "lavender",
+      "scale": 0.85,
+      "rotation": 0,
+      "details": "Ручной инструмент в виде деревянной чаши-спиннера создан для удобного нанизывания мелких бусин и создания уникальных ювелирных украшений. Перед покупкой убедитесь, что размеры и комплектация механизма соответствуют вашим задачам по работе с бисером и цепочками.",
+      "facts": [],
+      "sourceShopId": "1100218921",
+      "availableMarkets": [
+        "RU",
+        "US",
+        "BR",
+        "MX",
+        "IL",
+        "FR"
+      ],
+      "externalOriginality": {
+        "policy": "tavily-keyless-description-v1",
+        "locales": {
+          "ru": {
+            "sha256": "adcb4a5eafa5f08882493c76b278b09d1fc20b683e02fea785263e2eda6b50a4",
+            "checked_at": 1795779175.8723447
+          },
+          "en": {
+            "sha256": "e5ffd1edf9d2639e29c7561c6e37e370bd6617508b92237e29fb0b8eb70f698e",
+            "checked_at": 1795779177.4866645
+          },
+          "pt": {
+            "sha256": "11b8e04cb560fd735fe06e250bfd96b94b38480055c3b5a09998c6b3a595c716",
+            "checked_at": 1795779179.406201
+          },
+          "es": {
+            "sha256": "545d4c4de0ad2d444c8301c9d43ea7bbee1a058ba83459149824e913b8b22230",
+            "checked_at": 1795779182.0321858
+          },
+          "fr": {
+            "sha256": "d88f3bc1b3ccaa7969ea2aeb921202d6ed966f2679ab781dfcf3ee807e7223f1",
+            "checked_at": 1795779184.4395206
+          },
+          "he": {
+            "sha256": "700a10221c1b28c671f6b97b9384e845412caf2e30bf53cc68c8a1c908209538",
+            "checked_at": 1795779189.6221447
+          }
+        }
+      },
+      "mediaReview": {
+        "policy": "fluxixo-reference-review-v2",
+        "product_id": "1005012869308314",
+        "source_title_sha256": "719dd7cdd6b49394ee36b4099da374503bd8847809a5f99a3b6588950f7241b1",
+        "identity_source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+        "identity_source_asset": "assets/originals/auto-1005012869308314-identity.png",
+        "frames": [
+          {
+            "role": "hero",
+            "source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+            "image_sha256": "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b",
+            "prior_image_sha256": [],
+            "identity_source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se65fed5917214373b890f4fe069fe872k.jpg",
+            "source_asset": "assets/originals/auto-1005012869308314-review-1.png",
+            "output_asset": "assets/images/auto-1005012869308314.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image clearly shows the wooden bead spinner bowl and the coordinating spool stand with thread, accurately matching the product title and description.",
+                "The lighting and composition are clean and professional, serving effectively as a hero product image."
+              ]
+            }
+          },
+          {
+            "role": "application",
+            "source_sha256": "a1fdc52ca30e1e8c5d4ae6471b8848d1afa138020a8404db6c46a0d3ab22e4b7",
+            "image_sha256": "ff9056909d7ee717fa1d0616caad765cbd5c2ad77f523e57c382959ef303dc3e",
+            "prior_image_sha256": [
+              "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b"
+            ],
+            "identity_source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S84825ed625234724868c100121d9c1beu.jpg",
+            "source_asset": "assets/originals/auto-1005012869308314-review-2.png",
+            "output_asset": "assets/images/auto-1005012869308314-v2.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image clearly shows the wooden bead spinner bowl and spool holder base components, accurately matching the product variant.",
+                "Fulfills the application role by displaying the essential setup parts of the bead spinner tool.",
+                "The cutout is clean on the black background with no artifacts or defects."
+              ]
+            }
+          },
+          {
+            "role": "result",
+            "source_sha256": "477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79",
+            "image_sha256": "68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85",
+            "prior_image_sha256": [
+              "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b",
+              "ff9056909d7ee717fa1d0616caad765cbd5c2ad77f523e57c382959ef303dc3e"
+            ],
+            "identity_source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+            "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7f1d35a7e0a4438b8d8fbb90e203f48aG.jpg",
+            "source_asset": "assets/originals/auto-1005012869308314-review-3.png",
+            "output_asset": "assets/images/auto-1005012869308314-v3.webp",
+            "assessment": {
+              "accepted": true,
+              "identity": true,
+              "shape": true,
+              "completeness": true,
+              "color": true,
+              "markings": true,
+              "role": true,
+              "quality": true,
+              "distinct": true,
+              "material_defects": [],
+              "reasons": [
+                "The image accurately shows the bead spinner bowl filled with seed beads, effectively demonstrating the product's functional result."
+              ]
+            }
+          }
+        ]
+      },
+      "mediaReviewRequired": true,
+      "views": [
+        "assets/images/auto-1005012869308314-v2.webp",
+        "assets/images/auto-1005012869308314-v3.webp"
+      ],
+      "sourceImageSha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965",
+      "sourcePixelSha256": "91cd2a8e39cc2baeaea888299b774a9dec8ce09f44bdd21c38495b5c987637d8",
+      "imageDhash": "339133332b292928",
+      "imageAhash": "99001090bfffffff",
+      "imageAspect": "1.54",
+      "sourceImageDhash": "c4323327232a2381",
+      "sourceImageAhash": "ffff0000919fffff",
+      "imageQualityVerified": true,
+      "imageQualityMetrics": {
+        "fg_width": 890,
+        "fg_height": 577,
+        "fg_max_side": 890,
+        "fg_min_side": 577,
+        "upscale_ratio": 1.0,
+        "sharpness": 19.703,
+        "fg_mean_luma": 138.62,
+        "fg_luma_std": 42.56,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.054,
+        "reasons": []
+      }
+    },
+    {
       "id": "auto-1005011837050347",
       "name": "Магнитный направляющий гид для шитья с распарывателем",
       "headline": [
