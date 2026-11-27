@@ -89,32 +89,30 @@
     {
       "generation_attempts": {},
       "rejected_sources": [
-        "92c015b77f6fb07843e72897d1e71e9327bc53e3efa0098f3be03c219c9228a5"
+        "92c015b77f6fb07843e72897d1e71e9327bc53e3efa0098f3be03c219c9228a5",
+        "a4ff470cd96195d8d4552f9a3d758684dd454ee64199b97df01efee26e64c865"
       ],
-      "feedback": "Preserve the complete product and provide a clean, distinct frame.",
-      "pending": {
-        "source_file": "reference-a4ff470cd96195d8d4552f9a3d758684dd454ee64199b97df01efee26e64c865.png",
-        "source_sha256": "a4ff470cd96195d8d4552f9a3d758684dd454ee64199b97df01efee26e64c865",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S4aa54be0ea814e5aaac50851f2fc00d8J.jpg",
-        "original_sha256": "7aab8f69a73bd9d9d5a4144f6a452b71e99ce15a397b7e370b03f7eda1c72367",
-        "output_file": "hero-3a16e312f43df050d6c8d0b14a9c6c175039251c4098b7dd296a6633e00d193e.webp",
-        "image_sha256": "3a16e312f43df050d6c8d0b14a9c6c175039251c4098b7dd296a6633e00d193e",
-        "metrics": {
-          "fg_width": 1043,
-          "fg_height": 1025,
-          "fg_max_side": 1043,
-          "fg_min_side": 1025,
-          "upscale_ratio": 0.853,
-          "sharpness": 34.009,
-          "fg_mean_luma": 105.22,
-          "fg_luma_std": 97.06,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.148,
-          "reasons": []
-        },
-        "generated": false
-      }
+      "feedback": "Preserve only authentic reference markings; do not add or replace branding. Show the documented use or result; if unsupported, show a truthful functional detail. Keep the full product with clean edges and no background artifacts.",
+      "last_assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": false,
+        "role": false,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "awkward black letterboxing crops out the heading text"
+        ],
+        "reasons": [
+          "Image 3 features awkward black letterboxing at the top and bottom that crops out the header text 'Smart Touch', resulting in a clipped and compromised presentation."
+        ]
+      },
+      "rejected_images": [
+        "3a16e312f43df050d6c8d0b14a9c6c175039251c4098b7dd296a6633e00d193e"
+      ]
     },
     {},
     {}
@@ -122,8 +120,8 @@
   "created_at": 1795780272.9453804,
   "deferrals": 0,
   "lease_owner": "135c9b40026c46dd9fa2c52b95a3c67e",
-  "lease_until": 1795782072.945398,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "stopped",
   "next_attempt": 0,
   "source_refresh_after": 1795866675.5991027,
   "source_version": "8ccd313a1223da26db8eed570fdf78c0bc2113f9cbe123241005fe58fc28278e",
@@ -144,7 +142,7 @@
             "image_sha256": "3a16e312f43df050d6c8d0b14a9c6c175039251c4098b7dd296a6633e00d193e"
           }
         ],
-        "last_code": "materialization_interrupted"
+        "last_code": "review_rejected"
       },
       {
         "materializations": 0,
@@ -159,7 +157,24 @@
   "review_attempts": {
     "3a16e312f43df050d6c8d0b14a9c6c175039251c4098b7dd296a6633e00d193e": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "review_rejected",
+      "assessment": {
+        "accepted": false,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": false,
+        "role": false,
+        "quality": false,
+        "distinct": true,
+        "material_defects": [
+          "awkward black letterboxing crops out the heading text"
+        ],
+        "reasons": [
+          "Image 3 features awkward black letterboxing at the top and bottom that crops out the header text 'Smart Touch', resulting in a clipped and compromised presentation."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -167,5 +182,23 @@
     "file": "reference-92c015b77f6fb07843e72897d1e71e9327bc53e3efa0098f3be03c219c9228a5.png",
     "sha256": "92c015b77f6fb07843e72897d1e71e9327bc53e3efa0098f3be03c219c9228a5",
     "original_sha256": "d0f0d3a2370b846101656380b409b1e2bcdd1d97a0b066dd8f881360e3bfc3c2"
+  },
+  "reason": "review_rejected",
+  "terminal": {
+    "code": "review_rejected",
+    "source_version": "8ccd313a1223da26db8eed570fdf78c0bc2113f9cbe123241005fe58fc28278e",
+    "details": {
+      "role": "hero",
+      "failed_checks": [
+        "markings",
+        "role",
+        "quality"
+      ],
+      "reasons": [
+        "Image 3 features awkward black letterboxing at the top and bottom that crops out the header text 'Smart Touch', resulting in a clipped and compromised presentation."
+      ],
+      "materializations": 2
+    },
+    "at": 1795780684.5566792
   }
 }
