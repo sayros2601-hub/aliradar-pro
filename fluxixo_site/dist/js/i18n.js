@@ -7157,6 +7157,48 @@
       ],
       "description": "מוביל תפירה מגנטי מתכוונן זה נצמד למכונת התפירה כדי לסייע בשמירה על קווי תפר מדויקים ולמנוע את התקפלות הבד בזמן העבודה. הכלי כולל סדת מידה מובנית ופורם תפרים שימושי לתיקונים מהירים בכל פרויקט תפירה. בדקו בעמוד המוצר שמשטח מכונת התפירה שלכם תומך בהצמדה מגנטית יציבה טרם ההזמנה."
     }
+  },
+  "auto-1005012869308314": {
+    "en": {
+      "name": "Manual Wooden Seed Bead Spinner Bowl Tool",
+      "headline": [
+        "Wooden bead spinner bowl",
+        "For quick jewelry making"
+      ],
+      "description": "This manual wooden bead spinner bowl tool is designed for efficiently loading seed beads onto strings and chains during jewelry making projects. Before ordering, verify that the bowl dimensions and operational mechanism match your specific crafting requirements."
+    },
+    "pt": {
+      "name": "tigela giratória de madeira manual para miçangas",
+      "headline": [
+        "Ferramenta manual de madeira",
+        "Para criar bijuterias"
+      ],
+      "description": "Esta tigela giratória de madeira manual foi desenvolvida para facilitar o carregamento de miçangas em cordões e correntes durante a confecção de joias artesanais. Antes de finalizar o pedido, verifique se o tamanho do recipiente e o sistema de rotação manual atendem às suas necessidades de criação."
+    },
+    "es": {
+      "name": "Tazón giratorio de madera manual para cuentas",
+      "headline": [
+        "Tazón giratorio de madera",
+        "Para joyería artesanal"
+      ],
+      "description": "Este tazón giratorio de madera manual está diseñado para facilitar la carga de cuentas y abalorios en hilos y cadenas durante la elaboración de joyería artesanal. Antes de confirmar tu compra, verifica que las dimensiones del recipiente y el mecanismo de giro correspondan a tus proyectos."
+    },
+    "fr": {
+      "name": "bol tournant en bois manuel pour perles",
+      "headline": [
+        "Bol tournant en bois",
+        "Pour création de bijoux"
+      ],
+      "description": "Ce bol tournant en bois manuel est conçu pour charger efficacement des perles et des chaînes sur des fils lors de la fabrication de bijoux faits main. Avant de passer commande, vérifiez attentivement que les dimensions et le système de rotation de cet accessoire conviennent à vos projets."
+    },
+    "he": {
+      "name": "קערת סיבוב ידנית מעץ לחרוזים ותכשיטים",
+      "headline": [
+        "קערת סיבוב ידנית מעץ",
+        "להכנת תכשיטים וחרוזים"
+      ],
+      "description": "מכשיר ידני זה עשוי עץ איכותי וכולל קערת סיבוב ייעודית להטענת חרוזים ושרשראות קטנות במהלך הכנת תכשיטי אופנה ודברי יצירה שונים. בטרם השלמת ההזמנה, ודאו כי מידות קערת העץ ומנגנון ההפעלה הידני תואמים בדיוק את דרישות העבודה שלכם."
+    }
   }
 };
 

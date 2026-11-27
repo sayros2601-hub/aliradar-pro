@@ -4,7 +4,7 @@
 
 ## Core Entry Pages
 - [FLUXIXO English Home](https://www.fluxixo.shop/): Latest daily finds, 6 worlds, and editorial overview.
-- [Full English Catalog (118 items)](https://www.fluxixo.shop/en/): Complete English product directory.
+- [Full English Catalog (119 items)](https://www.fluxixo.shop/en/): Complete English product directory.
 - [Русский каталог](https://www.fluxixo.shop/catalog/): Полная коллекция и обзоры на русском языке.
 - [Catálogo Português (Brasil)](https://www.fluxixo.shop/pt/): Achadinhos do AliExpress para o Brasil.
 - [Catálogo Español (México)](https://www.fluxixo.shop/es/): Hallazgos útiles de AliExpress para México.
@@ -14,7 +14,7 @@
 - [О проекте (RU)](https://www.fluxixo.shop/about/): Принципы отбора, конфиденциальность и контакты редакции.
 
 ## Product Categories
-- [Home & Living (16)](https://www.fluxixo.shop/en/categories/home/) · [RU: Дом](https://www.fluxixo.shop/categories/dom/)
+- [Home & Living (17)](https://www.fluxixo.shop/en/categories/home/) · [RU: Дом](https://www.fluxixo.shop/categories/dom/)
 - [Tools (13)](https://www.fluxixo.shop/en/categories/tools/) · [RU: Инструменты](https://www.fluxixo.shop/categories/instrumenty/)
 - [Kitchen (17)](https://www.fluxixo.shop/en/categories/kitchen/) · [RU: Кухня](https://www.fluxixo.shop/categories/kuhnya/)
 - [Outdoors (4)](https://www.fluxixo.shop/en/categories/outdoors/) · [RU: На природе](https://www.fluxixo.shop/categories/na-prirode/)
@@ -55,6 +55,7 @@
 - [Car Jump Starter Power Bank](https://www.fluxixo.shop/en/products/find-008-jump-starter/) ([RU](https://www.fluxixo.shop/products/find-008-jump-starter/)): This rugged portable jump pack pairs a digital charge readout with heavy-duty clamp ports to crank a weak car battery solo.
 - [Rechargeable Fabric Lint Shaver](https://www.fluxixo.shop/en/products/find-055-lint-remover/) ([RU](https://www.fluxixo.shop/products/find-055-lint-remover/)): Cordless sweater defuzzer featuring a stainless mesh guard and round digital battery readout. See seller photos, current price and shipping on AliExpress.
 - [Cordless Electric Air Duster Blower](https://www.fluxixo.shop/en/products/import-0119/) ([RU](https://www.fluxixo.shop/products/import-0119/)): A high-speed rechargeable air duster that blows dry dust out of keyboards, PC towers, and car vents.
+- [Manual Wooden Seed Bead Spinner Bowl Tool](https://www.fluxixo.shop/en/products/auto-1005012869308314/) ([RU](https://www.fluxixo.shop/products/auto-1005012869308314/)): This manual wooden bead spinner bowl tool is designed for efficiently loading seed beads onto strings and chains during jewelry making projects.
 - [Adjustable Magnetic Seam Guide with Built-In Ripper](https://www.fluxixo.shop/en/products/auto-1005011837050347/) ([RU](https://www.fluxixo.shop/products/auto-1005011837050347/)): This magnetic seam guide attaches securely to your sewing machine to help maintain precise stitch lines and prevent fabric from curling while you work.
 - [Felt donut cat tunnel cave bed](https://www.fluxixo.shop/en/products/auto-1005004283109553/) ([RU](https://www.fluxixo.shop/products/auto-1005004283109553/)): Sturdy needle-punched felt forms a two-level donut hideout with an enclosed circular tunnel underneath and a sunken top lounging bowl.
 - [Forearm & Wrist Roller Bar with Weight Loading Pin](https://www.fluxixo.shop/en/products/auto-1005010092410193/) ([RU](https://www.fluxixo.shop/products/auto-1005010092410193/)): This forearm and wrist training device helps build upper body strength by rolling weights up and down using a sturdy handle and cord system.
@@ -71,7 +72,6 @@
 - [Wimshurst Electrostatic Generator Lab Model](https://www.fluxixo.shop/en/products/auto-1005012473764350/) ([RU](https://www.fluxixo.shop/products/auto-1005012473764350/)): A hand-cranked Wimshurst generator spins two clear acrylic disks with radial aluminum sectors and twin Leyden jars to build high-voltage static charge.
 - [Grooved Aluminum Rapid Defrosting Tray](https://www.fluxixo.shop/en/products/auto-1005012569530905/) ([RU](https://www.fluxixo.shop/products/auto-1005012569530905/)): A conductive grooved aluminum tray draws ambient room heat into frozen steaks, chicken breasts, and fish fillets to speed up thawing without electricity.
 - [CT-Series Inverter Plasma Cutter & Gouger](https://www.fluxixo.shop/en/products/auto-1005013037089570/) ([RU](https://www.fluxixo.shop/products/auto-1005013037089570/)): A portable CT-series inverter unit handles both air plasma cutting and air arc gouging across carbon steel, stainless, aluminum, and copper.
-- [Heat-Powered Wood Stove Air Circulator](https://www.fluxixo.shop/en/products/auto-1005013553805507/) ([RU](https://www.fluxixo.shop/products/auto-1005013553805507/)): A thermoelectric fan sits on the flat hot top plate of a freestanding wood stove and converts surface heat via a Peltier module into quiet blade rotation.
 
 ## Sitemaps & Machine-Readable Feeds
 - [Sitemap Index](https://www.fluxixo.shop/sitemap-index.xml)
