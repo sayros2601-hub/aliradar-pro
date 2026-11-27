@@ -136,16 +136,107 @@
       "reviewed_at": 1795779324.5228808
     },
     {
-      "generation_attempts": {}
+      "generation_attempts": {
+        "a1fdc52ca30e1e8c5d4ae6471b8848d1afa138020a8404db6c46a0d3ab22e4b7": 1
+      },
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the wooden bead spinner bowl and spool holder base components, accurately matching the product variant.",
+          "Fulfills the application role by displaying the essential setup parts of the bead spinner tool.",
+          "The cutout is clean on the black background with no artifacts or defects."
+        ]
+      },
+      "source_file": "reference-a1fdc52ca30e1e8c5d4ae6471b8848d1afa138020a8404db6c46a0d3ab22e4b7.png",
+      "source_sha256": "a1fdc52ca30e1e8c5d4ae6471b8848d1afa138020a8404db6c46a0d3ab22e4b7",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S84825ed625234724868c100121d9c1beu.jpg",
+      "original_sha256": "46456cc14bc416a9f5e3e247aafdf763d040935cff62feaca002d1c1be362f5d",
+      "output_file": "application-ff9056909d7ee717fa1d0616caad765cbd5c2ad77f523e57c382959ef303dc3e.webp",
+      "image_sha256": "ff9056909d7ee717fa1d0616caad765cbd5c2ad77f523e57c382959ef303dc3e",
+      "metrics": {
+        "fg_width": 755,
+        "fg_height": 890,
+        "fg_max_side": 890,
+        "fg_min_side": 755,
+        "upscale_ratio": 1.0,
+        "sharpness": 8.902,
+        "fg_mean_luma": 162.61,
+        "fg_luma_std": 45.28,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.03,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the wooden bead spinner bowl and spool holder base components, accurately matching the product variant.",
+          "Fulfills the application role by displaying the essential setup parts of the bead spinner tool.",
+          "The cutout is clean on the black background with no artifacts or defects."
+        ]
+      },
+      "prior_image_sha256": [
+        "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b"
+      ],
+      "identity_source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+      "source_title_sha256": "719dd7cdd6b49394ee36b4099da374503bd8847809a5f99a3b6588950f7241b1",
+      "reviewed_at": 1795788246.9171891
     },
-    {}
+    {
+      "generation_attempts": {
+        "477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79": 1
+      },
+      "pending": {
+        "source_file": "reference-477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79.png",
+        "source_sha256": "477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7f1d35a7e0a4438b8d8fbb90e203f48aG.jpg",
+        "original_sha256": "4676f4a23d9be366176f7af210890f1c0ffff2690cd338680489f8da9d227024",
+        "output_file": "result-68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85.webp",
+        "image_sha256": "68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85",
+        "metrics": {
+          "fg_width": 743,
+          "fg_height": 890,
+          "fg_max_side": 890,
+          "fg_min_side": 743,
+          "upscale_ratio": 1.0,
+          "sharpness": 22.295,
+          "fg_mean_luma": 177.04,
+          "fg_luma_std": 56.31,
+          "max_border_clip": 0.0,
+          "clipped_edges": 0,
+          "halo_fringe_ratio": 0.014,
+          "reasons": []
+        },
+        "generated": true
+      }
+    }
   ],
   "created_at": 1795779231.2089202,
   "deferrals": 1,
-  "lease_owner": "b0e5567d98bd4b71995e155c5fbce450",
-  "lease_until": 0,
-  "status": "waiting",
-  "next_attempt": 1795786373.0789702,
+  "lease_owner": "c6c0356873bf4374a10266bd78aa512d",
+  "lease_until": 1795789949.5267377,
+  "status": "processing",
+  "next_attempt": 0,
   "source_refresh_after": 1795865633.1799862,
   "source_version": "43f182109e7f6ea3766cef21a938aed2b375a952745ef22177ff5d102b7f7065",
   "effort_versions": {
@@ -163,13 +254,28 @@
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": [],
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "a1fdc52ca30e1e8c5d4ae6471b8848d1afa138020a8404db6c46a0d3ab22e4b7",
+            "at": 1795788149.9526021,
+            "code": "pending_review",
+            "image_sha256": "ff9056909d7ee717fa1d0616caad765cbd5c2ad77f523e57c382959ef303dc3e"
+          }
+        ],
         "last_code": "materialization_interrupted"
       },
       {
-        "materializations": 0,
-        "events": []
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79",
+            "at": 1795788247.0762625,
+            "code": "pending_review",
+            "image_sha256": "68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85"
+          }
+        ],
+        "last_code": "materialization_interrupted"
       }
     ]
   },
@@ -193,6 +299,31 @@
           "The lighting and composition are clean and professional, serving effectively as a hero product image."
         ]
       }
+    },
+    "ff9056909d7ee717fa1d0616caad765cbd5c2ad77f523e57c382959ef303dc3e": {
+      "opportunities": 1,
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image clearly shows the wooden bead spinner bowl and spool holder base components, accurately matching the product variant.",
+          "Fulfills the application role by displaying the essential setup parts of the bead spinner tool.",
+          "The cutout is clean on the black background with no artifacts or defects."
+        ]
+      }
+    },
+    "68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
     }
   },
   "identity_source": {
