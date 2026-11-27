@@ -1,0 +1,150 @@
+{
+  "input_key": "79b1b8e785ce45693df671bbd3046a5d44588a4f570552726c5929e1c82a2faf",
+  "product_id": "1005012869308314",
+  "id": "auto-1005012869308314",
+  "source_title_sha256": "719dd7cdd6b49394ee36b4099da374503bd8847809a5f99a3b6588950f7241b1",
+  "sources": [
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/Se65fed5917214373b890f4fe069fe872k.jpg",
+      "file": "reference-0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d.png",
+      "sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+      "original_sha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965"
+    },
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/S01047a2da2384c4391cd6f4e8c1f2ae4G.jpg",
+      "file": "reference-ecaf30b925db2941ce902d00334c7a9df47413c46036b5d44c337b4593ab7cdf.png",
+      "sha256": "ecaf30b925db2941ce902d00334c7a9df47413c46036b5d44c337b4593ab7cdf",
+      "original_sha256": "068e134989b2bdba2c21a43f7447de32cc4296281c34cd1f09f535fc67f719cf"
+    },
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/Sb69b3e2819354bc0bff3b05515f3c41af.jpg",
+      "file": "reference-1d52363d9e95abca7d2a6601774b045ac646c518877c2b8c179c03a9fde1853e.png",
+      "sha256": "1d52363d9e95abca7d2a6601774b045ac646c518877c2b8c179c03a9fde1853e",
+      "original_sha256": "5abc0309df4423060a7338f4cc0ee1c308821700a36c7669bae47ff541d100e4"
+    },
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/S7f1d35a7e0a4438b8d8fbb90e203f48aG.jpg",
+      "file": "reference-477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79.png",
+      "sha256": "477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79",
+      "original_sha256": "4676f4a23d9be366176f7af210890f1c0ffff2690cd338680489f8da9d227024"
+    },
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/S84825ed625234724868c100121d9c1beu.jpg",
+      "file": "reference-a1fdc52ca30e1e8c5d4ae6471b8848d1afa138020a8404db6c46a0d3ab22e4b7.png",
+      "sha256": "a1fdc52ca30e1e8c5d4ae6471b8848d1afa138020a8404db6c46a0d3ab22e4b7",
+      "original_sha256": "46456cc14bc416a9f5e3e247aafdf763d040935cff62feaca002d1c1be362f5d"
+    },
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/S8bd8867a42ad4f4c8518c4d118a385feo.jpg",
+      "file": "reference-d8490ed4e5873049b85a30ecf6dbe76cc808ea81960972c474bb9219401087e5.png",
+      "sha256": "d8490ed4e5873049b85a30ecf6dbe76cc808ea81960972c474bb9219401087e5",
+      "original_sha256": "b823f92219be3ecb0e22a458df7d2f511fc229485b7c43b18c880f838f85ee17"
+    }
+  ],
+  "source_history": [
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/Se65fed5917214373b890f4fe069fe872k.jpg",
+      "file": "reference-0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d.png",
+      "sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+      "original_sha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965",
+      "material_sha256": "7da24d2ffe5843a740b63cc76d1f669e72badb491ef9414db8bc99c3b816a939"
+    },
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/S01047a2da2384c4391cd6f4e8c1f2ae4G.jpg",
+      "file": "reference-ecaf30b925db2941ce902d00334c7a9df47413c46036b5d44c337b4593ab7cdf.png",
+      "sha256": "ecaf30b925db2941ce902d00334c7a9df47413c46036b5d44c337b4593ab7cdf",
+      "original_sha256": "068e134989b2bdba2c21a43f7447de32cc4296281c34cd1f09f535fc67f719cf",
+      "material_sha256": "6751653f55ec322821593bdbb9526b00317263a57bdd60c5e2c0dd177fcc020e"
+    },
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/Sb69b3e2819354bc0bff3b05515f3c41af.jpg",
+      "file": "reference-1d52363d9e95abca7d2a6601774b045ac646c518877c2b8c179c03a9fde1853e.png",
+      "sha256": "1d52363d9e95abca7d2a6601774b045ac646c518877c2b8c179c03a9fde1853e",
+      "original_sha256": "5abc0309df4423060a7338f4cc0ee1c308821700a36c7669bae47ff541d100e4",
+      "material_sha256": "fdc6a683646b7dd735274be6a1da2909a5ce1cf8b449e8a1c407238ebe66df7f"
+    },
+    {
+      "url": "https://ae-pic-a1.aliexpress-media.com/kf/S8bd8867a42ad4f4c8518c4d118a385feo.jpg",
+      "file": "reference-d8490ed4e5873049b85a30ecf6dbe76cc808ea81960972c474bb9219401087e5.png",
+      "sha256": "d8490ed4e5873049b85a30ecf6dbe76cc808ea81960972c474bb9219401087e5",
+      "original_sha256": "b823f92219be3ecb0e22a458df7d2f511fc229485b7c43b18c880f838f85ee17",
+      "material_sha256": "00cfdd310eb5a718ce59af23e7e9d4ae97b96e24289d11042c90166eb06d6bc1"
+    }
+  ],
+  "slots": [
+    {
+      "generation_attempts": {
+        "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d": 1
+      },
+      "pending": {
+        "source_file": "reference-0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d.png",
+        "source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/Se65fed5917214373b890f4fe069fe872k.jpg",
+        "original_sha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965",
+        "output_file": "hero-24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b.webp",
+        "image_sha256": "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b",
+        "metrics": {
+          "fg_width": 890,
+          "fg_height": 577,
+          "fg_max_side": 890,
+          "fg_min_side": 577,
+          "upscale_ratio": 1.0,
+          "sharpness": 19.703,
+          "fg_mean_luma": 138.62,
+          "fg_luma_std": 42.56,
+          "max_border_clip": 0.0,
+          "clipped_edges": 0,
+          "halo_fringe_ratio": 0.054,
+          "reasons": []
+        },
+        "generated": true
+      }
+    },
+    {},
+    {}
+  ],
+  "created_at": 1795779231.2089202,
+  "deferrals": 0,
+  "lease_owner": "b0e5567d98bd4b71995e155c5fbce450",
+  "lease_until": 1795781031.208938,
+  "status": "processing",
+  "next_attempt": 0,
+  "source_refresh_after": 1795865633.1799862,
+  "source_version": "43f182109e7f6ea3766cef21a938aed2b375a952745ef22177ff5d102b7f7065",
+  "effort_versions": {
+    "43f182109e7f6ea3766cef21a938aed2b375a952745ef22177ff5d102b7f7065": [
+      {
+        "materializations": 1,
+        "events": [
+          {
+            "source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+            "at": 1795779233.3491719,
+            "code": "pending_review",
+            "image_sha256": "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b"
+          }
+        ],
+        "last_code": "materialization_interrupted"
+      },
+      {
+        "materializations": 0,
+        "events": []
+      },
+      {
+        "materializations": 0,
+        "events": []
+      }
+    ]
+  },
+  "review_attempts": {
+    "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b": {
+      "opportunities": 1,
+      "last_code": "assessment_interrupted"
+    }
+  },
+  "identity_source": {
+    "url": "https://ae-pic-a1.aliexpress-media.com/kf/Se65fed5917214373b890f4fe069fe872k.jpg",
+    "file": "reference-0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d.png",
+    "sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+    "original_sha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965"
+  }
+}
