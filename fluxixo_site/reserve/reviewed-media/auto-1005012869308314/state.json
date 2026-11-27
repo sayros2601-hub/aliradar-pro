@@ -206,36 +206,72 @@
       "generation_attempts": {
         "477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79": 1
       },
-      "pending": {
-        "source_file": "reference-477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79.png",
-        "source_sha256": "477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79",
-        "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7f1d35a7e0a4438b8d8fbb90e203f48aG.jpg",
-        "original_sha256": "4676f4a23d9be366176f7af210890f1c0ffff2690cd338680489f8da9d227024",
-        "output_file": "result-68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85.webp",
-        "image_sha256": "68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85",
-        "metrics": {
-          "fg_width": 743,
-          "fg_height": 890,
-          "fg_max_side": 890,
-          "fg_min_side": 743,
-          "upscale_ratio": 1.0,
-          "sharpness": 22.295,
-          "fg_mean_luma": 177.04,
-          "fg_luma_std": 56.31,
-          "max_border_clip": 0.0,
-          "clipped_edges": 0,
-          "halo_fringe_ratio": 0.014,
-          "reasons": []
-        },
-        "generated": true
-      }
+      "last_assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately shows the bead spinner bowl filled with seed beads, effectively demonstrating the product's functional result."
+        ]
+      },
+      "source_file": "reference-477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79.png",
+      "source_sha256": "477bef6bfe518f1fa5b39025e3bdba97fdc2ad905006bc3723db46e5f7448a79",
+      "source_url": "https://ae-pic-a1.aliexpress-media.com/kf/S7f1d35a7e0a4438b8d8fbb90e203f48aG.jpg",
+      "original_sha256": "4676f4a23d9be366176f7af210890f1c0ffff2690cd338680489f8da9d227024",
+      "output_file": "result-68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85.webp",
+      "image_sha256": "68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85",
+      "metrics": {
+        "fg_width": 743,
+        "fg_height": 890,
+        "fg_max_side": 890,
+        "fg_min_side": 743,
+        "upscale_ratio": 1.0,
+        "sharpness": 22.295,
+        "fg_mean_luma": 177.04,
+        "fg_luma_std": 56.31,
+        "max_border_clip": 0.0,
+        "clipped_edges": 0,
+        "halo_fringe_ratio": 0.014,
+        "reasons": []
+      },
+      "generated": true,
+      "policy": "fluxixo-reference-review-v2",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately shows the bead spinner bowl filled with seed beads, effectively demonstrating the product's functional result."
+        ]
+      },
+      "prior_image_sha256": [
+        "24132c914cc73f5f99da6be440491346399dbcc444abdf9c782889783cf9909b",
+        "ff9056909d7ee717fa1d0616caad765cbd5c2ad77f523e57c382959ef303dc3e"
+      ],
+      "identity_source_sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
+      "source_title_sha256": "719dd7cdd6b49394ee36b4099da374503bd8847809a5f99a3b6588950f7241b1",
+      "reviewed_at": 1795788279.581636
     }
   ],
   "created_at": 1795779231.2089202,
   "deferrals": 1,
   "lease_owner": "c6c0356873bf4374a10266bd78aa512d",
-  "lease_until": 1795789949.5267377,
-  "status": "processing",
+  "lease_until": 0,
+  "status": "ready",
   "next_attempt": 0,
   "source_refresh_after": 1795865633.1799862,
   "source_version": "43f182109e7f6ea3766cef21a938aed2b375a952745ef22177ff5d102b7f7065",
@@ -323,7 +359,22 @@
     },
     "68f7f2c988918d3a45194643850fb22d20e53e43c62987ad7bf5ffff82b94f85": {
       "opportunities": 1,
-      "last_code": "assessment_interrupted"
+      "last_code": "accepted",
+      "assessment": {
+        "accepted": true,
+        "identity": true,
+        "shape": true,
+        "completeness": true,
+        "color": true,
+        "markings": true,
+        "role": true,
+        "quality": true,
+        "distinct": true,
+        "material_defects": [],
+        "reasons": [
+          "The image accurately shows the bead spinner bowl filled with seed beads, effectively demonstrating the product's functional result."
+        ]
+      }
     }
   },
   "identity_source": {
@@ -332,5 +383,5 @@
     "sha256": "0e67ec2e8fa3d8b96ad5b666c55a5735aca1b2f33442b12ff09a7df08b44864d",
     "original_sha256": "1807493e220b910a4786ade2c38ae9b961ebb0fdcaa35710cd2f5d11125cb965"
   },
-  "reason": "cf_image_daily_budget"
+  "reason": ""
 }
