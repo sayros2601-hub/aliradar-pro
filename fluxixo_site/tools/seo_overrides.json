@@ -48,6 +48,20 @@
       "updated": "2026-11-27",
       "reason": "market_seo_enrichment",
       "provider": "cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+    },
+    "/es/products/auto-1005012869308314/": {
+      "title": "Tazón Giratorio Madera",
+      "description": "Revisa este tazón giratorio de madera manual para cargar cuentas y abalorios en hilos y cadenas con facilidad al elaborar joyería en tu hogar.",
+      "updated": "2026-11-28",
+      "reason": "market_seo_enrichment",
+      "provider": "cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast"
+    },
+    "/fr/products/auto-1005012869308314/": {
+      "title": "Bol tournant en bois",
+      "description": "Bol tournant en bois manuel pour perles, idéal pour la fabrication de bijoux faits main avec efficacité et précision.",
+      "updated": "2026-11-28",
+      "reason": "market_seo_enrichment",
+      "provider": "cloudflare:@cf/meta/llama-3.3-70b-instruct-fp8-fast"
     }
   }
 }

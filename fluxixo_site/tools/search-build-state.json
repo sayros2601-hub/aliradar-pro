@@ -1,11 +1,11 @@
 {
   "/": {
-    "sha256": "81e145655ced6bfda6fa5d4dfb2bffed76d1b76a0ef649bb218a2cfeef0762d6",
-    "lastmod": "2026-11-27T14:06:58+00:00"
+    "sha256": "11ab4e0e90f444d284b0e4ad8cb100a940de3ed3ad48797e38537d5d4390838d",
+    "lastmod": "2026-11-28T14:27:50+00:00"
   },
   "/catalog/": {
-    "sha256": "9d0612c8deef153099ec9b6feb4c241935981cadac810b63ac3ef7bc622cbdc5",
-    "lastmod": "2026-11-27T14:06:58+00:00"
+    "sha256": "2683b6767c3c6c982060ed4e877dfd980bd782f7ce8eb9532d3b9193a816b21b",
+    "lastmod": "2026-11-28T14:27:50+00:00"
   },
   "/en/products/auto-1005012869308314/": {
     "sha256": "a0ef8c954d766cf9c46c1d814dc546550f049796de72990a2cfcab46cc7f542d",
@@ -1036,12 +1036,12 @@
     "lastmod": "2026-11-27T14:06:58+00:00"
   },
   "/pt/": {
-    "sha256": "cc4ebb9046890bd9ff2b5bd9de41b7ef93db9fd58daf733e8060a1eed0997a4a",
-    "lastmod": "2026-11-27T14:06:58+00:00"
+    "sha256": "3cce14e9dbb3b045a17b56440dc8fe4803f1883bbab31b5bfcbbf96fb4b67a74",
+    "lastmod": "2026-11-28T14:27:50+00:00"
   },
   "/es/products/auto-1005012869308314/": {
-    "sha256": "e87a227c8914a90fb32ad6671c0ad9bd686851c69f7f108c0591498b8d6aec55",
-    "lastmod": "2026-11-27T14:06:58+00:00"
+    "sha256": "15a3cbdd7b5b9043e05adb1e71ff8985e1fdd34f5d4fe4419392df453ad33534",
+    "lastmod": "2026-11-28T14:27:50+00:00"
   },
   "/es/products/auto-1005011837050347/": {
     "sha256": "fa99abbd273a466a88084f9a040c28fc08c0742d987d9e7a4dca25d2796e407f",
@@ -1552,12 +1552,12 @@
     "lastmod": "2026-11-27T14:06:58+00:00"
   },
   "/es/": {
-    "sha256": "9edce8ec28843978614759098a55e228591c8b028266ecf41fb4f28b34fc4436",
-    "lastmod": "2026-11-27T14:06:58+00:00"
+    "sha256": "262ed15d186741a2e185718e5a108f513e3e8f4da8265fa2759ed757c225dd59",
+    "lastmod": "2026-11-28T14:27:50+00:00"
   },
   "/fr/products/auto-1005012869308314/": {
-    "sha256": "a5052c3fba82569337d838d33cfc87639e5094f31c1e1503acce4d5259061e3b",
-    "lastmod": "2026-11-27T14:06:58+00:00"
+    "sha256": "eabedb95e3d2699d6e07ce98fc236c91266918e1d8eeeef74fae2a3732dccf42",
+    "lastmod": "2026-11-28T14:27:50+00:00"
   },
   "/fr/products/auto-1005011837050347/": {
     "sha256": "c0f4109a78a75e7323a38ad7791ec2ddf1605b94003671a2759fb4bc274429ab",
@@ -2068,8 +2068,8 @@
     "lastmod": "2026-11-27T14:06:58+00:00"
   },
   "/fr/": {
-    "sha256": "2b21328db7c778f5730ac75c8cb72e70df62e3b8545b10d0e4333f003a4c9a0c",
-    "lastmod": "2026-11-27T14:06:58+00:00"
+    "sha256": "bb4cdf5d50916120cb49541fde4dfdb228be505af93f0ffd7ea22c3162ba6948",
+    "lastmod": "2026-11-28T14:27:50+00:00"
   },
   "/he/products/auto-1005012869308314/": {
     "sha256": "d0876430bde120d5948b7fdb199c591b792e3115f26d87d83dc93f4755f7b389",
@@ -2584,8 +2584,8 @@
     "lastmod": "2026-11-27T14:06:58+00:00"
   },
   "/he/": {
-    "sha256": "02699d1055e31446a25efff2793df5dfd65764cbc21a1e2b4101f37828d0ecbd",
-    "lastmod": "2026-11-27T14:06:58+00:00"
+    "sha256": "75a67419d6372ce6e48dc82e620085a9a9f915b7a7cd3cdf7caa47bc5c295163",
+    "lastmod": "2026-11-28T14:27:50+00:00"
   },
   "/about/": {
     "sha256": "b6a98588f4cdbebcf1fc53c693fdf8fe20e61a9d67c4fcf83f804151987a1a58",
